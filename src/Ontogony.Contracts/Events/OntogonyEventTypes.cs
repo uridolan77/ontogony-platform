@@ -25,4 +25,11 @@ public static class OntogonyEventTypes
 
     public const string DecisionDetected = "athanor.decision.detected";
     public const string PolicyEvaluated = "policy.evaluated";
+
+    public const string AgentRunStarted = "agent.run.started";
+    public const string AgentRunCompleted = "agent.run.completed";
+    public const string AgentStepCompleted = "agent.step.completed";
+
+    public const string CostRecorded = "cost.recorded";
+    public const string ProviderFailed = "provider.failed";
 }

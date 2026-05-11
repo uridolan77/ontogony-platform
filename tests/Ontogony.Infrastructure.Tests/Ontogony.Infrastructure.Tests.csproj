@@ -27,7 +27,9 @@
     <ProjectReference Include="..\..\src\Ontogony.Errors\Ontogony.Errors.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Hashing\Ontogony.Hashing.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Http\Ontogony.Http.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Idempotency\Ontogony.Idempotency.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Observability\Ontogony.Observability.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Persistence\Ontogony.Persistence.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Primitives\Ontogony.Primitives.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Security\Ontogony.Security.csproj" />
   </ItemGroup>

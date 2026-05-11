@@ -37,6 +37,32 @@ PR3 error contract updates:
 - Added instance path support to ApiError and introduced ApiError <-> ProblemDetails bridge helpers.
 - Added focused middleware and ProblemDetails bridge tests in Ontogony.Infrastructure.Tests.
 
+PR4 event contract updates:
+
+- Stabilized OntogonyEnvelope<TPayload> with deterministic JSON serialization and metadata round-trip support.
+- Added reference types for protocol-neutral payloads: ArtifactRef, SubjectRef, TraceRef (extends ActorRef, EntityRef).
+- Added OntogonyEventMetadata record for structured context beyond required envelope fields.
+- Implemented CloudEvents 1.0 bridge: OntogonyEnvelope<T>.ToCloudEvent() and CloudEvent.ToOntogonyEnvelope<T>().
+- Expanded OntogonyEventTypes with agent.run.started, agent.run.completed, agent.step.completed, cost.recorded, provider.failed event type constants.
+- Added comprehensive PR4 tests for envelope determinism, metadata preservation, CloudEvents conversion, and extension round-trips.
+- Verified commands pass:
+	- dotnet restore Ontogony.Platform.sln
+	- dotnet build Ontogony.Platform.sln --no-restore
+	- dotnet test Ontogony.Platform.sln --no-build
+
+PR5 hashing and idempotency v1:
+
+- Confirmed canonical JSON serialization with recursive key sorting, stable unicode handling, null preservation.
+- Added EnvelopePayloadHasher for deterministic envelope payload hashing and operation fingerprinting.
+- Enhanced IdempotencyKeyBuilder with format {namespace}:{operation}:{version}:{hash} (e.g., ontogony:agentor.run.start:v1:abc123...).
+- Introduced IdempotencyKeyOptions with configurable namespace, version, max length, and safe character validation.
+- Added BuildKey() and BuildKeyFromJson() methods for flexible key construction with safe-character enforcement.
+- Key length constraints with automatic truncation (max 256 chars by default).
+- Service-specific namespace support (athanor, agentor, conexus prefixes with version awareness).
+- Added 18 hashing tests (canonical JSON determinism, envelope payload hashing, operation fingerprinting, hash stability).
+- Added 34 idempotency tests (key format, safe characters, truncation, namespace isolation, backwards compatibility).
+- All 121 tests pass (69 existing + 52 new).
+
 ## 0.1.0-starter
 
 Initial starter package.
