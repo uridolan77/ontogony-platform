@@ -43,6 +43,16 @@ public sealed class OntogonyObservabilityOptionsValidator : IValidateOptions<Ont
             return ValidateOptionsResult.Fail("Trace header name is required.");
         }
 
+        if (string.IsNullOrWhiteSpace(options.TraceParentHeaderName))
+        {
+            return ValidateOptionsResult.Fail("Traceparent header name is required.");
+        }
+
+        if (string.IsNullOrWhiteSpace(options.TraceStateHeaderName))
+        {
+            return ValidateOptionsResult.Fail("Tracestate header name is required.");
+        }
+
         return ValidateOptionsResult.Success;
     }
 }

@@ -1,4 +1,5 @@
 using System.Net.Http.Headers;
+using System.Diagnostics;
 using Ontogony.Contracts.Events;
 using Ontogony.Observability;
 
@@ -16,6 +17,14 @@ public sealed class CorrelationHeadersDelegatingHandler : DelegatingHandler
             AddIfMissing(request.Headers, OntogonyEventHeaders.TenantId, state.TenantId);
             AddIfMissing(request.Headers, OntogonyEventHeaders.WorkspaceId, state.WorkspaceId);
             AddIfMissing(request.Headers, OntogonyEventHeaders.ProjectId, state.ProjectId);
+            AddIfMissing(request.Headers, OntogonyEventHeaders.SessionId, state.SessionId);
+            AddIfMissing(request.Headers, OntogonyEventHeaders.TraceParent, state.TraceParent ?? Activity.Current?.Id);
+            AddIfMissing(request.Headers, OntogonyEventHeaders.TraceState, state.TraceState ?? Activity.Current?.TraceStateString);
+        }
+        else
+        {
+            AddIfMissing(request.Headers, OntogonyEventHeaders.TraceParent, Activity.Current?.Id);
+            AddIfMissing(request.Headers, OntogonyEventHeaders.TraceState, Activity.Current?.TraceStateString);
         }
 
         return base.SendAsync(request, cancellationToken);

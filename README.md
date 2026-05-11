@@ -77,6 +77,10 @@ What is a valid business approval?
 └── .github/workflows/
 ```
 
+## Examples
+
+- `examples/MinimalApiWithOntogonyObservability/`: minimal API sample for `AddOntogonyObservability`, `UseOntogonyRequestTracing`, and outbound correlation propagation through `Ontogony.Http`.
+
 ## Recommended first adoption path
 
 1. Add this repo as a separate GitHub repository: `uridolan77/ontogony-platform`.
