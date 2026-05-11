@@ -63,6 +63,32 @@ PR5 hashing and idempotency v1:
 - Added 34 idempotency tests (key format, safe characters, truncation, namespace isolation, backwards compatibility).
 - All 121 tests pass (69 existing + 52 new).
 
+PR6 security primitives v1:
+
+- Added OntogonyRoleNames with generic role constants: HumanOperator, Service, Agent, Admin (no business-specific roles).
+- Implemented AllRoles collection and AreAllValid() validation for role checking.
+- Added OntogonySecurityHeaders for HTTP header constants (Authorization, X-Ontogony-Actor-Id, X-Ontogony-Roles, etc.).
+- Added ExtractBearerToken() helper for JWT Bearer token parsing.
+- Implemented ClaimsCurrentActorAccessor for JWT claims-based actor extraction with configurable claim type priorities.
+- Added ClaimsCurrentActorAccessorOptions with claim type configuration, actor type detection, role filtering, and strict role validation mode.
+- Implemented ServiceIdentityCurrentActorAccessor for service-to-service authentication with optional signature verification.
+- Added ServiceIdentityOptions for service secret management and signature validation configuration.
+- Enhanced OntogonyAuthenticationOptions with comprehensive XML documentation and validation method.
+- Updated OntogonyAuthenticationMode enum with security warnings about Header and Disabled modes.
+- All three modes documented: Disabled (dev only), Header (trusted-upstream only), JWT (token-based).
+- OntogonyAuthenticationOptions.Validate() enforces safety constraints:
+  - Disabled mode blocked in Production unless explicitly allowed
+  - Header mode requires configured header name
+  - JWT mode requires authority or explicit unvalidated-token allowance
+  - Unvalidated JWT blocked in Production unless explicitly allowed
+- Added 34 comprehensive PR6 tests:
+  - Role name constants and validation (5 tests)
+  - Security header constants and utilities (8 tests)
+  - JWT claims extraction with multiple claim types, roles, tenant IDs (10 tests)
+  - Service-to-service authentication with optional signature verification (6 tests)
+  - Authentication options validation with all three modes (5 tests)
+- All 155 tests pass (121 existing + 34 new).
+
 ## 0.1.0-starter
 
 Initial starter package.
