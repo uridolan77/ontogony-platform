@@ -1,0 +1,296 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using Agentor.Domain;
+using Agentor.Domain.Enums;
+using Agentor.Domain.Governance;
+using Agentor.Infrastructure.Persistence.Records;
+
+namespace Agentor.Infrastructure.Persistence;
+
+internal static class RecordMapper
+{
+    internal static readonly JsonSerializerOptions RecordJsonOptions = new()
+    {
+        PropertyNameCaseInsensitive = true,
+        Converters = { new JsonStringEnumConverter() }
+    };
+
+    // ── Domain → Records ────────────────────────────────────────────────────
+
+    internal static AgentRunRecord ToRecord(AgentRun run)
+    {
+        return new AgentRunRecord
+        {
+            Id = run.Id,
+            ProfileId = run.ProfileId,
+            TenantId = run.TenantId,
+            WorkspaceId = run.WorkspaceId,
+            ProjectId = run.ProjectId,
+            KnowledgeScopeId = run.KnowledgeScopeId,
+            AgentName = run.AgentName,
+            Objective = run.Objective,
+            TraceId = run.TraceId,
+            Status = run.Status.ToString(),
+            StartedAt = run.StartedAt,
+            CompletedAt = run.CompletedAt,
+            ErrorMessage = run.ErrorMessage,
+            SessionMemoryJson = JsonSerializer.Serialize(run.SessionMemory, RecordJsonOptions),
+            HumanReviewDecisionsJson = JsonSerializer.Serialize(run.HumanReviewDecisions.ToList(), RecordJsonOptions),
+            ResumeCursorJson = run.ResumeCursor is null
+                ? null
+                : JsonSerializer.Serialize(run.ResumeCursor, RecordJsonOptions),
+            ReviewRequestedAt = run.ReviewRequestedAt,
+            PausedAt = run.PausedAt,
+            TerminalAt = run.TerminalAt,
+            ReviewWorkflowStatus = run.ReviewWorkflowStatus.ToString(),
+            Steps = run.Steps.Select(ToRecord).ToList(),
+            TraceEvents = run.Trace.Select(ToRecord).ToList()
+        };
+    }
+
+    private static AgentStepRecord ToRecord(AgentStep step)
+    {
+        return new AgentStepRecord
+        {
+            Id = step.Id,
+            RunId = step.RunId,
+            Index = step.Index,
+            Name = step.Name,
+            Status = step.Status.ToString(),
+            StartedAt = step.StartedAt,
+            CompletedAt = step.CompletedAt,
+            ToolCalls = step.ToolCalls.Select(ToRecord).ToList(),
+            PolicyDecisions = step.PolicyDecisions.Select(ToRecord).ToList()
+        };
+    }
+
+    private static ToolCallRecord ToRecord(ToolCall toolCall)
+    {
+        return new ToolCallRecord
+        {
+            Id = toolCall.Id,
+            RunId = toolCall.RunId,
+            StepId = toolCall.StepId,
+            ToolKey = toolCall.ToolKey,
+            Status = toolCall.Status.ToString(),
+            InputJson = toolCall.InputPayload.ToPersistedJson(RecordJsonOptions),
+            OutputJson = toolCall.OutputPayload.ToPersistedJson(RecordJsonOptions),
+            StartedAt = toolCall.StartedAt,
+            CompletedAt = toolCall.CompletedAt,
+            ErrorMessage = toolCall.ErrorMessage
+        };
+    }
+
+    private static PolicyDecisionRecord ToRecord(PolicyDecision decision)
+    {
+        return new PolicyDecisionRecord
+        {
+            Id = decision.Id,
+            RunId = decision.RunId,
+            StepId = decision.StepId,
+            Outcome = decision.Outcome.ToString(),
+            ReasonCode = decision.ReasonCode,
+            Reason = decision.Reason,
+            DecidedAt = decision.DecidedAt
+        };
+    }
+
+    internal static TraceEventRecord ToTraceRecord(ExecutionTraceEvent evt) => ToRecord(evt);
+
+    private static TraceEventRecord ToRecord(ExecutionTraceEvent evt)
+    {
+        return new TraceEventRecord
+        {
+            Id = evt.Id,
+            RunId = evt.RunId,
+            Kind = evt.Kind.ToString(),
+            Message = evt.Message,
+            OccurredAt = evt.OccurredAt,
+            DataJson = JsonSerializer.Serialize(evt.Data, RecordJsonOptions)
+        };
+    }
+
+    // ── Records → Domain ────────────────────────────────────────────────────
+
+    internal static AgentRunSummary ToSummary(AgentRunRecord record)
+    {
+        var status = Enum.Parse<AgentRunStatus>(record.Status);
+        var terminalAt = record.TerminalAt;
+        if (status == AgentRunStatus.Completed && record.CompletedAt.HasValue)
+        {
+            terminalAt = null;
+        }
+
+        return new AgentRunSummary(
+            record.Id,
+            record.ProfileId,
+            record.AgentName,
+            record.TraceId,
+            status,
+            record.StartedAt,
+            record.CompletedAt,
+            record.TenantId,
+            record.WorkspaceId,
+            record.ProjectId,
+            record.KnowledgeScopeId,
+            record.ErrorMessage,
+            terminalAt,
+            record.ReviewRequestedAt,
+            record.PausedAt,
+            ParseReviewWorkflowStatus(record.ReviewWorkflowStatus));
+    }
+
+    internal static AgentRun ToDomain(AgentRunRecord record)
+    {
+        var steps = record.Steps
+            .OrderBy(s => s.Index)
+            .Select(ToDomain)
+            .ToList();
+
+        var trace = record.TraceEvents
+            .OrderBy(e => e.OccurredAt)
+            .Select(ToDomain)
+            .ToList();
+
+        var sessionMemory = JsonSerializer.Deserialize<Dictionary<string, string>>(record.SessionMemoryJson, RecordJsonOptions)
+                           ?? new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+        var humanReviews = JsonSerializer.Deserialize<List<HumanReviewDecisionJsonDto>>(record.HumanReviewDecisionsJson, RecordJsonOptions)
+                           ?? [];
+
+        var resumeCursor = TryDeserializeResumeCursor(record.ResumeCursorJson);
+
+        return AgentRun.Reconstitute(
+            record.Id,
+            record.ProfileId,
+            record.AgentName,
+            record.Objective,
+            record.TraceId,
+            Enum.Parse<AgentRunStatus>(record.Status),
+            record.StartedAt,
+            record.CompletedAt,
+            record.ErrorMessage,
+            steps,
+            trace,
+            sessionMemory,
+            record.TenantId,
+            record.WorkspaceId,
+            record.ProjectId,
+            record.KnowledgeScopeId,
+            humanReviews.Select(r => r.ToDomain()),
+            resumeCursor,
+            record.ReviewRequestedAt,
+            record.PausedAt,
+            record.TerminalAt,
+            ParseReviewWorkflowStatus(record.ReviewWorkflowStatus));
+    }
+
+    private static PlanResumeCursor? TryDeserializeResumeCursor(string? json)
+    {
+        if (string.IsNullOrWhiteSpace(json))
+        {
+            return null;
+        }
+
+        try
+        {
+            return JsonSerializer.Deserialize<PlanResumeCursor>(json, RecordJsonOptions);
+        }
+        catch (JsonException)
+        {
+            return null;
+        }
+    }
+
+    private static AgentStep ToDomain(AgentStepRecord record)
+    {
+        var toolCalls = record.ToolCalls.Select(ToDomain).ToList();
+        var policyDecisions = record.PolicyDecisions.Select(ToDomain).ToList();
+
+        return AgentStep.Reconstitute(
+            record.Id,
+            record.RunId,
+            record.Index,
+            record.Name,
+            Enum.Parse<AgentStepStatus>(record.Status),
+            record.StartedAt,
+            record.CompletedAt,
+            policyDecisions,
+            toolCalls);
+    }
+
+    private static ToolCall ToDomain(ToolCallRecord record)
+    {
+        var inputPayload = ToolPayload.FromPersistedJson(record.InputJson, RecordJsonOptions);
+        var outputPayload = ToolPayload.FromPersistedJson(record.OutputJson, RecordJsonOptions);
+
+        return ToolCall.Reconstitute(
+            record.Id,
+            record.RunId,
+            record.StepId,
+            record.ToolKey,
+            Enum.Parse<ToolCallStatus>(record.Status),
+            inputPayload,
+            outputPayload,
+            record.StartedAt,
+            record.CompletedAt,
+            record.ErrorMessage);
+    }
+
+    private static PolicyDecision ToDomain(PolicyDecisionRecord record)
+    {
+        return new PolicyDecision(
+            record.Id,
+            record.RunId,
+            record.StepId,
+            Enum.Parse<PolicyDecisionOutcome>(record.Outcome),
+            record.ReasonCode,
+            record.Reason,
+            record.DecidedAt);
+    }
+
+    private static ExecutionTraceEvent ToDomain(TraceEventRecord record)
+    {
+        var data = JsonSerializer.Deserialize<Dictionary<string, string>>(record.DataJson, RecordJsonOptions);
+
+        return new ExecutionTraceEvent(
+            record.Id,
+            record.RunId,
+            Enum.Parse<TraceEventKind>(record.Kind),
+            record.Message,
+            record.OccurredAt,
+            data);
+    }
+
+    private static HumanReviewWorkflowStatus ParseReviewWorkflowStatus(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return HumanReviewWorkflowStatus.None;
+        }
+
+        return Enum.TryParse<HumanReviewWorkflowStatus>(value, ignoreCase: true, out var parsed)
+            ? parsed
+            : HumanReviewWorkflowStatus.None;
+    }
+
+    private sealed class HumanReviewDecisionJsonDto
+    {
+        public Guid Id { get; set; }
+
+        public ReviewDecisionKind Kind { get; set; }
+
+        public Guid ActorId { get; set; }
+
+        public DateTimeOffset DecidedAt { get; set; }
+
+        public string? Note { get; set; }
+
+        public ReviewResolutionStatus Resolution { get; set; }
+
+        public Guid? RelatedPriorActorId { get; set; }
+
+        public HumanReviewDecision ToDomain() =>
+            new(Id, Kind, ActorId, DecidedAt, Note, Resolution, RelatedPriorActorId);
+    }
+}
