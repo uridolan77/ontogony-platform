@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Ontogony.Security;
 using Xunit;
 
@@ -7,6 +8,17 @@ namespace Ontogony.Infrastructure.Tests;
 
 public class OntogonySecurityPr6Tests
 {
+    public class ActorTypesTests
+    {
+        [Fact]
+        public void ActorTypeConstants_AreCorrect()
+        {
+            Assert.Equal("human", OntogonyActorTypes.Human);
+            Assert.Equal("service", OntogonyActorTypes.Service);
+            Assert.Equal("agent", OntogonyActorTypes.Agent);
+        }
+    }
+
     /// <summary>
     /// OntogonyRoleNames tests - verify generic role constants and validation.
     /// </summary>
@@ -187,7 +199,7 @@ public class OntogonySecurityPr6Tests
 
             Assert.NotNull(actor);
             Assert.Equal("user-123", actor.ActorId);
-            Assert.Equal(OntogonyRoleNames.Service, actor.ActorType); // Default
+            Assert.Equal(OntogonyActorTypes.Service, actor.ActorType); // Default actor type
             Assert.Contains(OntogonyRoleNames.HumanOperator, actor.Roles);
         }
 
@@ -209,7 +221,7 @@ public class OntogonySecurityPr6Tests
             var actor = _accessor.Current;
 
             Assert.NotNull(actor);
-            Assert.Equal(OntogonyRoleNames.Agent, actor.ActorType);
+            Assert.Equal(OntogonyActorTypes.Agent, actor.ActorType);
         }
 
         [Fact]
@@ -332,6 +344,9 @@ public class OntogonySecurityPr6Tests
         {
             var context = new DefaultHttpContext();
             context.Request.Headers["X-Service-Id"] = "service-agentor"; // Default ServiceIdHeaderName
+            context.Request.Headers["X-Ontogony-Tenant-Id"] = "tenant-123";
+            context.Request.Headers["X-Ontogony-Workspace-Id"] = "workspace-456";
+            context.Request.Headers["X-Ontogony-Project-Id"] = "project-789";
 
             _contextAccessor.HttpContext = context;
 
@@ -340,8 +355,11 @@ public class OntogonySecurityPr6Tests
 
             Assert.NotNull(actor);
             Assert.Equal("service-agentor", actor.ActorId);
-            Assert.Equal(OntogonyRoleNames.Service, actor.ActorType);
+            Assert.Equal(OntogonyActorTypes.Service, actor.ActorType);
             Assert.Contains(OntogonyRoleNames.Service, actor.Roles);
+            Assert.Equal("tenant-123", actor.TenantId);
+            Assert.Equal("workspace-456", actor.WorkspaceId);
+            Assert.Equal("project-789", actor.ProjectId);
         }
 
         [Fact]
@@ -377,6 +395,76 @@ public class OntogonySecurityPr6Tests
 
             Assert.NotNull(actor);
             Assert.Equal("service-1", actor.ActorId);
+        }
+    }
+
+    public class HeaderCurrentActorAccessorTests
+    {
+        [Fact]
+        public void Current_UsesSecurityHeaderConstants_ForRolesAndActorType()
+        {
+            var contextAccessor = new HttpContextAccessor();
+            var context = new DefaultHttpContext();
+            context.Request.Headers[OntogonySecurityHeaders.ActorId] = "actor-123";
+            context.Request.Headers[OntogonySecurityHeaders.ActorType] = OntogonyActorTypes.Human;
+            context.Request.Headers[OntogonySecurityHeaders.Roles] = "human-operator,admin";
+
+            contextAccessor.HttpContext = context;
+
+            var accessor = new HeaderCurrentActorAccessor(contextAccessor);
+            var actor = accessor.Current;
+
+            Assert.NotNull(actor);
+            Assert.Equal("actor-123", actor.ActorId);
+            Assert.Equal(OntogonyActorTypes.Human, actor.ActorType);
+            Assert.Contains(OntogonyRoleNames.HumanOperator, actor.Roles);
+            Assert.Contains(OntogonyRoleNames.Admin, actor.Roles);
+        }
+
+        [Fact]
+        public void Current_WithoutActorTypeHeader_DefaultsToServiceActorType()
+        {
+            var contextAccessor = new HttpContextAccessor();
+            var context = new DefaultHttpContext();
+            context.Request.Headers[OntogonySecurityHeaders.ActorId] = "svc-1";
+            context.Request.Headers[OntogonySecurityHeaders.Roles] = OntogonyRoleNames.Service;
+
+            contextAccessor.HttpContext = context;
+
+            var accessor = new HeaderCurrentActorAccessor(contextAccessor);
+            var actor = accessor.Current;
+
+            Assert.NotNull(actor);
+            Assert.Equal(OntogonyActorTypes.Service, actor.ActorType);
+        }
+    }
+
+    public class ServiceCollectionExtensionsTests
+    {
+        [Fact]
+        public void AddOntogonyClaimsActorContext_RegistersClaimsAccessor()
+        {
+            var services = new ServiceCollection();
+            services.AddOntogonyClaimsActorContext(options => options.StrictRoleValidation = false);
+
+            using var provider = services.BuildServiceProvider();
+            using var scope = provider.CreateScope();
+
+            var accessor = scope.ServiceProvider.GetRequiredService<ICurrentActorAccessor>();
+            Assert.IsType<ClaimsCurrentActorAccessor>(accessor);
+        }
+
+        [Fact]
+        public void AddOntogonyServiceIdentityActorContext_RegistersServiceIdentityAccessor()
+        {
+            var services = new ServiceCollection();
+            services.AddOntogonyServiceIdentityActorContext(options => options.RequireSignatureVerification = true);
+
+            using var provider = services.BuildServiceProvider();
+            using var scope = provider.CreateScope();
+
+            var accessor = scope.ServiceProvider.GetRequiredService<ICurrentActorAccessor>();
+            Assert.IsType<ServiceIdentityCurrentActorAccessor>(accessor);
         }
     }
 

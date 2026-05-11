@@ -69,7 +69,7 @@ public sealed class ClaimsCurrentActorAccessor : ICurrentActorAccessor
     private string ExtractActorType(ClaimsPrincipal user)
     {
         var type = user.FindFirst(_options.ActorTypeClaimType)?.Value;
-        return !string.IsNullOrWhiteSpace(type) ? type : OntogonyRoleNames.Service;
+        return !string.IsNullOrWhiteSpace(type) ? type : OntogonyActorTypes.Service;
     }
 
     private string[] ExtractRoles(ClaimsPrincipal user)

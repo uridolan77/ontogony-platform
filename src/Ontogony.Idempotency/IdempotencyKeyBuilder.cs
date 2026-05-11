@@ -1,4 +1,6 @@
 using Ontogony.Hashing;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Ontogony.Idempotency;
 
@@ -25,15 +27,11 @@ public sealed class IdempotencyKeyBuilder
     /// </summary>
     public string BuildKey(string operation, params object?[] parts)
     {
-        if (string.IsNullOrWhiteSpace(operation))
-            throw new ArgumentException("Operation name cannot be empty", nameof(operation));
+        ValidateOperation(operation);
 
         var payload = new { operation, parts };
         var hash = _payloadHasher.ComputeCanonicalJsonHash(payload);
-
-        var key = $"{_options.Namespace}:{operation}:{_options.Version}:{hash}";
-
-        return TruncateIfNeeded(key);
+        return ComposeKey(operation, hash);
     }
 
     /// <summary>
@@ -41,16 +39,13 @@ public sealed class IdempotencyKeyBuilder
     /// </summary>
     public string BuildKeyFromJson(string operation, string json)
     {
-        if (string.IsNullOrWhiteSpace(operation))
-            throw new ArgumentException("Operation name cannot be empty", nameof(operation));
+        ValidateOperation(operation);
 
         if (string.IsNullOrWhiteSpace(json))
             throw new ArgumentException("JSON cannot be empty", nameof(json));
 
         var hash = _payloadHasher.ComputeCanonicalJsonHashFromJson(json);
-        var key = $"{_options.Namespace}:{operation}:{_options.Version}:{hash}";
-
-        return TruncateIfNeeded(key);
+        return ComposeKey(operation, hash);
     }
 
     /// <summary>
@@ -58,15 +53,59 @@ public sealed class IdempotencyKeyBuilder
     /// </summary>
     public IdempotencyKeyOptions Options => _options;
 
-    private string TruncateIfNeeded(string key)
+    private void ValidateOperation(string operation)
     {
-        if (key.Length <= _options.MaxKeyLength)
-            return key;
+        if (string.IsNullOrWhiteSpace(operation))
+            throw new ArgumentException("Operation name cannot be empty", nameof(operation));
 
-        // Truncate and add marker
-        var maxHashLength = _options.MaxKeyLength - 3; // Reserve 3 chars for "..."
-        var prefix = key[..maxHashLength];
-        return $"{prefix}...";
+        if (!_options.ValidateSafeCharacters)
+        {
+            return;
+        }
+
+        foreach (var ch in operation)
+        {
+            if (!char.IsLetterOrDigit(ch) && ch != '.' && ch != '-' && ch != '_')
+            {
+                throw new ArgumentException(
+                    $"operation contains unsafe character '{ch}'. Only alphanumeric, dots, hyphens, and underscores allowed.",
+                    nameof(operation));
+            }
+        }
+    }
+
+    private string ComposeKey(string operation, string payloadHash)
+    {
+        var key = $"{_options.Namespace}:{operation}:{_options.Version}:{payloadHash}";
+        if (key.Length <= _options.MaxKeyLength)
+        {
+            return key;
+        }
+
+        // Keep the payload hash intact and shrink only the operation component if needed.
+        var operationToken = ComputeOperationToken(operation);
+        var compactKey = $"{_options.Namespace}:{operationToken}:{_options.Version}:{payloadHash}";
+        if (compactKey.Length <= _options.MaxKeyLength)
+        {
+            return compactKey;
+        }
+
+        var fixedLength = _options.Namespace.Length + _options.Version.Length + payloadHash.Length + 3;
+        var availableOperationLength = _options.MaxKeyLength - fixedLength;
+        if (availableOperationLength < 1)
+        {
+            throw new InvalidOperationException(
+                $"MaxKeyLength ({_options.MaxKeyLength}) is too small to preserve namespace, version, and payload hash.");
+        }
+
+        var shortenedOperation = operationToken[..Math.Min(operationToken.Length, availableOperationLength)];
+        return $"{_options.Namespace}:{shortenedOperation}:{_options.Version}:{payloadHash}";
+    }
+
+    private static string ComputeOperationToken(string operation)
+    {
+        var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(operation));
+        return Convert.ToHexStringLower(bytes)[..12];
     }
 
     /// <summary>

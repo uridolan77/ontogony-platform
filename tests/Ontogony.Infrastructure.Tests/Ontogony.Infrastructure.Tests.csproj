@@ -32,6 +32,7 @@
     <ProjectReference Include="..\..\src\Ontogony.Persistence\Ontogony.Persistence.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Primitives\Ontogony.Primitives.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Security\Ontogony.Security.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Testing\Ontogony.Testing.csproj" />
   </ItemGroup>
 
 </Project>

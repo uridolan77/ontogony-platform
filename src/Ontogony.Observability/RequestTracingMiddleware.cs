@@ -79,28 +79,35 @@ public sealed class RequestTracingMiddleware
         activity?.SetTag("http.request.method", context.Request.Method);
         activity?.SetTag("url.path", context.Request.Path.Value);
 
+        var statusCode = StatusCodes.Status200OK;
+        var unhandledException = false;
+
         try
         {
-            OntogonyMetrics.RecordHttpRequest(
-                _options.ServiceName,
-                context.Request.Method,
-                context.Response.StatusCode,
-                durationMs: 0,
-                isError: false);
-
             await _next(context);
+            statusCode = context.Response.StatusCode;
             activity?.SetTag("http.response.status_code", context.Response.StatusCode);
         }
         catch
         {
-            OntogonyMetrics.RecordHttpError(_options.ServiceName, context.Request.Method, statusCode: 500);
+            unhandledException = true;
+            statusCode = context.Response.HasStarted
+                ? context.Response.StatusCode
+                : StatusCodes.Status500InternalServerError;
             activity?.SetStatus(ActivityStatusCode.Error);
+            activity?.SetTag("http.response.status_code", statusCode);
             throw;
         }
         finally
         {
             var elapsedMs = Stopwatch.GetElapsedTime(started).TotalMilliseconds;
-            OntogonyMetrics.RecordHttpDuration(_options.ServiceName, context.Request.Method, elapsedMs);
+            var isError = unhandledException || statusCode >= StatusCodes.Status500InternalServerError;
+            OntogonyMetrics.RecordHttpRequest(
+                _options.ServiceName,
+                context.Request.Method,
+                statusCode,
+                elapsedMs,
+                isError);
         }
     }
 

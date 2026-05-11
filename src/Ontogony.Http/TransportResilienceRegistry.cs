@@ -1,11 +1,18 @@
 using System.Collections.Concurrent;
 using System.Net;
+using Ontogony.Primitives;
 
 namespace Ontogony.Http;
 
 public sealed class TransportResilienceRegistry
 {
     private readonly ConcurrentDictionary<string, ClientCircuitState> _byClient = new(StringComparer.Ordinal);
+    private readonly IClock _clock;
+
+    public TransportResilienceRegistry(IClock? clock = null)
+    {
+        _clock = clock ?? new SystemClock();
+    }
 
     public HttpResponseMessage? TryGetCircuitOpenSyntheticResponse(string clientName, TransportResilienceOptions options)
     {
@@ -17,7 +24,7 @@ public sealed class TransportResilienceRegistry
         var state = _byClient.GetOrAdd(clientName, _ => new ClientCircuitState());
         lock (state.Sync)
         {
-            if (state.CircuitOpenUntilUtc is { } openUntil && DateTimeOffset.UtcNow < openUntil)
+            if (state.CircuitOpenUntilUtc is { } openUntil && _clock.UtcNow < openUntil)
             {
                 return new HttpResponseMessage(HttpStatusCode.ServiceUnavailable)
                 {
@@ -57,7 +64,7 @@ public sealed class TransportResilienceRegistry
             state.ConsecutiveFailures++;
             if (state.ConsecutiveFailures >= options.CircuitFailureThreshold)
             {
-                state.CircuitOpenUntilUtc = DateTimeOffset.UtcNow.AddSeconds(options.CircuitOpenDurationSeconds);
+                state.CircuitOpenUntilUtc = _clock.UtcNow.AddSeconds(options.CircuitOpenDurationSeconds);
                 state.ConsecutiveFailures = 0;
             }
         }
@@ -70,7 +77,7 @@ public sealed class TransportResilienceRegistry
         {
             lock (kv.Value.Sync)
             {
-                var open = kv.Value.CircuitOpenUntilUtc is { } u && DateTimeOffset.UtcNow < u;
+                var open = kv.Value.CircuitOpenUntilUtc is { } u && _clock.UtcNow < u;
                 dict[kv.Key] = new TransportResilienceSnapshot(open, kv.Value.ConsecutiveFailures, kv.Value.CircuitOpenUntilUtc);
             }
         }

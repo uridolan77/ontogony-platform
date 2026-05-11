@@ -205,6 +205,12 @@ public class OntogonyIdempotencyPr5Tests
         }
 
         [Fact]
+        public void BuildKey_WithUnsafeOperationCharacter_Throws()
+        {
+            Assert.Throws<ArgumentException>(() => _builder.BuildKey("agentor/run start", new { id = "1" }));
+        }
+
+        [Fact]
         public void BuildKeyFromJson_ProducesConsistentKey()
         {
             var json = """{"operationId":"op-1","action":"process"}""";
@@ -285,36 +291,48 @@ public class OntogonyIdempotencyPr5Tests
             var options = new IdempotencyKeyOptions { MaxKeyLength = 50 };
             var builder = new IdempotencyKeyBuilder(hasher, options);
 
-            var key = builder.BuildKey("very.long.operation.name.that.exceeds.limits", new { data = "test" });
-
-            Assert.True(key.Length <= 50);
+            Assert.Throws<InvalidOperationException>(() =>
+                builder.BuildKey("very.long.operation.name.that.exceeds.limits", new { data = "test" }));
         }
 
         [Fact]
-        public void BuildKey_TruncationIndicatesOverflow()
+        public void BuildKey_WhenShortenedOperationNeeded_KeepsPayloadHashUntruncated()
         {
             var hasher = new PayloadHasher(new Sha256ContentHashService());
-            var options = new IdempotencyKeyOptions { MaxKeyLength = 50 };
+            var options = new IdempotencyKeyOptions { MaxKeyLength = 90 };
             var builder = new IdempotencyKeyBuilder(hasher, options);
 
-            var key = builder.BuildKey("very.long.operation.name", new { data = "test" });
+            var key = builder.BuildKey("very.long.operation.name.with.many.segments", new { data = "test" });
+            var parts = key.Split(':');
 
-            if (key.Length == 50)
-            {
-                Assert.EndsWith("...", key);
-            }
+            Assert.Equal(4, parts.Length);
+            Assert.Equal(64, parts[3].Length);
+            Assert.True(key.Length <= 90);
+            Assert.DoesNotContain("...", key);
         }
 
         [Fact]
-        public void BuildKey_WithSmallMaxLength_StillWorks()
+        public void BuildKey_WithVerySmallMaxLength_ThrowsToAvoidHashTruncation()
         {
             var hasher = new PayloadHasher(new Sha256ContentHashService());
-            var options = new IdempotencyKeyOptions { MaxKeyLength = 32 };
+            var options = new IdempotencyKeyOptions { MaxKeyLength = 70 };
             var builder = new IdempotencyKeyBuilder(hasher, options);
 
-            var key = builder.BuildKey("test", new { });
+            Assert.Throws<InvalidOperationException>(() =>
+                builder.BuildKey("very.long.operation.name", new { data = "test" }));
+        }
 
-            Assert.True(key.Length <= 32);
+        [Fact]
+        public void BuildKey_WithSmallMaxLength_StillWorks_WhenComponentsFit()
+        {
+            var hasher = new PayloadHasher(new Sha256ContentHashService());
+            var options = new IdempotencyKeyOptions { MaxKeyLength = 80 };
+            var builder = new IdempotencyKeyBuilder(hasher, options);
+
+            var key = builder.BuildKey("op", new { });
+
+            Assert.True(key.Length <= 80);
+            Assert.Equal(64, key.Split(':')[3].Length);
         }
 
         [Fact]

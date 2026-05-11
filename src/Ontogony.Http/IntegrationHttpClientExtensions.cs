@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Ontogony.Primitives;
 
 namespace Ontogony.Http;
 
@@ -11,7 +12,8 @@ public static class IntegrationHttpClientExtensions
         Func<IServiceProvider, HttpIntegrationOptions> resolveOptions)
     {
         services.AddOptions<TransportResilienceOptions>();
-        services.AddSingleton<TransportResilienceRegistry>();
+        services.AddSingleton<IClock, SystemClock>();
+        services.AddSingleton(sp => new TransportResilienceRegistry(sp.GetRequiredService<IClock>()));
         services.AddTransient<CorrelationHeadersDelegatingHandler>();
 
         return services.AddHttpClient(clientName)

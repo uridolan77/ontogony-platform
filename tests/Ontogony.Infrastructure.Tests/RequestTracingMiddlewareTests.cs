@@ -1,5 +1,6 @@
 using System.IO;
 using System.Diagnostics;
+using System.Diagnostics.Metrics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
@@ -132,6 +133,77 @@ public sealed class RequestTracingMiddlewareTests
         Assert.Equal("workspace-1", context.Response.Headers[OntogonyEventHeaders.WorkspaceId].ToString());
         Assert.Equal("project-1", context.Response.Headers[OntogonyEventHeaders.ProjectId].ToString());
         Assert.Equal("session-1", context.Response.Headers[OntogonyEventHeaders.SessionId].ToString());
+    }
+
+    [Fact]
+    public async Task InvokeAsync_RecordsMetricsUsingFinalStatusCode_AndMarksServerErrors()
+    {
+        const string serviceName = "metrics-test-service";
+        long requestCount = 0;
+        long errorCount = 0;
+        int? observedStatus = null;
+
+        using var listener = new MeterListener();
+        listener.InstrumentPublished = (instrument, meterListener) =>
+        {
+            if (instrument.Meter.Name == OntogonyDiagnostics.DefaultActivitySourceName)
+            {
+                meterListener.EnableMeasurementEvents(instrument);
+            }
+        };
+
+        listener.SetMeasurementEventCallback<long>((instrument, measurement, tags, _) =>
+        {
+            var isTargetService = false;
+            foreach (var tag in tags)
+            {
+                if (tag.Key == "service" && string.Equals(tag.Value as string, serviceName, StringComparison.Ordinal))
+                {
+                    isTargetService = true;
+                    break;
+                }
+            }
+
+            if (!isTargetService)
+            {
+                return;
+            }
+
+            if (instrument.Name == "ontogony.http.server.request.count")
+            {
+                requestCount += measurement;
+                foreach (var tag in tags)
+                {
+                    if (tag.Key == "status_code" && tag.Value is int status)
+                    {
+                        observedStatus = status;
+                    }
+                }
+            }
+
+            if (instrument.Name == "ontogony.http.server.error.count")
+            {
+                errorCount += measurement;
+            }
+        });
+        listener.Start();
+
+        var middleware = new RequestTracingMiddleware(
+            ctx =>
+            {
+                ctx.Response.StatusCode = StatusCodes.Status503ServiceUnavailable;
+                return Task.CompletedTask;
+            },
+            NullLogger<RequestTracingMiddleware>.Instance,
+            Options.Create(new OntogonyObservabilityOptions { ServiceName = serviceName }));
+
+        var context = CreateHttpContext();
+        await middleware.InvokeAsync(context);
+        listener.RecordObservableInstruments();
+
+        Assert.True(requestCount >= 1);
+        Assert.True(errorCount >= 1);
+        Assert.Equal(StatusCodes.Status503ServiceUnavailable, observedStatus);
     }
 
     private static DefaultHttpContext CreateHttpContext()

@@ -1,4 +1,5 @@
 using Ontogony.Http;
+using Ontogony.Testing;
 using Xunit;
 
 namespace Ontogony.Infrastructure.Tests;
@@ -8,7 +9,8 @@ public sealed class TransportResilienceRegistryTests
     [Fact]
     public void RecordFailure_Opens_Circuit_At_Threshold()
     {
-        var registry = new TransportResilienceRegistry();
+        var clock = new FakeClock(new DateTimeOffset(2026, 5, 11, 12, 0, 0, TimeSpan.Zero));
+        var registry = new TransportResilienceRegistry(clock);
         var options = new TransportResilienceOptions
         {
             Enabled = true,
@@ -30,7 +32,8 @@ public sealed class TransportResilienceRegistryTests
     [Fact]
     public void RecordSuccess_Closes_Open_Circuit_State()
     {
-        var registry = new TransportResilienceRegistry();
+        var clock = new FakeClock(new DateTimeOffset(2026, 5, 11, 12, 0, 0, TimeSpan.Zero));
+        var registry = new TransportResilienceRegistry(clock);
         var options = new TransportResilienceOptions
         {
             Enabled = true,
@@ -44,5 +47,24 @@ public sealed class TransportResilienceRegistryTests
         registry.RecordSuccess("client-b", options);
 
         Assert.Null(registry.TryGetCircuitOpenSyntheticResponse("client-b", options));
+    }
+
+    [Fact]
+    public void CircuitOpenState_ExpiresBasedOnInjectedClock()
+    {
+        var clock = new FakeClock(new DateTimeOffset(2026, 5, 11, 12, 0, 0, TimeSpan.Zero));
+        var registry = new TransportResilienceRegistry(clock);
+        var options = new TransportResilienceOptions
+        {
+            Enabled = true,
+            CircuitFailureThreshold = 1,
+            CircuitOpenDurationSeconds = 30
+        };
+
+        registry.RecordFailure("client-c", options);
+        Assert.NotNull(registry.TryGetCircuitOpenSyntheticResponse("client-c", options));
+
+        clock.Advance(TimeSpan.FromSeconds(31));
+        Assert.Null(registry.TryGetCircuitOpenSyntheticResponse("client-c", options));
     }
 }

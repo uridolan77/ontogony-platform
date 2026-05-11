@@ -63,7 +63,7 @@ public sealed class ResilientIntegrationDelegatingHandler : DelegatingHandler
                     {
                         _registry.RecordSuccess(_clientName, _options);
                     }
-                    else
+                    else if (ShouldCountResponseAsFailure(response.StatusCode))
                     {
                         _registry.RecordFailure(_clientName, _options);
                     }
@@ -149,14 +149,21 @@ public sealed class ResilientIntegrationDelegatingHandler : DelegatingHandler
             return new BufferedContentResult(false, null);
         }
 
-        await request.Content.LoadIntoBufferAsync(_options.MaxBufferedContentBytes).ConfigureAwait(false);
-        var content = await request.Content.ReadAsByteArrayAsync(cancellationToken).ConfigureAwait(false);
-        if (content.Length > _options.MaxBufferedContentBytes)
+        try
+        {
+            await request.Content.LoadIntoBufferAsync(_options.MaxBufferedContentBytes).ConfigureAwait(false);
+            var content = await request.Content.ReadAsByteArrayAsync(cancellationToken).ConfigureAwait(false);
+            if (content.Length > _options.MaxBufferedContentBytes)
+            {
+                return new BufferedContentResult(false, null);
+            }
+
+            return new BufferedContentResult(true, content);
+        }
+        catch (Exception) when (!cancellationToken.IsCancellationRequested)
         {
             return new BufferedContentResult(false, null);
         }
-
-        return new BufferedContentResult(true, content);
     }
 
     private static bool IsMultipartMediaType(MediaTypeHeaderValue? contentType)
@@ -182,6 +189,11 @@ public sealed class ResilientIntegrationDelegatingHandler : DelegatingHandler
         }
 
         return false;
+    }
+
+    private bool ShouldCountResponseAsFailure(HttpStatusCode statusCode)
+    {
+        return !_options.CountOnlyRetryableResponsesAsCircuitFailures || ShouldRetry(statusCode);
     }
 
     private TimeSpan ComputeDelay(int attempt)

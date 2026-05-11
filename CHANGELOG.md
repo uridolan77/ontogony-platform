@@ -89,6 +89,27 @@ PR6 security primitives v1:
   - Authentication options validation with all three modes (5 tests)
 - All 155 tests pass (121 existing + 34 new).
 
+PR6.1 foundation correctness hardening:
+
+- Added OntogonyActorTypes (human, service, agent) to keep actor type semantics separate from role semantics.
+- Fixed ServiceIdentityCurrentActorAccessor to map tenant/workspace/project from dedicated headers instead of misusing TenantId for actor delegation.
+- Switched ServiceIdentityCurrentActorAccessor signature comparison to constant-time equality.
+- Updated HeaderCurrentActorAccessor to use OntogonySecurityHeaders constants for roles and actor-type headers.
+- Added DI helpers for additional security accessor modes:
+	- AddOntogonyClaimsActorContext(...)
+	- AddOntogonyServiceIdentityActorContext(...)
+- Added TransportResilienceOptions.CountOnlyRetryableResponsesAsCircuitFailures (default true) and updated HTTP handler to avoid counting non-retryable final responses (for example 400/404) as circuit failures.
+- Updated TransportResilienceRegistry to use IClock from Ontogony.Primitives and wired clock injection through HTTP DI registration.
+- Hardened request buffering fallback in ResilientIntegrationDelegatingHandler so unknown-length/failed buffering disables retry rather than throwing from buffer-load path.
+- Corrected RequestTracingMiddleware request/error metrics to emit after pipeline execution using final response status (including non-exception 5xx responses).
+- Hardened CloudEvents extension extraction to handle JsonElement values after JSON round-trip and restored protocol from CloudEvents extension when present.
+- Hardened IdempotencyKeyBuilder operation handling:
+	- operation now safe-character validated when enabled
+	- payload hash is preserved intact when key-length constraints are applied
+	- operation component is compacted instead of truncating the payload hash
+- Added focused regression tests for all above behaviors.
+- All 168 tests pass.
+
 ## 0.1.0-starter
 
 Initial starter package.

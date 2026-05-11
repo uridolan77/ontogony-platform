@@ -22,12 +22,18 @@ public sealed class HeaderCurrentActorAccessor : ICurrentActorAccessor
             var actorId = context.Request.Headers[OntogonyEventHeaders.ActorId].ToString();
             if (string.IsNullOrWhiteSpace(actorId)) return null;
 
-            var roles = context.Request.Headers["X-Ontogony-Roles"].ToString()
+            var roles = context.Request.Headers[OntogonySecurityHeaders.Roles].ToString()
                 .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+            var actorType = context.Request.Headers[OntogonySecurityHeaders.ActorType].ToString();
+            if (string.IsNullOrWhiteSpace(actorType))
+            {
+                actorType = OntogonyActorTypes.Service;
+            }
 
             return new CurrentActor(
                 actorId,
-                "human-or-service",
+                actorType,
                 roles,
                 context.Request.Headers[OntogonyEventHeaders.TenantId].ToString(),
                 context.Request.Headers[OntogonyEventHeaders.WorkspaceId].ToString(),

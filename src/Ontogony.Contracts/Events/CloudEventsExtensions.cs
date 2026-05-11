@@ -91,7 +91,7 @@ public static class CloudEventsExtensions
 
         var extensions = cloudEvent.Extensions ?? new Dictionary<string, object>();
 
-        var traceId = ExtractString(extensions, "traceId") ?? "unknown";
+        var traceId = ExtractString(extensions, "traceId") ?? System.Diagnostics.ActivityTraceId.CreateRandom().ToHexString();
         var spanId = ExtractString(extensions, "spanId");
         var parentSpanId = ExtractString(extensions, "parentSpanId");
         var tenantId = ExtractString(extensions, "tenantId");
@@ -99,17 +99,10 @@ public static class CloudEventsExtensions
         var projectId = ExtractString(extensions, "projectId");
         var actorId = ExtractString(extensions, "actorId");
         var sessionId = ExtractString(extensions, "sessionId");
+        var protocolFromExtension = ExtractString(extensions, "protocol");
         var payloadHash = ExtractString(extensions, "payloadHash");
 
-        var metadata = new Dictionary<string, string>();
-        if (extensions.TryGetValue("metadata", out var metaObj) && metaObj is Dictionary<string, object> metaDict)
-        {
-            foreach (var kvp in metaDict)
-            {
-                if (kvp.Value is string str)
-                    metadata[kvp.Key] = str;
-            }
-        }
+        var metadata = ExtractMetadata(extensions);
 
         var payload = cloudEvent.Data is TPayload typedPayload
             ? typedPayload
@@ -131,21 +124,76 @@ public static class CloudEventsExtensions
             ProjectId = projectId,
             ActorId = actorId,
             SessionId = sessionId,
-            Protocol = protocol,
+            Protocol = protocolFromExtension ?? protocol,
             Payload = payload,
             PayloadHash = payloadHash,
             Metadata = metadata
         };
     }
 
-    private static string? ExtractString(IDictionary<string, object> dict, string key)
+    private static Dictionary<string, string> ExtractMetadata(IDictionary<string, object> extensions)
     {
-        if (dict.TryGetValue(key, out var value))
+        if (!extensions.TryGetValue("metadata", out var metaObj) || metaObj is null)
         {
-            return value as string;
+            return new Dictionary<string, string>();
         }
 
-        return null;
+        if (metaObj is Dictionary<string, object> metaDict)
+        {
+            var metadata = new Dictionary<string, string>(StringComparer.Ordinal);
+            foreach (var kvp in metaDict)
+            {
+                var value = ExtractObjectAsString(kvp.Value);
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    metadata[kvp.Key] = value;
+                }
+            }
+
+            return metadata;
+        }
+
+        if (metaObj is JsonElement metaElement && metaElement.ValueKind == JsonValueKind.Object)
+        {
+            var metadata = new Dictionary<string, string>(StringComparer.Ordinal);
+            foreach (var property in metaElement.EnumerateObject())
+            {
+                var value = property.Value.ValueKind == JsonValueKind.String
+                    ? property.Value.GetString()
+                    : property.Value.GetRawText();
+
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    metadata[property.Name] = value;
+                }
+            }
+
+            return metadata;
+        }
+
+        return new Dictionary<string, string>();
+    }
+
+    private static string? ExtractString(IDictionary<string, object> dict, string key)
+    {
+        if (!dict.TryGetValue(key, out var value) || value is null)
+        {
+            return null;
+        }
+
+        return ExtractObjectAsString(value);
+    }
+
+    private static string? ExtractObjectAsString(object value)
+    {
+        return value switch
+        {
+            string str => str,
+            JsonElement element when element.ValueKind == JsonValueKind.String => element.GetString(),
+            JsonElement element when element.ValueKind is JsonValueKind.Null or JsonValueKind.Undefined => null,
+            JsonElement element => element.GetRawText(),
+            _ => value.ToString()
+        };
     }
 }
 

@@ -422,5 +422,64 @@ public sealed class CloudEventsConversionTests
         Assert.Contains("\"source\"", json);
     }
 
+    [Fact]
+    public void CloudEvent_ToOntogonyEnvelope_RestoresProtocol_FromExtension()
+    {
+        var cloudEvent = new CloudEventEnvelope
+        {
+            Id = "evt_protocol",
+            Type = "test.event",
+            Source = "test://source",
+            Time = "2026-05-11T10:00:00Z",
+            Data = new TestData("payload"),
+            Extensions = new Dictionary<string, object>
+            {
+                { "traceId", "trace-abc" },
+                { "protocol", "mcp" }
+            }
+        };
+
+        var envelope = cloudEvent.ToOntogonyEnvelope<TestData>("fallback");
+
+        Assert.Equal("mcp", envelope.Protocol);
+    }
+
+    [Fact]
+    public void CloudEventJson_RoundTrip_PreservesJsonElementExtensions()
+    {
+        var cloudEvent = new CloudEventEnvelope
+        {
+            Id = "evt_json",
+            Type = "test.event",
+            Source = "test://source",
+            Time = "2026-05-11T10:00:00Z",
+            Data = new TestData("payload"),
+            Extensions = new Dictionary<string, object>
+            {
+                { "traceId", "trace-json" },
+                { "tenantId", "tenant-json" },
+                { "protocol", "a2a" },
+                {
+                    "metadata",
+                    new Dictionary<string, object>
+                    {
+                        { "detailLevel", "verbose" },
+                        { "attempt", 2 }
+                    }
+                }
+            }
+        };
+
+        var json = JsonSerializer.Serialize(cloudEvent);
+        var restoredCloudEvent = JsonSerializer.Deserialize<CloudEventEnvelope>(json)!;
+        var envelope = restoredCloudEvent.ToOntogonyEnvelope<TestData>();
+
+        Assert.Equal("trace-json", envelope.TraceId);
+        Assert.Equal("tenant-json", envelope.TenantId);
+        Assert.Equal("a2a", envelope.Protocol);
+        Assert.Equal("verbose", envelope.Metadata["detailLevel"]);
+        Assert.Equal("2", envelope.Metadata["attempt"]);
+    }
+
     private sealed record TestData(string Content);
 }

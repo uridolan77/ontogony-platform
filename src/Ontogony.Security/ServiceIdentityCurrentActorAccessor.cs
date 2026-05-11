@@ -1,4 +1,7 @@
+using System.Security.Cryptography;
+using System.Text;
 using Microsoft.AspNetCore.Http;
+using Ontogony.Contracts.Events;
 
 namespace Ontogony.Security;
 
@@ -41,9 +44,11 @@ public sealed class ServiceIdentityCurrentActorAccessor : ICurrentActorAccessor
 
             return new CurrentActor(
                 serviceId,
-                OntogonyRoleNames.Service,
+                OntogonyActorTypes.Service,
                 new[] { OntogonyRoleNames.Service },
-                context.Request.Headers[OntogonySecurityHeaders.ActorId].ToString());
+                context.Request.Headers[OntogonyEventHeaders.TenantId].ToString(),
+                context.Request.Headers[OntogonyEventHeaders.WorkspaceId].ToString(),
+                context.Request.Headers[OntogonyEventHeaders.ProjectId].ToString());
         }
     }
 
@@ -60,7 +65,14 @@ public sealed class ServiceIdentityCurrentActorAccessor : ICurrentActorAccessor
         // Simple implementation: check against configured secret
         // In production, use HMAC or other cryptographic verification
         var expectedSignature = _options.GetExpectedSignature(serviceId);
-        return signature == expectedSignature;
+        if (string.IsNullOrWhiteSpace(expectedSignature))
+        {
+            return false;
+        }
+
+        var providedBytes = Encoding.UTF8.GetBytes(signature);
+        var expectedBytes = Encoding.UTF8.GetBytes(expectedSignature);
+        return CryptographicOperations.FixedTimeEquals(providedBytes, expectedBytes);
     }
 }
 

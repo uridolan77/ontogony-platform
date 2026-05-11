@@ -12,5 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ontogony.Observability\Ontogony.Observability.csproj" />
+    <ProjectReference Include="..\Ontogony.Primitives\Ontogony.Primitives.csproj" />
   </ItemGroup>
 </Project>

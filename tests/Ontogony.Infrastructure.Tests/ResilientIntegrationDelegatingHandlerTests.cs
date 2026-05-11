@@ -1,3 +1,4 @@
+using System.IO;
 using System.Net;
 using Microsoft.Extensions.Options;
 using Ontogony.Http;
@@ -160,6 +161,65 @@ public sealed class ResilientIntegrationDelegatingHandlerTests
     }
 
     [Fact]
+    public async Task SendAsync_DoesNotCount_NonRetryableFinalResponse_AsCircuitFailure()
+    {
+        var options = Options.Create(new TransportResilienceOptions
+        {
+            Enabled = true,
+            MaxRetries = 0,
+            CircuitFailureThreshold = 1,
+            CircuitOpenDurationSeconds = 60,
+            RetryableStatusCodes = [500],
+            CountOnlyRetryableResponsesAsCircuitFailures = true
+        });
+        var registry = new TransportResilienceRegistry();
+        var sequence = new SequenceHandler(new HttpResponseMessage(HttpStatusCode.BadRequest));
+
+        var handler = new ResilientIntegrationDelegatingHandler("tests", registry, options)
+        {
+            InnerHandler = sequence
+        };
+
+        using var client = new HttpClient(handler);
+        var response = await client.GetAsync("https://example.test/input-error");
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.Null(registry.TryGetCircuitOpenSyntheticResponse("tests", options.Value));
+    }
+
+    [Fact]
+    public async Task SendAsync_WithUnknownLengthContent_AndBufferFailure_FallsBackToSingleSend()
+    {
+        var sequence = new SequenceHandler(new HttpResponseMessage(HttpStatusCode.ServiceUnavailable), new HttpResponseMessage(HttpStatusCode.OK));
+        var options = Options.Create(new TransportResilienceOptions
+        {
+            Enabled = true,
+            MaxRetries = 1,
+            BaseDelayMilliseconds = 10,
+            MaxDelayMilliseconds = 10,
+            RetryableStatusCodes = [503],
+            MaxBufferedContentBytes = 10
+        });
+
+        var handler = new ResilientIntegrationDelegatingHandler("tests", new TransportResilienceRegistry(), options)
+        {
+            InnerHandler = sequence
+        };
+
+        using var client = new HttpClient(handler);
+        using var request = new HttpRequestMessage(HttpMethod.Post, "https://example.test/retry")
+        {
+            Content = new ThrowingBufferContent()
+        };
+        request.Headers.TryAddWithoutValidation("Idempotency-Key", "abc-123");
+
+        var response = await client.SendAsync(request);
+
+        Assert.Equal(HttpStatusCode.ServiceUnavailable, response.StatusCode);
+        Assert.Equal(1, sequence.CallCount);
+    }
+
+    [Fact]
     public async Task SendAsync_Records_Exception_Failures_And_Opens_Circuit()
     {
         var options = Options.Create(new TransportResilienceOptions
@@ -211,6 +271,20 @@ public sealed class ResilientIntegrationDelegatingHandlerTests
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             throw new HttpRequestException("network-failure");
+        }
+    }
+
+    private sealed class ThrowingBufferContent : HttpContent
+    {
+        protected override Task SerializeToStreamAsync(Stream stream, TransportContext? context)
+        {
+            throw new InvalidOperationException("cannot buffer");
+        }
+
+        protected override bool TryComputeLength(out long length)
+        {
+            length = 0;
+            return false;
         }
     }
 }

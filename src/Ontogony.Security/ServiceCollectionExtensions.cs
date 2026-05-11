@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -10,6 +11,44 @@ public static class ServiceCollectionExtensions
     {
         services.AddHttpContextAccessor();
         services.AddScoped<ICurrentActorAccessor, HeaderCurrentActorAccessor>();
+        return services;
+    }
+
+    public static IServiceCollection AddOntogonyClaimsActorContext(
+        this IServiceCollection services,
+        Action<ClaimsCurrentActorAccessorOptions>? configure = null)
+    {
+        services.AddHttpContextAccessor();
+        services.AddOptions<ClaimsCurrentActorAccessorOptions>();
+        if (configure is not null)
+        {
+            services.Configure(configure);
+        }
+
+        services.AddScoped<ClaimsCurrentActorAccessor>(sp =>
+            new ClaimsCurrentActorAccessor(
+                sp.GetRequiredService<IHttpContextAccessor>(),
+                sp.GetRequiredService<IOptions<ClaimsCurrentActorAccessorOptions>>().Value));
+        services.AddScoped<ICurrentActorAccessor>(sp => sp.GetRequiredService<ClaimsCurrentActorAccessor>());
+        return services;
+    }
+
+    public static IServiceCollection AddOntogonyServiceIdentityActorContext(
+        this IServiceCollection services,
+        Action<ServiceIdentityOptions>? configure = null)
+    {
+        services.AddHttpContextAccessor();
+        services.AddOptions<ServiceIdentityOptions>();
+        if (configure is not null)
+        {
+            services.Configure(configure);
+        }
+
+        services.AddScoped<ServiceIdentityCurrentActorAccessor>(sp =>
+            new ServiceIdentityCurrentActorAccessor(
+                sp.GetRequiredService<IHttpContextAccessor>(),
+                sp.GetRequiredService<IOptions<ServiceIdentityOptions>>().Value));
+        services.AddScoped<ICurrentActorAccessor>(sp => sp.GetRequiredService<ServiceIdentityCurrentActorAccessor>());
         return services;
     }
 

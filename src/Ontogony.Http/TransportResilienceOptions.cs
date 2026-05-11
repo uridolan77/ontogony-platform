@@ -31,6 +31,8 @@ public sealed class TransportResilienceOptions
 
     public int[] RetryableStatusCodes { get; set; } = [408, 425, 429, 500, 502, 503, 504];
 
+    public bool CountOnlyRetryableResponsesAsCircuitFailures { get; set; } = true;
+
     public bool RetryUnsafeMethodsOnlyWithIdempotencyKey { get; set; } = true;
 
     [Range(1, 100_000_000)]
