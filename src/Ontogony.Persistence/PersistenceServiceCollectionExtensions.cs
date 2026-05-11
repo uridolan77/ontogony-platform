@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Ontogony.Persistence;
 
+#pragma warning disable CS0618 // Intentional legacy alias registrations for compatibility.
 public static class PersistenceServiceCollectionExtensions
 {
     public static IServiceCollection AddOntogonyPersistencePrimitives(this IServiceCollection services)
@@ -16,3 +17,4 @@ public static class PersistenceServiceCollectionExtensions
         return services;
     }
 }
+#pragma warning restore CS0618

@@ -6,6 +6,8 @@
     <LangVersion>latest</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- TODO: remove CS1591 suppression and add XML docs before 1.0. -->
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
     <RepositoryUrl>https://github.com/uridolan77/ontogony-platform</RepositoryUrl>
     <Authors>Ontogony</Authors>
     <Company>Ontogony</Company>

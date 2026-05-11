@@ -13,6 +13,10 @@ Included updates:
 - Added generic authentication startup safety guards in Ontogony.Security.
 - Added integration and behavior coverage in Ontogony.Infrastructure.Tests.
 - Added migration note: docs/migrations/2026-05-11-primitives-and-http-resilience-extraction.md.
+- Verified solution hygiene commands pass:
+	- dotnet restore Ontogony.Platform.sln
+	- dotnet build Ontogony.Platform.sln --no-restore
+	- dotnet test Ontogony.Platform.sln --no-build
 
 ## 0.1.0-starter
 
