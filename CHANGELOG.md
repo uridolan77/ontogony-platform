@@ -30,6 +30,13 @@ PR2 hardening updates:
 	- dotnet build Ontogony.Platform.sln --no-restore
 	- dotnet test Ontogony.Platform.sln --no-build
 
+PR3 error contract updates:
+
+- Expanded exception mappings with safe public messages, optional exception-message inclusion, log severity control, and optional details inclusion.
+- Hardened Ontogony exception middleware to avoid exposing unmapped exception messages and to skip writing when responses have already started.
+- Added instance path support to ApiError and introduced ApiError <-> ProblemDetails bridge helpers.
+- Added focused middleware and ProblemDetails bridge tests in Ontogony.Infrastructure.Tests.
+
 ## 0.1.0-starter
 
 Initial starter package.

@@ -4,4 +4,5 @@ public sealed record ApiError(
     string Code,
     string Message,
     string? TraceId = null,
-    object? Details = null);
+    object? Details = null,
+    string? Instance = null);

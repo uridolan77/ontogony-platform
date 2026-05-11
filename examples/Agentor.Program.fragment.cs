@@ -27,8 +27,8 @@ builder.Services.AddOntogonyIntegrationHttpClient(
 
 var app = builder.Build();
 
-app.UseOntogonyExceptionHandling();
 app.UseOntogonyRequestTracing();
+app.UseOntogonyExceptionHandling();
 
 // app.UseAuthentication();
 // app.UseAuthorization();

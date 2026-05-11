@@ -30,3 +30,8 @@ Athanor, Agentor, and Conexus may all emit events into the same event vocabulary
 - Use `Ontogony.Http` for integration clients in Agentor and future Athanor adapters.
 - Use `Ontogony.Hashing` for payload/event/fingerprint hashes.
 - Use `Ontogony.Contracts` for future AG-UI/MCP/A2A event recorder payloads.
+
+## Adoption guides
+
+- `docs/adoption/error-middleware-adoption.md` for replacing local Athanor/Agentor exception middleware with Ontogony.Errors while keeping service-specific mappings in service repos.
+- `docs/adoption/observability-error-ordering.md` for middleware ordering guidance when combining Ontogony.Observability with Ontogony.Errors.

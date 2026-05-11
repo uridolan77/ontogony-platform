@@ -6,10 +6,22 @@ public sealed class OntogonyExceptionMappingOptions
 {
     private readonly Dictionary<Type, ExceptionMapping> _mappings = new();
 
-    public OntogonyExceptionMappingOptions Map<TException>(HttpStatusCode statusCode, string errorCode)
+    public OntogonyExceptionMappingOptions Map<TException>(
+        HttpStatusCode statusCode,
+        string errorCode,
+        string? publicMessage = null,
+        bool includeExceptionMessage = false,
+        bool logAsWarning = true,
+        bool includeDetails = false)
         where TException : Exception
     {
-        _mappings[typeof(TException)] = new ExceptionMapping(statusCode, errorCode);
+        _mappings[typeof(TException)] = new ExceptionMapping(
+            statusCode,
+            errorCode,
+            publicMessage,
+            includeExceptionMessage,
+            logAsWarning,
+            includeDetails);
         return this;
     }
 
@@ -26,4 +38,10 @@ public sealed class OntogonyExceptionMappingOptions
     }
 }
 
-public sealed record ExceptionMapping(HttpStatusCode StatusCode, string ErrorCode);
+public sealed record ExceptionMapping(
+    HttpStatusCode StatusCode,
+    string ErrorCode,
+    string? PublicMessage = null,
+    bool IncludeExceptionMessage = false,
+    bool LogAsWarning = true,
+    bool IncludeDetails = false);
