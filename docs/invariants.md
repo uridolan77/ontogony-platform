@@ -10,6 +10,8 @@ When validation is enabled (`Ontogony.Messaging` `EventDispatchOptions.ValidateR
 - `TraceId`, `Protocol`
 - `Payload` (non-null)
 
+For **strict mechanical** ingress (recorders, external bridges), use `IEnvelopeValidator` / `DefaultEnvelopeValidator` in `Ontogony.Contracts` and see `schemas/ontogony-envelope.schema.json` plus [contracts/schema-versioning.md](./contracts/schema-versioning.md).
+
 Tenant, workspace, project, actor, and session identifiers are **optional** unless your ingress layer enforces them.
 
 See also: [04_EVENT_ENVELOPE_STANDARD.md](./04_EVENT_ENVELOPE_STANDARD.md).
@@ -27,11 +29,11 @@ See also: [04_EVENT_ENVELOPE_STANDARD.md](./04_EVENT_ENVELOPE_STANDARD.md).
 
 ## Outbox and dispatch (`Ontogony.Persistence` / docs)
 
-Exact dispatch ordering, leases, and idempotency of `MarkDispatched` are specified in:
+Exact dispatch ordering, leases, and idempotency of `MarkDispatched` for **relational** implementations are specified in:
 
-- [persistence/outbox-contract.md](./persistence/outbox-contract.md)
+- [persistence/outbox-contract.md](./persistence/outbox-contract.md) (includes `InMemoryOutboxStore` reference semantics: read ordering, `MarkFailed` attempt increments, optional dead-letter threshold).
 
-Until a database-backed implementation ships, treat the in-repo contract as the source of truth for **mechanical** guarantees.
+Until a database-backed implementation ships in this repo, use the contract plus the in-memory store for mechanical integration tests.
 
 ## Actor and role separation (`Ontogony.Security`)
 

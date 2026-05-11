@@ -14,7 +14,7 @@ public sealed class InMemoryEventBusTests
         var handler = new RecordingHandler();
         bus.Register(handler);
 
-        var envelope = TestEnvelopeFactory.Create("test.event", "test", new Payload("hello"));
+        var envelope = TestEnvelopeFactory.Create("agentor.run.started", ProtocolNames.Agentor, new Payload("hello"));
         await bus.PublishAsync(envelope);
 
         Assert.Single(handler.Received);
@@ -26,7 +26,7 @@ public sealed class InMemoryEventBusTests
     {
         var sink = new InMemoryEventSink();
         var publisher = new InMemoryEventPublisher(sink);
-        var envelope = TestEnvelopeFactory.Create("test.event", "test", new Payload("capture"));
+        var envelope = TestEnvelopeFactory.Create("agentor.run.started", ProtocolNames.Agentor, new Payload("capture"));
 
         await publisher.PublishAsync(envelope);
 
@@ -44,7 +44,7 @@ public sealed class InMemoryEventBusTests
         publisher.Register(handlerA);
         publisher.Register(handlerB);
 
-        var envelope = TestEnvelopeFactory.Create("test.event", "test", new Payload("fanout"));
+        var envelope = TestEnvelopeFactory.Create("agentor.run.started", ProtocolNames.Agentor, new Payload("fanout"));
         await publisher.PublishAsync(envelope);
 
         Assert.Single(handlerA.Received);
@@ -62,7 +62,7 @@ public sealed class InMemoryEventBusTests
         });
         publisher.Register(new ThrowingHandler());
 
-        var envelope = TestEnvelopeFactory.Create("test.event", "test", new Payload("boom"));
+        var envelope = TestEnvelopeFactory.Create("agentor.run.started", ProtocolNames.Agentor, new Payload("boom"));
 
         await Assert.ThrowsAsync<InvalidOperationException>(() => publisher.PublishAsync(envelope));
     }
@@ -79,7 +79,7 @@ public sealed class InMemoryEventBusTests
         publisher.Register(new ThrowingHandler());
         publisher.Register(successfulHandler);
 
-        var envelope = TestEnvelopeFactory.Create("test.event", "test", new Payload("continue"));
+        var envelope = TestEnvelopeFactory.Create("agentor.run.started", ProtocolNames.Agentor, new Payload("continue"));
 
         var ex = await Assert.ThrowsAsync<AggregateException>(() => publisher.PublishAsync(envelope));
         Assert.Single(ex.InnerExceptions);
@@ -95,7 +95,7 @@ public sealed class InMemoryEventBusTests
         var envelope = new OntogonyEnvelope<Payload>
         {
             EventId = "evt_1",
-            EventType = "test.event",
+            EventType = "agentor.run.started",
             Source = "test://source",
             OccurredAt = new DateTimeOffset(2026, 5, 11, 10, 0, 0, TimeSpan.Zero),
             TraceId = "trace-123",
@@ -103,7 +103,7 @@ public sealed class InMemoryEventBusTests
             WorkspaceId = "workspace-1",
             ProjectId = "project-1",
             SessionId = "session-1",
-            Protocol = "test",
+            Protocol = ProtocolNames.Agentor,
             Payload = new Payload("meta")
         };
 
@@ -121,7 +121,7 @@ public sealed class InMemoryEventBusTests
         {
             ComputePayloadHash = true
         });
-        var envelope = TestEnvelopeFactory.Create("test.event", "test", new Payload("hash-me"));
+        var envelope = TestEnvelopeFactory.Create("agentor.run.started", ProtocolNames.Agentor, new Payload("hash-me"));
 
         await publisher.PublishAsync(envelope);
 
@@ -139,11 +139,11 @@ public sealed class InMemoryEventBusTests
         var invalid = new OntogonyEnvelope<Payload>
         {
             EventId = string.Empty,
-            EventType = "test.event",
+            EventType = "agentor.run.started",
             Source = "test://source",
             OccurredAt = new DateTimeOffset(2026, 5, 11, 10, 0, 0, TimeSpan.Zero),
             TraceId = "trace-1",
-            Protocol = "test",
+            Protocol = ProtocolNames.Agentor,
             Payload = new Payload("invalid")
         };
 
@@ -160,7 +160,7 @@ public sealed class InMemoryEventBusTests
         });
         publisher.Register(new ThrowingHandler());
 
-        var envelope = TestEnvelopeFactory.Create("test.event", "test", new Payload("boom"));
+        var envelope = TestEnvelopeFactory.Create("agentor.run.started", ProtocolNames.Agentor, new Payload("boom"));
         var result = await publisher.PublishWithResultAsync(envelope);
 
         Assert.Single(result.Failures);
@@ -180,7 +180,7 @@ public sealed class InMemoryEventBusTests
         var handler = new RecordingHandler();
         publisher.Register(handler);
 
-        var envelope = TestEnvelopeFactory.Create("test.event", "test", new Payload("only"));
+        var envelope = TestEnvelopeFactory.Create("agentor.run.started", ProtocolNames.Agentor, new Payload("only"));
         var result = await publisher.PublishWithResultAsync(envelope);
 
         Assert.Empty(result.HandlerResults);
@@ -200,7 +200,7 @@ public sealed class InMemoryEventBusTests
         var handler = new RecordingHandler();
         publisher.Register(handler);
 
-        var envelope = TestEnvelopeFactory.Create("test.event", "test", new Payload("cap"));
+        var envelope = TestEnvelopeFactory.Create("agentor.run.started", ProtocolNames.Agentor, new Payload("cap"));
         var result = await publisher.PublishWithResultAsync(envelope);
 
         Assert.Empty(result.HandlerResults);
@@ -212,7 +212,7 @@ public sealed class InMemoryEventBusTests
     public void JsonEventSerializer_RoundTripsEnvelope()
     {
         var serializer = new JsonEventSerializer();
-        var envelope = TestEnvelopeFactory.Create("test.event", "test", new Payload("ser"));
+        var envelope = TestEnvelopeFactory.Create("agentor.run.started", ProtocolNames.Agentor, new Payload("ser"));
 
         var json = serializer.Serialize(envelope);
         var restored = serializer.Deserialize<Payload>(json);

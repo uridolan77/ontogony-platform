@@ -1,96 +1,81 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://ontogony.net/schemas/ontogony-envelope.schema.json",
-  "title": "OntogonyEnvelope",
+  "$id": "https://ontogony.dev/schemas/ontogony-envelope.schema.json",
+  "title": "OntogonyEnvelope (serialized JSON)",
+  "description": "Mechanical JSON shape for OntogonyEnvelope<TPayload> as produced by System.Text.Json. Payload is schema-specific and not constrained here.",
   "type": "object",
+  "additionalProperties": false,
   "required": [
-    "eventId",
-    "eventType",
-    "source",
-    "occurredAt",
-    "traceId",
-    "protocol",
-    "schemaVersion",
-    "payload"
+    "EventId",
+    "EventType",
+    "Source",
+    "OccurredAt",
+    "TraceId",
+    "Protocol",
+    "SchemaVersion",
+    "Payload"
   ],
   "properties": {
-    "eventId": {
-      "type": "string"
+    "EventId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^[a-zA-Z0-9:_./-]+$"
     },
-    "eventType": {
-      "type": "string"
+    "EventType": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{0,63}\\.[a-z0-9][a-z0-9-]{0,63}\\.[a-z0-9][a-z0-9-]{0,63}$"
     },
-    "source": {
-      "type": "string"
+    "Source": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Absolute URI (including custom schemes such as mcp://)."
     },
-    "occurredAt": {
+    "OccurredAt": {
       "type": "string",
       "format": "date-time"
     },
-    "traceId": {
-      "type": "string"
+    "TraceId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^[a-zA-Z0-9:_./-]+$"
     },
-    "spanId": {
-      "type": [
-        "string",
-        "null"
+    "SpanId": { "type": "string" },
+    "ParentSpanId": { "type": "string" },
+    "TenantId": { "type": "string" },
+    "WorkspaceId": { "type": "string" },
+    "ProjectId": { "type": "string" },
+    "ActorId": { "type": "string" },
+    "SessionId": { "type": "string" },
+    "Protocol": {
+      "type": "string",
+      "enum": [
+        "ag-ui",
+        "mcp",
+        "a2a",
+        "otel",
+        "cloudevents",
+        "conexus",
+        "agentor",
+        "athanor",
+        "vercel-ai-sdk",
+        "openai-agents",
+        "langgraph"
       ]
     },
-    "parentSpanId": {
-      "type": [
-        "string",
-        "null"
-      ]
+    "SchemaVersion": {
+      "type": "string",
+      "minLength": 1
     },
-    "tenantId": {
-      "type": [
-        "string",
-        "null"
-      ]
+    "Payload": true,
+    "PayloadHash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
     },
-    "workspaceId": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "projectId": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "actorId": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "sessionId": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "protocol": {
-      "type": "string"
-    },
-    "schemaVersion": {
-      "type": "string"
-    },
-    "payloadHash": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "metadata": {
+    "Metadata": {
       "type": "object",
-      "additionalProperties": {
-        "type": "string"
-      }
-    },
-    "payload": {}
-  },
-  "additionalProperties": false
+      "additionalProperties": { "type": "string" }
+    }
+  }
 }

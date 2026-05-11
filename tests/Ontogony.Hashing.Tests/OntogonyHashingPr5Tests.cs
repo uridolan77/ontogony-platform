@@ -146,22 +146,22 @@ public class OntogonyHashingPr5Tests
             var envelope1 = new OntogonyEnvelope<object>
             {
                 EventId = "evt_1",
-                EventType = "test.event",
+                EventType = "agentor.run.started",
                 Source = "test://source",
                 OccurredAt = DateTimeOffset.UnixEpoch,
                 TraceId = "trace-1",
-                Protocol = "test",
+                Protocol = ProtocolNames.Agentor,
                 Payload = payload
             };
 
             var envelope2 = new OntogonyEnvelope<object>
             {
                 EventId = "evt_2", // Different envelope ID
-                EventType = "test.event",
+                EventType = "agentor.run.started",
                 Source = "test://source",
                 OccurredAt = DateTimeOffset.UnixEpoch,
                 TraceId = "trace-2", // Different trace ID
-                Protocol = "test",
+                Protocol = ProtocolNames.Agentor,
                 Payload = payload
             };
 
@@ -181,22 +181,22 @@ public class OntogonyHashingPr5Tests
             var envelope1 = new OntogonyEnvelope<object>
             {
                 EventId = "evt_1",
-                EventType = "test.event",
+                EventType = "agentor.run.started",
                 Source = "test://source",
                 OccurredAt = DateTimeOffset.UnixEpoch,
                 TraceId = "trace-1",
-                Protocol = "test",
+                Protocol = ProtocolNames.Agentor,
                 Payload = payload1
             };
 
             var envelope2 = new OntogonyEnvelope<object>
             {
                 EventId = "evt_1",
-                EventType = "test.event",
+                EventType = "agentor.run.started",
                 Source = "test://source",
                 OccurredAt = DateTimeOffset.UnixEpoch,
                 TraceId = "trace-1",
-                Protocol = "test",
+                Protocol = ProtocolNames.Agentor,
                 Payload = payload2
             };
 
@@ -275,11 +275,11 @@ public class OntogonyHashingPr5Tests
             var envelope = new OntogonyEnvelope<object>
             {
                 EventId = "evt_1",
-                EventType = "test.event",
+                EventType = "agentor.run.started",
                 Source = "test://source",
                 OccurredAt = DateTimeOffset.UnixEpoch,
                 TraceId = "trace-1",
-                Protocol = "test",
+                Protocol = ProtocolNames.Agentor,
                 Payload = new { data = "test" }
             };
 

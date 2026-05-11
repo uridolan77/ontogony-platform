@@ -2,6 +2,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Ontogony.Http;
 
+/// <summary>
+/// Tunable limits for outbound HTTP retries, backoff, circuit breaking, and idempotency-aware retry policy.
+/// Used by <see cref="ResilientIntegrationDelegatingHandler"/> and <see cref="TransportResilienceRegistry"/>.
+/// </summary>
 public sealed class TransportResilienceOptions
 {
     public bool Enabled { get; set; } = true;

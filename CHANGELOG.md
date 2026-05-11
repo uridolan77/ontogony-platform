@@ -4,6 +4,23 @@
 
 Comprehensive shared-infrastructure extraction pass.
 
+PR15 — Envelope validation and CloudEvents hardening:
+
+- Added `IEnvelopeValidator`, `EnvelopeValidationResult`, `EnvelopeValidationError`, `DefaultEnvelopeValidator`, and `EnvelopeValidatorOptions` (mechanical rules: safe `EventId`/`TraceId`, `protocol.entity.verb` event types, absolute URI `Source`, optional `PayloadHash` as 64 lowercase hex, optional protocol allowlist).
+- CloudEvents: `ToCloudEvent` now emits `schemaVersion` extension; `ToOntogonyEnvelope` validates `specversion` is 1.0 and supports `CloudEventConversionOptions` / `CloudEventTraceIdPolicy` for missing `traceId` (generate vs reject).
+- Added `schemas/ontogony-envelope.schema.json` and `docs/contracts/schema-versioning.md`.
+- Updated test fixtures (`TestEnvelopeFactory`, `EnvelopeFixtureBuilder`) and tests to use valid sample event types, URI sources, and protocol names.
+- Migration note: `docs/migrations/2026-05-11-pr15-envelope-validation.md`.
+- Completed per-package semantic stubs under `docs/packages/` for Primitives, Hashing, Idempotency, Observability, Errors, Testing, and Configuration (alongside existing Contracts/Http/Messaging/Persistence/Security).
+
+PR14 — Outbox in-memory reference and dead-letter contracts:
+
+- Added `InMemoryOutboxStore` implementing `IOutboxWriter`, `IOutboxReader`, `IOutboxDispatcher`, and `IProcessedMessageStore` with documented ordering (`AvailableAt` then `OccurredAt`), idempotent `MarkDispatchedAsync`, `MarkFailedAsync` incrementing `AttemptCount`, and optional dead-letter emission via `InMemoryOutboxStoreOptions` + `IDeadLetterWriter`.
+- Added `DeadLetterMessage`, `IDeadLetterWriter`, and `InMemoryDeadLetterWriter` for tests.
+- Added `AddOntogonyInMemoryOutboxStore` DI registration.
+- Expanded `docs/persistence/outbox-contract.md` with in-memory semantics and dead-letter threshold documentation.
+- Migration note: `docs/migrations/2026-05-11-pr14-in-memory-outbox.md`.
+
 PR11–PR13 (Sprint 2) platform semantics and hardening:
 
 - Added package-level semantic docs under `docs/packages/` plus `docs/invariants.md`, `docs/messaging/delivery-semantics.md`, and `docs/security/service-identity.md`.

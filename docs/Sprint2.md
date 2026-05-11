@@ -486,6 +486,12 @@ hashes unchanged
 trace/canonical logic untouched
 ```
 
+Steering checklist (implementation lives in the Athanor repo, not `_donors`):
+
+- Follow [`docs/adoption/athanor-platform-adoption.md`](./adoption/athanor-platform-adoption.md) for phase order (Primitives → Hashing → Contracts, then Observability/Errors/Http only when touching the API layer).
+- Defer messaging, outbox, and recorder sinks until Adoption C prerequisites are satisfied in platform docs.
+- When enabling `Ontogony.Observability` and `Ontogony.Errors` together, use [`docs/adoption/observability-error-ordering.md`](./adoption/observability-error-ordering.md).
+
 ## Adoption B — Agentor observability + HTTP
 
 Adopt:
@@ -503,6 +509,14 @@ same public behavior
 legacy Agentor trace headers preserved
 outbound Athanor/Conexus calls use shared correlation
 ```
+
+Steering checklist (implementation lives in the Agentor repo, not `_donors`):
+
+- Follow [`docs/adoption/agentor-platform-adoption.md`](./adoption/agentor-platform-adoption.md) for package order, middleware order, and header compatibility (`X-Ontogony-Trace-Id` vs `X-Agentor-Trace-Id`).
+- Register outbound named clients with `AddOntogonyIntegrationHttpClient` so correlation matches [`docs/adoption/http-client-adoption.md`](./adoption/http-client-adoption.md).
+- If enabling `Ontogony.Errors`, apply [`docs/adoption/observability-error-ordering.md`](./adoption/observability-error-ordering.md) before custom middleware that depends on trace context.
+
+Conexus-side alignment (headers and events, often non-.NET): [`docs/adoption/conexus-platform-adoption.md`](./adoption/conexus-platform-adoption.md).
 
 ## Adoption C — Athanor protocol recorder MVP
 

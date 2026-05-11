@@ -1,8 +1,9 @@
 namespace Ontogony.Contracts.Events;
 
 /// <summary>
-/// Protocol-neutral event envelope used across Athanor, Agentor, Conexus, and recorder services.
-/// It is intentionally CloudEvents-compatible in spirit while remaining simple for internal .NET services.
+/// Protocol-neutral event envelope for cross-service emission and recorder-style pipelines.
+/// It is intentionally CloudEvents-compatible in spirit while remaining simple for internal .NET hosts.
+/// For strict mechanical validation at ingress, use <see cref="DefaultEnvelopeValidator"/> and the JSON schema under <c>schemas/ontogony-envelope.schema.json</c>.
 /// </summary>
 public sealed record OntogonyEnvelope<TPayload>
 {

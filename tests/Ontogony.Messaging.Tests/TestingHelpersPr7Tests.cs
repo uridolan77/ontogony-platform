@@ -10,7 +10,7 @@ public sealed class TestingHelpersPr7Tests
     public async Task PublishedEventRecorder_CapturesPublishedEvents()
     {
         var recorder = new PublishedEventRecorder();
-        var envelope = TestEnvelopeFactory.Create("test.event", "test", new Payload("rec"));
+        var envelope = TestEnvelopeFactory.Create("agentor.run.started", ProtocolNames.Agentor, new Payload("rec"));
 
         await recorder.PublishAsync(envelope);
 
@@ -24,7 +24,7 @@ public sealed class TestingHelpersPr7Tests
         {
             PublishException = new InvalidOperationException("boom")
         };
-        var envelope = TestEnvelopeFactory.Create("test.event", "test", new Payload("x"));
+        var envelope = TestEnvelopeFactory.Create("agentor.run.started", ProtocolNames.Agentor, new Payload("x"));
 
         await Assert.ThrowsAsync<InvalidOperationException>(() => publisher.PublishAsync(envelope));
     }
@@ -32,7 +32,7 @@ public sealed class TestingHelpersPr7Tests
     [Fact]
     public void EnvelopeAssertions_ValidateRequiredFields()
     {
-        var envelope = TestEnvelopeFactory.Create("test.event", "test", new Payload("ok"));
+        var envelope = TestEnvelopeFactory.Create("agentor.run.started", ProtocolNames.Agentor, new Payload("ok"));
 
         EnvelopeAssertions.AssertHasRequiredFields(envelope);
     }
@@ -40,7 +40,7 @@ public sealed class TestingHelpersPr7Tests
     [Fact]
     public void EnvelopeAssertions_ThrowsWhenPayloadHashMissing()
     {
-        var envelope = TestEnvelopeFactory.Create("test.event", "test", new Payload("hash"));
+        var envelope = TestEnvelopeFactory.Create("agentor.run.started", ProtocolNames.Agentor, new Payload("hash"));
 
         Assert.Throws<InvalidOperationException>(() => EnvelopeAssertions.AssertPayloadHashPresent(envelope));
     }

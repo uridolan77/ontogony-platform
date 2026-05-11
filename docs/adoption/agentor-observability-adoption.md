@@ -34,12 +34,13 @@ builder.Services.AddOntogonyIntegrationHttpClient(
 
 var app = builder.Build();
 app.UseOntogonyRequestTracing();
+// If you also use Ontogony.Errors, call UseOntogonyExceptionHandling after tracing — see observability-error-ordering.md.
 ```
 
 ## Compatibility Notes
 
-- Keep accepting and optionally emitting X-Agentor-Trace-Id for backward compatibility where required.
-- Prefer X-Ontogony-Trace-Id and W3C traceparent/tracestate as canonical correlation surfaces.
+- `OntogonyCorrelationContext.FromHeaders` accepts `X-Agentor-Trace-Id` (`OntogonyEventHeaders.LegacyAgentorTraceId`) when `X-Ontogony-Trace-Id` is absent, so older clients keep correlating.
+- Prefer emitting `X-Ontogony-Trace-Id` and W3C `traceparent` / `tracestate` as canonical correlation surfaces on new integrations.
 
 ## Verification Checklist
 

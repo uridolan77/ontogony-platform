@@ -16,5 +16,24 @@ public static class PersistenceServiceCollectionExtensions
 
         return services;
     }
+
+    /// <summary>
+    /// Registers <see cref="InMemoryOutboxStore"/> as the shared instance for outbox and idempotent-consumer contracts (tests and single-process hosts).
+    /// </summary>
+    public static IServiceCollection AddOntogonyInMemoryOutboxStore(
+        this IServiceCollection services,
+        Action<InMemoryOutboxStoreOptions>? configure = null)
+    {
+        var options = new InMemoryOutboxStoreOptions();
+        configure?.Invoke(options);
+        services.AddSingleton(options);
+        services.AddSingleton<InMemoryOutboxStore>(sp =>
+            new InMemoryOutboxStore(sp.GetRequiredService<InMemoryOutboxStoreOptions>(), sp.GetService<IDeadLetterWriter>()));
+        services.AddSingleton<IOutboxWriter>(sp => sp.GetRequiredService<InMemoryOutboxStore>());
+        services.AddSingleton<IOutboxReader>(sp => sp.GetRequiredService<InMemoryOutboxStore>());
+        services.AddSingleton<IOutboxDispatcher>(sp => sp.GetRequiredService<InMemoryOutboxStore>());
+        services.AddSingleton<IProcessedMessageStore>(sp => sp.GetRequiredService<InMemoryOutboxStore>());
+        return services;
+    }
 }
 #pragma warning restore CS0618

@@ -5,6 +5,11 @@ using Xunit;
 
 namespace Ontogony.Messaging.Tests;
 
+internal static class EnvelopeContractSamples
+{
+    public const string PayloadHash64 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+}
+
 public sealed class OntogonyEnvelopeDeterminismTests
 {
     [Fact]
@@ -38,7 +43,7 @@ public sealed class OntogonyEnvelopeDeterminismTests
         var original = new OntogonyEnvelope<TestPayload>
         {
             EventId = "evt_123",
-            EventType = "test.event",
+            EventType = "agentor.run.started",
             Source = "test://source",
             OccurredAt = new DateTimeOffset(2026, 5, 11, 10, 30, 0, TimeSpan.Zero),
             TraceId = "trace-abc",
@@ -48,7 +53,7 @@ public sealed class OntogonyEnvelopeDeterminismTests
             ProjectId = "project-001",
             ActorId = "actor-001",
             SessionId = "session-001",
-            Protocol = "test",
+            Protocol = ProtocolNames.Agentor,
             Payload = new TestPayload("Hello", 42)
         };
 
@@ -76,11 +81,11 @@ public sealed class OntogonyEnvelopeDeterminismTests
         var envelope = new OntogonyEnvelope<TestPayload>
         {
             EventId = "evt_123",
-            EventType = "test.event",
+            EventType = "agentor.run.started",
             Source = "test://source",
             OccurredAt = DateTimeOffset.UtcNow,
             TraceId = "trace-abc",
-            Protocol = "test",
+            Protocol = ProtocolNames.Agentor,
             Payload = new TestPayload("test", 1),
             Metadata = metadata
         };
@@ -95,15 +100,15 @@ public sealed class OntogonyEnvelopeDeterminismTests
     [Fact]
     public void Envelope_PayloadHash_Preserved()
     {
-        var hash = "sha256_abc123def456";
+        var hash = EnvelopeContractSamples.PayloadHash64;
         var envelope = new OntogonyEnvelope<TestPayload>
         {
             EventId = "evt_123",
-            EventType = "test.event",
+            EventType = "agentor.run.started",
             Source = "test://source",
             OccurredAt = DateTimeOffset.UtcNow,
             TraceId = "trace-abc",
-            Protocol = "test",
+            Protocol = ProtocolNames.Agentor,
             Payload = new TestPayload("test", 1),
             PayloadHash = hash
         };
@@ -119,11 +124,11 @@ public sealed class OntogonyEnvelopeDeterminismTests
         return new OntogonyEnvelope<TestPayload>
         {
             EventId = "evt_123",
-            EventType = "test.event",
+            EventType = "agentor.run.started",
             Source = "test://source",
             OccurredAt = new DateTimeOffset(2026, 5, 11, 10, 0, 0, TimeSpan.Zero),
             TraceId = "trace-abc",
-            Protocol = "test",
+            Protocol = ProtocolNames.Agentor,
             Payload = new TestPayload("Hello", 42)
         };
     }
@@ -140,11 +145,11 @@ public sealed class EnvelopeRefTypesTests
         var envelope = new OntogonyEnvelope<ActorRef>
         {
             EventId = "evt_1",
-            EventType = "actor.created",
-            Source = "test",
+            EventType = "athanor.actor.created",
+            Source = "https://tests.local/actor",
             OccurredAt = DateTimeOffset.UtcNow,
             TraceId = "trace-1",
-            Protocol = "test",
+            Protocol = ProtocolNames.Athanor,
             Payload = actor
         };
 
@@ -163,11 +168,11 @@ public sealed class EnvelopeRefTypesTests
         var envelope = new OntogonyEnvelope<SubjectRef>
         {
             EventId = "evt_2",
-            EventType = "item.updated",
-            Source = "test",
+            EventType = "conexus.item.updated",
+            Source = "https://tests.local/subject",
             OccurredAt = DateTimeOffset.UtcNow,
             TraceId = "trace-2",
-            Protocol = "test",
+            Protocol = ProtocolNames.Conexus,
             Payload = subject
         };
 
@@ -191,11 +196,11 @@ public sealed class EnvelopeRefTypesTests
         var envelope = new OntogonyEnvelope<ArtifactRef>
         {
             EventId = "evt_3",
-            EventType = "artifact.created",
-            Source = "test",
+            EventType = "athanor.artifact.created",
+            Source = "https://tests.local/artifact",
             OccurredAt = DateTimeOffset.UtcNow,
             TraceId = "trace-3",
-            Protocol = "test",
+            Protocol = ProtocolNames.Athanor,
             Payload = artifact
         };
 
@@ -213,11 +218,11 @@ public sealed class EnvelopeRefTypesTests
         var envelope = new OntogonyEnvelope<TraceRef>
         {
             EventId = "evt_4",
-            EventType = "trace.recorded",
-            Source = "test",
+            EventType = "otel.trace.recorded",
+            Source = "https://tests.local/trace",
             OccurredAt = DateTimeOffset.UtcNow,
             TraceId = "trace-abc",
-            Protocol = "test",
+            Protocol = ProtocolNames.OpenTelemetry,
             Payload = trace
         };
 
@@ -321,8 +326,8 @@ public sealed class CloudEventsConversionTests
         var envelope = new OntogonyEnvelope<TestData>
         {
             EventId = "evt_1",
-            EventType = "test.event",
-            Source = "test",
+            EventType = "agentor.run.started",
+            Source = "https://tests.local/default",
             OccurredAt = DateTimeOffset.UtcNow,
             TraceId = "trace-abc",
             SpanId = "span-1",
@@ -331,8 +336,9 @@ public sealed class CloudEventsConversionTests
             ProjectId = "project-1",
             ActorId = "actor-1",
             SessionId = "session-1",
-            Protocol = "test",
-            PayloadHash = "sha256_xyz",
+            Protocol = ProtocolNames.Agentor,
+            PayloadHash = EnvelopeContractSamples.PayloadHash64,
+            SchemaVersion = "1.0",
             Payload = new TestData("test")
         };
 
@@ -346,8 +352,9 @@ public sealed class CloudEventsConversionTests
         Assert.Equal("project-1", cloudEvent.Extensions!["projectId"]);
         Assert.Equal("actor-1", cloudEvent.Extensions!["actorId"]);
         Assert.Equal("session-1", cloudEvent.Extensions!["sessionId"]);
-        Assert.Equal("test", cloudEvent.Extensions!["protocol"]);
-        Assert.Equal("sha256_xyz", cloudEvent.Extensions!["payloadHash"]);
+        Assert.Equal(ProtocolNames.Agentor, cloudEvent.Extensions!["protocol"]);
+        Assert.Equal(EnvelopeContractSamples.PayloadHash64, cloudEvent.Extensions!["payloadHash"]);
+        Assert.Equal("1.0", cloudEvent.Extensions!["schemaVersion"]);
     }
 
     [Fact]
@@ -356,7 +363,7 @@ public sealed class CloudEventsConversionTests
         var cloudEvent = new CloudEventEnvelope
         {
             Id = "evt_1",
-            Type = "test.event",
+            Type = "agentor.run.started",
             Source = "test://source",
             Time = "2026-05-11T10:00:00Z",
             Data = new TestData("test"),
@@ -371,7 +378,7 @@ public sealed class CloudEventsConversionTests
         var envelope = cloudEvent.ToOntogonyEnvelope<TestData>();
 
         Assert.Equal("evt_1", envelope.EventId);
-        Assert.Equal("test.event", envelope.EventType);
+        Assert.Equal("agentor.run.started", envelope.EventType);
         Assert.Equal("trace-abc", envelope.TraceId);
         Assert.Equal("tenant-1", envelope.TenantId);
         Assert.Equal("project-1", envelope.ProjectId);
@@ -383,11 +390,11 @@ public sealed class CloudEventsConversionTests
         var original = new OntogonyEnvelope<TestData>
         {
             EventId = "evt_xyz",
-            EventType = "test.event",
-            Source = "test",
+            EventType = "agentor.run.started",
+            Source = "https://tests.local/default",
             OccurredAt = new DateTimeOffset(2026, 5, 11, 10, 0, 0, TimeSpan.Zero),
             TraceId = "trace-1",
-            Protocol = "test",
+            Protocol = ProtocolNames.Agentor,
             Payload = new TestData("original content")
         };
 
@@ -406,11 +413,11 @@ public sealed class CloudEventsConversionTests
         var envelope = new OntogonyEnvelope<TestData>
         {
             EventId = "evt_1",
-            EventType = "test.event",
-            Source = "test",
+            EventType = "agentor.run.started",
+            Source = "https://tests.local/default",
             OccurredAt = DateTimeOffset.UtcNow,
             TraceId = "trace-1",
-            Protocol = "test",
+            Protocol = ProtocolNames.Agentor,
             Payload = new TestData("test")
         };
 
@@ -428,7 +435,7 @@ public sealed class CloudEventsConversionTests
         var cloudEvent = new CloudEventEnvelope
         {
             Id = "evt_protocol",
-            Type = "test.event",
+            Type = "agentor.run.started",
             Source = "test://source",
             Time = "2026-05-11T10:00:00Z",
             Data = new TestData("payload"),
@@ -450,7 +457,7 @@ public sealed class CloudEventsConversionTests
         var cloudEvent = new CloudEventEnvelope
         {
             Id = "evt_json",
-            Type = "test.event",
+            Type = "agentor.run.started",
             Source = "test://source",
             Time = "2026-05-11T10:00:00Z",
             Data = new TestData("payload"),
@@ -479,6 +486,105 @@ public sealed class CloudEventsConversionTests
         Assert.Equal("a2a", envelope.Protocol);
         Assert.Equal("verbose", envelope.Metadata["detailLevel"]);
         Assert.Equal("2", envelope.Metadata["attempt"]);
+    }
+
+    [Fact]
+    public void Envelope_ToCloudEvent_Includes_SchemaVersion_Extension()
+    {
+        var envelope = new OntogonyEnvelope<TestData>
+        {
+            EventId = "evt_schema",
+            EventType = "agentor.run.started",
+            Source = "https://tests.local/default",
+            OccurredAt = DateTimeOffset.Parse("2026-05-11T10:00:00Z"),
+            TraceId = "trace-schema",
+            Protocol = ProtocolNames.Agentor,
+            SchemaVersion = "2.1",
+            Payload = new TestData("x")
+        };
+
+        var cloud = envelope.ToCloudEvent();
+        Assert.Equal("2.1", cloud.Extensions!["schemaVersion"].ToString());
+    }
+
+    [Fact]
+    public void Envelope_CloudEvents_RoundTrip_Preserves_Protocol_Trace_Metadata_PayloadHash_Schema()
+    {
+        var original = new OntogonyEnvelope<TestData>
+        {
+            EventId = "evt_rt",
+            EventType = "mcp.tool.invoked",
+            Source = "mcp://host/run",
+            OccurredAt = DateTimeOffset.Parse("2026-05-11T11:00:00Z"),
+            TraceId = "trace-rt",
+            Protocol = ProtocolNames.Mcp,
+            SchemaVersion = "3.0",
+            PayloadHash = EnvelopeContractSamples.PayloadHash64,
+            Metadata = new Dictionary<string, string> { ["k"] = "v" },
+            Payload = new TestData("payload")
+        };
+
+        var json = original.ToCloudEventJson();
+        var cloud = JsonSerializer.Deserialize<CloudEventEnvelope>(json)!;
+        var restored = cloud.ToOntogonyEnvelope<TestData>();
+
+        Assert.Equal(original.EventId, restored.EventId);
+        Assert.Equal(original.EventType, restored.EventType);
+        Assert.Equal(original.Source, restored.Source);
+        Assert.Equal(original.TraceId, restored.TraceId);
+        Assert.Equal(original.Protocol, restored.Protocol);
+        Assert.Equal(original.SchemaVersion, restored.SchemaVersion);
+        Assert.Equal(original.PayloadHash, restored.PayloadHash);
+        Assert.Equal("v", restored.Metadata["k"]);
+        Assert.Equal(original.Payload.Content, restored.Payload.Content);
+    }
+
+    [Fact]
+    public void ToOntogonyEnvelope_InvalidSpecVersion_Throws()
+    {
+        var cloudEvent = new CloudEventEnvelope
+        {
+            SpecVersion = "0.3-wip",
+            Id = "bad",
+            Source = "https://x",
+            Type = "mcp.tool.call",
+            Time = "2026-05-11T10:00:00Z",
+            Data = new TestData("a")
+        };
+
+        var ex = Assert.Throws<InvalidOperationException>(() => cloudEvent.ToOntogonyEnvelope<TestData>());
+        Assert.Contains("specversion", ex.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void ToOntogonyEnvelope_RejectWhenMissingTrace_Throws()
+    {
+        var cloudEvent = new CloudEventEnvelope
+        {
+            Id = "e1",
+            Source = "https://x",
+            Type = "mcp.tool.call",
+            Time = "2026-05-11T10:00:00Z",
+            Data = new TestData("a"),
+            Extensions = new Dictionary<string, object>()
+        };
+
+        var options = new CloudEventConversionOptions { TraceIdPolicy = CloudEventTraceIdPolicy.RejectWhenMissing };
+        var ex = Assert.Throws<InvalidOperationException>(() => cloudEvent.ToOntogonyEnvelope<TestData>(options));
+        Assert.Contains("traceId", ex.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void CloudEventJson_Raw_Deserializes_Protocol_FromJsonElement()
+    {
+        const string json =
+            "{\"specversion\":\"1.0\",\"id\":\"e1\",\"source\":\"https://x\",\"type\":\"mcp.tool.call\",\"datacontenttype\":\"application/json\",\"time\":\"2026-05-11T10:00:00Z\",\"data\":{\"Content\":\"z\"},\"traceId\":\"t-json\",\"protocol\":\"mcp\"}";
+
+        var cloud = JsonSerializer.Deserialize<CloudEventEnvelope>(json)!;
+        var envelope = cloud.ToOntogonyEnvelope<TestData>();
+
+        Assert.Equal("t-json", envelope.TraceId);
+        Assert.Equal(ProtocolNames.Mcp, envelope.Protocol);
     }
 
     private sealed record TestData(string Content);

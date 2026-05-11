@@ -11,7 +11,7 @@ public sealed class OntogonyPersistencePr8Tests
         var message = new OutboxMessage(
             MessageId: "msg-1",
             EventId: "evt-1",
-            EventType: "test.event",
+            EventType: "agentor.run.started",
             Source: "test://source",
             TraceId: "trace-1",
             OccurredAt: new DateTimeOffset(2026, 5, 11, 10, 0, 0, TimeSpan.Zero),
@@ -31,7 +31,7 @@ public sealed class OntogonyPersistencePr8Tests
         var message = new OutboxMessage(
             MessageId: "msg-1",
             EventId: "evt-1",
-            EventType: "test.event",
+            EventType: "agentor.run.started",
             Source: "test://source",
             TraceId: "trace-1",
             OccurredAt: new DateTimeOffset(2026, 5, 11, 10, 0, 0, TimeSpan.Zero),

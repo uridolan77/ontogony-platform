@@ -1,5 +1,7 @@
 # Conexus Event Emission Adoption
 
+Broader Conexus mechanics (HTTP correlation, optional .NET stack): [`conexus-platform-adoption.md`](./conexus-platform-adoption.md).
+
 This guide describes emitting Ontogony envelope-compatible events from Conexus (Python or other non-.NET service).
 
 ## Scope

@@ -1,5 +1,7 @@
 # Athanor Observability Adoption
 
+Phased package order and when to adopt hashing/contracts first: [`athanor-platform-adoption.md`](./athanor-platform-adoption.md).
+
 This guide describes adopting Ontogony.Observability and Ontogony.Errors in Athanor while preserving Athanor semantics.
 
 ## Scope
@@ -36,7 +38,8 @@ app.UseOntogonyExceptionHandling();
 
 ## Compatibility Notes
 
-- Keep X-Athanor-Trace-Id compatibility if existing clients depend on it.
+- `OntogonyCorrelationContext.FromHeaders` still accepts `X-Athanor-Trace-Id` (`OntogonyEventHeaders.LegacyAthanorTraceId`) when `X-Ontogony-Trace-Id` is absent.
+- Prefer emitting `X-Ontogony-Trace-Id` (and W3C `traceparent` / `tracestate` when applicable) for new callers.
 - Ensure stable public error codes/messages for existing Athanor consumers.
 
 ## Verification Checklist

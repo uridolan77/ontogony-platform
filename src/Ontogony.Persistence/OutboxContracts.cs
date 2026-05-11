@@ -36,6 +36,9 @@ public interface IUnitOfWorkBoundary
     Task<TResult> ExecuteAsync<TResult>(Func<CancellationToken, Task<TResult>> operation, CancellationToken cancellationToken = default);
 }
 
+/// <summary>
+/// Mechanical DTO for a single outbox row (SQL-agnostic). Hosts map this to storage; this package does not ship a database implementation.
+/// </summary>
 public sealed record OutboxMessage(
     string MessageId,
     string EventId,
@@ -63,6 +66,9 @@ public sealed record OutboxDispatchResult(
     DateTimeOffset NextAvailableAt,
     string? LastError = null);
 
+/// <summary>
+/// Shared validation and helper routines for outbox contracts. Does not perform I/O.
+/// </summary>
 public static class OutboxContracts
 {
     public static void Validate(OutboxMessage message)

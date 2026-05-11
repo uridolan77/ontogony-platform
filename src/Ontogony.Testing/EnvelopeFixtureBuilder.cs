@@ -5,7 +5,7 @@ namespace Ontogony.Testing;
 public sealed class EnvelopeFixtureBuilder<TPayload>
 {
     private string _eventId = "evt_fixture_0001";
-    private string _eventType = "test.event";
+    private string _eventType = "agentor.run.started";
     private string _source = "test://fixture";
     private DateTimeOffset _occurredAt = new(2026, 1, 1, 0, 0, 0, TimeSpan.Zero);
     private string _traceId = "trace_fixture";
@@ -14,7 +14,7 @@ public sealed class EnvelopeFixtureBuilder<TPayload>
     private string? _projectId;
     private string? _actorId;
     private string? _sessionId;
-    private string _protocol = "test";
+    private string _protocol = ProtocolNames.Agentor;
     private string _schemaVersion = "1.0";
     private string? _payloadHash;
     private readonly Dictionary<string, string> _metadata = new(StringComparer.Ordinal);

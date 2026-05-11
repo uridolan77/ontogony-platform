@@ -5,6 +5,7 @@
 ## Guarantees
 
 - Documented **outbox contract** (mechanical fields and lifecycle expectations) in `docs/persistence/`.
+- **`InMemoryOutboxStore`** reference implementation for tests and single-process hosts (`IOutboxWriter`, `IOutboxReader`, `IOutboxDispatcher`, `IProcessedMessageStore`), plus optional **`IDeadLetterWriter`** integration.
 
 ## Does not guarantee
 

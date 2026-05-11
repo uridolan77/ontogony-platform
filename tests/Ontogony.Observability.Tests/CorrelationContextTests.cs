@@ -93,7 +93,7 @@ public sealed class CorrelationContextTests
         {
             EventId = "evt-1",
             EventType = "agent.run.started",
-            Source = "tests",
+            Source = "https://tests.local/from-envelope",
             OccurredAt = DateTimeOffset.UtcNow,
             TraceId = "trace-1",
             TenantId = "tenant-1",

@@ -5,9 +5,8 @@ using System.Text;
 namespace Ontogony.Idempotency;
 
 /// <summary>
-/// Constructs deterministic idempotency keys for operations with payload fingerprinting.
-/// Format: {namespace}:{operation}:{version}:{sha256_hash}
-/// Example: ontogony:agentor.run.start:v1:abc123def456...
+/// Constructs deterministic idempotency key strings from canonical JSON fingerprints.
+/// Keys are opaque to this library; deduplication semantics live in <see cref="IIdempotencyLedger"/> implementations.
 /// </summary>
 public sealed class IdempotencyKeyBuilder
 {
