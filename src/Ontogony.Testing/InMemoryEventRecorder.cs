@@ -3,15 +3,15 @@ using Ontogony.Messaging;
 
 namespace Ontogony.Testing;
 
+[Obsolete("Use PublishedEventRecorder for new tests.")]
 public sealed class InMemoryEventRecorder : IEventPublisher
 {
-    private readonly List<object> _events = new();
+    private readonly PublishedEventRecorder _inner = new();
 
-    public IReadOnlyList<object> Events => _events;
+    public IReadOnlyList<object> Events => _inner.PublishedEvents;
 
     public Task PublishAsync<TPayload>(OntogonyEnvelope<TPayload> envelope, CancellationToken cancellationToken = default)
     {
-        _events.Add(envelope);
-        return Task.CompletedTask;
+        return _inner.PublishAsync(envelope, cancellationToken);
     }
 }

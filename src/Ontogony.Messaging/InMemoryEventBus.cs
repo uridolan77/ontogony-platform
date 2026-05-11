@@ -4,28 +4,27 @@ namespace Ontogony.Messaging;
 
 public sealed class InMemoryEventBus : IEventPublisher
 {
-    private readonly List<object> _handlers = new();
-    private readonly object _sync = new();
+    private readonly InMemoryEventPublisher _publisher;
+
+    public InMemoryEventBus()
+    {
+        _publisher = new InMemoryEventPublisher();
+    }
+
+    public InMemoryEventBus(InMemoryEventPublisher publisher)
+    {
+        _publisher = publisher;
+    }
+
+    public InMemoryEventSink Sink => _publisher.Sink;
 
     public void Register<TPayload>(IEventHandler<TPayload> handler)
     {
-        lock (_sync)
-        {
-            _handlers.Add(handler);
-        }
+        _publisher.Register(handler);
     }
 
     public async Task PublishAsync<TPayload>(OntogonyEnvelope<TPayload> envelope, CancellationToken cancellationToken = default)
     {
-        List<IEventHandler<TPayload>> snapshot;
-        lock (_sync)
-        {
-            snapshot = _handlers.OfType<IEventHandler<TPayload>>().ToList();
-        }
-
-        foreach (var handler in snapshot)
-        {
-            await handler.HandleAsync(envelope, cancellationToken);
-        }
+        await _publisher.PublishAsync(envelope, cancellationToken).ConfigureAwait(false);
     }
 }

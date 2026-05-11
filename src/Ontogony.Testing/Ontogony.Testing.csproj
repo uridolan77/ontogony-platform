@@ -6,7 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Ontogony.Contracts\Ontogony.Contracts.csproj" />
+    <ProjectReference Include="..\Ontogony.Errors\Ontogony.Errors.csproj" />
     <ProjectReference Include="..\Ontogony.Observability\Ontogony.Observability.csproj" />
     <ProjectReference Include="..\Ontogony.Hashing\Ontogony.Hashing.csproj" />
     <ProjectReference Include="..\Ontogony.Messaging\Ontogony.Messaging.csproj" />

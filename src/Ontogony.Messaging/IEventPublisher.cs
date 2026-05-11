@@ -11,3 +11,10 @@ public interface IEventHandler<TPayload>
 {
     Task HandleAsync(OntogonyEnvelope<TPayload> envelope, CancellationToken cancellationToken = default);
 }
+
+public interface IEventSerializer
+{
+    string Serialize<TPayload>(OntogonyEnvelope<TPayload> envelope);
+
+    OntogonyEnvelope<TPayload> Deserialize<TPayload>(string json);
+}

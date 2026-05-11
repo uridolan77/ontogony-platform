@@ -110,6 +110,84 @@ PR6.1 foundation correctness hardening:
 - Added focused regression tests for all above behaviors.
 - All 168 tests pass.
 
+PR7 messaging v1:
+
+- Added EventDispatchOptions to control dispatch behavior:
+	- ContinueOnHandlerException
+	- ComputePayloadHash
+	- ValidateRequiredEnvelopeFields
+- Added IEventSerializer and JsonEventSerializer for envelope serialization/deserialization.
+- Added InMemoryEventSink for capture/read/clear workflows in local runs and tests.
+- Added InMemoryEventPublisher with:
+	- envelope publishing
+	- in-memory sink capture
+	- registered handler dispatch
+	- optional payload hash computation
+	- required field validation guard
+	- configurable handler exception behavior
+- Updated InMemoryEventBus to remain backward-compatible as a wrapper over InMemoryEventPublisher.
+- Added Ontogony.Testing helpers:
+	- PublishedEventRecorder
+	- FakeEventPublisher
+	- EnvelopeAssertions
+	- legacy InMemoryEventRecorder now forwards to PublishedEventRecorder
+- Added PR7 coverage for publish capture, handler dispatch/fan-out, exception policy, metadata preservation, payload-hash option, validation behavior, serializer round-trip, and testing helpers.
+
+PR8 persistence foundations v1:
+
+- Added SQL-agnostic persistence contracts in Ontogony.Persistence:
+	- IOutboxWriter
+	- IOutboxReader
+	- IOutboxDispatcher
+	- IProcessedMessageStore
+	- IUnitOfWorkBoundary
+- Added neutral records:
+	- OutboxMessage
+	- ProcessedMessage
+	- OutboxDispatchResult
+- Added mechanical helper surface in OutboxContracts:
+	- message validation
+	- deterministic processed-message key construction
+	- retry next-available scheduling
+	- deterministic metadata JSON serialization
+- Added documentation:
+	- docs/persistence/outbox-contract.md
+	- docs/persistence/idempotent-consumer.md
+- Added PR8 tests for outbox validation, processed key construction, retry schedule calculation, and metadata serialization.
+- All 187 tests pass.
+
+PR9 testing package v1:
+
+- Expanded Ontogony.Testing fixture surface with:
+	- FakeIdGenerator
+	- FakeCurrentActorAccessor
+	- StubHttpMessageHandler
+	- RecordingHttpMessageHandler
+	- TestCorrelationScope
+	- EnvelopeFixtureBuilder<TPayload>
+	- ApiErrorAssertions
+	- CanonicalJsonAssertions
+	- MiddlewareTestHarness (default HttpContext creation, pipeline run, JSON/header assertions)
+- Added framework and package references needed by fixture helpers in Ontogony.Testing.
+- Added fixture self-tests in Ontogony.Infrastructure.Tests covering deterministic time/ids, actor access, HTTP scripting/recording, correlation scope push/pop, envelope building, API error assertions, canonical JSON assertions, and middleware harness behavior.
+
+PR10 documentation and examples v1:
+
+- Added adoption guides:
+	- docs/adoption/agentor-observability-adoption.md
+	- docs/adoption/athanor-observability-adoption.md
+	- docs/adoption/conexus-event-emission-adoption.md
+	- docs/adoption/http-client-adoption.md
+	- docs/adoption/package-versioning.md
+- Existing guide retained:
+	- docs/adoption/error-middleware-adoption.md
+- Added example directories with explicit documentation-only status:
+	- examples/IntegrationHttpClientExample/
+	- examples/EventEnvelopeExample/
+	- examples/ErrorMiddlewareExample/
+- Added do-not-do guidance in new adoption docs/examples to reinforce package boundary and safety rules.
+- All 197 tests pass.
+
 ## 0.1.0-starter
 
 Initial starter package.
