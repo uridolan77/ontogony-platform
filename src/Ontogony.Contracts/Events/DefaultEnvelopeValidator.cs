@@ -56,8 +56,8 @@ public sealed partial class DefaultEnvelopeValidator : IEnvelopeValidator
 
         if (string.IsNullOrWhiteSpace(envelope.Source))
             errors.Add(new EnvelopeValidationError(nameof(envelope.Source), "Source is required.", "required"));
-        else if (!IsUriLikeOrServiceLike(envelope.Source.Trim()))
-            errors.Add(new EnvelopeValidationError(nameof(envelope.Source), "Source must be an absolute URI or service-like URI (scheme://authority or path).", "format"));
+        else if (!Uri.TryCreate(envelope.Source.Trim(), UriKind.Absolute, out _))
+            errors.Add(new EnvelopeValidationError(nameof(envelope.Source), "Source must be an absolute URI.", "format"));
 
         if (envelope.OccurredAt == default)
             errors.Add(new EnvelopeValidationError(nameof(envelope.OccurredAt), "OccurredAt must not be default.", "required"));
@@ -83,9 +83,6 @@ public sealed partial class DefaultEnvelopeValidator : IEnvelopeValidator
 
         return errors.Count == 0 ? EnvelopeValidationResult.Ok() : EnvelopeValidationResult.Fail(errors);
     }
-
-    private static bool IsUriLikeOrServiceLike(string source) =>
-        Uri.TryCreate(source, UriKind.Absolute, out _);
 
     private static bool IsValidPayloadHash(string hash) => PayloadHashRegex().IsMatch(hash);
 

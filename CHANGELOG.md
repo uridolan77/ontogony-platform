@@ -4,6 +4,12 @@
 
 Comprehensive shared-infrastructure extraction pass.
 
+PR16–PR17 — Security HMAC hardening and Contracts polish:
+
+- **Security:** `ServiceIdentityOptions` adds `MaxSignedBodyBytes` and `AllowUnsignedEmptyBody`; `IRequestBodyHashProvider` now returns `RequestBodyHashResult` from `TryComputeSha256HexLower` (bounded reads; no unbounded synchronous copy). Default `Sha256RequestBodyHashProvider` is DI-friendly; `Sha256RequestBodyHashProvider.Instance` removed. `ServiceIdentityBodyHashPreloadMiddleware` + `UseOntogonyServiceIdentityBodyHashPreload()` preload body hashes asynchronously with the same cap. `InMemoryNonceReplayStore` gains `InMemoryNonceReplayStoreOptions` (retention + max entries), optional clock func, and documents distributed-store requirement for production clusters.
+- **Contracts:** `DefaultEnvelopeValidator` requires absolute URI `Source` with consistent error text. `CloudEventConversionOptions.AllowNullCloudEventData` controls null `data` when converting to `OntogonyEnvelope`. JSON schema `Source` description tightened.
+- Migration note: `docs/migrations/2026-05-11-pr16-pr17-security-contracts.md`.
+
 PR15 — Envelope validation and CloudEvents hardening:
 
 - Added `IEnvelopeValidator`, `EnvelopeValidationResult`, `EnvelopeValidationError`, `DefaultEnvelopeValidator`, and `EnvelopeValidatorOptions` (mechanical rules: safe `EventId`/`TraceId`, `protocol.entity.verb` event types, absolute URI `Source`, optional `PayloadHash` as 64 lowercase hex, optional protocol allowlist).

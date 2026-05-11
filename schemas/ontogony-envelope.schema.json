@@ -29,7 +29,7 @@
     "Source": {
       "type": "string",
       "minLength": 1,
-      "description": "Absolute URI (including custom schemes such as mcp://)."
+      "description": "Absolute URI only (including custom schemes such as mcp://). Relative paths are not accepted."
     },
     "OccurredAt": {
       "type": "string",

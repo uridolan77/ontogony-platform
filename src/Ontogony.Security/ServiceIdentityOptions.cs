@@ -47,6 +47,18 @@ public sealed class ServiceIdentityOptions
     public Dictionary<string, string> ServiceSecrets { get; set; } = new(StringComparer.Ordinal);
 
     /// <summary>
+    /// Maximum number of raw request body bytes considered when recomputing the SHA-256 for HMAC verification.
+    /// Bodies larger than this fail verification without hashing the remainder.
+    /// </summary>
+    public int MaxSignedBodyBytes { get; set; } = 1_000_000;
+
+    /// <summary>
+    /// When true and the request is <see cref="HttpRequestBodyAnalysis.IsDefinitelyEmptyBody"/> (for example GET or <c>Content-Length: 0</c>),
+    /// a missing <see cref="OntogonyServiceIdentityHeaders.BodyHash"/> header is treated as the hash of the empty byte sequence.
+    /// </summary>
+    public bool AllowUnsignedEmptyBody { get; set; } = true;
+
+    /// <summary>
     /// Gets the expected static signature for a service ID (StaticSharedSecret mode).
     /// </summary>
     public string? GetExpectedSignature(string serviceId)

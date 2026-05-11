@@ -587,5 +587,58 @@ public sealed class CloudEventsConversionTests
         Assert.Equal(ProtocolNames.Mcp, envelope.Protocol);
     }
 
+    [Fact]
+    public void ToOntogonyEnvelope_NullData_DefaultOptions_Throws()
+    {
+        var cloudEvent = new CloudEventEnvelope
+        {
+            Id = "e1",
+            Source = "https://x",
+            Type = "mcp.tool.call",
+            Time = "2026-05-11T10:00:00Z",
+            Data = null,
+            Extensions = new Dictionary<string, object> { ["traceId"] = "t1" }
+        };
+
+        var ex = Assert.Throws<InvalidOperationException>(() => cloudEvent.ToOntogonyEnvelope<TestData>());
+        Assert.Contains("CloudEvent data", ex.Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void ToOntogonyEnvelope_NullData_AllowNull_ReferencePayload_IsNull()
+    {
+        var cloudEvent = new CloudEventEnvelope
+        {
+            Id = "e1",
+            Source = "https://x",
+            Type = "mcp.tool.call",
+            Time = "2026-05-11T10:00:00Z",
+            Data = null,
+            Extensions = new Dictionary<string, object> { ["traceId"] = "t1" }
+        };
+
+        var options = new CloudEventConversionOptions { AllowNullCloudEventData = true };
+        var envelope = cloudEvent.ToOntogonyEnvelope<TestData>(options);
+        Assert.Null(envelope.Payload);
+    }
+
+    [Fact]
+    public void ToOntogonyEnvelope_NullData_AllowNull_NonNullableStruct_Throws()
+    {
+        var cloudEvent = new CloudEventEnvelope
+        {
+            Id = "e1",
+            Source = "https://x",
+            Type = "mcp.tool.call",
+            Time = "2026-05-11T10:00:00Z",
+            Data = null,
+            Extensions = new Dictionary<string, object> { ["traceId"] = "t1" }
+        };
+
+        var options = new CloudEventConversionOptions { AllowNullCloudEventData = true };
+        var ex = Assert.Throws<InvalidOperationException>(() => cloudEvent.ToOntogonyEnvelope<int>(options));
+        Assert.Contains("value type", ex.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
     private sealed record TestData(string Content);
 }

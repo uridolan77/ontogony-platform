@@ -27,7 +27,16 @@ When `ServiceIdentityOptions.RequireHmacSignature` is `true`, callers should sen
 
 **Nonce replay**: When `RequireNonce` is `true`, an `INonceReplayStore` must reject reused nonces for the same service id. If no store is registered, verification fails.
 
-**Body hashing**: The server recomputes the SHA-256 of the body (buffering may be required) and compares it to `X-Ontogony-Service-Body-Hash` using constant-time equality before validating the HMAC.
+**Production clusters** must use a **distributed** `INonceReplayStore` (shared database, Redis, etc.). `InMemoryNonceReplayStore` is process-local only: it evicts by `NonceRetention` and caps size with `MaxStoredNonces`, but it does not coordinate across nodes.
+
+## Body hashing, size limits, and async preload
+
+- **`MaxSignedBodyBytes`** (default `1_000_000`): the server never hashes more than this many raw body bytes for comparison. Larger bodies fail verification.
+- **`AllowUnsignedEmptyBody`** (default `true`): when the request is classified as definitely empty (for example `GET`/`HEAD`/`OPTIONS`/`TRACE`, or `Content-Length: 0`), a missing `X-Ontogony-Service-Body-Hash` header is treated as the hash of the **empty** byte sequence. For `POST`/`PUT`/`PATCH`/`DELETE`, callers should send the body hash header unless the body is provably empty the same way.
+
+**`IRequestBodyHashProvider`** implements `TryComputeSha256HexLower(HttpRequest)` and returns `RequestBodyHashResult` (`Succeeded` / `TooLarge`). The default `Sha256RequestBodyHashProvider` uses `IOptions<ServiceIdentityOptions>` for limits.
+
+**Recommended for ASP.NET Core hosts**: register `app.UseOntogonyServiceIdentityBodyHashPreload()` early in the pipeline (before endpoints read the body). The middleware asynchronously reads the body up to `MaxSignedBodyBytes`, stores the digest on `HttpContext.Items` (`ServiceIdentityBodyHashContext`), and swaps `HttpRequest.Body` with a bounded in-memory stream so the rest of the pipeline can re-read it. `ServiceIdentityCurrentActorAccessor` prefers this preload when present.
 
 ## Static shared secret mode (internal / development only)
 
@@ -37,8 +46,8 @@ When `RequireSignatureVerification` is `true` and `RequireHmacSignature` is `fal
 
 - `IServiceSecretResolver` — resolves the shared secret for a service id (defaults to `ServiceSecrets` on `ServiceIdentityOptions` when no custom resolver is registered).
 - `INonceReplayStore` — optional replay protection for HMAC mode.
-- `IRequestBodyHashProvider` — computes the lowercase hex SHA-256 of the request body (defaults to a built-in provider; may be replaced if you pre-hash elsewhere).
+- `IRequestBodyHashProvider` — computes the lowercase hex SHA-256 of the request body with explicit size results (defaults to `Sha256RequestBodyHashProvider`; may be replaced if you pre-hash elsewhere).
 
 ## Registration
 
-Use `AddOntogonyServiceIdentityActorContext` and configure `ServiceIdentityOptions`. Register `INonceReplayStore` (and optionally `IServiceSecretResolver`, `IRequestBodyHashProvider`) in DI when using HMAC mode with non-default behavior.
+Use `AddOntogonyServiceIdentityActorContext` and configure `ServiceIdentityOptions`. Register `INonceReplayStore` (and optionally `IServiceSecretResolver`, `IRequestBodyHashProvider`) in DI when using HMAC mode with non-default behavior. For production HMAC on mutating HTTP methods, also call `UseOntogonyServiceIdentityBodyHashPreload()`.

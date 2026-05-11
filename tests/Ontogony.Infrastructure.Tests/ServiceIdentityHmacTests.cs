@@ -158,6 +158,146 @@ public sealed class ServiceIdentityHmacTests
         Assert.NotNull(accessor.Current);
     }
 
+    [Fact]
+    public void Current_WithHmac_BodyExceedsMaxSignedBytes_ReturnsNull()
+    {
+        var nonces = new InMemoryNonceReplayStore();
+        var options = new ServiceIdentityOptions
+        {
+            RequireHmacSignature = true,
+            MaxSignedBodyBytes = 4,
+            AllowUnsignedEmptyBody = false,
+            ServiceSecrets = { ["svc"] = "unit-test-secret" }
+        };
+
+        var body = "12345";
+        var bodyBytes = Encoding.UTF8.GetBytes(body);
+        var bodyHash = ServiceIdentityHmacSignatureHelper.ComputeBodyHashHexLower(bodyBytes);
+        var ts = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(CultureInfo.InvariantCulture);
+        var nonce = Guid.NewGuid().ToString("n");
+        var pathAndQuery = "/events";
+
+        var context = new DefaultHttpContext();
+        context.Request.Method = "POST";
+        context.Request.Path = new PathString("/events");
+        context.Request.Body = new MemoryStream(bodyBytes);
+        context.Request.ContentLength = bodyBytes.Length;
+        context.Request.Headers[options.ServiceIdHeaderName] = "svc";
+        context.Request.Headers[options.ServiceTimestampHeaderName] = ts;
+        context.Request.Headers[options.ServiceNonceHeaderName] = nonce;
+        context.Request.Headers[options.ServiceBodyHashHeaderName] = bodyHash;
+        context.Request.Headers[options.SignatureHeaderName] =
+            ServiceIdentityHmacSignatureHelper.ComputeSignatureBase64(
+                "unit-test-secret", "POST", pathAndQuery, ts, nonce, bodyHash);
+
+        _contextAccessor.HttpContext = context;
+
+        var accessor = new ServiceIdentityCurrentActorAccessor(_contextAccessor, options, nonceReplayStore: nonces);
+        Assert.Null(accessor.Current);
+    }
+
+    [Fact]
+    public void Current_WithHmac_MissingBodyHash_OnPost_ReturnsNull()
+    {
+        var nonces = new InMemoryNonceReplayStore();
+        var options = new ServiceIdentityOptions
+        {
+            RequireHmacSignature = true,
+            AllowUnsignedEmptyBody = false,
+            ServiceSecrets = { ["svc"] = "unit-test-secret" }
+        };
+
+        var body = "{}";
+        var bodyBytes = Encoding.UTF8.GetBytes(body);
+        var ts = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(CultureInfo.InvariantCulture);
+        var nonce = Guid.NewGuid().ToString("n");
+        var pathAndQuery = "/events";
+        var bodyHash = ServiceIdentityHmacSignatureHelper.ComputeBodyHashHexLower(bodyBytes);
+
+        var context = new DefaultHttpContext();
+        context.Request.Method = "POST";
+        context.Request.Path = new PathString("/events");
+        context.Request.Body = new MemoryStream(bodyBytes);
+        context.Request.ContentLength = bodyBytes.Length;
+        context.Request.Headers[options.ServiceIdHeaderName] = "svc";
+        context.Request.Headers[options.ServiceTimestampHeaderName] = ts;
+        context.Request.Headers[options.ServiceNonceHeaderName] = nonce;
+        context.Request.Headers[options.SignatureHeaderName] =
+            ServiceIdentityHmacSignatureHelper.ComputeSignatureBase64(
+                "unit-test-secret", "POST", pathAndQuery, ts, nonce, bodyHash);
+
+        _contextAccessor.HttpContext = context;
+
+        var accessor = new ServiceIdentityCurrentActorAccessor(_contextAccessor, options, nonceReplayStore: nonces);
+        Assert.Null(accessor.Current);
+    }
+
+    [Fact]
+    public void Current_WithHmac_GetWithoutBodyHash_AllowUnsignedEmpty_Succeeds()
+    {
+        var nonces = new InMemoryNonceReplayStore();
+        var options = new ServiceIdentityOptions
+        {
+            RequireHmacSignature = true,
+            AllowUnsignedEmptyBody = true,
+            ServiceSecrets = { ["svc"] = "unit-test-secret" }
+        };
+
+        var emptyHash = ServiceIdentityHmacSignatureHelper.ComputeBodyHashHexLower(ReadOnlySpan<byte>.Empty);
+        var ts = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(CultureInfo.InvariantCulture);
+        var nonce = Guid.NewGuid().ToString("n");
+        var pathAndQuery = "/events";
+
+        var context = new DefaultHttpContext();
+        context.Request.Method = "GET";
+        context.Request.Path = new PathString("/events");
+        context.Request.Body = Stream.Null;
+        context.Request.Headers[options.ServiceIdHeaderName] = "svc";
+        context.Request.Headers[options.ServiceTimestampHeaderName] = ts;
+        context.Request.Headers[options.ServiceNonceHeaderName] = nonce;
+        context.Request.Headers[options.SignatureHeaderName] =
+            ServiceIdentityHmacSignatureHelper.ComputeSignatureBase64(
+                "unit-test-secret", "GET", pathAndQuery, ts, nonce, emptyHash);
+
+        _contextAccessor.HttpContext = context;
+
+        var accessor = new ServiceIdentityCurrentActorAccessor(_contextAccessor, options, nonceReplayStore: nonces);
+        Assert.NotNull(accessor.Current);
+    }
+
+    [Fact]
+    public void InMemoryNonceReplayStore_SameNonceAfterRetention_AllowsReuse()
+    {
+        var t = new DateTimeOffset(2026, 5, 1, 0, 0, 0, TimeSpan.Zero);
+        DateTimeOffset Clock() => t;
+        var store = new InMemoryNonceReplayStore(
+            new InMemoryNonceReplayStoreOptions { NonceRetention = TimeSpan.FromMinutes(1) },
+            Clock);
+
+        Assert.True(store.TryReserveNonce("svc", "n1", t));
+        Assert.False(store.TryReserveNonce("svc", "n1", t));
+
+        t = t.AddMinutes(2);
+        Assert.True(store.TryReserveNonce("svc", "n1", t));
+    }
+
+    [Fact]
+    public void InMemoryNonceReplayStore_MaxStoredNonces_EvictsOldest()
+    {
+        var t0 = DateTimeOffset.Parse("2026-05-01T00:00:00Z", CultureInfo.InvariantCulture);
+        var store = new InMemoryNonceReplayStore(new InMemoryNonceReplayStoreOptions
+        {
+            MaxStoredNonces = 3,
+            NonceRetention = TimeSpan.FromDays(30)
+        });
+
+        Assert.True(store.TryReserveNonce("svc", "a", t0));
+        Assert.True(store.TryReserveNonce("svc", "b", t0.AddMinutes(1)));
+        Assert.True(store.TryReserveNonce("svc", "c", t0.AddMinutes(2)));
+        Assert.True(store.TryReserveNonce("svc", "d", t0.AddMinutes(3)));
+        Assert.True(store.TryReserveNonce("svc", "a", t0.AddMinutes(4)));
+    }
+
     private static DefaultHttpContext BuildSignedContext(
         ServiceIdentityOptions options,
         string serviceId,

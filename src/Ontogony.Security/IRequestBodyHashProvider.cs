@@ -8,5 +8,8 @@ namespace Ontogony.Security;
 /// </summary>
 public interface IRequestBodyHashProvider
 {
-    string ComputeSha256HexLower(HttpRequest request);
+    /// <summary>
+    /// Computes the body digest or reports <see cref="RequestBodyHashResult.TooLarge"/> when the body exceeds configured limits.
+    /// </summary>
+    RequestBodyHashResult TryComputeSha256HexLower(HttpRequest request);
 }

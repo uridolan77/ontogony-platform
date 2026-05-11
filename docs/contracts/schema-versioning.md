@@ -5,7 +5,7 @@
 | Artifact | Role |
 |----------|------|
 | `schemas/ontogony-envelope.schema.json` | JSON Schema (draft 2020-12) describing the **serialized** `OntogonyEnvelope<TPayload>` shape for documentation and offline validation. |
-| `DefaultEnvelopeValidator` | Runtime mechanical checks aligned with the schema’s intent (required fields, `EventType` shape, URI `Source`, optional `PayloadHash` as 64 lowercase hex). |
+| `DefaultEnvelopeValidator` | Runtime mechanical checks aligned with the schema’s intent (required fields, `EventType` shape, **absolute URI** `Source`, optional `PayloadHash` as 64 lowercase hex). |
 
 The schema cannot fully describe generic `Payload`; product repos attach payload-specific schemas separately.
 
@@ -24,6 +24,11 @@ The schema cannot fully describe generic `Payload`; product repos attach payload
 
 - Only CloudEvents **`specversion` 1.0** is accepted when deserializing to `OntogonyEnvelope` (`ToOntogonyEnvelope`).
 - Missing `traceId` extension: configurable via `CloudEventConversionOptions.TraceIdPolicy` (`GenerateWhenMissing` vs `RejectWhenMissing`).
+- Null `data`: by default `ToOntogonyEnvelope` throws `InvalidOperationException`. Set `CloudEventConversionOptions.AllowNullCloudEventData` to `true` to map null data to `default(TPayload)` for reference types and nullable value types; non-nullable value types still throw.
+
+## Strict protocol allowlist (recorders / bridges)
+
+Optional ingress tightening: set `EnvelopeValidatorOptions.AllowedProtocols` to a small `HashSet<string>` (case-insensitive) such as `ag-ui`, `mcp`, and `a2a` from `ProtocolNames` when you only ingest those wire protocols. Unknown `Protocol` values then surface as validator errors with code `allowed_values`.
 
 ## Breaking changes policy
 

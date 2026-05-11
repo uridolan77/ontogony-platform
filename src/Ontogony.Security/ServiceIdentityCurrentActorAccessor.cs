@@ -1,6 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 using Ontogony.Contracts.Events;
 
 namespace Ontogony.Security;
@@ -29,7 +30,7 @@ public sealed class ServiceIdentityCurrentActorAccessor : ICurrentActorAccessor
         _options = options ?? new ServiceIdentityOptions();
         _secretResolver = secretResolver ?? new DictionaryServiceSecretResolver(_options.ServiceSecrets);
         _nonceReplayStore = nonceReplayStore;
-        _bodyHashProvider = bodyHashProvider ?? Sha256RequestBodyHashProvider.Instance;
+        _bodyHashProvider = bodyHashProvider ?? new Sha256RequestBodyHashProvider(Options.Create(_options));
     }
 
     public CurrentActor? Current
@@ -99,14 +100,38 @@ public sealed class ServiceIdentityCurrentActorAccessor : ICurrentActorAccessor
         if (_options.RequireNonce && string.IsNullOrWhiteSpace(nonce))
             return false;
 
-        var declaredBodyHash = context.Request.Headers[_options.ServiceBodyHashHeaderName].ToString();
-        if (string.IsNullOrWhiteSpace(declaredBodyHash))
-            return false;
+        var declaredHeader = context.Request.Headers[_options.ServiceBodyHashHeaderName].ToString();
+        string bodyHashNorm;
+        if (string.IsNullOrWhiteSpace(declaredHeader))
+        {
+            if (!_options.AllowUnsignedEmptyBody || !HttpRequestBodyAnalysis.IsDefinitelyEmptyBody(context.Request))
+                return false;
 
-        var bodyHashNorm = declaredBodyHash.Trim().ToLowerInvariant();
-        var computedBodyHash = _bodyHashProvider.ComputeSha256HexLower(context.Request);
-        if (!FixedTimeEqualsAsciiHex(bodyHashNorm, computedBodyHash))
-            return false;
+            bodyHashNorm = ServiceIdentityHmacSignatureHelper.ComputeBodyHashHexLower(ReadOnlySpan<byte>.Empty);
+        }
+        else
+        {
+            bodyHashNorm = declaredHeader.Trim().ToLowerInvariant();
+        }
+
+        if (context.Items.TryGetValue(ServiceIdentityBodyHashContext.HttpContextItemKey, out var preItem)
+            && preItem is ServiceIdentityBodyHashContext.Precomputed pre)
+        {
+            if (pre.TooLarge)
+                return false;
+
+            if (pre.HexLower is null || !FixedTimeEqualsAsciiHex(bodyHashNorm, pre.HexLower))
+                return false;
+        }
+        else
+        {
+            var computed = _bodyHashProvider.TryComputeSha256HexLower(context.Request);
+            if (computed.TooLarge || !computed.Succeeded)
+                return false;
+
+            if (!FixedTimeEqualsAsciiHex(bodyHashNorm, computed.HexLower!))
+                return false;
+        }
 
         var signatureHeader = context.Request.Headers[_options.SignatureHeaderName].ToString();
         if (string.IsNullOrWhiteSpace(signatureHeader))

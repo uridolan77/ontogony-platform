@@ -26,6 +26,12 @@ public sealed class CloudEventConversionOptions
     public string DefaultProtocolWhenMissing { get; set; } = ProtocolNames.CloudEvents;
 
     public CloudEventTraceIdPolicy TraceIdPolicy { get; set; } = CloudEventTraceIdPolicy.GenerateWhenMissing;
+
+    /// <summary>
+    /// When false (default), <see cref="CloudEventEnvelope.Data"/> must not be null when converting to <see cref="OntogonyEnvelope{TPayload}"/>.
+    /// When true, null data maps to <c>default(TPayload)</c> for reference types and nullable value types; non-nullable value types still throw.
+    /// </summary>
+    public bool AllowNullCloudEventData { get; set; }
 }
 
 /// <summary>
@@ -173,11 +179,35 @@ public static class CloudEventsExtensions
 
         var metadata = ExtractMetadata(extensions);
 
-        var payload = cloudEvent.Data is TPayload typedPayload
-            ? typedPayload
-            : cloudEvent.Data is JsonElement elem
-                ? JsonSerializer.Deserialize<TPayload>(elem.GetRawText())!
-                : (TPayload)(object)cloudEvent.Data!;
+        TPayload payload;
+        if (cloudEvent.Data is null)
+        {
+            if (!options.AllowNullCloudEventData)
+            {
+                throw new InvalidOperationException(
+                    "CloudEvent data is required for OntogonyEnvelope payload.");
+            }
+
+            if (typeof(TPayload).IsValueType && Nullable.GetUnderlyingType(typeof(TPayload)) is null)
+            {
+                throw new InvalidOperationException(
+                    "CloudEvent data is null but OntogonyEnvelope payload type is a non-nullable value type.");
+            }
+
+            payload = default!;
+        }
+        else if (cloudEvent.Data is TPayload typedPayload)
+        {
+            payload = typedPayload;
+        }
+        else if (cloudEvent.Data is JsonElement elem)
+        {
+            payload = JsonSerializer.Deserialize<TPayload>(elem.GetRawText())!;
+        }
+        else
+        {
+            payload = (TPayload)cloudEvent.Data;
+        }
 
         var protocol = protocolFromExtension ?? options.DefaultProtocolWhenMissing;
 

@@ -44,7 +44,7 @@ Which LLM provider should route a given request?
 What is a valid business approval?
 ```
 
-## What this starter integrates from the current repos
+## What this repository extracts from the product repos
 
 | Source repo | What we take | What we do not take |
 | --- | --- | --- |
@@ -81,34 +81,46 @@ What is a valid business approval?
 
 - `examples/MinimalApiWithOntogonyObservability/`: minimal API sample for `AddOntogonyObservability`, `UseOntogonyRequestTracing`, and outbound correlation propagation through `Ontogony.Http`.
 
+## Documentation map
+
+- [`docs/00_START_HERE.md`](docs/00_START_HERE.md) — mental model, extraction targets, adoption guide index.
+- [`docs/packages/`](docs/packages/) — per-package guarantees, non-goals, and adoption posture.
+- [`CHANGELOG.md`](CHANGELOG.md) — PR history, migrations, and breaking-change notes.
+
 ## Recommended first adoption path
 
-1. Add this repo as a separate GitHub repository: `uridolan77/ontogony-platform`.
-2. Build and test the packages locally.
+1. Read [`docs/00_START_HERE.md`](docs/00_START_HERE.md) and the adoption hub for your service (`docs/adoption/athanor-platform-adoption.md`, `agentor-platform-adoption.md`, or `conexus-platform-adoption.md`).
+2. Build and test the packages locally (see **Build** below).
 3. Publish packages to a private/internal NuGet feed, or reference by project path initially.
-4. Replace duplicated trace/error code in Agentor and Athanor first.
-5. Add Conexus event emission later through a thin Python client that emits the same envelope schema.
+4. Adopt **low-risk mechanics first** (Primitives, Hashing, Idempotency, Configuration), then **controlled** API integration (Observability, Http, Errors) with compatibility tests.
+5. Add Conexus event emission through any runtime client that conforms to [`schemas/ontogony-envelope.schema.json`](schemas/ontogony-envelope.schema.json).
 
 ## First packages to adopt
 
-Start with these only:
+**Low risk (start in Athanor first):**
 
 ```text
-Ontogony.Contracts
-Ontogony.Observability
-Ontogony.Errors
+Ontogony.Primitives
 Ontogony.Configuration
-Ontogony.Http
 Ontogony.Hashing
+Ontogony.Idempotency
+Ontogony.Contracts
 ```
 
-Then add:
+**Controlled (Agentor / Athanor API surfaces — keep mappings and semantics local):**
 
 ```text
-Ontogony.Idempotency
+Ontogony.Observability
+Ontogony.Http
+Ontogony.Errors
+```
+
+**Dev, tests, and reference mechanics (not distributed production messaging or DB outbox):**
+
+```text
 Ontogony.Messaging
-Ontogony.Security
-Ontogony.Persistence
+Ontogony.Persistence   // contracts + in-memory outbox reference; no Postgres implementation here
+Ontogony.Security      // HMAC service identity + static shared-secret mode — requires correct wiring
 Ontogony.Testing
 ```
 
@@ -135,4 +147,35 @@ Use SemVer, but be conservative:
 
 ## Current status
 
-Starter package. The code is intentionally compact and extraction-ready. Before production adoption, run the build/test suite in a machine with .NET 9 SDK installed and wire CI.
+**Shared infrastructure (0.x alpha)** — suitable for **selective, careful adoption** in Athanor, Agentor, and Conexus. This is no longer a throwaway starter; it ships contracts, reference implementations, semantic docs, and a broad automated test suite (see `CHANGELOG.md`).
+
+**Ready for early production-style use (with integration tests):**
+
+```text
+Ontogony.Primitives
+Ontogony.Configuration
+Ontogony.Hashing
+Ontogony.Idempotency
+Ontogony.Contracts
+Ontogony.Observability
+Ontogony.Http
+Ontogony.Errors
+```
+
+**Available but treat as infrastructure building blocks, not turnkey products:**
+
+```text
+Ontogony.Messaging        // in-process publisher, explicit publish/dispatch results, metrics; not Kafka/NATS/Event Hubs
+Ontogony.Persistence      // SQL-agnostic outbox contracts + in-memory reference store + dead-letter hooks; no Postgres outbox here
+Ontogony.Security         // HMAC service-identity verification + static shared-secret mode; requires IServiceSecretResolver, INonceReplayStore, clock skew policy
+```
+
+**Still evolving (check `docs/migrations/` before upgrading):**
+
+```text
+HTTP resilience          // linear backoff; Retry-After / jitter not implemented — see docs/packages/Ontogony.Http.md
+Envelope rules           // mechanical validation + JSON schema; product ingest policies stay in product repos
+Public XML (CS1591)      // suppressed at solution level until core types are fully documented
+```
+
+CI restores, builds, and tests on **.NET 9** (see `.github/workflows/`).

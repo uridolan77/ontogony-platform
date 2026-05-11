@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
 namespace Ontogony.Security;
@@ -43,6 +44,9 @@ public static class ServiceCollectionExtensions
         {
             services.Configure(configure);
         }
+
+        services.TryAddSingleton<IRequestBodyHashProvider>(sp =>
+            new Sha256RequestBodyHashProvider(sp.GetRequiredService<IOptions<ServiceIdentityOptions>>()));
 
         services.AddScoped<ServiceIdentityCurrentActorAccessor>(sp =>
             new ServiceIdentityCurrentActorAccessor(
