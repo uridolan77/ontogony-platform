@@ -1,0 +1,22 @@
+{
+  "package": "ontogony-platform-starter",
+  "generated": "2026-05-11",
+  "fileCount": 94,
+  "mainPackages": [
+    "Ontogony.Contracts",
+    "Ontogony.Observability",
+    "Ontogony.Configuration",
+    "Ontogony.Errors",
+    "Ontogony.Http",
+    "Ontogony.Hashing",
+    "Ontogony.Idempotency",
+    "Ontogony.Messaging",
+    "Ontogony.Security",
+    "Ontogony.Persistence",
+    "Ontogony.Testing"
+  ],
+  "notes": [
+    "Starter package generated from Agentor/Athanor/Conexus lessons.",
+    "Not compiled in this environment; run scripts/test-all.ps1 on a machine with .NET 9 SDK."
+  ]
+}

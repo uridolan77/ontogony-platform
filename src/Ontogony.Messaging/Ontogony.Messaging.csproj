@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>Ontogony.Messaging</PackageId>
+    <Description>Ontogony.Messaging shared infrastructure package for Ontogony services.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ontogony.Contracts\Ontogony.Contracts.csproj" />
+  </ItemGroup>
+</Project>

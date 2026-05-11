@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>Ontogony.Observability</PackageId>
+    <Description>Ontogony.Observability shared infrastructure package for Ontogony services.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ontogony.Contracts\Ontogony.Contracts.csproj" />
+  </ItemGroup>
+</Project>

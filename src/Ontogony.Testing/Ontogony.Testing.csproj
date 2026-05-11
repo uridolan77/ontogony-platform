@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>Ontogony.Testing</PackageId>
+    <Description>Ontogony.Testing shared infrastructure package for Ontogony services.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ontogony.Contracts\Ontogony.Contracts.csproj" />
+    <ProjectReference Include="..\Ontogony.Observability\Ontogony.Observability.csproj" />
+    <ProjectReference Include="..\Ontogony.Hashing\Ontogony.Hashing.csproj" />
+    <ProjectReference Include="..\Ontogony.Messaging\Ontogony.Messaging.csproj" />
+    <ProjectReference Include="..\Ontogony.Persistence\Ontogony.Persistence.csproj" />
+    <ProjectReference Include="..\Ontogony.Security\Ontogony.Security.csproj" />
+  </ItemGroup>
+</Project>

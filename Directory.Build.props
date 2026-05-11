@@ -1,0 +1,14 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <RepositoryUrl>https://github.com/uridolan77/ontogony-platform</RepositoryUrl>
+    <Authors>Ontogony</Authors>
+    <Company>Ontogony</Company>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+</Project>

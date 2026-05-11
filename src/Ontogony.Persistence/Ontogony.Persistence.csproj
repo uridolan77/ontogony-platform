@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>Ontogony.Persistence</PackageId>
+    <Description>Ontogony.Persistence shared infrastructure package for Ontogony services.</Description>
+  </PropertyGroup>
+
+</Project>

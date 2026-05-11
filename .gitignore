@@ -1,0 +1,30 @@
+# .NET
+bin/
+obj/
+TestResults/
+*.user
+*.suo
+*.rsuser
+*.nupkg
+*.snupkg
+coverage/
+artifacts/
+
+# IDE
+.vs/
+.vscode/.ropeproject/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local config
+.env
+.env.*
+!.env.example
+appsettings.Development.local.json
+
+# Logs
+*.log
+logs/

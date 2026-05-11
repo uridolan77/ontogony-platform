@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>Ontogony.Configuration</PackageId>
+    <Description>Ontogony.Configuration shared infrastructure package for Ontogony services.</Description>
+  </PropertyGroup>
+
+</Project>
