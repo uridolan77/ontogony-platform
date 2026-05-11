@@ -27,11 +27,17 @@ public static class OntogonyDiagnostics
     public static readonly Histogram<double> IntegrationDurationMs =
         Meter.CreateHistogram<double>("ontogony.integration.duration.ms", unit: "ms", description: "Outbound integration call duration in milliseconds.");
 
-    public static readonly Counter<long> EventPublishedCount =
-        Meter.CreateCounter<long>("ontogony.event.published.count", description: "Count of events published through Ontogony abstractions.");
+    public static readonly Counter<long> EventPublishCount =
+        Meter.CreateCounter<long>("ontogony.event.publish.count", description: "Event publish attempts accepted into the publisher pipeline.");
 
-    public static readonly Counter<long> EventHandledCount =
-        Meter.CreateCounter<long>("ontogony.event.handled.count", description: "Count of events handled through Ontogony abstractions.");
+    public static readonly Counter<long> EventDispatchCount =
+        Meter.CreateCounter<long>("ontogony.event.dispatch.count", description: "Successful in-process handler dispatch completions.");
+
+    public static readonly Counter<long> EventDispatchFailureCount =
+        Meter.CreateCounter<long>("ontogony.event.dispatch.failure.count", description: "In-process handler dispatch failures (exceptions).");
+
+    public static readonly Histogram<double> EventHandlerDurationMs =
+        Meter.CreateHistogram<double>("ontogony.event.handler.duration.ms", unit: "ms", description: "Per-handler dispatch duration in milliseconds.");
 }
 
 public static class OntogonyMetrics
@@ -97,17 +103,41 @@ public static class OntogonyMetrics
             new("status_code", statusCode));
     }
 
-    public static void RecordEventPublished(string eventType, string protocol)
+    public static void RecordEventPublish(string eventType, string protocol, string operationMode)
     {
-        OntogonyDiagnostics.EventPublishedCount.Add(1,
+        OntogonyDiagnostics.EventPublishCount.Add(1,
             new("event_type", eventType),
-            new("protocol", protocol));
+            new("protocol", protocol),
+            new("operation_mode", operationMode));
     }
 
-    public static void RecordEventHandled(string eventType, string protocol)
+    public static void RecordEventDispatch(string eventType, string protocol, string operationMode)
     {
-        OntogonyDiagnostics.EventHandledCount.Add(1,
+        OntogonyDiagnostics.EventDispatchCount.Add(1,
             new("event_type", eventType),
-            new("protocol", protocol));
+            new("protocol", protocol),
+            new("operation_mode", operationMode));
+    }
+
+    public static void RecordEventDispatchFailure(string eventType, string protocol, string operationMode)
+    {
+        OntogonyDiagnostics.EventDispatchFailureCount.Add(1,
+            new("event_type", eventType),
+            new("protocol", protocol),
+            new("operation_mode", operationMode));
+    }
+
+    public static void RecordEventHandlerDuration(
+        string eventType,
+        string protocol,
+        string operationMode,
+        string handlerDescription,
+        double durationMs)
+    {
+        OntogonyDiagnostics.EventHandlerDurationMs.Record(durationMs,
+            new("event_type", eventType),
+            new("protocol", protocol),
+            new("operation_mode", operationMode),
+            new("handler_description", handlerDescription));
     }
 }

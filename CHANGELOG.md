@@ -4,6 +4,16 @@
 
 Comprehensive shared-infrastructure extraction pass.
 
+PR11–PR13 (Sprint 2) platform semantics and hardening:
+
+- Added package-level semantic docs under `docs/packages/` plus `docs/invariants.md`, `docs/messaging/delivery-semantics.md`, and `docs/security/service-identity.md`.
+- Documented `InMemoryEventSink` as published-event capture (not a delivery ledger); clarified header actor trusted-upstream semantics.
+- Implemented production **HMAC-SHA256** service identity verification (`RequireHmacSignature`, `OntogonyServiceIdentityHeaders`, `IServiceSecretResolver`, `INonceReplayStore`, `IRequestBodyHashProvider`, `ServiceIdentityHmacSignatureHelper`, `InMemoryNonceReplayStore`); kept **StaticSharedSecret** mode behind `RequireSignatureVerification` without HMAC.
+- Default service identity id header is now `X-Ontogony-Service-Id` (see migration note).
+- Messaging: added `EventPublisherOperationMode`, `EventPublishResult` / handler dispatch records, `PublishWithResultAsync`, and separated publish vs dispatch OpenTelemetry metrics (`ontogony.event.publish.count`, `ontogony.event.dispatch.count`, `ontogony.event.dispatch.failure.count`, `ontogony.event.handler.duration.ms`); removed `ontogony.event.published.count` / `ontogony.event.handled.count`.
+- `Ontogony.Messaging` now references `Ontogony.Observability` for metrics emission (opt out via `EventDispatchOptions.RecordObservabilityMetrics`).
+- Migration note: `docs/migrations/2026-05-11-pr11-13-semantics-service-identity-messaging-metrics.md`.
+
 Included updates:
 
 - Added Ontogony.Primitives package for clock and ID generation abstractions.

@@ -47,7 +47,10 @@ public static class ServiceCollectionExtensions
         services.AddScoped<ServiceIdentityCurrentActorAccessor>(sp =>
             new ServiceIdentityCurrentActorAccessor(
                 sp.GetRequiredService<IHttpContextAccessor>(),
-                sp.GetRequiredService<IOptions<ServiceIdentityOptions>>().Value));
+                sp.GetRequiredService<IOptions<ServiceIdentityOptions>>().Value,
+                sp.GetService<IServiceSecretResolver>(),
+                sp.GetService<INonceReplayStore>(),
+                sp.GetService<IRequestBodyHashProvider>()));
         services.AddScoped<ICurrentActorAccessor>(sp => sp.GetRequiredService<ServiceIdentityCurrentActorAccessor>());
         return services;
     }

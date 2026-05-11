@@ -343,7 +343,7 @@ public class OntogonySecurityPr6Tests
         public void Current_WithServiceId_ReturnsServiceActor()
         {
             var context = new DefaultHttpContext();
-            context.Request.Headers["X-Service-Id"] = "service-agentor"; // Default ServiceIdHeaderName
+            context.Request.Headers[OntogonyServiceIdentityHeaders.ServiceId] = "service-agentor";
             context.Request.Headers["X-Ontogony-Tenant-Id"] = "tenant-123";
             context.Request.Headers["X-Ontogony-Workspace-Id"] = "workspace-456";
             context.Request.Headers["X-Ontogony-Project-Id"] = "project-789";
@@ -367,12 +367,12 @@ public class OntogonySecurityPr6Tests
         {
             var options = new ServiceIdentityOptions { RequireSignatureVerification = true };
             var context = new DefaultHttpContext();
-            context.Request.Headers[OntogonySecurityHeaders.ActorId] = "service-1";
+            context.Request.Headers[options.ServiceIdHeaderName] = "service-1";
 
             _contextAccessor.HttpContext = context;
 
             var accessor = new ServiceIdentityCurrentActorAccessor(_contextAccessor, options);
-            Assert.Null(accessor.Current); // No signature = failure
+            Assert.Null(accessor.Current);
         }
 
         [Fact]

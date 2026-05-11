@@ -151,6 +151,64 @@ public sealed class InMemoryEventBusTests
     }
 
     [Fact]
+    public async Task PublishWithResultAsync_IncludesFailure_WhenHandlerThrows()
+    {
+        var publisher = new InMemoryEventPublisher(options: new EventDispatchOptions
+        {
+            ContinueOnHandlerException = true,
+            RecordObservabilityMetrics = false
+        });
+        publisher.Register(new ThrowingHandler());
+
+        var envelope = TestEnvelopeFactory.Create("test.event", "test", new Payload("boom"));
+        var result = await publisher.PublishWithResultAsync(envelope);
+
+        Assert.Single(result.Failures);
+        Assert.False(result.HandlerResults[0].Succeeded);
+        Assert.Single(publisher.Sink.ReadAll<Payload>());
+    }
+
+    [Fact]
+    public async Task PublishOnly_DoesNotInvokeHandlers_ButCapturesSink()
+    {
+        var sink = new InMemoryEventSink();
+        var publisher = new InMemoryEventPublisher(sink, new EventDispatchOptions
+        {
+            OperationMode = EventPublisherOperationMode.PublishOnly,
+            RecordObservabilityMetrics = false
+        });
+        var handler = new RecordingHandler();
+        publisher.Register(handler);
+
+        var envelope = TestEnvelopeFactory.Create("test.event", "test", new Payload("only"));
+        var result = await publisher.PublishWithResultAsync(envelope);
+
+        Assert.Empty(result.HandlerResults);
+        Assert.Empty(handler.Received);
+        Assert.Single(sink.ReadAll<Payload>());
+    }
+
+    [Fact]
+    public async Task CaptureOnly_AppendsSink_DoesNotInvokeHandlers()
+    {
+        var sink = new InMemoryEventSink();
+        var publisher = new InMemoryEventPublisher(sink, new EventDispatchOptions
+        {
+            OperationMode = EventPublisherOperationMode.CaptureOnly,
+            RecordObservabilityMetrics = false
+        });
+        var handler = new RecordingHandler();
+        publisher.Register(handler);
+
+        var envelope = TestEnvelopeFactory.Create("test.event", "test", new Payload("cap"));
+        var result = await publisher.PublishWithResultAsync(envelope);
+
+        Assert.Empty(result.HandlerResults);
+        Assert.Empty(handler.Received);
+        Assert.Single(sink.ReadAll<Payload>());
+    }
+
+    [Fact]
     public void JsonEventSerializer_RoundTripsEnvelope()
     {
         var serializer = new JsonEventSerializer();

@@ -18,6 +18,11 @@ public sealed class InMemoryEventBus : IEventPublisher
 
     public InMemoryEventSink Sink => _publisher.Sink;
 
+    public Task<EventPublishResult> PublishWithResultAsync<TPayload>(
+        OntogonyEnvelope<TPayload> envelope,
+        CancellationToken cancellationToken = default) =>
+        _publisher.PublishWithResultAsync(envelope, cancellationToken);
+
     public void Register<TPayload>(IEventHandler<TPayload> handler)
     {
         _publisher.Register(handler);

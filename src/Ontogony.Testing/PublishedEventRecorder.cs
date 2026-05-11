@@ -3,6 +3,10 @@ using Ontogony.Messaging;
 
 namespace Ontogony.Testing;
 
+/// <summary>
+/// Minimal <see cref="IEventPublisher"/> that only appends to an <see cref="InMemoryEventSink"/> (capture-only).
+/// Use for tests; it does not dispatch handlers or record observability metrics.
+/// </summary>
 public sealed class PublishedEventRecorder : IEventPublisher
 {
     private readonly InMemoryEventSink _sink = new();
