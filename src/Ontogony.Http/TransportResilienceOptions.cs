@@ -30,4 +30,11 @@ public sealed class TransportResilienceOptions
     public int CircuitOpenDurationSeconds { get; set; } = 30;
 
     public int[] RetryableStatusCodes { get; set; } = [408, 425, 429, 500, 502, 503, 504];
+
+    public bool RetryUnsafeMethodsOnlyWithIdempotencyKey { get; set; } = true;
+
+    [Range(1, 100_000_000)]
+    public int MaxBufferedContentBytes { get; set; } = 1_000_000;
+
+    public string IdempotencyKeyHeaderName { get; set; } = "Idempotency-Key";
 }

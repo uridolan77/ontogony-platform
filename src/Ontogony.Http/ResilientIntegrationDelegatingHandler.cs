@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Http.Headers;
 using Microsoft.Extensions.Options;
 
 namespace Ontogony.Http;
@@ -32,22 +33,31 @@ public sealed class ResilientIntegrationDelegatingHandler : DelegatingHandler
             return blocked;
         }
 
+        var canRetryRequest = CanRetryRequest(request);
+        var maxRetries = canRetryRequest ? _options.MaxRetries : 0;
+
         byte[]? bufferedBody = null;
-        if (request.Content is not null)
+        if (maxRetries > 0)
         {
-            bufferedBody = await request.Content.ReadAsByteArrayAsync(cancellationToken).ConfigureAwait(false);
+            var canBuffer = await TryBufferContentForRetryAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!canBuffer.CanRetry)
+            {
+                maxRetries = 0;
+            }
+
+            bufferedBody = canBuffer.BufferedContent;
         }
 
         HttpResponseMessage? lastResponse = null;
         Exception? lastException = null;
 
-        for (var attempt = 0; attempt <= _options.MaxRetries; attempt++)
+        for (var attempt = 0; attempt <= maxRetries; attempt++)
         {
             try
             {
                 lastResponse?.Dispose();
                 var response = await base.SendAsync(CloneForRetry(request, bufferedBody, attempt), cancellationToken).ConfigureAwait(false);
-                if (!ShouldRetry(response.StatusCode) || attempt == _options.MaxRetries)
+                if (!ShouldRetry(response.StatusCode) || attempt == maxRetries)
                 {
                     if (response.IsSuccessStatusCode)
                     {
@@ -63,13 +73,18 @@ public sealed class ResilientIntegrationDelegatingHandler : DelegatingHandler
 
                 lastResponse = response;
             }
-            catch (HttpRequestException ex) when (attempt < _options.MaxRetries)
+            catch (HttpRequestException ex) when (attempt < maxRetries)
             {
                 lastException = ex;
             }
-            catch (TaskCanceledException ex) when (!cancellationToken.IsCancellationRequested && attempt < _options.MaxRetries)
+            catch (TaskCanceledException ex) when (!cancellationToken.IsCancellationRequested && attempt < maxRetries)
             {
                 lastException = ex;
+            }
+            catch (Exception ex) when (IsTransientException(ex, cancellationToken) && attempt == maxRetries)
+            {
+                _registry.RecordFailure(_clientName, _options);
+                throw;
             }
 
             await Task.Delay(ComputeDelay(attempt), cancellationToken).ConfigureAwait(false);
@@ -81,6 +96,78 @@ public sealed class ResilientIntegrationDelegatingHandler : DelegatingHandler
         }
 
         throw lastException ?? new HttpRequestException("HTTP request failed after retries.");
+    }
+
+    private bool CanRetryRequest(HttpRequestMessage request)
+    {
+        if (IsSafeRetryMethod(request.Method))
+        {
+            return true;
+        }
+
+        if (!_options.RetryUnsafeMethodsOnlyWithIdempotencyKey)
+        {
+            return true;
+        }
+
+        return request.Headers.TryGetValues(_options.IdempotencyKeyHeaderName, out var values)
+            && values.Any(v => !string.IsNullOrWhiteSpace(v));
+    }
+
+    private static bool IsSafeRetryMethod(HttpMethod method)
+    {
+        return method == HttpMethod.Get
+            || method == HttpMethod.Head
+            || method == HttpMethod.Options;
+    }
+
+    private async Task<BufferedContentResult> TryBufferContentForRetryAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+    {
+        if (request.Content is null)
+        {
+            return new BufferedContentResult(true, null);
+        }
+
+        if (request.Content is StreamContent)
+        {
+            return new BufferedContentResult(false, null);
+        }
+
+        if (request.Content is MultipartContent)
+        {
+            return new BufferedContentResult(false, null);
+        }
+
+        if (IsMultipartMediaType(request.Content.Headers.ContentType))
+        {
+            return new BufferedContentResult(false, null);
+        }
+
+        if (request.Content.Headers.ContentLength is long length
+            && length > _options.MaxBufferedContentBytes)
+        {
+            return new BufferedContentResult(false, null);
+        }
+
+        await request.Content.LoadIntoBufferAsync(_options.MaxBufferedContentBytes).ConfigureAwait(false);
+        var content = await request.Content.ReadAsByteArrayAsync(cancellationToken).ConfigureAwait(false);
+        if (content.Length > _options.MaxBufferedContentBytes)
+        {
+            return new BufferedContentResult(false, null);
+        }
+
+        return new BufferedContentResult(true, content);
+    }
+
+    private static bool IsMultipartMediaType(MediaTypeHeaderValue? contentType)
+    {
+        return contentType?.MediaType?.StartsWith("multipart/", StringComparison.OrdinalIgnoreCase) == true;
+    }
+
+    private static bool IsTransientException(Exception ex, CancellationToken cancellationToken)
+    {
+        return ex is HttpRequestException
+            || (ex is TaskCanceledException && !cancellationToken.IsCancellationRequested);
     }
 
     private bool ShouldRetry(HttpStatusCode statusCode)
@@ -134,4 +221,6 @@ public sealed class ResilientIntegrationDelegatingHandler : DelegatingHandler
 
         return clone;
     }
+
+    private sealed record BufferedContentResult(bool CanRetry, byte[]? BufferedContent);
 }

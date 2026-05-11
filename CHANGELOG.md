@@ -18,6 +18,18 @@ Included updates:
 	- dotnet build Ontogony.Platform.sln --no-restore
 	- dotnet test Ontogony.Platform.sln --no-build
 
+PR2 hardening updates:
+
+- Added idempotency-safe retry controls in Ontogony.Http transport resilience options.
+- Retry defaults now prioritize safe methods and require Idempotency-Key for unsafe methods.
+- Added bounded content buffering and no-retry behavior for multipart and streaming request content.
+- Final transient exceptions now contribute to circuit failure tracking.
+- Added targeted resilience tests for method safety, idempotency key behavior, oversized payload, multipart content, and exception-driven circuit opening.
+- Verified commands pass after hardening:
+	- dotnet restore Ontogony.Platform.sln
+	- dotnet build Ontogony.Platform.sln --no-restore
+	- dotnet test Ontogony.Platform.sln --no-build
+
 ## 0.1.0-starter
 
 Initial starter package.
