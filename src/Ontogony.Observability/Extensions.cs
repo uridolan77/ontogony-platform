@@ -20,7 +20,6 @@ public static class OntogonyObservabilityExtensions
         }
 
         services.AddSingleton<IValidateOptions<OntogonyObservabilityOptions>, OntogonyObservabilityOptionsValidator>();
-        services.AddTransient<CorrelationHeadersDelegatingHandler>();
         return services;
     }
 

@@ -5,4 +5,8 @@
     <Description>Ontogony.Persistence shared infrastructure package for Ontogony services.</Description>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Ontogony.Primitives\Ontogony.Primitives.csproj" />
+  </ItemGroup>
+
 </Project>

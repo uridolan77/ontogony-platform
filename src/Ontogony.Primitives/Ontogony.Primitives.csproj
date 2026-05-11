@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>Ontogony.Primitives</PackageId>
+    <Description>Ontogony.Primitives shared infrastructure package for Ontogony services.</Description>
+  </PropertyGroup>
+
+</Project>

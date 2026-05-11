@@ -11,6 +11,7 @@
     "Ontogony.Hashing",
     "Ontogony.Idempotency",
     "Ontogony.Messaging",
+    "Ontogony.Primitives",
     "Ontogony.Security",
     "Ontogony.Persistence",
     "Ontogony.Testing"

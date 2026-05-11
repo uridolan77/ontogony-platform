@@ -33,14 +33,11 @@ public sealed class RequestTracingMiddleware
         context.Items[TraceIdItemKey] = traceId;
         context.Items[OperationIdItemKey] = operationId;
 
+        SetResponseTraceHeaders(context.Response.Headers, traceId, _options);
+
         context.Response.OnStarting(() =>
         {
-            context.Response.Headers[_options.TraceHeaderName] = traceId;
-            if (_options.EchoLegacyHeaders)
-            {
-                context.Response.Headers[OntogonyEventHeaders.LegacyAthanorTraceId] = traceId;
-                context.Response.Headers[OntogonyEventHeaders.LegacyAgentorTraceId] = traceId;
-            }
+            SetResponseTraceHeaders(context.Response.Headers, traceId, _options);
 
             return Task.CompletedTask;
         });
@@ -107,5 +104,18 @@ public sealed class RequestTracingMiddleware
         return !string.IsNullOrWhiteSpace(context.TraceIdentifier)
             ? context.TraceIdentifier
             : Guid.NewGuid().ToString("n");
+    }
+
+    private static void SetResponseTraceHeaders(IHeaderDictionary headers, string traceId, OntogonyObservabilityOptions options)
+    {
+        headers[options.TraceHeaderName] = traceId;
+        if (!options.EchoLegacyHeaders)
+        {
+            return;
+        }
+
+        headers[OntogonyEventHeaders.LegacyAthanorTraceId] = traceId;
+        headers[OntogonyEventHeaders.LegacyAgentorTraceId] = traceId;
+        headers[OntogonyEventHeaders.ConexusRequestId] = traceId;
     }
 }

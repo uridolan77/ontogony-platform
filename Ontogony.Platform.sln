@@ -30,6 +30,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ontogony.Observability.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ontogony.Messaging.Tests", "tests\Ontogony.Messaging.Tests\Ontogony.Messaging.Tests.csproj", "{23666F68-EDC5-510B-97DC-E2D7F59B914A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ontogony.Primitives", "src\Ontogony.Primitives\Ontogony.Primitives.csproj", "{81FAB3B5-D07E-4335-B44E-51085D8F4171}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ontogony.Infrastructure.Tests", "tests\Ontogony.Infrastructure.Tests\Ontogony.Infrastructure.Tests.csproj", "{055A92BF-47C2-43F5-A8E1-70A69147F117}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -92,6 +96,14 @@ Global
 		{23666F68-EDC5-510B-97DC-E2D7F59B914A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23666F68-EDC5-510B-97DC-E2D7F59B914A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23666F68-EDC5-510B-97DC-E2D7F59B914A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81FAB3B5-D07E-4335-B44E-51085D8F4171}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81FAB3B5-D07E-4335-B44E-51085D8F4171}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81FAB3B5-D07E-4335-B44E-51085D8F4171}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81FAB3B5-D07E-4335-B44E-51085D8F4171}.Release|Any CPU.Build.0 = Release|Any CPU
+		{055A92BF-47C2-43F5-A8E1-70A69147F117}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{055A92BF-47C2-43F5-A8E1-70A69147F117}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{055A92BF-47C2-43F5-A8E1-70A69147F117}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{055A92BF-47C2-43F5-A8E1-70A69147F117}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,7 +1,8 @@
 using System.Net.Http.Headers;
 using Ontogony.Contracts.Events;
+using Ontogony.Observability;
 
-namespace Ontogony.Observability;
+namespace Ontogony.Http;
 
 public sealed class CorrelationHeadersDelegatingHandler : DelegatingHandler
 {
@@ -22,7 +23,11 @@ public sealed class CorrelationHeadersDelegatingHandler : DelegatingHandler
 
     private static void AddIfMissing(HttpRequestHeaders headers, string name, string? value)
     {
-        if (string.IsNullOrWhiteSpace(value) || headers.Contains(name)) return;
+        if (string.IsNullOrWhiteSpace(value) || headers.Contains(name))
+        {
+            return;
+        }
+
         headers.TryAddWithoutValidation(name, value);
     }
 }

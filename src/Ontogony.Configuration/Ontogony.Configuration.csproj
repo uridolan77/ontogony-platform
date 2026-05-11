@@ -5,4 +5,8 @@
     <Description>Ontogony.Configuration shared infrastructure package for Ontogony services.</Description>
   </PropertyGroup>
 
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
 </Project>

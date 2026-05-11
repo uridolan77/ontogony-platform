@@ -1,6 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Ontogony.Observability;
 
 namespace Ontogony.Http;
 
@@ -12,6 +11,7 @@ public static class IntegrationHttpClientExtensions
         Func<IServiceProvider, HttpIntegrationOptions> resolveOptions)
     {
         services.AddOptions<TransportResilienceOptions>();
+        services.AddSingleton<TransportResilienceRegistry>();
         services.AddTransient<CorrelationHeadersDelegatingHandler>();
 
         return services.AddHttpClient(clientName)
@@ -31,6 +31,8 @@ public static class IntegrationHttpClientExtensions
             })
             .AddHttpMessageHandler<CorrelationHeadersDelegatingHandler>()
             .AddHttpMessageHandler(sp => new ResilientIntegrationDelegatingHandler(
+                clientName,
+                sp.GetRequiredService<TransportResilienceRegistry>(),
                 sp.GetRequiredService<IOptions<TransportResilienceOptions>>()));
     }
 }

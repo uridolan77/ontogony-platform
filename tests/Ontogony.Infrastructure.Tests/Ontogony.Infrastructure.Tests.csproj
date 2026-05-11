@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
     <PackageReference Include="xunit" Version="2.9.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
@@ -15,7 +19,17 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Ontogony.Configuration\Ontogony.Configuration.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Contracts\Ontogony.Contracts.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Errors\Ontogony.Errors.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Hashing\Ontogony.Hashing.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Http\Ontogony.Http.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Observability\Ontogony.Observability.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Primitives\Ontogony.Primitives.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Security\Ontogony.Security.csproj" />
   </ItemGroup>
 
 </Project>
