@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+PR43 / PR44 — Conexus readiness blueprint and framework baseline:
+
+- **Docs:** `docs/consumer-blueprints/conexus-dotnet-platform-readiness.md` — minimal Ontogony package set for Conexus.NET v1, optional packages, reference `POST /v1/chat/completions` flow, and product/platform boundaries.
+- **Docs:** `docs/FRAMEWORK_BASELINE.md` — SDK (`global.json`), TFM (`Directory.Build.props`), central versions (`Directory.Packages.props`), upgrade steps, starter alignment.
+
 PR41 / PR42 — outbox boundary cleanup and package README consistency:
 
 - **Breaking:** Removed `Ontogony.Messaging` duplicate outbox surface (`IOutboxStore`, `OutboxMessage`, `NoOpOutboxStore`). Use `Ontogony.Persistence` outbox contracts only. Migration: `docs/migrations/2026-05-12-pr41-remove-messaging-outbox-duplicates.md`.

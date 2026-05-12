@@ -52,7 +52,7 @@ Keep this repository free of product meaning: no canonization, no agent plans, n
 
 ## Conexus.NET starter target
 
-The platform is shaped so **Conexus.NET** can adopt it as the default substrate: observability, errors, HTTP, security, idempotency, contracts, AI telemetry, artifacts, and execution journaling — without importing Ontogony-specific business rules. Optional packages (messaging, persistence, Postgres outbox, protocol ingress, testing) layer on when a service needs them.
+The platform is shaped so **Conexus.NET** can adopt it as the default substrate: observability, errors, HTTP, security, idempotency, contracts, AI telemetry, artifacts, and execution journaling — without importing Ontogony-specific business rules. Optional packages (messaging, persistence, Postgres outbox, protocol ingress, testing) layer on when a service needs them. See [`docs/consumer-blueprints/conexus-dotnet-platform-readiness.md`](docs/consumer-blueprints/conexus-dotnet-platform-readiness.md) for the minimal package list and reference request flow.
 
 ## Current finalized package layers
 
@@ -131,6 +131,8 @@ src/
 
 - [`docs/00_START_HERE.md`](docs/00_START_HERE.md) — mental model and documentation index.
 - [`docs/architecture/package-levels.md`](docs/architecture/package-levels.md) — package layers, dependency matrix, forbidden edges.
+- [`docs/FRAMEWORK_BASELINE.md`](docs/FRAMEWORK_BASELINE.md) — SDK, target framework, central package versions, upgrade procedure.
+- [`docs/consumer-blueprints/conexus-dotnet-platform-readiness.md`](docs/consumer-blueprints/conexus-dotnet-platform-readiness.md) — Conexus.NET minimal package set and reference request flow.
 - [`docs/packages/`](docs/packages/) — per-package guarantees and non-goals.
 - [`CHANGELOG.md`](CHANGELOG.md) — PR history, migrations, and breaking-change notes.
 
