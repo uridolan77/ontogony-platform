@@ -1,6 +1,6 @@
 # Ontogony Packages — Reference
 
-This index describes all 18 NuGet packages and when to use each one.
+This index describes all 23 NuGet packages and when to use each one.
 
 ---
 
@@ -143,6 +143,18 @@ var run = await journal.GetRunAsync("run-1");
 
 ---
 
+### `Ontogony.Replay.Contracts`
+
+**Purpose:** Replay manifest and replay-bundle DTOs for deterministic debugging and incident reconstruction (contracts only).
+
+**Provides:** Stable records for replay inputs, outputs, environment fingerprints, and determinism hints — **no** replay engine, storage provider, or model mocking.
+
+**When to use:** When you need a shared wire format for debug bundles alongside LLM telemetry; adopt when request replay flows land.
+
+**Non-goals:** No execution engine, no guarantee of deterministic model output (see [package notes](Ontogony.Replay.Contracts.md)).
+
+---
+
 ## Observability & Tracing
 
 ### `Ontogony.Observability`
@@ -169,6 +181,16 @@ app.UseOntogonyRequestTracing();
 var traceId = OntogonyCorrelationContext.TraceId;
 var tenant = OntogonyCorrelationContext.Current?.TenantId;
 ```
+
+### `Ontogony.Logging`
+
+**Purpose:** Structured logging mechanics aligned with `Ontogony.Observability`: stable field names, event IDs, correlation-aware scopes, and ASP.NET logging-scope middleware.
+
+**Provides:** Provider-neutral constants and helpers; no sinks, exporters, or log storage.
+
+**When to use:** Gateway and worker services that already use `Ontogony.Observability` and want consistent structured fields before choosing Serilog / OpenTelemetry exporters in the host.
+
+**Non-goals:** No logging vendor bindings or body logging guarantees (see [package notes](Ontogony.Logging.md)).
 
 ---
 
@@ -230,6 +252,30 @@ services.Configure<TransportResilienceOptions>(opts =>
     opts.CircuitOpenDurationSeconds = 30;
 });
 ```
+
+---
+
+## Redaction & secrets
+
+### `Ontogony.Redaction`
+
+**Purpose:** Deterministic redaction primitives for structured logs, metadata maps, and provider-facing strings.
+
+**Provides:** `IRedactor`, `DefaultRedactor`, field-name rules, and DI registration — no external redaction service.
+
+**When to use:** Before logging or serializing objects that may contain tokens, emails, or provider keys.
+
+**Non-goals:** Not a full PII scanner or compliance framework (see [package notes](Ontogony.Redaction.md)).
+
+### `Ontogony.Secrets`
+
+**Purpose:** Secret references, masking, fingerprints, and a development-only protector — **no** cloud secret store.
+
+**Provides:** `SecretRef`, masking helpers, fingerprint port, and `DevelopmentBase64SecretProtector` for local/dev only.
+
+**When to use:** Typing provider API keys and similar credentials with safe display metadata; pair with host-specific secret resolution in the product repo.
+
+**Non-goals:** No Azure Key Vault / AWS Secrets Manager clients (see [package notes](Ontogony.Secrets.md)).
 
 ---
 
@@ -433,6 +479,20 @@ catch { await ledger.MarkFailedAsync(key); throw; }
 
 ---
 
+## Quotas & resource control
+
+### `Ontogony.Quotas`
+
+**Purpose:** Mechanical quota scopes, windows, limits, consumption records, decisions, and an in-memory `IQuotaLedger` for tests and single-process hosts.
+
+**Provides:** Provider-neutral numeric metrics (requests, tokens, cost units as opaque counters) — **no** distributed rate limiter, pricing, or routing policy.
+
+**When to use:** Enforcing mechanical budgets next to idempotency or gateway code; product repos own plan tiers and durable ledgers.
+
+**Non-goals:** No billing, pricing tables, or Conexus plan semantics (see [package notes](Ontogony.Quotas.md)).
+
+---
+
 ## Testing
 
 ### `Ontogony.Testing`
@@ -482,6 +542,11 @@ Do not rely on an informal ASCII tree here: it drifts from the real graph. **Aut
 |----------|---------|-------------|
 | Publish events | `Ontogony.Messaging` | `Ontogony.Contracts` (if hand-crafting) |
 | Trace requests | `Ontogony.Observability` | — (required) |
+| Structured log fields / scopes | `Ontogony.Logging` | Ad hoc string keys only |
+| Redact sensitive values | `Ontogony.Redaction` | Custom per-field scrubbers |
+| Secret refs / masks (no vault SDK) | `Ontogony.Secrets` | Host-specific secret stores |
+| Mechanical quotas / in-memory ledger | `Ontogony.Quotas` | External rate-limit appliances only |
+| Replay bundle DTOs (no engine) | `Ontogony.Replay.Contracts` | Product-specific debug formats |
 | Handle errors | `Ontogony.Errors` | — (required) |
 | Call other services | `Ontogony.Http` | `HttpClient` (not recommended) |
 | Authenticate | `Ontogony.Security` | — (required) |

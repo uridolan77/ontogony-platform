@@ -54,7 +54,7 @@ jobs:
       - name: Validate package levels (Ontogony ProjectReferences)
         shell: pwsh
         run: ./scripts/validate-package-levels.ps1
-      - name: Pack (version gate + 18-package smoke)
+      - name: Pack (version gate + 23-package smoke)
         env:
           PACKAGE_VERSION: 0.3.0-alpha.1
         shell: pwsh

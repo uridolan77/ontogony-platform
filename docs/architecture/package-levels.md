@@ -28,25 +28,25 @@ Many higher-level packages depend on one or both of these; that is why they are 
 
 ## Level 1 — Service mechanics
 
-**Packages:** `Ontogony.Hosting`, `Ontogony.Observability`, `Ontogony.Errors`, `Ontogony.Http`, `Ontogony.Security`
+**Packages:** `Ontogony.Hosting`, `Ontogony.Observability`, `Ontogony.Errors`, `Ontogony.Http`, `Ontogony.Security`, `Ontogony.Logging`, `Ontogony.Redaction`, `Ontogony.Secrets`
 
-**Purpose:** ASP.NET defaults, trace/correlation, error shape, resilient outbound HTTP, service identity and actor context.
+**Purpose:** ASP.NET defaults, trace/correlation, error shape, resilient outbound HTTP, service identity and actor context, structured logging fields and scopes, deterministic redaction, and secret-reference mechanics (no cloud secret store).
 
 ---
 
 ## Level 2 — Event, consistency, persistence mechanics
 
-**Packages:** `Ontogony.Messaging`, `Ontogony.Idempotency`, `Ontogony.Persistence`, `Ontogony.Persistence.Postgres`, `Ontogony.ProtocolIngress`
+**Packages:** `Ontogony.Messaging`, `Ontogony.Idempotency`, `Ontogony.Persistence`, `Ontogony.Persistence.Postgres`, `Ontogony.ProtocolIngress`, `Ontogony.Quotas`
 
-**Purpose:** in-process publish/dispatch, idempotency ledger, outbox and processed-message contracts, PostgreSQL outbox provider, protocol normalization into envelopes.
+**Purpose:** in-process publish/dispatch, idempotency ledger, outbox and processed-message contracts, PostgreSQL outbox provider, protocol normalization into envelopes, and mechanical quota windows/decisions (no product plan tiers).
 
 ---
 
 ## Level 3 — AI runtime mechanics
 
-**Packages:** `Ontogony.AI.Contracts`, `Ontogony.Artifacts`, `Ontogony.Execution`
+**Packages:** `Ontogony.AI.Contracts`, `Ontogony.Artifacts`, `Ontogony.Execution`, `Ontogony.Replay.Contracts`
 
-**Purpose:** LLM request/response telemetry, usage/cost/error records, large payload references, execution journal facts and checkpoints — **without** orchestration or provider policy.
+**Purpose:** LLM request/response telemetry, usage/cost/error records, large payload references, execution journal facts and checkpoints, and replay bundle contracts — **without** orchestration, provider policy, or a replay engine.
 
 ---
 
@@ -70,28 +70,33 @@ Many higher-level packages depend on one or both of these; that is why they are 
 
 Rows depend on columns. **✓** means the row package may `ProjectReference` the column package (golden set in `validate-package-levels.ps1`). Column order is alphabetical by package id.
 
-|  | AI | Art | Cfg | Con | Err | Exe | Hash | Hst | Http | Idem | Msg | Obs | Per | Pg | Pri | Ing | Sec | Tst |
-|--|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| **Ontogony.AI.Contracts** |  |  |  | ✓ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| **Ontogony.Artifacts** |  |  |  | ✓ |  |  | ✓ |  |  |  |  |  |  |  | ✓ |  |  |  |
-| **Ontogony.Configuration** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| **Ontogony.Contracts** |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ✓ |  |  |  |
-| **Ontogony.Errors** |  |  |  |  |  |  |  |  |  |  |  | ✓ |  |  |  |  |  |  |
-| **Ontogony.Execution** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| **Ontogony.Hashing** |  |  |  | ✓ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| **Ontogony.Hosting** |  |  |  |  | ✓ |  |  |  |  |  |  | ✓ |  |  |  |  | ✓ |  |
-| **Ontogony.Http** |  |  |  |  |  |  |  |  |  |  |  | ✓ |  |  | ✓ |  |  |  |
-| **Ontogony.Idempotency** |  |  |  |  |  |  | ✓ |  |  |  |  |  |  |  |  |  |  |  |
-| **Ontogony.Messaging** |  |  |  | ✓ |  |  | ✓ |  |  |  |  | ✓ |  |  |  |  |  |  |
-| **Ontogony.Observability** |  |  |  | ✓ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| **Ontogony.Persistence** |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ✓ |  |  |  |
-| **Ontogony.Persistence.Postgres** |  |  |  |  |  |  |  |  |  |  |  |  | ✓ |  | ✓ |  |  |  |
-| **Ontogony.Primitives** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| **Ontogony.ProtocolIngress** |  |  |  | ✓ |  |  | ✓ |  |  |  |  |  |  |  | ✓ |  |  |  |
-| **Ontogony.Security** |  |  |  | ✓ |  |  |  |  |  |  |  |  |  |  | ✓ |  |  |  |
-| **Ontogony.Testing** |  |  |  | ✓ | ✓ |  | ✓ |  | ✓ |  | ✓ | ✓ | ✓ |  | ✓ |  | ✓ |  |
+|  | AI | Art | Cfg | Con | Err | Exe | Hash | Hst | Http | Idem | Log | Msg | Obs | Per | Pg | Pri | Ing | Quo | Rdc | Rpl | Scr | Sec | Tst |
+|--|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **Ontogony.AI.Contracts** |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Artifacts** |   |   |   | ✓ |   |   | ✓ |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |
+| **Ontogony.Configuration** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Contracts** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |
+| **Ontogony.Errors** |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Execution** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Hashing** |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Hosting** |   |   |   |   | ✓ |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   | ✓ |   |
+| **Ontogony.Http** |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   | ✓ |   |   |   |   |   |   |   |
+| **Ontogony.Idempotency** |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Logging** |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Messaging** |   |   |   | ✓ |   |   | ✓ |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Observability** |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Persistence** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |
+| **Ontogony.Persistence.Postgres** |   |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   | ✓ |   |   |   |   |   |   |   |
+| **Ontogony.Primitives** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.ProtocolIngress** |   |   |   | ✓ |   |   | ✓ |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |
+| **Ontogony.Quotas** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |
+| **Ontogony.Redaction** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Replay.Contracts** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Secrets** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |
+| **Ontogony.Security** |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |
+| **Ontogony.Testing** |   |   |   | ✓ | ✓ |   | ✓ |   | ✓ |   |   | ✓ | ✓ | ✓ |   | ✓ |   |   |   |   |   | ✓ |   |
 
-**Header abbreviations:** AI = AI.Contracts, Art = Artifacts, Cfg = Configuration, Con = Contracts, Err = Errors, Exe = Execution, Hash = Hashing, Hst = Hosting, Http = Http, Idem = Idempotency, Msg = Messaging, Obs = Observability, Per = Persistence, Pg = Persistence.Postgres, Pri = Primitives, Ing = ProtocolIngress, Sec = Security, Tst = Testing.
+**Header abbreviations:** AI = AI.Contracts, Art = Artifacts, Cfg = Configuration, Con = Contracts, Err = Errors, Exe = Execution, Hash = Hashing, Hst = Hosting, Http = Http, Idem = Idempotency, Log = Logging, Msg = Messaging, Obs = Observability, Per = Persistence, Pg = Persistence.Postgres, Pri = Primitives, Ing = ProtocolIngress, Quo = Quotas, Rdc = Redaction, Rpl = Replay.Contracts, Scr = Secrets, Sec = Security, Tst = Testing.
 
 The matrix matches `validate-package-levels.ps1`. When you add or change a `ProjectReference`, update **both** the script and this table.
 

@@ -11,6 +11,7 @@ This repository is intentionally **not** a domain framework. It contains reusabl
 - resilient outbound HTTP clients (correlation, backoff, **Retry-After**, **jitter**, circuit breaking — richer policies still evolve; see [`docs/packages/Ontogony.Http.md`](docs/packages/Ontogony.Http.md))
 - hashing and canonical JSON fingerprints
 - idempotency primitives
+- structured logging fields, redaction, secret-reference mechanics, mechanical quotas, replay contracts (no replay engine)
 - event publishing abstractions
 - persistence/outbox/processed-message contracts and PostgreSQL providers
 - security/current-actor context primitives
@@ -66,14 +67,15 @@ Level 0.5 — Shared representation
   Ontogony.Contracts, Ontogony.Hashing
 
 Level 1 — Service mechanics
-  Ontogony.Hosting, Ontogony.Observability, Ontogony.Errors, Ontogony.Http, Ontogony.Security
+  Ontogony.Hosting, Ontogony.Observability, Ontogony.Errors, Ontogony.Http, Ontogony.Security,
+  Ontogony.Logging, Ontogony.Redaction, Ontogony.Secrets
 
 Level 2 — Event, consistency, persistence mechanics
   Ontogony.Messaging, Ontogony.Idempotency, Ontogony.Persistence,
-  Ontogony.Persistence.Postgres, Ontogony.ProtocolIngress
+  Ontogony.Persistence.Postgres, Ontogony.ProtocolIngress, Ontogony.Quotas
 
 Level 3 — AI runtime mechanics
-  Ontogony.AI.Contracts, Ontogony.Artifacts, Ontogony.Execution
+  Ontogony.AI.Contracts, Ontogony.Artifacts, Ontogony.Execution, Ontogony.Replay.Contracts
 ```
 
 **Aggregate (not a runtime tier):** `Ontogony.Testing` (references many packages for fixtures).
@@ -91,7 +93,7 @@ Level 3 — AI runtime mechanics
 
 ```text
 .
-├── src/                          # 18 shipping library packages (see tree below)
+├── src/                          # 23 shipping library packages (see tree below)
 ├── tests/
 ├── docs/
 │   └── architecture/             # package levels and dependency rules
@@ -101,7 +103,7 @@ Level 3 — AI runtime mechanics
 └── .github/workflows/
 ```
 
-### `src/` packages (18)
+### `src/` packages (23)
 
 ```text
 src/
@@ -110,18 +112,23 @@ src/
 ├── Ontogony.Hashing/
 ├── Ontogony.Contracts/
 ├── Ontogony.Observability/
+├── Ontogony.Logging/
 ├── Ontogony.Errors/
 ├── Ontogony.Http/
 ├── Ontogony.Hosting/
 ├── Ontogony.Security/
+├── Ontogony.Redaction/
+├── Ontogony.Secrets/
 ├── Ontogony.Idempotency/
 ├── Ontogony.Messaging/
 ├── Ontogony.Persistence/
 ├── Ontogony.Persistence.Postgres/
 ├── Ontogony.ProtocolIngress/
+├── Ontogony.Quotas/
 ├── Ontogony.AI.Contracts/
 ├── Ontogony.Artifacts/
 ├── Ontogony.Execution/
+├── Ontogony.Replay.Contracts/
 └── Ontogony.Testing/
 ```
 
@@ -180,7 +187,7 @@ Use SemVer syntax for NuGet; treat **0.x** and **pre-release** tags as “evolvi
 
 ## Current status
 
-**Shared infrastructure (0.3.0-alpha.1)** — contracts, reference implementations, docs, and automated tests (see `CHANGELOG.md`). CI restores, builds, tests, validates docs, **shipping inventory**, **AI runtime docs**, **package dependency levels**, and packs **18** libraries on **.NET 9** (see `.github/workflows/`). A non-shipping [`examples/ConexusDotNetSkeleton/`](examples/ConexusDotNetSkeleton/) project compiles against the Conexus v1 package slice.
+**Shared infrastructure (0.3.0-alpha.1)** — contracts, reference implementations, docs, and automated tests (see `CHANGELOG.md`). CI restores, builds, tests, validates docs, **shipping inventory**, **AI runtime docs**, **package dependency levels**, and packs **23** libraries on **.NET 9** (see `.github/workflows/`). A non-shipping [`examples/ConexusDotNetSkeleton/`](examples/ConexusDotNetSkeleton/) project compiles against the Conexus v1 package slice.
 
 **Still evolving (check `docs/migrations/` before upgrading):**
 

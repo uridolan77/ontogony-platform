@@ -19,12 +19,17 @@ $expectedRefs = [ordered]@{
     'Ontogony.Hosting'             = @('Ontogony.Errors', 'Ontogony.Observability', 'Ontogony.Security')
     'Ontogony.Http'                = @('Ontogony.Observability', 'Ontogony.Primitives')
     'Ontogony.Idempotency'         = @('Ontogony.Hashing')
+    'Ontogony.Logging'             = @('Ontogony.Observability')
     'Ontogony.Messaging'           = @('Ontogony.Contracts', 'Ontogony.Hashing', 'Ontogony.Observability')
     'Ontogony.Observability'       = @('Ontogony.Contracts')
     'Ontogony.Persistence'         = @('Ontogony.Primitives')
     'Ontogony.Persistence.Postgres' = @('Ontogony.Persistence', 'Ontogony.Primitives')
     'Ontogony.Primitives'          = @()
     'Ontogony.ProtocolIngress'     = @('Ontogony.Contracts', 'Ontogony.Hashing', 'Ontogony.Primitives')
+    'Ontogony.Quotas'              = @('Ontogony.Primitives')
+    'Ontogony.Redaction'           = @()
+    'Ontogony.Replay.Contracts'    = @()
+    'Ontogony.Secrets'             = @('Ontogony.Redaction')
     'Ontogony.Security'            = @('Ontogony.Contracts', 'Ontogony.Primitives')
     'Ontogony.Testing'             = @(
         'Ontogony.Contracts',
