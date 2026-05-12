@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+PR30 — Observability operations pack:
+
+- **Operational docs:** added `docs/observability/operations-pack.md` with OTLP exporter wiring, local collector usage, log correlation patterns, and rollout checks.
+- **Local stack:** added `docs/observability/local-collector/` with Docker Compose, collector config, and Prometheus scrape config for local traces/metrics.
+- **Queries and alerts:** added `docs/observability/dashboard-queries.md` and `docs/observability/alerts.prometheus.rules.yml`.
+- **Catalogs:** added `docs/observability/metrics-catalog.md` and `docs/observability/trace-attributes.md`.
+- **Trace migration checks:** added `docs/observability/trace-header-burn-in-checks.md`.
+- **Stability tests:** added smoke tests pinning activity source/meter names, metric instrument names, and span attribute keys.
+- **Package docs:** updated `docs/packages/Ontogony.Observability.md` and `docs/packages/Ontogony.Http.md` with observability operations references and metrics interoperability guidance.
+
 PR29 — Security production hardening:
 
 - **Key-id support:** added `X-Ontogony-Service-Key-Id`, `ServiceIdentityOptions.ServiceKeyIdHeaderName`, and explicit key-id policy via `RequireKeyIdForHmacSignature`.
