@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+PR28 — Ontogony.ProtocolIngress mechanical protocol normalization:
+
+- **New package:** `Ontogony.ProtocolIngress` adds mechanical protocol-to-envelope normalization without product semantics.
+- **Core abstractions:** `IProtocolIngressAdapter<TRaw>`, `ProtocolIngressResult`, `ProtocolIngressContext`, `RawProtocolPayload`, `ProtocolIngressError`.
+- **Adapters:** `GenericJsonProtocolAdapter`, `CloudEventsProtocolAdapter`, `McpProtocolAdapter`, `A2aProtocolAdapter`, `AgUiProtocolAdapter` for diverse event protocols.
+- **Mechanics:** Payload preservation, trace ID policy (RequireProvided or GenerateIfMissing), timestamp normalization, deterministic payload hash, distributed tracing metadata.
+- **Validation:** Required field checking, structured error reporting, integration with `OntogonyEnvelope<RawProtocolPayload>`.
+- **Tests:** Golden payload fixtures, deterministic hash verification, missing trace ID handling, raw payload preservation.
+- **Docs:** `docs/protocol-ingress/overview.md`, `docs/protocol-ingress/cloudevents.md`, `docs/protocol-ingress/mcp.md`, `docs/protocol-ingress/a2a.md`, `docs/protocol-ingress/ag-ui.md`.
+- **Boundary:** Does not include Agentor run orchestration, Athanor canonization, Conexus approval logic, or product-specific interpretation.
+
 - Added planning package for PR26-PR35 infrastructure roadmap under `docs/planning/ontogony-platform-next-prs/`.
 
 PR27.5 — PostgreSQL provider hardening:

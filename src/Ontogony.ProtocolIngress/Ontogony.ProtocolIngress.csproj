@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>Ontogony.ProtocolIngress</PackageId>
+    <Description>Ontogony.ProtocolIngress mechanical protocol normalization and ingress adapters for converting protocol-specific events into OntogonyEnvelope records.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ontogony.Contracts\Ontogony.Contracts.csproj" />
+    <ProjectReference Include="..\Ontogony.Hashing\Ontogony.Hashing.csproj" />
+    <ProjectReference Include="..\Ontogony.Primitives\Ontogony.Primitives.csproj" />
+  </ItemGroup>
+
+</Project>
