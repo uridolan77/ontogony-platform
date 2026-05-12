@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+PR33 — Testing conformance kits:
+
+- **TracingConformanceAssertions:** helpers to assert `RequestTracingMiddleware` echoes `X-Ontogony-Trace-Id`, generates a trace id when none is present, and propagates tenant id into `OntogonyCorrelationContext`.
+- **ErrorShapeConformanceAssertions:** helpers to assert unmapped exceptions produce 500 with canonical JSON shape, mapped exceptions produce the expected status and code, and no internal exception message leaks.
+- **EnvelopeConformanceAssertions:** helpers to assert envelope source follows `ontogony://` scheme, event type is namespaced, schema version is present, and payload hash matches content.
+- **HmacConformanceAssertions:** helpers to assert HMAC canonical string format, signature round-trips, and tampered signatures are rejected.
+- **OutboxConformanceHarness:** helpers to assert write-then-read, mark-dispatched removes from queue, duplicate write throws, and mark-failed is idempotent against any `IOutboxWriter`/`IOutboxReader`/`IOutboxDispatcher`.
+- **HttpResilienceConformanceHarness:** helpers to build resilient `HttpClient` instances backed by `StubHttpMessageHandler` and assert retry-on-failure, no-retry-on-success, and circuit-breaker open behaviour.
+- **New project references:** `Ontogony.Testing` now references `Ontogony.Http` and `Ontogony.Persistence` to support outbox and resilience conformance helpers.
+- **Self-tests:** `ConformanceKitPr33Tests` in `Ontogony.Infrastructure.Tests` covers positive and negative cases for all six kits.
+- **Docs:** added `docs/testing/conformance-kits.md` with full API reference and service adoption snippets.
+
 PR32 — Advanced HTTP resilience policies:
 
 - **Retry classifier extension point:** added `IRetryClassifier` interface to allow custom retry decision logic beyond status codes and exception types.
