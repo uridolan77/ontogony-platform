@@ -127,7 +127,7 @@ public sealed class ExecutionContractsTests
             @"\b(Agentor|Athanor|Conexus|PlanStep|ToolChoice|ReviewPolicy|Canoniz)\b",
             RegexOptions.IgnoreCase);
 
-        foreach (var t in typeof(ExecutionRunRecord).Assembly.GetExportedTypes())
+        foreach (var t in typeof(IExecutionJournal).Assembly.GetExportedTypes())
         {
             Assert.False(forbidden.IsMatch(t.Name), t.FullName);
             foreach (var m in t.GetMembers(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly))
@@ -206,6 +206,7 @@ public sealed class ExecutionContractsTests
             RecordedAt = FixedInstant,
             Label = "after-step-a",
             PayloadHash = "sha256:deadbeef",
+            PayloadArtifactId = "artifact-ref-1",
             ResumeToken = "token-opaque",
             Metadata = null
         };

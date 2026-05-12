@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+PR38.1 — Ontogony.Execution journal port and docs:
+
+- **`IExecutionJournal` / `InMemoryExecutionJournal`:** Append-only mechanical journal with `GetRunAsync` and list APIs (`ListStepsAsync`, `ListAttemptsAsync`, `ListTransitionsAsync`, `ListCheckpointsAsync`). Duplicate primary ids throw `InvalidOperationException`; lists return append order.
+- **DI:** `AddOntogonyInMemoryExecutionJournal()` registers the in-memory journal.
+- **Contracts:** `ExecutionCheckpointRecord.PayloadArtifactId` (optional opaque id, often same as `Ontogony.Artifacts.ArtifactRef.ArtifactId`). XML remarks on journal DTOs state that lifecycle consistency is not validated here.
+- **Docs:** `README.md` (packed), `docs/packages/Ontogony.Execution.md`, and `docs/packages/index.md` (18 packages, dependency graph, selection matrix).
+- **Tests:** `ExecutionJournalTests` cover append/read, list ordering, duplicate ids, empty lists, and DI registration.
+
 PR38 — Ontogony.Execution (execution journal contracts):
 
 - **New package `Ontogony.Execution`:** `ExecutionRunRecord`, `ExecutionStepRecord`, `ExecutionAttemptRecord`, `ExecutionStateTransitionRecord`, and `ExecutionCheckpointRecord` — serialization-friendly DTOs with opaque string kinds, statuses, and hashes; optional scope and metadata dictionaries. No orchestration engine, storage backend, or product-specific vocabulary.

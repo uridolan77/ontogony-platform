@@ -5,6 +5,7 @@ namespace Ontogony.Execution;
 /// </summary>
 /// <remarks>
 /// <see cref="Status"/> and <see cref="ErrorCode"/> are <b>opaque strings</b>. <see cref="AttemptNumber"/> is caller-defined (often 1-based); Ontogony does not enforce positivity.
+/// This type does not validate lifecycle consistency across fields; consumers validate when they need stricter journal semantics.
 /// </remarks>
 public sealed record ExecutionAttemptRecord
 {

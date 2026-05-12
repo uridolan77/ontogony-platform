@@ -5,6 +5,7 @@ namespace Ontogony.Execution;
 /// </summary>
 /// <remarks>
 /// <see cref="SubjectKind"/>, <see cref="FromState"/>, <see cref="ToState"/>, and <see cref="ReasonCode"/> are <b>opaque strings</b>.
+/// This type does not validate lifecycle consistency across fields; consumers validate when they need stricter journal semantics.
 /// </remarks>
 public sealed record ExecutionStateTransitionRecord
 {

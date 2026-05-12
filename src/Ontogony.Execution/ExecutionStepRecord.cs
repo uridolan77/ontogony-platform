@@ -5,6 +5,7 @@ namespace Ontogony.Execution;
 /// </summary>
 /// <remarks>
 /// <see cref="StepKey"/> and <see cref="Status"/> are <b>opaque strings</b>. <see cref="Ordinal"/> is a host-defined ordering hint, not a graph edge.
+/// This type does not validate lifecycle consistency across fields; consumers validate when they need stricter journal semantics.
 /// </remarks>
 public sealed record ExecutionStepRecord
 {

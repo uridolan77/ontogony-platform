@@ -5,6 +5,7 @@ namespace Ontogony.Execution;
 /// </summary>
 /// <remarks>
 /// <see cref="RunKind"/> and <see cref="Status"/> are <b>opaque strings</b>. Callers define vocabulary; Ontogony does not interpret them.
+/// This type does not validate lifecycle consistency across fields; consumers validate when they need stricter journal semantics.
 /// </remarks>
 public sealed record ExecutionRunRecord
 {

@@ -1,6 +1,6 @@
 # Ontogony Packages — Reference
 
-This index describes all 17 NuGet packages and when to use each one.
+This index describes all 18 NuGet packages and when to use each one.
 
 ---
 
@@ -108,6 +108,37 @@ var result = await store.PutAsync(new ArtifactPutRequest
 });
 
 // emit result.Reference inside an OntogonyEnvelope<ArtifactRef>
+```
+
+---
+
+### `Ontogony.Execution`
+
+**Purpose:** Mechanical execution journal DTOs (run, step, attempt, transition, checkpoint), an append-only `IExecutionJournal` port, and `InMemoryExecutionJournal` for tests and single-process hosts.
+
+**Provides:**
+
+- `ExecutionRunRecord`, `ExecutionStepRecord`, `ExecutionAttemptRecord`, `ExecutionStateTransitionRecord`, `ExecutionCheckpointRecord` (opaque string statuses/kinds; optional `PayloadArtifactId` on checkpoints for out-of-line bytes).
+- `IExecutionJournal` / `InMemoryExecutionJournal` — append lines, `GetRunAsync`, list by `runId` or `stepId`; duplicate primary ids throw `InvalidOperationException`; lists return append order.
+- `AddOntogonyInMemoryExecutionJournal()` — DI registration.
+
+**When to use:** Recording execution timelines next to LLM/artifact telemetry; pair checkpoint `PayloadArtifactId` with `Ontogony.Artifacts` when payloads are large. Wrap payloads in `OntogonyEnvelope<TPayload>` when using the standard event pipeline.
+
+**Non-goals:** No workflow engine, scheduler, enforced state machine, lifecycle validation on DTOs, or durable storage provider (see [package notes](Ontogony.Execution.md)).
+
+**Example:**
+
+```csharp
+using Ontogony.Execution;
+
+var journal = new InMemoryExecutionJournal();
+await journal.AppendRunAsync(new ExecutionRunRecord
+{
+    RunId = "run-1",
+    Status = "running",
+    CreatedAt = DateTimeOffset.UtcNow
+});
+var run = await journal.GetRunAsync("run-1");
 ```
 
 ---
@@ -441,6 +472,7 @@ Ontogony.Primitives
 ├── Ontogony.Contracts
 ├── Ontogony.AI.Contracts → Ontogony.Contracts
 ├── Ontogony.Artifacts → Ontogony.Contracts, Ontogony.Hashing, Ontogony.Primitives
+├── Ontogony.Execution → Microsoft.Extensions.DependencyInjection
 ├── Ontogony.Errors
 ├── Ontogony.Hashing
 ├── Ontogony.Hosting
@@ -477,6 +509,7 @@ Ontogony.Primitives
 | Integration tests | `Ontogony.Testing` | Any test framework + helpers |
 | LLM telemetry contracts | `Ontogony.AI.Contracts` | Product routing/orchestration repos |
 | Large/sensitive payload by-reference | `Ontogony.Artifacts` | Inline payloads in envelopes (only for small DTOs) |
+| Execution journal (runs / steps / attempts) | `Ontogony.Execution` | Product workflow engines or durable journal DBs |
 
 ---
 
