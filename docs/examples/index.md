@@ -2,6 +2,8 @@
 
 This guide includes code examples for common Ontogony integration patterns.
 
+**Conexus compile smoke:** [`examples/ConexusDotNetSkeleton/`](../../examples/ConexusDotNetSkeleton/) (in-repo; references the [Conexus.NET readiness](../consumer-blueprints/conexus-dotnet-platform-readiness.md) package set).
+
 ---
 
 ## Complete Service Example
@@ -535,4 +537,4 @@ See `examples/` directory:
 ---
 
 **Last Updated:** May 2026  
-**Version:** 0.2.0
+**Version:** 0.3.0-alpha.1

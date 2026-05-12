@@ -208,4 +208,4 @@ Use these as starting prompts for your own security reviews (Ontogony does not c
 ---
 
 **Last Updated:** May 2026  
-**Version:** 0.2.0
+**Version:** 0.3.0-alpha.1

@@ -588,4 +588,4 @@ var orders = await db.Orders
 ---
 
 **Last Updated:** May 2026  
-**Version:** 0.2.0
+**Version:** 0.3.0-alpha.1

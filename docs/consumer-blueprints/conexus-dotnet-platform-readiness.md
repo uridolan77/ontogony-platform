@@ -2,6 +2,8 @@
 
 This blueprint defines the **minimal Ontogony package set** for a first **Conexus.NET** service on .NET, and a **reference request path** for an OpenAI-style chat completions endpoint. It is planning and inventory only: **no routing, pricing, or provider policy** belongs in Ontogony.Platform.
 
+**Current platform package line:** `0.3.0-alpha.1` (see [`docs/FRAMEWORK_BASELINE.md`](../FRAMEWORK_BASELINE.md)).
+
 ## Goals
 
 - Use Ontogony for **mechanical** cross-cutting behavior: tracing, errors, HTTP resilience, security context, idempotency, envelopes, LLM telemetry, large payloads by reference, and execution facts.

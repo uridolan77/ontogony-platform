@@ -42,6 +42,11 @@ if ($pkgs.Count -eq 0) {
     throw "Pack produced no .nupkg under $outDir (check build errors and IsPackable)."
 }
 
+$expectedShippingPackages = 18
+if ($pkgs.Count -ne $expectedShippingPackages) {
+    throw "Pack smoke: expected $expectedShippingPackages shipping .nupkg files for version $version, found $($pkgs.Count). If packages were added or removed, update scripts/pack-all.ps1 and scripts/validate-shipping-inventory.ps1."
+}
+
 Write-Host ""
 Write-Host "Packages ($($pkgs.Count)):"
 $pkgs | Sort-Object Name | ForEach-Object { Write-Host "  $($_.Name)" }

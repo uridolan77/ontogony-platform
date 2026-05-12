@@ -10,6 +10,7 @@ Ontogony does **not** claim to track the latest public .NET or Microsoft.Extensi
 | --- | --- | --- |
 | **SDK** | [`global.json`](../global.json) | `9.0.100`, `rollForward: latestFeature` |
 | **Target framework** | [`Directory.Build.props`](../Directory.Build.props) | `net9.0` for all projects in the solution |
+| **NuGet / assembly default version** | [`Directory.Build.props`](../Directory.Build.props) | `0.3.0-alpha.1` (`<Version>`; CI may pass `-p:PackageVersion` / `PACKAGE_VERSION` to match) |
 | **Central package versions** | [`Directory.Packages.props`](../Directory.Packages.props) | `ManagePackageVersionsCentrally` = `true`; version pins for `Microsoft.Extensions.*`, test packages, `Npgsql`, `JsonSchema.Net`, etc. |
 
 There is **no** per-project floating version for shared dependencies: add or bump versions in `Directory.Packages.props` only.
@@ -40,6 +41,7 @@ Third-party pins (example: `Npgsql`) live alongside Microsoft.Extensions pins in
 3. **Packages:** Bump `PackageVersion` entries in `Directory.Packages.props`; resolve transitive conflicts with `dotnet restore` and `dotnet list package --vulnerable` as needed.
 4. **Validate:** `dotnet build Ontogony.Platform.sln`, `dotnet test Ontogony.Platform.sln`, and any CI validation scripts under `scripts/` that your pipeline runs.
 5. **Record:** Add a [`CHANGELOG.md`](../CHANGELOG.md) entry; for breaking public API changes, add [`docs/migrations/`](./migrations/) when applicable.
+6. **Shipping line:** When changing the pre-release or release tag for packed libraries, bump `<Version>` in `Directory.Build.props` and align CI / docs (`README.md`, `docs/packages/index.md`, `docs/FRAMEWORK_BASELINE.md`).
 
 ## Starter-template baseline
 
@@ -47,6 +49,6 @@ Any **starter zip** or **template consumer** that claims compatibility with this
 
 - Target the **same** `TargetFramework` as `Directory.Build.props` (currently `net9.0`).
 - Prefer the same **central package management** pattern (`Directory.Packages.props` or a documented subset) so Microsoft.Extensions versions stay aligned with Ontogony’s tested matrix.
-- Read [`docs/consumer-blueprints/conexus-dotnet-platform-readiness.md`](./consumer-blueprints/conexus-dotnet-platform-readiness.md) for the first Conexus.NET package slice.
+- Mirror the compile smoke in [`examples/ConexusDotNetSkeleton/`](../../examples/ConexusDotNetSkeleton/) (included in `Ontogony.Platform.sln`, not packable).
 
 Keeping SDK, TFM, and package versions as **few files as possible** avoids drift between the platform repo and the first consumer.

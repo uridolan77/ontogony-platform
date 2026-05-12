@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+PR45 / PR46 — CI polish and pre-1.0 version line `0.3.0-alpha.1`:
+
+- **Version:** Default `<Version>0.3.0-alpha.1</Version>` in `Directory.Build.props`; CI `PACKAGE_VERSION` / manifest generation use the same tag.
+- **CI:** `validate-shipping-inventory.ps1` (18 `src/Ontogony.*` projects + README each), `validate-ai-runtime-docs.ps1` (banned API strings in AI package + ai-runtime docs), `pack-all.ps1` asserts exactly **18** shipping `.nupkg` files after pack.
+- **Example:** `examples/ConexusDotNetSkeleton/` — non-packable web smoke referencing the Conexus v1 package slice; added to `Ontogony.Platform.sln`.
+- **Docs:** README versioning rules (pre-1.0 vs future `0.4.x` / `1.0.0`); `docs/FRAMEWORK_BASELINE.md` and `docs/packages/index.md` footer aligned to `0.3.0-alpha.1`.
+
 PR43 / PR44 — Conexus readiness blueprint and framework baseline:
 
 - **Docs:** `docs/consumer-blueprints/conexus-dotnet-platform-readiness.md` — minimal Ontogony package set for Conexus.NET v1, optional packages, reference `POST /v1/chat/completions` flow, and product/platform boundaries.

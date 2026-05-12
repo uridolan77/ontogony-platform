@@ -1,5 +1,7 @@
 <Project>
   <PropertyGroup>
+    <!-- Shipping line for pre-1.0 platform (see README Versioning and docs/FRAMEWORK_BASELINE.md). CI pack may pass -p:PackageVersion to align. -->
+    <Version>0.3.0-alpha.1</Version>
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>

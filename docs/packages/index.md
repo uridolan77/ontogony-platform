@@ -539,4 +539,4 @@ dotnet add package Ontogony.Errors
 ---
 
 **Last Updated:** May 2026  
-**Version:** 0.2.0
+**Version:** 0.3.0-alpha.1

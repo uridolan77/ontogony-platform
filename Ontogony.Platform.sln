@@ -59,6 +59,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ontogony.Execution", "src\O
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ontogony.Execution.Tests", "tests\Ontogony.Execution.Tests\Ontogony.Execution.Tests.csproj", "{BCF47949-7E64-4EEE-9C84-98FE09ABC759}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{B36A84DF-456D-A817-6EDD-3EC3E7F6E11F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConexusDotNetSkeleton", "examples\ConexusDotNetSkeleton\ConexusDotNetSkeleton.csproj", "{2530E16F-DCC2-4890-A976-BFAD1AFB6BA9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -381,6 +385,18 @@ Global
 		{BCF47949-7E64-4EEE-9C84-98FE09ABC759}.Release|x64.Build.0 = Release|Any CPU
 		{BCF47949-7E64-4EEE-9C84-98FE09ABC759}.Release|x86.ActiveCfg = Release|Any CPU
 		{BCF47949-7E64-4EEE-9C84-98FE09ABC759}.Release|x86.Build.0 = Release|Any CPU
+		{2530E16F-DCC2-4890-A976-BFAD1AFB6BA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2530E16F-DCC2-4890-A976-BFAD1AFB6BA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2530E16F-DCC2-4890-A976-BFAD1AFB6BA9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2530E16F-DCC2-4890-A976-BFAD1AFB6BA9}.Debug|x64.Build.0 = Debug|Any CPU
+		{2530E16F-DCC2-4890-A976-BFAD1AFB6BA9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2530E16F-DCC2-4890-A976-BFAD1AFB6BA9}.Debug|x86.Build.0 = Debug|Any CPU
+		{2530E16F-DCC2-4890-A976-BFAD1AFB6BA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2530E16F-DCC2-4890-A976-BFAD1AFB6BA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2530E16F-DCC2-4890-A976-BFAD1AFB6BA9}.Release|x64.ActiveCfg = Release|Any CPU
+		{2530E16F-DCC2-4890-A976-BFAD1AFB6BA9}.Release|x64.Build.0 = Release|Any CPU
+		{2530E16F-DCC2-4890-A976-BFAD1AFB6BA9}.Release|x86.ActiveCfg = Release|Any CPU
+		{2530E16F-DCC2-4890-A976-BFAD1AFB6BA9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -395,5 +411,6 @@ Global
 		{6332731D-BDA8-444B-B5C4-402078B3C7A7} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 		{50CBDD5B-AD60-4136-80E9-0552539D5D39} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{BCF47949-7E64-4EEE-9C84-98FE09ABC759} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
+		{2530E16F-DCC2-4890-A976-BFAD1AFB6BA9} = {B36A84DF-456D-A817-6EDD-3EC3E7F6E11F}
 	EndGlobalSection
 EndGlobal

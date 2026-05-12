@@ -151,7 +151,7 @@ Expected: **401 tests passing**, 0 failures (as of latest main)
 ### Pack
 
 ```bash
-$env:PACKAGE_VERSION = "0.2.0"
+$env:PACKAGE_VERSION = "0.3.0-alpha.1"
 ./scripts/pack-all.ps1
 ```
 
@@ -203,6 +203,6 @@ GitHub Actions workflow will automatically:
 
 ---
 
-**Version:** 0.2.0  
+**Version:** 0.3.0-alpha.1  
 **Last Updated:** May 2026  
 **License:** MIT

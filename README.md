@@ -126,6 +126,7 @@ src/
 
 - `examples/MinimalApiWithOntogonyObservability/`: minimal API sample for `AddOntogonyObservability`, `UseOntogonyRequestTracing`, and outbound correlation propagation through `Ontogony.Http`.
 - `examples/MinimalApiWithOntogonyHosting/`: minimal API sample for `AddOntogonyServiceDefaults`, `UseOntogonyServiceDefaults`, and `MapOntogonyHealthEndpoints`.
+- `examples/ConexusDotNetSkeleton/`: compile-only smoke referencing the [Conexus.NET readiness](docs/consumer-blueprints/conexus-dotnet-platform-readiness.md) package set (not a product).
 
 ## Documentation map
 
@@ -159,11 +160,24 @@ pwsh ./scripts/bootstrap-solution.ps1
 
 ## Versioning
 
-Use SemVer for packaging, with **0.x** treated as still evolving: breaking changes are allowed while there are no stable external consumers. **`1.0`** should wait until a real shipped service (for example Conexus.NET on this stack) has exercised the core packages end-to-end.
+**Current shipping line:** `0.3.0-alpha.1` (set in [`Directory.Build.props`](Directory.Build.props) as `<Version>`; CI uses the same value for `PACKAGE_VERSION` when packing).
+
+**Before 1.0** there are no stability guarantees for external consumers that do not exist yet:
+
+- Breaking API and contract changes are allowed without pretending full SemVer stability.
+- Migration notes in `docs/migrations/` are required when the change matters for **adopted** mechanics; unused internal experiments do not need a migration file.
+- What matters pre-1.0 is a coherent **package shape** and honest docs.
+
+**After Conexus.NET starts consuming this stack** (informal roadmap):
+
+- `0.4.x` — Conexus.NET incubation baseline while the gateway is built against the platform.
+- `1.0.0` — reserved for when a shipped Conexus.NET (or successor) uses the core packages end-to-end in production and smoke-validates telemetry, artifacts, and execution recording.
+
+Use SemVer syntax for NuGet; treat **0.x** and **pre-release** tags as “evolving substrate,” not locked LTS.
 
 ## Current status
 
-**Shared infrastructure (0.x)** — contracts, reference implementations, docs, and automated tests (see `CHANGELOG.md`). CI restores, builds, tests, validates docs and **package dependency levels**, and packs on **.NET 9** (see `.github/workflows/`).
+**Shared infrastructure (0.3.0-alpha.1)** — contracts, reference implementations, docs, and automated tests (see `CHANGELOG.md`). CI restores, builds, tests, validates docs, **shipping inventory**, **AI runtime docs**, **package dependency levels**, and packs **18** libraries on **.NET 9** (see `.github/workflows/`). A non-shipping [`examples/ConexusDotNetSkeleton/`](examples/ConexusDotNetSkeleton/) project compiles against the Conexus v1 package slice.
 
 **Still evolving (check `docs/migrations/` before upgrading):**
 
