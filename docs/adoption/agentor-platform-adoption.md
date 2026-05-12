@@ -26,9 +26,10 @@ Details: [`observability-error-ordering.md`](./observability-error-ordering.md).
 ## Trace headers (compatibility)
 
 - **Canonical:** `X-Ontogony-Trace-Id` (`OntogonyEventHeaders.TraceId`), plus W3C `traceparent` / `tracestate` when present.
-- **Legacy:** `X-Agentor-Trace-Id` (`OntogonyEventHeaders.LegacyAgentorTraceId`) is still read when building correlation state from headers (`OntogonyCorrelationContext.FromHeaders`), so Agentor can accept older callers during rollout.
+- **Legacy (inbound):** `X-Agentor-Trace-Id` (`OntogonyEventHeaders.LegacyAgentorTraceId`) is still read when building correlation state from headers (`OntogonyCorrelationContext.FromHeaders`), so Agentor can accept older callers during rollout.
+- **Legacy (response echo):** Off by default (`EchoLegacyHeaders = false`). Set `EchoLegacyHeaders = true` only while external clients still require legacy trace aliases on HTTP responses.
 
-Prefer emitting canonical headers on new integrations; keep reading legacy headers until all producers are migrated.
+Prefer emitting canonical headers on new integrations; keep reading legacy inbound headers until all producers are migrated.
 
 ## Step-by-step guides
 

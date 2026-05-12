@@ -18,6 +18,7 @@ public sealed class OntogonyObservabilityOptions
         OntogonyEventHeaders.ConexusRequestId
     ];
 
-    public bool EchoLegacyHeaders { get; set; } = true;
+    /// <summary>When true, response echoes legacy service-specific trace aliases (for example <c>X-Athanor-Trace-Id</c>). Default is false; services opt in during migration.</summary>
+    public bool EchoLegacyHeaders { get; set; } = false;
     public bool EchoCorrelationHeaders { get; set; } = true;
 }

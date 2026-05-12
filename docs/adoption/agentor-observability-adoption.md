@@ -35,12 +35,18 @@ builder.Services.AddOntogonyIntegrationHttpClient(
 var app = builder.Build();
 app.UseOntogonyRequestTracing();
 // If you also use Ontogony.Errors, call UseOntogonyExceptionHandling after tracing — see observability-error-ordering.md.
+// Exception middleware that reads trace response headers must run after UseOntogonyRequestTracing.
 ```
+
+## CI and sibling project references
+
+Local `ProjectReference` paths to this repo are a dev convenience only. For CI and release, prefer multi-checkout or an internal NuGet feed; see [local-repo-layout-and-ci.md](./local-repo-layout-and-ci.md) and [private-nuget-feed.md](./private-nuget-feed.md).
 
 ## Compatibility Notes
 
 - `OntogonyCorrelationContext.FromHeaders` accepts `X-Agentor-Trace-Id` (`OntogonyEventHeaders.LegacyAgentorTraceId`) when `X-Ontogony-Trace-Id` is absent, so older clients keep correlating.
 - Prefer emitting `X-Ontogony-Trace-Id` and W3C `traceparent` / `tracestate` as canonical correlation surfaces on new integrations.
+- **Response legacy aliases** (`X-Agentor-Trace-Id`, etc.) are off by default (`EchoLegacyHeaders = false`). Set `EchoLegacyHeaders = true` only while external callers still require those response headers.
 
 ## Verification Checklist
 

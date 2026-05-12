@@ -3,7 +3,8 @@
 ## Athanor
 
 - [ ] Replace `TraceIdMiddleware` with `UseOntogonyRequestTracing`.
-- [ ] Keep accepting `X-Athanor-Trace-Id` during migration.
+- [ ] Keep accepting `X-Athanor-Trace-Id` on **inbound** requests during migration.
+- [ ] Read **`X-Ontogony-Trace-Id`** on responses (legacy response echo is off unless `EchoLegacyHeaders = true`).
 - [ ] Replace `ErrorHandlingMiddleware` with `UseOntogonyExceptionHandling` plus Athanor-specific mappings.
 - [ ] Move `IClock`, `IIdGenerator`, and `IContentHashService` to shared primitives only if no domain coupling remains.
 - [ ] Do not move canonization services.

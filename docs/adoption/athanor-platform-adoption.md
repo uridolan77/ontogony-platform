@@ -16,6 +16,10 @@ Goal: byte-identical or policy-identical hashes where you claim parity; no new d
 
 Per-package guarantees: [`docs/packages/`](../packages/).
 
+## CI and sibling project references
+
+If Athanor uses `ProjectReference` to this repository, document the checkout layout or use versioned packages from an internal feed. See [local-repo-layout-and-ci.md](./local-repo-layout-and-ci.md) and [private-nuget-feed.md](./private-nuget-feed.md).
+
 ## Phase 2 — API and integration (when you change the ASP.NET host)
 
 | Concern | Package |
@@ -29,7 +33,8 @@ Middleware order when using both observability and errors: [`observability-error
 ## Trace headers (compatibility)
 
 - **Canonical:** `X-Ontogony-Trace-Id` (`OntogonyEventHeaders.TraceId`), plus W3C `traceparent` / `tracestate` when present.
-- **Legacy:** `X-Athanor-Trace-Id` (`OntogonyEventHeaders.LegacyAthanorTraceId`) is still read when resolving correlation from headers (`OntogonyCorrelationContext.FromHeaders`), so existing clients keep correlating during rollout.
+- **Legacy (inbound):** `X-Athanor-Trace-Id` (`OntogonyEventHeaders.LegacyAthanorTraceId`) is still read when resolving correlation from headers (`OntogonyCorrelationContext.FromHeaders`), so existing clients keep correlating during rollout.
+- **Legacy (response echo):** Off by default (`EchoLegacyHeaders = false`). Set `EchoLegacyHeaders = true` in `AddOntogonyObservability` if a service must still emit legacy trace aliases on responses until callers migrate.
 
 Prefer emitting canonical headers on new integrations.
 

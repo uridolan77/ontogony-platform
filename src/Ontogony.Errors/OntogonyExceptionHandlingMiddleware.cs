@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Net;
 using System.Text.Json;
 using Microsoft.AspNetCore.Http;
@@ -44,8 +45,10 @@ public sealed class OntogonyExceptionHandlingMiddleware
                 throw;
             }
 
-            var status = mapping?.StatusCode ?? HttpStatusCode.InternalServerError;
-            var code = mapping?.ErrorCode ?? "UnhandledError";
+            var status = mapping is null
+                ? HttpStatusCode.InternalServerError
+                : (mapping.ResolveStatusCode?.Invoke(ex) ?? mapping.StatusCode);
+            var code = mapping is null ? _mappingOptions.UnhandledErrorCode : ResolveErrorCode(mapping, ex);
             var message = ResolveMessage(mapping, ex);
             var details = ResolveDetails(mapping, ex);
             var instance = context.Request.Path.HasValue ? context.Request.Path.Value : null;
@@ -65,9 +68,45 @@ public sealed class OntogonyExceptionHandlingMiddleware
 
             context.Response.StatusCode = (int)status;
             context.Response.ContentType = "application/json";
-            var payload = JsonSerializer.Serialize(new ApiError(code, message, traceId, details, instance), _jsonOptions);
+            var payload = SerializeErrorPayload(code, message, traceId, details, instance);
             await context.Response.WriteAsync(payload);
         }
+    }
+
+    private string SerializeErrorPayload(string code, string message, string? traceId, object? details, string? instance)
+    {
+        var dict = new Dictionary<string, object?>(StringComparer.Ordinal)
+        {
+            [_mappingOptions.ErrorCodeJsonKey] = code,
+            ["message"] = message
+        };
+
+        if (!string.IsNullOrWhiteSpace(traceId))
+        {
+            dict["traceId"] = traceId;
+        }
+
+        if (details is not null)
+        {
+            dict[_mappingOptions.DetailsJsonKey] = details;
+        }
+
+        if (_mappingOptions.IncludeInstanceInJson && !string.IsNullOrWhiteSpace(instance))
+        {
+            dict["instance"] = instance;
+        }
+
+        return JsonSerializer.Serialize(dict, _jsonOptions);
+    }
+
+    private static string ResolveErrorCode(ExceptionMapping mapping, Exception exception)
+    {
+        if (mapping.ResolveErrorCode is not null)
+        {
+            return mapping.ResolveErrorCode(exception);
+        }
+
+        return mapping.ErrorCode;
     }
 
     private static string ResolveMessage(ExceptionMapping? mapping, Exception exception)
@@ -75,6 +114,15 @@ public sealed class OntogonyExceptionHandlingMiddleware
         if (mapping is null)
         {
             return "An unexpected error occurred.";
+        }
+
+        if (mapping.ResolvePublicMessage is not null)
+        {
+            var resolved = mapping.ResolvePublicMessage(exception);
+            if (!string.IsNullOrWhiteSpace(resolved))
+            {
+                return resolved;
+            }
         }
 
         if (!string.IsNullOrWhiteSpace(mapping.PublicMessage))
@@ -89,6 +137,11 @@ public sealed class OntogonyExceptionHandlingMiddleware
 
     private static object? ResolveDetails(ExceptionMapping? mapping, Exception exception)
     {
+        if (mapping?.DetailsFactory is not null)
+        {
+            return mapping.DetailsFactory(exception);
+        }
+
         if (mapping is null || !mapping.IncludeDetails)
         {
             return null;

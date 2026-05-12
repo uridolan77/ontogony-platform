@@ -31,7 +31,11 @@ Use:
 
 Current shared contracts:
 
-- ApiError: Code, Message, TraceId, Details, Instance
+- ApiError: Code, Message, TraceId, Details, Instance (in-memory / ProblemDetails bridge)
+- JSON wire shape (middleware): configurable via **`OntogonyExceptionMappingOptions`**
+  - **`ErrorCodeJsonKey`** / **`DetailsJsonKey`** — default `"code"` / `"details"`; use `"error"` / `"errors"` (or other names) for legacy API compatibility without renaming `ApiError.Code`.
+  - **`IncludeInstanceInJson`** — omit `instance` when `false`.
+  - **`UnhandledErrorCode`** — stable code for unmapped 500 responses (default `"UnhandledError"`).
 - ExceptionMapping:
   - StatusCode
   - ErrorCode
@@ -39,6 +43,7 @@ Current shared contracts:
   - IncludeExceptionMessage
   - LogAsWarning
   - IncludeDetails
+  - Optional **`resolveErrorCode`**, **`resolvePublicMessage`**, **`detailsFactory`**, **`resolveStatusCode`** (per-instance HTTP status) for per-exception overrides and structured details lists
 
 ## Minimal Program.cs Wiring
 

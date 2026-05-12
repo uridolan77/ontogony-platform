@@ -385,8 +385,8 @@ possibly Ontogony.Errors
 Goal:
 
 ```text
-X-Agentor-Trace-Id compatibility preserved.
-X-Ontogony-Trace-Id becomes canonical.
+X-Ontogony-Trace-Id is canonical on the wire; legacy response echoes are opt-in (EchoLegacyHeaders).
+Inbound legacy headers remain accepted for correlation during rollout.
 Outbound Athanor/Conexus calls propagate correlation.
 No Agentor run semantics move into platform.
 ```

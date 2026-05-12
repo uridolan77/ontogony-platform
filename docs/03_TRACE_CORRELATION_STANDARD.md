@@ -24,7 +24,7 @@ X-Conexus-Request-Id
 2. Else if a legacy trace/request header exists, adopt it.
 3. Else generate a new trace ID.
 4. Echo `X-Ontogony-Trace-Id` in every response.
-5. During migration, also echo Athanor/Agentor legacy trace headers.
+5. Optionally echo Athanor/Agentor legacy trace headers on responses when `OntogonyObservabilityOptions.EchoLegacyHeaders` is true (default is false).
 6. Propagate trace context to outgoing HTTP calls.
 7. Include the trace ID in every `OntogonyEnvelope`.
 

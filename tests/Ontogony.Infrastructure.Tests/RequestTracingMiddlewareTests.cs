@@ -111,6 +111,25 @@ public sealed class RequestTracingMiddlewareTests
     }
 
     [Fact]
+    public async Task InvokeAsync_Does_Not_Echo_Legacy_Trace_Headers_By_Default()
+    {
+        var middleware = new RequestTracingMiddleware(
+            _ => Task.CompletedTask,
+            NullLogger<RequestTracingMiddleware>.Instance,
+            Options.Create(new OntogonyObservabilityOptions()));
+
+        var context = CreateHttpContext();
+        context.Request.Headers[OntogonyEventHeaders.TraceId] = "trace-abc";
+
+        await middleware.InvokeAsync(context);
+
+        Assert.Equal("trace-abc", context.Response.Headers[OntogonyEventHeaders.TraceId].ToString());
+        Assert.False(context.Response.Headers.ContainsKey(OntogonyEventHeaders.LegacyAthanorTraceId));
+        Assert.False(context.Response.Headers.ContainsKey(OntogonyEventHeaders.LegacyAgentorTraceId));
+        Assert.False(context.Response.Headers.ContainsKey(OntogonyEventHeaders.ConexusRequestId));
+    }
+
+    [Fact]
     public async Task InvokeAsync_Echoes_Correlation_Headers()
     {
         var middleware = new RequestTracingMiddleware(

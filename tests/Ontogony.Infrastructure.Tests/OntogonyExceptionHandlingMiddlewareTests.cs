@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text.Json;
@@ -78,6 +79,28 @@ public sealed class OntogonyExceptionHandlingMiddlewareTests
         Assert.Equal((int)HttpStatusCode.BadRequest, context.Response.StatusCode);
         Assert.NotNull(payload);
         Assert.Equal("bad input", payload!.Message);
+    }
+
+    [Fact]
+    public async Task InvokeAsync_Mapped_Error_Can_Use_Per_Exception_Status_Code()
+    {
+        var mapping = new OntogonyExceptionMappingOptions()
+            .Map<StatusCarryingTestException>(
+                HttpStatusCode.BadRequest,
+                "Err",
+                includeExceptionMessage: true,
+                resolveStatusCode: ex => ((StatusCarryingTestException)ex).Status);
+
+        var middleware = new OntogonyExceptionHandlingMiddleware(
+            _ => throw new StatusCarryingTestException(HttpStatusCode.NotFound, "missing"),
+            new RecordingLogger<OntogonyExceptionHandlingMiddleware>(),
+            Options.Create(new JsonOptions()),
+            Options.Create(mapping));
+
+        var context = CreateHttpContext();
+        await middleware.InvokeAsync(context);
+
+        Assert.Equal((int)HttpStatusCode.NotFound, context.Response.StatusCode);
     }
 
     [Fact]
@@ -196,6 +219,63 @@ public sealed class OntogonyExceptionHandlingMiddlewareTests
         Assert.Equal(0, context.Response.Body.Length);
     }
 
+    [Fact]
+    public async Task InvokeAsync_Unmapped_Uses_Custom_Unhandled_Error_Code()
+    {
+        var options = new OntogonyExceptionMappingOptions { UnhandledErrorCode = "ServiceUnhandled" };
+        var middleware = new OntogonyExceptionHandlingMiddleware(
+            _ => throw new InvalidOperationException("boom"),
+            new RecordingLogger<OntogonyExceptionHandlingMiddleware>(),
+            Options.Create(new JsonOptions()),
+            Options.Create(options));
+
+        var context = CreateHttpContext();
+        await middleware.InvokeAsync(context);
+
+        context.Response.Body.Position = 0;
+        var payload = await JsonSerializer.DeserializeAsync<ApiError>(
+            context.Response.Body,
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+        Assert.NotNull(payload);
+        Assert.Equal("ServiceUnhandled", payload!.Code);
+    }
+
+    [Fact]
+    public async Task InvokeAsync_Supports_Legacy_Error_And_Errors_Json_Keys()
+    {
+        var mapping = new OntogonyExceptionMappingOptions
+            {
+                ErrorCodeJsonKey = "error",
+                DetailsJsonKey = "errors",
+                IncludeInstanceInJson = false
+            }
+            .Map<MappedTestException>(
+                HttpStatusCode.BadRequest,
+                "ignored",
+                detailsFactory: _ => new List<string> { "e1", "e2" });
+
+        var middleware = new OntogonyExceptionHandlingMiddleware(
+            _ => throw new MappedTestException("x"),
+            new RecordingLogger<OntogonyExceptionHandlingMiddleware>(),
+            Options.Create(new JsonOptions()),
+            Options.Create(mapping));
+
+        var context = CreateHttpContext();
+        await middleware.InvokeAsync(context);
+
+        context.Response.Body.Position = 0;
+        using var doc = await JsonDocument.ParseAsync(context.Response.Body);
+        var root = doc.RootElement;
+        Assert.Equal("ignored", root.GetProperty("error").GetString());
+        Assert.Equal("An unexpected error occurred.", root.GetProperty("message").GetString());
+        var errors = root.GetProperty("errors");
+        Assert.Equal(JsonValueKind.Array, errors.ValueKind);
+        Assert.Equal("e1", errors[0].GetString());
+        Assert.Equal("e2", errors[1].GetString());
+        Assert.False(root.TryGetProperty("instance", out _));
+    }
+
     private static DefaultHttpContext CreateHttpContext(bool hasStarted = false)
     {
         var context = new DefaultHttpContext();
@@ -213,6 +293,14 @@ public sealed class OntogonyExceptionHandlingMiddlewareTests
         public MappedTestException(string message) : base(message)
         {
         }
+    }
+
+    private sealed class StatusCarryingTestException : Exception
+    {
+        public HttpStatusCode Status { get; }
+
+        public StatusCarryingTestException(HttpStatusCode status, string message)
+            : base(message) => Status = status;
     }
 
     private sealed class RecordingLogger<T> : ILogger<T>

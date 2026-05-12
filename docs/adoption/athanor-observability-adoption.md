@@ -39,7 +39,7 @@ app.UseOntogonyExceptionHandling();
 ## Compatibility Notes
 
 - `OntogonyCorrelationContext.FromHeaders` still accepts `X-Athanor-Trace-Id` (`OntogonyEventHeaders.LegacyAthanorTraceId`) when `X-Ontogony-Trace-Id` is absent.
-- Prefer emitting `X-Ontogony-Trace-Id` (and W3C `traceparent` / `tracestate` when applicable) for new callers.
+- Prefer emitting `X-Ontogony-Trace-Id` (and W3C `traceparent` / `tracestate` when applicable) for new callers. Legacy trace aliases on **responses** are off by default (`EchoLegacyHeaders = false`); set `EchoLegacyHeaders = true` only while external clients still require `X-Athanor-Trace-Id` on responses.
 - Ensure stable public error codes/messages for existing Athanor consumers.
 
 ## Verification Checklist

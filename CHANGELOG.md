@@ -4,10 +4,21 @@
 
 Comprehensive shared-infrastructure extraction pass.
 
+PR20 — Ontogony.Errors JSON wire shape and mapping hooks:
+
+- **`OntogonyExceptionMappingOptions`:** `ErrorCodeJsonKey`, `DetailsJsonKey`, `IncludeInstanceInJson`, `UnhandledErrorCode` for legacy-compatible JSON without changing `ApiError` in-memory shape.
+- **`ExceptionMapping` / `Map<T>`:** optional `resolveErrorCode`, `resolvePublicMessage`, `detailsFactory`, and **`resolveStatusCode`** (per-instance HTTP status) for exceptions such as operational rejections with non-default status codes.
+- **`OntogonyExceptionHandlingMiddleware`:** builds JSON from a dictionary so wire keys follow options; unmapped failures use `UnhandledErrorCode`; `ResolveErrorCode` applies only to mapped exceptions.
+- Tests extended in `Ontogony.Infrastructure.Tests` for custom unhandled codes and `error` / `errors` wire keys.
+- Migration note: `docs/migrations/2026-05-11-pr20-ontogony-errors-json-and-mapping.md`.
+
+**Observability default:** `OntogonyObservabilityOptions.EchoLegacyHeaders` now defaults to **false** (canonical `X-Ontogony-Trace-Id` only on responses). Services that still need legacy response aliases set `EchoLegacyHeaders = true` during rollout. Migration note: `docs/migrations/2026-05-11-echo-legacy-trace-headers-default.md`.
+
 PR16–PR17 — Security HMAC hardening and Contracts polish:
 
 - **Security:** `ServiceIdentityOptions` adds `MaxSignedBodyBytes` and `AllowUnsignedEmptyBody`; `IRequestBodyHashProvider` now returns `RequestBodyHashResult` from `TryComputeSha256HexLower` (bounded reads; no unbounded synchronous copy). Default `Sha256RequestBodyHashProvider` is DI-friendly; `Sha256RequestBodyHashProvider.Instance` removed. `ServiceIdentityBodyHashPreloadMiddleware` + `UseOntogonyServiceIdentityBodyHashPreload()` preload body hashes asynchronously with the same cap. `InMemoryNonceReplayStore` gains `InMemoryNonceReplayStoreOptions` (retention + max entries), optional clock func, and documents distributed-store requirement for production clusters.
 - **Contracts:** `DefaultEnvelopeValidator` requires absolute URI `Source` with consistent error text. `CloudEventConversionOptions.AllowNullCloudEventData` controls null `data` when converting to `OntogonyEnvelope`. JSON schema `Source` description tightened.
+- **Adoption docs:** `docs/adoption/local-repo-layout-and-ci.md`, `docs/adoption/private-nuget-feed.md`; cross-links from platform adoption guides (`athanor-platform-adoption.md`, `agentor-observability-adoption.md`) for CI and internal feed strategy.
 - Migration note: `docs/migrations/2026-05-11-pr16-pr17-security-contracts.md`.
 
 PR15 — Envelope validation and CloudEvents hardening:
