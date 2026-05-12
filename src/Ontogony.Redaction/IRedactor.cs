@@ -1,5 +1,8 @@
 namespace Ontogony.Redaction;
 
+/// <summary>
+/// Mechanical redactor. <see cref="RedactionResult"/> never carries the pre-redaction value.
+/// </summary>
 public interface IRedactor
 {
     RedactionResult RedactString(

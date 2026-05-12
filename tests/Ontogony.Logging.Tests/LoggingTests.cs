@@ -1,6 +1,8 @@
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Ontogony.Logging;
 using Ontogony.Observability;
+using Ontogony.Redaction;
 using Xunit;
 
 namespace Ontogony.Logging.Tests;
@@ -37,6 +39,26 @@ public sealed class LoggingTests
         Assert.Equal("tenant-1", logger.LastScope[OntogonyLogFields.TenantId]);
         Assert.Equal("project-1", logger.LastScope[OntogonyLogFields.ProjectId]);
         Assert.Equal("test", logger.LastScope[OntogonyLogFields.Operation]);
+    }
+
+    [Fact]
+    public void Begin_scope_redacts_sensitive_additional_fields_when_redactor_provided()
+    {
+        var logger = new CapturingLogger();
+        var redactor = new DefaultRedactor(Options.Create(new RedactionOptions { RevealSuffixCharacters = 0 }));
+        const string secret = "sk-live-abcdef";
+
+        using (logger.BeginOntogonyScope(
+                   new Dictionary<string, object?> { ["provider_api_key"] = secret },
+                   new OntogonyLoggingOptions { IncludeTenantId = false, IncludeWorkspaceId = false, IncludeProjectId = false, IncludeActorId = false, IncludeSessionId = false },
+                   redactor))
+        {
+        }
+
+        var scoped = logger.LastScope!["provider_api_key"]?.ToString();
+        Assert.NotNull(scoped);
+        Assert.NotEqual(secret, scoped);
+        Assert.DoesNotContain("abcdef", scoped, StringComparison.Ordinal);
     }
 
     private sealed class CapturingLogger : ILogger

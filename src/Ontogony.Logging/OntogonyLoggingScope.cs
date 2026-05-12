@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Logging;
 using Ontogony.Observability;
+using Ontogony.Redaction;
 
 namespace Ontogony.Logging;
 
@@ -8,10 +9,15 @@ namespace Ontogony.Logging;
 /// </summary>
 public static class OntogonyLoggingScope
 {
+    /// <summary>
+    /// Begins a logging scope with correlation fields. When <paramref name="redactor"/> is non-null,
+    /// <paramref name="additionalFields"/> are passed through <see cref="IRedactor.RedactFields"/> before merge (field-name rules only).
+    /// </summary>
     public static IDisposable BeginOntogonyScope(
         this ILogger logger,
         IReadOnlyDictionary<string, object?>? additionalFields = null,
-        OntogonyLoggingOptions? options = null)
+        OntogonyLoggingOptions? options = null,
+        IRedactor? redactor = null)
     {
         ArgumentNullException.ThrowIfNull(logger);
         options ??= new OntogonyLoggingOptions();
@@ -34,7 +40,11 @@ public static class OntogonyLoggingScope
 
         if (additionalFields is not null)
         {
-            foreach (var kv in additionalFields)
+            var merged = redactor is null
+                ? additionalFields
+                : redactor.RedactFields(additionalFields);
+
+            foreach (var kv in merged)
             {
                 fields[kv.Key] = kv.Value;
             }

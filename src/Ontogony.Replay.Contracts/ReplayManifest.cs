@@ -1,9 +1,10 @@
 namespace Ontogony.Replay.Contracts;
 
+/// <summary>Manifest for a deterministic replay or debug bundle (contracts only). Temporal values use <see cref="DateTimeOffset"/>.</summary>
 public sealed record ReplayManifest(
     string ReplayId,
     string SourceRunId,
-    string CreatedAt,
+    DateTimeOffset CreatedAt,
     string? TraceId = null,
     ReplayEnvironmentSnapshot? Environment = null,
     ReplayDeterminismHints? Determinism = null,

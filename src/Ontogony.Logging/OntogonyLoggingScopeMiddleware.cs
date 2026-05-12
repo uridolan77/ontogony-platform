@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Ontogony.Redaction;
 
 namespace Ontogony.Logging;
 
@@ -31,11 +33,12 @@ public sealed class OntogonyLoggingScopeMiddleware
             return;
         }
 
+        var redactor = context.RequestServices.GetService<IRedactor>();
         using (_logger.BeginOntogonyScope(new Dictionary<string, object?>
         {
             [OntogonyLogFields.Operation] = $"{context.Request.Method} {context.Request.Path}",
             [OntogonyLogFields.Component] = "aspnet.request"
-        }, _options))
+        }, _options, redactor))
         {
             await _next(context);
         }

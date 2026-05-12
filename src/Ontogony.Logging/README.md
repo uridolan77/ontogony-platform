@@ -19,4 +19,10 @@ Structured logging mechanics for Ontogony services:
 - not a request/response body logger
 - not a routing, pricing, or policy engine
 
+`BeginOntogonyScope` does **not** redact `additionalFields` unless you pass a non-null `IRedactor` (register via `AddOntogonyRedaction()` or `AddOntogonySecrets()`). Correlation IDs are not treated as secrets by default.
+
+## Middleware order with Hosting
+
+`UseOntogonyServiceDefaults` does not register `UseOntogonyLoggingScope`. When you need request logging scopes, call `UseOntogonyLoggingScope()` **after** `UseOntogonyRequestTracing()` and **before** `UseOntogonyExceptionHandling()`. See the [Ontogony.Hosting README](../Ontogony.Hosting/README.md).
+
 Use this package with `Microsoft.Extensions.Logging` and your host/exporter of choice.

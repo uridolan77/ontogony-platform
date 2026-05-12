@@ -1,6 +1,6 @@
 # Ontogony.Redaction — semantic contract
 
-**Status:** Proposed platform module.
+**Status:** Shipping (pre-1.0).
 
 ## Guarantees
 
@@ -8,6 +8,7 @@
 - Default sensitive field-name rules.
 - Extensible field-name rule list.
 - No external service dependency.
+- `RedactionResult` exposes only safe output (`Value`); it does not retain the pre-redaction string.
 
 ## Does not guarantee
 

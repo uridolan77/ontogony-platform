@@ -82,7 +82,7 @@ Rows depend on columns. **✓** means the row package may `ProjectReference` the
 | **Ontogony.Hosting** |   |   |   |   | ✓ |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   | ✓ |   |
 | **Ontogony.Http** |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   | ✓ |   |   |   |   |   |   |   |
 | **Ontogony.Idempotency** |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-| **Ontogony.Logging** |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Logging** |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   | ✓ |   |   |   |   |
 | **Ontogony.Messaging** |   |   |   | ✓ |   |   | ✓ |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |
 | **Ontogony.Observability** |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 | **Ontogony.Persistence** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |

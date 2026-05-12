@@ -186,7 +186,7 @@ var tenant = OntogonyCorrelationContext.Current?.TenantId;
 
 **Purpose:** Structured logging mechanics aligned with `Ontogony.Observability`: stable field names, event IDs, correlation-aware scopes, and ASP.NET logging-scope middleware.
 
-**Provides:** Provider-neutral constants and helpers; no sinks, exporters, or log storage.
+**Provides:** Provider-neutral constants and helpers; optional `IRedactor` on `BeginOntogonyScope` redacts `additionalFields` by field-name rules when supplied; no sinks, exporters, or log storage.
 
 **When to use:** Gateway and worker services that already use `Ontogony.Observability` and want consistent structured fields before choosing Serilog / OpenTelemetry exporters in the host.
 

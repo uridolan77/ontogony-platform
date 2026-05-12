@@ -12,7 +12,7 @@ public sealed class ReplayContractsTests
         var manifest = new ReplayManifest(
             ReplayId: "replay-1",
             SourceRunId: "run-1",
-            CreatedAt: "2026-05-12T12:00:00Z",
+            CreatedAt: new DateTimeOffset(2026, 5, 12, 12, 0, 0, TimeSpan.Zero),
             TraceId: "trace-1",
             Environment: new ReplayEnvironmentSnapshot("conexus", "0.1.0"),
             Determinism: new ReplayDeterminismHints(Seed: "seed-1"),

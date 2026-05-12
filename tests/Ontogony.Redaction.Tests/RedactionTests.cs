@@ -10,11 +10,13 @@ public sealed class RedactionTests
     public void Sensitive_field_is_redacted()
     {
         var redactor = new DefaultRedactor(Options.Create(new RedactionOptions()));
-        var result = redactor.RedactField("provider_api_key", "sk-test-123456");
+        const string secret = "sk-test-123456";
+        var result = redactor.RedactField("provider_api_key", secret);
 
         Assert.True(result.WasRedacted);
         Assert.Equal(RedactionClassification.Secret, result.Classification);
-        Assert.NotEqual(result.Original, result.Value);
+        Assert.NotEqual(secret, result.Value);
+        Assert.DoesNotContain(secret, result.Value, StringComparison.Ordinal);
         Assert.EndsWith("3456", result.Value);
     }
 

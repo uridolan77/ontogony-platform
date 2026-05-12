@@ -16,7 +16,11 @@
     <ProjectReference Include="..\..\src\Ontogony.Hosting\Ontogony.Hosting.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Http\Ontogony.Http.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Idempotency\Ontogony.Idempotency.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Logging\Ontogony.Logging.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Observability\Ontogony.Observability.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Quotas\Ontogony.Quotas.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Redaction\Ontogony.Redaction.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Secrets\Ontogony.Secrets.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Security\Ontogony.Security.csproj" />
   </ItemGroup>
 </Project>

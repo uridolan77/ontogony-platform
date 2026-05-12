@@ -19,10 +19,10 @@ public sealed class DefaultRedactor : IRedactor
     {
         if (value is null)
         {
-            return new RedactionResult(null, null, WasRedacted: false, classification);
+            return new RedactionResult(null, WasRedacted: false, classification);
         }
 
-        return new RedactionResult(value, Mask(value), WasRedacted: true, classification);
+        return new RedactionResult(Mask(value), WasRedacted: true, classification);
     }
 
     public RedactionResult RedactField(string fieldName, object? value)
@@ -31,10 +31,10 @@ public sealed class DefaultRedactor : IRedactor
         var rule = _rules.FirstOrDefault(r => r.MatchesField(fieldName));
         if (rule is null)
         {
-            return new RedactionResult(text, text, WasRedacted: false, RedactionClassification.None);
+            return new RedactionResult(text, WasRedacted: false, RedactionClassification.None);
         }
 
-        return new RedactionResult(text, Mask(text ?? string.Empty), WasRedacted: true, rule.Classification, rule.Name);
+        return new RedactionResult(Mask(text ?? string.Empty), WasRedacted: true, rule.Classification, rule.Name);
     }
 
     public IReadOnlyDictionary<string, object?> RedactFields(IReadOnlyDictionary<string, object?> fields)

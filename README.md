@@ -136,7 +136,7 @@ src/
 
 - `examples/MinimalApiWithOntogonyObservability/`: minimal API sample for `AddOntogonyObservability`, `UseOntogonyRequestTracing`, and outbound correlation propagation through `Ontogony.Http`.
 - `examples/MinimalApiWithOntogonyHosting/`: minimal API sample for `AddOntogonyServiceDefaults`, `UseOntogonyServiceDefaults`, and `MapOntogonyHealthEndpoints`.
-- `examples/ConexusDotNetSkeleton/`: compile-only smoke with **direct** project references to every required Conexus v1 package (see [readiness blueprint](docs/consumer-blueprints/conexus-dotnet-platform-readiness.md)); not a product.
+- `examples/ConexusDotNetSkeleton/`: compile-only smoke with **direct** project references to the Conexus v1 required set including Logging, Redaction, Secrets, and Quotas (see [readiness blueprint](docs/consumer-blueprints/conexus-dotnet-platform-readiness.md)); wires tracing → logging scope → exception handling; not a product.
 
 ## Documentation map
 

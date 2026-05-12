@@ -1,10 +1,11 @@
 # Ontogony.Replay.Contracts — semantic contract
 
-**Status:** Proposed platform module.
+**Status:** Shipping (pre-1.0).
 
 ## Guarantees
 
 - Stable DTOs for replay manifests and replay bundle references.
+- `ReplayManifest.CreatedAt` uses `DateTimeOffset` for machine-comparable instants.
 - Environment and determinism hint records.
 - No execution engine or storage dependency.
 

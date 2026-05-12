@@ -13,6 +13,15 @@ PR48–PR52 — logging, redaction, secrets, quotas, replay contracts:
 - **Tests:** added focused unit tests for constants, masking, protection/fingerprints, quota decisions, and replay DTO round-trips.
 - **CI / scripts:** shipping inventory and pack smoke expect **23** libraries; `validate-package-levels.ps1` and `docs/architecture/package-levels.md` extended for the new dependency edges.
 
+PR53 — pre-Conexus safety and blueprint alignment:
+
+- **Breaking:** `RedactionResult` no longer exposes `Original` (only safe `Value` and metadata). Migration: `docs/migrations/2026-05-12-pr53-pre-conexus-safety-and-blueprint.md`.
+- **Breaking:** `ReplayManifest.CreatedAt` is now `DateTimeOffset` (was `string`).
+- **`Ontogony.Logging`:** references `Ontogony.Redaction`; `BeginOntogonyScope` accepts optional `IRedactor` and redacts `additionalFields` when supplied; request logging-scope middleware passes `IRedactor` from DI when registered.
+- **Docs:** `docs/consumer-blueprints/conexus-dotnet-platform-readiness.md` — required set includes Logging, Redaction, Secrets, Quotas; `Ontogony.Replay.Contracts` optional until replay bundles exist.
+- **Examples:** `ConexusDotNetSkeleton` references and exercises the new packages (DI + middleware order: tracing → logging scope → exception handling).
+- **Hosting docs:** `Ontogony.Hosting` README documents recommended middleware order when using `Ontogony.Logging` outside `UseOntogonyServiceDefaults`.
+
 PR47 (pre-Conexus polish) — package level model and docs alignment:
 
 - **Docs:** `docs/architecture/package-levels.md` — levels **0** (pure foundation), **0.5** (shared representation: Contracts, Hashing), **1–3** (service mechanics → event/consistency → AI runtime); matrix remains authoritative; forbidden rules clarified.
