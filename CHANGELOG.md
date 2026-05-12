@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+PR29 — Security production hardening:
+
+- **Key-id support:** added `X-Ontogony-Service-Key-Id`, `ServiceIdentityOptions.ServiceKeyIdHeaderName`, and explicit key-id policy via `RequireKeyIdForHmacSignature`.
+- **Multi-secret resolver contract:** added `IServiceSigningSecretResolver`, `ServiceSigningSecret`, `ServiceSigningSecretSet`, and default `OptionsServiceSigningSecretResolver` with legacy fallback support.
+- **Client signing:** added `OntogonyServiceIdentitySigningHandler` for outbound canonical HMAC header stamping.
+- **Middleware diagnostics:** `ServiceIdentityBodyHashPreloadMiddleware` now detects unsafe order (after endpoint selection) with configurable throw/log behavior.
+- **Tests:** added coverage for current/previous key validation, unknown key-id rejection, explicit missing key-id behavior, signing handler canonical headers, body-hash/server verification parity, and middleware-order diagnostics.
+- **Docs:** added production hardening guide, deterministic signing vectors, rotation sequence, and deployment checklist.
+
 PR28.2 — ProtocolIngress adoption hardening:
 
 - **Source normalization:** preserves already-absolute source URIs and prefixes only non-URI identifiers.

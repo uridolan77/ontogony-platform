@@ -14,6 +14,9 @@ public sealed class ServiceIdentityOptions
     /// <summary>Unix epoch seconds (decimal string). Default: <see cref="OntogonyServiceIdentityHeaders.Timestamp"/>.</summary>
     public string ServiceTimestampHeaderName { get; set; } = OntogonyServiceIdentityHeaders.Timestamp;
 
+    /// <summary>Default: <see cref="OntogonyServiceIdentityHeaders.KeyId"/>.</summary>
+    public string ServiceKeyIdHeaderName { get; set; } = OntogonyServiceIdentityHeaders.KeyId;
+
     /// <summary>Default: <see cref="OntogonyServiceIdentityHeaders.Nonce"/>.</summary>
     public string ServiceNonceHeaderName { get; set; } = OntogonyServiceIdentityHeaders.Nonce;
 
@@ -47,6 +50,18 @@ public sealed class ServiceIdentityOptions
     public Dictionary<string, string> ServiceSecrets { get; set; } = new(StringComparer.Ordinal);
 
     /// <summary>
+    /// Optional multi-secret signing material keyed by service ID.
+    /// When set, HMAC verification can resolve current/previous keys for rotation scenarios.
+    /// </summary>
+    public Dictionary<string, List<ServiceSigningSecret>> ServiceSigningSecrets { get; set; } = new(StringComparer.Ordinal);
+
+    /// <summary>
+    /// When true in HMAC mode, callers must send <see cref="ServiceKeyIdHeaderName"/>.
+    /// When false, behavior is explicit: resolve the resolver-selected/current key when key-id is missing.
+    /// </summary>
+    public bool RequireKeyIdForHmacSignature { get; set; }
+
+    /// <summary>
     /// Maximum number of raw request body bytes considered when recomputing the SHA-256 for HMAC verification.
     /// Bodies larger than this fail verification without hashing the remainder.
     /// </summary>
@@ -65,6 +80,18 @@ public sealed class ServiceIdentityOptions
     /// Empty bodies may still use <see cref="AllowUnsignedEmptyBody"/> without preload when no body hash header is sent.
     /// </summary>
     public bool RequirePreloadedBodyHashForHmacBodies { get; set; }
+
+    /// <summary>
+    /// Enables middleware-order diagnostics in <c>ServiceIdentityBodyHashPreloadMiddleware</c>.
+    /// If the middleware observes that endpoint selection already ran, ordering is likely unsafe for body preloading.
+    /// </summary>
+    public bool EnableBodyHashPreloadOrderDiagnostics { get; set; } = true;
+
+    /// <summary>
+    /// When true and an order violation is detected while diagnostics are enabled, request processing throws.
+    /// When false, the middleware logs a warning and continues.
+    /// </summary>
+    public bool ThrowOnBodyHashPreloadOrderViolation { get; set; }
 
     /// <summary>
     /// Gets the expected static signature for a service ID (StaticSharedSecret mode).

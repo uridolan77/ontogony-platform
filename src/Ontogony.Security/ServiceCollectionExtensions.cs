@@ -57,7 +57,8 @@ public static class ServiceCollectionExtensions
                 sp.GetService<IServiceSecretResolver>(),
                 sp.GetService<INonceReplayStore>(),
                 sp.GetService<IRequestBodyHashProvider>(),
-                sp.GetRequiredService<Ontogony.Primitives.IClock>()));
+                sp.GetRequiredService<Ontogony.Primitives.IClock>(),
+                sp.GetService<IServiceSigningSecretResolver>()));
         services.AddScoped<ICurrentActorAccessor>(sp => sp.GetRequiredService<ServiceIdentityCurrentActorAccessor>());
         return services;
     }

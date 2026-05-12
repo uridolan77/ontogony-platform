@@ -17,6 +17,7 @@ public sealed class ServiceIdentityCurrentActorAccessor : ICurrentActorAccessor
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ServiceIdentityOptions _options;
     private readonly IServiceSecretResolver _secretResolver;
+    private readonly IServiceSigningSecretResolver _signingSecretResolver;
     private readonly INonceReplayStore? _nonceReplayStore;
     private readonly IRequestBodyHashProvider _bodyHashProvider;
     private readonly IClock _clock;
@@ -27,11 +28,13 @@ public sealed class ServiceIdentityCurrentActorAccessor : ICurrentActorAccessor
         IServiceSecretResolver? secretResolver = null,
         INonceReplayStore? nonceReplayStore = null,
         IRequestBodyHashProvider? bodyHashProvider = null,
-        IClock? clock = null)
+        IClock? clock = null,
+        IServiceSigningSecretResolver? signingSecretResolver = null)
     {
         _httpContextAccessor = httpContextAccessor;
         _options = options ?? new ServiceIdentityOptions();
         _secretResolver = secretResolver ?? new DictionaryServiceSecretResolver(_options.ServiceSecrets);
+        _signingSecretResolver = signingSecretResolver ?? new OptionsServiceSigningSecretResolver(_options, _secretResolver);
         _nonceReplayStore = nonceReplayStore;
         _bodyHashProvider = bodyHashProvider ?? new Sha256RequestBodyHashProvider(Options.Create(_options));
         _clock = clock ?? new SystemClock();
@@ -87,8 +90,24 @@ public sealed class ServiceIdentityCurrentActorAccessor : ICurrentActorAccessor
 
     private bool VerifyHmacSignature(HttpContext context, string serviceId)
     {
-        var secret = _secretResolver.ResolveSecret(serviceId);
-        if (string.IsNullOrEmpty(secret))
+        var keyId = context.Request.Headers[_options.ServiceKeyIdHeaderName].ToString();
+        if (_options.RequireKeyIdForHmacSignature && string.IsNullOrWhiteSpace(keyId))
+            return false;
+
+        var keyIdOrNull = string.IsNullOrWhiteSpace(keyId) ? null : keyId;
+        var resolved = _signingSecretResolver.ResolveSecrets(serviceId, keyIdOrNull);
+        var signingSecret = resolved.SelectedSecret;
+
+        if (signingSecret is null
+            && string.IsNullOrWhiteSpace(keyIdOrNull)
+            && !_options.RequireKeyIdForHmacSignature)
+        {
+            var currentSecrets = resolved.Secrets.Where(static s => s.IsCurrent).ToArray();
+            if (currentSecrets.Length == 1)
+                signingSecret = currentSecrets[0];
+        }
+
+        if (signingSecret is null || string.IsNullOrWhiteSpace(signingSecret.Secret))
             return false;
 
         var timestampHeader = context.Request.Headers[_options.ServiceTimestampHeaderName].ToString();
@@ -168,7 +187,7 @@ public sealed class ServiceIdentityCurrentActorAccessor : ICurrentActorAccessor
             nonceForCanonical,
             bodyHashNorm);
 
-        var expected = ServiceIdentityHmacSignatureHelper.ComputeHmacUtf8(secret, canonical);
+        var expected = ServiceIdentityHmacSignatureHelper.ComputeHmacUtf8(signingSecret.Secret, canonical);
         if (!CryptographicOperations.FixedTimeEquals(expected, providedBytes))
             return false;
 

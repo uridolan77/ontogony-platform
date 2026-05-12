@@ -1,5 +1,7 @@
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 
 namespace Ontogony.Security;
@@ -13,11 +15,16 @@ public sealed class ServiceIdentityBodyHashPreloadMiddleware
 {
     private readonly RequestDelegate _next;
     private readonly IOptions<ServiceIdentityOptions> _options;
+    private readonly ILogger<ServiceIdentityBodyHashPreloadMiddleware> _logger;
 
-    public ServiceIdentityBodyHashPreloadMiddleware(RequestDelegate next, IOptions<ServiceIdentityOptions> options)
+    public ServiceIdentityBodyHashPreloadMiddleware(
+        RequestDelegate next,
+        IOptions<ServiceIdentityOptions> options,
+        ILogger<ServiceIdentityBodyHashPreloadMiddleware>? logger = null)
     {
         _next = next;
         _options = options;
+        _logger = logger ?? NullLogger<ServiceIdentityBodyHashPreloadMiddleware>.Instance;
     }
 
     public async Task InvokeAsync(HttpContext context)
@@ -39,6 +46,19 @@ public sealed class ServiceIdentityBodyHashPreloadMiddleware
         {
             await _next(context).ConfigureAwait(false);
             return;
+        }
+
+        if (opt.EnableBodyHashPreloadOrderDiagnostics && context.GetEndpoint() is not null)
+        {
+            const string message =
+                "ServiceIdentityBodyHashPreloadMiddleware is running after endpoint selection. " +
+                "Call UseOntogonyServiceIdentityBodyHashPreload() before UseRouting() and before components that consume request bodies.";
+            if (opt.ThrowOnBodyHashPreloadOrderViolation)
+            {
+                throw new InvalidOperationException(message);
+            }
+
+            _logger.LogWarning(message);
         }
 
         var max = opt.MaxSignedBodyBytes;

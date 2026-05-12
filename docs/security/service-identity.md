@@ -9,6 +9,7 @@ When `ServiceIdentityOptions.RequireHmacSignature` is `true`, callers should sen
 | Header | Role |
 |--------|------|
 | `X-Ontogony-Service-Id` | Logical caller service id (configurable via `ServiceIdHeaderName`). |
+| `X-Ontogony-Service-Key-Id` | Optional signing key-id for secret rotation; can be required via `RequireKeyIdForHmacSignature`. |
 | `X-Ontogony-Service-Timestamp` | Unix epoch seconds (UTC) as decimal string. |
 | `X-Ontogony-Service-Nonce` | Unique nonce per request (recommended). |
 | `X-Ontogony-Service-Body-Hash` | Lowercase hex SHA-256 of the raw request body (empty body hashes the empty byte sequence). |
@@ -47,9 +48,12 @@ When `RequireSignatureVerification` is `true` and `RequireHmacSignature` is `fal
 ## Pluggability
 
 - `IServiceSecretResolver` — resolves the shared secret for a service id (defaults to `ServiceSecrets` on `ServiceIdentityOptions` when no custom resolver is registered).
+- `IServiceSigningSecretResolver` — resolves current/previous HMAC secrets and optional key-id selection for rotation windows.
 - `INonceReplayStore` — optional replay protection for HMAC mode.
 - `IRequestBodyHashProvider` — computes the lowercase hex SHA-256 of the request body with explicit size results (defaults to `Sha256RequestBodyHashProvider`; may be replaced if you pre-hash elsewhere).
 
 ## Registration
 
 Use `AddOntogonyServiceIdentityActorContext` and configure `ServiceIdentityOptions`. Register `INonceReplayStore` (and optionally `IServiceSecretResolver`, `IRequestBodyHashProvider`) in DI when using HMAC mode with non-default behavior. For production HMAC on mutating HTTP methods, also call `UseOntogonyServiceIdentityBodyHashPreload()`.
+
+For production rollout mechanics (key rotation, distributed nonce store guidance, checklist, and deterministic vectors), see [service-identity-production.md](./service-identity-production.md) and [hmac-signing-vectors.md](./hmac-signing-vectors.md).

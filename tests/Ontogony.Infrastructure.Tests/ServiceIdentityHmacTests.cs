@@ -357,12 +357,171 @@ public sealed class ServiceIdentityHmacTests
         Assert.True(store.TryReserveNonce("svc", "a", t0.AddMinutes(4)));
     }
 
+    [Fact]
+    public void Current_WithHmac_CurrentKeyId_Validates()
+    {
+        var nonces = new InMemoryNonceReplayStore();
+        var options = new ServiceIdentityOptions
+        {
+            RequireHmacSignature = true,
+            RequireNonce = true,
+            RequireKeyIdForHmacSignature = true
+        };
+
+        var resolver = new FixedSigningSecretResolver(new Dictionary<string, IReadOnlyList<ServiceSigningSecret>>(StringComparer.Ordinal)
+        {
+            ["svc"] = new[]
+            {
+                new ServiceSigningSecret("k-current", "secret-current", IsCurrent: true),
+                new ServiceSigningSecret("k-prev", "secret-prev", IsCurrent: false)
+            }
+        });
+
+        var context = BuildSignedContext(options, "svc", "secret-current", body: "{}", keyId: "k-current");
+        _contextAccessor.HttpContext = context;
+
+        var accessor = new ServiceIdentityCurrentActorAccessor(
+            _contextAccessor,
+            options,
+            nonceReplayStore: nonces,
+            signingSecretResolver: resolver);
+
+        Assert.NotNull(accessor.Current);
+    }
+
+    [Fact]
+    public void Current_WithHmac_PreviousKeyId_Validates_DuringRotationWindow()
+    {
+        var nonces = new InMemoryNonceReplayStore();
+        var options = new ServiceIdentityOptions
+        {
+            RequireHmacSignature = true,
+            RequireNonce = true,
+            RequireKeyIdForHmacSignature = true
+        };
+
+        var resolver = new FixedSigningSecretResolver(new Dictionary<string, IReadOnlyList<ServiceSigningSecret>>(StringComparer.Ordinal)
+        {
+            ["svc"] = new[]
+            {
+                new ServiceSigningSecret("k-current", "secret-current", IsCurrent: true),
+                new ServiceSigningSecret("k-prev", "secret-prev", IsCurrent: false)
+            }
+        });
+
+        var context = BuildSignedContext(options, "svc", "secret-prev", body: "{}", keyId: "k-prev");
+        _contextAccessor.HttpContext = context;
+
+        var accessor = new ServiceIdentityCurrentActorAccessor(
+            _contextAccessor,
+            options,
+            nonceReplayStore: nonces,
+            signingSecretResolver: resolver);
+
+        Assert.NotNull(accessor.Current);
+    }
+
+    [Fact]
+    public void Current_WithHmac_UnknownKeyId_Fails()
+    {
+        var nonces = new InMemoryNonceReplayStore();
+        var options = new ServiceIdentityOptions
+        {
+            RequireHmacSignature = true,
+            RequireNonce = true,
+            RequireKeyIdForHmacSignature = true
+        };
+
+        var resolver = new FixedSigningSecretResolver(new Dictionary<string, IReadOnlyList<ServiceSigningSecret>>(StringComparer.Ordinal)
+        {
+            ["svc"] = new[]
+            {
+                new ServiceSigningSecret("k-current", "secret-current", IsCurrent: true),
+            }
+        });
+
+        var context = BuildSignedContext(options, "svc", "secret-current", body: "{}", keyId: "k-unknown");
+        _contextAccessor.HttpContext = context;
+
+        var accessor = new ServiceIdentityCurrentActorAccessor(
+            _contextAccessor,
+            options,
+            nonceReplayStore: nonces,
+            signingSecretResolver: resolver);
+
+        Assert.Null(accessor.Current);
+    }
+
+    [Fact]
+    public void Current_WithHmac_MissingKeyId_WhenRequired_Fails()
+    {
+        var nonces = new InMemoryNonceReplayStore();
+        var options = new ServiceIdentityOptions
+        {
+            RequireHmacSignature = true,
+            RequireNonce = true,
+            RequireKeyIdForHmacSignature = true
+        };
+
+        var resolver = new FixedSigningSecretResolver(new Dictionary<string, IReadOnlyList<ServiceSigningSecret>>(StringComparer.Ordinal)
+        {
+            ["svc"] = new[]
+            {
+                new ServiceSigningSecret("k-current", "secret-current", IsCurrent: true),
+            }
+        });
+
+        var context = BuildSignedContext(options, "svc", "secret-current", body: "{}", keyId: null);
+        _contextAccessor.HttpContext = context;
+
+        var accessor = new ServiceIdentityCurrentActorAccessor(
+            _contextAccessor,
+            options,
+            nonceReplayStore: nonces,
+            signingSecretResolver: resolver);
+
+        Assert.Null(accessor.Current);
+    }
+
+    [Fact]
+    public void Current_WithHmac_MissingKeyId_WhenNotRequired_UsesCurrentSecret()
+    {
+        var nonces = new InMemoryNonceReplayStore();
+        var options = new ServiceIdentityOptions
+        {
+            RequireHmacSignature = true,
+            RequireNonce = true,
+            RequireKeyIdForHmacSignature = false
+        };
+
+        var resolver = new FixedSigningSecretResolver(new Dictionary<string, IReadOnlyList<ServiceSigningSecret>>(StringComparer.Ordinal)
+        {
+            ["svc"] = new[]
+            {
+                new ServiceSigningSecret("k-current", "secret-current", IsCurrent: true),
+                new ServiceSigningSecret("k-prev", "secret-prev", IsCurrent: false)
+            }
+        });
+
+        var context = BuildSignedContext(options, "svc", "secret-current", body: "{}", keyId: null);
+        _contextAccessor.HttpContext = context;
+
+        var accessor = new ServiceIdentityCurrentActorAccessor(
+            _contextAccessor,
+            options,
+            nonceReplayStore: nonces,
+            signingSecretResolver: resolver);
+
+        Assert.NotNull(accessor.Current);
+    }
+
     private static DefaultHttpContext BuildSignedContext(
         ServiceIdentityOptions options,
         string serviceId,
         string secret,
         string body,
-        string? timestampUnix = null)
+        string? timestampUnix = null,
+        string? keyId = null)
     {
         var bodyBytes = Encoding.UTF8.GetBytes(body);
         var bodyHash = ServiceIdentityHmacSignatureHelper.ComputeBodyHashHexLower(bodyBytes);
@@ -376,6 +535,11 @@ public sealed class ServiceIdentityHmacTests
         context.Request.Body = new MemoryStream(bodyBytes);
         context.Request.ContentLength = bodyBytes.Length;
         context.Request.Headers[options.ServiceIdHeaderName] = serviceId;
+        if (!string.IsNullOrWhiteSpace(keyId))
+        {
+            context.Request.Headers[options.ServiceKeyIdHeaderName] = keyId;
+        }
+
         context.Request.Headers[options.ServiceTimestampHeaderName] = ts;
         context.Request.Headers[options.ServiceNonceHeaderName] = nonce;
         context.Request.Headers[options.ServiceBodyHashHeaderName] = bodyHash;
@@ -383,5 +547,27 @@ public sealed class ServiceIdentityHmacTests
             ServiceIdentityHmacSignatureHelper.ComputeSignatureBase64(secret, "POST", pathAndQuery, ts, nonce, bodyHash);
 
         return context;
+    }
+
+    private sealed class FixedSigningSecretResolver : IServiceSigningSecretResolver
+    {
+        private readonly IReadOnlyDictionary<string, IReadOnlyList<ServiceSigningSecret>> _secretsByService;
+
+        public FixedSigningSecretResolver(IReadOnlyDictionary<string, IReadOnlyList<ServiceSigningSecret>> secretsByService)
+        {
+            _secretsByService = secretsByService;
+        }
+
+        public ServiceSigningSecretSet ResolveSecrets(string serviceId, string? keyId)
+        {
+            if (!_secretsByService.TryGetValue(serviceId, out var secrets))
+                return ServiceSigningSecretSet.Empty(serviceId, keyId);
+
+            var selected = string.IsNullOrWhiteSpace(keyId)
+                ? secrets.FirstOrDefault(static s => s.IsCurrent)
+                : secrets.FirstOrDefault(s => string.Equals(s.KeyId, keyId, StringComparison.Ordinal));
+
+            return new ServiceSigningSecretSet(serviceId, keyId, selected, secrets);
+        }
     }
 }

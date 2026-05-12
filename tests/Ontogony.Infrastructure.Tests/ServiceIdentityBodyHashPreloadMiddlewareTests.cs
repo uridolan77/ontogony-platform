@@ -1,5 +1,6 @@
 using System.Text;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Ontogony.Security;
 using Xunit;
@@ -69,5 +70,54 @@ public sealed class ServiceIdentityBodyHashPreloadMiddlewareTests
         Assert.False(pre.TooLarge);
         Assert.Equal(expectedHex, pre.HexLower);
         Assert.Equal(0, backing.Position);
+    }
+
+    [Fact]
+    public async Task InvokeAsync_WhenOrderViolation_AndThrowEnabled_Throws()
+    {
+        var options = Options.Create(new ServiceIdentityOptions
+        {
+            RequireHmacSignature = true,
+            EnableBodyHashPreloadOrderDiagnostics = true,
+            ThrowOnBodyHashPreloadOrderViolation = true
+        });
+
+        Task Next(HttpContext ctx) => Task.CompletedTask;
+
+        var mw = new ServiceIdentityBodyHashPreloadMiddleware(Next, options, NullLogger<ServiceIdentityBodyHashPreloadMiddleware>.Instance);
+        var ctx = new DefaultHttpContext();
+        ctx.Request.Method = "POST";
+        ctx.Request.Headers[OntogonyServiceIdentityHeaders.ServiceId] = "svc";
+        ctx.SetEndpoint(new Endpoint(static _ => Task.CompletedTask, EndpointMetadataCollection.Empty, "matched"));
+
+        await Assert.ThrowsAsync<InvalidOperationException>(() => mw.InvokeAsync(ctx));
+    }
+
+    [Fact]
+    public async Task InvokeAsync_WhenOrderViolation_AndThrowDisabled_Continues()
+    {
+        var options = Options.Create(new ServiceIdentityOptions
+        {
+            RequireHmacSignature = true,
+            EnableBodyHashPreloadOrderDiagnostics = true,
+            ThrowOnBodyHashPreloadOrderViolation = false
+        });
+
+        var nextCalled = false;
+        Task Next(HttpContext ctx)
+        {
+            nextCalled = true;
+            return Task.CompletedTask;
+        }
+
+        var mw = new ServiceIdentityBodyHashPreloadMiddleware(Next, options, NullLogger<ServiceIdentityBodyHashPreloadMiddleware>.Instance);
+        var ctx = new DefaultHttpContext();
+        ctx.Request.Method = "POST";
+        ctx.Request.Headers[OntogonyServiceIdentityHeaders.ServiceId] = "svc";
+        ctx.SetEndpoint(new Endpoint(static _ => Task.CompletedTask, EndpointMetadataCollection.Empty, "matched"));
+
+        await mw.InvokeAsync(ctx);
+
+        Assert.True(nextCalled);
     }
 }
