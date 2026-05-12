@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>Ontogony.Execution</PackageId>
+    <Description>Mechanical execution journal contracts for runs, steps, attempts, state transitions, and checkpoints (no orchestration or product semantics).</Description>
+  </PropertyGroup>
+
+</Project>

@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+PR38 — Ontogony.Execution (execution journal contracts):
+
+- **New package `Ontogony.Execution`:** `ExecutionRunRecord`, `ExecutionStepRecord`, `ExecutionAttemptRecord`, `ExecutionStateTransitionRecord`, and `ExecutionCheckpointRecord` — serialization-friendly DTOs with opaque string kinds, statuses, and hashes; optional scope and metadata dictionaries. No orchestration engine, storage backend, or product-specific vocabulary.
+- **Tests:** `Ontogony.Execution.Tests` — deterministic `Ontogony.Hashing.CanonicalJson` round-trips, metadata key order independence, boundary cases (negative attempt number, `long` sequence extremes), and a reflection guard on exported names.
+- **Script:** `scripts/validate-ai-runtime-boundaries.ps1` scan roots include `Ontogony.Execution` sources and tests.
+- **Solution:** `Ontogony.Platform.sln` references `Ontogony.Execution` and `Ontogony.Execution.Tests`.
+
 PR37.1 — Ontogony.Artifacts hardening:
 
 - **Stream-based writes:** Added `ArtifactStreamPutRequest` (with `ContentStream`, `ExpectedSizeBytes`, `ExpectedContentHash`) and an `IArtifactStore.PutAsync(ArtifactStreamPutRequest, …)` overload so future durable implementations are not forced to buffer entire payloads in memory. `InMemoryArtifactStore` drains the stream, verifies expected size/hash when supplied, and shares the deterministic SHA-256 fingerprint with the byte-buffer path.

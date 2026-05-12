@@ -2,9 +2,8 @@
 # Scans AI-runtime substrate packages for disallowed *product-meaning* phrases.
 # Scoped to these package source trees only so planning/docs that explain boundaries are not flagged.
 #
-# TODO (PR38+): extend $scanRoots to include other AI-runtime packages as they land, e.g.
-#   Ontogony.Execution, Ontogony.Redaction, Ontogony.Knowledge.Contracts,
-#   Ontogony.Quota, Ontogony.AI.Replay (and their tests).
+# TODO (PR39+): extend $scanRoots when additional AI-runtime packages land, e.g.
+#   Ontogony.Redaction, Ontogony.Knowledge.Contracts, Ontogony.Quota, Ontogony.AI.Replay (and their tests).
 $ErrorActionPreference = 'Stop'
 
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
@@ -13,6 +12,8 @@ $scanRoots = @(
     (Join-Path $repoRoot 'tests/Ontogony.AI.Contracts.Tests')
     (Join-Path $repoRoot 'src/Ontogony.Artifacts')
     (Join-Path $repoRoot 'tests/Ontogony.Artifacts.Tests')
+    (Join-Path $repoRoot 'src/Ontogony.Execution')
+    (Join-Path $repoRoot 'tests/Ontogony.Execution.Tests')
 )
 
 $forbidden = @(
