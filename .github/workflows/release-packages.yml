@@ -81,6 +81,18 @@ jobs:
         shell: pwsh
         run: ./scripts/validate-ai-runtime-boundaries.ps1
 
+      - name: Validate shipping inventory (src package + README counts)
+        shell: pwsh
+        run: ./scripts/validate-shipping-inventory.ps1
+
+      - name: Validate AI runtime docs (banned API strings)
+        shell: pwsh
+        run: ./scripts/validate-ai-runtime-docs.ps1
+
+      - name: Validate package levels (Ontogony ProjectReferences)
+        shell: pwsh
+        run: ./scripts/validate-package-levels.ps1
+
       - name: Validate CHANGELOG
         shell: pwsh
         run: ./scripts/validate-changelog.ps1 -PackageVersion "${{ steps.version.outputs.version }}" -Strict
@@ -111,15 +123,21 @@ jobs:
           NUGET_SOURCE: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          $ErrorActionPreference = 'Stop'
           $pkgs = Get-ChildItem "artifacts/packages/*.nupkg" | Where-Object { $_.Name -notlike "*.symbols.nupkg" }
           foreach ($p in $pkgs) {
             Write-Host "Pushing $($p.Name)..."
             dotnet nuget push $p.FullName --source $env:NUGET_SOURCE --api-key $env:GITHUB_TOKEN --skip-duplicate
+            if ($LASTEXITCODE -ne 0) { throw "NuGet push failed for $($p.Name) (exit $LASTEXITCODE)" }
           }
+          $ErrorActionPreference = 'Continue'
           $snupkgs = @(Get-ChildItem "artifacts/packages/*.snupkg" -ErrorAction SilentlyContinue)
           foreach ($s in $snupkgs) {
-            Write-Host "Pushing $($s.Name)..."
-            dotnet nuget push $s.FullName --source $env:NUGET_SOURCE --api-key $env:GITHUB_TOKEN --skip-duplicate
+            Write-Host "Pushing $($s.Name) (best-effort; release does not fail if symbol feed rejects)..."
+            dotnet nuget push $s.FullName --source $env:NUGET_SOURCE --api-key $env:GITHUB_TOKEN --skip-duplicate 2>&1 | Write-Host
+            if ($LASTEXITCODE -ne 0) {
+              Write-Warning "Symbol package push failed for $($s.Name) (exit $LASTEXITCODE). .snupkg remains in artifacts and GitHub Release attachments."
+            }
           }
 
       - name: Upload artifacts

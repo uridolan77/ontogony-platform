@@ -4,7 +4,8 @@ This repository pushes packed NuGet packages to the **GitHub Packages NuGet regi
 
 ## When packages are published
 
-- **Tag push** matching `v*.*.*` (for example `v0.3.0`) runs restore, build, tests, validation scripts, pack, manifest generation, then `dotnet nuget push` to GitHub Packages.
+- **Tag push** matching `v*.*.*` (for example `v0.3.0`) runs restore, build, tests, the same documentation and package-level validation scripts as `ci.yml` (including shipping inventory and AI runtime docs), strict changelog validation, pack, manifest generation, the Conexus package consumer smoke, then `dotnet nuget push` of shipping `.nupkg` files to GitHub Packages.
+- **Symbol packages** (`.snupkg`): the workflow attempts to push each file to the same feed; if the registry rejects symbol uploads, the step logs a warning and **continues** so shipping `.nupkg` publish and the GitHub Release are not blocked. Symbols remain in uploaded artifacts and release attachments.
 - **Manual `workflow_dispatch`** runs the same build and validation steps and uploads artifacts, but **does not** push to the feed (only tagged releases publish, to avoid accidental overwrites).
 
 ## Feed URL
@@ -55,6 +56,15 @@ $env:PACKAGE_VERSION = "0.3.0-local.1"
 ```
 
 Outputs land under `artifacts/packages/`. Push manually only when you intend to override a feed (prefer tag-driven releases).
+
+## First tag publish (operational proof)
+
+Automation alone does not prove the feed until a tag has completed successfully. After pushing a version tag (for example `v0.3.0-alpha.2`):
+
+1. Open the **Actions** run for `release-packages` and confirm all steps are green, including **Publish to GitHub Packages**.
+2. In GitHub **Packages** (or `https://github.com/OWNER?tab=packages`), confirm the expected `Ontogony.*` versions appear on the NuGet feed `https://nuget.pkg.github.com/OWNER/index.json`.
+3. Compare `PACKAGE_MANIFEST.json` from the run artifacts (or the Release) to the published `.nupkg` list and checksums.
+4. Confirm the **GitHub Release** for that tag lists `.nupkg`, `.snupkg` (if present), and `PACKAGE_MANIFEST.json`.
 
 ## Related docs
 
