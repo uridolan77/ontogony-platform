@@ -1,6 +1,6 @@
 # Ontogony Packages — Reference
 
-This index describes all 15 NuGet packages and when to use each one.
+This index describes all 16 NuGet packages and when to use each one.
 
 ---
 
@@ -48,6 +48,29 @@ var envelope = new OntogonyEnvelope<MyEvent>
     Protocol = ProtocolNames.GenericJson,  // choose protocol matching your transport
     Payload = myEvent
 };
+```
+
+---
+
+### `Ontogony.AI.Contracts`
+
+**Purpose:** Mechanical DTOs for LLM requests, responses, stream chunks, usage, cost, provider errors, tool-call facts, and model capability descriptors.
+
+**Provides:**
+- `LlmRequestEnvelope` / `LlmResponseEnvelope` / `LlmStreamChunk`
+- `LlmUsageRecord` (with `ResolveTotalTokensOrSum()` helper), `LlmCostRecord`, `LlmProviderError`
+- `ToolCallRecord`, `ModelCapabilityDescriptor`
+
+**When to use:** Emitting or recording provider-neutral LLM telemetry; wrap in `OntogonyEnvelope<TPayload>` when using the standard envelope pipeline.
+
+**Non-goals:** No routing, ranking, planning, canonization, or KB semantics (see `docs/ai-runtime/boundary-guardrails.md` and [package notes](Ontogony.AI.Contracts.md)).
+
+**Example:**
+```csharp
+using Ontogony.AI.Contracts;
+
+var usage = new LlmUsageRecord(10, 20, null, "o200k", null);
+var total = usage.ResolveTotalTokensOrSum(); // 30
 ```
 
 ---
@@ -379,6 +402,7 @@ EnvelopeConformanceAssertions.AssertFullConformance(envelope);
 Ontogony.Primitives
 ├── Ontogony.Configuration
 ├── Ontogony.Contracts
+├── Ontogony.AI.Contracts → Ontogony.Contracts
 ├── Ontogony.Errors
 ├── Ontogony.Hashing
 ├── Ontogony.Hosting
@@ -413,7 +437,7 @@ Ontogony.Primitives
 | Store data | `Ontogony.Persistence.Postgres` | Any ORM |
 | Idempotent APIs | `Ontogony.Idempotency` | Custom deduplication |
 | Integration tests | `Ontogony.Testing` | Any test framework + helpers |
-| Convert protocols | `Ontogony.ProtocolIngress` | Manual deserialization |
+| LLM telemetry contracts | `Ontogony.AI.Contracts` | Product routing/orchestration repos |
 
 ---
 

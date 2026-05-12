@@ -10,10 +10,18 @@ PR35.1 — Documentation accuracy and validation:
 - **Links:** Repaired broken references (e.g. conformance kits path, ADR filenames, ADR 0001 from start-here).
 - **Validation scripts:** Added `scripts/validate-docs-links.ps1` and `scripts/validate-docs-api-names.ps1`; documented usage in `docs/start-here.md` and CI.
 
+PR36 — Ontogony.AI.Contracts (AI mechanical substrate, contracts only):
+
+- **New package `Ontogony.AI.Contracts`:** `LlmRequestEnvelope`, `LlmResponseEnvelope`, `LlmStreamChunk`, `LlmUsageRecord` (with `ResolveTotalTokensOrSum`), `LlmCostRecord`, `LlmProviderError`, `ToolCallRecord`, `ModelCapabilityDescriptor`; depends on `Ontogony.Contracts` only.
+- **Tests:** `Ontogony.AI.Contracts.Tests` — deterministic `CanonicalJson` round-trips, usage/cost/mechanical assertions, `DefaultEnvelopeValidator` coverage for `OntogonyEnvelope<LlmRequestEnvelope>`, boundary checks on exported type names.
+- **Docs:** `docs/ai-runtime/boundary-guardrails.md`, `docs/ai-runtime/implementation-order.md`, `docs/planning/ai-runtime-prs/pr-specs/`, `docs/planning/ai-runtime-prs/prompts/`, ADRs `ADR-0036`–`ADR-0040`, package page `docs/packages/Ontogony.AI.Contracts.md`.
+- **Script:** `scripts/validate-ai-runtime-boundaries.ps1` (scoped scan of AI.Contracts sources).
+- **Explicit non-scope:** Does not implement routing, agents, KB meaning, or provider SDKs; PR37+ packages remain out of this change.
+
 PR35 — Developer experience documentation (5 comprehensive guides):
 
 - **`docs/start-here.md`** — Main entry point covering overview, quick links, and what Ontogony is
-- **`docs/packages/index.md`** — Reference for all 15 packages, use cases, and dependency graph
+- **`docs/packages/index.md`** — Reference for all 16 packages, use cases, and dependency graph
 - **`docs/adoption/index.md`** — Step-by-step integration guide (7 phases from setup to conformance testing)
 - **`docs/operations/index.md`** — Deployment, monitoring, database management, security practices, troubleshooting
 - **`docs/architecture/index.md`** — Design decisions, package boundaries, testing strategy, future improvements

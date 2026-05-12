@@ -17,7 +17,7 @@ Ontogony is a **.NET 9 / C# 13 infrastructure platform** that provides:
 | **Errors** | HTTP error mapping, exception shapes, error codes | Translating domain/framework exceptions into safe JSON responses |
 | **HTTP Resilience** | Retry, circuit-breaker, timeout coordination | Calling external services reliably |
 | **Security** | HMAC signing, actor context, claims validation | Authenticating requests between services |
-| **Hashing & Idempotency** | Payload hashing, fingerprints, idempotency keys | Building deterministic, repeatable event processing |
+| **AI contracts** | LLM request/response/usage/cost records (mechanical) | Recording provider calls without embedding routing or agent semantics |
 | **Messaging & Outbox** | Protocol-neutral event bus, outbox pattern | Guaranteeing event delivery across service boundaries |
 | **ProtocolIngress** | External protocol normalization (generic-json, CloudEvents, MCP, A2A, AG-UI) | Adapting inbound events into `OntogonyEnvelope<RawProtocolPayload>`. No gRPC adapter currently. |
 | **Persistence** | Outbox contracts, processed-message tracking, dead-letter contracts, in-memory + PostgreSQL providers | Transactional outbox and idempotent dispatch mechanics — **not** a general-purpose ORM, repository layer, or migrations framework for your domain model |
@@ -61,7 +61,7 @@ Browse by namespace:
 - `Ontogony.Errors` — HTTP error handling
 - `Ontogony.Http` — HTTP clients and resilience
 - `Ontogony.Security` — Authentication and signing
-- ... (15 packages total)
+- ... (16 packages total)
 
 ---
 
@@ -137,6 +137,7 @@ dotnet build Ontogony.Platform.sln
 ```powershell
 ./scripts/validate-docs-links.ps1
 ./scripts/validate-docs-api-names.ps1
+./scripts/validate-ai-runtime-boundaries.ps1
 ```
 
 ### Test
@@ -145,7 +146,7 @@ dotnet build Ontogony.Platform.sln
 dotnet test Ontogony.Platform.sln
 ```
 
-Expected: **392 tests passing**, 0 failures (as of latest main)
+Expected: **401 tests passing**, 0 failures (as of latest main)
 
 ### Pack
 
@@ -154,7 +155,7 @@ $env:PACKAGE_VERSION = "0.2.0"
 ./scripts/pack-all.ps1
 ```
 
-This creates 15 NuGet packages in `artifacts/packages/`.
+This creates 16 NuGet packages in `artifacts/packages/`.
 
 ### Release
 

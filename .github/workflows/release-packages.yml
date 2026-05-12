@@ -64,10 +64,22 @@ jobs:
         run: dotnet restore Ontogony.Platform.sln
 
       - name: Build
-        run: dotnet build Ontogony.Platform.sln --no-restore
+        run: dotnet build Ontogony.Platform.sln --no-restore -c Release
 
       - name: Test
-        run: dotnet test Ontogony.Platform.sln --no-build
+        run: dotnet test Ontogony.Platform.sln --no-build -c Release
+
+      - name: Validate docs links
+        shell: pwsh
+        run: ./scripts/validate-docs-links.ps1
+
+      - name: Validate docs API names
+        shell: pwsh
+        run: ./scripts/validate-docs-api-names.ps1
+
+      - name: Validate AI runtime boundaries (AI.Contracts sources)
+        shell: pwsh
+        run: ./scripts/validate-ai-runtime-boundaries.ps1
 
       - name: Validate CHANGELOG
         shell: pwsh
