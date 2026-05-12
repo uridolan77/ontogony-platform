@@ -4,6 +4,17 @@
 
 Comprehensive shared-infrastructure extraction pass.
 
+PR22 — Packaging and consumer migration docs:
+
+- **NuGet metadata:** `Directory.Build.props` adds shared `PackageProjectUrl` and `PackageTags` for shipping packages.
+- **`scripts/pack-all.ps1`:** resolves repo root, optional `-NoBuild` / `-IncludeSymbols`, fails when no `.nupkg` is produced, prints package list.
+- **Adoption:** `docs/adoption/consumer-package-migration.md` as the single index linking feed setup, versioning, CI samples, and hashing note; cross-links from `private-nuget-feed.md`, `package-versioning.md`, and `local-repo-layout-and-ci.md`.
+- **CI samples:** `.github/workflows/samples/multi-checkout.yml` and `consume-internal-feed.yml` (`workflow_dispatch` only; copy into consumer repos).
+
+PR21 — Athanor hashing (documentation in this repo):
+
+- Migration note `docs/migrations/2026-05-11-pr21-athanor-hashing-stage1.md` (UTF-8 SHA-256 delegation to `Ontogony.Hashing`; canonical JSON parity limits for escaped strings). Implementation and golden vectors live in the Athanor repository.
+
 PR20 — Ontogony.Errors JSON wire shape and mapping hooks:
 
 - **`OntogonyExceptionMappingOptions`:** `ErrorCodeJsonKey`, `DetailsJsonKey`, `IncludeInstanceInJson`, `UnhandledErrorCode` for legacy-compatible JSON without changing `ApiError` in-memory shape.

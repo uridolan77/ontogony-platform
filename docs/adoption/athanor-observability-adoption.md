@@ -2,6 +2,8 @@
 
 Phased package order and when to adopt hashing/contracts first: [`athanor-platform-adoption.md`](./athanor-platform-adoption.md).
 
+**Host wiring status:** Athanor.Api is expected to run `AddOntogonyObservability`, `AddOntogonyErrors`, `UseOntogonyRequestTracing`, and `UseOntogonyExceptionHandling` in production code paths (see Athanor `docs/engineering/PR20-athanor-ontogony-errors-tracing.md`). Remaining PR24-class work is **ops validation** (dashboards, alerts, burn-in), not duplicate middleware implementation in this repository.
+
 This guide describes adopting Ontogony.Observability and Ontogony.Errors in Athanor while preserving Athanor semantics.
 
 ## Scope

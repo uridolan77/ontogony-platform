@@ -1,5 +1,7 @@
 # Private NuGet feed for Ontogony packages
 
+For the full migration checklist (feed auth, pinning, CI), start at [consumer-package-migration.md](./consumer-package-migration.md).
+
 For CI and machines that do not clone `ontogony-platform` next to every consumer, publish packages to an **internal NuGet feed** (Azure Artifacts, GitHub Packages, self-hosted BaGet, etc.) and reference them by version.
 
 ## Pack from this repository
@@ -11,7 +13,7 @@ $env:PACKAGE_VERSION = "0.2.0-local.1"
 ./scripts/pack-all.ps1
 ```
 
-Outputs under `artifacts/packages/`. The script uses `dotnet pack Ontogony.Platform.sln -c Release` with `PackageVersion` from `PACKAGE_VERSION` (default `0.1.0-starter` if unset).
+Outputs under `artifacts/packages/`. The script uses `dotnet pack Ontogony.Platform.sln -c Release` with `PackageVersion` from `PACKAGE_VERSION` (default `0.1.0-starter` if unset). Optional switches: `-NoBuild`, `-IncludeSymbols`. The script fails if no `.nupkg` is produced.
 
 ## Consumer references
 

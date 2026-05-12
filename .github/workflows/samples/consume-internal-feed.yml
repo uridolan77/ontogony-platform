@@ -1,0 +1,36 @@
+# Reference only: restore Ontogony packages from a private feed using NUGET_AUTH_TOKEN.
+# workflow_dispatch only — copy into your consumer org; set secrets and feed URL.
+name: sample-consumer-restore-internal-feed
+
+on:
+  workflow_dispatch:
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  # Example: Azure Artifacts or GitHub Packages authenticated endpoint
+  # NUGET_FEED_URL: https://pkgs.dev.azure.com/your-org/_packaging/your-feed/nuget/v3/index.json
+
+jobs:
+  restore-build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "9.0.x"
+
+      - name: Add authenticated feed (example — use your feed URL)
+        run: |
+          dotnet nuget add source "${{ secrets.NUGET_FEED_URL }}" \
+            --name ontogony-internal \
+            --username anything \
+            --password "${{ secrets.NUGET_AUTH_TOKEN }}" \
+            --store-password-in-clear-text
+
+      - name: Restore, build, test
+        run: |
+          dotnet restore
+          dotnet build --no-restore -c Release
+          dotnet test --no-build -c Release

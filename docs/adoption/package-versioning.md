@@ -2,6 +2,8 @@
 
 This guide defines shared package versioning expectations for Ontogony.Platform.
 
+See also the adoption index: [consumer-package-migration.md](./consumer-package-migration.md).
+
 ## Principles
 
 - Shared packages evolve with explicit changelog entries.

@@ -409,3 +409,16 @@ My recommendation:
 ```
 
 That will keep the platform robust, precise, and grounded in real service usage.
+
+---
+
+# Adoption arc PR21–PR24 (post-PR20 status)
+
+This section tracks **cross-repo adoption** work that landed after the PR15-era notes above.
+
+| Track | Status | Notes |
+|-------|--------|--------|
+| **PR21 — Hashing** | Stage 1 done | Athanor delegates UTF-8 SHA-256 to `Ontogony.Hashing`; canonical JSON stays Athanor-owned until JSON parity is proven. Migration: `docs/migrations/2026-05-11-pr21-athanor-hashing-stage1.md`. |
+| **PR22 — Packaging** | Tightened | Shared NuGet metadata in `Directory.Build.props`; hardened `scripts/pack-all.ps1`; adoption index `docs/adoption/consumer-package-migration.md`. |
+| **PR23 — CI templates** | Reference samples | `workflow_dispatch`-only samples under `.github/workflows/samples/` for multi-checkout vs internal feed; linked from `docs/adoption/local-repo-layout-and-ci.md`. |
+| **PR24 — Athanor observability** | Host wiring done | Tracing + errors middleware in Athanor production paths (see Athanor `docs/engineering/PR20-athanor-ontogony-errors-tracing.md`). Remaining work is **ops validation** (dashboards, alerts, correlation burn-in), not re-implementing ASP.NET middleware here. |

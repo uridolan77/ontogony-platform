@@ -1,0 +1,37 @@
+# Reference only: copy into your consumer repo and adjust paths/branches.
+# workflow_dispatch only — this file is not intended as an automatic CI gate for ontogony-platform.
+name: sample-consumer-with-sibling-ontogony-checkout
+
+on:
+  workflow_dispatch:
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  build-consumer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout ontogony-platform
+        uses: actions/checkout@v4
+        with:
+          repository: your-org/ontogony-platform
+          path: ontogony-platform
+
+      - name: Checkout consumer (example)
+        uses: actions/checkout@v4
+        with:
+          repository: your-org/your-service
+          path: your-service
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "9.0.x"
+
+      - name: Restore and test consumer
+        working-directory: your-service
+        run: |
+          dotnet restore
+          dotnet build --no-restore -c Release
+          dotnet test --no-build -c Release

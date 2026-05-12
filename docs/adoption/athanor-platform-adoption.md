@@ -9,7 +9,7 @@ Adopt in this order and **avoid** messaging/outbox until contracts are stable in
 | Package | Athanor use |
 |---------|-------------|
 | `Ontogony.Primitives` | Shared clock and small mechanical types where donor duplicates existed. |
-| `Ontogony.Hashing` | Canonical JSON and content hashing aligned with platform fingerprint policy. |
+| `Ontogony.Hashing` | Canonical JSON helpers and SHA-256 primitives; **Athanor stage-1** delegates the digest step while keeping Athanor canonical JSON until JSON parity is proven (see `docs/migrations/2026-05-11-pr21-athanor-hashing-stage1.md`). |
 | `Ontogony.Contracts` | Envelope/header vocabulary shared with recorders and other services. |
 
 Goal: byte-identical or policy-identical hashes where you claim parity; no new distributed behavior.

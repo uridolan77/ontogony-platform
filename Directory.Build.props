@@ -9,6 +9,8 @@
     <!-- TODO: remove CS1591 suppression and add XML docs before 1.0. -->
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <RepositoryUrl>https://github.com/uridolan77/ontogony-platform</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/uridolan77/ontogony-platform</PackageProjectUrl>
+    <PackageTags>ontogony;infrastructure</PackageTags>
     <Authors>Ontogony</Authors>
     <Company>Ontogony</Company>
     <IsPackable>true</IsPackable>
