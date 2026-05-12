@@ -13,6 +13,11 @@ PR48–PR52 — logging, redaction, secrets, quotas, replay contracts:
 - **Tests:** added focused unit tests for constants, masking, protection/fingerprints, quota decisions, and replay DTO round-trips.
 - **CI / scripts:** shipping inventory and pack smoke expect **23** libraries; `validate-package-levels.ps1` and `docs/architecture/package-levels.md` extended for the new dependency edges.
 
+PR54 — Conexus.NET starter readiness lock:
+
+- **Docs:** `docs/consumer-blueprints/conexus-dotnet-starter-plan.md` — Conexus.NET v0 substrate freeze, link to readiness blueprint and skeleton, and **recorded** local validation (restore/build/test, doc validators, shipping inventory, AI runtime checks, package-level map, PR48–PR52 overlay check, **23-package** `pack-all` smoke, `ConexusDotNetSkeleton` Release build). **No new packages** and no new public abstractions.
+- **Checkpoint:** platform surface treated as sufficient to start Conexus.NET outside this repository; PR53 remains the authoritative changelog entry for redaction/replay/logging safety breaks.
+
 PR53 — pre-Conexus safety and blueprint alignment:
 
 - **Breaking:** `RedactionResult` no longer exposes `Original` (only safe `Value` and metadata). Migration: `docs/migrations/2026-05-12-pr53-pre-conexus-safety-and-blueprint.md`.
