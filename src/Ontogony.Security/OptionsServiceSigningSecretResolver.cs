@@ -6,11 +6,13 @@ namespace Ontogony.Security;
 /// </summary>
 public sealed class OptionsServiceSigningSecretResolver : IServiceSigningSecretResolver
 {
+    /// <summary>Synthetic key id used when synthesizing a secret from legacy flat configuration.</summary>
     public const string LegacyCurrentKeyId = "legacy-current";
 
     private readonly ServiceIdentityOptions _options;
     private readonly IServiceSecretResolver? _legacySecretResolver;
 
+    /// <summary>Creates the resolver with optional legacy flat-secret fallback.</summary>
     public OptionsServiceSigningSecretResolver(
         ServiceIdentityOptions options,
         IServiceSecretResolver? legacySecretResolver = null)
@@ -19,6 +21,7 @@ public sealed class OptionsServiceSigningSecretResolver : IServiceSigningSecretR
         _legacySecretResolver = legacySecretResolver;
     }
 
+    /// <inheritdoc />
     public ServiceSigningSecretSet ResolveSecrets(string serviceId, string? keyId)
     {
         ArgumentNullException.ThrowIfNull(serviceId);

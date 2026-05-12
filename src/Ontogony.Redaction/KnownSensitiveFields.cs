@@ -1,7 +1,11 @@
 namespace Ontogony.Redaction;
 
+/// <summary>
+/// Built-in lowercase field-name fragments used to seed default redaction rules.
+/// </summary>
 public static class KnownSensitiveFields
 {
+    /// <summary>Default substring tokens matched case-insensitively against field names.</summary>
     public static readonly string[] Defaults =
     [
         "authorization",
@@ -20,6 +24,7 @@ public static class KnownSensitiveFields
         "response"
     ];
 
+    /// <summary>Builds default <see cref="RedactionRule"/> rows from <see cref="Defaults"/>.</summary>
     public static IEnumerable<RedactionRule> CreateDefaultRules()
     {
         foreach (var field in Defaults)

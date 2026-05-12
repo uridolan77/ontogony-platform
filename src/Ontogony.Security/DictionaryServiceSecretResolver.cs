@@ -7,12 +7,14 @@ public sealed class DictionaryServiceSecretResolver : IServiceSecretResolver
 {
     private readonly IReadOnlyDictionary<string, string> _secrets;
 
+    /// <summary>Creates a resolver over a static map of service id to shared secret.</summary>
     public DictionaryServiceSecretResolver(IReadOnlyDictionary<string, string> secrets)
     {
         ArgumentNullException.ThrowIfNull(secrets);
         _secrets = secrets;
     }
 
+    /// <inheritdoc />
     public string? ResolveSecret(string serviceId)
     {
         return _secrets.TryGetValue(serviceId, out var secret) ? secret : null;

@@ -11,11 +11,14 @@ public sealed class InMemoryQuotaLedger : IQuotaLedger
     private readonly object _gate = new();
     private readonly Dictionary<string, decimal> _usage = new(StringComparer.Ordinal);
 
+    /// <summary>Creates an in-memory ledger, optionally with a fixed clock.</summary>
+    /// <param name="clock">Clock for window boundaries; defaults to <see cref="Ontogony.Primitives.SystemClock"/>.</param>
     public InMemoryQuotaLedger(IClock? clock = null)
     {
         _clock = clock ?? new SystemClock();
     }
 
+    /// <inheritdoc />
     public Task<QuotaDecision> TryConsumeAsync(QuotaConsumptionRequest request, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(request);
@@ -59,6 +62,7 @@ public sealed class InMemoryQuotaLedger : IQuotaLedger
         }
     }
 
+    /// <inheritdoc />
     public Task<decimal> GetUsedAsync(QuotaLimit limit, DateTimeOffset? at = null, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(limit);

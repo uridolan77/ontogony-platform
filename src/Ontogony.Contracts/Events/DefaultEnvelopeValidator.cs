@@ -11,6 +11,8 @@ public sealed partial class DefaultEnvelopeValidator : IEnvelopeValidator
     private readonly EnvelopeValidatorOptions _options;
     private readonly FrozenSet<string>? _allowedProtocols;
 
+    /// <summary>Creates a validator with optional protocol allow-list and length limits.</summary>
+    /// <param name="options">Options; defaults to <see cref="EnvelopeValidatorOptions"/> defaults.</param>
     public DefaultEnvelopeValidator(EnvelopeValidatorOptions? options = null)
     {
         _options = options ?? new EnvelopeValidatorOptions();
@@ -38,6 +40,7 @@ public sealed partial class DefaultEnvelopeValidator : IEnvelopeValidator
         ProtocolNames.LangGraph
     ];
 
+    /// <inheritdoc />
     public EnvelopeValidationResult Validate<TPayload>(OntogonyEnvelope<TPayload> envelope)
     {
         ArgumentNullException.ThrowIfNull(envelope);

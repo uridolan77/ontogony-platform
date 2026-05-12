@@ -12,6 +12,7 @@ public sealed class InMemoryNonceReplayStore : INonceReplayStore
     private readonly Dictionary<string, DateTimeOffset> _seen = new(StringComparer.Ordinal);
     private readonly object _sync = new();
 
+    /// <summary>Creates the store with optional retention and clock overrides.</summary>
     public InMemoryNonceReplayStore(
         InMemoryNonceReplayStoreOptions? options = null,
         Func<DateTimeOffset>? utcNow = null)
@@ -20,6 +21,7 @@ public sealed class InMemoryNonceReplayStore : INonceReplayStore
         _utcNow = utcNow ?? (() => DateTimeOffset.UtcNow);
     }
 
+    /// <inheritdoc />
     public bool TryReserveNonce(string serviceId, string nonce, DateTimeOffset requestUtc)
     {
         ArgumentNullException.ThrowIfNull(serviceId);

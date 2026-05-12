@@ -11,11 +11,13 @@ public sealed class HeaderCurrentActorAccessor : ICurrentActorAccessor
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
 
+    /// <summary>Creates the accessor.</summary>
     public HeaderCurrentActorAccessor(IHttpContextAccessor httpContextAccessor)
     {
         _httpContextAccessor = httpContextAccessor;
     }
 
+    /// <inheritdoc />
     public CurrentActor? Current
     {
         get

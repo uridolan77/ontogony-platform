@@ -3,9 +3,14 @@ using Microsoft.Extensions.Options;
 
 namespace Ontogony.Security;
 
+/// <summary>
+/// Startup validation for <see cref="OntogonyAuthenticationOptions"/> against the host environment.
+/// </summary>
+/// <param name="hostEnvironment">Host environment used to gate unsafe dev-only settings.</param>
 public sealed class OntogonyAuthenticationOptionsValidator(IHostEnvironment hostEnvironment)
     : IValidateOptions<OntogonyAuthenticationOptions>
 {
+    /// <inheritdoc />
     public ValidateOptionsResult Validate(string? name, OntogonyAuthenticationOptions options)
     {
         if (options.Mode == OntogonyAuthenticationMode.Disabled

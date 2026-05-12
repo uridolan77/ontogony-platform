@@ -26,6 +26,7 @@ public sealed class CloudEventConversionOptions
     /// <summary>Used when the CloudEvent has no <c>protocol</c> extension.</summary>
     public string DefaultProtocolWhenMissing { get; set; } = ProtocolNames.CloudEvents;
 
+    /// <summary>Controls trace id synthesis or rejection when the CloudEvent omits <c>traceId</c>.</summary>
     public CloudEventTraceIdPolicy TraceIdPolicy { get; set; } = CloudEventTraceIdPolicy.GenerateWhenMissing;
 
     /// <summary>
@@ -327,24 +328,31 @@ public static class CloudEventsExtensions
 [SuppressMessage("Usage", "CA1711:Identifiers should not have incorrect suffix")]
 public sealed class CloudEventEnvelope
 {
+    /// <summary>CloudEvents spec version (must be 1.0 for conversion helpers).</summary>
     [JsonPropertyName("specversion")]
     public string SpecVersion { get; set; } = "1.0";
 
+    /// <summary>CloudEvents id (maps to <see cref="OntogonyEnvelope{TPayload}.EventId"/>).</summary>
     [JsonPropertyName("id")]
     public required string Id { get; set; }
 
+    /// <summary>CloudEvents source URI.</summary>
     [JsonPropertyName("source")]
     public required string Source { get; set; }
 
+    /// <summary>CloudEvents type (maps to <see cref="OntogonyEnvelope{TPayload}.EventType"/>).</summary>
     [JsonPropertyName("type")]
     public required string Type { get; set; }
 
+    /// <summary>Optional content type of <see cref="Data"/>.</summary>
     [JsonPropertyName("datacontenttype")]
     public string? DataContentType { get; set; }
 
+    /// <summary>ISO 8601 occurrence time when present.</summary>
     [JsonPropertyName("time")]
     public string? Time { get; set; }
 
+    /// <summary>Event payload (object or JSON element depending on serializer).</summary>
     [JsonPropertyName("data")]
     public object? Data { get; set; }
 
@@ -361,6 +369,10 @@ public sealed class CloudEventEnvelope
     {
     }
 
+    /// <summary>Creates an envelope with required CloudEvents identity fields.</summary>
+    /// <param name="id">CloudEvents id.</param>
+    /// <param name="source">CloudEvents source.</param>
+    /// <param name="type">CloudEvents type.</param>
     public CloudEventEnvelope(string id, string source, string type)
     {
         Id = id;

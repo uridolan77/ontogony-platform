@@ -4,8 +4,12 @@ using Microsoft.Extensions.Options;
 
 namespace Ontogony.Observability;
 
+/// <summary>
+/// ASP.NET Core registration and middleware helpers for Ontogony request tracing.
+/// </summary>
 public static class OntogonyObservabilityExtensions
 {
+    /// <summary>Registers <see cref="OntogonyObservabilityOptions"/> and startup validation.</summary>
     public static IServiceCollection AddOntogonyObservability(
         this IServiceCollection services,
         Action<OntogonyObservabilityOptions>? configure = null)
@@ -23,14 +27,19 @@ public static class OntogonyObservabilityExtensions
         return services;
     }
 
+    /// <summary>Installs <see cref="RequestTracingMiddleware"/> in the pipeline.</summary>
     public static IApplicationBuilder UseOntogonyRequestTracing(this IApplicationBuilder app)
     {
         return app.UseMiddleware<RequestTracingMiddleware>();
     }
 }
 
+/// <summary>
+/// Validates required fields on <see cref="OntogonyObservabilityOptions"/>.
+/// </summary>
 public sealed class OntogonyObservabilityOptionsValidator : IValidateOptions<OntogonyObservabilityOptions>
 {
+    /// <inheritdoc />
     public ValidateOptionsResult Validate(string? name, OntogonyObservabilityOptions options)
     {
         if (string.IsNullOrWhiteSpace(options.ServiceName))

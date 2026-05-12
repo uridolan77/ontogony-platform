@@ -8,7 +8,7 @@
     <LangVersion>latest</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <!-- TODO: remove CS1591 suppression and add XML docs before 1.0. -->
+    <!-- TODO: remove CS1591 suppression and require XML docs on public API (PR-PLAT-006 incremental). -->
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <RepositoryUrl>https://github.com/uridolan77/ontogony-platform</RepositoryUrl>
     <RepositoryType>git</RepositoryType>

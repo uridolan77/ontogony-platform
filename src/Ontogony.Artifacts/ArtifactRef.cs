@@ -52,9 +52,15 @@ public sealed record ArtifactRef
     /// <summary>Optional opaque locator URI; the scheme is caller-defined.</summary>
     public string? Uri { get; init; }
 
+    /// <summary>Optional tenant scope for dedupe identity.</summary>
     public string? TenantId { get; init; }
+
+    /// <summary>Optional workspace scope for dedupe identity.</summary>
     public string? WorkspaceId { get; init; }
+
+    /// <summary>Optional project scope for dedupe identity.</summary>
     public string? ProjectId { get; init; }
 
+    /// <summary>Creation timestamp (UTC).</summary>
     public DateTimeOffset CreatedAt { get; init; }
 }

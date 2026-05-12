@@ -17,6 +17,7 @@ public sealed class ServiceIdentityBodyHashPreloadMiddleware
     private readonly IOptions<ServiceIdentityOptions> _options;
     private readonly ILogger<ServiceIdentityBodyHashPreloadMiddleware> _logger;
 
+    /// <summary>Creates the middleware.</summary>
     public ServiceIdentityBodyHashPreloadMiddleware(
         RequestDelegate next,
         IOptions<ServiceIdentityOptions> options,
@@ -27,6 +28,7 @@ public sealed class ServiceIdentityBodyHashPreloadMiddleware
         _logger = logger ?? NullLogger<ServiceIdentityBodyHashPreloadMiddleware>.Instance;
     }
 
+    /// <summary>Preloads body hash into <see cref="HttpContext.Items"/> when HMAC verification is enabled.</summary>
     public async Task InvokeAsync(HttpContext context)
     {
         var opt = _options.Value;

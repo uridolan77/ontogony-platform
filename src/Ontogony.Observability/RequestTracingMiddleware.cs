@@ -6,15 +6,22 @@ using Ontogony.Contracts.Events;
 
 namespace Ontogony.Observability;
 
+/// <summary>
+/// Establishes trace/correlation context from incoming headers and records basic HTTP server metrics.
+/// </summary>
 public sealed class RequestTracingMiddleware
 {
+    /// <summary><see cref="HttpContext.Items"/> key for resolved trace id.</summary>
     public const string TraceIdItemKey = "Ontogony.TraceId";
+
+    /// <summary><see cref="HttpContext.Items"/> key for generated operation id.</summary>
     public const string OperationIdItemKey = "Ontogony.OperationId";
 
     private readonly RequestDelegate _next;
     private readonly ILogger<RequestTracingMiddleware> _logger;
     private readonly OntogonyObservabilityOptions _options;
 
+    /// <summary>Creates the middleware.</summary>
     public RequestTracingMiddleware(
         RequestDelegate next,
         ILogger<RequestTracingMiddleware> logger,
@@ -25,6 +32,7 @@ public sealed class RequestTracingMiddleware
         _options = options.Value;
     }
 
+    /// <summary>Runs correlation resolution, optional Activity, then the rest of the pipeline.</summary>
     public async Task InvokeAsync(HttpContext context)
     {
         var incomingHeaders = BuildHeaderSnapshot(context.Request.Headers);

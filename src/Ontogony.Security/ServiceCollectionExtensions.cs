@@ -6,8 +6,12 @@ using Microsoft.Extensions.Options;
 
 namespace Ontogony.Security;
 
+/// <summary>
+/// DI registration for Ontogony actor context and authentication guard options.
+/// </summary>
 public static class ServiceCollectionExtensions
 {
+    /// <summary>Registers header-based <see cref="ICurrentActorAccessor"/> (trusted upstream only).</summary>
     public static IServiceCollection AddOntogonyHeaderActorContext(this IServiceCollection services)
     {
         services.AddHttpContextAccessor();
@@ -15,6 +19,7 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
+    /// <summary>Registers JWT claims-based <see cref="ICurrentActorAccessor"/>.</summary>
     public static IServiceCollection AddOntogonyClaimsActorContext(
         this IServiceCollection services,
         Action<ClaimsCurrentActorAccessorOptions>? configure = null)
@@ -34,6 +39,7 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
+    /// <summary>Registers service-identity HMAC verification as <see cref="ICurrentActorAccessor"/>.</summary>
     public static IServiceCollection AddOntogonyServiceIdentityActorContext(
         this IServiceCollection services,
         Action<ServiceIdentityOptions>? configure = null)
@@ -63,6 +69,7 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
+    /// <summary>Binds and validates <see cref="OntogonyAuthenticationOptions"/> at startup.</summary>
     public static IServiceCollection AddOntogonyAuthenticationGuards(
         this IServiceCollection services,
         IConfiguration configuration,

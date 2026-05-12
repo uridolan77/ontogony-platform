@@ -10,6 +10,7 @@ public sealed class EnvelopePayloadHasher
 {
     private readonly PayloadHasher _payloadHasher;
 
+    /// <summary>Creates a hasher that delegates payload canonicalization to <paramref name="payloadHasher"/>.</summary>
     public EnvelopePayloadHasher(PayloadHasher payloadHasher)
     {
         _payloadHasher = payloadHasher;

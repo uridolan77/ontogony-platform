@@ -1,0 +1,21 @@
+name: Dependency submission
+
+# Populates GitHub Dependency graph for NuGet so Dependency review can diff PRs against main.
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "9.0.x"
+
+      - uses: actions/dependency-submission-action@v4

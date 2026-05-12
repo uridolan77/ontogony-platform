@@ -22,6 +22,7 @@ public sealed class ServiceIdentityCurrentActorAccessor : ICurrentActorAccessor
     private readonly IRequestBodyHashProvider _bodyHashProvider;
     private readonly IClock _clock;
 
+    /// <summary>Creates the accessor with optional overrides for tests.</summary>
     public ServiceIdentityCurrentActorAccessor(
         IHttpContextAccessor httpContextAccessor,
         ServiceIdentityOptions? options = null,
@@ -40,6 +41,7 @@ public sealed class ServiceIdentityCurrentActorAccessor : ICurrentActorAccessor
         _clock = clock ?? new SystemClock();
     }
 
+    /// <inheritdoc />
     public CurrentActor? Current
     {
         get

@@ -13,6 +13,7 @@ public sealed class OntogonyServiceIdentitySigningHandler : DelegatingHandler
     private readonly Func<DateTimeOffset> _utcNow;
     private readonly Func<string> _nonceFactory;
 
+    /// <summary>Creates a signing handler for outbound service calls.</summary>
     public OntogonyServiceIdentitySigningHandler(
         string serviceId,
         string secret,
@@ -30,6 +31,7 @@ public sealed class OntogonyServiceIdentitySigningHandler : DelegatingHandler
         _nonceFactory = nonceFactory ?? (() => Guid.NewGuid().ToString("n"));
     }
 
+    /// <inheritdoc />
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(request);

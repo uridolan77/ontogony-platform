@@ -12,6 +12,7 @@ public sealed class ClaimsCurrentActorAccessor : ICurrentActorAccessor
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ClaimsCurrentActorAccessorOptions _options;
 
+    /// <summary>Creates the accessor with optional claim mapping overrides.</summary>
     public ClaimsCurrentActorAccessor(
         IHttpContextAccessor httpContextAccessor,
         ClaimsCurrentActorAccessorOptions? options = null)
@@ -20,6 +21,7 @@ public sealed class ClaimsCurrentActorAccessor : ICurrentActorAccessor
         _options = options ?? new ClaimsCurrentActorAccessorOptions();
     }
 
+    /// <inheritdoc />
     public CurrentActor? Current
     {
         get

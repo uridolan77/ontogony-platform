@@ -18,9 +18,13 @@ public static class OntogonyCorrelationContext
 
     private static readonly AsyncLocal<CorrelationState?> CurrentValue = new();
 
+    /// <summary>Current async-local correlation state, if any.</summary>
     public static CorrelationState? Current => CurrentValue.Value;
+
+    /// <summary>Convenience for <see cref="Current"/>?.TraceId.</summary>
     public static string? TraceId => CurrentValue.Value?.TraceId;
 
+    /// <summary>Returns existing state or creates a new one with a generated trace id.</summary>
     public static CorrelationState CurrentOrCreate()
     {
         if (CurrentValue.Value is not null)
@@ -38,6 +42,7 @@ public static class OntogonyCorrelationContext
         return created;
     }
 
+    /// <summary>Replaces the current correlation state until the returned scope is disposed.</summary>
     public static IDisposable Push(CorrelationState state)
     {
         var prior = CurrentValue.Value;
@@ -45,6 +50,7 @@ public static class OntogonyCorrelationContext
         return new PopScope(prior);
     }
 
+    /// <summary>Creates and pushes a <see cref="CorrelationState"/> for <paramref name="traceId"/>.</summary>
     public static IDisposable Push(string traceId, string? operationId = null)
     {
         return Push(new CorrelationState(traceId, operationId ?? Guid.NewGuid().ToString("n")));
@@ -128,6 +134,7 @@ public static class OntogonyCorrelationContext
         return ordered.ToArray();
     }
 
+    /// <summary>Builds correlation state from an envelope's trace and tenancy fields.</summary>
     public static CorrelationState? FromEnvelope<TPayload>(OntogonyEnvelope<TPayload> envelope)
     {
         if (envelope is null)
@@ -145,6 +152,7 @@ public static class OntogonyCorrelationContext
             SessionId: envelope.SessionId);
     }
 
+    /// <summary>Maps correlation fields to a small string dictionary for logging or metadata.</summary>
     public static IReadOnlyDictionary<string, string> ToMetadata(CorrelationState? state = null)
     {
         var source = state ?? CurrentValue.Value;
@@ -228,6 +236,18 @@ public static class OntogonyCorrelationContext
     }
 }
 
+/// <summary>
+/// Immutable correlation tuple carried on the async flow (trace, operation, tenancy).
+/// </summary>
+/// <param name="TraceId">Distributed trace id.</param>
+/// <param name="OperationId">Per-request or per-unit-of-work id.</param>
+/// <param name="TenantId">Optional tenant id.</param>
+/// <param name="WorkspaceId">Optional workspace id.</param>
+/// <param name="ProjectId">Optional project id.</param>
+/// <param name="ActorId">Optional actor id.</param>
+/// <param name="SessionId">Optional session id.</param>
+/// <param name="TraceParent">Optional W3C traceparent.</param>
+/// <param name="TraceState">Optional W3C tracestate.</param>
 public sealed record CorrelationState(
     string TraceId,
     string OperationId,

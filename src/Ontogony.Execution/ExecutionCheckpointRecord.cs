@@ -10,15 +10,26 @@ namespace Ontogony.Execution;
 /// </remarks>
 public sealed record ExecutionCheckpointRecord
 {
+    /// <summary>Stable unique id for this checkpoint line in the journal.</summary>
     public required string CheckpointId { get; init; }
+
+    /// <summary>Run this checkpoint is scoped to.</summary>
     public required string RunId { get; init; }
     /// <summary>Monotonic sequence within the run as defined by the caller.</summary>
     public long Sequence { get; init; }
+    /// <summary>When the checkpoint was recorded.</summary>
     public required DateTimeOffset RecordedAt { get; init; }
+
+    /// <summary>Opaque human- or machine-readable label for the checkpoint.</summary>
     public string? Label { get; init; }
+
+    /// <summary>Opaque fingerprint of checkpoint payload bytes or canonical form, if any.</summary>
     public string? PayloadHash { get; init; }
     /// <summary>Optional opaque artifact identifier when payload bytes live in an artifact store (e.g. same value as <c>ArtifactRef.ArtifactId</c>).</summary>
     public string? PayloadArtifactId { get; init; }
+    /// <summary>Opaque token a host may use to resume after this checkpoint.</summary>
     public string? ResumeToken { get; init; }
+
+    /// <summary>Optional small opaque key/value metadata.</summary>
     public IReadOnlyDictionary<string, string>? Metadata { get; init; }
 }

@@ -34,6 +34,7 @@ public enum OntogonyAuthenticationMode
 /// </summary>
 public sealed class OntogonyAuthenticationOptions
 {
+    /// <summary>Default configuration section path for binding.</summary>
     public const string SectionName = "Ontogony:Security:Authentication";
 
     /// <summary>

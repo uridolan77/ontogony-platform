@@ -2,17 +2,23 @@ using Microsoft.Extensions.Options;
 
 namespace Ontogony.Redaction;
 
+/// <summary>
+/// Default <see cref="IRedactor"/> using configured <see cref="RedactionRule"/> entries and optional built-in rules.
+/// </summary>
 public sealed class DefaultRedactor : IRedactor
 {
     private readonly RedactionOptions _options;
     private readonly IReadOnlyList<RedactionRule> _rules;
 
+    /// <summary>Creates a redactor bound to <paramref name="options"/>.</summary>
+    /// <param name="options">Options snapshot (uses defaults when null).</param>
     public DefaultRedactor(IOptions<RedactionOptions> options)
     {
         _options = options?.Value ?? new RedactionOptions();
         _rules = BuildRules(_options);
     }
 
+    /// <inheritdoc />
     public RedactionResult RedactString(
         string? value,
         RedactionClassification classification = RedactionClassification.Secret)
@@ -25,6 +31,7 @@ public sealed class DefaultRedactor : IRedactor
         return new RedactionResult(Mask(value), WasRedacted: true, classification);
     }
 
+    /// <inheritdoc />
     public RedactionResult RedactField(string fieldName, object? value)
     {
         var text = value?.ToString();
@@ -37,6 +44,7 @@ public sealed class DefaultRedactor : IRedactor
         return new RedactionResult(Mask(text ?? string.Empty), WasRedacted: true, rule.Classification, rule.Name);
     }
 
+    /// <inheritdoc />
     public IReadOnlyDictionary<string, object?> RedactFields(IReadOnlyDictionary<string, object?> fields)
     {
         ArgumentNullException.ThrowIfNull(fields);

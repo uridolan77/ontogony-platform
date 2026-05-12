@@ -8,6 +8,7 @@ namespace Ontogony.Hashing;
 /// </summary>
 public static class CanonicalJson
 {
+    /// <summary>Serializes <paramref name="value"/> to canonical JSON (sorted keys, compact).</summary>
     public static string Serialize<T>(T value)
     {
         using var document = JsonSerializer.SerializeToDocument(value, JsonOptions);
@@ -20,6 +21,7 @@ public static class CanonicalJson
         return System.Text.Encoding.UTF8.GetString(stream.ToArray());
     }
 
+    /// <summary>Parses arbitrary JSON and re-emits canonical JSON (sorted keys, compact).</summary>
     public static string Normalize(string json)
     {
         using var document = JsonDocument.Parse(json);

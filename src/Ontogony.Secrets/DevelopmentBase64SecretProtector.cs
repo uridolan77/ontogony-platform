@@ -7,9 +7,11 @@ namespace Ontogony.Secrets;
 /// </summary>
 public sealed class DevelopmentBase64SecretProtector : ISecretProtector
 {
+    /// <summary>Scheme identifier stored with protected values.</summary>
     public const string Scheme = "dev-base64";
     private const string Prefix = "dev:v1:";
 
+    /// <inheritdoc />
     public SecretProtectionResult Protect(string plainText, string? keyId = null)
     {
         ArgumentNullException.ThrowIfNull(plainText);
@@ -17,6 +19,7 @@ public sealed class DevelopmentBase64SecretProtector : ISecretProtector
         return new SecretProtectionResult(Prefix + encoded, Scheme, keyId);
     }
 
+    /// <inheritdoc />
     public string Unprotect(string protectedValue)
     {
         ArgumentNullException.ThrowIfNull(protectedValue);
