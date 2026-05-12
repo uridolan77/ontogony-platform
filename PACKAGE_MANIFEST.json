@@ -2,112 +2,112 @@
   "version": "0.2.0",
   "packages": [
     {
-      "sha256": "250732C6FE3E37BE0342505D01CFC5C250574ADEEA47E325F044C3999481D089",
+      "sha256": "551949779437C3D84AC1398893EE1AADA5CB07C075E223AF0213A21394F03210",
       "id": "Ontogony.Configuration",
       "filename": "Ontogony.Configuration.0.2.0.nupkg",
-      "sizeBytes": 6075,
+      "sizeBytes": 6073,
       "version": "0.2.0"
     },
     {
-      "sha256": "378E89860F3AF948A31D219D02258B890A45E2723911FE6D558C4216329420AD",
+      "sha256": "907B9E6F06B54A591B5741CE04D635AE54CF125CE9B2A86BBB3D36D12C1307B5",
       "id": "Ontogony.Contracts",
       "filename": "Ontogony.Contracts.0.2.0.nupkg",
-      "sizeBytes": 29982,
+      "sizeBytes": 29985,
       "version": "0.2.0"
     },
     {
-      "sha256": "CDF061185C373C2B7E1B61736FAC387BAFFD8887B7B4CDBE7569D07A452EED45",
+      "sha256": "D16A316AACAC0EA582892F31D18838ED3F63EBCCA4F2DF67D0008C489032A490",
       "id": "Ontogony.Errors",
       "filename": "Ontogony.Errors.0.2.0.nupkg",
       "sizeBytes": 12283,
       "version": "0.2.0"
     },
     {
-      "sha256": "DD79B804E0325214E5CAF9EFDD9B21D448470B4A861F949B15621DBE9AF1E8D3",
+      "sha256": "79206992A5F1E610D5BBB32BA00C59AE5350C2EF0AFAE4BDE3EF8874975A1EAB",
       "id": "Ontogony.Hashing",
       "filename": "Ontogony.Hashing.0.2.0.nupkg",
       "sizeBytes": 7905,
       "version": "0.2.0"
     },
     {
-      "sha256": "4E5E75666CA0ED4F02A9AD9CB836F9471DC647B754835FB666E3D82A13AE2DF6",
+      "sha256": "4A310BEDE760EB00EA726031E1A1235A221723EE08B3314FE73D4DAB87C0B59D",
       "id": "Ontogony.Hosting",
       "filename": "Ontogony.Hosting.0.2.0.nupkg",
-      "sizeBytes": 7019,
+      "sizeBytes": 7017,
       "version": "0.2.0"
     },
     {
-      "sha256": "E9C38385D8DF85277F3A82E7FB1B27FF8AB13E552547280968D5F9FD0C7070FC",
+      "sha256": "7E47745390A225BC82766242E79E1F8884F7AFFEA9DCC6C0AB1617BC6DAC0794",
       "id": "Ontogony.Http",
       "filename": "Ontogony.Http.0.2.0.nupkg",
       "sizeBytes": 23364,
       "version": "0.2.0"
     },
     {
-      "sha256": "17E41A68FB27E016C34D299E512A486276A1DC55634BE1E32EFC774268110870",
+      "sha256": "36173E61ABCB668EB679BFEEA535ABF3F5FE5C5BC670E9FA5F12A7C653BA1A5C",
       "id": "Ontogony.Idempotency",
       "filename": "Ontogony.Idempotency.0.2.0.nupkg",
-      "sizeBytes": 10583,
+      "sizeBytes": 10584,
       "version": "0.2.0"
     },
     {
-      "sha256": "BF8C3FCC5D18671718D6C961D3BE277AB33A462F61A81D8379B9180BCA317E0B",
+      "sha256": "E9A23C079DFC44DCAFD61C4BD5C6B4D2A4FCF985E8749A28E50AC53D23653B2F",
       "id": "Ontogony.Messaging",
       "filename": "Ontogony.Messaging.0.2.0.nupkg",
-      "sizeBytes": 15488,
+      "sizeBytes": 15490,
       "version": "0.2.0"
     },
     {
-      "sha256": "185F0AA9557D447249675BBD9CB74E22954888C8C65934B611DDF9FB24FB6E08",
+      "sha256": "DAF4F1CFBED159D5A450ACA3F3347C7308EAC416F0D5A0DF7C4EE508938C88E8",
       "id": "Ontogony.Observability",
       "filename": "Ontogony.Observability.0.2.0.nupkg",
-      "sizeBytes": 16079,
+      "sizeBytes": 16077,
       "version": "0.2.0"
     },
     {
-      "sha256": "D2257EFCA0F7E5043C339D8D47BD9401A0DA186BF689E37276DE6ABFC3599019",
+      "sha256": "B697141648342AF78E4A403F1B591A62348FFC90C06EE5911060B026D98A77B0",
       "id": "Ontogony.Persistence",
       "filename": "Ontogony.Persistence.0.2.0.nupkg",
-      "sizeBytes": 16642,
+      "sizeBytes": 16643,
       "version": "0.2.0"
     },
     {
-      "sha256": "44283610AB5E7C62D414FC031222082D8849763929C92E57147CA0A486338C58",
+      "sha256": "E03031AA4C8720C6D723AECB927D7B3370F52149E8B3774DD541FEB6987B5760",
       "id": "Ontogony.Persistence.Postgres",
       "filename": "Ontogony.Persistence.Postgres.0.2.0.nupkg",
       "sizeBytes": 27613,
       "version": "0.2.0"
     },
     {
-      "sha256": "1706AC2D489EBCA8285D0C5AFE6F27A8C09AB55B5343547F8415E426BE88DE6A",
+      "sha256": "D95A8479AA5A3D57837AFCDB266BAC7F0505F2C196B5B3A5127A0EA65CF824ED",
       "id": "Ontogony.Primitives",
       "filename": "Ontogony.Primitives.0.2.0.nupkg",
-      "sizeBytes": 4468,
+      "sizeBytes": 4470,
       "version": "0.2.0"
     },
     {
-      "sha256": "D0A86936150550E4D071F6A333B4090C9BE558B9ADB52AF2CE46C6FF621CD4C5",
+      "sha256": "E99CE3D25886C3167C3E022F408F5C5A92C38057B008F1E5053A1A1A36C09E00",
       "id": "Ontogony.ProtocolIngress",
       "filename": "Ontogony.ProtocolIngress.0.2.0.nupkg",
-      "sizeBytes": 18128,
+      "sizeBytes": 18130,
       "version": "0.2.0"
     },
     {
-      "sha256": "0B5C9F7025473F34861D7CA08077D93DA06CD1B3477223F45B7451944FD27469",
+      "sha256": "8A63057B01BE79B0356B58EA6D1D829EFE499843EC997C37600B4F3C8325AD4B",
       "id": "Ontogony.Security",
       "filename": "Ontogony.Security.0.2.0.nupkg",
       "sizeBytes": 26803,
       "version": "0.2.0"
     },
     {
-      "sha256": "4B2C76981239909C544FE7A4D12F09275AED03BD70CDBF5FD143C84F6CDA9CCD",
+      "sha256": "1D924E95575D05154303E0E032CC64F7C30C30E6B2578E950589233FA1918EDD",
       "id": "Ontogony.Testing",
       "filename": "Ontogony.Testing.0.2.0.nupkg",
       "sizeBytes": 13645,
       "version": "0.2.0"
     }
   ],
-  "generated": "2026-05-12T12:57:17.9226990Z",
-  "commit": "3e346c4570d611fa02b17f0ebc27b90fd047c3a2",
+  "generated": "2026-05-12T13:11:17.9056884Z",
+  "commit": "5b381c2b2b64c096dae39265559c3c9af77f2cc1",
   "packageCount": 15
 }

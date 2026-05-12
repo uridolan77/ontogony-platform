@@ -2,6 +2,22 @@
 
 ## Unreleased
 
+PR35 — Developer experience documentation (5 comprehensive guides):
+
+- **`docs/start-here.md`** — Main entry point covering overview, quick links, and what Ontogony is
+- **`docs/packages/index.md`** — Reference for all 14 packages, use cases, and dependency graph
+- **`docs/adoption/index.md`** — Step-by-step integration guide (7 phases from setup to conformance testing)
+- **`docs/operations/index.md`** — Deployment, monitoring, database management, security practices, troubleshooting
+- **`docs/architecture/index.md`** — Design decisions, package boundaries, testing strategy, future improvements
+- **`docs/security/index.md`** — Authentication, HMAC signing, secrets management, compliance, incident response
+- **`docs/examples/index.md`** — Complete service example, code patterns, event publishing, error handling, testing
+
+PR34.1 — Release automation SemVer support:
+
+- **Manifest regex fix:** Updated `scripts/generate-package-manifest.ps1` to support SemVer prerelease versions (`0.3.0-alpha.1`, `0.3.0-local`, etc.) in addition to release versions
+- **Release automation tests:** Added `NupkgFilenameParser_ExtractsPrereleaseVersions` test covering alpha, local, and rc variants
+- **Clarification:** Documented that PR34 release workflow currently does artifact-only release (GitHub Releases, not real `dotnet nuget push`)
+
 PR34 — Release automation and quality gates:
 
 - **LICENSE file:** Added MIT license to repository root and NuGet package metadata.
@@ -15,6 +31,7 @@ PR34 — Release automation and quality gates:
 - **Quality gates:** Manifest generation fails if no packages produced, version mismatch detected, or invalid package names encountered.
 
 PR33 — Testing conformance kits:
+
 
 
 - **TracingConformanceAssertions:** helpers to assert `RequestTracingMiddleware` echoes `X-Ontogony-Trace-Id`, generates a trace id when none is present, and propagates tenant id into `OntogonyCorrelationContext`.

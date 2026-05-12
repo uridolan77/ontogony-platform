@@ -37,8 +37,9 @@ if ($nupkgs.Count -eq 0) {
 # Extract package information
 $packages = @()
 foreach ($pkg in $nupkgs) {
-    # Parse package ID and version from filename (e.g., Ontogony.Contracts.0.2.0.nupkg)
-    if ($pkg.Name -match "^(.+?)\.(\d+\.\d+\.\d+)\.nupkg$") {
+    # Parse package ID and version from filename (e.g., Ontogony.Contracts.0.2.0.nupkg or Ontogony.Contracts.0.3.0-alpha.1.nupkg)
+    # Supports SemVer with optional prerelease/build metadata (e.g., -alpha, -rc.1, -local)
+    if ($pkg.Name -match "^(.+?)\.(\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?)\.nupkg$") {
         $pkgId = $matches[1]
         $pkgVersion = $matches[2]
         

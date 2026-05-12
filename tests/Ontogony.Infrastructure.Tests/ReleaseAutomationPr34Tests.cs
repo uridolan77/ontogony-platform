@@ -78,12 +78,27 @@ public sealed class ReleaseAutomationPr34Tests
     {
         // Test filename parsing used in manifest generation
         var filename = "Ontogony.Contracts.0.3.0.nupkg";
-        var pattern = new System.Text.RegularExpressions.Regex(@"^(.+?)\.(\d+\.\d+\.\d+)\.nupkg$");
+        var pattern = new System.Text.RegularExpressions.Regex(@"^(.+?)\.(\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?)\.nupkg$");
 
         var match = pattern.Match(filename);
         Assert.True(match.Success);
         Assert.Equal("Ontogony.Contracts", match.Groups[1].Value);
         Assert.Equal("0.3.0", match.Groups[2].Value);
+    }
+
+    [Theory]
+    [InlineData("Ontogony.Contracts.0.3.0-alpha.1.nupkg", "Ontogony.Contracts", "0.3.0-alpha.1")]
+    [InlineData("Ontogony.Testing.0.3.0-local.nupkg", "Ontogony.Testing", "0.3.0-local")]
+    [InlineData("Ontogony.Observability.0.2.0-rc.1.nupkg", "Ontogony.Observability", "0.2.0-rc.1")]
+    public void NupkgFilenameParser_ExtractsPrereleaseVersions(string filename, string expectedId, string expectedVersion)
+    {
+        // Test parsing of SemVer prerelease versions
+        var pattern = new System.Text.RegularExpressions.Regex(@"^(.+?)\.(\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?)\.nupkg$");
+
+        var match = pattern.Match(filename);
+        Assert.True(match.Success, $"Should match filename: {filename}");
+        Assert.Equal(expectedId, match.Groups[1].Value);
+        Assert.Equal(expectedVersion, match.Groups[2].Value);
     }
 
     [Fact]
