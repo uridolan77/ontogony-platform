@@ -35,11 +35,11 @@ internal static class PostgresOutboxSchema
             updated_at_utc TIMESTAMPTZ NOT NULL DEFAULT NOW()
         );
 
-        CREATE INDEX IF NOT EXISTS ix_ontogony_outbox_available
+        CREATE INDEX IF NOT EXISTS {{names.OutboxAvailableIndex}}
             ON {{names.QualifiedOutbox}} (available_at, occurred_at)
             WHERE dispatched_at_utc IS NULL AND dead_lettered_at_utc IS NULL;
 
-        CREATE INDEX IF NOT EXISTS ix_ontogony_outbox_claim
+        CREATE INDEX IF NOT EXISTS {{names.OutboxClaimIndex}}
             ON {{names.QualifiedOutbox}} (claimed_until_utc)
             WHERE dispatched_at_utc IS NULL AND dead_lettered_at_utc IS NULL;
 

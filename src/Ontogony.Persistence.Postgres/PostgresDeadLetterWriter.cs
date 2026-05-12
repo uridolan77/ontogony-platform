@@ -11,13 +11,14 @@ public sealed class PostgresDeadLetterWriter : IDeadLetterWriter
     private readonly NpgsqlDataSource _dataSource;
     private readonly PostgresSqlNames _names;
 
-    public PostgresDeadLetterWriter(PostgresOutboxOptions options)
+    public PostgresDeadLetterWriter(PostgresOutboxOptions options, NpgsqlDataSource dataSource)
     {
         ArgumentNullException.ThrowIfNull(options);
+        ArgumentNullException.ThrowIfNull(dataSource);
         options.Validate();
 
         _names = PostgresSqlNames.FromOptions(options);
-        _dataSource = NpgsqlDataSource.Create(options.ConnectionString);
+        _dataSource = dataSource;
     }
 
     public async Task EnsureSchemaAsync(CancellationToken cancellationToken = default)

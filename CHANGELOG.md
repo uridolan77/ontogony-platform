@@ -4,6 +4,15 @@
 
 - Added planning package for PR26-PR35 infrastructure roadmap under `docs/planning/ontogony-platform-next-prs/`.
 
+PR27.5 — PostgreSQL provider hardening:
+
+- **Lifecycle:** `AddOntogonyPostgresOutbox(...)` now registers one shared `NpgsqlDataSource` singleton consumed by `PostgresOutboxStore` and `PostgresDeadLetterWriter`.
+- **Schema:** outbox index names are generated from configured outbox table name to avoid collisions when multiple table names are used in the same schema.
+- **Ownership APIs:** `IPostgresOutboxClaimStore` adds `MarkDispatchedIfOwnedAsync(...)` and `MarkFailedIfOwnedAsync(...)` for claim-owner-only updates; existing `IOutboxDispatcher` methods remain compatibility methods.
+- **Dead-letter semantics:** docs now explicitly state that atomic outbox+dead-letter write is guaranteed only with `PostgresDeadLetterWriter`; external dead-letter writers may observe partial completion.
+- **Docs/migration:** `docs/migrations/2026-05-12-pr27-5-postgres-provider-hardening.md`, package/provider docs updated.
+- **README:** updated stale HTTP resilience note to reflect Retry-After and jitter support.
+
 PR27 — Ontogony.Persistence.Postgres outbox provider:
 
 - **New package:** `Ontogony.Persistence.Postgres` with durable PostgreSQL implementation for `IOutboxWriter`, `IOutboxReader`, `IOutboxDispatcher`, `IProcessedMessageStore`, and `IDeadLetterWriter`.

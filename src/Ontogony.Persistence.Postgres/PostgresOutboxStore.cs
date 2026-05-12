@@ -17,18 +17,19 @@ public sealed class PostgresOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
 
     public PostgresOutboxStore(
         PostgresOutboxOptions options,
+        NpgsqlDataSource dataSource,
         Ontogony.Primitives.IClock? clock = null,
         Ontogony.Primitives.IIdGenerator? idGenerator = null,
         IDeadLetterWriter? deadLetterWriter = null)
     {
         _options = options ?? throw new ArgumentNullException(nameof(options));
+        _dataSource = dataSource ?? throw new ArgumentNullException(nameof(dataSource));
         _options.Validate();
 
         _names = PostgresSqlNames.FromOptions(options);
         _clock = clock ?? new Ontogony.Primitives.SystemClock();
         _deadLetterWriter = deadLetterWriter;
         _claimOwner = (idGenerator ?? new Ontogony.Primitives.GuidIdGenerator()).NewId("outbox-worker");
-        _dataSource = NpgsqlDataSource.Create(options.ConnectionString);
     }
 
     public async Task EnsureSchemaAsync(CancellationToken cancellationToken = default)
@@ -330,6 +331,56 @@ public sealed class PostgresOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
         await command.ExecuteNonQueryAsync(cancellationToken).ConfigureAwait(false);
     }
 
+    public async Task<bool> MarkDispatchedIfOwnedAsync(
+        string messageId,
+        DateTimeOffset dispatchedAtUtc,
+        CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(messageId))
+        {
+            throw new ArgumentException("MessageId is required.", nameof(messageId));
+        }
+
+        var now = _clock.UtcNow;
+        var sql = $$"""
+        UPDATE {{_names.QualifiedOutbox}}
+        SET dispatched_at_utc = @dispatched_at_utc,
+            claimed_by = NULL,
+            claimed_until_utc = NULL,
+            updated_at_utc = @updated_at_utc
+        WHERE message_id = @message_id
+          AND claimed_by = @claim_owner
+          AND (claimed_until_utc IS NULL OR claimed_until_utc > @now_utc)
+          AND dispatched_at_utc IS NULL
+          AND dead_lettered_at_utc IS NULL;
+        """;
+
+        await using var connection = await _dataSource.OpenConnectionAsync(cancellationToken).ConfigureAwait(false);
+        await using var command = new NpgsqlCommand(sql, connection)
+        {
+            Parameters =
+            {
+                new("message_id", messageId),
+                new("claim_owner", _claimOwner),
+                new("now_utc", now),
+                new("dispatched_at_utc", dispatchedAtUtc),
+                new("updated_at_utc", now)
+            }
+        };
+
+        var affected = await command.ExecuteNonQueryAsync(cancellationToken).ConfigureAwait(false);
+        return affected == 1;
+    }
+
+    public Task<bool> MarkFailedIfOwnedAsync(
+        string messageId,
+        string lastError,
+        DateTimeOffset nextAvailableAtUtc,
+        CancellationToken cancellationToken = default)
+    {
+        return MarkFailedCoreAsync(messageId, lastError, nextAvailableAtUtc, requireOwnership: true, cancellationToken);
+    }
+
     public async Task MarkDispatchedAsync(string messageId, DateTimeOffset dispatchedAtUtc, CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrWhiteSpace(messageId))
@@ -368,6 +419,16 @@ public sealed class PostgresOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
         DateTimeOffset nextAvailableAtUtc,
         CancellationToken cancellationToken = default)
     {
+        await MarkFailedCoreAsync(messageId, lastError, nextAvailableAtUtc, requireOwnership: false, cancellationToken).ConfigureAwait(false);
+    }
+
+    private async Task<bool> MarkFailedCoreAsync(
+        string messageId,
+        string lastError,
+        DateTimeOffset nextAvailableAtUtc,
+        bool requireOwnership,
+        CancellationToken cancellationToken)
+    {
         if (string.IsNullOrWhiteSpace(messageId))
         {
             throw new ArgumentException("MessageId is required.", nameof(messageId));
@@ -382,11 +443,19 @@ public sealed class PostgresOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
         if (selected is null || selected.DispatchedAtUtc is not null || selected.DeadLetteredAtUtc is not null)
         {
             await transaction.CommitAsync(cancellationToken).ConfigureAwait(false);
-            return;
+            return false;
+        }
+
+        var now = _clock.UtcNow;
+        if (requireOwnership &&
+            (!string.Equals(selected.ClaimedBy, _claimOwner, StringComparison.Ordinal) ||
+             (selected.ClaimedUntilUtc is { } claimUntil && claimUntil <= now)))
+        {
+            await transaction.CommitAsync(cancellationToken).ConfigureAwait(false);
+            return false;
         }
 
         var incrementedAttemptCount = selected.AttemptCount + 1;
-        var now = _clock.UtcNow;
         var deadLetterThreshold = _options.MoveToDeadLetterAfterAttempts;
         var shouldDeadLetter = deadLetterThreshold is { } threshold && incrementedAttemptCount >= threshold && _deadLetterWriter is not null;
 
@@ -400,7 +469,7 @@ public sealed class PostgresOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
                     claimed_by = NULL,
                     claimed_until_utc = NULL,
                     updated_at_utc = @updated_at_utc
-                WHERE message_id = @message_id;
+                WHERE message_id = @message_id{{(requireOwnership ? " AND claimed_by = @claim_owner" : string.Empty)}};
                 """
             : $$"""
                 UPDATE {{_names.QualifiedOutbox}}
@@ -410,7 +479,7 @@ public sealed class PostgresOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
                     claimed_by = NULL,
                     claimed_until_utc = NULL,
                     updated_at_utc = @updated_at_utc
-                WHERE message_id = @message_id;
+                WHERE message_id = @message_id{{(requireOwnership ? " AND claimed_by = @claim_owner" : string.Empty)}};
                 """;
 
         await using (var update = new NpgsqlCommand(updateSql, connection, transaction)
@@ -425,6 +494,11 @@ public sealed class PostgresOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
             }
         })
         {
+            if (requireOwnership)
+            {
+                update.Parameters.AddWithValue("claim_owner", _claimOwner);
+            }
+
             if (shouldDeadLetter)
             {
                 update.Parameters.AddWithValue("dead_lettered_at_utc", now);
@@ -453,15 +527,16 @@ public sealed class PostgresOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
             {
                 await postgresWriter.WriteAsync(deadLetter, connection, transaction, cancellationToken).ConfigureAwait(false);
                 await transaction.CommitAsync(cancellationToken).ConfigureAwait(false);
-                return;
+                return true;
             }
 
             await transaction.CommitAsync(cancellationToken).ConfigureAwait(false);
             await _deadLetterWriter!.WriteAsync(deadLetter, cancellationToken).ConfigureAwait(false);
-            return;
+            return true;
         }
 
         await transaction.CommitAsync(cancellationToken).ConfigureAwait(false);
+        return true;
     }
 
     public async Task<bool> HasProcessedAsync(string consumerName, string messageId, CancellationToken cancellationToken = default)
@@ -559,6 +634,8 @@ public sealed class PostgresOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
             payload_json,
             payload_hash,
             metadata_json,
+            claimed_by,
+            claimed_until_utc,
             dispatched_at_utc,
             dead_lettered_at_utc
         FROM {{_names.QualifiedOutbox}}
@@ -591,8 +668,10 @@ public sealed class PostgresOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
             PayloadJson: reader.GetFieldValue<string>(7),
             PayloadHash: reader.GetString(8),
             MetadataJson: reader.GetFieldValue<string>(9),
-            DispatchedAtUtc: reader.IsDBNull(10) ? null : reader.GetFieldValue<DateTimeOffset>(10),
-            DeadLetteredAtUtc: reader.IsDBNull(11) ? null : reader.GetFieldValue<DateTimeOffset>(11));
+                ClaimedBy: reader.IsDBNull(10) ? null : reader.GetString(10),
+                ClaimedUntilUtc: reader.IsDBNull(11) ? null : reader.GetFieldValue<DateTimeOffset>(11),
+                DispatchedAtUtc: reader.IsDBNull(12) ? null : reader.GetFieldValue<DateTimeOffset>(12),
+                DeadLetteredAtUtc: reader.IsDBNull(13) ? null : reader.GetFieldValue<DateTimeOffset>(13));
     }
 
     private sealed record SelectedOutboxRow(
@@ -606,6 +685,8 @@ public sealed class PostgresOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
         string PayloadJson,
         string PayloadHash,
         string MetadataJson,
+        string? ClaimedBy,
+        DateTimeOffset? ClaimedUntilUtc,
         DateTimeOffset? DispatchedAtUtc,
         DateTimeOffset? DeadLetteredAtUtc);
 }

@@ -179,6 +179,7 @@ Ontogony.Persistence.Postgres // PostgreSQL durable outbox provider with claim-l
 
 ```text
 HTTP resilience          // linear backoff; Retry-After / jitter not implemented — see docs/packages/Ontogony.Http.md
+HTTP resilience          // supports Retry-After and jitter; still evolving around richer policies, metrics, and retry budgets
 Envelope rules           // mechanical validation + JSON schema; product ingest policies stay in product repos
 Public XML (CS1591)      // suppressed at solution level until core types are fully documented
 ```

@@ -17,7 +17,8 @@ public sealed class PostgresOutboxStoreTests
             return;
         }
 
-        var store = new PostgresOutboxStore(Options);
+        await using var dataSource = NpgsqlDataSource.Create(Options.ConnectionString);
+        var store = new PostgresOutboxStore(Options, dataSource);
         await store.EnsureSchemaAsync();
         await store.EnsureSchemaAsync();
     }
@@ -31,7 +32,8 @@ public sealed class PostgresOutboxStoreTests
         }
 
         var suffix = Guid.NewGuid().ToString("N");
-        var store = new PostgresOutboxStore(Options);
+        await using var dataSource = NpgsqlDataSource.Create(Options.ConnectionString);
+        var store = new PostgresOutboxStore(Options, dataSource);
         await store.EnsureSchemaAsync();
 
         var sameAvailable = DateTimeOffset.Parse("2026-05-12T10:00:00Z");
@@ -58,7 +60,8 @@ public sealed class PostgresOutboxStoreTests
             return;
         }
 
-        var store = new PostgresOutboxStore(Options);
+        await using var dataSource = NpgsqlDataSource.Create(Options.ConnectionString);
+        var store = new PostgresOutboxStore(Options, dataSource);
         await store.EnsureSchemaAsync();
 
         var messageId = "pg-dup-" + Guid.NewGuid().ToString("N");
@@ -79,12 +82,15 @@ public sealed class PostgresOutboxStoreTests
         var now = DateTimeOffset.Parse("2026-05-12T10:00:00Z");
         var messageId = "pg-claim-" + Guid.NewGuid().ToString("N");
 
-        var writerStore = new PostgresOutboxStore(Options);
+        await using var writerDataSource = NpgsqlDataSource.Create(Options.ConnectionString);
+        var writerStore = new PostgresOutboxStore(Options, writerDataSource);
         await writerStore.EnsureSchemaAsync();
         await writerStore.WriteAsync(CreateMessage(messageId, now, now));
 
-        var reader1 = new PostgresOutboxStore(Options);
-        var reader2 = new PostgresOutboxStore(Options);
+        await using var readerDataSource1 = NpgsqlDataSource.Create(Options.ConnectionString);
+        await using var readerDataSource2 = NpgsqlDataSource.Create(Options.ConnectionString);
+        var reader1 = new PostgresOutboxStore(Options, readerDataSource1);
+        var reader2 = new PostgresOutboxStore(Options, readerDataSource2);
 
         var reads = await Task.WhenAll(
             reader1.ReadAvailableAsync(now.AddMinutes(1), maxBatchSize: 1),
@@ -103,7 +109,8 @@ public sealed class PostgresOutboxStoreTests
             return;
         }
 
-        var store = new PostgresOutboxStore(Options);
+        await using var dataSource = NpgsqlDataSource.Create(Options.ConnectionString);
+        var store = new PostgresOutboxStore(Options, dataSource);
         await store.EnsureSchemaAsync();
 
         var messageId = "pg-fail-" + Guid.NewGuid().ToString("N");
@@ -135,8 +142,9 @@ public sealed class PostgresOutboxStoreTests
         var options = CreateOptions();
         options.MoveToDeadLetterAfterAttempts = 2;
 
-        var deadLetterWriter = new PostgresDeadLetterWriter(options);
-        var store = new PostgresOutboxStore(options, deadLetterWriter: deadLetterWriter);
+        await using var dataSource = NpgsqlDataSource.Create(options.ConnectionString);
+        var deadLetterWriter = new PostgresDeadLetterWriter(options, dataSource);
+        var store = new PostgresOutboxStore(options, dataSource, deadLetterWriter: deadLetterWriter);
         await store.EnsureSchemaAsync();
 
         var messageId = "pg-dlq-" + Guid.NewGuid().ToString("N");
@@ -162,7 +170,8 @@ public sealed class PostgresOutboxStoreTests
         }
 
         var options = CreateOptions();
-        var store = new PostgresOutboxStore(options);
+        await using var dataSource = NpgsqlDataSource.Create(options.ConnectionString);
+        var store = new PostgresOutboxStore(options, dataSource);
         await store.EnsureSchemaAsync();
 
         var consumer = "projection-worker-" + Guid.NewGuid().ToString("N");
@@ -186,7 +195,8 @@ public sealed class PostgresOutboxStoreTests
             return;
         }
 
-        var store = new PostgresOutboxStore(Options);
+        await using var dataSource = NpgsqlDataSource.Create(Options.ConnectionString);
+        var store = new PostgresOutboxStore(Options, dataSource);
         await store.EnsureSchemaAsync();
 
         var messageId = "pg-claim-api-" + Guid.NewGuid().ToString("N");
@@ -216,18 +226,102 @@ public sealed class PostgresOutboxStoreTests
         var now = DateTimeOffset.UtcNow;
         var messageId = "pg-claim-batch-" + Guid.NewGuid().ToString("N");
 
-        var writer = new PostgresOutboxStore(Options);
+        await using var writerDataSource = NpgsqlDataSource.Create(Options.ConnectionString);
+        var writer = new PostgresOutboxStore(Options, writerDataSource);
         await writer.EnsureSchemaAsync();
         await writer.WriteAsync(CreateMessage(messageId, now, now));
 
-        var reader1 = new PostgresOutboxStore(Options);
-        var reader2 = new PostgresOutboxStore(Options);
+        await using var readerDataSource1 = NpgsqlDataSource.Create(Options.ConnectionString);
+        await using var readerDataSource2 = NpgsqlDataSource.Create(Options.ConnectionString);
+        var reader1 = new PostgresOutboxStore(Options, readerDataSource1);
+        var reader2 = new PostgresOutboxStore(Options, readerDataSource2);
 
         var claimed = await reader1.ClaimAvailableAsync(now.AddMinutes(1), maxBatchSize: 10, leaseDuration: TimeSpan.FromSeconds(30));
         Assert.Contains(claimed, m => m.MessageId == messageId);
 
         var secondClaim = await reader2.ClaimAvailableAsync(now.AddMinutes(1), maxBatchSize: 10, leaseDuration: TimeSpan.FromSeconds(30));
         Assert.DoesNotContain(secondClaim, m => m.MessageId == messageId);
+    }
+
+    [Fact]
+    public async Task OwnedMarking_OnlyClaimOwnerCanDispatch()
+    {
+        if (!HasConnectionString())
+        {
+            return;
+        }
+
+        var messageId = "pg-owned-dispatch-" + Guid.NewGuid().ToString("N");
+        var now = DateTimeOffset.UtcNow;
+
+        await using var writerDataSource = NpgsqlDataSource.Create(Options.ConnectionString);
+        var writer = new PostgresOutboxStore(Options, writerDataSource);
+        await writer.EnsureSchemaAsync();
+        await writer.WriteAsync(CreateMessage(messageId, now, now));
+
+        await using var ownerDataSource = NpgsqlDataSource.Create(Options.ConnectionString);
+        await using var otherDataSource = NpgsqlDataSource.Create(Options.ConnectionString);
+        var owner = new PostgresOutboxStore(Options, ownerDataSource);
+        var other = new PostgresOutboxStore(Options, otherDataSource);
+
+        Assert.True(await owner.TryClaimAsync(messageId, now.AddMinutes(1)));
+        Assert.False(await other.MarkDispatchedIfOwnedAsync(messageId, now.AddMinutes(2)));
+        Assert.True(await owner.MarkDispatchedIfOwnedAsync(messageId, now.AddMinutes(3)));
+    }
+
+    [Fact]
+    public async Task ReleasedClaim_CannotBeRenewedByPreviousOwnerAfterReclaim()
+    {
+        if (!HasConnectionString())
+        {
+            return;
+        }
+
+        var messageId = "pg-renew-after-reclaim-" + Guid.NewGuid().ToString("N");
+        var now = DateTimeOffset.UtcNow;
+
+        await using var writerDataSource = NpgsqlDataSource.Create(Options.ConnectionString);
+        var writer = new PostgresOutboxStore(Options, writerDataSource);
+        await writer.EnsureSchemaAsync();
+        await writer.WriteAsync(CreateMessage(messageId, now, now));
+
+        await using var ownerDataSource = NpgsqlDataSource.Create(Options.ConnectionString);
+        await using var newOwnerDataSource = NpgsqlDataSource.Create(Options.ConnectionString);
+        var owner = new PostgresOutboxStore(Options, ownerDataSource);
+        var newOwner = new PostgresOutboxStore(Options, newOwnerDataSource);
+
+        Assert.True(await owner.TryClaimAsync(messageId, now.AddMinutes(1), TimeSpan.FromSeconds(30)));
+        await owner.ReleaseClaimAsync(messageId);
+        Assert.True(await newOwner.TryClaimAsync(messageId, now.AddMinutes(1), TimeSpan.FromSeconds(30)));
+        Assert.False(await owner.RenewClaimAsync(messageId, TimeSpan.FromSeconds(30)));
+    }
+
+    [Fact]
+    public async Task Schema_WithCustomOutboxTable_UsesScopedIndexNames()
+    {
+        if (!HasConnectionString())
+        {
+            return;
+        }
+
+        var suffix = Guid.NewGuid().ToString("N");
+        var optionsA = CreateOptions();
+        optionsA.OutboxTableName = "ontogony_outbox_a_" + suffix;
+        var optionsB = CreateOptions();
+        optionsB.OutboxTableName = "ontogony_outbox_b_" + suffix;
+
+        await using var dataSourceA = NpgsqlDataSource.Create(optionsA.ConnectionString);
+        await using var dataSourceB = NpgsqlDataSource.Create(optionsB.ConnectionString);
+        var storeA = new PostgresOutboxStore(optionsA, dataSourceA);
+        var storeB = new PostgresOutboxStore(optionsB, dataSourceB);
+
+        await storeA.EnsureSchemaAsync();
+        await storeB.EnsureSchemaAsync();
+
+        var indexCount = await CountOutboxIndexesAsync(optionsA.ConnectionString, optionsA.SchemaName, optionsA.OutboxTableName);
+        indexCount += await CountOutboxIndexesAsync(optionsB.ConnectionString, optionsB.SchemaName, optionsB.OutboxTableName);
+
+        Assert.Equal(4, indexCount);
     }
 
     private static PostgresOutboxOptions CreateOptions()
@@ -286,6 +380,27 @@ public sealed class PostgresOutboxStoreTests
         await using var command = new NpgsqlCommand(sql, conn);
         command.Parameters.AddWithValue("consumer_name", consumer);
         command.Parameters.AddWithValue("message_id", messageId);
+
+        var result = await command.ExecuteScalarAsync();
+        return Convert.ToInt32(result);
+    }
+
+    private static async Task<int> CountOutboxIndexesAsync(string connectionString, string schemaName, string tableName)
+    {
+        const string sql = """
+            SELECT COUNT(*)
+            FROM pg_indexes
+            WHERE schemaname = @schema_name
+              AND tablename = @table_name
+              AND indexname LIKE 'ix_%';
+            """;
+
+        await using var conn = new NpgsqlConnection(connectionString);
+        await conn.OpenAsync();
+
+        await using var command = new NpgsqlCommand(sql, conn);
+        command.Parameters.AddWithValue("schema_name", schemaName);
+        command.Parameters.AddWithValue("table_name", tableName);
 
         var result = await command.ExecuteScalarAsync();
         return Convert.ToInt32(result);

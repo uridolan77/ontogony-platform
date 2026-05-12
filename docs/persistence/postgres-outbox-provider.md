@@ -39,6 +39,8 @@ Schema is created idempotently by `EnsureSchemaAsync()`.
 
 `MarkDispatchedAsync` is idempotent. Unknown, already-dispatched, or dead-lettered rows are no-ops.
 
+`MarkDispatchedIfOwnedAsync` is provider-specific and succeeds only when the current worker owns the active claim lease.
+
 `MarkFailedAsync`:
 
 - increments attempt count
@@ -46,7 +48,11 @@ Schema is created idempotently by `EnsureSchemaAsync()`.
 - schedules next retry via `available_at`
 - optionally dead-letters when `MoveToDeadLetterAfterAttempts` threshold is reached
 
+`MarkFailedIfOwnedAsync` is provider-specific and applies the same failure mechanics only when the current worker owns the active claim lease.
+
 When dead-lettering and `IDeadLetterWriter` is `PostgresDeadLetterWriter`, outbox row update and dead-letter insert are executed in the same PostgreSQL transaction.
+
+When a non-Postgres `IDeadLetterWriter` is used, the outbox row update commits first and the external dead-letter write occurs afterward. If the external write fails, the row may already be marked dead-lettered and excluded from reads.
 
 ## Configuration
 
@@ -64,18 +70,22 @@ services.AddOntogonyPostgresOutbox(options =>
 });
 ```
 
-  When `EnsureSchemaOnStartup` is true, the package registers a hosted service that calls `EnsureSchemaAsync()` during host startup.
+When `EnsureSchemaOnStartup` is true, the package registers a hosted service that calls `EnsureSchemaAsync()` during host startup.
 
-  ## Explicit Claim API
+## Explicit Claim API
 
-  `IPostgresOutboxClaimStore` adds explicit lease operations:
+`IPostgresOutboxClaimStore` adds explicit lease operations:
 
-  - `ClaimAvailableAsync(...)` to atomically claim a batch with optional lease duration override.
-  - `TryClaimAsync(...)` to claim a specific message when available and unclaimed/expired.
-  - `RenewClaimAsync(...)` to extend a claim lease owned by the current worker.
-  - `ReleaseClaimAsync(...)` to release ownership early.
+- `ClaimAvailableAsync(...)` to atomically claim a batch with optional lease duration override.
+- `TryClaimAsync(...)` to claim a specific message when available and unclaimed/expired.
+- `RenewClaimAsync(...)` to extend a claim lease owned by the current worker.
+- `ReleaseClaimAsync(...)` to release ownership early.
+- `MarkDispatchedIfOwnedAsync(...)` to mark dispatch only when current claim ownership is valid.
+- `MarkFailedIfOwnedAsync(...)` to mark failure only when current claim ownership is valid.
 
-  `IOutboxReader.ReadAvailableAsync(...)` remains supported and delegates to `ClaimAvailableAsync(...)` with default lease duration.
+`IOutboxReader.ReadAvailableAsync(...)` remains supported and delegates to `ClaimAvailableAsync(...)` with default lease duration.
+
+`IOutboxDispatcher.MarkDispatchedAsync(...)` and `IOutboxDispatcher.MarkFailedAsync(...)` remain compatibility methods and do not require claim ownership.
 
 ## Local Docker Test Setup
 
