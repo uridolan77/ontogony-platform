@@ -15,6 +15,7 @@
     "Ontogony.Primitives",
     "Ontogony.Security",
     "Ontogony.Persistence",
+    "Ontogony.Persistence.Postgres",
     "Ontogony.Testing"
   ],
   "notes": [

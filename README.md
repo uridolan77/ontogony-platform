@@ -69,6 +69,7 @@ What is a valid business approval?
 │   ├── Ontogony.Messaging/
 │   ├── Ontogony.Security/
 │   ├── Ontogony.Persistence/
+│   ├── Ontogony.Persistence.Postgres/
 │   └── Ontogony.Testing/
 ├── tests/
 ├── docs/
@@ -122,6 +123,7 @@ Ontogony.Errors
 ```text
 Ontogony.Messaging
 Ontogony.Persistence   // contracts + in-memory outbox reference; no Postgres implementation here
+Ontogony.Persistence.Postgres // durable PostgreSQL outbox provider package
 Ontogony.Security      // HMAC service identity + static shared-secret mode — requires correct wiring
 Ontogony.Testing
 ```
@@ -170,6 +172,7 @@ Ontogony.Errors
 Ontogony.Messaging        // in-process publisher, explicit publish/dispatch results, metrics; not Kafka/NATS/Event Hubs
 Ontogony.Persistence      // SQL-agnostic outbox contracts + in-memory reference store + dead-letter hooks; no Postgres outbox here
 Ontogony.Security         // HMAC service-identity verification + static shared-secret mode; requires IServiceSecretResolver, INonceReplayStore, clock skew policy
+Ontogony.Persistence.Postgres // PostgreSQL durable outbox provider with claim-lease semantics
 ```
 
 **Still evolving (check `docs/migrations/` before upgrading):**

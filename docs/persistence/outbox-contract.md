@@ -75,4 +75,6 @@ Mechanical backoff for suggested `nextAvailableAtUtc` values remains `OutboxCont
 
 Provider-specific implementations (for example PostgreSQL) should live in dedicated packages and map these contracts to storage models.
 
+See `Ontogony.Persistence.Postgres` and `docs/persistence/postgres-outbox-provider.md` for the PostgreSQL durable provider.
+
 `Ontogony.Messaging` defines a separate, minimal `IOutboxStore` for in-process scenarios; the **canonical** durable outbox contract for shared platform work is this persistence surface.

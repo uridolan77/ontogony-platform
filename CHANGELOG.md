@@ -4,6 +4,18 @@
 
 - Added planning package for PR26-PR35 infrastructure roadmap under `docs/planning/ontogony-platform-next-prs/`.
 
+PR27 — Ontogony.Persistence.Postgres outbox provider:
+
+- **New package:** `Ontogony.Persistence.Postgres` with durable PostgreSQL implementation for `IOutboxWriter`, `IOutboxReader`, `IOutboxDispatcher`, `IProcessedMessageStore`, and `IDeadLetterWriter`.
+- **Schema:** adds provider-owned tables `ontogony_outbox_messages`, `ontogony_processed_messages`, and `ontogony_dead_letter_messages`.
+- **Concurrency:** `ReadAvailableAsync` performs atomic claim leasing with PostgreSQL locking (`FOR UPDATE SKIP LOCKED`) and preserves ordering (`AvailableAt`, then `OccurredAt`).
+- **Reliability:** idempotent `MarkDispatchedAsync`, idempotent processed-message insert, retry scheduling updates via `MarkFailedAsync`, and optional dead-letter threshold handling.
+- **Lease controls:** added provider-specific `IPostgresOutboxClaimStore` (`ClaimAvailableAsync`, `TryClaimAsync`, `RenewClaimAsync`, `ReleaseClaimAsync`) for explicit worker claim management.
+- **Startup:** optional `PostgresOutboxOptions.EnsureSchemaOnStartup` to run schema initialization through hosted service registration.
+- **CI:** `.github/workflows/ci.yml` now provisions PostgreSQL and sets `ONTOGONY_POSTGRES_TEST_CONNECTION` so Postgres integration tests run in CI.
+- **Docs:** `docs/persistence/postgres-outbox-provider.md`, `docs/packages/Ontogony.Persistence.Postgres.md`.
+- **Migration:** `docs/migrations/2026-05-12-pr27-postgres-outbox-provider.md`.
+
 PR26 — Ontogony.Hosting service defaults:
 
 - **New package:** `Ontogony.Hosting` adds `AddOntogonyServiceDefaults(...)`, `UseOntogonyServiceDefaults()`, and `MapOntogonyHealthEndpoints()` for mechanical host composition only.
