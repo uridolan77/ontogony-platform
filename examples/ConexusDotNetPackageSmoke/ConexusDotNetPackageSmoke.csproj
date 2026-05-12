@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <!-- Must be set here so NuGet does not apply repo-root central versioning (NU1008). -->
+    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>ConexusDotNetSkeleton</RootNamespace>
+    <AssemblyName>ConexusDotNetPackageSmoke</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\ConexusDotNetSkeleton\Program.cs" Link="Program.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ontogony.AI.Contracts" Version="$(OntogonyPackageVersion)" />
+    <PackageReference Include="Ontogony.Artifacts" Version="$(OntogonyPackageVersion)" />
+    <PackageReference Include="Ontogony.Contracts" Version="$(OntogonyPackageVersion)" />
+    <PackageReference Include="Ontogony.Errors" Version="$(OntogonyPackageVersion)" />
+    <PackageReference Include="Ontogony.Execution" Version="$(OntogonyPackageVersion)" />
+    <PackageReference Include="Ontogony.Hashing" Version="$(OntogonyPackageVersion)" />
+    <PackageReference Include="Ontogony.Hosting" Version="$(OntogonyPackageVersion)" />
+    <PackageReference Include="Ontogony.Http" Version="$(OntogonyPackageVersion)" />
+    <PackageReference Include="Ontogony.Idempotency" Version="$(OntogonyPackageVersion)" />
+    <PackageReference Include="Ontogony.Logging" Version="$(OntogonyPackageVersion)" />
+    <PackageReference Include="Ontogony.Observability" Version="$(OntogonyPackageVersion)" />
+    <PackageReference Include="Ontogony.Quotas" Version="$(OntogonyPackageVersion)" />
+    <PackageReference Include="Ontogony.Redaction" Version="$(OntogonyPackageVersion)" />
+    <PackageReference Include="Ontogony.Secrets" Version="$(OntogonyPackageVersion)" />
+    <PackageReference Include="Ontogony.Security" Version="$(OntogonyPackageVersion)" />
+  </ItemGroup>
+</Project>

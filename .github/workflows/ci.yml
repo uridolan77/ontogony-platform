@@ -64,3 +64,10 @@ jobs:
           PACKAGE_VERSION: 0.3.0-alpha.1
         shell: pwsh
         run: ./scripts/generate-package-manifest.ps1 -PackageVersion "0.3.0-alpha.1"
+
+      - name: Conexus package consumer (restore + build from local .nupkg)
+        env:
+          PACKAGE_VERSION: 0.3.0-alpha.1
+        run: |
+          dotnet restore examples/ConexusDotNetPackageSmoke/ConexusDotNetPackageSmoke.csproj -p:OntogonyPackageVersion=$PACKAGE_VERSION
+          dotnet build examples/ConexusDotNetPackageSmoke/ConexusDotNetPackageSmoke.csproj --no-restore -c Release -p:OntogonyPackageVersion=$PACKAGE_VERSION

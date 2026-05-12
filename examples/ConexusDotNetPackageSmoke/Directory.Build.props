@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <!-- Align with docs/FRAMEWORK_BASELINE.md; CI passes -p:OntogonyPackageVersion=$(PACKAGE_VERSION). -->
+    <OntogonyPackageVersion Condition="'$(OntogonyPackageVersion)' == ''">0.3.0-alpha.1</OntogonyPackageVersion>
+  </PropertyGroup>
+</Project>

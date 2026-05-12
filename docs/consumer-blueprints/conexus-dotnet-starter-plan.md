@@ -32,6 +32,7 @@ The following was run on **2026-05-12** against commit **`3bf0788`** (short SHA 
 | `scripts/validate-pr48-pr52-overlay.ps1` | `OK: PR48-PR52 overlay packages and tests are present` |
 | `scripts/pack-all.ps1 -NoBuild` with `PACKAGE_VERSION=0.3.0-alpha.1` | **23** shipping `.nupkg` listed (smoke gate) |
 | `dotnet build examples/ConexusDotNetSkeleton/ConexusDotNetSkeleton.csproj -c Release` | Success |
+| `dotnet restore` / `dotnet build` on `examples/ConexusDotNetPackageSmoke/ConexusDotNetPackageSmoke.csproj` (after pack; same `OntogonyPackageVersion`) | Success (CI: PR-PLAT-002 consumer-from-packages gate) |
 
 GitHub Actions was not verified from this workspace; re-run the same commands in CI or locally before cutting a release tag.
 
