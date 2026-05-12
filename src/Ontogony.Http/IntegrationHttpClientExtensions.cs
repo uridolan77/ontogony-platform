@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using Ontogony.Primitives;
 
@@ -12,6 +13,7 @@ public static class IntegrationHttpClientExtensions
         Func<IServiceProvider, HttpIntegrationOptions> resolveOptions)
     {
         services.AddOptions<TransportResilienceOptions>();
+        services.TryAddTransient<IRetryClassifier, DefaultRetryClassifier>();
         services.AddSingleton<IClock, SystemClock>();
         services.AddSingleton(sp => new TransportResilienceRegistry(sp.GetRequiredService<IClock>()));
         services.AddTransient<CorrelationHeadersDelegatingHandler>();
@@ -36,6 +38,7 @@ public static class IntegrationHttpClientExtensions
                 clientName,
                 sp.GetRequiredService<TransportResilienceRegistry>(),
                 sp.GetRequiredService<IOptions<TransportResilienceOptions>>(),
-                sp.GetRequiredService<IClock>()));
+                sp.GetRequiredService<IClock>(),
+                sp.GetService<IRetryClassifier>()));
     }
 }

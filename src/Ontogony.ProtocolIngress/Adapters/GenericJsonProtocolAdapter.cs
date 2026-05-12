@@ -11,7 +11,7 @@ namespace Ontogony.ProtocolIngress.Adapters;
 /// </summary>
 public sealed class GenericJsonProtocolAdapter : BaseProtocolIngressAdapter, IProtocolIngressAdapter<string>
 {
-    private const string ProtocolName = "generic-json";
+    private const string ProtocolName = ProtocolNames.GenericJson;
 
     public GenericJsonProtocolAdapter(
         PayloadHasher payloadHasher,

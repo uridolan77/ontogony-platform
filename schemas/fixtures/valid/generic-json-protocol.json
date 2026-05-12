@@ -1,0 +1,15 @@
+{
+  "EventId": "evt:2026-05-12:generic-json:001",
+  "EventType": "generic-json.ingress.normalized",
+  "Source": "generic-json://user-service",
+  "OccurredAt": "2026-05-12T12:30:00Z",
+  "TraceId": "trace:generic-json:001",
+  "Protocol": "generic-json",
+  "SchemaVersion": "1.0",
+  "Payload": {
+    "rawEventType": "user.created",
+    "data": {
+      "userId": "user-456"
+    }
+  }
+}

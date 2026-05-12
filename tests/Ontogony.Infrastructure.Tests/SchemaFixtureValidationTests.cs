@@ -27,6 +27,7 @@ public sealed class SchemaFixtureValidationTests
     [InlineData("schemas/fixtures/valid/minimal-envelope.json")]
     [InlineData("schemas/fixtures/valid/full-envelope.json")]
     [InlineData("schemas/fixtures/valid/ag-ui-protocol.json")]
+    [InlineData("schemas/fixtures/valid/generic-json-protocol.json")]
     [InlineData("schemas/fixtures/valid/cloudevents-compat.json")]
     public void ValidFixtures_PassSchemaValidation(string relativePath)
     {

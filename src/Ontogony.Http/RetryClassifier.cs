@@ -13,7 +13,7 @@ public enum RetryDecision
     /// <summary>Retry the request.</summary>
     Retry = 1,
 
-    /// <summary>Retry, but bypass other retry policies (budget, attempt timeout) — use for critical recovery paths.</summary>
+    /// <summary>Retry, but bypass retry budget enforcement — use for critical recovery paths.</summary>
     RetryBypassingBudget = 2
 }
 

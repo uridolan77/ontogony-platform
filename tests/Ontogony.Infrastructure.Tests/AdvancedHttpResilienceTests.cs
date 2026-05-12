@@ -1,6 +1,8 @@
 using System.Net;
+using System.Diagnostics.Metrics;
 using Microsoft.Extensions.Options;
 using Ontogony.Http;
+using Ontogony.Observability;
 using Ontogony.Primitives;
 using Xunit;
 
@@ -148,6 +150,31 @@ public sealed class AdvancedHttpResilienceTests
     }
 
     [Fact]
+    public async Task CustomRetryClassifier_Can_Disable_Exception_Retries()
+    {
+        var classifier = new ExceptionBlockingClassifier();
+        var sequence = new ThrowOnceHandler(new HttpResponseMessage(HttpStatusCode.OK));
+
+        var options = Options.Create(new TransportResilienceOptions
+        {
+            Enabled = true,
+            MaxRetries = 1,
+            BaseDelayMilliseconds = 10,
+            MaxDelayMilliseconds = 10
+        });
+
+        var handler = new ResilientIntegrationDelegatingHandler("tests", new TransportResilienceRegistry(), options, Clock, classifier)
+        {
+            InnerHandler = sequence
+        };
+
+        using var client = new HttpClient(handler);
+
+        await Assert.ThrowsAsync<HttpRequestException>(() => client.GetAsync("https://example.test/exception"));
+        Assert.Equal(1, sequence.CallCount);
+    }
+
+    [Fact]
     public async Task RetryBypassingBudget_Overrides_Budget_Limit()
     {
         // Arrange - classifier that allows bypass for critical paths
@@ -198,6 +225,42 @@ public sealed class AdvancedHttpResilienceTests
         Assert.True(options.Value.EmitAttemptMetrics);
     }
 
+    [Fact]
+    public async Task EmitAttemptMetrics_Disabled_Suppresses_Meter_Events()
+    {
+        var measurements = 0;
+        using var listener = new MeterListener();
+        listener.InstrumentPublished = (instrument, meterListener) =>
+        {
+            if (instrument.Meter.Name == OntogonyDiagnostics.Meter.Name)
+            {
+                meterListener.EnableMeasurementEvents(instrument);
+            }
+        };
+        listener.SetMeasurementEventCallback<long>((instrument, measurement, tags, state) => measurements++);
+        listener.SetMeasurementEventCallback<double>((instrument, measurement, tags, state) => { });
+        listener.Start();
+
+        var sequence = new SequenceHandler(new HttpResponseMessage(HttpStatusCode.OK));
+        var options = Options.Create(new TransportResilienceOptions
+        {
+            Enabled = true,
+            EmitAttemptMetrics = false,
+            MaxRetries = 0
+        });
+
+        var handler = new ResilientIntegrationDelegatingHandler("tests", new TransportResilienceRegistry(), options, Clock)
+        {
+            InnerHandler = sequence
+        };
+
+        using var client = new HttpClient(handler);
+        var response = await client.GetAsync("https://example.test/metrics-off");
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Equal(0, measurements);
+    }
+
     /// <summary>
     /// Custom classifier for testing - retries 400 Bad Request
     /// </summary>
@@ -230,6 +293,19 @@ public sealed class AdvancedHttpResilienceTests
         }
     }
 
+    private sealed class ExceptionBlockingClassifier : IRetryClassifier
+    {
+        public RetryDecision ShouldRetry(HttpRequestMessage request, HttpResponseMessage? response, Exception? exception)
+        {
+            if (exception is HttpRequestException)
+            {
+                return RetryDecision.DoNotRetry;
+            }
+
+            return RetryDecision.Retry;
+        }
+    }
+
     /// <summary>
     /// Test handler that delays responses to test timeout behavior
     /// </summary>
@@ -252,6 +328,31 @@ public sealed class AdvancedHttpResilienceTests
                 return _responses.Current;
             }
             throw new InvalidOperationException("No more responses available");
+        }
+    }
+
+    private sealed class ThrowOnceHandler : HttpMessageHandler
+    {
+        private readonly HttpResponseMessage _successResponse;
+        private bool _thrown;
+
+        public ThrowOnceHandler(HttpResponseMessage successResponse)
+        {
+            _successResponse = successResponse;
+        }
+
+        public int CallCount { get; private set; }
+
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            CallCount++;
+            if (!_thrown)
+            {
+                _thrown = true;
+                throw new HttpRequestException("network-failure");
+            }
+
+            return Task.FromResult(_successResponse);
         }
     }
 }

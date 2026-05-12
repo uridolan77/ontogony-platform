@@ -1,4 +1,5 @@
 using System.Net;
+using Microsoft.Extensions.Options;
 
 namespace Ontogony.Http;
 
@@ -12,6 +13,11 @@ public sealed class DefaultRetryClassifier : IRetryClassifier
     public DefaultRetryClassifier(TransportResilienceOptions options)
     {
         _options = options ?? throw new ArgumentNullException(nameof(options));
+    }
+
+    public DefaultRetryClassifier(IOptions<TransportResilienceOptions> options)
+        : this(options.Value)
+    {
     }
 
     public RetryDecision ShouldRetry(HttpRequestMessage request, HttpResponseMessage? response, Exception? exception)
@@ -43,6 +49,6 @@ public sealed class DefaultRetryClassifier : IRetryClassifier
     private static bool IsTransientException(Exception ex)
     {
         return ex is HttpRequestException
-            || ex is TaskCanceledException && !(ex as TaskCanceledException)?.CancellationToken.IsCancellationRequested == true;
+            || ex is TaskCanceledException taskCanceledException && !taskCanceledException.CancellationToken.IsCancellationRequested;
     }
 }

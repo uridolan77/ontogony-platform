@@ -52,6 +52,7 @@
       "type": "string",
       "enum": [
         "ag-ui",
+        "generic-json",
         "mcp",
         "a2a",
         "otel",

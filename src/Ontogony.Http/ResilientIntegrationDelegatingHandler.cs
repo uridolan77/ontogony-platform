@@ -1,7 +1,9 @@
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Headers;
 using Microsoft.Extensions.Options;
 using Ontogony.Primitives;
+using Ontogony.Observability;
 
 namespace Ontogony.Http;
 
@@ -37,6 +39,7 @@ public sealed class ResilientIntegrationDelegatingHandler : DelegatingHandler
         var blocked = _registry.TryGetCircuitOpenSyntheticResponse(_clientName, _options);
         if (blocked is not null)
         {
+            RecordAttemptMetrics(request, blocked, null, Stopwatch.GetTimestamp());
             return blocked;
         }
 
@@ -73,6 +76,7 @@ public sealed class ResilientIntegrationDelegatingHandler : DelegatingHandler
         {
             HttpResponseMessage? responseForBackoff = null;
             CancellationTokenSource? attemptTimeoutCts = null;
+            var attemptStartTimestamp = Stopwatch.GetTimestamp();
             try
             {
                 // Check if we've exceeded total timeout
@@ -92,6 +96,7 @@ public sealed class ResilientIntegrationDelegatingHandler : DelegatingHandler
 
                 var attemptToken = attemptTimeoutCts?.Token ?? effectiveCancellationToken;
                 var response = await base.SendAsync(CloneForRetry(request, bufferedBody, attempt), attemptToken).ConfigureAwait(false);
+                RecordAttemptMetrics(request, response, null, attemptStartTimestamp);
                 
                 // Classify whether we should retry
                 var retryDecision = _retryClassifier.ShouldRetry(request, response, null);
@@ -122,24 +127,32 @@ public sealed class ResilientIntegrationDelegatingHandler : DelegatingHandler
             catch (TaskCanceledException ex) when (ex.CancellationToken == effectiveCancellationToken && !cancellationToken.IsCancellationRequested)
             {
                 // Total timeout exceeded
+                RecordAttemptMetrics(request, null, ex, attemptStartTimestamp);
                 _registry.RecordFailure(_clientName, _options);
                 throw;
             }
-            catch (TaskCanceledException ex) when (attemptTimeoutCts is not null && ex.CancellationToken == attemptTimeoutCts.Token && attempt < maxRetries)
+            catch (Exception ex) when (IsTransientException(ex, cancellationToken) && attempt < maxRetries)
             {
-                // Per-attempt timeout, treat as transient and retry
+                RecordAttemptMetrics(request, null, ex, attemptStartTimestamp);
+
+                var retryDecision = _retryClassifier.ShouldRetry(request, null, ex);
+                if (retryDecision == RetryDecision.DoNotRetry)
+                {
+                    _registry.RecordFailure(_clientName, _options);
+                    throw;
+                }
+
+                if (retryDecision == RetryDecision.Retry && !_registry.TryConsumeRetryBudget(_clientName, _options))
+                {
+                    lastException = ex;
+                    break;
+                }
+
                 lastException = ex;
             }
-            catch (HttpRequestException ex) when (attempt < maxRetries)
+            catch (Exception ex)
             {
-                lastException = ex;
-            }
-            catch (TaskCanceledException ex) when (!cancellationToken.IsCancellationRequested && attempt < maxRetries)
-            {
-                lastException = ex;
-            }
-            catch (Exception ex) when (IsTransientException(ex, cancellationToken) && attempt == maxRetries)
-            {
+                RecordAttemptMetrics(request, null, ex, attemptStartTimestamp);
                 _registry.RecordFailure(_clientName, _options);
                 throw;
             }
@@ -166,6 +179,32 @@ public sealed class ResilientIntegrationDelegatingHandler : DelegatingHandler
         }
 
         throw lastException ?? new HttpRequestException("HTTP request failed after retries.");
+    }
+
+    private void RecordAttemptMetrics(HttpRequestMessage request, HttpResponseMessage? response, Exception? exception, long startTimestamp)
+    {
+        if (!_options.EmitAttemptMetrics)
+        {
+            return;
+        }
+
+        var durationMs = Stopwatch.GetElapsedTime(startTimestamp).TotalMilliseconds;
+        var method = request.Method.Method;
+
+        if (response is not null)
+        {
+            OntogonyMetrics.RecordIntegrationCall(_clientName, method, (int)response.StatusCode);
+            if (!response.IsSuccessStatusCode)
+            {
+                OntogonyMetrics.RecordIntegrationError(_clientName, method, (int)response.StatusCode);
+            }
+        }
+        else if (exception is not null)
+        {
+            OntogonyMetrics.RecordIntegrationError(_clientName, method, 0);
+        }
+
+        OntogonyMetrics.RecordIntegrationDuration(_clientName, method, durationMs);
     }
 
     private bool CanRetryRequest(HttpRequestMessage request)

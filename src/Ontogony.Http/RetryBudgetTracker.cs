@@ -1,4 +1,5 @@
 using System.Collections.Concurrent;
+using Ontogony.Primitives;
 
 namespace Ontogony.Http;
 
@@ -7,7 +8,13 @@ namespace Ontogony.Http;
 /// </summary>
 internal sealed class RetryBudgetTracker
 {
-    private readonly ConcurrentDictionary<string, BudgetWindow> _budgets = new();
+    private readonly ConcurrentDictionary<string, BudgetWindow> _budgets = new(StringComparer.Ordinal);
+    private readonly IClock _clock;
+
+    public RetryBudgetTracker(IClock clock)
+    {
+        _clock = clock;
+    }
 
     /// <summary>
     /// Attempt to consume one retry from the budget for the given client.
@@ -21,35 +28,39 @@ internal sealed class RetryBudgetTracker
             return true;
         }
 
-        var now = DateTimeOffset.UtcNow;
-        var window = _budgets.AddOrUpdate(clientName,
-            new BudgetWindow { WindowStart = now, RetriesUsed = 1 },
-            (_, current) =>
+        var now = _clock.UtcNow;
+        var window = _budgets.GetOrAdd(clientName, _ => new BudgetWindow(now));
+
+        lock (window.Sync)
+        {
+            var minuteAgo = now.AddMinutes(-1);
+            if (window.WindowStart < minuteAgo)
             {
-                var minuteAgo = now.AddMinutes(-1);
-                if (current.WindowStart < minuteAgo)
-                {
-                    // Window expired, reset
-                    return new BudgetWindow { WindowStart = now, RetriesUsed = 1 };
-                }
+                window.WindowStart = now;
+                window.RetriesUsed = 0;
+            }
 
-                // Within current window
-                if (current.RetriesUsed >= budgetPerMinute)
-                {
-                    // Budget exhausted
-                    return current;
-                }
+            if (window.RetriesUsed >= budgetPerMinute)
+            {
+                return false;
+            }
 
-                current.RetriesUsed++;
-                return current;
-            });
-
-        return window.RetriesUsed <= budgetPerMinute;
+            window.RetriesUsed++;
+            return true;
+        }
     }
 
     private sealed class BudgetWindow
     {
+        public BudgetWindow(DateTimeOffset windowStart)
+        {
+            WindowStart = windowStart;
+        }
+
+        public object Sync { get; } = new();
+
         public DateTimeOffset WindowStart { get; set; }
+
         public int RetriesUsed { get; set; }
     }
 }

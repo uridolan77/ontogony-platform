@@ -7,12 +7,13 @@ namespace Ontogony.Http;
 public sealed class TransportResilienceRegistry
 {
     private readonly ConcurrentDictionary<string, ClientCircuitState> _byClient = new(StringComparer.Ordinal);
-    private readonly RetryBudgetTracker _budgetTracker = new();
+    private readonly RetryBudgetTracker _budgetTracker;
     private readonly IClock _clock;
 
     public TransportResilienceRegistry(IClock? clock = null)
     {
         _clock = clock ?? new SystemClock();
+        _budgetTracker = new RetryBudgetTracker(_clock);
     }
 
     public HttpResponseMessage? TryGetCircuitOpenSyntheticResponse(string clientName, TransportResilienceOptions options)
