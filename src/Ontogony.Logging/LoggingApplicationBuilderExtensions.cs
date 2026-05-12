@@ -7,6 +7,7 @@ namespace Ontogony.Logging;
 /// </summary>
 public static class LoggingApplicationBuilderExtensions
 {
+    /// <summary>Registers <see cref="OntogonyLoggingScopeMiddleware"/>.</summary>
     public static IApplicationBuilder UseOntogonyLoggingScope(this IApplicationBuilder app)
     {
         ArgumentNullException.ThrowIfNull(app);

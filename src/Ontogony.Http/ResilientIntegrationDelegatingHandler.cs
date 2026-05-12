@@ -7,6 +7,9 @@ using Ontogony.Observability;
 
 namespace Ontogony.Http;
 
+/// <summary>
+/// Outbound <see cref="DelegatingHandler"/> that applies retry, timeout, circuit breaking, and metrics via <see cref="TransportResilienceRegistry"/>.
+/// </summary>
 public sealed class ResilientIntegrationDelegatingHandler : DelegatingHandler
 {
     private readonly string _clientName;
@@ -15,6 +18,7 @@ public sealed class ResilientIntegrationDelegatingHandler : DelegatingHandler
     private readonly IRetryClassifier _retryClassifier;
     private readonly IClock _clock;
 
+    /// <summary>Creates the handler for a named HTTP client.</summary>
     public ResilientIntegrationDelegatingHandler(
         string clientName,
         TransportResilienceRegistry registry,
@@ -29,6 +33,7 @@ public sealed class ResilientIntegrationDelegatingHandler : DelegatingHandler
         _retryClassifier = retryClassifier ?? new DefaultRetryClassifier(_options);
     }
 
+    /// <inheritdoc />
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
         if (!_options.Enabled)

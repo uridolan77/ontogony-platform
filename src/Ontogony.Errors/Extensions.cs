@@ -4,8 +4,12 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Ontogony.Errors;
 
+/// <summary>
+/// DI and middleware registration for Ontogony exception-to-JSON mapping.
+/// </summary>
 public static class OntogonyErrorsExtensions
 {
+    /// <summary>Registers <see cref="OntogonyExceptionMappingOptions"/> configuration.</summary>
     public static IServiceCollection AddOntogonyErrors(
         this IServiceCollection services,
         Action<OntogonyExceptionMappingOptions>? configure = null)
@@ -14,11 +18,13 @@ public static class OntogonyErrorsExtensions
         return services;
     }
 
+    /// <summary>Installs <see cref="OntogonyExceptionHandlingMiddleware"/>.</summary>
     public static IApplicationBuilder UseOntogonyExceptionHandling(this IApplicationBuilder app)
     {
         return app.UseMiddleware<OntogonyExceptionHandlingMiddleware>();
     }
 
+    /// <summary>Maps <see cref="ApiError"/> to RFC 7807 <see cref="ProblemDetails"/>.</summary>
     public static ProblemDetails ToProblemDetails(this ApiError error, int? statusCode = null)
     {
         ArgumentNullException.ThrowIfNull(error);
@@ -46,6 +52,7 @@ public static class OntogonyErrorsExtensions
         return problem;
     }
 
+    /// <summary>Builds <see cref="ApiError"/> from <see cref="ProblemDetails"/> extensions.</summary>
     public static ApiError ToApiError(this ProblemDetails problemDetails, string defaultCode = "ProblemDetailsError")
     {
         ArgumentNullException.ThrowIfNull(problemDetails);

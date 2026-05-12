@@ -8,15 +8,19 @@ namespace Ontogony.Http;
 /// </summary>
 public sealed class TransportResilienceOptions
 {
+    /// <summary>Master switch for resilience behavior on the outbound pipeline.</summary>
     public bool Enabled { get; set; } = true;
 
+    /// <summary>Maximum retry attempts after the first try.</summary>
     [Range(0, 10)]
     public int MaxRetries { get; set; } = 2;
 
+    /// <summary>Base linear backoff component in milliseconds.</summary>
     [Range(10, 60_000)]
     public int BaseDelayMilliseconds { get; set; } = 200;
 
     // Legacy naming compatibility from donor packages.
+    /// <summary>Alias for <see cref="BaseDelayMilliseconds"/>.</summary>
     [Range(10, 60_000)]
     public int BaseBackoffMilliseconds
     {
@@ -24,24 +28,32 @@ public sealed class TransportResilienceOptions
         set => BaseDelayMilliseconds = value;
     }
 
+    /// <summary>Upper cap for computed delay between attempts.</summary>
     [Range(100, 600_000)]
     public int MaxDelayMilliseconds { get; set; } = 5_000;
 
+    /// <summary>Consecutive failures before opening the circuit.</summary>
     [Range(1, 100)]
     public int CircuitFailureThreshold { get; set; } = 5;
 
+    /// <summary>How long the circuit stays open after tripping.</summary>
     [Range(1, 3600)]
     public int CircuitOpenDurationSeconds { get; set; } = 30;
 
+    /// <summary>HTTP status codes eligible for retry.</summary>
     public int[] RetryableStatusCodes { get; set; } = [408, 425, 429, 500, 502, 503, 504];
 
+    /// <summary>When true, only retryable responses increment circuit failure counters.</summary>
     public bool CountOnlyRetryableResponsesAsCircuitFailures { get; set; } = true;
 
+    /// <summary>When true, unsafe methods retry only when an idempotency key header is present.</summary>
     public bool RetryUnsafeMethodsOnlyWithIdempotencyKey { get; set; } = true;
 
+    /// <summary>Maximum bytes buffered to allow body replay on retry.</summary>
     [Range(1, 100_000_000)]
     public int MaxBufferedContentBytes { get; set; } = 1_000_000;
 
+    /// <summary>Header name examined for idempotency-aware retries.</summary>
     public string IdempotencyKeyHeaderName { get; set; } = "Idempotency-Key";
 
     /// <summary>

@@ -13,6 +13,7 @@ public sealed class IdempotencyKeyBuilder
     private readonly PayloadHasher _payloadHasher;
     private readonly IdempotencyKeyOptions _options;
 
+    /// <summary>Creates a builder with optional formatting options.</summary>
     public IdempotencyKeyBuilder(PayloadHasher payloadHasher, IdempotencyKeyOptions? options = null)
     {
         _payloadHasher = payloadHasher;

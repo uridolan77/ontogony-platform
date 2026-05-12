@@ -10,16 +10,19 @@ public sealed class DefaultRetryClassifier : IRetryClassifier
 {
     private readonly TransportResilienceOptions _options;
 
+    /// <summary>Creates a classifier bound to <paramref name="options"/>.</summary>
     public DefaultRetryClassifier(TransportResilienceOptions options)
     {
         _options = options ?? throw new ArgumentNullException(nameof(options));
     }
 
+    /// <summary>Creates a classifier from DI options.</summary>
     public DefaultRetryClassifier(IOptions<TransportResilienceOptions> options)
         : this(options.Value)
     {
     }
 
+    /// <inheritdoc />
     public RetryDecision ShouldRetry(HttpRequestMessage request, HttpResponseMessage? response, Exception? exception)
     {
         // If we got a response, check its status code

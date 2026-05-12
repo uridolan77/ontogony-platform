@@ -13,22 +13,31 @@ namespace Ontogony.Artifacts;
 /// </remarks>
 public sealed class ArtifactPutRequest
 {
+    /// <summary>Opaque media type of <see cref="Content"/>.</summary>
     public required string MediaType { get; init; }
 
+    /// <summary>Raw artifact bytes.</summary>
     public required ReadOnlyMemory<byte> Content { get; init; }
 
+    /// <summary>Opaque content encoding label.</summary>
     public string? ContentEncoding { get; init; }
 
+    /// <summary>Opaque storage tier hint.</summary>
     public string? StorageTier { get; init; }
 
+    /// <summary>Opaque sensitivity classification.</summary>
     public string? Classification { get; init; }
 
+    /// <summary>Optional opaque locator URI.</summary>
     public string? Uri { get; init; }
 
+    /// <summary>Optional tenant scope for dedupe identity.</summary>
     public string? TenantId { get; init; }
 
+    /// <summary>Optional workspace scope for dedupe identity.</summary>
     public string? WorkspaceId { get; init; }
 
+    /// <summary>Optional project scope for dedupe identity.</summary>
     public string? ProjectId { get; init; }
 
     /// <summary>Optional caller-supplied identifier. When present, the store must honor or reject it deterministically.</summary>

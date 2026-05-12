@@ -9,12 +9,14 @@ public sealed class InMemoryIdempotencyLedger : IIdempotencyLedger
 {
     private readonly ConcurrentDictionary<string, IdempotencyRecord> _records = new(StringComparer.Ordinal);
 
+    /// <inheritdoc />
     public Task<bool> TryBeginAsync(string key, CancellationToken cancellationToken = default)
     {
         var record = new IdempotencyRecord(key, IdempotencyStatus.InProgress, DateTimeOffset.UtcNow);
         return Task.FromResult(_records.TryAdd(key, record));
     }
 
+    /// <inheritdoc />
     public Task MarkSucceededAsync(string key, string? resultReference = null, CancellationToken cancellationToken = default)
     {
         _records.AddOrUpdate(
@@ -24,6 +26,7 @@ public sealed class InMemoryIdempotencyLedger : IIdempotencyLedger
         return Task.CompletedTask;
     }
 
+    /// <inheritdoc />
     public Task MarkFailedAsync(string key, string? reason = null, CancellationToken cancellationToken = default)
     {
         _records.AddOrUpdate(
@@ -33,6 +36,7 @@ public sealed class InMemoryIdempotencyLedger : IIdempotencyLedger
         return Task.CompletedTask;
     }
 
+    /// <inheritdoc />
     public Task<IdempotencyRecord?> GetAsync(string key, CancellationToken cancellationToken = default)
     {
         _records.TryGetValue(key, out var record);

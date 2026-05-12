@@ -10,11 +10,13 @@ namespace Ontogony.Artifacts;
 /// </remarks>
 public sealed class ArtifactNotFoundException : Exception
 {
+    /// <summary>Creates an exception for the missing <paramref name="artifactId"/>.</summary>
     public ArtifactNotFoundException(string artifactId)
         : base($"Artifact '{artifactId}' was not found.")
     {
         ArtifactId = artifactId;
     }
 
+    /// <summary>Artifact id that was not found.</summary>
     public string ArtifactId { get; }
 }

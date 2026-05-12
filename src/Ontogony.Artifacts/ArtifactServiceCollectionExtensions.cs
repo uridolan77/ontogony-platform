@@ -5,6 +5,9 @@ using Ontogony.Primitives;
 
 namespace Ontogony.Artifacts;
 
+/// <summary>
+/// DI registration for Ontogony artifact stores.
+/// </summary>
 public static class ArtifactServiceCollectionExtensions
 {
     /// <summary>

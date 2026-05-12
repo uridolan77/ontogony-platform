@@ -8,6 +8,7 @@ namespace Ontogony.Logging;
 /// </summary>
 public static class LoggingServiceCollectionExtensions
 {
+    /// <summary>Registers <see cref="OntogonyLoggingOptions"/> for request-scope enrichment.</summary>
     public static IServiceCollection AddOntogonyLogging(
         this IServiceCollection services,
         Action<OntogonyLoggingOptions>? configure = null)

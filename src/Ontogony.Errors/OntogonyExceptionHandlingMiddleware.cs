@@ -9,6 +9,9 @@ using Ontogony.Observability;
 
 namespace Ontogony.Errors;
 
+/// <summary>
+/// Catches unhandled exceptions and writes a JSON error payload using <see cref="OntogonyExceptionMappingOptions"/>.
+/// </summary>
 public sealed class OntogonyExceptionHandlingMiddleware
 {
     private readonly RequestDelegate _next;
@@ -16,6 +19,7 @@ public sealed class OntogonyExceptionHandlingMiddleware
     private readonly JsonSerializerOptions _jsonOptions;
     private readonly OntogonyExceptionMappingOptions _mappingOptions;
 
+    /// <summary>Creates the middleware.</summary>
     public OntogonyExceptionHandlingMiddleware(
         RequestDelegate next,
         ILogger<OntogonyExceptionHandlingMiddleware> logger,
@@ -28,6 +32,7 @@ public sealed class OntogonyExceptionHandlingMiddleware
         _mappingOptions = mappingOptions.Value;
     }
 
+    /// <summary>Runs the rest of the pipeline and maps failures to JSON responses when possible.</summary>
     public async Task InvokeAsync(HttpContext context)
     {
         try

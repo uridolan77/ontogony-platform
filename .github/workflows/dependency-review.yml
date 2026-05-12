@@ -3,6 +3,7 @@ name: Dependency review
 on:
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -14,6 +15,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Requires dependency graph (populated by dependency-submission on pushes to main).
       - uses: actions/dependency-review-action@v4
         with:
           fail-on-severity: moderate
+          comment-summary-in-pr: on-failure

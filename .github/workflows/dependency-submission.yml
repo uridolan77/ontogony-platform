@@ -4,6 +4,7 @@ name: Dependency submission
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -17,5 +18,8 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "9.0.x"
+
+      - name: Restore (ensures assets are present for submission)
+        run: dotnet restore Ontogony.Platform.sln
 
       - uses: actions/dependency-submission-action@v4

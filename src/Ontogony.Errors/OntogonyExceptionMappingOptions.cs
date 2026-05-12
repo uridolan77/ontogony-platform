@@ -2,6 +2,9 @@ using System.Net;
 
 namespace Ontogony.Errors;
 
+/// <summary>
+/// Configures how exceptions map to HTTP status, public codes, and JSON payloads.
+/// </summary>
 public sealed class OntogonyExceptionMappingOptions
 {
     private readonly Dictionary<Type, ExceptionMapping> _mappings = new();
@@ -22,6 +25,7 @@ public sealed class OntogonyExceptionMappingOptions
     /// <summary>Machine-readable code for unmapped exceptions (default <c>UnhandledError</c>).</summary>
     public string UnhandledErrorCode { get; set; } = "UnhandledError";
 
+    /// <summary>Registers a mapping for <typeparamref name="TException"/>.</summary>
     public OntogonyExceptionMappingOptions Map<TException>(
         HttpStatusCode statusCode,
         string errorCode,
@@ -49,6 +53,7 @@ public sealed class OntogonyExceptionMappingOptions
         return this;
     }
 
+    /// <summary>Finds the most specific mapping for <paramref name="exception"/>.</summary>
     public ExceptionMapping? Find(Exception exception)
     {
         var type = exception.GetType();
@@ -66,6 +71,19 @@ public sealed class OntogonyExceptionMappingOptions
     }
 }
 
+/// <summary>
+/// Describes how one exception type maps to HTTP and logging behavior.
+/// </summary>
+/// <param name="StatusCode">Default HTTP status when <see cref="ResolveStatusCode"/> is null.</param>
+/// <param name="ErrorCode">Default machine code when <see cref="ResolveErrorCode"/> is null.</param>
+/// <param name="PublicMessage">Default client message when <see cref="ResolvePublicMessage"/> is null.</param>
+/// <param name="IncludeExceptionMessage">Whether raw <see cref="Exception.Message"/> may appear publicly.</param>
+/// <param name="LogAsWarning">When true, log at warning instead of error.</param>
+/// <param name="IncludeDetails">Whether to emit a generic details object.</param>
+/// <param name="ResolveErrorCode">Optional per-exception code override.</param>
+/// <param name="ResolvePublicMessage">Optional per-exception message override.</param>
+/// <param name="DetailsFactory">Optional structured details factory.</param>
+/// <param name="ResolveStatusCode">Optional per-exception status override.</param>
 public sealed record ExceptionMapping(
     HttpStatusCode StatusCode,
     string ErrorCode,

@@ -38,6 +38,9 @@ public sealed class InMemoryArtifactStore : IArtifactStore
     private readonly IIdGenerator _ids;
     private readonly object _sync = new();
 
+    /// <summary>
+    /// Creates the store with optional hashing, clock, and id overrides (for tests).
+    /// </summary>
     public InMemoryArtifactStore(
         IContentHashService? hasher = null,
         IClock? clock = null,

@@ -5,6 +5,7 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -37,12 +38,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # SBOM only: do not fail the job on unrelated CVE hits (NuGet audit job covers packages).
       - name: Generate SBOM with Trivy
         uses: aquasecurity/trivy-action@0.28.0
         with:
           scan-type: "fs"
           format: "cyclonedx"
           output: "sbom.cdx.json"
+          exit-code: "0"
+          hide-progress: true
 
       - uses: actions/upload-artifact@v4
         with:
@@ -52,6 +56,8 @@ jobs:
 
   secret-scan:
     name: Secret scan (gitleaks)
+    # Fork PRs use a read-only token without access to base secrets; skip to avoid false failures.
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

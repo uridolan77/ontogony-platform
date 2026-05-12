@@ -11,8 +11,14 @@ using Ontogony.Security;
 
 namespace Ontogony.Hosting;
 
+/// <summary>
+/// Registers and wires Ontogony cross-cutting defaults for ASP.NET Core hosts.
+/// </summary>
 public static class OntogonyHostingExtensions
 {
+    /// <summary>
+    /// Binds <see cref="OntogonyServiceDefaultsOptions"/>, registers health checks, and optionally observability and errors.
+    /// </summary>
     public static IServiceCollection AddOntogonyServiceDefaults(
         this IServiceCollection services,
         IConfiguration configuration,
@@ -53,6 +59,9 @@ public static class OntogonyHostingExtensions
         return services;
     }
 
+    /// <summary>
+    /// Applies middleware according to <see cref="OntogonyServiceDefaultsOptions"/> (tracing, errors, body-hash preload).
+    /// </summary>
     public static IApplicationBuilder UseOntogonyServiceDefaults(this IApplicationBuilder app)
     {
         ArgumentNullException.ThrowIfNull(app);
@@ -77,6 +86,7 @@ public static class OntogonyHostingExtensions
         return app;
     }
 
+    /// <summary>Maps standard health and readiness routes when enabled in options.</summary>
     public static IEndpointRouteBuilder MapOntogonyHealthEndpoints(this IEndpointRouteBuilder endpoints)
     {
         ArgumentNullException.ThrowIfNull(endpoints);

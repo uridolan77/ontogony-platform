@@ -13,8 +13,10 @@ namespace Ontogony.Artifacts;
 /// </remarks>
 public sealed class ArtifactStreamPutRequest
 {
+    /// <summary>Opaque media type of the stream payload.</summary>
     public required string MediaType { get; init; }
 
+    /// <summary>Readable stream of artifact bytes.</summary>
     public required Stream ContentStream { get; init; }
 
     /// <summary>When set, the store must reject the write if the drained length differs.</summary>
@@ -23,19 +25,27 @@ public sealed class ArtifactStreamPutRequest
     /// <summary>When set, the store must reject the write if the computed content hash differs.</summary>
     public string? ExpectedContentHash { get; init; }
 
+    /// <summary>Opaque content encoding label.</summary>
     public string? ContentEncoding { get; init; }
 
+    /// <summary>Opaque storage tier hint.</summary>
     public string? StorageTier { get; init; }
 
+    /// <summary>Opaque sensitivity classification.</summary>
     public string? Classification { get; init; }
 
+    /// <summary>Optional opaque locator URI.</summary>
     public string? Uri { get; init; }
 
+    /// <summary>Optional tenant scope for dedupe identity.</summary>
     public string? TenantId { get; init; }
 
+    /// <summary>Optional workspace scope for dedupe identity.</summary>
     public string? WorkspaceId { get; init; }
 
+    /// <summary>Optional project scope for dedupe identity.</summary>
     public string? ProjectId { get; init; }
 
+    /// <summary>Optional caller-supplied artifact id.</summary>
     public string? SuggestedArtifactId { get; init; }
 }

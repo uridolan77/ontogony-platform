@@ -15,6 +15,7 @@ public sealed class OntogonyLoggingScopeMiddleware
     private readonly ILogger<OntogonyLoggingScopeMiddleware> _logger;
     private readonly OntogonyLoggingOptions _options;
 
+    /// <summary>Creates the middleware.</summary>
     public OntogonyLoggingScopeMiddleware(
         RequestDelegate next,
         ILogger<OntogonyLoggingScopeMiddleware> logger,
@@ -25,6 +26,7 @@ public sealed class OntogonyLoggingScopeMiddleware
         _options = options?.Value ?? new OntogonyLoggingOptions();
     }
 
+    /// <summary>Applies a request logging scope when enabled.</summary>
     public async Task InvokeAsync(HttpContext context)
     {
         if (!_options.EnableRequestScope)

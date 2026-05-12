@@ -5,8 +5,12 @@ using Ontogony.Observability;
 
 namespace Ontogony.Http;
 
+/// <summary>
+/// Propagates Ontogony correlation headers on outbound <see cref="HttpClient"/> calls when present on the async context.
+/// </summary>
 public sealed class CorrelationHeadersDelegatingHandler : DelegatingHandler
 {
+    /// <inheritdoc />
     protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
         var state = OntogonyCorrelationContext.Current;

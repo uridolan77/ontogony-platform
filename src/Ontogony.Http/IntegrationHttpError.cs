@@ -3,10 +3,15 @@ using Ontogony.Observability;
 
 namespace Ontogony.Http;
 
+/// <summary>
+/// Helpers to redact and truncate HTTP error bodies before logging or throwing.
+/// </summary>
 public static partial class IntegrationHttpError
 {
+    /// <summary>Default maximum characters retained after redaction.</summary>
     public const int DefaultMaxBodyChars = 512;
 
+    /// <summary>Redacts bearer tokens and common secret patterns, then truncates to <paramref name="maxChars"/>.</summary>
     public static string RedactAndTruncate(string? body, int maxChars = DefaultMaxBodyChars)
     {
         if (string.IsNullOrEmpty(body))
@@ -22,6 +27,7 @@ public static partial class IntegrationHttpError
         return sanitized.Length <= maxChars ? sanitized : sanitized[..maxChars] + "...";
     }
 
+    /// <summary>Throws <see cref="HttpRequestException"/> when <paramref name="response"/> is not successful.</summary>
     public static async Task ThrowIfUnsuccessfulAsync(
         HttpResponseMessage response,
         string integrationLabel,

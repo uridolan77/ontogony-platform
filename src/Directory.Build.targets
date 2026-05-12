@@ -1,0 +1,33 @@
+<Project>
+  <!--
+    PR-PLAT-006.1: enforce CS1591 (missing XML comment) on the Conexus baseline package set only.
+    See docs/consumer-blueprints/conexus-dotnet-platform-readiness.md (Required packages).
+    Root Directory.Build.props suppresses CS1591 globally; this strips it for these projects only.
+  -->
+  <PropertyGroup>
+    <OntogonyConsumerSurfaceProject Condition="
+        '$(MSBuildProjectName)' == 'Ontogony.AI.Contracts' Or
+        '$(MSBuildProjectName)' == 'Ontogony.Artifacts' Or
+        '$(MSBuildProjectName)' == 'Ontogony.Execution' Or
+        '$(MSBuildProjectName)' == 'Ontogony.Hashing' Or
+        '$(MSBuildProjectName)' == 'Ontogony.Idempotency' Or
+        '$(MSBuildProjectName)' == 'Ontogony.Logging' Or
+        '$(MSBuildProjectName)' == 'Ontogony.Quotas' Or
+        '$(MSBuildProjectName)' == 'Ontogony.Redaction' Or
+        '$(MSBuildProjectName)' == 'Ontogony.Primitives' Or
+        '$(MSBuildProjectName)' == 'Ontogony.Hosting' Or
+        '$(MSBuildProjectName)' == 'Ontogony.Observability' Or
+        '$(MSBuildProjectName)' == 'Ontogony.Secrets' Or
+        '$(MSBuildProjectName)' == 'Ontogony.Errors' Or
+        '$(MSBuildProjectName)' == 'Ontogony.Http' Or
+        '$(MSBuildProjectName)' == 'Ontogony.Security' Or
+        '$(MSBuildProjectName)' == 'Ontogony.Contracts'
+      ">true</OntogonyConsumerSurfaceProject>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(OntogonyConsumerSurfaceProject)' == 'true'">
+    <NoWarn>$([System.Text.RegularExpressions.Regex]::Replace('$(NoWarn)', '(^|;)CS1591(;|$)', ';'))</NoWarn>
+    <NoWarn>$([System.Text.RegularExpressions.Regex]::Replace('$(NoWarn)', ';;+', ';'))</NoWarn>
+    <NoWarn>$([System.String]::Copy('$(NoWarn)').Trim(';'))</NoWarn>
+  </PropertyGroup>
+</Project>

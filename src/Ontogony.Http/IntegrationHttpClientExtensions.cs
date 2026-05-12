@@ -5,8 +5,14 @@ using Ontogony.Primitives;
 
 namespace Ontogony.Http;
 
+/// <summary>
+/// Registers a named resilient <see cref="HttpClient"/> with correlation and retry handlers.
+/// </summary>
 public static class IntegrationHttpClientExtensions
 {
+    /// <summary>
+    /// Adds a named HTTP client with Ontogony correlation, resilience, and per-client options from <paramref name="resolveOptions"/>.
+    /// </summary>
     public static IHttpClientBuilder AddOntogonyIntegrationHttpClient(
         this IServiceCollection services,
         string clientName,
