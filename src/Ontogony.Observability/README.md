@@ -2,6 +2,16 @@
 
 Async-local correlation context, trace header propagation, and diagnostic event sources for Ontogony services.
 
+## What this is
+
+- **`OntogonyCorrelationContext`** — async-local trace, actor, and tenant scope.
+- **`RequestTracingMiddleware`** and **`UseOntogonyRequestTracing`** — ASP.NET pipeline wiring.
+- **`AddOntogonyObservability`** — options registration with validation.
+
+## What this is not
+
+- Not OpenTelemetry exporter configuration or vendor-specific backends (this package exposes hooks; hosts wire exporters).
+
 ## Overview
 
 `Ontogony.Observability` provides:
@@ -15,13 +25,13 @@ Async-local correlation context, trace header propagation, and diagnostic event 
 
 ```csharp
 // In Startup
-services.Configure<OntogonyObservabilityOptions>(opts => 
+services.AddOntogonyObservability(opts => 
 {
     opts.ServiceName = "my-service";
     opts.TraceHeaderName = "X-Ontogony-Trace-Id";  // Canonical name
 });
 
-app.UseRequestTracingMiddleware();  // Populates OntogonyCorrelationContext
+app.UseOntogonyRequestTracing();  // Populates OntogonyCorrelationContext
 
 // In request handlers
 var traceId = OntogonyCorrelationContext.TraceId;

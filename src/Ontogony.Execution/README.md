@@ -2,14 +2,14 @@
 
 Mechanical execution journal **DTOs** plus an append-only **`IExecutionJournal`** port and **`InMemoryExecutionJournal`** reference implementation (runs, steps, attempts, state transitions, checkpoints).
 
-## What this package is
+## What this is
 
 - Serialization-friendly records with **opaque string** kinds, statuses, and hashes.
 - **`IExecutionJournal`** — append lines and list them by `runId` / `stepId` without workflow or validation policy.
-- **`InMemoryExecutionJournal`** — thread-safe, single-process store; lists return **append order**.
+- **`InMemoryExecutionJournal`** — thread-safe, **single-process** store; lists return **append order**.
 - **`AddOntogonyInMemoryExecutionJournal()`** — registers the in-memory journal for tests and examples.
 
-## What this package is not
+## What this is not
 
 - Not a workflow engine, agent planner, scheduler, human review policy, or enforced state machine.
 - Not a durable or multi-node journal (no Postgres/blob provider here).

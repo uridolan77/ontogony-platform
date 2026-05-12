@@ -3,7 +3,12 @@
   <PropertyGroup>
     <PackageId>Ontogony.Hosting</PackageId>
     <Description>Ontogony.Hosting shared infrastructure package for ASP.NET service defaults.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />

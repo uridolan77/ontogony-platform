@@ -3,7 +3,12 @@
   <PropertyGroup>
     <PackageId>Ontogony.Http</PackageId>
     <Description>Ontogony.Http shared infrastructure package for Ontogony services.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />

@@ -2,6 +2,9 @@ using Ontogony.Contracts.Events;
 
 namespace Ontogony.Messaging;
 
+/// <summary>
+/// Convenience <see cref="IEventPublisher"/> that owns an <see cref="InMemoryEventPublisher"/> for <b>tests and single-process</b> scenarios.
+/// </summary>
 public sealed class InMemoryEventBus : IEventPublisher
 {
     private readonly InMemoryEventPublisher _publisher;

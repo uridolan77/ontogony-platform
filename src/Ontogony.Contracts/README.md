@@ -2,6 +2,15 @@
 
 Canonical event envelope, header names, and protocol contracts for Ontogony services.
 
+## What this is
+
+- Mechanical DTOs and constants for cross-service events (`OntogonyEnvelope<TPayload>`, headers, protocol names).
+- Deterministic hashing hooks when paired with `Ontogony.Hashing`.
+
+## What this is not
+
+- Not business workflows, validation of domain payloads, or transport-specific client code.
+
 ## Overview
 
 `Ontogony.Contracts` defines the mechanical DTOs and constants that enable cross-service communication:

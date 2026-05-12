@@ -3,7 +3,12 @@
   <PropertyGroup>
     <PackageId>Ontogony.Idempotency</PackageId>
     <Description>Ontogony.Idempotency shared infrastructure package for Ontogony services.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Ontogony.Hashing\Ontogony.Hashing.csproj" />

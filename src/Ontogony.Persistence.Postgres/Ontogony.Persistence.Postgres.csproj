@@ -3,7 +3,12 @@
   <PropertyGroup>
     <PackageId>Ontogony.Persistence.Postgres</PackageId>
     <Description>PostgreSQL outbox provider for Ontogony.Persistence contracts.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />

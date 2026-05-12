@@ -3,7 +3,12 @@
   <PropertyGroup>
     <PackageId>Ontogony.Security</PackageId>
     <Description>Ontogony.Security shared infrastructure package for Ontogony services.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />

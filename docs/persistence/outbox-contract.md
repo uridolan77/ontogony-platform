@@ -77,4 +77,4 @@ Provider-specific implementations (for example PostgreSQL) should live in dedica
 
 See `Ontogony.Persistence.Postgres` and `docs/persistence/postgres-outbox-provider.md` for the PostgreSQL durable provider.
 
-`Ontogony.Messaging` defines a separate, minimal `IOutboxStore` for in-process scenarios; the **canonical** durable outbox contract for shared platform work is this persistence surface.
+Event **publishing** mechanics (`IEventPublisher`, in-process handlers) live in `Ontogony.Messaging`. Durable **outbox** write/read/dispatch contracts (`IOutboxWriter`, `IOutboxReader`, `IOutboxDispatcher`, `OutboxMessage`) live only in `Ontogony.Persistence` so there is a single outbox shape across providers.

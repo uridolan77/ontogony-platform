@@ -3,7 +3,7 @@ using Ontogony.Contracts.Events;
 namespace Ontogony.Messaging;
 
 /// <summary>
-/// Thread-safe in-memory list of envelopes that were <b>published</b> to a publisher (capture for tests and diagnostics).
+/// Thread-safe in-memory list of envelopes that were <b>published</b> to a publisher (capture for <b>tests and single-process</b> diagnostics).
 /// This is <b>not</b> a delivery ledger, broker offset store, or outbox; it does not imply that downstream handlers succeeded.
 /// </summary>
 public sealed class InMemoryEventSink

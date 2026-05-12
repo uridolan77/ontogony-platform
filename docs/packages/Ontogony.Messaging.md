@@ -2,6 +2,8 @@
 
 **Status:** Production-safe for serialization and envelope helpers. In-memory publisher/sink are **test and single-process diagnostics** unless you explicitly accept their semantics.
 
+**Outbox:** Durable outbox contracts live in **`Ontogony.Persistence`** only (`OutboxMessage`, `IOutboxWriter`, …). This package does not define parallel outbox types.
+
 ## Guarantees
 
 - `OntogonyEnvelope<TPayload>` flows through `IEventPublisher` without adding domain meaning.

@@ -18,9 +18,9 @@ Ontogony is a **.NET 9 / C# 13 infrastructure platform** that provides:
 | **HTTP Resilience** | Retry, circuit-breaker, timeout coordination | Calling external services reliably |
 | **Security** | HMAC signing, actor context, claims validation | Authenticating requests between services |
 | **AI contracts** | LLM request/response/usage/cost records (mechanical) | Recording provider calls without embedding routing or agent semantics |
-| **Messaging & Outbox** | Protocol-neutral event bus, outbox pattern | Guaranteeing event delivery across service boundaries |
+| **Messaging** | Protocol-neutral in-process publish and handler dispatch (`IEventPublisher`) | Broker client SDKs, durable outbox storage (see Persistence) |
+| **Persistence** | Outbox, processed-message, and dead-letter contracts; in-memory reference store and PostgreSQL provider | Domain ORM, entity repositories, or migrations for your domain model |
 | **ProtocolIngress** | External protocol normalization (generic-json, CloudEvents, MCP, A2A, AG-UI) | Adapting inbound events into `OntogonyEnvelope<RawProtocolPayload>`. No gRPC adapter currently. |
-| **Persistence** | Outbox contracts, processed-message tracking, dead-letter contracts, in-memory + PostgreSQL providers | Transactional outbox and idempotent dispatch mechanics — **not** a general-purpose ORM, repository layer, or migrations framework for your domain model |
 | **Testing** | Test doubles, conformance kits, harnesses | Verifying consumer services correctly adopt platform mechanics |
 
 ---

@@ -3,7 +3,12 @@
   <PropertyGroup>
     <PackageId>Ontogony.ProtocolIngress</PackageId>
     <Description>Ontogony.ProtocolIngress mechanical protocol normalization and ingress adapters for converting protocol-specific events into OntogonyEnvelope records.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />

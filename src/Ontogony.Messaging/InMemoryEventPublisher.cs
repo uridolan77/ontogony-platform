@@ -7,6 +7,7 @@ namespace Ontogony.Messaging;
 
 /// <summary>
 /// In-process publisher that optionally captures published envelopes and dispatches to registered handlers.
+/// Intended for <b>tests and single-process</b> hosts; not a durable or multi-node message bus.
 /// </summary>
 public sealed class InMemoryEventPublisher : IEventPublisher, IEventPublisherWithResult
 {

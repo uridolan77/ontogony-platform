@@ -2,6 +2,9 @@ using System.Collections.Concurrent;
 
 namespace Ontogony.Idempotency;
 
+/// <summary>
+/// In-memory <see cref="IIdempotencyLedger"/> for <b>tests and single-process</b> hosts; not shared across nodes.
+/// </summary>
 public sealed class InMemoryIdempotencyLedger : IIdempotencyLedger
 {
     private readonly ConcurrentDictionary<string, IdempotencyRecord> _records = new(StringComparer.Ordinal);

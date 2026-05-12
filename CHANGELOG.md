@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+PR41 / PR42 — outbox boundary cleanup and package README consistency:
+
+- **Breaking:** Removed `Ontogony.Messaging` duplicate outbox surface (`IOutboxStore`, `OutboxMessage`, `NoOpOutboxStore`). Use `Ontogony.Persistence` outbox contracts only. Migration: `docs/migrations/2026-05-12-pr41-remove-messaging-outbox-duplicates.md`.
+- **Docs:** Updated `docs/persistence/outbox-contract.md`, `docs/testing/conformance-kits.md`, `docs/02_PACKAGE_BOUNDARIES.md`, `docs/start-here.md`, and `docs/packages/index.md` for the Messaging vs Persistence split.
+- **Packages:** Added packed `README.md` (with “What this is” / “What this is not”) to every shipping library under `src/` that was missing one; aligned `Ontogony.Hosting` with packed README; clarified XML remarks on `OutboxMessage` (opaque strings) and on in-memory messaging/idempotency types (tests / single-process).
+
 PR39 / PR40 — repository truth and package-level enforcement:
 
 - **README:** Positions the repo as mechanical infrastructure for new Ontogony services (pre–v1, first target Conexus.NET); lists all 18 `src/` packages; removes contradictory HTTP resilience notes; adds layer summary, “do not add product semantics,” and links to `docs/architecture/package-levels.md`.

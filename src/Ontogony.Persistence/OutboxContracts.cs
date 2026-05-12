@@ -39,6 +39,18 @@ public interface IUnitOfWorkBoundary
 /// <summary>
 /// Mechanical DTO for a single outbox row (SQL-agnostic). Hosts map this to storage; this package does not ship a database implementation.
 /// </summary>
+/// <remarks>
+/// <para>All string fields are <b>opaque</b> to Ontogony: the platform does not interpret event types, sources, or JSON payloads beyond non-whitespace checks in <see cref="OutboxContracts.Validate"/>.</para>
+/// <list type="bullet">
+/// <item><description><see cref="MessageId"/>, <see cref="EventId"/> — caller-defined identifiers (dedupe key and correlation id).</description></item>
+/// <item><description><see cref="EventType"/>, <see cref="Source"/> — integration metadata; no registry in this package.</description></item>
+/// <item><description><see cref="TraceId"/> — correlation string, often aligned with HTTP trace headers.</description></item>
+/// <item><description><see cref="PayloadJson"/> — canonical or raw JSON bytes as text; semantic validation is a host concern.</description></item>
+/// <item><description><see cref="PayloadHash"/> — opaque fingerprint (for example SHA-256 hex of canonical JSON).</description></item>
+/// <item><description><see cref="MetadataJson"/> — opaque JSON object text (sorted key serialization is a caller convention).</description></item>
+/// <item><description><see cref="LastError"/> — opaque diagnostic text from the last dispatch attempt.</description></item>
+/// </list>
+/// </remarks>
 public sealed record OutboxMessage(
     string MessageId,
     string EventId,

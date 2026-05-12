@@ -11,9 +11,9 @@
 | Ontogony.Http | resilient integration client mechanics | integration-specific API semantics |
 | Ontogony.Hashing | SHA-256, canonical JSON, payload hash | source truth semantics |
 | Ontogony.Idempotency | idempotency ledger abstractions/fingerprints | domain deduplication rules |
-| Ontogony.Messaging | publisher/handler/outbox abstractions | business event meaning |
+| Ontogony.Messaging | in-process event publish/dispatch (`IEventPublisher`, handlers) | business event meaning; durable outbox rows |
 | Ontogony.Security | current actor, tenant/project context primitives | final authorization decisions |
-| Ontogony.Persistence | clocks, ID generators, persistence primitives | domain repositories |
+| Ontogony.Persistence | outbox / processed-message / dead-letter contracts, clocks, ID helpers | domain repositories; general-purpose ORM |
 | Ontogony.Testing | fake clock, event recorder, fixtures | product demo scenarios |
 
 ## Dependency direction

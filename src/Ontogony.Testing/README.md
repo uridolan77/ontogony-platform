@@ -2,6 +2,16 @@
 
 Test doubles, harnesses, and conformance assertion kits for validating Ontogony platform integration.
 
+## What this is
+
+- **Fakes** — clocks, IDs, publishers, HTTP stubs, correlation scopes.
+- **Conformance kits** — assertions for tracing, errors, envelopes, HMAC, outbox, HTTP resilience.
+
+## What this is not
+
+- Not a test runner or assertion library replacement (bring xUnit/NUnit/etc.).
+- Not product demo scenarios or domain fixtures.
+
 ## Overview
 
 `Ontogony.Testing` provides:

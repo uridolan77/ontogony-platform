@@ -122,7 +122,7 @@ await OutboxConformanceHarness.AssertDuplicateWriteThrowsAsync(store, msg);
 await OutboxConformanceHarness.AssertMarkFailedIsIdempotentAsync(store, store, msg);
 ```
 
-`BuildMessage` produces a minimal valid `OutboxMessage` ready for use with any `IOutboxStore`.
+`BuildMessage` produces a minimal valid `OutboxMessage` ready for use with any implementation of `IOutboxWriter` / `IOutboxReader` / `IOutboxDispatcher` (for example `InMemoryOutboxStore` or `PostgresOutboxStore`).
 Override fields with `with` expressions as needed.
 
 ---

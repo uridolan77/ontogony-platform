@@ -323,15 +323,18 @@ envelope.PayloadHash = hash;
 
 ### `Ontogony.Messaging`
 
-**Purpose:** Protocol-neutral event publishing and consumption abstractions.
+**Purpose:** Protocol-neutral **in-process** event publishing and handler dispatch.
 
 **Provides:**
 - `IEventPublisher` — Publish `OntogonyEnvelope<T>` events (not generic on event type)
 - `IEventPublisherWithResult` — Publish and receive a `EventPublishResult`
 - `IEventHandler<TPayload>` — Implement to consume events in-process
 - `EventDispatchOptions` — Control hash computation, validation, and operation mode
+- `InMemoryEventPublisher` / `InMemoryEventBus` / `InMemoryEventSink` — capture and dispatch for **tests and single-process** diagnostics (not a broker or durable outbox)
 
-**When to use:** Publishing domain events, integrating with message buses (Azure Service Bus, RabbitMQ, etc.).
+**When to use:** Publishing or handling integration events inside a process, or bridging to an external bus from your own adapter.
+
+**Outbox:** Durable outbox contracts (`IOutboxWriter`, `OutboxMessage`, etc.) are in **`Ontogony.Persistence`**, not this package.
 
 ---
 
