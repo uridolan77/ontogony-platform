@@ -56,24 +56,27 @@ The platform is shaped so **Conexus.NET** can adopt it as the default substrate:
 
 ## Current finalized package layers
 
-Four documentation levels describe how packages group; **allowed project references** are defined and checked in [`docs/architecture/package-levels.md`](docs/architecture/package-levels.md) and [`scripts/validate-package-levels.ps1`](scripts/validate-package-levels.ps1).
+Documentation levels (including **0.5 — shared representation**) describe how packages group; **allowed `ProjectReference` edges** are defined and checked in [`docs/architecture/package-levels.md`](docs/architecture/package-levels.md) and [`scripts/validate-package-levels.ps1`](scripts/validate-package-levels.ps1). Levels are a mental model, not a strict topological sort — the matrix in that doc is authoritative.
 
 ```text
-Level 0 — Foundation
-  Ontogony.Primitives, Ontogony.Hashing, Ontogony.Configuration
+Level 0 — Pure foundation
+  Ontogony.Primitives, Ontogony.Configuration
+
+Level 0.5 — Shared representation
+  Ontogony.Contracts, Ontogony.Hashing
 
 Level 1 — Service mechanics
   Ontogony.Hosting, Ontogony.Observability, Ontogony.Errors, Ontogony.Http, Ontogony.Security
 
-Level 2 — Event and consistency mechanics
-  Ontogony.Contracts, Ontogony.Messaging, Ontogony.Idempotency,
-  Ontogony.Persistence, Ontogony.Persistence.Postgres, Ontogony.ProtocolIngress
+Level 2 — Event, consistency, persistence mechanics
+  Ontogony.Messaging, Ontogony.Idempotency, Ontogony.Persistence,
+  Ontogony.Persistence.Postgres, Ontogony.ProtocolIngress
 
 Level 3 — AI runtime mechanics
   Ontogony.AI.Contracts, Ontogony.Artifacts, Ontogony.Execution
 ```
 
-**Dev/test aggregate:** `Ontogony.Testing` (references many packages for fixtures; not a runtime tier).
+**Aggregate (not a runtime tier):** `Ontogony.Testing` (references many packages for fixtures).
 
 ## What this repository extracts from the product repos
 
@@ -126,7 +129,7 @@ src/
 
 - `examples/MinimalApiWithOntogonyObservability/`: minimal API sample for `AddOntogonyObservability`, `UseOntogonyRequestTracing`, and outbound correlation propagation through `Ontogony.Http`.
 - `examples/MinimalApiWithOntogonyHosting/`: minimal API sample for `AddOntogonyServiceDefaults`, `UseOntogonyServiceDefaults`, and `MapOntogonyHealthEndpoints`.
-- `examples/ConexusDotNetSkeleton/`: compile-only smoke referencing the [Conexus.NET readiness](docs/consumer-blueprints/conexus-dotnet-platform-readiness.md) package set (not a product).
+- `examples/ConexusDotNetSkeleton/`: compile-only smoke with **direct** project references to every required Conexus v1 package (see [readiness blueprint](docs/consumer-blueprints/conexus-dotnet-platform-readiness.md)); not a product.
 
 ## Documentation map
 

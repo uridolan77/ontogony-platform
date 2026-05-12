@@ -1,6 +1,6 @@
 # ConexusDotNetSkeleton
 
-**Not a product.** Minimal web host that references the same Ontogony packages as the [Conexus.NET readiness blueprint](../../docs/consumer-blueprints/conexus-dotnet-platform-readiness.md) so CI can prove they compile together.
+**Not a product.** Minimal web host with **direct** `ProjectReference`s to every **required** package in the [Conexus.NET readiness blueprint](../../docs/consumer-blueprints/conexus-dotnet-platform-readiness.md) (Hosting, Observability, Errors, Http, Security, Idempotency, Hashing, Contracts, AI.Contracts, Artifacts, Execution) so CI proves that slice compiles together without relying on transitive references alone.
 
 ## Build
 

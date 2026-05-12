@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+PR47 (pre-Conexus polish) — package level model and docs alignment:
+
+- **Docs:** `docs/architecture/package-levels.md` — levels **0** (pure foundation), **0.5** (shared representation: Contracts, Hashing), **1–3** (service mechanics → event/consistency → AI runtime); matrix remains authoritative; forbidden rules clarified.
+- **Docs:** `docs/packages/index.md` — removed informal dependency tree; points to package-level matrix + `validate-package-levels.ps1`.
+- **README / blueprint:** Layer summary and Conexus readiness wording aligned with the new model.
+- **Examples:** `ConexusDotNetSkeleton` now has **direct** `ProjectReference`s to `Ontogony.Observability`, `Ontogony.Errors`, and `Ontogony.Security` (full required v1 set); `Program.cs` touches types from those packages.
+
 PR45 / PR46 — CI polish and pre-1.0 version line `0.3.0-alpha.1`:
 
 - **Version:** Default `<Version>0.3.0-alpha.1</Version>` in `Directory.Build.props`; CI `PACKAGE_VERSION` / manifest generation use the same tag.

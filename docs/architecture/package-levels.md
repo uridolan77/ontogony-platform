@@ -4,15 +4,25 @@ This document makes the Ontogony.Platform **package graph intentional**: which p
 
 Machine checks live in [`../../scripts/validate-package-levels.ps1`](../../scripts/validate-package-levels.ps1) and run in CI.
 
+**Authoritative edges:** the **allowed `ProjectReference` matrix** below matches the golden map in `validate-package-levels.ps1`. Documentation **levels** are a consumer mental model (grouping related concerns); they are **not** a strict topological sort — for example `Ontogony.Hashing` references `Ontogony.Contracts` even though both sit in “foundation / shared representation” tiers.
+
 ---
 
-## Level 0 — Foundation
+## Level 0 — Pure foundation
 
-**Packages:** `Ontogony.Primitives`, `Ontogony.Hashing`, `Ontogony.Configuration`
+**Packages:** `Ontogony.Primitives`, `Ontogony.Configuration`
 
-**Purpose:** time and IDs, canonical JSON and hashing, startup validation.
+**Purpose:** time and IDs; startup and options validation helpers.
 
-**Notes:** `Ontogony.Hashing` references `Ontogony.Contracts` for shared envelope/hash mechanics; the four-level map is a **consumer mental model**, not a strict topological sort. The **allowed reference matrix** below is authoritative.
+---
+
+## Level 0.5 — Shared representation
+
+**Packages:** `Ontogony.Contracts`, `Ontogony.Hashing`
+
+**Purpose:** protocol-neutral envelopes, headers, and protocol constants (`Ontogony.Contracts`); deterministic canonical JSON and payload hashing (`Ontogony.Hashing`, which references `Ontogony.Contracts` for envelope/hash mechanics).
+
+Many higher-level packages depend on one or both of these; that is why they are modeled as **shared representation**, not “event tier” packages.
 
 ---
 
@@ -24,11 +34,11 @@ Machine checks live in [`../../scripts/validate-package-levels.ps1`](../../scrip
 
 ---
 
-## Level 2 — Event and consistency mechanics
+## Level 2 — Event, consistency, persistence mechanics
 
-**Packages:** `Ontogony.Contracts`, `Ontogony.Messaging`, `Ontogony.Idempotency`, `Ontogony.Persistence`, `Ontogony.Persistence.Postgres`, `Ontogony.ProtocolIngress`
+**Packages:** `Ontogony.Messaging`, `Ontogony.Idempotency`, `Ontogony.Persistence`, `Ontogony.Persistence.Postgres`, `Ontogony.ProtocolIngress`
 
-**Purpose:** envelopes and events, idempotency, outbox and processed-message contracts, PostgreSQL outbox, protocol normalization.
+**Purpose:** in-process publish/dispatch, idempotency ledger, outbox and processed-message contracts, PostgreSQL outbox provider, protocol normalization into envelopes.
 
 ---
 
@@ -38,13 +48,17 @@ Machine checks live in [`../../scripts/validate-package-levels.ps1`](../../scrip
 
 **Purpose:** LLM request/response telemetry, usage/cost/error records, large payload references, execution journal facts and checkpoints — **without** orchestration or provider policy.
 
-**Aggregate (not a runtime tier):** `Ontogony.Testing` pulls together multiple packages for test fixtures.
+---
+
+## Aggregate (not a runtime tier)
+
+**Package:** `Ontogony.Testing` — pulls together multiple packages for test fixtures and conformance kits. Shipping libraries must not reference it.
 
 ---
 
 ## Forbidden dependency rules
 
-1. **Lower documentation levels must not pull in ad-hoc “higher” packages** beyond what the allowed matrix encodes. CI compares `ProjectReference` edges to the golden map in `validate-package-levels.ps1`.
+1. **No edges outside the matrix.** CI compares every Ontogony `ProjectReference` under `src/` to the golden map in `validate-package-levels.ps1`. When you add or change an edge, update **both** the script and the matrix in this document.
 2. **`Ontogony.Execution` must not reference `Ontogony.Artifacts` directly.** Execution uses opaque artifact identifiers (for example `PayloadArtifactId`); artifact storage semantics stay in `Ontogony.Artifacts` and composing services.
 3. **AI runtime packages must not depend on product repos** (no references to Athanor/Agentor/Conexus codebases). That is a process rule; repo layout enforces absence of those projects.
 4. **`Ontogony.AI.Contracts` stays provider-neutral** (no vendor-specific SDK types in public contracts). Additional scanning lives in `scripts/validate-ai-runtime-boundaries.ps1`.

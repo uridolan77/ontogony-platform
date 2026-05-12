@@ -11,7 +11,7 @@ This blueprint defines the **minimal Ontogony package set** for a first **Conexu
 
 ## Required packages (Conexus.NET v1)
 
-These are the packages Conexus.NET should reference directly for the baseline gateway described below. They align with levels 1–3 in [`docs/architecture/package-levels.md`](../architecture/package-levels.md).
+These are the packages Conexus.NET should reference directly for the baseline gateway described below. They span **shared representation** (Contracts, Hashing), **service mechanics** (Hosting through Security), **idempotency**, and **AI runtime** tiers as described in [`docs/architecture/package-levels.md`](../architecture/package-levels.md); that document’s matrix is the authority on allowed `ProjectReference` edges.
 
 | Package | Role in Conexus |
 | --- | --- |

@@ -467,34 +467,12 @@ EnvelopeConformanceAssertions.AssertFullConformance(envelope);
 
 ---
 
-## Dependency Graph
+## Dependency graph
 
-```
-Ontogony.Primitives
-├── Ontogony.Configuration
-├── Ontogony.Contracts
-├── Ontogony.AI.Contracts → Ontogony.Contracts
-├── Ontogony.Artifacts → Ontogony.Contracts, Ontogony.Hashing, Ontogony.Primitives
-├── Ontogony.Execution → Microsoft.Extensions.DependencyInjection
-├── Ontogony.Errors
-├── Ontogony.Hashing
-├── Ontogony.Hosting
-├── Ontogony.Http
-├── Ontogony.Idempotency
-├── Ontogony.Messaging
-├── Ontogony.Observability → Ontogony.Contracts
-├── Ontogony.ProtocolIngress → Ontogony.Contracts
-├── Ontogony.Persistence
-├── Ontogony.Persistence.Postgres → Ontogony.Persistence
-├── Ontogony.Security
-└── Ontogony.Testing
-    ├── Ontogony.Observability
-    ├── Ontogony.Errors
-    ├── Ontogony.Http
-    ├── Ontogony.Hashing
-    ├── Ontogony.Messaging
-    └── Ontogony.Persistence
-```
+Do not rely on an informal ASCII tree here: it drifts from the real graph. **Authoritative allowed edges** (every shipping `Ontogony.*` → `Ontogony.*` `ProjectReference`) live in:
+
+- [`docs/architecture/package-levels.md`](../architecture/package-levels.md) — full matrix, forbidden edges, and documentation levels (0, 0.5, 1–3).
+- [`scripts/validate-package-levels.ps1`](../../scripts/validate-package-levels.ps1) — CI-enforced golden map.
 
 ---
 

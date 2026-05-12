@@ -10,10 +10,13 @@
     <ProjectReference Include="..\..\src\Ontogony.AI.Contracts\Ontogony.AI.Contracts.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Artifacts\Ontogony.Artifacts.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Contracts\Ontogony.Contracts.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Errors\Ontogony.Errors.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Execution\Ontogony.Execution.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Hashing\Ontogony.Hashing.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Hosting\Ontogony.Hosting.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Http\Ontogony.Http.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Idempotency\Ontogony.Idempotency.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Observability\Ontogony.Observability.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Security\Ontogony.Security.csproj" />
   </ItemGroup>
 </Project>
