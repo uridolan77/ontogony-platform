@@ -1,0 +1,157 @@
+﻿namespace Ontogony.Testing
+{
+    public static class ApiErrorAssertions
+    {
+        public static void AssertCode(Ontogony.Errors.ApiError error, string expectedCode) { }
+        public static void AssertMessageContains(Ontogony.Errors.ApiError error, string expectedFragment) { }
+        public static void AssertTraceId(Ontogony.Errors.ApiError error, string expectedTraceId) { }
+    }
+    public static class CanonicalJsonAssertions
+    {
+        public static void AssertDifferentJson(string leftJson, string rightJson) { }
+        public static void AssertEquivalentJson(string leftJson, string rightJson) { }
+    }
+    public static class EnvelopeAssertions
+    {
+        public static void AssertCorrelationMetadataEqual<TPayload>(Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> expected, Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> actual) { }
+        public static void AssertHasRequiredFields<TPayload>(Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> envelope) { }
+        public static void AssertPayloadHashPresent<TPayload>(Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> envelope) { }
+    }
+    public static class EnvelopeConformanceAssertions
+    {
+        public static void AssertEventTypeIsNamespaced<TPayload>(Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> envelope) { }
+        public static void AssertFullConformance<TPayload>(Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> envelope, bool requirePayloadHash = false) { }
+        public static void AssertPayloadHashMatchesContent<TPayload>(Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> envelope) { }
+        public static void AssertSchemaVersionPresent<TPayload>(Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> envelope) { }
+        public static void AssertSourceFollowsScheme<TPayload>(Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> envelope) { }
+    }
+    public sealed class EnvelopeFixtureBuilder<TPayload>
+    {
+        public EnvelopeFixtureBuilder() { }
+        public Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> Build() { }
+        public Ontogony.Testing.EnvelopeFixtureBuilder<TPayload> WithActorId(string actorId) { }
+        public Ontogony.Testing.EnvelopeFixtureBuilder<TPayload> WithEventId(string eventId) { }
+        public Ontogony.Testing.EnvelopeFixtureBuilder<TPayload> WithEventType(string eventType) { }
+        public Ontogony.Testing.EnvelopeFixtureBuilder<TPayload> WithMetadata(string key, string value) { }
+        public Ontogony.Testing.EnvelopeFixtureBuilder<TPayload> WithOccurredAt(System.DateTimeOffset occurredAt) { }
+        public Ontogony.Testing.EnvelopeFixtureBuilder<TPayload> WithPayload(TPayload payload) { }
+        public Ontogony.Testing.EnvelopeFixtureBuilder<TPayload> WithPayloadHash(string payloadHash) { }
+        public Ontogony.Testing.EnvelopeFixtureBuilder<TPayload> WithProjectId(string projectId) { }
+        public Ontogony.Testing.EnvelopeFixtureBuilder<TPayload> WithProtocol(string protocol) { }
+        public Ontogony.Testing.EnvelopeFixtureBuilder<TPayload> WithSchemaVersion(string schemaVersion) { }
+        public Ontogony.Testing.EnvelopeFixtureBuilder<TPayload> WithSessionId(string sessionId) { }
+        public Ontogony.Testing.EnvelopeFixtureBuilder<TPayload> WithSource(string source) { }
+        public Ontogony.Testing.EnvelopeFixtureBuilder<TPayload> WithTenantId(string tenantId) { }
+        public Ontogony.Testing.EnvelopeFixtureBuilder<TPayload> WithTraceId(string traceId) { }
+        public Ontogony.Testing.EnvelopeFixtureBuilder<TPayload> WithWorkspaceId(string workspaceId) { }
+    }
+    public static class ErrorShapeConformanceAssertions
+    {
+        public static void AssertErrorJsonShape(string json, string? expectedCode = null, bool requireTraceId = false) { }
+        public static System.Threading.Tasks.Task AssertMappedExceptionProducesExpectedShapeAsync<TException>(TException exception, System.Net.HttpStatusCode expectedStatus, string expectedCode, System.Action<Ontogony.Errors.OntogonyExceptionMappingOptions>? configure = null)
+            where TException : System.Exception { }
+        public static System.Threading.Tasks.Task AssertNoUnmappedExceptionMessageLeakAsync() { }
+        public static System.Threading.Tasks.Task AssertUnmappedExceptionProduces500Async() { }
+    }
+    public sealed class FakeClock : Ontogony.Primitives.IClock
+    {
+        public FakeClock(System.DateTimeOffset? initial = default) { }
+        public System.DateTimeOffset UtcNow { get; }
+        public void Advance(System.TimeSpan by) { }
+    }
+    public sealed class FakeCurrentActorAccessor : Ontogony.Security.ICurrentActorAccessor
+    {
+        public FakeCurrentActorAccessor() { }
+        public Ontogony.Security.CurrentActor? Current { get; set; }
+    }
+    public sealed class FakeEventPublisher : Ontogony.Messaging.IEventPublisher
+    {
+        public FakeEventPublisher() { }
+        public System.Exception? PublishException { get; set; }
+        public System.Collections.Generic.IReadOnlyList<object> Published { get; }
+        public System.Threading.Tasks.Task PublishAsync<TPayload>(Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> envelope, System.Threading.CancellationToken cancellationToken = default) { }
+    }
+    public sealed class FakeIdGenerator : Ontogony.Primitives.IIdGenerator
+    {
+        public FakeIdGenerator() { }
+        public void Enqueue(System.Guid guid) { }
+        public System.Guid NewGuid() { }
+        public string NewId(string prefix) { }
+    }
+    public static class HmacConformanceAssertions
+    {
+        public static void AssertBodyHashFormat(System.ReadOnlySpan<byte> body) { }
+        public static void AssertCanonicalStringFormat(string httpMethod, string pathAndQuery, string timestamp, string nonce, string bodySha256HexLower) { }
+        public static void AssertSignatureRoundTrip(string secret, string httpMethod, string pathAndQuery, string timestamp, string nonce, string bodySha256HexLower) { }
+        public static void AssertSignatureValid(string secret, string httpMethod, string pathAndQuery, string timestamp, string nonce, string bodySha256HexLower, string signature) { }
+        public static void AssertTamperedSignatureIsRejected(string secret, string httpMethod, string pathAndQuery, string timestamp, string nonce, string bodySha256HexLower) { }
+    }
+    public static class HttpResilienceConformanceHarness
+    {
+        public static System.Threading.Tasks.Task AssertCircuitOpensAfterThresholdAsync(Ontogony.Testing.StubHttpMessageHandler stub, int failuresToOpen, System.Action<Ontogony.Http.TransportResilienceOptions>? configure = null, Ontogony.Primitives.IClock? clock = null) { }
+        public static System.Threading.Tasks.Task AssertNoRetryOnSuccessAsync(System.Net.Http.HttpClient client, Ontogony.Testing.StubHttpMessageHandler stub) { }
+        public static System.Threading.Tasks.Task AssertRetriesOnTransientFailureAsync(System.Net.Http.HttpClient client, Ontogony.Testing.StubHttpMessageHandler stub, int expectedTotalAttempts) { }
+        public static System.Net.Http.HttpClient BuildResilientClient(Ontogony.Testing.StubHttpMessageHandler stub, System.Action<Ontogony.Http.TransportResilienceOptions>? configure = null, Ontogony.Primitives.IClock? clock = null) { }
+    }
+    [System.Obsolete("Use PublishedEventRecorder for new tests.")]
+    public sealed class InMemoryEventRecorder : Ontogony.Messaging.IEventPublisher
+    {
+        public InMemoryEventRecorder() { }
+        public System.Collections.Generic.IReadOnlyList<object> Events { get; }
+        public System.Threading.Tasks.Task PublishAsync<TPayload>(Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> envelope, System.Threading.CancellationToken cancellationToken = default) { }
+    }
+    public static class MiddlewareTestHarness
+    {
+        public static void AssertResponseHeader(Microsoft.AspNetCore.Http.HttpContext context, string headerName, string expectedValue) { }
+        public static void AssertResponseJsonContains(Microsoft.AspNetCore.Http.HttpContext context, string propertyName) { }
+        public static Microsoft.AspNetCore.Http.DefaultHttpContext CreateHttpContext(string method = "GET", string path = "/") { }
+        public static string ReadResponseBody(Microsoft.AspNetCore.Http.HttpContext context) { }
+        public static System.Threading.Tasks.Task RunAsync(Microsoft.AspNetCore.Http.RequestDelegate middleware, Microsoft.AspNetCore.Http.HttpContext context) { }
+    }
+    public static class OutboxConformanceHarness
+    {
+        public static System.Threading.Tasks.Task AssertDuplicateWriteThrowsAsync(Ontogony.Persistence.IOutboxWriter writer, Ontogony.Persistence.OutboxMessage message) { }
+        public static System.Threading.Tasks.Task AssertMarkDispatchedRemovesFromQueueAsync(Ontogony.Persistence.IOutboxWriter writer, Ontogony.Persistence.IOutboxReader reader, Ontogony.Persistence.IOutboxDispatcher dispatcher, Ontogony.Persistence.OutboxMessage message) { }
+        public static System.Threading.Tasks.Task AssertMarkFailedIsIdempotentAsync(Ontogony.Persistence.IOutboxWriter writer, Ontogony.Persistence.IOutboxDispatcher dispatcher, Ontogony.Persistence.OutboxMessage message) { }
+        public static System.Threading.Tasks.Task AssertWriteThenReadAsync(Ontogony.Persistence.IOutboxWriter writer, Ontogony.Persistence.IOutboxReader reader, Ontogony.Persistence.OutboxMessage message) { }
+        public static Ontogony.Persistence.OutboxMessage BuildMessage(string messageId, string eventType = "ontogony.test.event", string source = "ontogony://test/conformance", string traceId = "trace-conformance", System.DateTimeOffset? occurredAt = default, System.DateTimeOffset? availableAt = default, string payloadJson = "{}") { }
+    }
+    public sealed class PublishedEventRecorder : Ontogony.Messaging.IEventPublisher
+    {
+        public PublishedEventRecorder() { }
+        public System.Collections.Generic.IReadOnlyList<object> PublishedEvents { get; }
+        public Ontogony.Messaging.InMemoryEventSink Sink { get; }
+        public System.Threading.Tasks.Task PublishAsync<TPayload>(Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> envelope, System.Threading.CancellationToken cancellationToken = default) { }
+    }
+    public sealed class RecordingHttpMessageHandler : System.Net.Http.HttpMessageHandler
+    {
+        public RecordingHttpMessageHandler(System.Func<System.Net.Http.HttpRequestMessage, System.Threading.CancellationToken, System.Threading.Tasks.Task<System.Net.Http.HttpResponseMessage>>? responder = null) { }
+        public System.Collections.Generic.IReadOnlyList<System.Net.Http.HttpRequestMessage> Requests { get; }
+        protected override System.Threading.Tasks.Task<System.Net.Http.HttpResponseMessage> SendAsync(System.Net.Http.HttpRequestMessage request, System.Threading.CancellationToken cancellationToken) { }
+    }
+    public sealed class StubHttpMessageHandler : System.Net.Http.HttpMessageHandler
+    {
+        public StubHttpMessageHandler() { }
+        public int CallCount { get; }
+        public void EnqueueException(System.Exception exception) { }
+        public void EnqueueResponse(System.Net.Http.HttpResponseMessage response) { }
+        public void EnqueueStep(System.Func<System.Net.Http.HttpRequestMessage, System.Threading.CancellationToken, System.Threading.Tasks.Task<System.Net.Http.HttpResponseMessage>> step) { }
+        protected override System.Threading.Tasks.Task<System.Net.Http.HttpResponseMessage> SendAsync(System.Net.Http.HttpRequestMessage request, System.Threading.CancellationToken cancellationToken) { }
+    }
+    public sealed class TestCorrelationScope : System.IDisposable
+    {
+        public TestCorrelationScope(string traceId, string? operationId = null, string? tenantId = null, string? workspaceId = null, string? projectId = null, string? actorId = null, string? sessionId = null) { }
+        public void Dispose() { }
+    }
+    public static class TestEnvelopeFactory
+    {
+        public static Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> Create<TPayload>(string eventType, string protocol, TPayload payload, string traceId = "trace_test") { }
+    }
+    public static class TracingConformanceAssertions
+    {
+        public static System.Threading.Tasks.Task AssertCanonicalTraceHeaderEchoedAsync(string traceId) { }
+        public static System.Threading.Tasks.Task AssertCorrelationContextPopulatedAsync(Microsoft.AspNetCore.Http.RequestDelegate middleware, Microsoft.AspNetCore.Http.HttpContext context) { }
+        public static System.Threading.Tasks.Task AssertTenantIdPropagatedAsync(string tenantId) { }
+        public static System.Threading.Tasks.Task AssertTraceIdGeneratedWhenAbsentAsync() { }
+    }
+}

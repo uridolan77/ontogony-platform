@@ -1,0 +1,33 @@
+﻿namespace Ontogony.Hashing
+{
+    public static class CanonicalJson
+    {
+        public static string Normalize(string json) { }
+        public static string Serialize<T>(T value) { }
+    }
+    public sealed class EnvelopePayloadHasher
+    {
+        public EnvelopePayloadHasher(Ontogony.Hashing.PayloadHasher payloadHasher) { }
+        public string ComputeEnvelopePayloadHash<TPayload>(Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> envelope) { }
+        public string ComputeOperationFingerprint(string operation, object payload) { }
+        public string ComputeOperationFingerprintFromJson(string operation, string json) { }
+    }
+    public interface IContentHashService
+    {
+        string ComputeBytesSha256(System.ReadOnlySpan<byte> bytes);
+        string ComputeUtf8Sha256(string content);
+    }
+    public sealed class PayloadHasher
+    {
+        public PayloadHasher(Ontogony.Hashing.IContentHashService hashService) { }
+        public string ComputeCanonicalJsonHash<T>(T payload) { }
+        public string ComputeCanonicalJsonHashFromJson(string json) { }
+        public string ComputeRawJsonHash(string json) { }
+    }
+    public sealed class Sha256ContentHashService : Ontogony.Hashing.IContentHashService
+    {
+        public Sha256ContentHashService() { }
+        public string ComputeBytesSha256(System.ReadOnlySpan<byte> bytes) { }
+        public string ComputeUtf8Sha256(string content) { }
+    }
+}

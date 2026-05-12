@@ -1,0 +1,85 @@
+﻿namespace Ontogony.Logging
+{
+    public static class LoggingApplicationBuilderExtensions
+    {
+        public static Microsoft.AspNetCore.Builder.IApplicationBuilder UseOntogonyLoggingScope(this Microsoft.AspNetCore.Builder.IApplicationBuilder app) { }
+    }
+    public static class LoggingServiceCollectionExtensions
+    {
+        public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddOntogonyLogging(this Microsoft.Extensions.DependencyInjection.IServiceCollection services, System.Action<Ontogony.Logging.OntogonyLoggingOptions>? configure = null) { }
+    }
+    public static class OntogonyAiLogFields
+    {
+        public const string ArtifactId = "artifact_id";
+        public const string Attempt = "attempt";
+        public const string CostAmount = "cost_amount";
+        public const string CostCurrency = "cost_currency";
+        public const string FallbackUsed = "fallback_used";
+        public const string IdempotencyKey = "idempotency_key";
+        public const string InputTokens = "input_tokens";
+        public const string Model = "model";
+        public const string ModelAlias = "model_alias";
+        public const string OutputTokens = "output_tokens";
+        public const string Provider = "provider";
+        public const string RequestId = "request_id";
+        public const string RouteId = "route_id";
+        public const string TotalTokens = "total_tokens";
+    }
+    public static class OntogonyLogEvents
+    {
+        public static readonly Microsoft.Extensions.Logging.EventId AiRequestCompleted;
+        public static readonly Microsoft.Extensions.Logging.EventId AiRequestFailed;
+        public static readonly Microsoft.Extensions.Logging.EventId AiRequestStarted;
+        public static readonly Microsoft.Extensions.Logging.EventId ArtifactStored;
+        public static readonly Microsoft.Extensions.Logging.EventId IdempotencyDuplicate;
+        public static readonly Microsoft.Extensions.Logging.EventId OutboundCallCompleted;
+        public static readonly Microsoft.Extensions.Logging.EventId OutboundCallFailed;
+        public static readonly Microsoft.Extensions.Logging.EventId OutboundCallStarted;
+        public static readonly Microsoft.Extensions.Logging.EventId QuotaRejected;
+        public static readonly Microsoft.Extensions.Logging.EventId RequestCompleted;
+        public static readonly Microsoft.Extensions.Logging.EventId RequestFailed;
+        public static readonly Microsoft.Extensions.Logging.EventId RequestStarted;
+        public static readonly Microsoft.Extensions.Logging.EventId SecretAccessed;
+    }
+    public static class OntogonyLogFields
+    {
+        public const string ActorId = "actor_id";
+        public const string Component = "component";
+        public const string DurationMs = "duration_ms";
+        public const string Environment = "environment";
+        public const string ErrorCode = "error_code";
+        public const string Operation = "operation";
+        public const string OperationId = "operation_id";
+        public const string Outcome = "outcome";
+        public const string ProjectId = "project_id";
+        public const string ServiceName = "service_name";
+        public const string ServiceVersion = "service_version";
+        public const string SessionId = "session_id";
+        public const string SpanId = "span_id";
+        public const string TenantId = "tenant_id";
+        public const string TraceId = "trace_id";
+        public const string WorkspaceId = "workspace_id";
+    }
+    public sealed class OntogonyLoggingOptions
+    {
+        public OntogonyLoggingOptions() { }
+        public bool EnableRequestScope { get; set; }
+        public string? Environment { get; set; }
+        public bool IncludeActorId { get; set; }
+        public bool IncludeProjectId { get; set; }
+        public bool IncludeSessionId { get; set; }
+        public bool IncludeTenantId { get; set; }
+        public bool IncludeWorkspaceId { get; set; }
+        public string? ServiceName { get; set; }
+        public string? ServiceVersion { get; set; }
+    }
+    public static class OntogonyLoggingScope
+    {
+        public static System.IDisposable BeginOntogonyScope(this Microsoft.Extensions.Logging.ILogger logger, System.Collections.Generic.IReadOnlyDictionary<string, object?>? additionalFields = null, Ontogony.Logging.OntogonyLoggingOptions? options = null, Ontogony.Redaction.IRedactor? redactor = null) { }
+    }
+    public sealed class OntogonyLoggingScopeMiddleware
+    {
+        public OntogonyLoggingScopeMiddleware(Microsoft.AspNetCore.Http.RequestDelegate next, Microsoft.Extensions.Logging.ILogger<Ontogony.Logging.OntogonyLoggingScopeMiddleware> logger, Microsoft.Extensions.Options.IOptions<Ontogony.Logging.OntogonyLoggingOptions> options) { }
+        public System.Threading.Tasks.Task InvokeAsync(Microsoft.AspNetCore.Http.HttpContext context) { }
+    }
+}

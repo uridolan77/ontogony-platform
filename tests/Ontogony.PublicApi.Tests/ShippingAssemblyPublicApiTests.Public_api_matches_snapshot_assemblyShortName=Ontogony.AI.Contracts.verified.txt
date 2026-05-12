@@ -1,0 +1,117 @@
+﻿namespace Ontogony.AI.Contracts
+{
+    public sealed class LlmCostRecord : System.IEquatable<Ontogony.AI.Contracts.LlmCostRecord>
+    {
+        public LlmCostRecord(string? Currency, decimal? EstimatedCost, decimal? ActualCost, string? PriceCatalogVersion) { }
+        public decimal? ActualCost { get; init; }
+        public string? Currency { get; init; }
+        public decimal? EstimatedCost { get; init; }
+        public string? PriceCatalogVersion { get; init; }
+    }
+    public sealed class LlmProviderError : System.IEquatable<Ontogony.AI.Contracts.LlmProviderError>
+    {
+        public LlmProviderError(string ErrorCode, string? ProviderErrorCode, string? SafeMessage, int? HttpStatusCode, bool IsRetryable) { }
+        public string ErrorCode { get; init; }
+        public int? HttpStatusCode { get; init; }
+        public bool IsRetryable { get; init; }
+        public string? ProviderErrorCode { get; init; }
+        public string? SafeMessage { get; init; }
+    }
+    [System.Runtime.CompilerServices.RequiredMember]
+    public sealed class LlmRequestEnvelope : System.IEquatable<Ontogony.AI.Contracts.LlmRequestEnvelope>
+    {
+        [System.Obsolete("Constructors of types with required members are not supported in this version of " +
+            "your compiler.", true)]
+        [System.Runtime.CompilerServices.CompilerFeatureRequired("RequiredMembers")]
+        public LlmRequestEnvelope() { }
+        public System.DateTimeOffset CreatedAt { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string Model { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string OperationName { get; init; }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string>? Parameters { get; init; }
+        public string? ProjectId { get; init; }
+        public string? PromptHash { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string Provider { get; init; }
+        public string? RawProviderRequestHash { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string RequestId { get; init; }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.AI.Contracts.ToolCallRecord>? RequestedTools { get; init; }
+        public string? TenantId { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string TraceId { get; init; }
+        public string? WorkspaceId { get; init; }
+    }
+    [System.Runtime.CompilerServices.RequiredMember]
+    public sealed class LlmResponseEnvelope : System.IEquatable<Ontogony.AI.Contracts.LlmResponseEnvelope>
+    {
+        [System.Obsolete("Constructors of types with required members are not supported in this version of " +
+            "your compiler.", true)]
+        [System.Runtime.CompilerServices.CompilerFeatureRequired("RequiredMembers")]
+        public LlmResponseEnvelope() { }
+        public System.DateTimeOffset CompletedAt { get; init; }
+        public string? CompletionHash { get; init; }
+        public Ontogony.AI.Contracts.LlmCostRecord? Cost { get; init; }
+        public Ontogony.AI.Contracts.LlmProviderError? Error { get; init; }
+        public string? FinishReason { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string Model { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string Provider { get; init; }
+        public string? RawProviderResponseHash { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string RequestId { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string ResponseId { get; init; }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.AI.Contracts.ToolCallRecord>? ToolCalls { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string TraceId { get; init; }
+        public Ontogony.AI.Contracts.LlmUsageRecord? Usage { get; init; }
+    }
+    public sealed class LlmStreamChunk : System.IEquatable<Ontogony.AI.Contracts.LlmStreamChunk>
+    {
+        public LlmStreamChunk(string ChunkId, string RequestId, string TraceId, int Sequence, string? DeltaTextHash, string? ProviderChunkHash, bool IsFinal, System.DateTimeOffset ReceivedAt) { }
+        public string ChunkId { get; init; }
+        public string? DeltaTextHash { get; init; }
+        public bool IsFinal { get; init; }
+        public string? ProviderChunkHash { get; init; }
+        public System.DateTimeOffset ReceivedAt { get; init; }
+        public string RequestId { get; init; }
+        public int Sequence { get; init; }
+        public string TraceId { get; init; }
+    }
+    public sealed class LlmUsageRecord : System.IEquatable<Ontogony.AI.Contracts.LlmUsageRecord>
+    {
+        public LlmUsageRecord(int? InputTokens, int? OutputTokens, int? TotalTokens, string? Tokenizer, string? ProviderUsageHash) { }
+        public int? InputTokens { get; init; }
+        public int? OutputTokens { get; init; }
+        public string? ProviderUsageHash { get; init; }
+        public string? Tokenizer { get; init; }
+        public int? TotalTokens { get; init; }
+        public int? ResolveTotalTokensOrSum() { }
+    }
+    public sealed class ModelCapabilityDescriptor : System.IEquatable<Ontogony.AI.Contracts.ModelCapabilityDescriptor>
+    {
+        public ModelCapabilityDescriptor(string Provider, string Model, bool SupportsStreaming, bool SupportsTools, bool SupportsJsonMode, int? MaxContextTokens, string? DescriptorVersion) { }
+        public string? DescriptorVersion { get; init; }
+        public int? MaxContextTokens { get; init; }
+        public string Model { get; init; }
+        public string Provider { get; init; }
+        public bool SupportsJsonMode { get; init; }
+        public bool SupportsStreaming { get; init; }
+        public bool SupportsTools { get; init; }
+    }
+    public sealed class ToolCallRecord : System.IEquatable<Ontogony.AI.Contracts.ToolCallRecord>
+    {
+        public ToolCallRecord(string ToolCallId, string ToolName, string? InputHash, string? OutputHash, string? Status, string? ErrorCode, System.DateTimeOffset? StartedAt, System.DateTimeOffset? CompletedAt) { }
+        public System.DateTimeOffset? CompletedAt { get; init; }
+        public string? ErrorCode { get; init; }
+        public string? InputHash { get; init; }
+        public string? OutputHash { get; init; }
+        public System.DateTimeOffset? StartedAt { get; init; }
+        public string? Status { get; init; }
+        public string ToolCallId { get; init; }
+        public string ToolName { get; init; }
+    }
+}

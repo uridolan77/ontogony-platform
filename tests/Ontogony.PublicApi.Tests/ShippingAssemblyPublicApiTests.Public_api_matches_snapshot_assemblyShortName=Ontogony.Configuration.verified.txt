@@ -1,0 +1,29 @@
+﻿namespace Ontogony.Configuration
+{
+    public static class EnvironmentGuard
+    {
+        public static bool IsDevelopmentLike(string environmentName) { }
+        public static bool IsProduction(string environmentName) { }
+        public static void ThrowIfDangerousOutsideDevelopment(string environmentName, bool isDangerous, string message) { }
+        public static void ThrowIfProductionDefaultSecret(string environmentName, string optionName, string? value, params string[] forbiddenValues) { }
+        public static void ThrowIfProductionWildcardCors(string environmentName, System.Collections.Generic.IEnumerable<string> origins) { }
+    }
+    public static class OptionsRegistrationExtensions
+    {
+        public static Microsoft.Extensions.Options.OptionsBuilder<TOptions> AddValidatedOptions<TOptions>(this Microsoft.Extensions.DependencyInjection.IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration configuration, string sectionName)
+            where TOptions :  class { }
+    }
+    public sealed class RequiredConnectionStringOptions
+    {
+        public RequiredConnectionStringOptions() { }
+        [System.ComponentModel.DataAnnotations.Required]
+        public string? ConnectionString { get; set; }
+        [System.ComponentModel.DataAnnotations.Required]
+        public string Name { get; set; }
+    }
+    public sealed class RequiredConnectionStringValidator : Microsoft.Extensions.Options.IValidateOptions<Ontogony.Configuration.RequiredConnectionStringOptions>
+    {
+        public RequiredConnectionStringValidator() { }
+        public Microsoft.Extensions.Options.ValidateOptionsResult Validate(string? name, Ontogony.Configuration.RequiredConnectionStringOptions options) { }
+    }
+}

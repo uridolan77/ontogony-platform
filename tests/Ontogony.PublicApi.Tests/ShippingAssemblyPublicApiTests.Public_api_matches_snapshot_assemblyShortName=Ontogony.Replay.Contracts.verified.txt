@@ -1,0 +1,74 @@
+﻿namespace Ontogony.Replay.Contracts
+{
+    public sealed class ReplayArtifactRef : System.IEquatable<Ontogony.Replay.Contracts.ReplayArtifactRef>
+    {
+        public ReplayArtifactRef(string ArtifactId, string? ContentHash = null, string? MediaType = null, long? SizeBytes = default) { }
+        public string ArtifactId { get; init; }
+        public string? ContentHash { get; init; }
+        public string? MediaType { get; init; }
+        public long? SizeBytes { get; init; }
+    }
+    public sealed class ReplayDeterminismHints : System.IEquatable<Ontogony.Replay.Contracts.ReplayDeterminismHints>
+    {
+        public ReplayDeterminismHints(string? Seed = null, string? Temperature = null, string? TopP = null, bool ExternalProviderMayBeNonDeterministic = true, System.Collections.Generic.IReadOnlyDictionary<string, string>? ProviderParameters = null) { }
+        public bool ExternalProviderMayBeNonDeterministic { get; init; }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string>? ProviderParameters { get; init; }
+        public string? Seed { get; init; }
+        public string? Temperature { get; init; }
+        public string? TopP { get; init; }
+    }
+    public sealed class ReplayEnvironmentSnapshot : System.IEquatable<Ontogony.Replay.Contracts.ReplayEnvironmentSnapshot>
+    {
+        public ReplayEnvironmentSnapshot(string ServiceName, string ServiceVersion, string? Environment = null, string? CommitSha = null, string? Framework = null, System.Collections.Generic.IReadOnlyDictionary<string, string>? PackageVersions = null, System.Collections.Generic.IReadOnlyDictionary<string, string>? ConfigurationFingerprints = null) { }
+        public string? CommitSha { get; init; }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string>? ConfigurationFingerprints { get; init; }
+        public string? Environment { get; init; }
+        public string? Framework { get; init; }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string>? PackageVersions { get; init; }
+        public string ServiceName { get; init; }
+        public string ServiceVersion { get; init; }
+    }
+    public sealed class ReplayInputRef : System.IEquatable<Ontogony.Replay.Contracts.ReplayInputRef>
+    {
+        public ReplayInputRef(string Name, string Kind, Ontogony.Replay.Contracts.ReplayArtifactRef? Artifact = null, string? InlineHash = null, System.Collections.Generic.IReadOnlyDictionary<string, string>? Metadata = null) { }
+        public Ontogony.Replay.Contracts.ReplayArtifactRef? Artifact { get; init; }
+        public string? InlineHash { get; init; }
+        public string Kind { get; init; }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string>? Metadata { get; init; }
+        public string Name { get; init; }
+    }
+    public sealed class ReplayManifest : System.IEquatable<Ontogony.Replay.Contracts.ReplayManifest>
+    {
+        public ReplayManifest(string ReplayId, string SourceRunId, System.DateTimeOffset CreatedAt, string? TraceId = null, Ontogony.Replay.Contracts.ReplayEnvironmentSnapshot? Environment = null, Ontogony.Replay.Contracts.ReplayDeterminismHints? Determinism = null, System.Collections.Generic.IReadOnlyList<Ontogony.Replay.Contracts.ReplayInputRef>? Inputs = null, System.Collections.Generic.IReadOnlyList<Ontogony.Replay.Contracts.ReplayOutputRef>? ExpectedOutputs = null, System.Collections.Generic.IReadOnlyList<Ontogony.Replay.Contracts.ReplayStepRecord>? Steps = null, System.Collections.Generic.IReadOnlyDictionary<string, string>? Metadata = null) { }
+        public System.DateTimeOffset CreatedAt { get; init; }
+        public Ontogony.Replay.Contracts.ReplayDeterminismHints? Determinism { get; init; }
+        public Ontogony.Replay.Contracts.ReplayEnvironmentSnapshot? Environment { get; init; }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.Replay.Contracts.ReplayOutputRef>? ExpectedOutputs { get; init; }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.Replay.Contracts.ReplayInputRef>? Inputs { get; init; }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string>? Metadata { get; init; }
+        public string ReplayId { get; init; }
+        public string SourceRunId { get; init; }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.Replay.Contracts.ReplayStepRecord>? Steps { get; init; }
+        public string? TraceId { get; init; }
+    }
+    public sealed class ReplayOutputRef : System.IEquatable<Ontogony.Replay.Contracts.ReplayOutputRef>
+    {
+        public ReplayOutputRef(string Name, string Kind, Ontogony.Replay.Contracts.ReplayArtifactRef? Artifact = null, string? InlineHash = null, System.Collections.Generic.IReadOnlyDictionary<string, string>? Metadata = null) { }
+        public Ontogony.Replay.Contracts.ReplayArtifactRef? Artifact { get; init; }
+        public string? InlineHash { get; init; }
+        public string Kind { get; init; }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string>? Metadata { get; init; }
+        public string Name { get; init; }
+    }
+    public sealed class ReplayStepRecord : System.IEquatable<Ontogony.Replay.Contracts.ReplayStepRecord>
+    {
+        public ReplayStepRecord(string StepId, string StepKind, string? ExecutionStepId = null, string? RequestId = null, System.Collections.Generic.IReadOnlyList<Ontogony.Replay.Contracts.ReplayInputRef>? Inputs = null, System.Collections.Generic.IReadOnlyList<Ontogony.Replay.Contracts.ReplayOutputRef>? Outputs = null, System.Collections.Generic.IReadOnlyDictionary<string, string>? Metadata = null) { }
+        public string? ExecutionStepId { get; init; }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.Replay.Contracts.ReplayInputRef>? Inputs { get; init; }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string>? Metadata { get; init; }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.Replay.Contracts.ReplayOutputRef>? Outputs { get; init; }
+        public string? RequestId { get; init; }
+        public string StepId { get; init; }
+        public string StepKind { get; init; }
+    }
+}

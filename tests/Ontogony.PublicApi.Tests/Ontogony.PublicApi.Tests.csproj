@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>Ontogony.PublicApi.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="PublicApiGenerator" />
+    <PackageReference Include="Verify.Xunit" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.collector">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Ontogony.AI.Contracts\Ontogony.AI.Contracts.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Artifacts\Ontogony.Artifacts.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Configuration\Ontogony.Configuration.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Contracts\Ontogony.Contracts.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Errors\Ontogony.Errors.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Execution\Ontogony.Execution.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Hashing\Ontogony.Hashing.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Hosting\Ontogony.Hosting.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Http\Ontogony.Http.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Idempotency\Ontogony.Idempotency.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Logging\Ontogony.Logging.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Messaging\Ontogony.Messaging.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Observability\Ontogony.Observability.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Persistence\Ontogony.Persistence.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Persistence.Postgres\Ontogony.Persistence.Postgres.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Primitives\Ontogony.Primitives.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.ProtocolIngress\Ontogony.ProtocolIngress.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Quotas\Ontogony.Quotas.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Redaction\Ontogony.Redaction.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Replay.Contracts\Ontogony.Replay.Contracts.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Secrets\Ontogony.Secrets.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Security\Ontogony.Security.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Testing\Ontogony.Testing.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,91 @@
+﻿namespace Ontogony.Messaging
+{
+    public sealed class EventDispatchFailure : System.IEquatable<Ontogony.Messaging.EventDispatchFailure>
+    {
+        public EventDispatchFailure(int HandlerIndex, string HandlerDescription, System.Exception Exception) { }
+        public System.Exception Exception { get; init; }
+        public string HandlerDescription { get; init; }
+        public int HandlerIndex { get; init; }
+    }
+    public sealed class EventDispatchOptions
+    {
+        public EventDispatchOptions() { }
+        public bool ComputePayloadHash { get; set; }
+        public bool ContinueOnHandlerException { get; set; }
+        public Ontogony.Messaging.EventPublisherOperationMode OperationMode { get; set; }
+        public bool RecordObservabilityMetrics { get; set; }
+        public bool ValidateRequiredEnvelopeFields { get; set; }
+    }
+    public sealed class EventHandlerDispatchResult : System.IEquatable<Ontogony.Messaging.EventHandlerDispatchResult>
+    {
+        public EventHandlerDispatchResult(int HandlerIndex, string HandlerDescription, bool Succeeded, double DurationMs, string? ErrorMessage) { }
+        public double DurationMs { get; init; }
+        public string? ErrorMessage { get; init; }
+        public string HandlerDescription { get; init; }
+        public int HandlerIndex { get; init; }
+        public bool Succeeded { get; init; }
+    }
+    public sealed class EventPublishResult : System.IEquatable<Ontogony.Messaging.EventPublishResult>
+    {
+        public EventPublishResult(Ontogony.Messaging.EventPublisherOperationMode Mode, bool CapturedInSink, System.Collections.Generic.IReadOnlyList<Ontogony.Messaging.EventHandlerDispatchResult> HandlerResults, System.Collections.Generic.IReadOnlyList<Ontogony.Messaging.EventDispatchFailure> Failures) { }
+        public bool CapturedInSink { get; init; }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.Messaging.EventDispatchFailure> Failures { get; init; }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.Messaging.EventHandlerDispatchResult> HandlerResults { get; init; }
+        public Ontogony.Messaging.EventPublisherOperationMode Mode { get; init; }
+    }
+    public enum EventPublisherOperationMode
+    {
+        PublishAndDispatch = 0,
+        PublishOnly = 1,
+        CaptureOnly = 2,
+    }
+    public interface IEventHandler<TPayload>
+    {
+        System.Threading.Tasks.Task HandleAsync(Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> envelope, System.Threading.CancellationToken cancellationToken = default);
+    }
+    public interface IEventPublisher
+    {
+        System.Threading.Tasks.Task PublishAsync<TPayload>(Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> envelope, System.Threading.CancellationToken cancellationToken = default);
+    }
+    public interface IEventPublisherWithResult
+    {
+        System.Threading.Tasks.Task<Ontogony.Messaging.EventPublishResult> PublishWithResultAsync<TPayload>(Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> envelope, System.Threading.CancellationToken cancellationToken = default);
+    }
+    public interface IEventSerializer
+    {
+        Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> Deserialize<TPayload>(string json);
+        string Serialize<TPayload>(Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> envelope);
+    }
+    public sealed class InMemoryEventBus : Ontogony.Messaging.IEventPublisher
+    {
+        public InMemoryEventBus() { }
+        public InMemoryEventBus(Ontogony.Messaging.InMemoryEventPublisher publisher) { }
+        public Ontogony.Messaging.InMemoryEventSink Sink { get; }
+        public System.Threading.Tasks.Task PublishAsync<TPayload>(Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> envelope, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<Ontogony.Messaging.EventPublishResult> PublishWithResultAsync<TPayload>(Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> envelope, System.Threading.CancellationToken cancellationToken = default) { }
+        public void Register<TPayload>(Ontogony.Messaging.IEventHandler<TPayload> handler) { }
+    }
+    public sealed class InMemoryEventPublisher : Ontogony.Messaging.IEventPublisher, Ontogony.Messaging.IEventPublisherWithResult
+    {
+        public InMemoryEventPublisher(Ontogony.Messaging.InMemoryEventSink? sink = null, Ontogony.Messaging.EventDispatchOptions? options = null, Ontogony.Hashing.EnvelopePayloadHasher? envelopePayloadHasher = null) { }
+        public Ontogony.Messaging.InMemoryEventSink Sink { get; }
+        public System.Threading.Tasks.Task PublishAsync<TPayload>(Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> envelope, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<Ontogony.Messaging.EventPublishResult> PublishWithResultAsync<TPayload>(Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> envelope, System.Threading.CancellationToken cancellationToken = default) { }
+        public void Register<TPayload>(Ontogony.Messaging.IEventHandler<TPayload> handler) { }
+    }
+    public sealed class InMemoryEventSink
+    {
+        public InMemoryEventSink() { }
+        public int Count { get; }
+        public void Append<TPayload>(Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> envelope) { }
+        public void Clear() { }
+        public System.Collections.Generic.IReadOnlyList<object> ReadAll() { }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.Contracts.Events.OntogonyEnvelope<TPayload>> ReadAll<TPayload>() { }
+    }
+    public sealed class JsonEventSerializer : Ontogony.Messaging.IEventSerializer
+    {
+        public JsonEventSerializer(System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null) { }
+        public Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> Deserialize<TPayload>(string json) { }
+        public string Serialize<TPayload>(Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> envelope) { }
+    }
+}

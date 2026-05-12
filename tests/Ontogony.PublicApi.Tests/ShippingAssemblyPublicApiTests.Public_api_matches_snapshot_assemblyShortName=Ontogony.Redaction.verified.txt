@@ -1,0 +1,68 @@
+﻿namespace Ontogony.Redaction
+{
+    public sealed class DefaultRedactor : Ontogony.Redaction.IRedactor
+    {
+        public DefaultRedactor(Microsoft.Extensions.Options.IOptions<Ontogony.Redaction.RedactionOptions> options) { }
+        public Ontogony.Redaction.RedactionResult RedactField(string fieldName, object? value) { }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object?> RedactFields(System.Collections.Generic.IReadOnlyDictionary<string, object?> fields) { }
+        public Ontogony.Redaction.RedactionResult RedactString(string? value, Ontogony.Redaction.RedactionClassification classification = 1) { }
+    }
+    public interface IRedactor
+    {
+        Ontogony.Redaction.RedactionResult RedactField(string fieldName, object? value);
+        System.Collections.Generic.IReadOnlyDictionary<string, object?> RedactFields(System.Collections.Generic.IReadOnlyDictionary<string, object?> fields);
+        Ontogony.Redaction.RedactionResult RedactString(string? value, Ontogony.Redaction.RedactionClassification classification = 1);
+    }
+    public static class KnownSensitiveFields
+    {
+        public static readonly string[] Defaults;
+        public static System.Collections.Generic.IEnumerable<Ontogony.Redaction.RedactionRule> CreateDefaultRules() { }
+    }
+    public enum RedactionClassification
+    {
+        None = 0,
+        Secret = 1,
+        Credential = 2,
+        Token = 3,
+        PersonalData = 4,
+        Prompt = 5,
+        Response = 6,
+        Internal = 7,
+    }
+    public sealed class RedactionOptions
+    {
+        public RedactionOptions() { }
+        public bool IncludeDefaultRules { get; set; }
+        public string Replacement { get; set; }
+        public int RevealPrefixCharacters { get; set; }
+        public int RevealSuffixCharacters { get; set; }
+        public System.Collections.Generic.List<Ontogony.Redaction.RedactionRule> Rules { get; }
+    }
+    public sealed class RedactionResult : System.IEquatable<Ontogony.Redaction.RedactionResult>
+    {
+        public RedactionResult(string? Value, bool WasRedacted, Ontogony.Redaction.RedactionClassification Classification, string? RuleName = null) { }
+        public Ontogony.Redaction.RedactionClassification Classification { get; init; }
+        public string? RuleName { get; init; }
+        public string? Value { get; init; }
+        public bool WasRedacted { get; init; }
+    }
+    public sealed class RedactionRule : System.IEquatable<Ontogony.Redaction.RedactionRule>
+    {
+        public RedactionRule(string Name, Ontogony.Redaction.RedactionRuleMatchKind MatchKind, string Pattern, Ontogony.Redaction.RedactionClassification Classification = 1) { }
+        public Ontogony.Redaction.RedactionClassification Classification { get; init; }
+        public Ontogony.Redaction.RedactionRuleMatchKind MatchKind { get; init; }
+        public string Name { get; init; }
+        public string Pattern { get; init; }
+        public bool MatchesField(string fieldName) { }
+    }
+    public enum RedactionRuleMatchKind
+    {
+        ExactFieldName = 0,
+        ContainsFieldName = 1,
+        EndsWithFieldName = 2,
+    }
+    public static class RedactionServiceCollectionExtensions
+    {
+        public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddOntogonyRedaction(this Microsoft.Extensions.DependencyInjection.IServiceCollection services, System.Action<Ontogony.Redaction.RedactionOptions>? configure = null) { }
+    }
+}

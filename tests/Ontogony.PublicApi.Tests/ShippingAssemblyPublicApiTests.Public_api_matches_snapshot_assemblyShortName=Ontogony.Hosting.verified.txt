@@ -1,0 +1,24 @@
+﻿namespace Ontogony.Hosting
+{
+    public static class OntogonyHostingExtensions
+    {
+        public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddOntogonyServiceDefaults(this Microsoft.Extensions.DependencyInjection.IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration configuration, System.Action<Ontogony.Hosting.OntogonyServiceDefaultsOptions>? configure = null) { }
+        public static Microsoft.AspNetCore.Routing.IEndpointRouteBuilder MapOntogonyHealthEndpoints(this Microsoft.AspNetCore.Routing.IEndpointRouteBuilder endpoints) { }
+        public static Microsoft.AspNetCore.Builder.IApplicationBuilder UseOntogonyServiceDefaults(this Microsoft.AspNetCore.Builder.IApplicationBuilder app) { }
+    }
+    public sealed class OntogonyServiceDefaultsOptions
+    {
+        public const string SectionName = "Ontogony:Hosting:ServiceDefaults";
+        public OntogonyServiceDefaultsOptions() { }
+        public bool AddErrors { get; set; }
+        public bool AddObservability { get; set; }
+        public string HealthPath { get; set; }
+        public bool MapHealthEndpoints { get; set; }
+        public string ReadinessPath { get; set; }
+        public string ServiceName { get; set; }
+        public string ServiceVersion { get; set; }
+        public bool UseExceptionHandling { get; set; }
+        public bool UseRequestTracing { get; set; }
+        public bool UseServiceIdentityBodyHashPreload { get; set; }
+    }
+}

@@ -1,0 +1,23 @@
+﻿namespace Ontogony.Primitives
+{
+    public sealed class GuidIdGenerator : Ontogony.Primitives.IIdGenerator
+    {
+        public GuidIdGenerator() { }
+        public System.Guid NewGuid() { }
+        public string NewId(string prefix) { }
+    }
+    public interface IClock
+    {
+        System.DateTimeOffset UtcNow { get; }
+    }
+    public interface IIdGenerator
+    {
+        System.Guid NewGuid();
+        string NewId(string prefix);
+    }
+    public sealed class SystemClock : Ontogony.Primitives.IClock
+    {
+        public SystemClock() { }
+        public System.DateTimeOffset UtcNow { get; }
+    }
+}

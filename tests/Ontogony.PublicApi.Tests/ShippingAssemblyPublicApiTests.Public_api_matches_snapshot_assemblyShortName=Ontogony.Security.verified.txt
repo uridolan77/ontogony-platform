@@ -1,0 +1,239 @@
+﻿namespace Ontogony.Security
+{
+    public sealed class ClaimsCurrentActorAccessor : Ontogony.Security.ICurrentActorAccessor
+    {
+        public ClaimsCurrentActorAccessor(Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextAccessor, Ontogony.Security.ClaimsCurrentActorAccessorOptions? options = null) { }
+        public Ontogony.Security.CurrentActor? Current { get; }
+    }
+    public sealed class ClaimsCurrentActorAccessorOptions
+    {
+        public ClaimsCurrentActorAccessorOptions() { }
+        public string[] ActorIdClaimPriority { get; set; }
+        public string ActorTypeClaimType { get; set; }
+        public string ProjectIdClaimType { get; set; }
+        public string RoleClaimType { get; set; }
+        public bool StrictRoleValidation { get; set; }
+        public string TenantIdClaimType { get; set; }
+        public string WorkspaceIdClaimType { get; set; }
+    }
+    public sealed class CurrentActor : System.IEquatable<Ontogony.Security.CurrentActor>
+    {
+        public CurrentActor(string ActorId, string ActorType, string[] Roles, string? TenantId = null, string? WorkspaceId = null, string? ProjectId = null, string? Email = null) { }
+        public string ActorId { get; init; }
+        public string ActorType { get; init; }
+        public string? Email { get; init; }
+        public string? ProjectId { get; init; }
+        public string[] Roles { get; init; }
+        public string? TenantId { get; init; }
+        public string? WorkspaceId { get; init; }
+    }
+    public sealed class DictionaryServiceSecretResolver : Ontogony.Security.IServiceSecretResolver
+    {
+        public DictionaryServiceSecretResolver(System.Collections.Generic.IReadOnlyDictionary<string, string> secrets) { }
+        public string? ResolveSecret(string serviceId) { }
+    }
+    public sealed class HeaderCurrentActorAccessor : Ontogony.Security.ICurrentActorAccessor
+    {
+        public HeaderCurrentActorAccessor(Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextAccessor) { }
+        public Ontogony.Security.CurrentActor? Current { get; }
+    }
+    public static class HttpRequestBodyAnalysis
+    {
+        public static bool IsDefinitelyEmptyBody(Microsoft.AspNetCore.Http.HttpRequest request) { }
+        public static bool MayHavePayloadBody(Microsoft.AspNetCore.Http.HttpRequest request) { }
+    }
+    public interface ICurrentActorAccessor
+    {
+        Ontogony.Security.CurrentActor? Current { get; }
+    }
+    public interface INonceReplayStore
+    {
+        bool TryReserveNonce(string serviceId, string nonce, System.DateTimeOffset requestUtc);
+    }
+    public interface IRequestBodyHashProvider
+    {
+        Ontogony.Security.RequestBodyHashResult TryComputeSha256HexLower(Microsoft.AspNetCore.Http.HttpRequest request);
+    }
+    public interface IServiceSecretResolver
+    {
+        string? ResolveSecret(string serviceId);
+    }
+    public interface IServiceSigningSecretResolver
+    {
+        Ontogony.Security.ServiceSigningSecretSet ResolveSecrets(string serviceId, string? keyId);
+    }
+    public sealed class InMemoryNonceReplayStore : Ontogony.Security.INonceReplayStore
+    {
+        public InMemoryNonceReplayStore(Ontogony.Security.InMemoryNonceReplayStoreOptions? options = null, System.Func<System.DateTimeOffset>? utcNow = null) { }
+        public void Clear() { }
+        public bool TryReserveNonce(string serviceId, string nonce, System.DateTimeOffset requestUtc) { }
+    }
+    public sealed class InMemoryNonceReplayStoreOptions
+    {
+        public InMemoryNonceReplayStoreOptions() { }
+        public int MaxStoredNonces { get; set; }
+        public System.TimeSpan NonceRetention { get; set; }
+    }
+    public static class OntogonyActorTypes
+    {
+        public const string Agent = "agent";
+        public const string Human = "human";
+        public const string Service = "service";
+    }
+    public enum OntogonyAuthenticationMode
+    {
+        Disabled = 0,
+        Header = 1,
+        Jwt = 2,
+    }
+    public sealed class OntogonyAuthenticationOptions
+    {
+        public const string SectionName = "Ontogony:Security:Authentication";
+        public OntogonyAuthenticationOptions() { }
+        public bool AllowDisabledOutsideDevelopment { get; set; }
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings=false)]
+        public string HeaderActorIdHeaderName { get; set; }
+        public bool JwtAcceptUnvalidatedBearerTokens { get; set; }
+        public System.Collections.Generic.List<string> JwtActorIdClaimTypes { get; set; }
+        public bool JwtAllowUnvalidatedTokensOutsideDevelopment { get; set; }
+        public string? JwtAudience { get; set; }
+        public string? JwtAuthority { get; set; }
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings=false)]
+        public string JwtRoleClaimType { get; set; }
+        public Ontogony.Security.OntogonyAuthenticationMode Mode { get; set; }
+        public void Validate(string? environment = null) { }
+    }
+    public sealed class OntogonyAuthenticationOptionsValidator : Microsoft.Extensions.Options.IValidateOptions<Ontogony.Security.OntogonyAuthenticationOptions>
+    {
+        public OntogonyAuthenticationOptionsValidator(Microsoft.Extensions.Hosting.IHostEnvironment hostEnvironment) { }
+        public Microsoft.Extensions.Options.ValidateOptionsResult Validate(string? name, Ontogony.Security.OntogonyAuthenticationOptions options) { }
+    }
+    public static class OntogonyRoleNames
+    {
+        public const string Admin = "admin";
+        public const string Agent = "agent";
+        public const string HumanOperator = "human-operator";
+        public const string Service = "service";
+        public static readonly string[] AllRoles;
+        public static bool AreAllValid(params string[] roles) { }
+    }
+    public static class OntogonySecurityApplicationBuilderExtensions
+    {
+        public static Microsoft.AspNetCore.Builder.IApplicationBuilder UseOntogonyServiceIdentityBodyHashPreload(this Microsoft.AspNetCore.Builder.IApplicationBuilder app) { }
+    }
+    public static class OntogonySecurityHeaders
+    {
+        public const string ActorId = "X-Ontogony-Actor-Id";
+        public const string ActorType = "X-Ontogony-Actor-Type";
+        public const string Authorization = "Authorization";
+        public const string BearerPrefix = "Bearer ";
+        public const string Roles = "X-Ontogony-Roles";
+        public static string? ExtractBearerToken(string authorizationHeader) { }
+    }
+    public static class OntogonyServiceIdentityHeaders
+    {
+        public const string BodyHash = "X-Ontogony-Service-Body-Hash";
+        public const string KeyId = "X-Ontogony-Service-Key-Id";
+        public const string Nonce = "X-Ontogony-Service-Nonce";
+        public const string ServiceId = "X-Ontogony-Service-Id";
+        public const string Signature = "X-Ontogony-Service-Signature";
+        public const string Timestamp = "X-Ontogony-Service-Timestamp";
+    }
+    public sealed class OntogonyServiceIdentitySigningHandler : System.Net.Http.DelegatingHandler
+    {
+        public OntogonyServiceIdentitySigningHandler(string serviceId, string secret, string? keyId = null, System.Func<System.DateTimeOffset>? utcNow = null, System.Func<string>? nonceFactory = null) { }
+        protected override System.Threading.Tasks.Task<System.Net.Http.HttpResponseMessage> SendAsync(System.Net.Http.HttpRequestMessage request, System.Threading.CancellationToken cancellationToken) { }
+    }
+    public sealed class OptionsServiceSigningSecretResolver : Ontogony.Security.IServiceSigningSecretResolver
+    {
+        public const string LegacyCurrentKeyId = "legacy-current";
+        public OptionsServiceSigningSecretResolver(Ontogony.Security.ServiceIdentityOptions options, Ontogony.Security.IServiceSecretResolver? legacySecretResolver = null) { }
+        public Ontogony.Security.ServiceSigningSecretSet ResolveSecrets(string serviceId, string? keyId) { }
+    }
+    public readonly struct RequestBodyHashResult : System.IEquatable<Ontogony.Security.RequestBodyHashResult>
+    {
+        public RequestBodyHashResult(bool TooLarge, string? HexLower) { }
+        public bool Succeeded { get; }
+        public string? HexLower { get; init; }
+        public bool TooLarge { get; init; }
+    }
+    public static class ServiceCollectionExtensions
+    {
+        public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddOntogonyAuthenticationGuards(this Microsoft.Extensions.DependencyInjection.IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration configuration, string sectionName = "Ontogony:Security:Authentication") { }
+        public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddOntogonyClaimsActorContext(this Microsoft.Extensions.DependencyInjection.IServiceCollection services, System.Action<Ontogony.Security.ClaimsCurrentActorAccessorOptions>? configure = null) { }
+        public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddOntogonyHeaderActorContext(this Microsoft.Extensions.DependencyInjection.IServiceCollection services) { }
+        public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddOntogonyServiceIdentityActorContext(this Microsoft.Extensions.DependencyInjection.IServiceCollection services, System.Action<Ontogony.Security.ServiceIdentityOptions>? configure = null) { }
+    }
+    public static class ServiceIdentityBodyHashContext
+    {
+        public static readonly object HttpContextItemKey;
+        public sealed class Precomputed : System.IEquatable<Ontogony.Security.ServiceIdentityBodyHashContext.Precomputed>
+        {
+            public Precomputed(bool TooLarge, string? HexLower) { }
+            public string? HexLower { get; init; }
+            public bool TooLarge { get; init; }
+        }
+    }
+    public sealed class ServiceIdentityBodyHashPreloadMiddleware
+    {
+        public ServiceIdentityBodyHashPreloadMiddleware(Microsoft.AspNetCore.Http.RequestDelegate next, Microsoft.Extensions.Options.IOptions<Ontogony.Security.ServiceIdentityOptions> options, Microsoft.Extensions.Logging.ILogger<Ontogony.Security.ServiceIdentityBodyHashPreloadMiddleware>? logger = null) { }
+        public System.Threading.Tasks.Task InvokeAsync(Microsoft.AspNetCore.Http.HttpContext context) { }
+    }
+    public sealed class ServiceIdentityCurrentActorAccessor : Ontogony.Security.ICurrentActorAccessor
+    {
+        public ServiceIdentityCurrentActorAccessor(Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextAccessor, Ontogony.Security.ServiceIdentityOptions? options = null, Ontogony.Security.IServiceSecretResolver? secretResolver = null, Ontogony.Security.INonceReplayStore? nonceReplayStore = null, Ontogony.Security.IRequestBodyHashProvider? bodyHashProvider = null, Ontogony.Primitives.IClock? clock = null, Ontogony.Security.IServiceSigningSecretResolver? signingSecretResolver = null) { }
+        public Ontogony.Security.CurrentActor? Current { get; }
+    }
+    public static class ServiceIdentityHmacSignatureHelper
+    {
+        public static string BuildCanonical(string httpMethod, string pathAndQuery, string timestamp, string nonce, string bodySha256HexLower) { }
+        public static string ComputeBodyHashHexLower(System.ReadOnlySpan<byte> body) { }
+        public static byte[] ComputeHmacUtf8(string secret, string canonical) { }
+        public static string ComputeSignatureBase64(string secret, string httpMethod, string pathAndQuery, string timestamp, string nonce, string bodySha256HexLower) { }
+    }
+    public sealed class ServiceIdentityOptions
+    {
+        public ServiceIdentityOptions() { }
+        public bool AllowUnsignedEmptyBody { get; set; }
+        public bool EnableBodyHashPreloadOrderDiagnostics { get; set; }
+        public int MaxSignedBodyBytes { get; set; }
+        public System.TimeSpan MaxTimestampSkew { get; set; }
+        public bool RequireHmacSignature { get; set; }
+        public bool RequireKeyIdForHmacSignature { get; set; }
+        public bool RequireNonce { get; set; }
+        public bool RequirePreloadedBodyHashForHmacBodies { get; set; }
+        public bool RequireSignatureVerification { get; set; }
+        public string ServiceBodyHashHeaderName { get; set; }
+        public string ServiceIdHeaderName { get; set; }
+        public string ServiceKeyIdHeaderName { get; set; }
+        public string ServiceNonceHeaderName { get; set; }
+        public System.Collections.Generic.Dictionary<string, string> ServiceSecrets { get; set; }
+        public System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<Ontogony.Security.ServiceSigningSecret>> ServiceSigningSecrets { get; set; }
+        public string ServiceTimestampHeaderName { get; set; }
+        public string SignatureHeaderName { get; set; }
+        public bool ThrowOnBodyHashPreloadOrderViolation { get; set; }
+        public string? GetExpectedSignature(string serviceId) { }
+    }
+    public sealed class ServiceSigningSecret : System.IEquatable<Ontogony.Security.ServiceSigningSecret>
+    {
+        public ServiceSigningSecret(string KeyId, string Secret, bool IsCurrent) { }
+        public bool IsCurrent { get; init; }
+        public string KeyId { get; init; }
+        public string Secret { get; init; }
+    }
+    public sealed class ServiceSigningSecretSet : System.IEquatable<Ontogony.Security.ServiceSigningSecretSet>
+    {
+        public ServiceSigningSecretSet(string ServiceId, string? RequestedKeyId, Ontogony.Security.ServiceSigningSecret? SelectedSecret, System.Collections.Generic.IReadOnlyList<Ontogony.Security.ServiceSigningSecret> Secrets) { }
+        public string? RequestedKeyId { get; init; }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.Security.ServiceSigningSecret> Secrets { get; init; }
+        public Ontogony.Security.ServiceSigningSecret? SelectedSecret { get; init; }
+        public string ServiceId { get; init; }
+        public static Ontogony.Security.ServiceSigningSecretSet Empty(string serviceId, string? requestedKeyId) { }
+    }
+    public sealed class Sha256RequestBodyHashProvider : Ontogony.Security.IRequestBodyHashProvider
+    {
+        public Sha256RequestBodyHashProvider(Microsoft.Extensions.Options.IOptions<Ontogony.Security.ServiceIdentityOptions> options) { }
+        public Sha256RequestBodyHashProvider(Ontogony.Security.ServiceIdentityOptions options) { }
+        public Ontogony.Security.RequestBodyHashResult TryComputeSha256HexLower(Microsoft.AspNetCore.Http.HttpRequest request) { }
+    }
+}

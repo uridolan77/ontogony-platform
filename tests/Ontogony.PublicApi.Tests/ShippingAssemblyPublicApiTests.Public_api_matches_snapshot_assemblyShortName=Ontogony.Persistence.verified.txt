@@ -1,0 +1,139 @@
+﻿namespace Ontogony.Persistence
+{
+    public sealed class DeadLetterMessage : System.IEquatable<Ontogony.Persistence.DeadLetterMessage>
+    {
+        public DeadLetterMessage(string MessageId, string EventId, string EventType, string Source, string TraceId, System.DateTimeOffset OccurredAt, System.DateTimeOffset DeadLetteredAtUtc, int FinalAttemptCount, string Reason, string PayloadJson, string PayloadHash, string MetadataJson) { }
+        public System.DateTimeOffset DeadLetteredAtUtc { get; init; }
+        public string EventId { get; init; }
+        public string EventType { get; init; }
+        public int FinalAttemptCount { get; init; }
+        public string MessageId { get; init; }
+        public string MetadataJson { get; init; }
+        public System.DateTimeOffset OccurredAt { get; init; }
+        public string PayloadHash { get; init; }
+        public string PayloadJson { get; init; }
+        public string Reason { get; init; }
+        public string Source { get; init; }
+        public string TraceId { get; init; }
+    }
+    [System.Obsolete("Use Ontogony.Primitives.GuidIdGenerator instead.")]
+    public sealed class GuidIdGenerator : Ontogony.Persistence.IIdGenerator
+    {
+        public GuidIdGenerator() { }
+        public System.Guid NewGuid() { }
+        public string NewId(string prefix) { }
+    }
+    [System.Obsolete("Use Ontogony.Primitives.IClock instead.")]
+    public interface IClock
+    {
+        System.DateTimeOffset UtcNow { get; }
+    }
+    public interface IDeadLetterWriter
+    {
+        System.Threading.Tasks.Task WriteAsync(Ontogony.Persistence.DeadLetterMessage deadLetter, System.Threading.CancellationToken cancellationToken = default);
+    }
+    [System.Obsolete("Use Ontogony.Primitives.IIdGenerator instead.")]
+    public interface IIdGenerator
+    {
+        System.Guid NewGuid();
+        string NewId(string prefix);
+    }
+    public interface IOutboxDispatcher
+    {
+        System.Threading.Tasks.Task MarkDispatchedAsync(string messageId, System.DateTimeOffset dispatchedAtUtc, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task MarkFailedAsync(string messageId, string lastError, System.DateTimeOffset nextAvailableAtUtc, System.Threading.CancellationToken cancellationToken = default);
+    }
+    public interface IOutboxReader
+    {
+        System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<Ontogony.Persistence.OutboxMessage>> ReadAvailableAsync(System.DateTimeOffset asOfUtc, int maxBatchSize, System.Threading.CancellationToken cancellationToken = default);
+    }
+    public interface IOutboxWriter
+    {
+        System.Threading.Tasks.Task WriteAsync(Ontogony.Persistence.OutboxMessage message, System.Threading.CancellationToken cancellationToken = default);
+    }
+    public interface IProcessedMessageStore
+    {
+        System.Threading.Tasks.Task<bool> HasProcessedAsync(string consumerName, string messageId, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task MarkProcessedAsync(Ontogony.Persistence.ProcessedMessage message, System.Threading.CancellationToken cancellationToken = default);
+    }
+    public interface IUnitOfWorkBoundary
+    {
+        System.Threading.Tasks.Task ExecuteAsync(System.Func<System.Threading.CancellationToken, System.Threading.Tasks.Task> operation, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<TResult> ExecuteAsync<TResult>(System.Func<System.Threading.CancellationToken, System.Threading.Tasks.Task<TResult>> operation, System.Threading.CancellationToken cancellationToken = default);
+    }
+    public sealed class InMemoryDeadLetterWriter : Ontogony.Persistence.IDeadLetterWriter
+    {
+        public InMemoryDeadLetterWriter() { }
+        public int Count { get; }
+        public void Clear() { }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.Persistence.DeadLetterMessage> ReadAll() { }
+        public System.Threading.Tasks.Task WriteAsync(Ontogony.Persistence.DeadLetterMessage deadLetter, System.Threading.CancellationToken cancellationToken = default) { }
+    }
+    public sealed class InMemoryOutboxStore : Ontogony.Persistence.IOutboxDispatcher, Ontogony.Persistence.IOutboxReader, Ontogony.Persistence.IOutboxWriter, Ontogony.Persistence.IProcessedMessageStore
+    {
+        public InMemoryOutboxStore(Ontogony.Persistence.InMemoryOutboxStoreOptions? options = null, Ontogony.Persistence.IDeadLetterWriter? deadLetterWriter = null, Ontogony.Primitives.IClock? clock = null) { }
+        public int OutboxRowCount { get; }
+        public System.Threading.Tasks.Task<bool> HasProcessedAsync(string consumerName, string messageId, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task MarkDispatchedAsync(string messageId, System.DateTimeOffset dispatchedAtUtc, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task MarkFailedAsync(string messageId, string lastError, System.DateTimeOffset nextAvailableAtUtc, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task MarkProcessedAsync(Ontogony.Persistence.ProcessedMessage message, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<Ontogony.Persistence.OutboxMessage>> ReadAvailableAsync(System.DateTimeOffset asOfUtc, int maxBatchSize, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task WriteAsync(Ontogony.Persistence.OutboxMessage message, System.Threading.CancellationToken cancellationToken = default) { }
+    }
+    public sealed class InMemoryOutboxStoreOptions
+    {
+        public InMemoryOutboxStoreOptions() { }
+        public int? MoveToDeadLetterAfterAttempts { get; set; }
+    }
+    public static class OutboxContracts
+    {
+        public static string BuildProcessedMessageKey(string consumerName, string messageId) { }
+        public static System.DateTimeOffset CalculateNextAvailableAt(System.DateTimeOffset nowUtc, int attemptCount, System.TimeSpan? baseDelay = default, System.TimeSpan? maxDelay = default) { }
+        public static string SerializeMetadata(System.Collections.Generic.IReadOnlyDictionary<string, string>? metadata) { }
+        public static void Validate(Ontogony.Persistence.OutboxMessage message) { }
+    }
+    public sealed class OutboxDispatchResult : System.IEquatable<Ontogony.Persistence.OutboxDispatchResult>
+    {
+        public OutboxDispatchResult(string MessageId, bool Dispatched, int AttemptCount, System.DateTimeOffset NextAvailableAt, string? LastError = null) { }
+        public int AttemptCount { get; init; }
+        public bool Dispatched { get; init; }
+        public string? LastError { get; init; }
+        public string MessageId { get; init; }
+        public System.DateTimeOffset NextAvailableAt { get; init; }
+    }
+    public sealed class OutboxMessage : System.IEquatable<Ontogony.Persistence.OutboxMessage>
+    {
+        public OutboxMessage(string MessageId, string EventId, string EventType, string Source, string TraceId, System.DateTimeOffset OccurredAt, System.DateTimeOffset AvailableAt, int AttemptCount, string? LastError, string PayloadJson, string PayloadHash, string MetadataJson) { }
+        public int AttemptCount { get; init; }
+        public System.DateTimeOffset AvailableAt { get; init; }
+        public string EventId { get; init; }
+        public string EventType { get; init; }
+        public string? LastError { get; init; }
+        public string MessageId { get; init; }
+        public string MetadataJson { get; init; }
+        public System.DateTimeOffset OccurredAt { get; init; }
+        public string PayloadHash { get; init; }
+        public string PayloadJson { get; init; }
+        public string Source { get; init; }
+        public string TraceId { get; init; }
+    }
+    public static class PersistenceServiceCollectionExtensions
+    {
+        public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddOntogonyInMemoryOutboxStore(this Microsoft.Extensions.DependencyInjection.IServiceCollection services, System.Action<Ontogony.Persistence.InMemoryOutboxStoreOptions>? configure = null) { }
+        public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddOntogonyPersistencePrimitives(this Microsoft.Extensions.DependencyInjection.IServiceCollection services) { }
+    }
+    public sealed class ProcessedMessage : System.IEquatable<Ontogony.Persistence.ProcessedMessage>
+    {
+        public ProcessedMessage(string ConsumerName, string MessageId, System.DateTimeOffset ProcessedAt, string? TraceId = null) { }
+        public string ConsumerName { get; init; }
+        public string MessageId { get; init; }
+        public System.DateTimeOffset ProcessedAt { get; init; }
+        public string? TraceId { get; init; }
+    }
+    [System.Obsolete("Use Ontogony.Primitives.SystemClock instead.")]
+    public sealed class SystemClock : Ontogony.Persistence.IClock
+    {
+        public SystemClock() { }
+        public System.DateTimeOffset UtcNow { get; }
+    }
+}

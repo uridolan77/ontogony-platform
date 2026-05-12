@@ -1,0 +1,98 @@
+﻿namespace Ontogony.Observability
+{
+    public sealed class CorrelationState : System.IEquatable<Ontogony.Observability.CorrelationState>
+    {
+        public CorrelationState(string TraceId, string OperationId, string? TenantId = null, string? WorkspaceId = null, string? ProjectId = null, string? ActorId = null, string? SessionId = null, string? TraceParent = null, string? TraceState = null) { }
+        public string? ActorId { get; init; }
+        public string OperationId { get; init; }
+        public string? ProjectId { get; init; }
+        public string? SessionId { get; init; }
+        public string? TenantId { get; init; }
+        public string TraceId { get; init; }
+        public string? TraceParent { get; init; }
+        public string? TraceState { get; init; }
+        public string? WorkspaceId { get; init; }
+    }
+    public static class OntogonyCorrelationContext
+    {
+        public static Ontogony.Observability.CorrelationState? Current { get; }
+        public static string? TraceId { get; }
+        public static Ontogony.Observability.CorrelationState CurrentOrCreate() { }
+        public static Ontogony.Observability.CorrelationState? FromEnvelope<TPayload>(Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> envelope) { }
+        public static Ontogony.Observability.CorrelationState? FromHeaders(System.Collections.Generic.IReadOnlyDictionary<string, string?> headers) { }
+        public static Ontogony.Observability.CorrelationState? FromHeaders(System.Collections.Generic.IReadOnlyDictionary<string, string?> headers, string canonicalTraceHeaderName, System.Collections.Generic.IReadOnlyList<string>? acceptedIncomingTraceHeaders) { }
+        public static System.IDisposable Push(Ontogony.Observability.CorrelationState state) { }
+        public static System.IDisposable Push(string traceId, string? operationId = null) { }
+        public static System.Collections.Generic.IReadOnlyDictionary<string, string> ToMetadata(Ontogony.Observability.CorrelationState? state = null) { }
+    }
+    public static class OntogonyDiagnostics
+    {
+        public const string DefaultActivitySourceName = "Ontogony.Platform";
+        public static readonly System.Diagnostics.ActivitySource ActivitySource;
+        public static readonly System.Diagnostics.Metrics.Counter<long> EventDispatchCount;
+        public static readonly System.Diagnostics.Metrics.Counter<long> EventDispatchFailureCount;
+        public static readonly System.Diagnostics.Metrics.Histogram<double> EventHandlerDurationMs;
+        public static readonly System.Diagnostics.Metrics.Counter<long> EventPublishCount;
+        public static readonly System.Diagnostics.Metrics.Histogram<double> HttpServerDurationMs;
+        public static readonly System.Diagnostics.Metrics.Counter<long> HttpServerErrorCount;
+        public static readonly System.Diagnostics.Metrics.Counter<long> HttpServerRequestCount;
+        public static readonly System.Diagnostics.Metrics.Counter<long> IntegrationCallCount;
+        public static readonly System.Diagnostics.Metrics.Histogram<double> IntegrationDurationMs;
+        public static readonly System.Diagnostics.Metrics.Counter<long> IntegrationErrorCount;
+        public static readonly System.Diagnostics.Metrics.Meter Meter;
+    }
+    public static class OntogonyMetrics
+    {
+        public static void RecordEventDispatch(string eventType, string protocol, string operationMode) { }
+        public static void RecordEventDispatchFailure(string eventType, string protocol, string operationMode) { }
+        public static void RecordEventHandlerDuration(string eventType, string protocol, string operationMode, string handlerDescription, double durationMs) { }
+        public static void RecordEventPublish(string eventType, string protocol, string operationMode) { }
+        public static void RecordHttpDuration(string service, string method, double durationMs) { }
+        public static void RecordHttpError(string service, string method, int statusCode) { }
+        public static void RecordHttpRequest(string service, string method, int statusCode, double durationMs, bool isError) { }
+        public static void RecordIntegrationCall(string integrationName, string operation, int statusCode) { }
+        public static void RecordIntegrationDuration(string integrationName, string operation, double durationMs) { }
+        public static void RecordIntegrationError(string integrationName, string operation, int statusCode) { }
+    }
+    public static class OntogonyObservabilityExtensions
+    {
+        public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddOntogonyObservability(this Microsoft.Extensions.DependencyInjection.IServiceCollection services, System.Action<Ontogony.Observability.OntogonyObservabilityOptions>? configure = null) { }
+        public static Microsoft.AspNetCore.Builder.IApplicationBuilder UseOntogonyRequestTracing(this Microsoft.AspNetCore.Builder.IApplicationBuilder app) { }
+    }
+    public sealed class OntogonyObservabilityOptions
+    {
+        public OntogonyObservabilityOptions() { }
+        public string[] AcceptedIncomingTraceHeaders { get; set; }
+        public bool EchoCorrelationHeaders { get; set; }
+        public bool EchoLegacyHeaders { get; set; }
+        public string ServiceName { get; set; }
+        public string ServiceVersion { get; set; }
+        public string TraceHeaderName { get; set; }
+        public string TraceParentHeaderName { get; set; }
+        public string TraceStateHeaderName { get; set; }
+    }
+    public sealed class OntogonyObservabilityOptionsValidator : Microsoft.Extensions.Options.IValidateOptions<Ontogony.Observability.OntogonyObservabilityOptions>
+    {
+        public OntogonyObservabilityOptionsValidator() { }
+        public Microsoft.Extensions.Options.ValidateOptionsResult Validate(string? name, Ontogony.Observability.OntogonyObservabilityOptions options) { }
+    }
+    public static class OntogonySpanAttributes
+    {
+        public const string ActorId = "ontogony.actor_id";
+        public const string EventType = "ontogony.event_type";
+        public const string OperationId = "ontogony.operation_id";
+        public const string ProjectId = "ontogony.project_id";
+        public const string Protocol = "ontogony.protocol";
+        public const string SessionId = "ontogony.session_id";
+        public const string TenantId = "ontogony.tenant_id";
+        public const string TraceId = "ontogony.trace_id";
+        public const string WorkspaceId = "ontogony.workspace_id";
+    }
+    public sealed class RequestTracingMiddleware
+    {
+        public const string OperationIdItemKey = "Ontogony.OperationId";
+        public const string TraceIdItemKey = "Ontogony.TraceId";
+        public RequestTracingMiddleware(Microsoft.AspNetCore.Http.RequestDelegate next, Microsoft.Extensions.Logging.ILogger<Ontogony.Observability.RequestTracingMiddleware> logger, Microsoft.Extensions.Options.IOptions<Ontogony.Observability.OntogonyObservabilityOptions> options) { }
+        public System.Threading.Tasks.Task InvokeAsync(Microsoft.AspNetCore.Http.HttpContext context) { }
+    }
+}

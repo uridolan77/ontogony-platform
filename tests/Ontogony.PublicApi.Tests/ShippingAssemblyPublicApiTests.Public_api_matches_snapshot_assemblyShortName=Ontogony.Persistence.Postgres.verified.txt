@@ -1,0 +1,51 @@
+﻿namespace Ontogony.Persistence.Postgres
+{
+    public interface IPostgresOutboxClaimStore
+    {
+        System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<Ontogony.Persistence.OutboxMessage>> ClaimAvailableAsync(System.DateTimeOffset asOfUtc, int maxBatchSize, System.TimeSpan? leaseDuration = default, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<bool> MarkDispatchedIfOwnedAsync(string messageId, System.DateTimeOffset dispatchedAtUtc, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<bool> MarkFailedIfOwnedAsync(string messageId, string lastError, System.DateTimeOffset nextAvailableAtUtc, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task ReleaseClaimAsync(string messageId, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<bool> RenewClaimAsync(string messageId, System.TimeSpan? leaseDuration = default, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<bool> TryClaimAsync(string messageId, System.DateTimeOffset asOfUtc, System.TimeSpan? leaseDuration = default, System.Threading.CancellationToken cancellationToken = default);
+    }
+    public sealed class PostgresDeadLetterWriter : Ontogony.Persistence.IDeadLetterWriter
+    {
+        public PostgresDeadLetterWriter(Ontogony.Persistence.Postgres.PostgresOutboxOptions options, Npgsql.NpgsqlDataSource dataSource) { }
+        public System.Threading.Tasks.Task EnsureSchemaAsync(System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task WriteAsync(Ontogony.Persistence.DeadLetterMessage deadLetter, System.Threading.CancellationToken cancellationToken = default) { }
+    }
+    public sealed class PostgresOutboxOptions
+    {
+        public PostgresOutboxOptions() { }
+        public System.TimeSpan ClaimLeaseDuration { get; set; }
+        public string ConnectionString { get; set; }
+        public string DeadLetterTableName { get; set; }
+        public bool EnsureSchemaOnStartup { get; set; }
+        public int? MoveToDeadLetterAfterAttempts { get; set; }
+        public string OutboxTableName { get; set; }
+        public string ProcessedTableName { get; set; }
+        public string SchemaName { get; set; }
+    }
+    public sealed class PostgresOutboxStore : Ontogony.Persistence.IOutboxDispatcher, Ontogony.Persistence.IOutboxReader, Ontogony.Persistence.IOutboxWriter, Ontogony.Persistence.IProcessedMessageStore, Ontogony.Persistence.Postgres.IPostgresOutboxClaimStore
+    {
+        public PostgresOutboxStore(Ontogony.Persistence.Postgres.PostgresOutboxOptions options, Npgsql.NpgsqlDataSource dataSource, Ontogony.Primitives.IClock? clock = null, Ontogony.Primitives.IIdGenerator? idGenerator = null, Ontogony.Persistence.IDeadLetterWriter? deadLetterWriter = null) { }
+        public System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<Ontogony.Persistence.OutboxMessage>> ClaimAvailableAsync(System.DateTimeOffset asOfUtc, int maxBatchSize, System.TimeSpan? leaseDuration = default, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task EnsureSchemaAsync(System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<bool> HasProcessedAsync(string consumerName, string messageId, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task MarkDispatchedAsync(string messageId, System.DateTimeOffset dispatchedAtUtc, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<bool> MarkDispatchedIfOwnedAsync(string messageId, System.DateTimeOffset dispatchedAtUtc, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task MarkFailedAsync(string messageId, string lastError, System.DateTimeOffset nextAvailableAtUtc, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<bool> MarkFailedIfOwnedAsync(string messageId, string lastError, System.DateTimeOffset nextAvailableAtUtc, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task MarkProcessedAsync(Ontogony.Persistence.ProcessedMessage message, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<Ontogony.Persistence.OutboxMessage>> ReadAvailableAsync(System.DateTimeOffset asOfUtc, int maxBatchSize, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task ReleaseClaimAsync(string messageId, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<bool> RenewClaimAsync(string messageId, System.TimeSpan? leaseDuration = default, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<bool> TryClaimAsync(string messageId, System.DateTimeOffset asOfUtc, System.TimeSpan? leaseDuration = default, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task WriteAsync(Ontogony.Persistence.OutboxMessage message, System.Threading.CancellationToken cancellationToken = default) { }
+    }
+    public static class PostgresPersistenceServiceCollectionExtensions
+    {
+        public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddOntogonyPostgresOutbox(this Microsoft.Extensions.DependencyInjection.IServiceCollection services, System.Action<Ontogony.Persistence.Postgres.PostgresOutboxOptions> configure) { }
+    }
+}

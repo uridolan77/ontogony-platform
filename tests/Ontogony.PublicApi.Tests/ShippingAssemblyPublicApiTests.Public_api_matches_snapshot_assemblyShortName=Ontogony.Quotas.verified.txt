@@ -1,0 +1,93 @@
+﻿namespace Ontogony.Quotas
+{
+    public interface IQuotaLedger
+    {
+        System.Threading.Tasks.Task<decimal> GetUsedAsync(Ontogony.Quotas.QuotaLimit limit, System.DateTimeOffset? at = default, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<Ontogony.Quotas.QuotaDecision> TryConsumeAsync(Ontogony.Quotas.QuotaConsumptionRequest request, System.Threading.CancellationToken cancellationToken = default);
+    }
+    public sealed class InMemoryQuotaLedger : Ontogony.Quotas.IQuotaLedger
+    {
+        public InMemoryQuotaLedger(Ontogony.Primitives.IClock? clock = null) { }
+        public System.Threading.Tasks.Task<decimal> GetUsedAsync(Ontogony.Quotas.QuotaLimit limit, System.DateTimeOffset? at = default, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<Ontogony.Quotas.QuotaDecision> TryConsumeAsync(Ontogony.Quotas.QuotaConsumptionRequest request, System.Threading.CancellationToken cancellationToken = default) { }
+    }
+    public sealed class QuotaConsumptionRecord : System.IEquatable<Ontogony.Quotas.QuotaConsumptionRecord>
+    {
+        public QuotaConsumptionRecord(string RequestId, string LimitId, Ontogony.Quotas.QuotaScope Scope, string Metric, Ontogony.Quotas.QuotaWindow Window, decimal Amount, decimal UsedAfter, System.DateTimeOffset RecordedAt, System.Collections.Generic.IReadOnlyDictionary<string, string>? Metadata = null) { }
+        public decimal Amount { get; init; }
+        public string LimitId { get; init; }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string>? Metadata { get; init; }
+        public string Metric { get; init; }
+        public System.DateTimeOffset RecordedAt { get; init; }
+        public string RequestId { get; init; }
+        public Ontogony.Quotas.QuotaScope Scope { get; init; }
+        public decimal UsedAfter { get; init; }
+        public Ontogony.Quotas.QuotaWindow Window { get; init; }
+    }
+    public sealed class QuotaConsumptionRequest : System.IEquatable<Ontogony.Quotas.QuotaConsumptionRequest>
+    {
+        public QuotaConsumptionRequest(string RequestId, Ontogony.Quotas.QuotaLimit Limit, decimal Amount, System.DateTimeOffset? OccurredAt = default, System.Collections.Generic.IReadOnlyDictionary<string, string>? Metadata = null) { }
+        public decimal Amount { get; init; }
+        public Ontogony.Quotas.QuotaLimit Limit { get; init; }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string>? Metadata { get; init; }
+        public System.DateTimeOffset? OccurredAt { get; init; }
+        public string RequestId { get; init; }
+    }
+    public sealed class QuotaDecision : System.IEquatable<Ontogony.Quotas.QuotaDecision>
+    {
+        public QuotaDecision(Ontogony.Quotas.QuotaOutcome Outcome, Ontogony.Quotas.QuotaLimit Limit, Ontogony.Quotas.QuotaWindow Window, decimal UsedBefore, decimal Requested, decimal UsedAfter, decimal Remaining, string? ReasonCode = null) { }
+        public bool IsAllowed { get; }
+        public Ontogony.Quotas.QuotaLimit Limit { get; init; }
+        public Ontogony.Quotas.QuotaOutcome Outcome { get; init; }
+        public string? ReasonCode { get; init; }
+        public decimal Remaining { get; init; }
+        public decimal Requested { get; init; }
+        public decimal UsedAfter { get; init; }
+        public decimal UsedBefore { get; init; }
+        public Ontogony.Quotas.QuotaWindow Window { get; init; }
+    }
+    public sealed class QuotaLimit : System.IEquatable<Ontogony.Quotas.QuotaLimit>
+    {
+        public QuotaLimit(string LimitId, Ontogony.Quotas.QuotaScope Scope, string Metric, decimal MaxAmount, System.TimeSpan Window, string? Unit = null) { }
+        public string LimitId { get; init; }
+        public decimal MaxAmount { get; init; }
+        public string Metric { get; init; }
+        public Ontogony.Quotas.QuotaScope Scope { get; init; }
+        public string? Unit { get; init; }
+        public System.TimeSpan Window { get; init; }
+    }
+    public static class QuotaMetric
+    {
+        public const string ConcurrentRequests = "concurrent_requests";
+        public const string Cost = "cost";
+        public const string InputTokens = "input_tokens";
+        public const string OutputTokens = "output_tokens";
+        public const string Requests = "requests";
+        public const string TotalTokens = "total_tokens";
+    }
+    public enum QuotaOutcome
+    {
+        Allowed = 0,
+        Rejected = 1,
+    }
+    public sealed class QuotaScope : System.IEquatable<Ontogony.Quotas.QuotaScope>
+    {
+        public QuotaScope(string ScopeType, string ScopeId, string? TenantId = null, string? WorkspaceId = null, string? ProjectId = null) { }
+        public string? ProjectId { get; init; }
+        public string ScopeId { get; init; }
+        public string ScopeType { get; init; }
+        public string? TenantId { get; init; }
+        public string? WorkspaceId { get; init; }
+    }
+    public static class QuotaServiceCollectionExtensions
+    {
+        public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddOntogonyInMemoryQuotaLedger(this Microsoft.Extensions.DependencyInjection.IServiceCollection services) { }
+    }
+    public sealed class QuotaWindow : System.IEquatable<Ontogony.Quotas.QuotaWindow>
+    {
+        public QuotaWindow(System.DateTimeOffset StartsAt, System.DateTimeOffset EndsAt) { }
+        public System.DateTimeOffset EndsAt { get; init; }
+        public System.DateTimeOffset StartsAt { get; init; }
+        public static Ontogony.Quotas.QuotaWindow Fixed(System.DateTimeOffset now, System.TimeSpan duration) { }
+    }
+}

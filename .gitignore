@@ -11,6 +11,9 @@ coverage/
 artifacts/
 .tmp/
 
+# Verify (snapshot tests — keep .verified.* in source control)
+*.received.txt
+
 # IDE
 .vs/
 .vscode/.ropeproject/

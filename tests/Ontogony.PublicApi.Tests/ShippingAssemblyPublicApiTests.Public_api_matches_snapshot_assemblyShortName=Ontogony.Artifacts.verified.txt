@@ -1,0 +1,110 @@
+﻿namespace Ontogony.Artifacts
+{
+    public sealed class ArtifactContent
+    {
+        public ArtifactContent(Ontogony.Artifacts.ArtifactRef reference, System.ReadOnlyMemory<byte> bytes) { }
+        public System.ReadOnlyMemory<byte> Bytes { get; }
+        public Ontogony.Artifacts.ArtifactRef Reference { get; }
+    }
+    public sealed class ArtifactNotFoundException : System.Exception
+    {
+        public ArtifactNotFoundException(string artifactId) { }
+        public string ArtifactId { get; }
+    }
+    [System.Runtime.CompilerServices.RequiredMember]
+    public sealed class ArtifactPutRequest
+    {
+        [System.Obsolete("Constructors of types with required members are not supported in this version of " +
+            "your compiler.", true)]
+        [System.Runtime.CompilerServices.CompilerFeatureRequired("RequiredMembers")]
+        public ArtifactPutRequest() { }
+        public string? Classification { get; init; }
+        public string? ContentEncoding { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public System.ReadOnlyMemory<byte> Content { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string MediaType { get; init; }
+        public string? ProjectId { get; init; }
+        public string? StorageTier { get; init; }
+        public string? SuggestedArtifactId { get; init; }
+        public string? TenantId { get; init; }
+        public string? Uri { get; init; }
+        public string? WorkspaceId { get; init; }
+    }
+    public sealed class ArtifactPutResult : System.IEquatable<Ontogony.Artifacts.ArtifactPutResult>
+    {
+        public ArtifactPutResult(Ontogony.Artifacts.ArtifactRef Reference, bool Existed) { }
+        public bool Existed { get; init; }
+        public Ontogony.Artifacts.ArtifactRef Reference { get; init; }
+    }
+    [System.Runtime.CompilerServices.RequiredMember]
+    public sealed class ArtifactRef : System.IEquatable<Ontogony.Artifacts.ArtifactRef>
+    {
+        [System.Obsolete("Constructors of types with required members are not supported in this version of " +
+            "your compiler.", true)]
+        [System.Runtime.CompilerServices.CompilerFeatureRequired("RequiredMembers")]
+        public ArtifactRef() { }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string ArtifactId { get; init; }
+        public string? Classification { get; init; }
+        public string? ContentEncoding { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string ContentHash { get; init; }
+        public System.DateTimeOffset CreatedAt { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string MediaType { get; init; }
+        public string? ProjectId { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public long SizeBytes { get; init; }
+        public string? StorageTier { get; init; }
+        public string? TenantId { get; init; }
+        public string? Uri { get; init; }
+        public string? WorkspaceId { get; init; }
+    }
+    public static class ArtifactServiceCollectionExtensions
+    {
+        public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddOntogonyInMemoryArtifactStore(this Microsoft.Extensions.DependencyInjection.IServiceCollection services) { }
+    }
+    [System.Runtime.CompilerServices.RequiredMember]
+    public sealed class ArtifactStreamPutRequest
+    {
+        [System.Obsolete("Constructors of types with required members are not supported in this version of " +
+            "your compiler.", true)]
+        [System.Runtime.CompilerServices.CompilerFeatureRequired("RequiredMembers")]
+        public ArtifactStreamPutRequest() { }
+        public string? Classification { get; init; }
+        public string? ContentEncoding { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public System.IO.Stream ContentStream { get; init; }
+        public string? ExpectedContentHash { get; init; }
+        public long? ExpectedSizeBytes { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string MediaType { get; init; }
+        public string? ProjectId { get; init; }
+        public string? StorageTier { get; init; }
+        public string? SuggestedArtifactId { get; init; }
+        public string? TenantId { get; init; }
+        public string? Uri { get; init; }
+        public string? WorkspaceId { get; init; }
+    }
+    public interface IArtifactStore
+    {
+        System.Threading.Tasks.Task<bool> ExistsAsync(string artifactId, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<Ontogony.Artifacts.ArtifactContent> GetAsync(string artifactId, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<Ontogony.Artifacts.ArtifactRef?> GetReferenceAsync(string artifactId, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<Ontogony.Artifacts.ArtifactPutResult> PutAsync(Ontogony.Artifacts.ArtifactPutRequest request, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<Ontogony.Artifacts.ArtifactPutResult> PutAsync(Ontogony.Artifacts.ArtifactStreamPutRequest request, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<Ontogony.Artifacts.ArtifactContent?> TryGetAsync(string artifactId, System.Threading.CancellationToken cancellationToken = default);
+    }
+    public sealed class InMemoryArtifactStore : Ontogony.Artifacts.IArtifactStore
+    {
+        public InMemoryArtifactStore(Ontogony.Hashing.IContentHashService? hasher = null, Ontogony.Primitives.IClock? clock = null, Ontogony.Primitives.IIdGenerator? ids = null) { }
+        public int Count { get; }
+        public System.Threading.Tasks.Task<bool> ExistsAsync(string artifactId, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<Ontogony.Artifacts.ArtifactContent> GetAsync(string artifactId, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<Ontogony.Artifacts.ArtifactRef?> GetReferenceAsync(string artifactId, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<Ontogony.Artifacts.ArtifactPutResult> PutAsync(Ontogony.Artifacts.ArtifactPutRequest request, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<Ontogony.Artifacts.ArtifactPutResult> PutAsync(Ontogony.Artifacts.ArtifactStreamPutRequest request, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<Ontogony.Artifacts.ArtifactContent?> TryGetAsync(string artifactId, System.Threading.CancellationToken cancellationToken = default) { }
+    }
+}

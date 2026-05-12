@@ -1,0 +1,172 @@
+﻿namespace Ontogony.ProtocolIngress.Adapters
+{
+    [System.Runtime.CompilerServices.RequiredMember]
+    public sealed class A2aEvent : System.IEquatable<Ontogony.ProtocolIngress.Adapters.A2aEvent>
+    {
+        [System.Obsolete("Constructors of types with required members are not supported in this version of " +
+            "your compiler.", true)]
+        [System.Runtime.CompilerServices.CompilerFeatureRequired("RequiredMembers")]
+        public A2aEvent() { }
+        public string? MessageId { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string MessageType { get; init; }
+        public string? ParentSpanId { get; init; }
+        public object? Payload { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string ReceiverId { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string SenderId { get; init; }
+        public string? SpanId { get; init; }
+        public System.DateTimeOffset? Timestamp { get; init; }
+        public string? TraceId { get; init; }
+    }
+    public sealed class A2aProtocolAdapter : Ontogony.ProtocolIngress.Adapters.BaseProtocolIngressAdapter, Ontogony.ProtocolIngress.IProtocolIngressAdapter<Ontogony.ProtocolIngress.Adapters.A2aEvent>
+    {
+        public A2aProtocolAdapter(Ontogony.Hashing.PayloadHasher payloadHasher, Ontogony.Primitives.IIdGenerator idGenerator, Ontogony.Primitives.IClock clock, Ontogony.Contracts.Events.IEnvelopeValidator envelopeValidator) { }
+        public Ontogony.ProtocolIngress.ProtocolIngressResult Normalize(Ontogony.ProtocolIngress.Adapters.A2aEvent raw, Ontogony.ProtocolIngress.ProtocolIngressContext context) { }
+    }
+    [System.Runtime.CompilerServices.RequiredMember]
+    public sealed class AgUiEvent : System.IEquatable<Ontogony.ProtocolIngress.Adapters.AgUiEvent>
+    {
+        [System.Obsolete("Constructors of types with required members are not supported in this version of " +
+            "your compiler.", true)]
+        [System.Runtime.CompilerServices.CompilerFeatureRequired("RequiredMembers")]
+        public AgUiEvent() { }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string Action { get; init; }
+        public object? Data { get; init; }
+        public string? EventId { get; init; }
+        public string? ParentSpanId { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string SessionId { get; init; }
+        public string? SpanId { get; init; }
+        public System.DateTimeOffset? Timestamp { get; init; }
+        public string? TraceId { get; init; }
+        public string? UserId { get; init; }
+    }
+    public sealed class AgUiProtocolAdapter : Ontogony.ProtocolIngress.Adapters.BaseProtocolIngressAdapter, Ontogony.ProtocolIngress.IProtocolIngressAdapter<Ontogony.ProtocolIngress.Adapters.AgUiEvent>
+    {
+        public AgUiProtocolAdapter(Ontogony.Hashing.PayloadHasher payloadHasher, Ontogony.Primitives.IIdGenerator idGenerator, Ontogony.Primitives.IClock clock, Ontogony.Contracts.Events.IEnvelopeValidator envelopeValidator) { }
+        public Ontogony.ProtocolIngress.ProtocolIngressResult Normalize(Ontogony.ProtocolIngress.Adapters.AgUiEvent raw, Ontogony.ProtocolIngress.ProtocolIngressContext context) { }
+    }
+    public abstract class BaseProtocolIngressAdapter
+    {
+        protected readonly Ontogony.Primitives.IClock Clock;
+        protected readonly Ontogony.Contracts.Events.IEnvelopeValidator EnvelopeValidator;
+        protected readonly Ontogony.Primitives.IIdGenerator IdGenerator;
+        protected readonly Ontogony.Hashing.PayloadHasher PayloadHasher;
+        protected BaseProtocolIngressAdapter(Ontogony.Hashing.PayloadHasher payloadHasher, Ontogony.Primitives.IIdGenerator idGenerator, Ontogony.Primitives.IClock clock, Ontogony.Contracts.Events.IEnvelopeValidator envelopeValidator) { }
+        protected string ComputeCanonicalPayloadHash(string rawJson) { }
+        protected string ComputeRawPayloadHash(string rawJson) { }
+        protected string NormalizeEnvelopeEventType(string protocol) { }
+        protected string NormalizeSourceUri(string protocol, string source) { }
+        protected System.DateTimeOffset NormalizeTimestamp(System.DateTimeOffset? providedTime, Ontogony.ProtocolIngress.ProtocolIngressContext context) { }
+        protected Ontogony.ProtocolIngress.ProtocolIngressResult ValidateAndReturnEnvelope(Ontogony.Contracts.Events.OntogonyEnvelope<Ontogony.ProtocolIngress.RawProtocolPayload> envelope) { }
+        protected string? ValidateOrGenerateTraceId(string? providedTraceId, Ontogony.ProtocolIngress.ProtocolIngressContext context, out Ontogony.ProtocolIngress.ProtocolIngressResult? error) { }
+    }
+    public sealed class CloudEventsProtocolAdapter : Ontogony.ProtocolIngress.Adapters.BaseProtocolIngressAdapter, Ontogony.ProtocolIngress.IProtocolIngressAdapter<Ontogony.Contracts.Events.CloudEventEnvelope>
+    {
+        public CloudEventsProtocolAdapter(Ontogony.Hashing.PayloadHasher payloadHasher, Ontogony.Primitives.IIdGenerator idGenerator, Ontogony.Primitives.IClock clock, Ontogony.Contracts.Events.IEnvelopeValidator envelopeValidator) { }
+        public Ontogony.ProtocolIngress.ProtocolIngressResult Normalize(Ontogony.Contracts.Events.CloudEventEnvelope raw, Ontogony.ProtocolIngress.ProtocolIngressContext context) { }
+    }
+    public sealed class GenericJsonProtocolAdapter : Ontogony.ProtocolIngress.Adapters.BaseProtocolIngressAdapter, Ontogony.ProtocolIngress.IProtocolIngressAdapter<string>
+    {
+        public GenericJsonProtocolAdapter(Ontogony.Hashing.PayloadHasher payloadHasher, Ontogony.Primitives.IIdGenerator idGenerator, Ontogony.Primitives.IClock clock, Ontogony.Contracts.Events.IEnvelopeValidator envelopeValidator) { }
+        public Ontogony.ProtocolIngress.ProtocolIngressResult Normalize(string rawJson, Ontogony.ProtocolIngress.ProtocolIngressContext context) { }
+    }
+    [System.Runtime.CompilerServices.RequiredMember]
+    public sealed class McpEvent : System.IEquatable<Ontogony.ProtocolIngress.Adapters.McpEvent>
+    {
+        [System.Obsolete("Constructors of types with required members are not supported in this version of " +
+            "your compiler.", true)]
+        [System.Runtime.CompilerServices.CompilerFeatureRequired("RequiredMembers")]
+        public McpEvent() { }
+        public string? ActorId { get; init; }
+        public object? Data { get; init; }
+        public string? EventId { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string EventType { get; init; }
+        public string? ParentSpanId { get; init; }
+        public string? SessionId { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string Source { get; init; }
+        public string? SpanId { get; init; }
+        public System.DateTimeOffset? Timestamp { get; init; }
+        public string? TraceId { get; init; }
+    }
+    public sealed class McpProtocolAdapter : Ontogony.ProtocolIngress.Adapters.BaseProtocolIngressAdapter, Ontogony.ProtocolIngress.IProtocolIngressAdapter<Ontogony.ProtocolIngress.Adapters.McpEvent>
+    {
+        public McpProtocolAdapter(Ontogony.Hashing.PayloadHasher payloadHasher, Ontogony.Primitives.IIdGenerator idGenerator, Ontogony.Primitives.IClock clock, Ontogony.Contracts.Events.IEnvelopeValidator envelopeValidator) { }
+        public Ontogony.ProtocolIngress.ProtocolIngressResult Normalize(Ontogony.ProtocolIngress.Adapters.McpEvent raw, Ontogony.ProtocolIngress.ProtocolIngressContext context) { }
+    }
+}
+namespace Ontogony.ProtocolIngress
+{
+    public interface IProtocolIngressAdapter<in TRaw>
+    {
+        Ontogony.ProtocolIngress.ProtocolIngressResult Normalize(TRaw raw, Ontogony.ProtocolIngress.ProtocolIngressContext context);
+    }
+    public sealed class ProtocolIngressContext : System.IEquatable<Ontogony.ProtocolIngress.ProtocolIngressContext>
+    {
+        public ProtocolIngressContext() { }
+        public Ontogony.ProtocolIngress.TraceIdGenerationPolicy IdGenerationPolicy { get; init; }
+        public Ontogony.ProtocolIngress.ProtocolIngressContextMetadata? Metadata { get; init; }
+        public System.DateTimeOffset? OccurredAt { get; init; }
+        public string? ParentSpanId { get; init; }
+        public string? SpanId { get; init; }
+        public string? TraceId { get; init; }
+    }
+    public sealed class ProtocolIngressContextMetadata : System.IEquatable<Ontogony.ProtocolIngress.ProtocolIngressContextMetadata>
+    {
+        public ProtocolIngressContextMetadata() { }
+        public string? ActorId { get; init; }
+        public string? ProjectId { get; init; }
+        public string? SessionId { get; init; }
+        public string? TenantId { get; init; }
+        public string? WorkspaceId { get; init; }
+    }
+    public sealed class ProtocolIngressError : System.IEquatable<Ontogony.ProtocolIngress.ProtocolIngressError>
+    {
+        public ProtocolIngressError(string Field, string Message) { }
+        public string Field { get; }
+        public string Message { get; }
+    }
+    public sealed class ProtocolIngressResult : System.IEquatable<Ontogony.ProtocolIngress.ProtocolIngressResult>
+    {
+        public ProtocolIngressResult() { }
+        public bool IsSuccess { get; }
+        public Ontogony.Contracts.Events.OntogonyEnvelope<Ontogony.ProtocolIngress.RawProtocolPayload>? Envelope { get; init; }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.ProtocolIngress.ProtocolIngressError> Errors { get; init; }
+        public static Ontogony.ProtocolIngress.ProtocolIngressResult Failure(params Ontogony.ProtocolIngress.ProtocolIngressError[] errors) { }
+        public static Ontogony.ProtocolIngress.ProtocolIngressResult Failure(string field, string message) { }
+        public static Ontogony.ProtocolIngress.ProtocolIngressResult Success(Ontogony.Contracts.Events.OntogonyEnvelope<Ontogony.ProtocolIngress.RawProtocolPayload> envelope) { }
+    }
+    [System.Runtime.CompilerServices.RequiredMember]
+    public sealed class RawProtocolPayload : System.IEquatable<Ontogony.ProtocolIngress.RawProtocolPayload>
+    {
+        [System.Obsolete("Constructors of types with required members are not supported in this version of " +
+            "your compiler.", true)]
+        [System.Runtime.CompilerServices.CompilerFeatureRequired("RequiredMembers")]
+        public RawProtocolPayload() { }
+        public string? CanonicalPayloadHash { get; init; }
+        [System.Text.Json.Serialization.JsonIgnore]
+        public object? ParsedObject { get; init; }
+        [System.Obsolete("Use CanonicalPayloadHash. This alias will be removed in a future version.")]
+        public string? PayloadHash { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string Protocol { get; init; }
+        public string? RawEventType { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string RawJson { get; init; }
+        public string? RawPayloadHash { get; init; }
+    }
+    public static class ServiceCollectionExtensions
+    {
+        public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddOntogonyProtocolIngress(this Microsoft.Extensions.DependencyInjection.IServiceCollection services) { }
+    }
+    public enum TraceIdGenerationPolicy
+    {
+        RequireProvided = 0,
+        GenerateIfMissing = 1,
+    }
+}

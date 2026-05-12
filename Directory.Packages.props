@@ -22,5 +22,8 @@
     <PackageVersion Include="coverlet.collector" Version="6.0.2" />
 
     <PackageVersion Include="JsonSchema.Net" Version="7.1.0" />
+
+    <PackageVersion Include="PublicApiGenerator" Version="11.1.0" />
+    <PackageVersion Include="Verify.Xunit" Version="26.0.1" />
   </ItemGroup>
 </Project>

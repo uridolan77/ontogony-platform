@@ -1,0 +1,101 @@
+﻿namespace Ontogony.Http
+{
+    public sealed class CorrelationHeadersDelegatingHandler : System.Net.Http.DelegatingHandler
+    {
+        public CorrelationHeadersDelegatingHandler() { }
+        protected override System.Threading.Tasks.Task<System.Net.Http.HttpResponseMessage> SendAsync(System.Net.Http.HttpRequestMessage request, System.Threading.CancellationToken cancellationToken) { }
+    }
+    public sealed class DefaultRetryClassifier : Ontogony.Http.IRetryClassifier
+    {
+        public DefaultRetryClassifier(Microsoft.Extensions.Options.IOptions<Ontogony.Http.TransportResilienceOptions> options) { }
+        public DefaultRetryClassifier(Ontogony.Http.TransportResilienceOptions options) { }
+        public Ontogony.Http.RetryDecision ShouldRetry(System.Net.Http.HttpRequestMessage request, System.Net.Http.HttpResponseMessage? response, System.Exception? exception) { }
+    }
+    public sealed class HttpIntegrationOptions
+    {
+        public HttpIntegrationOptions() { }
+        public string? BaseUrl { get; set; }
+        public System.Collections.Generic.Dictionary<string, string> DefaultHeaders { get; set; }
+        public Ontogony.Http.IntegrationAdapterMode Mode { get; set; }
+        [System.ComponentModel.DataAnnotations.Range(1, 600)]
+        public int TimeoutSeconds { get; set; }
+    }
+    public interface IRetryClassifier
+    {
+        Ontogony.Http.RetryDecision ShouldRetry(System.Net.Http.HttpRequestMessage request, System.Net.Http.HttpResponseMessage? response, System.Exception? exception);
+    }
+    public enum IntegrationAdapterMode
+    {
+        Disabled = 0,
+        Fake = 1,
+        Http = 2,
+    }
+    public static class IntegrationHttpClientExtensions
+    {
+        public static Microsoft.Extensions.DependencyInjection.IHttpClientBuilder AddOntogonyIntegrationHttpClient(this Microsoft.Extensions.DependencyInjection.IServiceCollection services, string clientName, System.Func<System.IServiceProvider, Ontogony.Http.HttpIntegrationOptions> resolveOptions) { }
+    }
+    public static class IntegrationHttpError
+    {
+        public const int DefaultMaxBodyChars = 512;
+        public static string RedactAndTruncate(string? body, int maxChars = 512) { }
+        public static System.Threading.Tasks.Task ThrowIfUnsuccessfulAsync(System.Net.Http.HttpResponseMessage response, string integrationLabel, System.Threading.CancellationToken cancellationToken) { }
+    }
+    public sealed class ResilientIntegrationDelegatingHandler : System.Net.Http.DelegatingHandler
+    {
+        public ResilientIntegrationDelegatingHandler(string clientName, Ontogony.Http.TransportResilienceRegistry registry, Microsoft.Extensions.Options.IOptions<Ontogony.Http.TransportResilienceOptions> options, Ontogony.Primitives.IClock clock, Ontogony.Http.IRetryClassifier? retryClassifier = null) { }
+        protected override System.Threading.Tasks.Task<System.Net.Http.HttpResponseMessage> SendAsync(System.Net.Http.HttpRequestMessage request, System.Threading.CancellationToken cancellationToken) { }
+    }
+    public enum RetryDecision
+    {
+        DoNotRetry = 0,
+        Retry = 1,
+        RetryBypassingBudget = 2,
+    }
+    public sealed class TransportResilienceOptions
+    {
+        public TransportResilienceOptions() { }
+        public System.TimeSpan? AttemptTimeout { get; set; }
+        [System.ComponentModel.DataAnnotations.Range(0, 1)]
+        public double BackoffJitterFraction { get; set; }
+        [System.ComponentModel.DataAnnotations.Range(10, 60000)]
+        public int BaseBackoffMilliseconds { get; set; }
+        [System.ComponentModel.DataAnnotations.Range(10, 60000)]
+        public int BaseDelayMilliseconds { get; set; }
+        [System.ComponentModel.DataAnnotations.Range(1, 100)]
+        public int CircuitFailureThreshold { get; set; }
+        [System.ComponentModel.DataAnnotations.Range(1, 3600)]
+        public int CircuitOpenDurationSeconds { get; set; }
+        public bool CountOnlyRetryableResponsesAsCircuitFailures { get; set; }
+        public bool EmitAttemptMetrics { get; set; }
+        public bool Enabled { get; set; }
+        public string IdempotencyKeyHeaderName { get; set; }
+        [System.ComponentModel.DataAnnotations.Range(1, 100000000)]
+        public int MaxBufferedContentBytes { get; set; }
+        [System.ComponentModel.DataAnnotations.Range(100, 600000)]
+        public int MaxDelayMilliseconds { get; set; }
+        [System.ComponentModel.DataAnnotations.Range(0, 10)]
+        public int MaxRetries { get; set; }
+        public bool RespectRetryAfterHeader { get; set; }
+        [System.ComponentModel.DataAnnotations.Range(0, 10000)]
+        public int RetryBudgetPerMinute { get; set; }
+        public bool RetryUnsafeMethodsOnlyWithIdempotencyKey { get; set; }
+        public int[] RetryableStatusCodes { get; set; }
+        public System.TimeSpan? TotalTimeout { get; set; }
+    }
+    public sealed class TransportResilienceRegistry
+    {
+        public TransportResilienceRegistry(Ontogony.Primitives.IClock? clock = null) { }
+        public System.Collections.Generic.IReadOnlyDictionary<string, Ontogony.Http.TransportResilienceSnapshot> GetSnapshot() { }
+        public void RecordFailure(string clientName, Ontogony.Http.TransportResilienceOptions options) { }
+        public void RecordSuccess(string clientName, Ontogony.Http.TransportResilienceOptions options) { }
+        public bool TryConsumeRetryBudget(string clientName, Ontogony.Http.TransportResilienceOptions options) { }
+        public System.Net.Http.HttpResponseMessage? TryGetCircuitOpenSyntheticResponse(string clientName, Ontogony.Http.TransportResilienceOptions options) { }
+    }
+    public sealed class TransportResilienceSnapshot : System.IEquatable<Ontogony.Http.TransportResilienceSnapshot>
+    {
+        public TransportResilienceSnapshot(bool CircuitOpen, int ConsecutiveFailures, System.DateTimeOffset? CircuitOpenUntilUtc) { }
+        public System.DateTimeOffset? CircuitOpenUntilUtc { get; init; }
+        public bool CircuitOpen { get; init; }
+        public int ConsecutiveFailures { get; init; }
+    }
+}

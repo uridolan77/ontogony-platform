@@ -1,0 +1,49 @@
+﻿namespace Ontogony.Errors
+{
+    public sealed class ApiError : System.IEquatable<Ontogony.Errors.ApiError>
+    {
+        public ApiError(string Code, string Message, string? TraceId = null, object? Details = null, string? Instance = null) { }
+        public string Code { get; init; }
+        public object? Details { get; init; }
+        public string? Instance { get; init; }
+        public string Message { get; init; }
+        public string? TraceId { get; init; }
+    }
+    public sealed class ExceptionMapping : System.IEquatable<Ontogony.Errors.ExceptionMapping>
+    {
+        public ExceptionMapping(System.Net.HttpStatusCode StatusCode, string ErrorCode, string? PublicMessage = null, bool IncludeExceptionMessage = false, bool LogAsWarning = true, bool IncludeDetails = false, System.Func<System.Exception, string>? ResolveErrorCode = null, System.Func<System.Exception, string?>? ResolvePublicMessage = null, System.Func<System.Exception, object?>? DetailsFactory = null, System.Func<System.Exception, System.Net.HttpStatusCode>? ResolveStatusCode = null) { }
+        public System.Func<System.Exception, object?>? DetailsFactory { get; init; }
+        public string ErrorCode { get; init; }
+        public bool IncludeDetails { get; init; }
+        public bool IncludeExceptionMessage { get; init; }
+        public bool LogAsWarning { get; init; }
+        public string? PublicMessage { get; init; }
+        public System.Func<System.Exception, string>? ResolveErrorCode { get; init; }
+        public System.Func<System.Exception, string?>? ResolvePublicMessage { get; init; }
+        public System.Func<System.Exception, System.Net.HttpStatusCode>? ResolveStatusCode { get; init; }
+        public System.Net.HttpStatusCode StatusCode { get; init; }
+    }
+    public static class OntogonyErrorsExtensions
+    {
+        public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddOntogonyErrors(this Microsoft.Extensions.DependencyInjection.IServiceCollection services, System.Action<Ontogony.Errors.OntogonyExceptionMappingOptions>? configure = null) { }
+        public static Ontogony.Errors.ApiError ToApiError(this Microsoft.AspNetCore.Mvc.ProblemDetails problemDetails, string defaultCode = "ProblemDetailsError") { }
+        public static Microsoft.AspNetCore.Mvc.ProblemDetails ToProblemDetails(this Ontogony.Errors.ApiError error, int? statusCode = default) { }
+        public static Microsoft.AspNetCore.Builder.IApplicationBuilder UseOntogonyExceptionHandling(this Microsoft.AspNetCore.Builder.IApplicationBuilder app) { }
+    }
+    public sealed class OntogonyExceptionHandlingMiddleware
+    {
+        public OntogonyExceptionHandlingMiddleware(Microsoft.AspNetCore.Http.RequestDelegate next, Microsoft.Extensions.Logging.ILogger<Ontogony.Errors.OntogonyExceptionHandlingMiddleware> logger, Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Http.Json.JsonOptions> jsonOptions, Microsoft.Extensions.Options.IOptions<Ontogony.Errors.OntogonyExceptionMappingOptions> mappingOptions) { }
+        public System.Threading.Tasks.Task InvokeAsync(Microsoft.AspNetCore.Http.HttpContext context) { }
+    }
+    public sealed class OntogonyExceptionMappingOptions
+    {
+        public OntogonyExceptionMappingOptions() { }
+        public string DetailsJsonKey { get; set; }
+        public string ErrorCodeJsonKey { get; set; }
+        public bool IncludeInstanceInJson { get; set; }
+        public string UnhandledErrorCode { get; set; }
+        public Ontogony.Errors.ExceptionMapping? Find(System.Exception exception) { }
+        public Ontogony.Errors.OntogonyExceptionMappingOptions Map<TException>(System.Net.HttpStatusCode statusCode, string errorCode, string? publicMessage = null, bool includeExceptionMessage = false, bool logAsWarning = true, bool includeDetails = false, System.Func<System.Exception, string>? resolveErrorCode = null, System.Func<System.Exception, string?>? resolvePublicMessage = null, System.Func<System.Exception, object?>? detailsFactory = null, System.Func<System.Exception, System.Net.HttpStatusCode>? resolveStatusCode = null)
+            where TException : System.Exception { }
+    }
+}

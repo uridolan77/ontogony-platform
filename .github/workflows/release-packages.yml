@@ -93,6 +93,10 @@ jobs:
         shell: pwsh
         run: ./scripts/validate-package-levels.ps1
 
+      - name: Validate dependency baseline (Microsoft.Extensions line + global.json)
+        shell: pwsh
+        run: ./scripts/validate-dependency-baseline.ps1
+
       - name: Validate CHANGELOG
         shell: pwsh
         run: ./scripts/validate-changelog.ps1 -PackageVersion "${{ steps.version.outputs.version }}" -Strict

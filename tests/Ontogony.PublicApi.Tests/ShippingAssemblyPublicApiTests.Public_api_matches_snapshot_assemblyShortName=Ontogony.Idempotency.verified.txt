@@ -1,0 +1,51 @@
+﻿namespace Ontogony.Idempotency
+{
+    public interface IIdempotencyLedger
+    {
+        System.Threading.Tasks.Task<Ontogony.Idempotency.IdempotencyRecord?> GetAsync(string key, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task MarkFailedAsync(string key, string? reason = null, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task MarkSucceededAsync(string key, string? resultReference = null, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<bool> TryBeginAsync(string key, System.Threading.CancellationToken cancellationToken = default);
+    }
+    public sealed class IdempotencyKeyBuilder
+    {
+        public IdempotencyKeyBuilder(Ontogony.Hashing.PayloadHasher payloadHasher, Ontogony.Idempotency.IdempotencyKeyOptions? options = null) { }
+        public Ontogony.Idempotency.IdempotencyKeyOptions Options { get; }
+        public string BuildKey(string operation, params object?[] parts) { }
+        public string BuildKeyFromJson(string operation, string json) { }
+        public string FromParts(string operation, params object?[] parts) { }
+    }
+    public sealed class IdempotencyKeyOptions : System.IEquatable<Ontogony.Idempotency.IdempotencyKeyOptions>
+    {
+        public IdempotencyKeyOptions() { }
+        public int MaxKeyLength { get; init; }
+        public string Namespace { get; init; }
+        public bool ValidateSafeCharacters { get; init; }
+        public string Version { get; init; }
+        public void Validate() { }
+    }
+    public sealed class IdempotencyRecord : System.IEquatable<Ontogony.Idempotency.IdempotencyRecord>
+    {
+        public IdempotencyRecord(string Key, Ontogony.Idempotency.IdempotencyStatus Status, System.DateTimeOffset CreatedAt, System.DateTimeOffset? UpdatedAt = default, string? ResultReference = null, string? FailureReason = null) { }
+        public System.DateTimeOffset CreatedAt { get; init; }
+        public string? FailureReason { get; init; }
+        public string Key { get; init; }
+        public string? ResultReference { get; init; }
+        public Ontogony.Idempotency.IdempotencyStatus Status { get; init; }
+        public System.DateTimeOffset? UpdatedAt { get; init; }
+    }
+    public enum IdempotencyStatus
+    {
+        InProgress = 0,
+        Succeeded = 1,
+        Failed = 2,
+    }
+    public sealed class InMemoryIdempotencyLedger : Ontogony.Idempotency.IIdempotencyLedger
+    {
+        public InMemoryIdempotencyLedger() { }
+        public System.Threading.Tasks.Task<Ontogony.Idempotency.IdempotencyRecord?> GetAsync(string key, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task MarkFailedAsync(string key, string? reason = null, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task MarkSucceededAsync(string key, string? resultReference = null, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<bool> TryBeginAsync(string key, System.Threading.CancellationToken cancellationToken = default) { }
+    }
+}

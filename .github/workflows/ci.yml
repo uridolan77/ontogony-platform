@@ -54,6 +54,9 @@ jobs:
       - name: Validate package levels (Ontogony ProjectReferences)
         shell: pwsh
         run: ./scripts/validate-package-levels.ps1
+      - name: Validate dependency baseline (Microsoft.Extensions line + global.json)
+        shell: pwsh
+        run: ./scripts/validate-dependency-baseline.ps1
       - name: Pack (version gate + 23-package smoke)
         env:
           PACKAGE_VERSION: 0.3.0-alpha.1

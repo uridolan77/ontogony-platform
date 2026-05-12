@@ -1,0 +1,143 @@
+﻿namespace Ontogony.Execution
+{
+    [System.Runtime.CompilerServices.RequiredMember]
+    public sealed class ExecutionAttemptRecord : System.IEquatable<Ontogony.Execution.ExecutionAttemptRecord>
+    {
+        [System.Obsolete("Constructors of types with required members are not supported in this version of " +
+            "your compiler.", true)]
+        [System.Runtime.CompilerServices.CompilerFeatureRequired("RequiredMembers")]
+        public ExecutionAttemptRecord() { }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string AttemptId { get; init; }
+        public int AttemptNumber { get; init; }
+        public System.DateTimeOffset? CompletedAt { get; init; }
+        public string? ErrorCode { get; init; }
+        public string? ErrorDetailHash { get; init; }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string>? Metadata { get; init; }
+        public System.DateTimeOffset? StartedAt { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string Status { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string StepId { get; init; }
+    }
+    [System.Runtime.CompilerServices.RequiredMember]
+    public sealed class ExecutionCheckpointRecord : System.IEquatable<Ontogony.Execution.ExecutionCheckpointRecord>
+    {
+        [System.Obsolete("Constructors of types with required members are not supported in this version of " +
+            "your compiler.", true)]
+        [System.Runtime.CompilerServices.CompilerFeatureRequired("RequiredMembers")]
+        public ExecutionCheckpointRecord() { }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string CheckpointId { get; init; }
+        public string? Label { get; init; }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string>? Metadata { get; init; }
+        public string? PayloadArtifactId { get; init; }
+        public string? PayloadHash { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public System.DateTimeOffset RecordedAt { get; init; }
+        public string? ResumeToken { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string RunId { get; init; }
+        public long Sequence { get; init; }
+    }
+    public static class ExecutionJournalServiceCollectionExtensions
+    {
+        public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddOntogonyInMemoryExecutionJournal(this Microsoft.Extensions.DependencyInjection.IServiceCollection services) { }
+    }
+    [System.Runtime.CompilerServices.RequiredMember]
+    public sealed class ExecutionRunRecord : System.IEquatable<Ontogony.Execution.ExecutionRunRecord>
+    {
+        [System.Obsolete("Constructors of types with required members are not supported in this version of " +
+            "your compiler.", true)]
+        [System.Runtime.CompilerServices.CompilerFeatureRequired("RequiredMembers")]
+        public ExecutionRunRecord() { }
+        public System.DateTimeOffset? CompletedAt { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public System.DateTimeOffset CreatedAt { get; init; }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string>? Metadata { get; init; }
+        public string? ProjectId { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string RunId { get; init; }
+        public string? RunKind { get; init; }
+        public System.DateTimeOffset? StartedAt { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string Status { get; init; }
+        public string? TenantId { get; init; }
+        public string? TraceId { get; init; }
+        public string? WorkspaceId { get; init; }
+    }
+    [System.Runtime.CompilerServices.RequiredMember]
+    public sealed class ExecutionStateTransitionRecord : System.IEquatable<Ontogony.Execution.ExecutionStateTransitionRecord>
+    {
+        [System.Obsolete("Constructors of types with required members are not supported in this version of " +
+            "your compiler.", true)]
+        [System.Runtime.CompilerServices.CompilerFeatureRequired("RequiredMembers")]
+        public ExecutionStateTransitionRecord() { }
+        public string? ActorId { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string FromState { get; init; }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string>? Metadata { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public System.DateTimeOffset OccurredAt { get; init; }
+        public string? ReasonCode { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string RunId { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string SubjectId { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string SubjectKind { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string ToState { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string TransitionId { get; init; }
+    }
+    [System.Runtime.CompilerServices.RequiredMember]
+    public sealed class ExecutionStepRecord : System.IEquatable<Ontogony.Execution.ExecutionStepRecord>
+    {
+        [System.Obsolete("Constructors of types with required members are not supported in this version of " +
+            "your compiler.", true)]
+        [System.Runtime.CompilerServices.CompilerFeatureRequired("RequiredMembers")]
+        public ExecutionStepRecord() { }
+        public System.DateTimeOffset? CompletedAt { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public System.DateTimeOffset CreatedAt { get; init; }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string>? Metadata { get; init; }
+        public int Ordinal { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string RunId { get; init; }
+        public System.DateTimeOffset? StartedAt { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string Status { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string StepId { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string StepKey { get; init; }
+    }
+    public interface IExecutionJournal
+    {
+        System.Threading.Tasks.Task AppendAttemptAsync(Ontogony.Execution.ExecutionAttemptRecord attempt, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task AppendCheckpointAsync(Ontogony.Execution.ExecutionCheckpointRecord checkpoint, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task AppendRunAsync(Ontogony.Execution.ExecutionRunRecord run, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task AppendStepAsync(Ontogony.Execution.ExecutionStepRecord step, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task AppendTransitionAsync(Ontogony.Execution.ExecutionStateTransitionRecord transition, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<Ontogony.Execution.ExecutionRunRecord?> GetRunAsync(string runId, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<Ontogony.Execution.ExecutionAttemptRecord>> ListAttemptsAsync(string stepId, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<Ontogony.Execution.ExecutionCheckpointRecord>> ListCheckpointsAsync(string runId, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<Ontogony.Execution.ExecutionStepRecord>> ListStepsAsync(string runId, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<Ontogony.Execution.ExecutionStateTransitionRecord>> ListTransitionsAsync(string runId, System.Threading.CancellationToken cancellationToken = default);
+    }
+    public sealed class InMemoryExecutionJournal : Ontogony.Execution.IExecutionJournal
+    {
+        public InMemoryExecutionJournal() { }
+        public System.Threading.Tasks.Task AppendAttemptAsync(Ontogony.Execution.ExecutionAttemptRecord attempt, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task AppendCheckpointAsync(Ontogony.Execution.ExecutionCheckpointRecord checkpoint, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task AppendRunAsync(Ontogony.Execution.ExecutionRunRecord run, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task AppendStepAsync(Ontogony.Execution.ExecutionStepRecord step, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task AppendTransitionAsync(Ontogony.Execution.ExecutionStateTransitionRecord transition, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<Ontogony.Execution.ExecutionRunRecord?> GetRunAsync(string runId, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<Ontogony.Execution.ExecutionAttemptRecord>> ListAttemptsAsync(string stepId, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<Ontogony.Execution.ExecutionCheckpointRecord>> ListCheckpointsAsync(string runId, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<Ontogony.Execution.ExecutionStepRecord>> ListStepsAsync(string runId, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<Ontogony.Execution.ExecutionStateTransitionRecord>> ListTransitionsAsync(string runId, System.Threading.CancellationToken cancellationToken = default) { }
+    }
+}

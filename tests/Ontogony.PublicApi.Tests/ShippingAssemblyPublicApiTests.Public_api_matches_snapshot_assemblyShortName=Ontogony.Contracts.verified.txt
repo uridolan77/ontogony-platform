@@ -1,0 +1,250 @@
+﻿namespace Ontogony.Contracts.Common
+{
+    public sealed class PagedResult<T> : System.IEquatable<Ontogony.Contracts.Common.PagedResult<T>>
+    {
+        public PagedResult(System.Collections.Generic.IReadOnlyList<T> Items, int TotalCount, int Page, int PageSize) { }
+        public System.Collections.Generic.IReadOnlyList<T> Items { get; init; }
+        public int PageSize { get; init; }
+        public int Page { get; init; }
+        public int TotalCount { get; init; }
+    }
+    public sealed class Result<T> : System.IEquatable<Ontogony.Contracts.Common.Result<T>>
+    {
+        public Result(bool Succeeded, T? Value, string? ErrorCode = null, string? ErrorMessage = null) { }
+        public string? ErrorCode { get; init; }
+        public string? ErrorMessage { get; init; }
+        public bool Succeeded { get; init; }
+        public T Value { get; init; }
+        public static Ontogony.Contracts.Common.Result<T> Fail(string code, string message) { }
+        public static Ontogony.Contracts.Common.Result<T> Ok(T value) { }
+    }
+}
+namespace Ontogony.Contracts.Events
+{
+    public sealed class CloudEventConversionOptions
+    {
+        public CloudEventConversionOptions() { }
+        public bool AllowNullCloudEventData { get; set; }
+        public Ontogony.Primitives.IClock? Clock { get; set; }
+        public string DefaultProtocolWhenMissing { get; set; }
+        public Ontogony.Contracts.Events.CloudEventTraceIdPolicy TraceIdPolicy { get; set; }
+    }
+    [System.Runtime.CompilerServices.RequiredMember]
+    public sealed class CloudEventEnvelope
+    {
+        [System.Obsolete("Constructors of types with required members are not supported in this version of " +
+            "your compiler.", true)]
+        [System.Runtime.CompilerServices.CompilerFeatureRequired("RequiredMembers")]
+        public CloudEventEnvelope() { }
+        [System.Obsolete("Constructors of types with required members are not supported in this version of " +
+            "your compiler.", true)]
+        [System.Runtime.CompilerServices.CompilerFeatureRequired("RequiredMembers")]
+        public CloudEventEnvelope(string id, string source, string type) { }
+        [System.Text.Json.Serialization.JsonPropertyName("data")]
+        public object? Data { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("datacontenttype")]
+        public string? DataContentType { get; set; }
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.Dictionary<string, object>? Extensions { get; set; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        public string Id { get; set; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        [System.Text.Json.Serialization.JsonPropertyName("source")]
+        public string Source { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("specversion")]
+        public string SpecVersion { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("time")]
+        public string? Time { get; set; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        [System.Text.Json.Serialization.JsonPropertyName("type")]
+        public string Type { get; set; }
+    }
+    public enum CloudEventTraceIdPolicy
+    {
+        GenerateWhenMissing = 0,
+        RejectWhenMissing = 1,
+    }
+    public static class CloudEventsExtensions
+    {
+        public static Ontogony.Contracts.Events.CloudEventEnvelope ToCloudEvent<TPayload>(this Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> envelope) { }
+        public static string ToCloudEventJson<TPayload>(this Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> envelope, System.Text.Json.JsonSerializerOptions? options = null) { }
+        public static Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> ToOntogonyEnvelope<TPayload>(this Ontogony.Contracts.Events.CloudEventEnvelope cloudEvent) { }
+        public static Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> ToOntogonyEnvelope<TPayload>(this Ontogony.Contracts.Events.CloudEventEnvelope cloudEvent, Ontogony.Contracts.Events.CloudEventConversionOptions? options) { }
+        public static Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> ToOntogonyEnvelope<TPayload>(this Ontogony.Contracts.Events.CloudEventEnvelope cloudEvent, string defaultProtocolWhenMissing) { }
+    }
+    public sealed class DefaultEnvelopeValidator : Ontogony.Contracts.Events.IEnvelopeValidator
+    {
+        public DefaultEnvelopeValidator(Ontogony.Contracts.Events.EnvelopeValidatorOptions? options = null) { }
+        public static System.Collections.Generic.IReadOnlyList<string> SuggestedProtocolIdentifiers { get; }
+        public Ontogony.Contracts.Events.EnvelopeValidationResult Validate<TPayload>(Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> envelope) { }
+    }
+    public sealed class EnvelopeValidationError : System.IEquatable<Ontogony.Contracts.Events.EnvelopeValidationError>
+    {
+        public EnvelopeValidationError(string Field, string Message, string? Code = null) { }
+        public string? Code { get; init; }
+        public string Field { get; init; }
+        public string Message { get; init; }
+    }
+    public sealed class EnvelopeValidationResult : System.IEquatable<Ontogony.Contracts.Events.EnvelopeValidationResult>
+    {
+        public EnvelopeValidationResult(bool IsValid, System.Collections.Generic.IReadOnlyList<Ontogony.Contracts.Events.EnvelopeValidationError> Errors) { }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.Contracts.Events.EnvelopeValidationError> Errors { get; init; }
+        public bool IsValid { get; init; }
+        public static Ontogony.Contracts.Events.EnvelopeValidationResult Fail(System.Collections.Generic.IReadOnlyList<Ontogony.Contracts.Events.EnvelopeValidationError> errors) { }
+        public static Ontogony.Contracts.Events.EnvelopeValidationResult Ok() { }
+    }
+    public sealed class EnvelopeValidatorOptions
+    {
+        public EnvelopeValidatorOptions() { }
+        public System.Collections.Generic.HashSet<string>? AllowedProtocols { get; set; }
+        public int MaxEventIdLength { get; set; }
+        public int MaxTraceIdLength { get; set; }
+    }
+    public interface IEnvelopeValidator
+    {
+        Ontogony.Contracts.Events.EnvelopeValidationResult Validate<TPayload>(Ontogony.Contracts.Events.OntogonyEnvelope<TPayload> envelope);
+    }
+    [System.Runtime.CompilerServices.RequiredMember]
+    public sealed class OntogonyEnvelope<TPayload> : System.IEquatable<Ontogony.Contracts.Events.OntogonyEnvelope<TPayload>>
+    {
+        [System.Obsolete("Constructors of types with required members are not supported in this version of " +
+            "your compiler.", true)]
+        [System.Runtime.CompilerServices.CompilerFeatureRequired("RequiredMembers")]
+        public OntogonyEnvelope() { }
+        public string? ActorId { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string EventId { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string EventType { get; init; }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> Metadata { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public System.DateTimeOffset OccurredAt { get; init; }
+        public string? ParentSpanId { get; init; }
+        public string? PayloadHash { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public TPayload Payload { get; init; }
+        public string? ProjectId { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string Protocol { get; init; }
+        public string SchemaVersion { get; init; }
+        public string? SessionId { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string Source { get; init; }
+        public string? SpanId { get; init; }
+        public string? TenantId { get; init; }
+        [System.Runtime.CompilerServices.RequiredMember]
+        public string TraceId { get; init; }
+        public string? WorkspaceId { get; init; }
+    }
+    public static class OntogonyEventHeaders
+    {
+        public const string ActorId = "X-Ontogony-Actor-Id";
+        public const string ConexusRequestId = "X-Conexus-Request-Id";
+        public const string IdempotencyKey = "Idempotency-Key";
+        public const string LegacyAgentorTraceId = "X-Agentor-Trace-Id";
+        public const string LegacyAthanorTraceId = "X-Athanor-Trace-Id";
+        public const string ProjectId = "X-Ontogony-Project-Id";
+        public const string SessionId = "X-Ontogony-Session-Id";
+        public const string TenantId = "X-Ontogony-Tenant-Id";
+        public const string TraceId = "X-Ontogony-Trace-Id";
+        public const string TraceParent = "traceparent";
+        public const string TraceState = "tracestate";
+        public const string WorkspaceId = "X-Ontogony-Workspace-Id";
+    }
+    public sealed class OntogonyEventMetadata : System.IEquatable<Ontogony.Contracts.Events.OntogonyEventMetadata>
+    {
+        public OntogonyEventMetadata(string? Subject = null, string? DetailLevel = null, string? SchemaVersion = null, System.Collections.Generic.IReadOnlyDictionary<string, string>? CustomProperties = null) { }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string>? CustomProperties { get; init; }
+        public string? DetailLevel { get; init; }
+        public string? SchemaVersion { get; init; }
+        public string? Subject { get; init; }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> ToFlatDictionary() { }
+        public static Ontogony.Contracts.Events.OntogonyEventMetadata FromFlatDictionary(System.Collections.Generic.IReadOnlyDictionary<string, string> dict) { }
+    }
+    public static class OntogonyEventTypes
+    {
+        public const string A2AArtifactGenerated = "a2a.artifact.generated";
+        public const string A2ATaskCompleted = "a2a.task.completed";
+        public const string A2ATaskCreated = "a2a.task.created";
+        public const string AgUiMessageCreated = "agui.message.created";
+        public const string AgUiStateUpdated = "agui.state.updated";
+        public const string AgUiUserApproved = "agui.user.approved";
+        public const string AgUiUserInterrupted = "agui.user.interrupted";
+        public const string AgentRunCompleted = "agent.run.completed";
+        public const string AgentRunStarted = "agent.run.started";
+        public const string AgentStepCompleted = "agent.step.completed";
+        public const string CostRecorded = "cost.recorded";
+        public const string DecisionDetected = "athanor.decision.detected";
+        public const string HttpRequestCompleted = "http.request.completed";
+        public const string HttpRequestFailed = "http.request.failed";
+        public const string HttpRequestStarted = "http.request.started";
+        public const string LlmProviderFailed = "llm.provider.failed";
+        public const string LlmRequestCreated = "llm.request.created";
+        public const string LlmResponseCompleted = "llm.response.completed";
+        public const string McpResourceRead = "mcp.resource.read";
+        public const string McpToolCompleted = "mcp.tool.completed";
+        public const string McpToolInvoked = "mcp.tool.invoked";
+        public const string PolicyEvaluated = "policy.evaluated";
+        public const string ProviderFailed = "provider.failed";
+    }
+    public static class ProtocolNames
+    {
+        public const string A2A = "a2a";
+        public const string AgUi = "ag-ui";
+        public const string Agentor = "agentor";
+        public const string Athanor = "athanor";
+        public const string CloudEvents = "cloudevents";
+        public const string Conexus = "conexus";
+        public const string GenericJson = "generic-json";
+        public const string LangGraph = "langgraph";
+        public const string Mcp = "mcp";
+        public const string OpenAiAgents = "openai-agents";
+        public const string OpenTelemetry = "otel";
+        public const string VercelAiSdk = "vercel-ai-sdk";
+    }
+}
+namespace Ontogony.Contracts.References
+{
+    public sealed class ActorRef : System.IEquatable<Ontogony.Contracts.References.ActorRef>
+    {
+        public ActorRef(string ActorId, string ActorType, string? DisplayName = null, string? TenantId = null) { }
+        public string ActorId { get; init; }
+        public string ActorType { get; init; }
+        public string? DisplayName { get; init; }
+        public string? TenantId { get; init; }
+    }
+    public sealed class ArtifactRef : System.IEquatable<Ontogony.Contracts.References.ArtifactRef>
+    {
+        public ArtifactRef(string ArtifactId, string ArtifactType, string? Label = null, string? ContentHash = null, string? MimeType = null) { }
+        public string ArtifactId { get; init; }
+        public string ArtifactType { get; init; }
+        public string? ContentHash { get; init; }
+        public string? Label { get; init; }
+        public string? MimeType { get; init; }
+    }
+    public sealed class EntityRef : System.IEquatable<Ontogony.Contracts.References.EntityRef>
+    {
+        public EntityRef(string Type, string Id, string? Label = null, string? Version = null) { }
+        public string Id { get; init; }
+        public string? Label { get; init; }
+        public string Type { get; init; }
+        public string? Version { get; init; }
+    }
+    public sealed class SubjectRef : System.IEquatable<Ontogony.Contracts.References.SubjectRef>
+    {
+        public SubjectRef(string Type, string Id, string? DisplayName = null, string? Source = null) { }
+        public string? DisplayName { get; init; }
+        public string Id { get; init; }
+        public string? Source { get; init; }
+        public string Type { get; init; }
+    }
+    public sealed class TraceRef : System.IEquatable<Ontogony.Contracts.References.TraceRef>
+    {
+        public TraceRef(string TraceId, string? SpanId = null, string? ParentSpanId = null, string? Sampled = null) { }
+        public string? ParentSpanId { get; init; }
+        public string? Sampled { get; init; }
+        public string? SpanId { get; init; }
+        public string TraceId { get; init; }
+    }
+}

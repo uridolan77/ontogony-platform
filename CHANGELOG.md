@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+PR-PLAT-004 — public API approval snapshots:
+
+- **Tests:** `tests/Ontogony.PublicApi.Tests` — Verify + PublicApiGenerator baselines for each of the **23** shipping `Ontogony.*` assemblies (`*.verified.txt`); `dotnet test` fails on unintended public surface changes until snapshots are updated.
+- **Docs:** `docs/planning/robustness/PUBLIC_API_COMPATIBILITY.md` — how to refresh baselines; `docs/FRAMEWORK_BASELINE.md` points at the new gate.
+- **Repo:** `.gitignore` — `*.received.txt` (Verify diff output).
+
+PR-PLAT-005 — dependency baseline alignment:
+
+- **Docs:** `docs/planning/robustness/DEPENDENCY_BASELINE.md` — policy, pin mirror, documented drift (Microsoft vs third-party, shared framework, no automated outdated gate).
+- **CI / release:** `scripts/validate-dependency-baseline.ps1` — enforces one `Microsoft.Extensions.*` / `Microsoft.AspNetCore.TestHost` version line, no duplicate `PackageVersion` entries, `global.json` SDK `9.0.*`.
+- **Docs:** `docs/FRAMEWORK_BASELINE.md` and Conexus readiness blueprint link to the dependency baseline.
+
 PR48–PR52 — logging, redaction, secrets, quotas, replay contracts:
 
 - **New package `Ontogony.Logging`:** structured log field constants, stable event IDs, correlation scope helper, ASP.NET logging-scope middleware, and service registration for provider-neutral logging mechanics.
