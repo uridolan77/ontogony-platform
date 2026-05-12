@@ -1,8 +1,10 @@
 namespace Ontogony.Artifacts;
 
 /// <summary>
-/// Input to <see cref="IArtifactStore.PutAsync"/>. Carries the raw bytes plus opaque transport
-/// and scope hints used by the store to derive an <see cref="ArtifactRef"/>.
+/// Input to <see cref="IArtifactStore.PutAsync(ArtifactPutRequest, CancellationToken)"/>. Carries
+/// the raw bytes plus opaque transport and scope hints used by the store to derive an
+/// <see cref="ArtifactRef"/>. For payloads that should not be buffered in full, use
+/// <see cref="ArtifactStreamPutRequest"/> instead.
 /// </summary>
 /// <remarks>
 /// Not a wire DTO — equality semantics for the <see cref="Content"/> buffer are intentionally

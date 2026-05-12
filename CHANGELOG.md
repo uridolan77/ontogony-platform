@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+PR37.1 — Ontogony.Artifacts hardening:
+
+- **Stream-based writes:** Added `ArtifactStreamPutRequest` (with `ContentStream`, `ExpectedSizeBytes`, `ExpectedContentHash`) and an `IArtifactStore.PutAsync(ArtifactStreamPutRequest, …)` overload so future durable implementations are not forced to buffer entire payloads in memory. `InMemoryArtifactStore` drains the stream, verifies expected size/hash when supplied, and shares the deterministic SHA-256 fingerprint with the byte-buffer path.
+- **Encoding-aware dedupe:** `InMemoryArtifactStore` dedupe identity now includes `ContentEncoding` alongside content hash, tenant/workspace/project, media type, and classification. Same raw bytes labelled `identity` vs `gzip` no longer collapse into one artifact. `StorageTier` and `Uri` remain hint metadata.
+- **Defensive reads & writes:** `GetAsync` / `TryGetAsync` return a copy of the stored bytes so consumers cannot mutate the backing array. `PutAsync(ArtifactPutRequest)` snapshots the caller's buffer before storing, so subsequent caller mutation does not change stored content.
+- **Docs:** `ArtifactRef` XML doc and `docs/packages/Ontogony.Artifacts.md` now spell out the identity-vs-hint split (`ContentEncoding` is identity; `StorageTier` and `Uri` are hints) and that `ContentHash` is computed over the stored raw bytes. `ArtifactNotFoundException` now documents that hosts should map it through their error middleware before exposing it.
+- **Tests:** `Ontogony.Artifacts.Tests` covers encoding-aware dedupe (no collapse), hint-only differences (dedupe preserved), stream/buffer hash parity, stream put/get round trip, stream put dedupe within scope, `ExpectedSizeBytes` and `ExpectedContentHash` enforcement (mismatch + match), defensive copy on read, and input-buffer immutability after put.
+- **Explicit non-scope:** Still no cloud provider bindings, no retention/eviction policy, no PII or sensitivity registry, no agent/canon/routing semantics.
+
 PR37 — Ontogony.Artifacts (artifact reference contracts and in-memory store):
 
 - **New package `Ontogony.Artifacts`:** `ArtifactRef` (serialization-friendly reference DTO with id, content hash, size, opaque media type / encoding / storage tier / classification, optional scope and locator URI), `ArtifactPutRequest`, `ArtifactPutResult`, `ArtifactContent`, `IArtifactStore`, `ArtifactNotFoundException`, and thread-safe `InMemoryArtifactStore` (lowercase hex SHA-256 content addressing via `Ontogony.Hashing.Sha256ContentHashService`, dedup by content hash + tenant/workspace/project/media-type/classification).

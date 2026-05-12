@@ -9,9 +9,20 @@ public interface IArtifactStore
 {
     /// <summary>
     /// Stores the supplied bytes and returns an <see cref="ArtifactPutResult"/> referencing the
-    /// (possibly already existing) artifact.
+    /// (possibly already existing) artifact. Convenience overload for callers that already hold
+    /// the full payload in memory.
     /// </summary>
     Task<ArtifactPutResult> PutAsync(ArtifactPutRequest request, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Stores the bytes drained from <see cref="ArtifactStreamPutRequest.ContentStream"/> and
+    /// returns an <see cref="ArtifactPutResult"/>. Implementations should avoid loading the entire
+    /// payload into memory; the in-memory reference implementation is the only exception. When
+    /// <see cref="ArtifactStreamPutRequest.ExpectedContentHash"/> or
+    /// <see cref="ArtifactStreamPutRequest.ExpectedSizeBytes"/> are set, mismatches must be rejected.
+    /// The store does not dispose the supplied stream.
+    /// </summary>
+    Task<ArtifactPutResult> PutAsync(ArtifactStreamPutRequest request, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Returns the artifact bytes for <paramref name="artifactId"/> or throws
