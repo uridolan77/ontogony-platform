@@ -8,7 +8,7 @@ namespace Ontogony.ProtocolIngress.Adapters;
 /// Adapter for normalizing CloudEvents protocol events.
 /// Mechanical conversion without business logic interpretation.
 /// </summary>
-public sealed class CloudEventsProtocolAdapter : BaseProtocolIngressAdapter, IProtocolIngressAdapter<CloudEvent>
+public sealed class CloudEventsProtocolAdapter : BaseProtocolIngressAdapter, IProtocolIngressAdapter<CloudEventEnvelope>
 {
     private const string ProtocolName = "cloudevents";
 
@@ -21,51 +21,57 @@ public sealed class CloudEventsProtocolAdapter : BaseProtocolIngressAdapter, IPr
     {
     }
 
-    public ProtocolIngressResult Normalize(CloudEvent raw, ProtocolIngressContext context)
+    public ProtocolIngressResult Normalize(CloudEventEnvelope raw, ProtocolIngressContext context)
     {
         if (raw == null)
-            return ProtocolIngressResult.Failure(nameof(raw), "CloudEvent cannot be null.");
+            return ProtocolIngressResult.Failure(nameof(raw), "CloudEventEnvelope cannot be null.");
 
         // Validate required CloudEvents fields
         if (string.IsNullOrWhiteSpace(raw.Id))
-            return ProtocolIngressResult.Failure(nameof(CloudEvent.Id),
+            return ProtocolIngressResult.Failure(nameof(CloudEventEnvelope.Id),
                 "CloudEvent id is required.");
 
         if (string.IsNullOrWhiteSpace(raw.Type))
-            return ProtocolIngressResult.Failure(nameof(CloudEvent.Type),
+            return ProtocolIngressResult.Failure(nameof(CloudEventEnvelope.Type),
                 "CloudEvent type is required.");
 
         if (string.IsNullOrWhiteSpace(raw.Source))
-            return ProtocolIngressResult.Failure(nameof(CloudEvent.Source),
+            return ProtocolIngressResult.Failure(nameof(CloudEventEnvelope.Source),
                 "CloudEvent source is required.");
 
         // Extract trace ID from context or CloudEvents extensions
-        var traceId = raw.Extensions?.ContainsKey("traceid") == true
-            ? raw.Extensions["traceid"] as string
-            : null;
+        var traceId = ExtractExtensionAsString(raw.Extensions, "traceId")
+            ?? ExtractExtensionAsString(raw.Extensions, "traceid");
 
         var finalTraceId = ValidateOrGenerateTraceId(traceId, context, out var traceIdError);
         if (traceIdError != null)
             return traceIdError;
 
-        var timestamp = NormalizeTimestamp(raw.Time, context);
+        DateTimeOffset? providedTimestamp = null;
+        if (!string.IsNullOrWhiteSpace(raw.Time) && DateTimeOffset.TryParse(raw.Time, out var parsedTime))
+        {
+            providedTimestamp = parsedTime;
+        }
+
+        var timestamp = NormalizeTimestamp(providedTimestamp, context);
 
         // Serialize the entire CloudEvent as RawProtocolPayload
         var rawJson = System.Text.Json.JsonSerializer.Serialize(raw);
-        var payloadHash = ComputePayloadHash(rawJson);
+        var canonicalPayloadHash = ComputeCanonicalPayloadHash(rawJson);
 
         var rawPayload = new RawProtocolPayload
         {
             Protocol = ProtocolName,
             RawJson = rawJson,
+            RawEventType = raw.Type,
             ParsedObject = raw,
-            PayloadHash = payloadHash
+            CanonicalPayloadHash = canonicalPayloadHash
         };
 
         var envelope = new OntogonyEnvelope<RawProtocolPayload>
         {
             EventId = raw.Id,
-            EventType = raw.Type,
+            EventType = NormalizeEnvelopeEventType(ProtocolName),
             Source = NormalizeSourceUri(ProtocolName, raw.Source),  // Normalize to absolute URI
             OccurredAt = timestamp,
             TraceId = finalTraceId!,
@@ -73,7 +79,7 @@ public sealed class CloudEventsProtocolAdapter : BaseProtocolIngressAdapter, IPr
             ParentSpanId = context.ParentSpanId,
             Protocol = ProtocolName,
             Payload = rawPayload,
-            PayloadHash = payloadHash,
+            PayloadHash = canonicalPayloadHash,
             TenantId = context.Metadata?.TenantId,
             WorkspaceId = context.Metadata?.WorkspaceId,
             ProjectId = context.Metadata?.ProjectId,
@@ -84,20 +90,19 @@ public sealed class CloudEventsProtocolAdapter : BaseProtocolIngressAdapter, IPr
         // Validate envelope against platform contracts
         return ValidateAndReturnEnvelope(envelope);
     }
-}
 
-/// <summary>
-/// DTO representing a CloudEvent for ingress normalization.
-/// </summary>
-public sealed record CloudEvent
-{
-    public required string Id { get; init; }
-    public required string Type { get; init; }
-    public required string Source { get; init; }
-    public DateTimeOffset? Time { get; init; }
-    public string? DataContentType { get; init; }
-    public object? Data { get; init; }
-    public string? DataSchema { get; init; }
-    public string? Subject { get; init; }
-    public IReadOnlyDictionary<string, object?>? Extensions { get; init; }
+    private static string? ExtractExtensionAsString(Dictionary<string, object>? extensions, string key)
+    {
+        if (extensions is null || !extensions.TryGetValue(key, out var value) || value is null)
+            return null;
+
+        return value switch
+        {
+            string s => s,
+            System.Text.Json.JsonElement { ValueKind: System.Text.Json.JsonValueKind.String } e => e.GetString(),
+            System.Text.Json.JsonElement { ValueKind: System.Text.Json.JsonValueKind.Null or System.Text.Json.JsonValueKind.Undefined } => null,
+            System.Text.Json.JsonElement e => e.GetRawText(),
+            _ => value.ToString()
+        };
+    }
 }

@@ -17,13 +17,26 @@ public sealed record RawProtocolPayload
     public required string RawJson { get; init; }
 
     /// <summary>
-    /// Gets the raw payload parsed as dynamic object (if available after parsing).
-    /// May be null if parsing failed during initial ingestion.
+    /// Gets the original protocol-specific event type before ingress normalization.
+    /// This preserves protocol meaning while the envelope EventType remains mechanical.
     /// </summary>
+    public string? RawEventType { get; init; }
+
+    /// <summary>
+    /// Gets the raw payload parsed as a transient object for in-memory processing.
+    /// This field is intentionally non-durable and is excluded from serialization.
+    /// </summary>
+    [System.Text.Json.Serialization.JsonIgnore]
     public object? ParsedObject { get; init; }
 
     /// <summary>
-    /// Gets the deterministic hash of the raw payload for deduplication and integrity verification.
+    /// Gets the deterministic SHA-256 hash computed over canonical JSON.
     /// </summary>
+    public string? CanonicalPayloadHash { get; init; }
+
+    /// <summary>
+    /// Backward-compatible alias for <see cref="CanonicalPayloadHash"/>.
+    /// </summary>
+    [Obsolete("Use CanonicalPayloadHash. This alias will be removed in a future version.")]
     public string? PayloadHash { get; init; }
 }

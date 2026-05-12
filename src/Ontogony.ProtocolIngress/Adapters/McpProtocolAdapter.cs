@@ -45,20 +45,21 @@ public sealed class McpProtocolAdapter : BaseProtocolIngressAdapter, IProtocolIn
         var eventId = raw.EventId ?? IdGenerator.NewGuid().ToString();
 
         var rawJson = JsonSerializer.Serialize(raw);
-        var payloadHash = ComputePayloadHash(rawJson);
+        var canonicalPayloadHash = ComputeCanonicalPayloadHash(rawJson);
 
         var rawPayload = new RawProtocolPayload
         {
             Protocol = ProtocolName,
             RawJson = rawJson,
+            RawEventType = raw.EventType,
             ParsedObject = raw,
-            PayloadHash = payloadHash
+            CanonicalPayloadHash = canonicalPayloadHash
         };
 
         var envelope = new OntogonyEnvelope<RawProtocolPayload>
         {
             EventId = eventId,
-            EventType = raw.EventType,
+            EventType = NormalizeEnvelopeEventType(ProtocolName),
             Source = NormalizeSourceUri(ProtocolName, raw.Source),  // Normalize to absolute URI
             OccurredAt = timestamp,
             TraceId = finalTraceId!,
@@ -66,7 +67,7 @@ public sealed class McpProtocolAdapter : BaseProtocolIngressAdapter, IProtocolIn
             ParentSpanId = context.ParentSpanId ?? raw.ParentSpanId,
             Protocol = ProtocolName,
             Payload = rawPayload,
-            PayloadHash = payloadHash,
+            PayloadHash = canonicalPayloadHash,
             TenantId = context.Metadata?.TenantId,
             WorkspaceId = context.Metadata?.WorkspaceId,
             ProjectId = context.Metadata?.ProjectId,

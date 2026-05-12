@@ -1,4 +1,3 @@
-using System.Text.Json;
 using Ontogony.Contracts.Events;
 using Ontogony.Hashing;
 using Ontogony.Primitives;
@@ -95,11 +94,19 @@ public abstract class BaseProtocolIngressAdapter
     }
 
     /// <summary>
-    /// Computes a deterministic hash of a JSON payload.
+    /// Computes the canonical JSON hash used for deterministic payload identity.
     /// </summary>
-    protected string ComputePayloadHash(string rawJson)
+    protected string ComputeCanonicalPayloadHash(string rawJson)
     {
         return PayloadHasher.ComputeCanonicalJsonHash(rawJson);
+    }
+
+    /// <summary>
+    /// Applies the mechanical ingress event type policy for normalized envelopes.
+    /// </summary>
+    protected string NormalizeEnvelopeEventType(string protocol)
+    {
+        return $"{protocol}.ingress.normalized";
     }
 
     /// <summary>

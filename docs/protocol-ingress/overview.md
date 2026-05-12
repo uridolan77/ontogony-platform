@@ -93,9 +93,11 @@ Each adapter:
 
 ```csharp
 var payloadHasher = new PayloadHasher(new Sha256ContentHashService());
-var idGenerator = new DefaultIdGenerator();
+var idGenerator = new GuidIdGenerator();
+var clock = new SystemClock();
+var envelopeValidator = new DefaultEnvelopeValidator();
 
-var adapter = new GenericJsonProtocolAdapter(payloadHasher, idGenerator);
+var adapter = new GenericJsonProtocolAdapter(payloadHasher, idGenerator, clock, envelopeValidator);
 
 var rawJson = @"
 {
@@ -122,8 +124,9 @@ if (result.IsSuccess)
 {
     var envelope = result.Envelope!;
     // envelope.TraceId: "trace-xyz"
-    // envelope.EventType: "user.created"
-    // envelope.Source: "user-service"
+    // envelope.EventType: "generic-json.ingress.normalized"
+    // envelope.Payload.RawEventType: "user.created"
+    // envelope.Source: "generic-json://user-service"
     // envelope.Protocol: "generic-json"
     // envelope.PayloadHash: deterministic hash of rawJson
     // envelope.TenantId: "tenant-123"
@@ -141,10 +144,11 @@ else
 
 Adapters validate at ingress:
 
-- **Required fields**: EventType, Source, EventId (generated if missing in some protocols).
+- **Required fields**: protocol-specific raw event type and source must be present (EventId is generated if missing in some protocols).
 - **TraceId policy**: RequireProvided (fail) or GenerateIfMissing.
 - **Timestamp**: Normalized to UTC or from context.
-- **Payload hash**: Deterministic SHA256 of canonical JSON.
+- **Envelope event type policy**: uses mechanical `{protocol}.ingress.normalized`; raw protocol event type is preserved in payload.
+- **Payload hash**: deterministic SHA256 of canonical JSON.
 
 Invalid payloads return `ProtocolIngressResult` with structured `ProtocolIngressError` entries.
 

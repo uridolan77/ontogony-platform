@@ -66,20 +66,21 @@ public sealed class GenericJsonProtocolAdapter : BaseProtocolIngressAdapter, IPr
             eventId = IdGenerator.NewGuid().ToString();
 
         var timestamp = NormalizeTimestamp(null, context);
-        var payloadHash = ComputePayloadHash(rawJson);
+        var canonicalPayloadHash = ComputeCanonicalPayloadHash(rawJson);
 
         var rawPayload = new RawProtocolPayload
         {
             Protocol = ProtocolName,
             RawJson = rawJson,
+            RawEventType = eventType,
             ParsedObject = root,  // Store the cloned JsonElement
-            PayloadHash = payloadHash
+            CanonicalPayloadHash = canonicalPayloadHash
         };
 
         var envelope = new OntogonyEnvelope<RawProtocolPayload>
         {
             EventId = eventId,
-            EventType = eventType,
+            EventType = NormalizeEnvelopeEventType(ProtocolName),
             Source = NormalizeSourceUri(ProtocolName, source),  // Normalize to absolute URI
             OccurredAt = timestamp,
             TraceId = finalTraceId!,
@@ -87,7 +88,7 @@ public sealed class GenericJsonProtocolAdapter : BaseProtocolIngressAdapter, IPr
             ParentSpanId = context.ParentSpanId,
             Protocol = ProtocolName,
             Payload = rawPayload,
-            PayloadHash = payloadHash,
+            PayloadHash = canonicalPayloadHash,
             TenantId = context.Metadata?.TenantId,
             WorkspaceId = context.Metadata?.WorkspaceId,
             ProjectId = context.Metadata?.ProjectId,

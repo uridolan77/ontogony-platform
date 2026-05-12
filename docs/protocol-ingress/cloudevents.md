@@ -4,32 +4,33 @@
 
 The `CloudEventsProtocolAdapter` normalizes CloudEvents 1.0 compliant events into `OntogonyEnvelope<RawProtocolPayload>` records.
 
-## CloudEvent DTO
+## CloudEvent Model
 
 ```csharp
-public sealed record CloudEvent
+public sealed class CloudEventEnvelope
 {
-    public required string Id { get; init; }
-    public required string Type { get; init; }
-    public required string Source { get; init; }
-    public DateTimeOffset? Time { get; init; }
-    public string? DataContentType { get; init; }
-    public object? Data { get; init; }
-    public string? DataSchema { get; init; }
-    public string? Subject { get; init; }
-    public IReadOnlyDictionary<string, object?>? Extensions { get; init; }
+    public string SpecVersion { get; set; } = "1.0";
+    public required string Id { get; set; }
+    public required string Source { get; set; }
+    public required string Type { get; set; }
+    public string? Time { get; set; }
+    public object? Data { get; set; }
+    public Dictionary<string, object>? Extensions { get; set; }
 }
 ```
+
+The adapter now uses the canonical CloudEvents shape from `Ontogony.Contracts.Events`.
 
 ## Normalization Mapping
 
 | CloudEvent Field | OntogonyEnvelope Field | Notes |
 |---|---|---|
 | `Id` | `EventId` | Required. |
-| `Type` | `EventType` | Required. |
-| `Source` | `Source` | Required. |
-| `Time` | `OccurredAt` | Normalized to UTC. Fallback to context or current time. |
-| `Extensions["traceid"]` | `TraceId` | Extracted from extensions if present. Otherwise requires context or generation policy. |
+| `Type` | `Payload.RawEventType` | Preserved raw protocol type. |
+| N/A | `EventType` | Mechanical ingress type: `cloudevents.ingress.normalized`. |
+| `Source` | `Source` | Normalized to absolute URI as `cloudevents://{source}` when needed. |
+| `Time` | `OccurredAt` | Parsed if valid; fallback to context or clock. |
+| `Extensions["traceId"]` or `Extensions["traceid"]` | `TraceId` | Extracted from extensions if present. Otherwise uses context or generation policy. |
 | N/A | `Protocol` | Set to `"cloudevents"`. |
 
 ## Validation Rules
@@ -42,18 +43,18 @@ public sealed record CloudEvent
 ## Usage Example
 
 ```csharp
-var adapter = new CloudEventsProtocolAdapter(payloadHasher, idGenerator);
+var adapter = new CloudEventsProtocolAdapter(payloadHasher, idGenerator, clock, envelopeValidator);
 
-var cloudEvent = new CloudEvent
+var cloudEvent = new CloudEventEnvelope
 {
     Id = "event-123",
     Type = "com.example.user.created",
     Source = "https://user-service/api",
-    Time = DateTimeOffset.UtcNow,
+    Time = DateTimeOffset.UtcNow.ToString("O"),
     Data = new { userId = "user-456", email = "user@example.com" },
-    Extensions = new Dictionary<string, object?>
+    Extensions = new Dictionary<string, object>
     {
-        { "traceid", "trace-xyz" }
+        { "traceId", "trace-xyz" }
     }
 };
 
@@ -64,8 +65,9 @@ if (result.IsSuccess)
 {
     var envelope = result.Envelope!;
     // envelope.EventId: "event-123"
-    // envelope.EventType: "com.example.user.created"
-    // envelope.Source: "https://user-service/api"
+    // envelope.EventType: "cloudevents.ingress.normalized"
+    // envelope.Payload.RawEventType: "com.example.user.created"
+    // envelope.Source: "cloudevents://https://user-service/api"
     // envelope.TraceId: "trace-xyz"
     // envelope.Protocol: "cloudevents"
     // envelope.Payload.RawJson: serialized CloudEvent

@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+PR28.1 (Phase 2) — ProtocolIngress P1 clarifications:
+
+- **Event type policy:** adapters now emit mechanical envelope event types (`{protocol}.ingress.normalized`) while preserving protocol-native event types in `RawProtocolPayload.RawEventType`.
+- **CloudEvents consolidation:** `CloudEventsProtocolAdapter` now uses the canonical `CloudEventEnvelope` from `Ontogony.Contracts.Events`; internal duplicate CloudEvent DTO removed.
+- **Hash semantics:** canonical payload hashing is now explicit via `CanonicalPayloadHash`; envelope `PayloadHash` continues to carry canonical SHA-256 identity.
+- **Durability guard:** `RawProtocolPayload.ParsedObject` is now marked non-durable (`JsonIgnore`) to prevent accidental persistence/serialization of runtime-only object graphs.
+- **Tests:** adapter tests updated for mechanical event type expectations and raw event type preservation.
+
+PR28.1 (Phase 3) — ProtocolIngress polish and edge-case coverage:
+
+- **Dead-code cleanup:** removed an unused base-adapter import to keep the ingress core minimal.
+- **Advanced edge-case tests:** added coverage for source URI normalization idempotency, context timestamp fallback precedence, whitespace-only trace handling under strict policy, CloudEvents invalid-time fallback behavior, CloudEvents `JsonElement` trace extension extraction, and non-durable `ParsedObject` serialization exclusion.
+- **Verification:** solution build and full test suite pass with expanded coverage.
+
 PR28 — Ontogony.ProtocolIngress mechanical protocol normalization:
 
 - **New package:** `Ontogony.ProtocolIngress` adds mechanical protocol-to-envelope normalization without product semantics.

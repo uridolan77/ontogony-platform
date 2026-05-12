@@ -49,20 +49,21 @@ public sealed class A2aProtocolAdapter : BaseProtocolIngressAdapter, IProtocolIn
         var messageId = raw.MessageId ?? IdGenerator.NewGuid().ToString();
 
         var rawJson = JsonSerializer.Serialize(raw);
-        var payloadHash = ComputePayloadHash(rawJson);
+        var canonicalPayloadHash = ComputeCanonicalPayloadHash(rawJson);
 
         var rawPayload = new RawProtocolPayload
         {
             Protocol = ProtocolName,
             RawJson = rawJson,
+            RawEventType = raw.MessageType,
             ParsedObject = raw,
-            PayloadHash = payloadHash
+            CanonicalPayloadHash = canonicalPayloadHash
         };
 
         var envelope = new OntogonyEnvelope<RawProtocolPayload>
         {
             EventId = messageId,
-            EventType = raw.MessageType,
+            EventType = NormalizeEnvelopeEventType(ProtocolName),
             Source = NormalizeSourceUri(ProtocolName, raw.SenderId),  // Normalize to absolute URI
             OccurredAt = timestamp,
             TraceId = finalTraceId!,
@@ -70,7 +71,7 @@ public sealed class A2aProtocolAdapter : BaseProtocolIngressAdapter, IProtocolIn
             ParentSpanId = context.ParentSpanId ?? raw.ParentSpanId,
             Protocol = ProtocolName,
             Payload = rawPayload,
-            PayloadHash = payloadHash,
+            PayloadHash = canonicalPayloadHash,
             TenantId = context.Metadata?.TenantId,
             WorkspaceId = context.Metadata?.WorkspaceId,
             ProjectId = context.Metadata?.ProjectId,

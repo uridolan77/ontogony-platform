@@ -45,14 +45,15 @@ public sealed class AgUiProtocolAdapter : BaseProtocolIngressAdapter, IProtocolI
         var eventId = raw.EventId ?? IdGenerator.NewGuid().ToString();
 
         var rawJson = JsonSerializer.Serialize(raw);
-        var payloadHash = ComputePayloadHash(rawJson);
+        var canonicalPayloadHash = ComputeCanonicalPayloadHash(rawJson);
 
         var rawPayload = new RawProtocolPayload
         {
             Protocol = ProtocolName,
             RawJson = rawJson,
+            RawEventType = raw.Action,
             ParsedObject = raw,
-            PayloadHash = payloadHash
+            CanonicalPayloadHash = canonicalPayloadHash
         };
 
         // For AG-UI, source includes session context for better traceability
@@ -62,7 +63,7 @@ public sealed class AgUiProtocolAdapter : BaseProtocolIngressAdapter, IProtocolI
         var envelope = new OntogonyEnvelope<RawProtocolPayload>
         {
             EventId = eventId,
-            EventType = raw.Action,
+            EventType = NormalizeEnvelopeEventType(ProtocolName),
             Source = source,  // Normalize to absolute URI
             OccurredAt = timestamp,
             TraceId = finalTraceId!,
@@ -70,7 +71,7 @@ public sealed class AgUiProtocolAdapter : BaseProtocolIngressAdapter, IProtocolI
             ParentSpanId = context.ParentSpanId ?? raw.ParentSpanId,
             Protocol = ProtocolName,
             Payload = rawPayload,
-            PayloadHash = payloadHash,
+            PayloadHash = canonicalPayloadHash,
             TenantId = context.Metadata?.TenantId,
             WorkspaceId = context.Metadata?.WorkspaceId,
             ProjectId = context.Metadata?.ProjectId,
