@@ -13,10 +13,18 @@ PR35.1 — Documentation accuracy and validation:
 PR36 — Ontogony.AI.Contracts (AI mechanical substrate, contracts only):
 
 - **New package `Ontogony.AI.Contracts`:** `LlmRequestEnvelope`, `LlmResponseEnvelope`, `LlmStreamChunk`, `LlmUsageRecord` (with `ResolveTotalTokensOrSum`), `LlmCostRecord`, `LlmProviderError`, `ToolCallRecord`, `ModelCapabilityDescriptor`; depends on `Ontogony.Contracts` only.
-- **Tests:** `Ontogony.AI.Contracts.Tests` — deterministic `CanonicalJson` round-trips, usage/cost/mechanical assertions, `DefaultEnvelopeValidator` coverage for `OntogonyEnvelope<LlmRequestEnvelope>`, boundary checks on exported type names.
+- **Tests:** `Ontogony.AI.Contracts.Tests` — deterministic `CanonicalJson` round-trips, usage/cost/mechanical assertions, `DefaultEnvelopeValidator` coverage for `OntogonyEnvelope<LlmRequestEnvelope>`, reflection boundary checks on exported contract surface (types, properties, methods, enums).
 - **Docs:** `docs/ai-runtime/boundary-guardrails.md`, `docs/ai-runtime/implementation-order.md`, `docs/planning/ai-runtime-prs/pr-specs/`, `docs/planning/ai-runtime-prs/prompts/`, ADRs `ADR-0036`–`ADR-0040`, package page `docs/packages/Ontogony.AI.Contracts.md`.
 - **Script:** `scripts/validate-ai-runtime-boundaries.ps1` (scoped scan of AI.Contracts sources).
 - **Explicit non-scope:** Does not implement routing, agents, KB meaning, or provider SDKs; PR37+ packages remain out of this change.
+
+PR36.1 — Polish (docs, packaging, boundary tests):
+
+- **NuGet README path:** `Ontogony.AI.Contracts` uses `PackagePath="/"` for packed `README.md` (aligned with other packages).
+- **Docs:** Package index installation wording matches artifact-first release; `Provider` / `Model` documented as opaque strings (package README, XML remarks, `docs/packages/Ontogony.AI.Contracts.md`, packages index).
+- **Contracts:** Clarified `LlmProviderError.SafeMessage` depends on caller redaction; pointed to future redaction mechanics.
+- **Tests:** Boundary scan extended to public properties, methods, fields, events, nested types, and enum member names.
+- **Scripts:** `validate-ai-runtime-boundaries.ps1` documents extending scan roots when PR37+ packages land.
 
 PR35 — Developer experience documentation (5 comprehensive guides):
 

@@ -5,6 +5,7 @@ Mechanical, serialization-friendly DTOs for **recording** LLM interactions: requ
 ## Guarantees
 
 - No routing, ranking, planning, canonization, or retrieval policy types.
+- **`Provider` and `Model` are opaque strings** — no platform provider/model enums, registries, or selection policy.
 - Hash fields are opaque string fingerprints (how you compute them is a caller concern).
 - Optional fields are explicit (`null` / omitted) so hosts can evolve independently.
 

@@ -5,6 +5,7 @@ Mechanical DTOs for LLM **telemetry and interchange**: requests, responses, stre
 ## What this package is
 
 - Serialization-friendly `record` types for cross-service emission and recorders.
+- **`Provider` and `Model` are opaque strings** — Ontogony does not define provider registries, ranking, or model-selection policy (avoid adding platform enums such as `OpenAI` / `Anthropic` here).
 - Hash fields are opaque fingerprints (callers define how they are computed).
 - Wrap payloads in `OntogonyEnvelope<TPayload>` when participating in the standard event pipeline; validate with `DefaultEnvelopeValidator`.
 

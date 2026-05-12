@@ -61,6 +61,8 @@ var envelope = new OntogonyEnvelope<MyEvent>
 - `LlmUsageRecord` (with `ResolveTotalTokensOrSum()` helper), `LlmCostRecord`, `LlmProviderError`
 - `ToolCallRecord`, `ModelCapabilityDescriptor`
 
+**Opaque strings:** `Provider` and `Model` are caller-defined identifiers (no platform enums or provider registry).
+
 **When to use:** Emitting or recording provider-neutral LLM telemetry; wrap in `OntogonyEnvelope<TPayload>` when using the standard envelope pipeline.
 
 **Non-goals:** No routing, ranking, planning, canonization, or KB semantics (see `docs/ai-runtime/boundary-guardrails.md` and [package notes](Ontogony.AI.Contracts.md)).
@@ -443,7 +445,7 @@ Ontogony.Primitives
 
 ## Installation
 
-All packages are available on GitHub Packages (or your internal NuGet feed).
+Packages are produced as **release artifacts** (GitHub Releases in this repo). You can publish them to GitHub Packages, a private Azure Artifacts feed, or any other NuGet-compatible registry when you wire `dotnet nuget push`.
 
 ```bash
 dotnet add package Ontogony.Observability

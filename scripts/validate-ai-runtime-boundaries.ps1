@@ -1,6 +1,10 @@
 #!/usr/bin/env pwsh
 # Scans Ontogony.AI.Contracts source for disallowed *product-meaning* phrases.
 # Scoped to this package only so planning/docs that explain boundaries are not flagged.
+#
+# TODO (PR37+): extend $scanRoots to include other AI-runtime packages as they land, e.g.
+#   Ontogony.Artifacts, Ontogony.Execution, Ontogony.Redaction, Ontogony.Knowledge.Contracts,
+#   Ontogony.Quota, Ontogony.AI.Replay (and their tests).
 $ErrorActionPreference = 'Stop'
 
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
