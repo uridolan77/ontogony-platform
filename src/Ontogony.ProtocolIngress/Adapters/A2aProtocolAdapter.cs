@@ -13,8 +13,12 @@ public sealed class A2aProtocolAdapter : BaseProtocolIngressAdapter, IProtocolIn
 {
     private const string ProtocolName = "a2a";
 
-    public A2aProtocolAdapter(PayloadHasher payloadHasher, IIdGenerator idGenerator)
-        : base(payloadHasher, idGenerator)
+    public A2aProtocolAdapter(
+        PayloadHasher payloadHasher,
+        IIdGenerator idGenerator,
+        IClock clock,
+        IEnvelopeValidator envelopeValidator)
+        : base(payloadHasher, idGenerator, clock, envelopeValidator)
     {
     }
 
@@ -59,7 +63,7 @@ public sealed class A2aProtocolAdapter : BaseProtocolIngressAdapter, IProtocolIn
         {
             EventId = messageId,
             EventType = raw.MessageType,
-            Source = raw.SenderId,
+            Source = NormalizeSourceUri(ProtocolName, raw.SenderId),  // Normalize to absolute URI
             OccurredAt = timestamp,
             TraceId = finalTraceId!,
             SpanId = context.SpanId ?? raw.SpanId,
@@ -74,7 +78,8 @@ public sealed class A2aProtocolAdapter : BaseProtocolIngressAdapter, IProtocolIn
             SessionId = context.Metadata?.SessionId
         };
 
-        return ProtocolIngressResult.Success(envelope);
+        // Validate envelope against platform contracts
+        return ValidateAndReturnEnvelope(envelope);
     }
 }
 

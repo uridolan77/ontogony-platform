@@ -13,8 +13,12 @@ public sealed class McpProtocolAdapter : BaseProtocolIngressAdapter, IProtocolIn
 {
     private const string ProtocolName = "mcp";
 
-    public McpProtocolAdapter(PayloadHasher payloadHasher, IIdGenerator idGenerator)
-        : base(payloadHasher, idGenerator)
+    public McpProtocolAdapter(
+        PayloadHasher payloadHasher,
+        IIdGenerator idGenerator,
+        IClock clock,
+        IEnvelopeValidator envelopeValidator)
+        : base(payloadHasher, idGenerator, clock, envelopeValidator)
     {
     }
 
@@ -55,7 +59,7 @@ public sealed class McpProtocolAdapter : BaseProtocolIngressAdapter, IProtocolIn
         {
             EventId = eventId,
             EventType = raw.EventType,
-            Source = raw.Source,
+            Source = NormalizeSourceUri(ProtocolName, raw.Source),  // Normalize to absolute URI
             OccurredAt = timestamp,
             TraceId = finalTraceId!,
             SpanId = context.SpanId ?? raw.SpanId,
@@ -70,7 +74,8 @@ public sealed class McpProtocolAdapter : BaseProtocolIngressAdapter, IProtocolIn
             SessionId = context.Metadata?.SessionId ?? raw.SessionId
         };
 
-        return ProtocolIngressResult.Success(envelope);
+        // Validate envelope against platform contracts
+        return ValidateAndReturnEnvelope(envelope);
     }
 }
 

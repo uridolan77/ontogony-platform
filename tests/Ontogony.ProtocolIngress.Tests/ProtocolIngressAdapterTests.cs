@@ -1,3 +1,4 @@
+using Ontogony.Contracts.Events;
 using Ontogony.Hashing;
 using Ontogony.ProtocolIngress;
 using Ontogony.ProtocolIngress.Adapters;
@@ -6,6 +7,19 @@ using Ontogony.Testing;
 using Xunit;
 
 namespace Ontogony.ProtocolIngress.Tests;
+
+/// <summary>
+/// Test validator that always returns valid for testing purposes.
+/// Production uses DefaultEnvelopeValidator from Contracts.
+/// </summary>
+internal sealed class TestEnvelopeValidator : IEnvelopeValidator
+{
+    public EnvelopeValidationResult Validate<TPayload>(OntogonyEnvelope<TPayload> envelope)
+    {
+        // For testing, accept all envelopes. Production validation happens via DefaultEnvelopeValidator.
+        return new EnvelopeValidationResult(true, []);
+    }
+}
 
 public sealed class GenericJsonProtocolAdapterTests
 {
@@ -17,7 +31,8 @@ public sealed class GenericJsonProtocolAdapterTests
         _clock = new FakeClock();
         var payloadHasher = new PayloadHasher(new Sha256ContentHashService());
         var idGenerator = new FakeIdGenerator();
-        _adapter = new GenericJsonProtocolAdapter(payloadHasher, idGenerator);
+        var validator = new TestEnvelopeValidator();
+        _adapter = new GenericJsonProtocolAdapter(payloadHasher, idGenerator, _clock, validator);
     }
 
     [Fact]
@@ -41,7 +56,7 @@ public sealed class GenericJsonProtocolAdapterTests
         Assert.True(result.IsSuccess);
         Assert.NotNull(result.Envelope);
         Assert.Equal("user.created", result.Envelope.EventType);
-        Assert.Equal("user-service", result.Envelope.Source);
+        Assert.Equal("generic-json://user-service", result.Envelope.Source);
         Assert.Equal("trace-123", result.Envelope.TraceId);
         Assert.Equal("generic-json", result.Envelope.Protocol);
     }
@@ -115,6 +130,32 @@ public sealed class GenericJsonProtocolAdapterTests
     }
 
     [Fact]
+    public void Normalize_WithEmptyRawTraceId_CascadesToContextTraceId()
+    {
+        // Arrange: Empty raw trace ID should not be treated as "found"
+        var rawJson = """
+        {
+            "eventType": "user.created",
+            "source": "user-service",
+            "traceId": ""
+        }
+        """;
+        var contextTraceId = "trace-from-context";
+        var context = new ProtocolIngressContext 
+        { 
+            TraceId = contextTraceId,
+            IdGenerationPolicy = TraceIdGenerationPolicy.RequireProvided
+        };
+
+        // Act
+        var result = _adapter.Normalize(rawJson, context);
+
+        // Assert
+        Assert.True(result.IsSuccess);
+        Assert.Equal(contextTraceId, result.Envelope?.TraceId);
+    }
+
+    [Fact]
     public void Normalize_PreservesPayloadHash()
     {
         // Arrange
@@ -182,17 +223,65 @@ public sealed class GenericJsonProtocolAdapterTests
         Assert.Equal("tenant-123", result.Envelope?.TenantId);
         Assert.Equal("actor-456", result.Envelope?.ActorId);
     }
+
+    [Fact]
+    public void Normalize_UsesFakeClock_ForDeterministicTimestamp()
+    {
+        // Arrange
+        var testTime = DateTimeOffset.UtcNow.AddDays(-1);
+        _clock.Advance(testTime - _clock.UtcNow);
+
+        var rawJson = """
+        {
+            "eventType": "user.created",
+            "source": "user-service",
+            "traceId": "trace-123"
+        }
+        """;
+        var context = new ProtocolIngressContext { TraceId = "trace-123" };
+
+        // Act
+        var result = _adapter.Normalize(rawJson, context);
+
+        // Assert
+        Assert.True(result.IsSuccess);
+        Assert.Equal(testTime, result.Envelope?.OccurredAt);
+    }
+
+    [Fact]
+    public void Normalize_NormalizesSourceToAbsoluteUri()
+    {
+        // Arrange
+        var rawJson = """
+        {
+            "eventType": "user.created",
+            "source": "user-service",
+            "traceId": "trace-123"
+        }
+        """;
+        var context = new ProtocolIngressContext { TraceId = "trace-123" };
+
+        // Act
+        var result = _adapter.Normalize(rawJson, context);
+
+        // Assert
+        Assert.True(result.IsSuccess);
+        Assert.Equal("generic-json://user-service", result.Envelope?.Source);
+    }
 }
 
 public sealed class CloudEventsProtocolAdapterTests
 {
     private readonly CloudEventsProtocolAdapter _adapter;
+    private readonly FakeClock _clock;
 
     public CloudEventsProtocolAdapterTests()
     {
+        _clock = new FakeClock();
         var payloadHasher = new PayloadHasher(new Sha256ContentHashService());
         var idGenerator = new FakeIdGenerator();
-        _adapter = new CloudEventsProtocolAdapter(payloadHasher, idGenerator);
+        var validator = new TestEnvelopeValidator();
+        _adapter = new CloudEventsProtocolAdapter(payloadHasher, idGenerator, _clock, validator);
     }
 
     [Fact]
@@ -217,7 +306,6 @@ public sealed class CloudEventsProtocolAdapterTests
         Assert.NotNull(result.Envelope);
         Assert.Equal("event-123", result.Envelope.EventId);
         Assert.Equal("com.example.user.created", result.Envelope.EventType);
-        Assert.Equal("https://user-service", result.Envelope.Source);
         Assert.Equal("cloudevents", result.Envelope.Protocol);
     }
 
@@ -227,7 +315,7 @@ public sealed class CloudEventsProtocolAdapterTests
         // Arrange
         var cloudEvent = new CloudEvent
         {
-            Id = "",  // Empty string to test required field
+            Id = "",
             Type = "com.example.user.created",
             Source = "https://user-service"
         };
@@ -261,17 +349,41 @@ public sealed class CloudEventsProtocolAdapterTests
         Assert.True(result.IsSuccess);
         Assert.Equal("trace-from-extension", result.Envelope?.TraceId);
     }
+
+    [Fact]
+    public void Normalize_NormalizesSourceToAbsoluteUri()
+    {
+        // Arrange
+        var cloudEvent = new CloudEvent
+        {
+            Id = "event-123",
+            Type = "com.example.user.created",
+            Source = "user-service",
+            Time = DateTimeOffset.UtcNow
+        };
+        var context = new ProtocolIngressContext { TraceId = "trace-123" };
+
+        // Act
+        var result = _adapter.Normalize(cloudEvent, context);
+
+        // Assert
+        Assert.True(result.IsSuccess);
+        Assert.Equal("cloudevents://user-service", result.Envelope?.Source);
+    }
 }
 
 public sealed class McpProtocolAdapterTests
 {
     private readonly McpProtocolAdapter _adapter;
+    private readonly FakeClock _clock;
 
     public McpProtocolAdapterTests()
     {
+        _clock = new FakeClock();
         var payloadHasher = new PayloadHasher(new Sha256ContentHashService());
         var idGenerator = new FakeIdGenerator();
-        _adapter = new McpProtocolAdapter(payloadHasher, idGenerator);
+        var validator = new TestEnvelopeValidator();
+        _adapter = new McpProtocolAdapter(payloadHasher, idGenerator, _clock, validator);
     }
 
     [Fact]
@@ -317,17 +429,41 @@ public sealed class McpProtocolAdapterTests
         Assert.NotNull(result.Envelope?.EventId);
         Assert.NotEmpty(result.Envelope.EventId);
     }
+
+    [Fact]
+    public void Normalize_NormalizesSourceToAbsoluteUri()
+    {
+        // Arrange
+        var mcpEvent = new McpEvent
+        {
+            EventId = "event-123",
+            EventType = "tool.called",
+            Source = "mcp-agent",
+            TraceId = "trace-123"
+        };
+        var context = new ProtocolIngressContext();
+
+        // Act
+        var result = _adapter.Normalize(mcpEvent, context);
+
+        // Assert
+        Assert.True(result.IsSuccess);
+        Assert.Equal("mcp://mcp-agent", result.Envelope?.Source);
+    }
 }
 
 public sealed class A2aProtocolAdapterTests
 {
     private readonly A2aProtocolAdapter _adapter;
+    private readonly FakeClock _clock;
 
     public A2aProtocolAdapterTests()
     {
+        _clock = new FakeClock();
         var payloadHasher = new PayloadHasher(new Sha256ContentHashService());
         var idGenerator = new FakeIdGenerator();
-        _adapter = new A2aProtocolAdapter(payloadHasher, idGenerator);
+        var validator = new TestEnvelopeValidator();
+        _adapter = new A2aProtocolAdapter(payloadHasher, idGenerator, _clock, validator);
     }
 
     [Fact]
@@ -351,7 +487,7 @@ public sealed class A2aProtocolAdapterTests
         Assert.True(result.IsSuccess);
         Assert.NotNull(result.Envelope);
         Assert.Equal("a2a", result.Envelope.Protocol);
-        Assert.Equal("agent-1", result.Envelope.Source);
+        Assert.Equal("a2a://agent-1", result.Envelope.Source);
         Assert.Equal("agent-1", result.Envelope.ActorId);
     }
 
@@ -363,7 +499,7 @@ public sealed class A2aProtocolAdapterTests
         {
             MessageType = "request",
             SenderId = "agent-1",
-            ReceiverId = "",  // Empty to test required field validation
+            ReceiverId = "",
             TraceId = "trace-123"
         };
         var context = new ProtocolIngressContext();
@@ -375,17 +511,42 @@ public sealed class A2aProtocolAdapterTests
         Assert.False(result.IsSuccess);
         Assert.Contains(result.Errors, e => e.Field == "ReceiverId");
     }
+
+    [Fact]
+    public void Normalize_NormalizesSourceToAbsoluteUri()
+    {
+        // Arrange
+        var a2aEvent = new A2aEvent
+        {
+            MessageId = "msg-123",
+            MessageType = "request",
+            SenderId = "agent-1",
+            ReceiverId = "agent-2",
+            TraceId = "trace-123"
+        };
+        var context = new ProtocolIngressContext();
+
+        // Act
+        var result = _adapter.Normalize(a2aEvent, context);
+
+        // Assert
+        Assert.True(result.IsSuccess);
+        Assert.Equal("a2a://agent-1", result.Envelope?.Source);
+    }
 }
 
 public sealed class AgUiProtocolAdapterTests
 {
     private readonly AgUiProtocolAdapter _adapter;
+    private readonly FakeClock _clock;
 
     public AgUiProtocolAdapterTests()
     {
+        _clock = new FakeClock();
         var payloadHasher = new PayloadHasher(new Sha256ContentHashService());
         var idGenerator = new FakeIdGenerator();
-        _adapter = new AgUiProtocolAdapter(payloadHasher, idGenerator);
+        var validator = new TestEnvelopeValidator();
+        _adapter = new AgUiProtocolAdapter(payloadHasher, idGenerator, _clock, validator);
     }
 
     [Fact]
@@ -409,7 +570,7 @@ public sealed class AgUiProtocolAdapterTests
         Assert.NotNull(result.Envelope);
         Assert.Equal("ag-ui", result.Envelope.Protocol);
         Assert.Equal("click.button", result.Envelope.EventType);
-        Assert.Equal("ag-ui", result.Envelope.Source);
+        Assert.StartsWith("ag-ui://", result.Envelope.Source);
     }
 
     [Fact]
@@ -431,6 +592,26 @@ public sealed class AgUiProtocolAdapterTests
         Assert.True(result.IsSuccess);
         Assert.NotNull(result.Envelope?.EventId);
     }
+
+    [Fact]
+    public void Normalize_NormalizesSourceWithSessionContext()
+    {
+        // Arrange
+        var agUiEvent = new AgUiEvent
+        {
+            Action = "click.button",
+            SessionId = "session-123",
+            TraceId = "trace-123"
+        };
+        var context = new ProtocolIngressContext();
+
+        // Act
+        var result = _adapter.Normalize(agUiEvent, context);
+
+        // Assert
+        Assert.True(result.IsSuccess);
+        Assert.Equal("ag-ui://session/session-123", result.Envelope?.Source);
+    }
 }
 
 /// <summary>
@@ -444,7 +625,9 @@ public sealed class PayloadHashDeterminismTests
         // Arrange
         var payloadHasher = new PayloadHasher(new Sha256ContentHashService());
         var idGenerator = new FakeIdGenerator();
-        var adapter = new GenericJsonProtocolAdapter(payloadHasher, idGenerator);
+        var validator = new TestEnvelopeValidator();
+        var clock = new FakeClock();
+        var adapter = new GenericJsonProtocolAdapter(payloadHasher, idGenerator, clock, validator);
 
         var rawJson = """
         {

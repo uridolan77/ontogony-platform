@@ -13,8 +13,12 @@ public sealed class GenericJsonProtocolAdapter : BaseProtocolIngressAdapter, IPr
 {
     private const string ProtocolName = "generic-json";
 
-    public GenericJsonProtocolAdapter(PayloadHasher payloadHasher, IIdGenerator idGenerator)
-        : base(payloadHasher, idGenerator)
+    public GenericJsonProtocolAdapter(
+        PayloadHasher payloadHasher,
+        IIdGenerator idGenerator,
+        IClock clock,
+        IEnvelopeValidator envelopeValidator)
+        : base(payloadHasher, idGenerator, clock, envelopeValidator)
     {
     }
 
@@ -76,7 +80,7 @@ public sealed class GenericJsonProtocolAdapter : BaseProtocolIngressAdapter, IPr
         {
             EventId = eventId,
             EventType = eventType,
-            Source = source,
+            Source = NormalizeSourceUri(ProtocolName, source),  // Normalize to absolute URI
             OccurredAt = timestamp,
             TraceId = finalTraceId!,
             SpanId = context.SpanId,
@@ -91,7 +95,8 @@ public sealed class GenericJsonProtocolAdapter : BaseProtocolIngressAdapter, IPr
             SessionId = context.Metadata?.SessionId
         };
 
-        return ProtocolIngressResult.Success(envelope);
+        // Validate envelope against platform contracts
+        return ValidateAndReturnEnvelope(envelope);
     }
 
     private static string? ExtractString(JsonElement root, params string[] fieldNames)

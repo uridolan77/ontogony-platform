@@ -13,8 +13,12 @@ public sealed class AgUiProtocolAdapter : BaseProtocolIngressAdapter, IProtocolI
 {
     private const string ProtocolName = "ag-ui";
 
-    public AgUiProtocolAdapter(PayloadHasher payloadHasher, IIdGenerator idGenerator)
-        : base(payloadHasher, idGenerator)
+    public AgUiProtocolAdapter(
+        PayloadHasher payloadHasher,
+        IIdGenerator idGenerator,
+        IClock clock,
+        IEnvelopeValidator envelopeValidator)
+        : base(payloadHasher, idGenerator, clock, envelopeValidator)
     {
     }
 
@@ -51,11 +55,15 @@ public sealed class AgUiProtocolAdapter : BaseProtocolIngressAdapter, IProtocolI
             PayloadHash = payloadHash
         };
 
+        // For AG-UI, source includes session context for better traceability
+        var sessionId = context.Metadata?.SessionId ?? raw.SessionId;
+        var source = NormalizeSourceUri(ProtocolName, $"session/{sessionId}");
+
         var envelope = new OntogonyEnvelope<RawProtocolPayload>
         {
             EventId = eventId,
             EventType = raw.Action,
-            Source = "ag-ui",
+            Source = source,  // Normalize to absolute URI
             OccurredAt = timestamp,
             TraceId = finalTraceId!,
             SpanId = context.SpanId ?? raw.SpanId,
@@ -70,7 +78,8 @@ public sealed class AgUiProtocolAdapter : BaseProtocolIngressAdapter, IProtocolI
             SessionId = context.Metadata?.SessionId ?? raw.SessionId
         };
 
-        return ProtocolIngressResult.Success(envelope);
+        // Validate envelope against platform contracts
+        return ValidateAndReturnEnvelope(envelope);
     }
 }
 

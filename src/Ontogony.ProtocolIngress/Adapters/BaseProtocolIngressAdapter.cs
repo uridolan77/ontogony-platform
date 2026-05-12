@@ -7,26 +7,51 @@ namespace Ontogony.ProtocolIngress.Adapters;
 
 /// <summary>
 /// Base adapter providing common mechanical normalization utilities.
+/// Enforces determinism, proper fallback ordering, and envelope validation.
 /// </summary>
 public abstract class BaseProtocolIngressAdapter
 {
     protected readonly PayloadHasher PayloadHasher;
     protected readonly IIdGenerator IdGenerator;
+    protected readonly IClock Clock;
+    protected readonly IEnvelopeValidator EnvelopeValidator;
 
-    protected BaseProtocolIngressAdapter(PayloadHasher payloadHasher, IIdGenerator idGenerator)
+    protected BaseProtocolIngressAdapter(
+        PayloadHasher payloadHasher,
+        IIdGenerator idGenerator,
+        IClock clock,
+        IEnvelopeValidator envelopeValidator)
     {
         PayloadHasher = payloadHasher ?? throw new ArgumentNullException(nameof(payloadHasher));
         IdGenerator = idGenerator ?? throw new ArgumentNullException(nameof(idGenerator));
+        Clock = clock ?? throw new ArgumentNullException(nameof(clock));
+        EnvelopeValidator = envelopeValidator ?? throw new ArgumentNullException(nameof(envelopeValidator));
+    }
+
+    /// <summary>
+    /// Returns the first non-whitespace value from the provided arguments.
+    /// Used for proper fallback precedence in trace ID and other field resolution.
+    /// </summary>
+    private static string? FirstNonWhiteSpace(params string?[] values)
+    {
+        foreach (var value in values)
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+                return value;
+        }
+        return null;
     }
 
     /// <summary>
     /// Generates or validates a trace ID according to the ingress policy.
-    /// Returns the trace ID value if successful, or a failure result if validation fails.
+    /// Follows correct precedence: raw → context → generate/fail.
     /// </summary>
     protected string? ValidateOrGenerateTraceId(string? providedTraceId, ProtocolIngressContext context, out ProtocolIngressResult? error)
     {
         error = null;
-        var traceId = providedTraceId ?? context.TraceId;
+
+        // Proper fallback: raw trace -> context trace -> generate/fail
+        var traceId = FirstNonWhiteSpace(providedTraceId, context.TraceId);
 
         if (string.IsNullOrWhiteSpace(traceId))
         {
@@ -44,9 +69,10 @@ public abstract class BaseProtocolIngressAdapter
     }
 
     /// <summary>
-    /// Normalizes a timestamp, applying fallback to current UTC time if needed.
+    /// Normalizes a timestamp, applying fallback to context or current UTC time if needed.
+    /// Uses injected IClock for determinism.
     /// </summary>
-    protected DateTimeOffset NormalizeTimestamp(DateTimeOffset? providedTime, ProtocolIngressContext context, IClock? clock = null)
+    protected DateTimeOffset NormalizeTimestamp(DateTimeOffset? providedTime, ProtocolIngressContext context)
     {
         if (providedTime.HasValue)
             return providedTime.Value;
@@ -54,7 +80,18 @@ public abstract class BaseProtocolIngressAdapter
         if (context.OccurredAt.HasValue)
             return context.OccurredAt.Value;
 
-        return clock?.UtcNow ?? DateTimeOffset.UtcNow;
+        return Clock.UtcNow;  // Use injected clock for determinism
+    }
+
+    /// <summary>
+    /// Normalizes a source into absolute URI format: {protocol}://{source}.
+    /// </summary>
+    protected string NormalizeSourceUri(string protocol, string source)
+    {
+        if (source.StartsWith($"{protocol}://", StringComparison.OrdinalIgnoreCase))
+            return source;
+
+        return $"{protocol}://{source}";
     }
 
     /// <summary>
@@ -66,19 +103,21 @@ public abstract class BaseProtocolIngressAdapter
     }
 
     /// <summary>
-    /// Applies context metadata to the envelope if available.
+    /// Validates the constructed envelope against platform contracts and returns success or failure.
+    /// All adapters must use this to ensure envelopes meet DefaultEnvelopeValidator requirements.
     /// </summary>
-    protected void ApplyContextMetadata(OntogonyEnvelope<RawProtocolPayload> envelope, ProtocolIngressContext context)
+    protected ProtocolIngressResult ValidateAndReturnEnvelope(OntogonyEnvelope<RawProtocolPayload> envelope)
     {
-        if (context.Metadata == null)
-            return;
+        var validationResult = EnvelopeValidator.Validate(envelope);
 
-        var props = typeof(OntogonyEnvelope<RawProtocolPayload>)
-            .GetProperties()
-            .Where(p => p.Name.StartsWith("TenantId") || p.Name.StartsWith("WorkspaceId") ||
-                        p.Name.StartsWith("ProjectId") || p.Name.StartsWith("ActorId") ||
-                        p.Name.StartsWith("SessionId"));
+        if (!validationResult.IsValid)
+        {
+            var errors = validationResult.Errors
+                .Select(e => new ProtocolIngressError(e.Field, e.Message))
+                .ToList();
+            return ProtocolIngressResult.Failure(errors.ToArray());
+        }
 
-        // Note: OntogonyEnvelope uses init properties, so we apply metadata during construction in subclasses.
+        return ProtocolIngressResult.Success(envelope);
     }
 }

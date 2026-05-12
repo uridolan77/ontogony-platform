@@ -12,8 +12,12 @@ public sealed class CloudEventsProtocolAdapter : BaseProtocolIngressAdapter, IPr
 {
     private const string ProtocolName = "cloudevents";
 
-    public CloudEventsProtocolAdapter(PayloadHasher payloadHasher, IIdGenerator idGenerator)
-        : base(payloadHasher, idGenerator)
+    public CloudEventsProtocolAdapter(
+        PayloadHasher payloadHasher,
+        IIdGenerator idGenerator,
+        IClock clock,
+        IEnvelopeValidator envelopeValidator)
+        : base(payloadHasher, idGenerator, clock, envelopeValidator)
     {
     }
 
@@ -62,7 +66,7 @@ public sealed class CloudEventsProtocolAdapter : BaseProtocolIngressAdapter, IPr
         {
             EventId = raw.Id,
             EventType = raw.Type,
-            Source = raw.Source,
+            Source = NormalizeSourceUri(ProtocolName, raw.Source),  // Normalize to absolute URI
             OccurredAt = timestamp,
             TraceId = finalTraceId!,
             SpanId = context.SpanId,
@@ -77,7 +81,8 @@ public sealed class CloudEventsProtocolAdapter : BaseProtocolIngressAdapter, IPr
             SessionId = context.Metadata?.SessionId
         };
 
-        return ProtocolIngressResult.Success(envelope);
+        // Validate envelope against platform contracts
+        return ValidateAndReturnEnvelope(envelope);
     }
 }
 
