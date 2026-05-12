@@ -2,11 +2,16 @@
 
   <PropertyGroup>
     <PackageId>Ontogony.Contracts</PackageId>
-    <Description>Ontogony.Contracts shared infrastructure package for Ontogony services.</Description>
+    <Description>Ontogory.Contracts shared infrastructure package for Ontogony services.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Ontogony.Primitives\Ontogony.Primitives.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>

@@ -3,6 +3,7 @@
   <PropertyGroup>
     <PackageId>Ontogony.Observability</PackageId>
     <Description>Ontogony.Observability shared infrastructure package for Ontogony services.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,5 +11,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ontogony.Contracts\Ontogony.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 </Project>

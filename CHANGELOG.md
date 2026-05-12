@@ -2,7 +2,20 @@
 
 ## Unreleased
 
+PR34 — Release automation and quality gates:
+
+- **LICENSE file:** Added MIT license to repository root and NuGet package metadata.
+- **Package metadata enhancement:** Updated `Directory.Build.props` to include `PackageLicenseExpression`, `RepositoryType`, `IncludeSymbols`, `SymbolPackageFormat`, `PublishRepositoryUrl`, and `EmbedUntrackedSources`.
+- **Package README files:** Added curated README.md to key packages (`Ontogony.Contracts`, `Ontogony.Observability`, `Ontogony.Testing`) and configured `.csproj` to include them in NuGet packages via `PackageReadmeFile`.
+- **Manifest generation script:** Added `scripts/generate-package-manifest.ps1` to produce `PACKAGE_MANIFEST.json` with version, commit hash, and per-package metadata (id, version, filename, size, SHA256 hash).
+- **Changelog validation script:** Added `scripts/validate-changelog.ps1` to verify `CHANGELOG.md` has been updated (soft gate in CI, strict in release workflow).
+- **Release workflow:** Added `.github/workflows/release-packages.yml` triggered on tag push or manual dispatch; performs restore/build/test, validates changelog, generates manifest, and uploads artifacts to GitHub Releases.
+- **CI enhancement:** Enhanced `.github/workflows/ci.yml` to generate manifest on every push/PR for validation.
+- **Release automation tests:** Added `ReleaseAutomationPr34Tests` covering manifest schema, version parsing, filename extraction, and changelog validation.
+- **Quality gates:** Manifest generation fails if no packages produced, version mismatch detected, or invalid package names encountered.
+
 PR33 — Testing conformance kits:
+
 
 - **TracingConformanceAssertions:** helpers to assert `RequestTracingMiddleware` echoes `X-Ontogony-Trace-Id`, generates a trace id when none is present, and propagates tenant id into `OntogonyCorrelationContext`.
 - **ErrorShapeConformanceAssertions:** helpers to assert unmapped exceptions produce 500 with canonical JSON shape, mapped exceptions produce the expected status and code, and no internal exception message leaks.

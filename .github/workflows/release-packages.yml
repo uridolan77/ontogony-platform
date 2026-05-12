@@ -1,0 +1,123 @@
+name: release-packages
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Package version (e.g. 0.3.0)'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: ontogony
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres -d ontogony"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+    env:
+      ONTOGONY_POSTGRES_TEST_CONNECTION: Host=localhost;Port=5432;Database=ontogony;Username=postgres;Password=postgres
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Needed for git log in manifest
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Determine version
+        id: version
+        shell: pwsh
+        run: |
+          $version = "${{ inputs.version }}"
+          if ([string]::IsNullOrWhiteSpace($version)) {
+            # Extract from tag (e.g., refs/tags/v0.3.0 -> 0.3.0)
+            $tag = "${{ github.ref }}"
+            if ($tag -match "refs/tags/v([0-9]+\.[0-9]+\.[0-9]+.*)") {
+              $version = $matches[1]
+            } else {
+              throw "Could not determine version from tag or input"
+            }
+          }
+          Write-Host "Version: $version"
+          "version=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding UTF8 -Append
+
+      - name: Restore
+        run: dotnet restore Ontogony.Platform.sln
+
+      - name: Build
+        run: dotnet build Ontogony.Platform.sln --no-restore
+
+      - name: Test
+        run: dotnet test Ontogony.Platform.sln --no-build
+
+      - name: Validate CHANGELOG
+        shell: pwsh
+        run: ./scripts/validate-changelog.ps1 -PackageVersion "${{ steps.version.outputs.version }}" -Strict
+
+      - name: Pack packages
+        env:
+          PACKAGE_VERSION: ${{ steps.version.outputs.version }}
+        shell: pwsh
+        run: ./scripts/pack-all.ps1 -NoBuild -IncludeSymbols
+
+      - name: Generate package manifest
+        env:
+          PACKAGE_VERSION: ${{ steps.version.outputs.version }}
+        shell: pwsh
+        run: ./scripts/generate-package-manifest.ps1 -PackageVersion "${{ steps.version.outputs.version }}"
+
+      - name: Publish to GitHub Packages (dry-run)
+        shell: bash
+        run: |
+          echo "Dry-run: would publish packages to GitHub Packages feed"
+          echo "Packages to publish:"
+          ls -lh artifacts/packages/*.nupkg | grep -v '.symbols.nupkg'
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: packages
+          path: |
+            artifacts/packages/*.nupkg
+            artifacts/packages/*.snupkg
+            PACKAGE_MANIFEST.json
+          retention-days: 90
+          if-no-files-found: error
+
+      - name: Upload manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: manifest
+          path: PACKAGE_MANIFEST.json
+          retention-days: 90
+
+      - name: Create Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            artifacts/packages/*.nupkg
+            artifacts/packages/*.snupkg
+            PACKAGE_MANIFEST.json
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

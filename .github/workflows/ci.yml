@@ -41,3 +41,8 @@ jobs:
           PACKAGE_VERSION: 0.2.0
         shell: pwsh
         run: ./scripts/pack-all.ps1 -NoBuild
+      - name: Generate package manifest
+        env:
+          PACKAGE_VERSION: 0.2.0
+        shell: pwsh
+        run: ./scripts/generate-package-manifest.ps1 -PackageVersion "0.2.0"

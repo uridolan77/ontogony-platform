@@ -1,25 +1,113 @@
 {
-  "package": "ontogony-platform-starter",
-  "generated": "2026-05-11",
-  "fileCount": 94,
-  "mainPackages": [
-    "Ontogony.Contracts",
-    "Ontogony.Observability",
-    "Ontogony.Configuration",
-    "Ontogony.Errors",
-    "Ontogony.Http",
-    "Ontogony.Hashing",
-    "Ontogony.Hosting",
-    "Ontogony.Idempotency",
-    "Ontogony.Messaging",
-    "Ontogony.Primitives",
-    "Ontogony.Security",
-    "Ontogony.Persistence",
-    "Ontogony.Persistence.Postgres",
-    "Ontogony.Testing"
+  "version": "0.2.0",
+  "packages": [
+    {
+      "sha256": "250732C6FE3E37BE0342505D01CFC5C250574ADEEA47E325F044C3999481D089",
+      "id": "Ontogony.Configuration",
+      "filename": "Ontogony.Configuration.0.2.0.nupkg",
+      "sizeBytes": 6075,
+      "version": "0.2.0"
+    },
+    {
+      "sha256": "378E89860F3AF948A31D219D02258B890A45E2723911FE6D558C4216329420AD",
+      "id": "Ontogony.Contracts",
+      "filename": "Ontogony.Contracts.0.2.0.nupkg",
+      "sizeBytes": 29982,
+      "version": "0.2.0"
+    },
+    {
+      "sha256": "CDF061185C373C2B7E1B61736FAC387BAFFD8887B7B4CDBE7569D07A452EED45",
+      "id": "Ontogony.Errors",
+      "filename": "Ontogony.Errors.0.2.0.nupkg",
+      "sizeBytes": 12283,
+      "version": "0.2.0"
+    },
+    {
+      "sha256": "DD79B804E0325214E5CAF9EFDD9B21D448470B4A861F949B15621DBE9AF1E8D3",
+      "id": "Ontogony.Hashing",
+      "filename": "Ontogony.Hashing.0.2.0.nupkg",
+      "sizeBytes": 7905,
+      "version": "0.2.0"
+    },
+    {
+      "sha256": "4E5E75666CA0ED4F02A9AD9CB836F9471DC647B754835FB666E3D82A13AE2DF6",
+      "id": "Ontogony.Hosting",
+      "filename": "Ontogony.Hosting.0.2.0.nupkg",
+      "sizeBytes": 7019,
+      "version": "0.2.0"
+    },
+    {
+      "sha256": "E9C38385D8DF85277F3A82E7FB1B27FF8AB13E552547280968D5F9FD0C7070FC",
+      "id": "Ontogony.Http",
+      "filename": "Ontogony.Http.0.2.0.nupkg",
+      "sizeBytes": 23364,
+      "version": "0.2.0"
+    },
+    {
+      "sha256": "17E41A68FB27E016C34D299E512A486276A1DC55634BE1E32EFC774268110870",
+      "id": "Ontogony.Idempotency",
+      "filename": "Ontogony.Idempotency.0.2.0.nupkg",
+      "sizeBytes": 10583,
+      "version": "0.2.0"
+    },
+    {
+      "sha256": "BF8C3FCC5D18671718D6C961D3BE277AB33A462F61A81D8379B9180BCA317E0B",
+      "id": "Ontogony.Messaging",
+      "filename": "Ontogony.Messaging.0.2.0.nupkg",
+      "sizeBytes": 15488,
+      "version": "0.2.0"
+    },
+    {
+      "sha256": "185F0AA9557D447249675BBD9CB74E22954888C8C65934B611DDF9FB24FB6E08",
+      "id": "Ontogony.Observability",
+      "filename": "Ontogony.Observability.0.2.0.nupkg",
+      "sizeBytes": 16079,
+      "version": "0.2.0"
+    },
+    {
+      "sha256": "D2257EFCA0F7E5043C339D8D47BD9401A0DA186BF689E37276DE6ABFC3599019",
+      "id": "Ontogony.Persistence",
+      "filename": "Ontogony.Persistence.0.2.0.nupkg",
+      "sizeBytes": 16642,
+      "version": "0.2.0"
+    },
+    {
+      "sha256": "44283610AB5E7C62D414FC031222082D8849763929C92E57147CA0A486338C58",
+      "id": "Ontogony.Persistence.Postgres",
+      "filename": "Ontogony.Persistence.Postgres.0.2.0.nupkg",
+      "sizeBytes": 27613,
+      "version": "0.2.0"
+    },
+    {
+      "sha256": "1706AC2D489EBCA8285D0C5AFE6F27A8C09AB55B5343547F8415E426BE88DE6A",
+      "id": "Ontogony.Primitives",
+      "filename": "Ontogony.Primitives.0.2.0.nupkg",
+      "sizeBytes": 4468,
+      "version": "0.2.0"
+    },
+    {
+      "sha256": "D0A86936150550E4D071F6A333B4090C9BE558B9ADB52AF2CE46C6FF621CD4C5",
+      "id": "Ontogony.ProtocolIngress",
+      "filename": "Ontogony.ProtocolIngress.0.2.0.nupkg",
+      "sizeBytes": 18128,
+      "version": "0.2.0"
+    },
+    {
+      "sha256": "0B5C9F7025473F34861D7CA08077D93DA06CD1B3477223F45B7451944FD27469",
+      "id": "Ontogony.Security",
+      "filename": "Ontogony.Security.0.2.0.nupkg",
+      "sizeBytes": 26803,
+      "version": "0.2.0"
+    },
+    {
+      "sha256": "4B2C76981239909C544FE7A4D12F09275AED03BD70CDBF5FD143C84F6CDA9CCD",
+      "id": "Ontogony.Testing",
+      "filename": "Ontogony.Testing.0.2.0.nupkg",
+      "sizeBytes": 13645,
+      "version": "0.2.0"
+    }
   ],
-  "notes": [
-    "Starter package generated from Agentor/Athanor/Conexus lessons.",
-    "Not compiled in this environment; run scripts/test-all.ps1 on a machine with .NET 9 SDK."
-  ]
+  "generated": "2026-05-12T12:57:17.9226990Z",
+  "commit": "3e346c4570d611fa02b17f0ebc27b90fd047c3a2",
+  "packageCount": 15
 }

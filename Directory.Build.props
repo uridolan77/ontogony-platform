@@ -9,10 +9,16 @@
     <!-- TODO: remove CS1591 suppression and add XML docs before 1.0. -->
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <RepositoryUrl>https://github.com/uridolan77/ontogony-platform</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/uridolan77/ontogony-platform</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>ontogony;infrastructure</PackageTags>
     <Authors>Ontogony</Authors>
     <Company>Ontogony</Company>
     <IsPackable>true</IsPackable>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
   </PropertyGroup>
 </Project>
