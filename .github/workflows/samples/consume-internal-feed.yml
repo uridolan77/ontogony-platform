@@ -8,7 +8,10 @@ on:
 env:
   DOTNET_NOLOGO: true
   DOTNET_CLI_TELEMETRY_OPTOUT: true
-  # Example: Azure Artifacts or GitHub Packages authenticated endpoint
+  # GitHub Packages (Ontogony owner org or user):
+  # NUGET_FEED_URL: https://nuget.pkg.github.com/OWNER/index.json
+  # Use a PAT with read:packages (and repo scope if the package repo is private).
+  # Azure Artifacts example:
   # NUGET_FEED_URL: https://pkgs.dev.azure.com/your-org/_packaging/your-feed/nuget/v3/index.json
 
 jobs:

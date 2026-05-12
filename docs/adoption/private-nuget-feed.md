@@ -4,6 +4,8 @@ For the full migration checklist (feed auth, pinning, CI), start at [consumer-pa
 
 For CI and machines that do not clone `ontogony-platform` next to every consumer, publish packages to an **internal NuGet feed** (Azure Artifacts, GitHub Packages, self-hosted BaGet, etc.) and reference them by version.
 
+**This repository:** version tags trigger publish to **GitHub Packages** from CI. See [Package publishing (GitHub Packages)](../planning/robustness/PACKAGE_PUBLISHING_GITHUB_PACKAGES.md) for the feed URL, permissions, and consumer setup.
+
 ## Pack from this repository
 
 From the repo root:
