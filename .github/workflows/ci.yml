@@ -45,6 +45,9 @@ jobs:
       - name: Validate AI runtime boundaries (AI.Contracts sources)
         shell: pwsh
         run: ./scripts/validate-ai-runtime-boundaries.ps1
+      - name: Validate package levels (Ontogony ProjectReferences)
+        shell: pwsh
+        run: ./scripts/validate-package-levels.ps1
       - name: Pack (version gate)
         env:
           PACKAGE_VERSION: 0.2.0

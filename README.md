@@ -1,18 +1,20 @@
 # Ontogony Platform
 
-Shared infrastructure building blocks for the Ontogony service ecosystem: **Athanor**, **Agentor**, **Conexus**, protocol recorders, and future microservices.
+**Ontogony.Platform** is the mechanical infrastructure base for new Ontogony services. It is safe to break before v1 because no external consumers exist. The first target consumer is **Conexus.NET**.
 
 This repository is intentionally **not** a domain framework. It contains reusable mechanics only:
 
 - trace/correlation propagation
-- typed event envelopes
+- typed event envelopes and protocol-neutral DTOs
 - error contracts and exception middleware
 - configuration/startup guards
-- resilient integration HTTP clients
+- resilient outbound HTTP clients (correlation, backoff, **Retry-After**, **jitter**, circuit breaking — richer policies still evolve; see [`docs/packages/Ontogony.Http.md`](docs/packages/Ontogony.Http.md))
 - hashing and canonical JSON fingerprints
 - idempotency primitives
 - event publishing abstractions
+- persistence/outbox/processed-message contracts and PostgreSQL providers
 - security/current-actor context primitives
+- LLM telemetry DTOs, artifact references, execution journal facts
 - test fixtures
 
 It must not contain Athanor canonization logic, Agentor orchestration semantics, Conexus routing strategy, iGaming rules, or any product-specific workflow logic.
@@ -44,6 +46,35 @@ Which LLM provider should route a given request?
 What is a valid business approval?
 ```
 
+## Do not add product semantics
+
+Keep this repository free of product meaning: no canonization, no agent plans, no provider routing policy, no business approval rules, no RAG/graph extraction logic, no UI. If a change requires understanding those domains, it belongs in a product repo. See [`AGENTS.md`](AGENTS.md).
+
+## Conexus.NET starter target
+
+The platform is shaped so **Conexus.NET** can adopt it as the default substrate: observability, errors, HTTP, security, idempotency, contracts, AI telemetry, artifacts, and execution journaling — without importing Ontogony-specific business rules. Optional packages (messaging, persistence, Postgres outbox, protocol ingress, testing) layer on when a service needs them.
+
+## Current finalized package layers
+
+Four documentation levels describe how packages group; **allowed project references** are defined and checked in [`docs/architecture/package-levels.md`](docs/architecture/package-levels.md) and [`scripts/validate-package-levels.ps1`](scripts/validate-package-levels.ps1).
+
+```text
+Level 0 — Foundation
+  Ontogony.Primitives, Ontogony.Hashing, Ontogony.Configuration
+
+Level 1 — Service mechanics
+  Ontogony.Hosting, Ontogony.Observability, Ontogony.Errors, Ontogony.Http, Ontogony.Security
+
+Level 2 — Event and consistency mechanics
+  Ontogony.Contracts, Ontogony.Messaging, Ontogony.Idempotency,
+  Ontogony.Persistence, Ontogony.Persistence.Postgres, Ontogony.ProtocolIngress
+
+Level 3 — AI runtime mechanics
+  Ontogony.AI.Contracts, Ontogony.Artifacts, Ontogony.Execution
+```
+
+**Dev/test aggregate:** `Ontogony.Testing` (references many packages for fixtures; not a runtime tier).
+
 ## What this repository extracts from the product repos
 
 | Source repo | What we take | What we do not take |
@@ -57,26 +88,38 @@ What is a valid business approval?
 
 ```text
 .
-├── src/
-│   ├── Ontogony.Contracts/
-│   ├── Ontogony.Observability/
-│   ├── Ontogony.Configuration/
-│   ├── Ontogony.Errors/
-│   ├── Ontogony.Http/
-│   ├── Ontogony.Hashing/
-│   ├── Ontogony.Hosting/
-│   ├── Ontogony.Idempotency/
-│   ├── Ontogony.Messaging/
-│   ├── Ontogony.Security/
-│   ├── Ontogony.Persistence/
-│   ├── Ontogony.Persistence.Postgres/
-│   └── Ontogony.Testing/
+├── src/                          # 18 shipping library packages (see tree below)
 ├── tests/
 ├── docs/
+│   └── architecture/             # package levels and dependency rules
 ├── schemas/
 ├── examples/
 ├── scripts/
 └── .github/workflows/
+```
+
+### `src/` packages (18)
+
+```text
+src/
+├── Ontogony.Primitives/
+├── Ontogony.Configuration/
+├── Ontogony.Hashing/
+├── Ontogony.Contracts/
+├── Ontogony.Observability/
+├── Ontogony.Errors/
+├── Ontogony.Http/
+├── Ontogony.Hosting/
+├── Ontogony.Security/
+├── Ontogony.Idempotency/
+├── Ontogony.Messaging/
+├── Ontogony.Persistence/
+├── Ontogony.Persistence.Postgres/
+├── Ontogony.ProtocolIngress/
+├── Ontogony.AI.Contracts/
+├── Ontogony.Artifacts/
+├── Ontogony.Execution/
+└── Ontogony.Testing/
 ```
 
 ## Examples
@@ -86,47 +129,17 @@ What is a valid business approval?
 
 ## Documentation map
 
-- [`docs/00_START_HERE.md`](docs/00_START_HERE.md) — mental model, extraction targets, adoption guide index.
-- [`docs/packages/`](docs/packages/) — per-package guarantees, non-goals, and adoption posture.
+- [`docs/00_START_HERE.md`](docs/00_START_HERE.md) — mental model and documentation index.
+- [`docs/architecture/package-levels.md`](docs/architecture/package-levels.md) — package layers, dependency matrix, forbidden edges.
+- [`docs/packages/`](docs/packages/) — per-package guarantees and non-goals.
 - [`CHANGELOG.md`](CHANGELOG.md) — PR history, migrations, and breaking-change notes.
 
-## Recommended first adoption path
+## Using this repository (starter substrate)
 
-1. Read [`docs/00_START_HERE.md`](docs/00_START_HERE.md) and the adoption hub for your service (`docs/adoption/athanor-platform-adoption.md`, `agentor-platform-adoption.md`, or `conexus-platform-adoption.md`).
-2. Build and test the packages locally (see **Build** below).
-3. Publish packages to a private/internal NuGet feed, or reference by project path initially.
-4. Adopt **low-risk mechanics first** (Primitives, Hashing, Idempotency, Configuration), then **controlled** API integration (Observability, Http, Errors) with compatibility tests.
-5. Add Conexus event emission through any runtime client that conforms to [`schemas/ontogony-envelope.schema.json`](schemas/ontogony-envelope.schema.json).
-
-## First packages to adopt
-
-**Low risk (start in Athanor first):**
-
-```text
-Ontogony.Primitives
-Ontogony.Configuration
-Ontogony.Hashing
-Ontogony.Idempotency
-Ontogony.Contracts
-```
-
-**Controlled (Agentor / Athanor API surfaces — keep mappings and semantics local):**
-
-```text
-Ontogony.Observability
-Ontogony.Http
-Ontogony.Errors
-```
-
-**Dev, tests, and reference mechanics (not distributed production messaging or DB outbox):**
-
-```text
-Ontogony.Messaging
-Ontogony.Persistence   // contracts + in-memory outbox reference; no Postgres implementation here
-Ontogony.Persistence.Postgres // durable PostgreSQL outbox provider package
-Ontogony.Security      // HMAC service identity + static shared-secret mode — requires correct wiring
-Ontogony.Testing
-```
+1. Read [`docs/00_START_HERE.md`](docs/00_START_HERE.md) and [`docs/architecture/package-levels.md`](docs/architecture/package-levels.md).
+2. Add package references or project references for the mechanics your service needs (see layer map above).
+3. Build and test locally (see **Build** below).
+4. Publish to a private feed when you cut releases, or reference projects directly while iterating.
 
 ## Build
 
@@ -144,44 +157,16 @@ pwsh ./scripts/bootstrap-solution.ps1
 
 ## Versioning
 
-Use SemVer, but be conservative:
-
-- `0.x`: still evolving, breaking changes allowed with migration notes.
-- `1.0`: only after Agentor and Athanor both consume the core observability/contracts packages.
+Use SemVer for packaging, with **0.x** treated as still evolving: breaking changes are allowed while there are no stable external consumers. **`1.0`** should wait until a real shipped service (for example Conexus.NET on this stack) has exercised the core packages end-to-end.
 
 ## Current status
 
-**Shared infrastructure (0.x alpha)** — suitable for **selective, careful adoption** in Athanor, Agentor, and Conexus. This is no longer a throwaway starter; it ships contracts, reference implementations, semantic docs, and a broad automated test suite (see `CHANGELOG.md`).
-
-**Ready for early production-style use (with integration tests):**
-
-```text
-Ontogony.Primitives
-Ontogony.Configuration
-Ontogony.Hashing
-Ontogony.Idempotency
-Ontogony.Contracts
-Ontogony.Observability
-Ontogony.Http
-Ontogony.Errors
-```
-
-**Available but treat as infrastructure building blocks, not turnkey products:**
-
-```text
-Ontogony.Messaging        // in-process publisher, explicit publish/dispatch results, metrics; not Kafka/NATS/Event Hubs
-Ontogony.Persistence      // SQL-agnostic outbox contracts + in-memory reference store + dead-letter hooks; no Postgres outbox here
-Ontogony.Security         // HMAC service-identity verification + static shared-secret mode; requires IServiceSecretResolver, INonceReplayStore, clock skew policy
-Ontogony.Persistence.Postgres // PostgreSQL durable outbox provider with claim-lease semantics
-```
+**Shared infrastructure (0.x)** — contracts, reference implementations, docs, and automated tests (see `CHANGELOG.md`). CI restores, builds, tests, validates docs and **package dependency levels**, and packs on **.NET 9** (see `.github/workflows/`).
 
 **Still evolving (check `docs/migrations/` before upgrading):**
 
 ```text
-HTTP resilience          // linear backoff; Retry-After / jitter not implemented — see docs/packages/Ontogony.Http.md
-HTTP resilience          // supports Retry-After and jitter; still evolving around richer policies, metrics, and retry budgets
+HTTP resilience          // Retry-After, jitter, backoff, and circuit breaking exist; richer policies and budgets still evolve — see docs/packages/Ontogony.Http.md
 Envelope rules           // mechanical validation + JSON schema; product ingest policies stay in product repos
 Public XML (CS1591)      // suppressed at solution level until core types are fully documented
 ```
-
-CI restores, builds, and tests on **.NET 9** (see `.github/workflows/`).

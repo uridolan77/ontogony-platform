@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+PR39 / PR40 — repository truth and package-level enforcement:
+
+- **README:** Positions the repo as mechanical infrastructure for new Ontogony services (pre–v1, first target Conexus.NET); lists all 18 `src/` packages; removes contradictory HTTP resilience notes; adds layer summary, “do not add product semantics,” and links to `docs/architecture/package-levels.md`.
+- **Docs:** `docs/architecture/package-levels.md` — levels 0–3, forbidden dependency rules, and a dependency matrix aligned with the golden map.
+- **CI:** `scripts/validate-package-levels.ps1` validates Ontogony `ProjectReference` edges under `src/`; workflow step in `.github/workflows/ci.yml`.
+
 PR38.1 — Ontogony.Execution journal port and docs:
 
 - **`IExecutionJournal` / `InMemoryExecutionJournal`:** Append-only mechanical journal with `GetRunAsync` and list APIs (`ListStepsAsync`, `ListAttemptsAsync`, `ListTransitionsAsync`, `ListCheckpointsAsync`). Duplicate primary ids throw `InvalidOperationException`; lists return append order.
