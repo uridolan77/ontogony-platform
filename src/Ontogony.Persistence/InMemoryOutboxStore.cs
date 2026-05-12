@@ -8,16 +8,19 @@ public sealed class InMemoryOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
 {
     private readonly InMemoryOutboxStoreOptions _options;
     private readonly IDeadLetterWriter? _deadLetterWriter;
+    private readonly Ontogony.Primitives.IClock _clock;
     private readonly Dictionary<string, OutboxEntry> _outbox = new(StringComparer.Ordinal);
     private readonly Dictionary<string, ProcessedMessage> _processed = new(StringComparer.Ordinal);
     private readonly object _sync = new();
 
     public InMemoryOutboxStore(
         InMemoryOutboxStoreOptions? options = null,
-        IDeadLetterWriter? deadLetterWriter = null)
+        IDeadLetterWriter? deadLetterWriter = null,
+        Ontogony.Primitives.IClock? clock = null)
     {
         _options = options ?? new InMemoryOutboxStoreOptions();
         _deadLetterWriter = deadLetterWriter;
+        _clock = clock ?? new Ontogony.Primitives.SystemClock();
     }
 
     /// <inheritdoc />
@@ -106,7 +109,7 @@ public sealed class InMemoryOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
         ArgumentNullException.ThrowIfNull(lastError);
 
         OutboxMessage? snapshotForDeadLetter = null;
-        var deadLetterAt = DateTimeOffset.UtcNow;
+        var deadLetterAt = _clock.UtcNow;
 
         lock (_sync)
         {

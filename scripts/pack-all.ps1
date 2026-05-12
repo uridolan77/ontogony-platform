@@ -1,4 +1,5 @@
 # Packs all shipping projects in Ontogony.Platform.sln to artifacts/packages.
+# Requires environment variable PACKAGE_VERSION (semantic version for NuGet).
 # Run from repo root or any directory (script resolves the solution path).
 param(
     [switch]$NoBuild,
@@ -12,7 +13,7 @@ Set-Location $RepoRoot
 
 $version = $env:PACKAGE_VERSION
 if ([string]::IsNullOrWhiteSpace($version)) {
-    $version = "0.1.0-starter"
+    throw "PACKAGE_VERSION is required (e.g. `$env:PACKAGE_VERSION='0.2.0'). Infrastructure packages must not pack under an implicit stale version."
 }
 
 $outDir = Join-Path $RepoRoot "artifacts/packages"
@@ -35,7 +36,7 @@ Write-Host "dotnet $($packArgs -join ' ')"
 & dotnet @packArgs
 
 $pkgs = @(Get-ChildItem $outDir -Filter "*.nupkg" -ErrorAction SilentlyContinue |
-    Where-Object { $_.Name -notlike "*.symbols.nupkg" })
+    Where-Object { $_.Name -notlike "*.symbols.nupkg" -and $_.Name -like "*.$version.nupkg" })
 
 if ($pkgs.Count -eq 0) {
     throw "Pack produced no .nupkg under $outDir (check build errors and IsPackable)."

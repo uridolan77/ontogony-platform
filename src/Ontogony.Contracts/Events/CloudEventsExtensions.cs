@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Ontogony.Primitives;
 
 namespace Ontogony.Contracts.Events;
 
@@ -32,6 +33,12 @@ public sealed class CloudEventConversionOptions
     /// When true, null data maps to <c>default(TPayload)</c> for reference types and nullable value types; non-nullable value types still throw.
     /// </summary>
     public bool AllowNullCloudEventData { get; set; }
+
+    /// <summary>
+    /// When the CloudEvent omits <c>time</c>, this clock supplies <see cref="OntogonyEnvelope{TPayload}.OccurredAt"/>.
+    /// When null, a <see cref="SystemClock"/> is used (wall-clock UTC).
+    /// </summary>
+    public IClock? Clock { get; set; }
 }
 
 /// <summary>
@@ -210,13 +217,17 @@ public static class CloudEventsExtensions
         }
 
         var protocol = protocolFromExtension ?? options.DefaultProtocolWhenMissing;
+        var clock = options.Clock ?? new SystemClock();
+        var occurredAt = string.IsNullOrWhiteSpace(cloudEvent.Time)
+            ? clock.UtcNow
+            : DateTimeOffset.Parse(cloudEvent.Time);
 
         return new OntogonyEnvelope<TPayload>
         {
             EventId = cloudEvent.Id,
             EventType = cloudEvent.Type,
             Source = cloudEvent.Source,
-            OccurredAt = DateTimeOffset.Parse(cloudEvent.Time ?? DateTimeOffset.UtcNow.ToString("O")),
+            OccurredAt = occurredAt,
             TraceId = traceId,
             SpanId = spanId,
             ParentSpanId = parentSpanId,

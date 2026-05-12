@@ -1,6 +1,7 @@
 using System.Net;
 using System.Net.Http.Headers;
 using Microsoft.Extensions.Options;
+using Ontogony.Primitives;
 
 namespace Ontogony.Http;
 
@@ -9,15 +10,18 @@ public sealed class ResilientIntegrationDelegatingHandler : DelegatingHandler
     private readonly string _clientName;
     private readonly TransportResilienceRegistry _registry;
     private readonly TransportResilienceOptions _options;
+    private readonly IClock _clock;
 
     public ResilientIntegrationDelegatingHandler(
         string clientName,
         TransportResilienceRegistry registry,
-        IOptions<TransportResilienceOptions> options)
+        IOptions<TransportResilienceOptions> options,
+        IClock clock)
     {
         _clientName = clientName;
         _registry = registry;
         _options = options.Value;
+        _clock = clock;
     }
 
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
@@ -53,6 +57,7 @@ public sealed class ResilientIntegrationDelegatingHandler : DelegatingHandler
 
         for (var attempt = 0; attempt <= maxRetries; attempt++)
         {
+            HttpResponseMessage? responseForBackoff = null;
             try
             {
                 lastResponse?.Dispose();
@@ -72,6 +77,7 @@ public sealed class ResilientIntegrationDelegatingHandler : DelegatingHandler
                 }
 
                 lastResponse = response;
+                responseForBackoff = response;
             }
             catch (HttpRequestException ex) when (attempt < maxRetries)
             {
@@ -87,7 +93,7 @@ public sealed class ResilientIntegrationDelegatingHandler : DelegatingHandler
                 throw;
             }
 
-            await Task.Delay(ComputeDelay(attempt), cancellationToken).ConfigureAwait(false);
+            await Task.Delay(ComputeDelay(attempt, responseForBackoff), cancellationToken).ConfigureAwait(false);
         }
 
         if (lastResponse is not null)
@@ -196,15 +202,72 @@ public sealed class ResilientIntegrationDelegatingHandler : DelegatingHandler
         return !_options.CountOnlyRetryableResponsesAsCircuitFailures || ShouldRetry(statusCode);
     }
 
-    private TimeSpan ComputeDelay(int attempt)
+    private TimeSpan ComputeDelay(int attempt, HttpResponseMessage? retryAfterSource)
     {
-        var delay = _options.BaseDelayMilliseconds * (attempt + 1);
-        return TimeSpan.FromMilliseconds(Math.Min(delay, _options.MaxDelayMilliseconds));
+        var baseMs = (double)(_options.BaseDelayMilliseconds * (attempt + 1));
+        var delayMs = Math.Min(baseMs, _options.MaxDelayMilliseconds);
+        var delay = TimeSpan.FromMilliseconds(delayMs);
+
+        if (_options.RespectRetryAfterHeader
+            && retryAfterSource is not null
+            && TryGetRetryAfter(retryAfterSource, out var retryAfter)
+            && retryAfter > TimeSpan.Zero)
+        {
+            delay = delay > retryAfter ? delay : retryAfter;
+            if (delay.TotalMilliseconds > _options.MaxDelayMilliseconds)
+            {
+                delay = TimeSpan.FromMilliseconds(_options.MaxDelayMilliseconds);
+            }
+        }
+
+        if (_options.BackoffJitterFraction > 0)
+        {
+            var factor = 1 + (Random.Shared.NextDouble() * 2 - 1) * _options.BackoffJitterFraction;
+            delay = TimeSpan.FromMilliseconds(delay.TotalMilliseconds * factor);
+            if (delay.TotalMilliseconds > _options.MaxDelayMilliseconds)
+            {
+                delay = TimeSpan.FromMilliseconds(_options.MaxDelayMilliseconds);
+            }
+        }
+
+        return delay;
+    }
+
+    private bool TryGetRetryAfter(HttpResponseMessage response, out TimeSpan value)
+    {
+        value = default;
+        var ra = response.Headers.RetryAfter;
+        if (ra is null)
+        {
+            return false;
+        }
+
+        if (ra.Delta is { } delta)
+        {
+            value = delta;
+            return true;
+        }
+
+        if (ra.Date is { } until)
+        {
+            value = until - _clock.UtcNow;
+            if (value < TimeSpan.Zero)
+            {
+                value = TimeSpan.Zero;
+            }
+
+            return true;
+        }
+
+        return false;
     }
 
     private static HttpRequestMessage CloneForRetry(HttpRequestMessage request, byte[]? bufferedBody, int attempt)
     {
-        if (attempt == 0) return request;
+        if (attempt == 0)
+        {
+            return request;
+        }
 
         var clone = new HttpRequestMessage(request.Method, request.RequestUri)
         {
@@ -215,6 +278,11 @@ public sealed class ResilientIntegrationDelegatingHandler : DelegatingHandler
         foreach (var header in request.Headers)
         {
             clone.Headers.TryAddWithoutValidation(header.Key, header.Value);
+        }
+
+        foreach (var option in request.Options)
+        {
+            clone.Options.Set(new HttpRequestOptionsKey<object?>(option.Key), option.Value);
         }
 
         if (bufferedBody is not null)

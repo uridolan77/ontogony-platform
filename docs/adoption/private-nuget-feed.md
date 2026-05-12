@@ -13,7 +13,7 @@ $env:PACKAGE_VERSION = "0.2.0-local.1"
 ./scripts/pack-all.ps1
 ```
 
-Outputs under `artifacts/packages/`. The script uses `dotnet pack Ontogony.Platform.sln -c Release` with `PackageVersion` from `PACKAGE_VERSION` (default `0.1.0-starter` if unset). Optional switches: `-NoBuild`, `-IncludeSymbols`. The script fails if no `.nupkg` is produced.
+Outputs under `artifacts/packages/`. The script uses `dotnet pack Ontogony.Platform.sln -c Release` with `PackageVersion` from **`PACKAGE_VERSION`**, which is **required** (there is no silent default). Optional switches: `-NoBuild`, `-IncludeSymbols`. The script fails if no `.nupkg` is produced.
 
 ## Consumer references
 

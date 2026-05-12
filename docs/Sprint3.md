@@ -1,3 +1,27 @@
+# Sprint 3 — documentation
+
+## Current focus (May 2026, post-PR24)
+
+- Pause further Athanor/Agentor **feature** adoption in this phase; both already integrate core Ontogony packages (see adoption docs under `docs/adoption/`).
+- **PR25** in `ontogony-platform` is **release hardening**, not more consumer extraction: `PACKAGE_VERSION` is required for `scripts/pack-all.ps1`, `AcceptedIncomingTraceHeaders` is honored by correlation parsing, injectable `IClock` covers security skew checks, outbox dead-letter timestamps, and missing CloudEvent `time`, optional `RequirePreloadedBodyHashForHmacBodies` for HMAC hosts using preload middleware, `IEventPublisherWithResult` for richer in-process publish diagnostics, and HTTP resilience improvements (Retry-After, jitter, `HttpRequestMessage.Options` clone on retry). Migration: `docs/migrations/2026-05-12-pr25-platform-release-hardening.md`.
+- **Next suggested infra (unchanged direction):** shared hosting defaults (`Ontogony.Hosting`), Postgres outbox provider, mechanical protocol ingress — see historical roadmap notes at the end of this file.
+
+| Package | Readiness (post-PR25) |
+| --- | --- |
+| Primitives, Configuration, Hashing, Idempotency | Ready |
+| Contracts | Ready (references Primitives for optional `CloudEventConversionOptions.Clock`) |
+| Observability | Ready (incoming trace aliases configurable end-to-end) |
+| Errors, Http, Testing | Ready (HTTP resilience still evolving) |
+| Messaging | In-process / reference (`IEventPublisher` minimal; `IEventPublisherWithResult` for diagnostics) |
+| Persistence | Reference in-memory outbox; injectable clock for DLQ timestamps |
+| Security | Production HMAC: register `UseOntogonyServiceIdentityBodyHashPreload()` early; use `RequirePreloadedBodyHashForHmacBodies` when sync body hashing must be disallowed |
+
+---
+
+## Historical archive — PR15-era internal review
+
+The sections below were written after PR15; PR16–PR25 addressed or superseded many findings. Kept for audit context.
+
 # What improved after PR15
 
 ## 1. Envelope validation is now real
@@ -422,3 +446,4 @@ This section tracks **cross-repo adoption** work that landed after the PR15-era 
 | **PR22 — Packaging** | Tightened | Shared NuGet metadata in `Directory.Build.props`; hardened `scripts/pack-all.ps1`; adoption index `docs/adoption/consumer-package-migration.md`. |
 | **PR23 — CI templates** | Reference samples | `workflow_dispatch`-only samples under `.github/workflows/samples/` for multi-checkout vs internal feed; linked from `docs/adoption/local-repo-layout-and-ci.md`. |
 | **PR24 — Athanor observability** | Host wiring done | Tracing + errors middleware in Athanor production paths (see Athanor `docs/engineering/PR20-athanor-ontogony-errors-tracing.md`). Remaining work is **ops validation** (dashboards, alerts, correlation burn-in), not re-implementing ASP.NET middleware here. |
+| **PR25 — Platform hardening** | Landed in `ontogony-platform` | Packaging version gate; trace header options honored end-to-end; injectable time on sensitive paths; optional HMAC preload-only body hash; `IEventPublisherWithResult`; HTTP retry-after / jitter / options clone. Migration: `docs/migrations/2026-05-12-pr25-platform-release-hardening.md`. |

@@ -28,7 +28,10 @@ public sealed class RequestTracingMiddleware
     public async Task InvokeAsync(HttpContext context)
     {
         var incomingHeaders = BuildHeaderSnapshot(context.Request.Headers);
-        var incomingState = OntogonyCorrelationContext.FromHeaders(incomingHeaders);
+        var incomingState = OntogonyCorrelationContext.FromHeaders(
+            incomingHeaders,
+            _options.TraceHeaderName,
+            _options.AcceptedIncomingTraceHeaders);
         var traceId = incomingState?.TraceId ?? CreateTraceId();
         var operationId = Guid.NewGuid().ToString("n");
 

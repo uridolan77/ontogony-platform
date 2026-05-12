@@ -3,6 +3,7 @@ using System.Text;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Ontogony.Contracts.Events;
+using Ontogony.Primitives;
 
 namespace Ontogony.Security;
 
@@ -18,19 +19,22 @@ public sealed class ServiceIdentityCurrentActorAccessor : ICurrentActorAccessor
     private readonly IServiceSecretResolver _secretResolver;
     private readonly INonceReplayStore? _nonceReplayStore;
     private readonly IRequestBodyHashProvider _bodyHashProvider;
+    private readonly IClock _clock;
 
     public ServiceIdentityCurrentActorAccessor(
         IHttpContextAccessor httpContextAccessor,
         ServiceIdentityOptions? options = null,
         IServiceSecretResolver? secretResolver = null,
         INonceReplayStore? nonceReplayStore = null,
-        IRequestBodyHashProvider? bodyHashProvider = null)
+        IRequestBodyHashProvider? bodyHashProvider = null,
+        IClock? clock = null)
     {
         _httpContextAccessor = httpContextAccessor;
         _options = options ?? new ServiceIdentityOptions();
         _secretResolver = secretResolver ?? new DictionaryServiceSecretResolver(_options.ServiceSecrets);
         _nonceReplayStore = nonceReplayStore;
         _bodyHashProvider = bodyHashProvider ?? new Sha256RequestBodyHashProvider(Options.Create(_options));
+        _clock = clock ?? new SystemClock();
     }
 
     public CurrentActor? Current
@@ -92,7 +96,7 @@ public sealed class ServiceIdentityCurrentActorAccessor : ICurrentActorAccessor
             return false;
 
         var requestUtc = DateTimeOffset.FromUnixTimeSeconds(unixSeconds);
-        var now = DateTimeOffset.UtcNow;
+        var now = _clock.UtcNow;
         if (now - requestUtc > _options.MaxTimestampSkew || requestUtc - now > _options.MaxTimestampSkew)
             return false;
 
@@ -125,6 +129,12 @@ public sealed class ServiceIdentityCurrentActorAccessor : ICurrentActorAccessor
         }
         else
         {
+            if (_options.RequirePreloadedBodyHashForHmacBodies
+                && !HttpRequestBodyAnalysis.IsDefinitelyEmptyBody(context.Request))
+            {
+                return false;
+            }
+
             var computed = _bodyHashProvider.TryComputeSha256HexLower(context.Request);
             if (computed.TooLarge || !computed.Succeeded)
                 return false;

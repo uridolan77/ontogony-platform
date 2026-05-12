@@ -20,3 +20,8 @@ jobs:
         run: dotnet build Ontogony.Platform.sln --no-restore
       - name: Test
         run: dotnet test Ontogony.Platform.sln --no-build --collect:"XPlat Code Coverage"
+      - name: Pack (version gate)
+        env:
+          PACKAGE_VERSION: 0.2.0
+        shell: pwsh
+        run: ./scripts/pack-all.ps1 -NoBuild

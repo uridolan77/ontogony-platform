@@ -45,6 +45,8 @@ public static class ServiceCollectionExtensions
             services.Configure(configure);
         }
 
+        services.TryAddSingleton<Ontogony.Primitives.IClock, Ontogony.Primitives.SystemClock>();
+
         services.TryAddSingleton<IRequestBodyHashProvider>(sp =>
             new Sha256RequestBodyHashProvider(sp.GetRequiredService<IOptions<ServiceIdentityOptions>>()));
 
@@ -54,7 +56,8 @@ public static class ServiceCollectionExtensions
                 sp.GetRequiredService<IOptions<ServiceIdentityOptions>>().Value,
                 sp.GetService<IServiceSecretResolver>(),
                 sp.GetService<INonceReplayStore>(),
-                sp.GetService<IRequestBodyHashProvider>()));
+                sp.GetService<IRequestBodyHashProvider>(),
+                sp.GetRequiredService<Ontogony.Primitives.IClock>()));
         services.AddScoped<ICurrentActorAccessor>(sp => sp.GetRequiredService<ServiceIdentityCurrentActorAccessor>());
         return services;
     }

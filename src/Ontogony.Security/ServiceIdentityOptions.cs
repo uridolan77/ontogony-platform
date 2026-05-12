@@ -59,6 +59,14 @@ public sealed class ServiceIdentityOptions
     public bool AllowUnsignedEmptyBody { get; set; } = true;
 
     /// <summary>
+    /// When true in HMAC mode, a request body hash must have been precomputed by
+    /// <c>ServiceIdentityBodyHashPreloadMiddleware</c> on <see cref="Microsoft.AspNetCore.Http.HttpContext.Items"/>;
+    /// synchronous body hashing via <see cref="IRequestBodyHashProvider"/> is not used for non-empty bodies.
+    /// Empty bodies may still use <see cref="AllowUnsignedEmptyBody"/> without preload when no body hash header is sent.
+    /// </summary>
+    public bool RequirePreloadedBodyHashForHmacBodies { get; set; }
+
+    /// <summary>
     /// Gets the expected static signature for a service ID (StaticSharedSecret mode).
     /// </summary>
     public string? GetExpectedSignature(string serviceId)

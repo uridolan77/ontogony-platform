@@ -266,6 +266,65 @@ public sealed class ServiceIdentityHmacTests
     }
 
     [Fact]
+    public void Current_WithHmac_RequirePreloadedBodyHash_WithoutPreload_ReturnsNull()
+    {
+        var nonces = new InMemoryNonceReplayStore();
+        var options = new ServiceIdentityOptions
+        {
+            RequireHmacSignature = true,
+            RequireNonce = true,
+            RequirePreloadedBodyHashForHmacBodies = true,
+            ServiceSecrets = { ["svc"] = "unit-test-secret" }
+        };
+
+        var context = BuildSignedContext(options, "svc", "unit-test-secret", body: "{}");
+        _contextAccessor.HttpContext = context;
+
+        var accessor = new ServiceIdentityCurrentActorAccessor(_contextAccessor, options, nonceReplayStore: nonces);
+        Assert.Null(accessor.Current);
+    }
+
+    [Fact]
+    public void Current_WithHmac_RequirePreloadedBodyHash_WithPrecomputed_Succeeds()
+    {
+        var nonces = new InMemoryNonceReplayStore();
+        var options = new ServiceIdentityOptions
+        {
+            RequireHmacSignature = true,
+            RequireNonce = true,
+            RequirePreloadedBodyHashForHmacBodies = true,
+            ServiceSecrets = { ["svc"] = "unit-test-secret" }
+        };
+
+        var body = "{}";
+        var bodyBytes = Encoding.UTF8.GetBytes(body);
+        var bodyHash = ServiceIdentityHmacSignatureHelper.ComputeBodyHashHexLower(bodyBytes);
+        var ts = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(CultureInfo.InvariantCulture);
+        var nonce = Guid.NewGuid().ToString("n");
+        var pathAndQuery = "/events";
+
+        var context = new DefaultHttpContext();
+        context.Request.Method = "POST";
+        context.Request.Path = new PathString("/events");
+        context.Request.Body = new MemoryStream(bodyBytes);
+        context.Request.ContentLength = bodyBytes.Length;
+        context.Request.Headers[options.ServiceIdHeaderName] = "svc";
+        context.Request.Headers[options.ServiceTimestampHeaderName] = ts;
+        context.Request.Headers[options.ServiceNonceHeaderName] = nonce;
+        context.Request.Headers[options.ServiceBodyHashHeaderName] = bodyHash;
+        context.Request.Headers[options.SignatureHeaderName] =
+            ServiceIdentityHmacSignatureHelper.ComputeSignatureBase64(
+                "unit-test-secret", "POST", pathAndQuery, ts, nonce, bodyHash);
+        context.Items[ServiceIdentityBodyHashContext.HttpContextItemKey] =
+            new ServiceIdentityBodyHashContext.Precomputed(TooLarge: false, HexLower: bodyHash);
+
+        _contextAccessor.HttpContext = context;
+
+        var accessor = new ServiceIdentityCurrentActorAccessor(_contextAccessor, options, nonceReplayStore: nonces);
+        Assert.NotNull(accessor.Current);
+    }
+
+    [Fact]
     public void InMemoryNonceReplayStore_SameNonceAfterRetention_AllowsReuse()
     {
         var t = new DateTimeOffset(2026, 5, 1, 0, 0, 0, TimeSpan.Zero);

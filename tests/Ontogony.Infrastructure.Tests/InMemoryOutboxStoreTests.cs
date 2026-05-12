@@ -1,3 +1,4 @@
+using System.Globalization;
 using Microsoft.Extensions.DependencyInjection;
 using Ontogony.Persistence;
 using Xunit;
@@ -115,6 +116,27 @@ public sealed class InMemoryOutboxStoreTests
 
         var batch = await store.ReadAvailableAsync(DateTimeOffset.Parse("2026-05-11T12:00:00Z"), 10);
         Assert.Empty(batch);
+    }
+
+    private sealed class FixedClock : Ontogony.Primitives.IClock
+    {
+        public DateTimeOffset UtcNow { get; } = DateTimeOffset.Parse("2026-06-01T12:00:00Z", CultureInfo.InvariantCulture);
+    }
+
+    [Fact]
+    public async Task MarkFailedAsync_DeadLetter_UsesInjectedClock()
+    {
+        var dlq = new InMemoryDeadLetterWriter();
+        var options = new InMemoryOutboxStoreOptions { MoveToDeadLetterAfterAttempts = 1 };
+        var clock = new FixedClock();
+        var store = new InMemoryOutboxStore(options, dlq, clock);
+        var m = CreateMessage("dl-clock", DateTimeOffset.Parse("2026-05-11T10:00:00Z"), DateTimeOffset.Parse("2026-05-11T10:00:00Z"));
+        await store.WriteAsync(m);
+
+        await store.MarkFailedAsync("dl-clock", "e1", DateTimeOffset.Parse("2026-05-11T10:05:00Z"));
+
+        Assert.Equal(1, dlq.Count);
+        Assert.Equal(clock.UtcNow, dlq.ReadAll()[0].DeadLetteredAtUtc);
     }
 
     [Fact]

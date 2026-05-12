@@ -1,13 +1,17 @@
+using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Net.Http.Headers;
 using Microsoft.Extensions.Options;
 using Ontogony.Http;
+using Ontogony.Primitives;
 using Xunit;
 
 namespace Ontogony.Infrastructure.Tests;
 
 public sealed class ResilientIntegrationDelegatingHandlerTests
 {
+    private static readonly IClock Clock = new SystemClock();
     [Fact]
     public async Task SendAsync_Retries_Get_On_Transient_Http_Status_And_Returns_Success()
     {
@@ -21,7 +25,7 @@ public sealed class ResilientIntegrationDelegatingHandlerTests
             RetryableStatusCodes = [500]
         });
 
-        var handler = new ResilientIntegrationDelegatingHandler("tests", new TransportResilienceRegistry(), options)
+        var handler = new ResilientIntegrationDelegatingHandler("tests", new TransportResilienceRegistry(), options, Clock)
         {
             InnerHandler = sequence
         };
@@ -46,7 +50,7 @@ public sealed class ResilientIntegrationDelegatingHandlerTests
             RetryableStatusCodes = [503]
         });
 
-        var handler = new ResilientIntegrationDelegatingHandler("tests", new TransportResilienceRegistry(), options)
+        var handler = new ResilientIntegrationDelegatingHandler("tests", new TransportResilienceRegistry(), options, Clock)
         {
             InnerHandler = sequence
         };
@@ -76,7 +80,7 @@ public sealed class ResilientIntegrationDelegatingHandlerTests
             RetryableStatusCodes = [503]
         });
 
-        var handler = new ResilientIntegrationDelegatingHandler("tests", new TransportResilienceRegistry(), options)
+        var handler = new ResilientIntegrationDelegatingHandler("tests", new TransportResilienceRegistry(), options, Clock)
         {
             InnerHandler = sequence
         };
@@ -108,7 +112,7 @@ public sealed class ResilientIntegrationDelegatingHandlerTests
             MaxBufferedContentBytes = 4
         });
 
-        var handler = new ResilientIntegrationDelegatingHandler("tests", new TransportResilienceRegistry(), options)
+        var handler = new ResilientIntegrationDelegatingHandler("tests", new TransportResilienceRegistry(), options, Clock)
         {
             InnerHandler = sequence
         };
@@ -139,7 +143,7 @@ public sealed class ResilientIntegrationDelegatingHandlerTests
             RetryableStatusCodes = [503]
         });
 
-        var handler = new ResilientIntegrationDelegatingHandler("tests", new TransportResilienceRegistry(), options)
+        var handler = new ResilientIntegrationDelegatingHandler("tests", new TransportResilienceRegistry(), options, Clock)
         {
             InnerHandler = sequence
         };
@@ -175,7 +179,7 @@ public sealed class ResilientIntegrationDelegatingHandlerTests
         var registry = new TransportResilienceRegistry();
         var sequence = new SequenceHandler(new HttpResponseMessage(HttpStatusCode.BadRequest));
 
-        var handler = new ResilientIntegrationDelegatingHandler("tests", registry, options)
+        var handler = new ResilientIntegrationDelegatingHandler("tests", registry, options, Clock)
         {
             InnerHandler = sequence
         };
@@ -201,7 +205,7 @@ public sealed class ResilientIntegrationDelegatingHandlerTests
             MaxBufferedContentBytes = 10
         });
 
-        var handler = new ResilientIntegrationDelegatingHandler("tests", new TransportResilienceRegistry(), options)
+        var handler = new ResilientIntegrationDelegatingHandler("tests", new TransportResilienceRegistry(), options, Clock)
         {
             InnerHandler = sequence
         };
@@ -233,7 +237,7 @@ public sealed class ResilientIntegrationDelegatingHandlerTests
         });
         var registry = new TransportResilienceRegistry();
 
-        var handler = new ResilientIntegrationDelegatingHandler("tests", registry, options)
+        var handler = new ResilientIntegrationDelegatingHandler("tests", registry, options, Clock)
         {
             InnerHandler = new ThrowingHandler()
         };
@@ -246,6 +250,112 @@ public sealed class ResilientIntegrationDelegatingHandlerTests
         var blocked = await client.GetAsync("https://example.test/flaky");
         Assert.Equal(HttpStatusCode.ServiceUnavailable, blocked.StatusCode);
         Assert.Equal("ontogony_circuit_open", blocked.ReasonPhrase);
+    }
+
+    [Fact]
+    public async Task SendAsync_RetryAfter_Delta_Dominates_Short_BaseBackoff()
+    {
+        var first = new HttpResponseMessage((HttpStatusCode)429);
+        first.Headers.RetryAfter = new RetryConditionHeaderValue(TimeSpan.FromMilliseconds(120));
+        var sequence = new SequenceHandler(first, new HttpResponseMessage(HttpStatusCode.OK));
+        var options = Options.Create(new TransportResilienceOptions
+        {
+            Enabled = true,
+            MaxRetries = 1,
+            BaseDelayMilliseconds = 10,
+            MaxDelayMilliseconds = 10_000,
+            RetryableStatusCodes = [429],
+            RespectRetryAfterHeader = true
+        });
+
+        var handler = new ResilientIntegrationDelegatingHandler("tests", new TransportResilienceRegistry(), options, Clock)
+        {
+            InnerHandler = sequence
+        };
+
+        using var client = new HttpClient(handler);
+        var sw = Stopwatch.StartNew();
+        var response = await client.GetAsync("https://example.test/ratelimit");
+        sw.Stop();
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.True(sw.ElapsedMilliseconds >= 90, $"expected >= 90ms wait, got {sw.ElapsedMilliseconds}ms");
+    }
+
+    [Fact]
+    public async Task SendAsync_BackoffJitterFraction_Completes_Retry()
+    {
+        var sequence = new SequenceHandler(new HttpResponseMessage(HttpStatusCode.ServiceUnavailable), new HttpResponseMessage(HttpStatusCode.OK));
+        var options = Options.Create(new TransportResilienceOptions
+        {
+            Enabled = true,
+            MaxRetries = 1,
+            BaseDelayMilliseconds = 5,
+            MaxDelayMilliseconds = 50,
+            RetryableStatusCodes = [503],
+            BackoffJitterFraction = 0.5
+        });
+
+        var handler = new ResilientIntegrationDelegatingHandler("tests", new TransportResilienceRegistry(), options, Clock)
+        {
+            InnerHandler = sequence
+        };
+
+        using var client = new HttpClient(handler);
+        var response = await client.GetAsync("https://example.test/jitter");
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Equal(2, sequence.CallCount);
+    }
+
+    [Fact]
+    public async Task SendAsync_Retry_Clones_HttpRequestOptions()
+    {
+        var sequence = new OptionsCaptureHandler();
+        var options = Options.Create(new TransportResilienceOptions
+        {
+            Enabled = true,
+            MaxRetries = 1,
+            BaseDelayMilliseconds = 1,
+            MaxDelayMilliseconds = 5,
+            RetryableStatusCodes = [503]
+        });
+
+        var handler = new ResilientIntegrationDelegatingHandler("tests", new TransportResilienceRegistry(), options, Clock)
+        {
+            InnerHandler = sequence
+        };
+
+        using var client = new HttpClient(handler);
+        using var request = new HttpRequestMessage(HttpMethod.Get, "https://example.test/options");
+        request.Options.Set(new HttpRequestOptionsKey<string>("ontogony.test.marker"), "keep-me");
+
+        var response = await client.SendAsync(request);
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Equal(2, sequence.Requests.Count);
+        Assert.True(
+            sequence.Requests[1].Options.TryGetValue(new HttpRequestOptionsKey<string>("ontogony.test.marker"), out var v)
+            && v == "keep-me");
+    }
+
+    private sealed class OptionsCaptureHandler : HttpMessageHandler
+    {
+        public List<HttpRequestMessage> Requests { get; } = [];
+
+        private int _n;
+
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            Requests.Add(request);
+            _n++;
+            if (_n == 1)
+            {
+                return Task.FromResult(new HttpResponseMessage(HttpStatusCode.ServiceUnavailable));
+            }
+
+            return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK));
+        }
     }
 
     private sealed class SequenceHandler : HttpMessageHandler

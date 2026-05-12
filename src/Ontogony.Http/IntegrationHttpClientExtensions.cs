@@ -35,6 +35,7 @@ public static class IntegrationHttpClientExtensions
             .AddHttpMessageHandler(sp => new ResilientIntegrationDelegatingHandler(
                 clientName,
                 sp.GetRequiredService<TransportResilienceRegistry>(),
-                sp.GetRequiredService<IOptions<TransportResilienceOptions>>()));
+                sp.GetRequiredService<IOptions<TransportResilienceOptions>>(),
+                sp.GetRequiredService<IClock>()));
     }
 }

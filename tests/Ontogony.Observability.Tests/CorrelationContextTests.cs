@@ -7,6 +7,41 @@ namespace Ontogony.Observability.Tests;
 public sealed class CorrelationContextTests
 {
     [Fact]
+    public void FromHeaders_Custom_Accepted_Header_Resolves_When_Canonical_Missing()
+    {
+        var headers = new Dictionary<string, string?>
+        {
+            ["X-Custom-Trace"] = "trace-custom"
+        };
+
+        var state = OntogonyCorrelationContext.FromHeaders(
+            headers,
+            OntogonyEventHeaders.TraceId,
+            ["X-Custom-Trace"]);
+
+        Assert.NotNull(state);
+        Assert.Equal("trace-custom", state!.TraceId);
+    }
+
+    [Fact]
+    public void FromHeaders_Canonical_Header_Wins_Over_Custom_Accepted_Header()
+    {
+        var headers = new Dictionary<string, string?>
+        {
+            [OntogonyEventHeaders.TraceId] = "trace-canonical",
+            ["X-Custom-Trace"] = "trace-custom"
+        };
+
+        var state = OntogonyCorrelationContext.FromHeaders(
+            headers,
+            OntogonyEventHeaders.TraceId,
+            ["X-Custom-Trace"]);
+
+        Assert.NotNull(state);
+        Assert.Equal("trace-canonical", state!.TraceId);
+    }
+
+    [Fact]
     public void Push_Restores_Previous_Context_On_Dispose()
     {
         using var outer = OntogonyCorrelationContext.Push("outer");

@@ -23,7 +23,7 @@ When `ServiceIdentityOptions.RequireHmacSignature` is `true`, callers should sen
 - `HTTP_METHOD` is uppercased (for example `POST`).
 - `PATH_AND_QUERY` is `Path.Value` plus `QueryString.Value` (query includes the leading `?` when present). If path is empty, `/` is used.
 
-**Clock skew**: Requests outside `MaxTimestampSkew` from UTC now are rejected.
+**Clock skew**: Requests outside `MaxTimestampSkew` from `IClock.UtcNow` are rejected. The accessor resolves `Ontogony.Primitives.IClock` from DI (registered by `AddOntogonyServiceIdentityActorContext` when missing); tests may inject a fixed clock.
 
 **Nonce replay**: When `RequireNonce` is `true`, an `INonceReplayStore` must reject reused nonces for the same service id. If no store is registered, verification fails.
 
@@ -37,6 +37,8 @@ When `ServiceIdentityOptions.RequireHmacSignature` is `true`, callers should sen
 **`IRequestBodyHashProvider`** implements `TryComputeSha256HexLower(HttpRequest)` and returns `RequestBodyHashResult` (`Succeeded` / `TooLarge`). The default `Sha256RequestBodyHashProvider` uses `IOptions<ServiceIdentityOptions>` for limits.
 
 **Recommended for ASP.NET Core hosts**: register `app.UseOntogonyServiceIdentityBodyHashPreload()` early in the pipeline (before endpoints read the body). The middleware asynchronously reads the body up to `MaxSignedBodyBytes`, stores the digest on `HttpContext.Items` (`ServiceIdentityBodyHashContext`), and swaps `HttpRequest.Body` with a bounded in-memory stream so the rest of the pipeline can re-read it. `ServiceIdentityCurrentActorAccessor` prefers this preload when present.
+
+**`RequirePreloadedBodyHashForHmacBodies`** (default `false`): when `true`, HMAC verification for requests that are **not** classified as definitely empty refuses to fall back to synchronous body hashing via `IRequestBodyHashProvider`. Production hosts that set this must always run preload middleware ahead of actor resolution so body-bearing requests never trigger sync reads on the hot path. Empty-body fast paths (`AllowUnsignedEmptyBody` + definitely empty) may still verify without preload.
 
 ## Static shared secret mode (internal / development only)
 

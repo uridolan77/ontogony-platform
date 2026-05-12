@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Ontogony.Persistence;
 
@@ -27,8 +28,12 @@ public static class PersistenceServiceCollectionExtensions
         var options = new InMemoryOutboxStoreOptions();
         configure?.Invoke(options);
         services.AddSingleton(options);
+        services.TryAddSingleton<Ontogony.Primitives.IClock, Ontogony.Primitives.SystemClock>();
         services.AddSingleton<InMemoryOutboxStore>(sp =>
-            new InMemoryOutboxStore(sp.GetRequiredService<InMemoryOutboxStoreOptions>(), sp.GetService<IDeadLetterWriter>()));
+            new InMemoryOutboxStore(
+                sp.GetRequiredService<InMemoryOutboxStoreOptions>(),
+                sp.GetService<IDeadLetterWriter>(),
+                sp.GetRequiredService<Ontogony.Primitives.IClock>()));
         services.AddSingleton<IOutboxWriter>(sp => sp.GetRequiredService<InMemoryOutboxStore>());
         services.AddSingleton<IOutboxReader>(sp => sp.GetRequiredService<InMemoryOutboxStore>());
         services.AddSingleton<IOutboxDispatcher>(sp => sp.GetRequiredService<InMemoryOutboxStore>());

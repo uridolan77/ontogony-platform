@@ -43,4 +43,15 @@ public sealed class TransportResilienceOptions
     public int MaxBufferedContentBytes { get; set; } = 1_000_000;
 
     public string IdempotencyKeyHeaderName { get; set; } = "Idempotency-Key";
+
+    /// <summary>
+    /// When true and the failing response includes a <c>Retry-After</c> header, the wait before the next attempt is at least that duration (capped by <see cref="MaxDelayMilliseconds"/>).
+    /// </summary>
+    public bool RespectRetryAfterHeader { get; set; } = true;
+
+    /// <summary>
+    /// Randomized jitter applied symmetrically around the computed delay: multiplier in <c>[1 - f, 1 + f]</c> where <c>f</c> is this value. Zero disables jitter.
+    /// </summary>
+    [Range(0, 1)]
+    public double BackoffJitterFraction { get; set; }
 }

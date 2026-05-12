@@ -36,6 +36,20 @@ public sealed class InMemoryEventBusTests
     }
 
     [Fact]
+    public async Task InMemoryEventPublisher_Implements_IEventPublisherWithResult()
+    {
+        var sink = new InMemoryEventSink();
+        var publisher = new InMemoryEventPublisher(sink);
+        IEventPublisherWithResult withResult = publisher;
+        var envelope = TestEnvelopeFactory.Create("agentor.run.started", ProtocolNames.Agentor, new Payload("diag"));
+
+        var result = await withResult.PublishWithResultAsync(envelope);
+
+        Assert.True(result.CapturedInSink);
+        Assert.Empty(result.Failures);
+    }
+
+    [Fact]
     public async Task InMemoryEventPublisher_Dispatches_To_Multiple_Handlers()
     {
         var publisher = new InMemoryEventPublisher();

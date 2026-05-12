@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Ontogony.Contracts.Events;
 using Ontogony.Contracts.References;
+using Ontogony.Testing;
 using Xunit;
 
 namespace Ontogony.Messaging.Tests;
@@ -638,6 +639,26 @@ public sealed class CloudEventsConversionTests
         var options = new CloudEventConversionOptions { AllowNullCloudEventData = true };
         var ex = Assert.Throws<InvalidOperationException>(() => cloudEvent.ToOntogonyEnvelope<int>(options));
         Assert.Contains("value type", ex.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void ToOntogonyEnvelope_MissingTime_UsesOptionsClock()
+    {
+        var clock = new FakeClock(new DateTimeOffset(2026, 3, 2, 15, 0, 0, TimeSpan.Zero));
+        var cloudEvent = new CloudEventEnvelope
+        {
+            SpecVersion = "1.0",
+            Id = "e1",
+            Source = "https://x",
+            Type = "mcp.tool.call",
+            Time = null,
+            Data = new TestData("a"),
+            Extensions = new Dictionary<string, object> { ["traceId"] = "t1" }
+        };
+
+        var options = new CloudEventConversionOptions { Clock = clock };
+        var envelope = cloudEvent.ToOntogonyEnvelope<TestData>(options);
+        Assert.Equal(clock.UtcNow, envelope.OccurredAt);
     }
 
     private sealed record TestData(string Content);

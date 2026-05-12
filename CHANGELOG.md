@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased
+
+PR25 — Platform release hardening (this repo only):
+
+- **Packaging:** `scripts/pack-all.ps1` requires `PACKAGE_VERSION` (no implicit `0.1.0-starter`). CI packs with an explicit version.
+- **Observability:** `OntogonyCorrelationContext.FromHeaders` accepts canonical trace header name plus accepted alias list; `RequestTracingMiddleware` wires `OntogonyObservabilityOptions` so `AcceptedIncomingTraceHeaders` is honored.
+- **Time:** `IClock` injected for `ServiceIdentityCurrentActorAccessor` (timestamp skew), `InMemoryOutboxStore` (dead-letter time), and optional `CloudEventConversionOptions.Clock` for missing CloudEvent `time` (`Ontogony.Contracts` references `Ontogony.Primitives`).
+- **Security:** `ServiceIdentityOptions.RequirePreloadedBodyHashForHmacBodies` gates sync body rehash fallback for HMAC requests.
+- **Messaging:** `IEventPublisherWithResult`; `InMemoryEventPublisher` implements it.
+- **HTTP:** `RespectRetryAfterHeader`, `BackoffJitterFraction`, `HttpRequestMessage.Options` copied on retry clones; `ResilientIntegrationDelegatingHandler` uses `IClock` for `Retry-After` HTTP-date parsing.
+- **Docs:** `docs/migrations/2026-05-12-pr25-platform-release-hardening.md`; `docs/Sprint3.md` current status vs historical archive.
+
 ## 0.2.0
 
 Comprehensive shared-infrastructure extraction pass.

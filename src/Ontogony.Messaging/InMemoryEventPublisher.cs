@@ -8,7 +8,7 @@ namespace Ontogony.Messaging;
 /// <summary>
 /// In-process publisher that optionally captures published envelopes and dispatches to registered handlers.
 /// </summary>
-public sealed class InMemoryEventPublisher : IEventPublisher
+public sealed class InMemoryEventPublisher : IEventPublisher, IEventPublisherWithResult
 {
     private readonly InMemoryEventSink _sink;
     private readonly EventDispatchOptions _options;

@@ -8,6 +8,14 @@ namespace Ontogony.Observability;
 /// </summary>
 public static class OntogonyCorrelationContext
 {
+    private static readonly string[] DefaultAcceptedIncomingTraceHeaders =
+    [
+        OntogonyEventHeaders.TraceId,
+        OntogonyEventHeaders.LegacyAthanorTraceId,
+        OntogonyEventHeaders.LegacyAgentorTraceId,
+        OntogonyEventHeaders.ConexusRequestId
+    ];
+
     private static readonly AsyncLocal<CorrelationState?> CurrentValue = new();
 
     public static CorrelationState? Current => CurrentValue.Value;
@@ -42,18 +50,29 @@ public static class OntogonyCorrelationContext
         return Push(new CorrelationState(traceId, operationId ?? Guid.NewGuid().ToString("n")));
     }
 
-    public static CorrelationState? FromHeaders(IReadOnlyDictionary<string, string?> headers)
+    /// <summary>
+    /// Resolves correlation from headers using the default canonical trace header and default accepted legacy aliases
+    /// (same defaults as <see cref="OntogonyObservabilityOptions"/>).
+    /// </summary>
+    public static CorrelationState? FromHeaders(IReadOnlyDictionary<string, string?> headers) =>
+        FromHeaders(headers, OntogonyEventHeaders.TraceId, DefaultAcceptedIncomingTraceHeaders);
+
+    /// <summary>
+    /// Resolves correlation from headers. <paramref name="canonicalTraceHeaderName"/> is always checked first for a trace id,
+    /// then each entry in <paramref name="acceptedIncomingTraceHeaders"/> in order (duplicates and the canonical name are skipped).
+    /// </summary>
+    public static CorrelationState? FromHeaders(
+        IReadOnlyDictionary<string, string?> headers,
+        string canonicalTraceHeaderName,
+        IReadOnlyList<string>? acceptedIncomingTraceHeaders)
     {
         if (headers is null)
         {
             return null;
         }
 
-        var traceId = FirstNonEmpty(headers,
-            OntogonyEventHeaders.TraceId,
-            OntogonyEventHeaders.LegacyAthanorTraceId,
-            OntogonyEventHeaders.LegacyAgentorTraceId,
-            OntogonyEventHeaders.ConexusRequestId);
+        var traceHeaderOrder = BuildTraceHeaderLookupOrder(canonicalTraceHeaderName, acceptedIncomingTraceHeaders);
+        var traceId = FirstNonEmpty(headers, traceHeaderOrder);
 
         var traceParent = FirstNonEmpty(headers, OntogonyEventHeaders.TraceParent);
         if (string.IsNullOrWhiteSpace(traceId) &&
@@ -78,6 +97,35 @@ public static class OntogonyCorrelationContext
             SessionId: FirstNonEmpty(headers, OntogonyEventHeaders.SessionId),
             TraceParent: traceParent,
             TraceState: FirstNonEmpty(headers, OntogonyEventHeaders.TraceState));
+    }
+
+    private static string[] BuildTraceHeaderLookupOrder(
+        string canonicalTraceHeaderName,
+        IReadOnlyList<string>? acceptedIncomingTraceHeaders)
+    {
+        var canonical = string.IsNullOrWhiteSpace(canonicalTraceHeaderName)
+            ? OntogonyEventHeaders.TraceId
+            : canonicalTraceHeaderName.Trim();
+
+        var ordered = new List<string> { canonical };
+        var source = acceptedIncomingTraceHeaders ?? DefaultAcceptedIncomingTraceHeaders;
+        foreach (var header in source)
+        {
+            if (string.IsNullOrWhiteSpace(header))
+            {
+                continue;
+            }
+
+            var trimmed = header.Trim();
+            if (ordered.Exists(existing => string.Equals(existing, trimmed, StringComparison.OrdinalIgnoreCase)))
+            {
+                continue;
+            }
+
+            ordered.Add(trimmed);
+        }
+
+        return ordered.ToArray();
     }
 
     public static CorrelationState? FromEnvelope<TPayload>(OntogonyEnvelope<TPayload> envelope)
@@ -132,10 +180,21 @@ public static class OntogonyCorrelationContext
         return Guid.NewGuid().ToString("n");
     }
 
-    private static string? FirstNonEmpty(IReadOnlyDictionary<string, string?> headers, params string[] keys)
+    private static string? FirstNonEmpty(IReadOnlyDictionary<string, string?> headers, string key)
     {
-        foreach (var key in keys)
+        if (headers.TryGetValue(key, out var value) && !string.IsNullOrWhiteSpace(value))
         {
+            return value.Trim();
+        }
+
+        return null;
+    }
+
+    private static string? FirstNonEmpty(IReadOnlyDictionary<string, string?> headers, IReadOnlyList<string> keys)
+    {
+        for (var i = 0; i < keys.Count; i++)
+        {
+            var key = keys[i];
             if (headers.TryGetValue(key, out var value) && !string.IsNullOrWhiteSpace(value))
             {
                 return value.Trim();
