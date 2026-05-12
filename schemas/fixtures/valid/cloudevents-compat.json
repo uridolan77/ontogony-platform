@@ -1,0 +1,15 @@
+{
+  "EventId": "ce:2026-05-12:compat:001",
+  "EventType": "com.example.string",
+  "Source": "https://example.com/source",
+  "OccurredAt": "2026-05-12T12:00:00Z",
+  "TraceId": "trace:ce:001",
+  "Protocol": "cloudevents",
+  "SchemaVersion": "1.0",
+  "Payload": {
+    "specversion": "1.0",
+    "type": "com.example.string",
+    "source": "https://example.com/source",
+    "id": "A234-1234-1234"
+  }
+}

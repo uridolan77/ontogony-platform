@@ -1,0 +1,9 @@
+{
+  "EventType": "system.envelope.test",
+  "Source": "https://ontogony.dev/fixtures",
+  "OccurredAt": "2026-05-12T10:30:00Z",
+  "TraceId": "trace:001",
+  "Protocol": "mcp",
+  "SchemaVersion": "1.0",
+  "Payload": {}
+}

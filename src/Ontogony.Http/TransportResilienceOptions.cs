@@ -54,4 +54,25 @@ public sealed class TransportResilienceOptions
     /// </summary>
     [Range(0, 1)]
     public double BackoffJitterFraction { get; set; }
+
+    /// <summary>
+    /// Maximum number of retries allowed per minute per client. Zero disables retry budgeting. Once exhausted, retries are refused until the next minute window.
+    /// </summary>
+    [Range(0, 10_000)]
+    public int RetryBudgetPerMinute { get; set; } = 0;
+
+    /// <summary>
+    /// Total time limit for the entire request lifecycle (all attempts + backoff delays). Null disables total timeout. When exceeded, the in-progress attempt is cancelled.
+    /// </summary>
+    public TimeSpan? TotalTimeout { get; set; }
+
+    /// <summary>
+    /// Time limit for a single HTTP attempt. Null disables per-attempt timeout. When exceeded, the attempt is cancelled as a transient error.
+    /// </summary>
+    public TimeSpan? AttemptTimeout { get; set; }
+
+    /// <summary>
+    /// When true, emit metrics for each attempt, retry, and circuit state change. Used for observability into retry behavior.
+    /// </summary>
+    public bool EmitAttemptMetrics { get; set; } = true;
 }

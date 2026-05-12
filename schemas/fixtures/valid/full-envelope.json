@@ -1,0 +1,23 @@
+{
+  "EventId": "evt:2026-05-12:full:001",
+  "EventType": "system.envelope.test",
+  "Source": "https://ontogony.dev/fixtures",
+  "OccurredAt": "2026-05-12T10:30:00Z",
+  "TraceId": "trace:full-001",
+  "SpanId": "span:001",
+  "ParentSpanId": "span:parent:001",
+  "TenantId": "tenant:001",
+  "WorkspaceId": "workspace:001",
+  "ProjectId": "project:001",
+  "ActorId": "actor:001",
+  "SessionId": "session:001",
+  "Protocol": "a2a",
+  "SchemaVersion": "1.0",
+  "Payload": {
+    "data": "complete envelope with all optional headers"
+  },
+  "PayloadHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "Metadata": {
+    "custom-key": "custom-value"
+  }
+}

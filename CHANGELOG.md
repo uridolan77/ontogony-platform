@@ -2,6 +2,29 @@
 
 ## Unreleased
 
+PR32 — Advanced HTTP resilience policies:
+
+- **Retry classifier extension point:** added `IRetryClassifier` interface to allow custom retry decision logic beyond status codes and exception types.
+- **Default retry classifier:** added `DefaultRetryClassifier` implementing standard retry logic for backward compatibility.
+- **Retry decision enum:** added `RetryDecision` with options `DoNotRetry`, `Retry`, and `RetryBypassingBudget` for fine-grained control.
+- **Retry budget:** added `RetryBudgetPerMinute` to `TransportResilienceOptions` to limit retries per client per minute, protecting downstream services from retry storms.
+- **Total timeout:** added `TotalTimeout` to bound the entire request lifecycle (all attempts + backoff delays).
+- **Per-attempt timeout:** added `AttemptTimeout` to cancel individual attempts that exceed threshold, treating as transient errors for retry.
+- **Observability flag:** added `EmitAttemptMetrics` to `TransportResilienceOptions` to indicate metric emission intent.
+- **Retry budget tracking:** `TransportResilienceRegistry` now tracks retry budget per client per minute via new `TryConsumeRetryBudget` method.
+- **Enhanced handler:** `ResilientIntegrationDelegatingHandler` now accepts optional `IRetryClassifier`, enforces timeouts, and respects retry budgets.
+- **Comprehensive tests:** `AdvancedHttpResilienceTests` covers retry budget exhaustion, total/per-attempt timeouts, custom classifiers, and budget bypass.
+
+PR31 — Schema governance and compatibility:
+
+- **Fixture-driven testing:** added `schemas/fixtures/valid/*.json` and `schemas/fixtures/invalid/*.json` golden vectors for envelope validation.
+- **JSON schema validation tests:** `SchemaFixtureValidationTests` validates fixtures against `ontogony-envelope.schema.json` and ensures `DefaultEnvelopeValidator` behavior aligns.
+- **CloudEvents round-trip tests:** `CloudEventsRoundTripTests` verifies all required and optional fields survive `ToCloudEvent()` + `ToOntogonyEnvelope<T>()` conversions.
+- **Header snapshot tests:** `HeaderConstantsSnapshotTests` ensures `OntogonyEventHeaders` and `ProtocolNames` constants remain stable across releases.
+- **Compatibility policy:** added `docs/contracts/compatibility-policy.md` with breaking-change definition, testing requirements, versioning strategy, and PR checklist.
+- **Header compatibility matrix:** added `docs/contracts/header-compatibility-matrix.md` with cross-service header usage, deprecation plans, and adoption guidance.
+- **Stability guarantees:** formalized how PRs modifying envelopes, headers, or validation logic must include fixture updates, test coverage, and migration documentation.
+
 PR30 — Observability operations pack:
 
 - **Operational docs:** added `docs/observability/operations-pack.md` with OTLP exporter wiring, local collector usage, log correlation patterns, and rollout checks.

@@ -1,0 +1,15 @@
+{
+  "EventId": "evt:2026-05-12:ag-ui:001",
+  "EventType": "ui.interaction.click",
+  "Source": "mcp://agentor-ui",
+  "OccurredAt": "2026-05-12T11:15:30Z",
+  "TraceId": "trace:ag-ui:001",
+  "ActorId": "user:12345",
+  "SessionId": "session:ui:001",
+  "Protocol": "ag-ui",
+  "SchemaVersion": "1.0",
+  "Payload": {
+    "elementId": "button-submit",
+    "action": "clicked"
+  }
+}

@@ -7,6 +7,7 @@ namespace Ontogony.Http;
 public sealed class TransportResilienceRegistry
 {
     private readonly ConcurrentDictionary<string, ClientCircuitState> _byClient = new(StringComparer.Ordinal);
+    private readonly RetryBudgetTracker _budgetTracker = new();
     private readonly IClock _clock;
 
     public TransportResilienceRegistry(IClock? clock = null)
@@ -34,6 +35,15 @@ public sealed class TransportResilienceRegistry
         }
 
         return null;
+    }
+
+    /// <summary>
+    /// Attempt to consume a retry from the budget for the given client.
+    /// </summary>
+    /// <returns>True if allowed; false if budget exhausted.</returns>
+    public bool TryConsumeRetryBudget(string clientName, TransportResilienceOptions options)
+    {
+        return _budgetTracker.TryConsumeRetry(clientName, options.RetryBudgetPerMinute);
     }
 
     public void RecordSuccess(string clientName, TransportResilienceOptions options)

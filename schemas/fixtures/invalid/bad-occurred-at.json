@@ -1,0 +1,10 @@
+{
+  "EventId": "evt:2026-05-12:invalid:001",
+  "EventType": "system.envelope.test",
+  "Source": "https://ontogony.dev/fixtures",
+  "OccurredAt": "not-a-datetime",
+  "TraceId": "trace:001",
+  "Protocol": "mcp",
+  "SchemaVersion": "1.0",
+  "Payload": {}
+}
