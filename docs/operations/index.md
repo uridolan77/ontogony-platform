@@ -157,14 +157,15 @@ curl -H "X-Ontogony-Trace-Id: test-trace-001" \
 Each service must expose:
 
 ```csharp
-// In Program.cs
-app.MapGet("/health", () => "OK");
-app.MapGet("/ready", async (db) =>
+app.MapGet("/health", () => Results.Ok("OK"));
+
+// Example: verify PostgreSQL connectivity from your host (domain DbContext or NpgsqlDataSource)
+app.MapGet("/ready", async (MyDbContext db) =>
 {
     try
     {
-        await db.Database.ExecuteSqlAsync($"SELECT 1");
-        return "Ready";
+        await db.Database.ExecuteSqlRawAsync("SELECT 1");
+        return Results.Ok();
     }
     catch
     {
@@ -234,38 +235,24 @@ psql -U postgres -c "CREATE DATABASE ontogony;"
 psql -U postgres -d ontogony -c "CREATE EXTENSION IF NOT EXISTS uuid-ossp;"
 ```
 
-### Migrations
+### Schema and migrations
 
-Ontogony uses EF Core migrations.
+**Ontogony.Persistence** packages provide **outbox / processed-message / dead-letter** storage contracts and PostgreSQL-backed implementations. They do **not** replace your application's domain model, ORM, or migration workflow.
 
-**Run migrations on startup:**
+- **Your domain tables:** use your own migration tool (EF Core, FluentMigrator, hand-written SQL, etc.).
+- **Ontogony Postgres tables:** created for the outbox provider (`AddOntogonyPostgresOutbox`) when you opt in via `PostgresOutboxOptions.EnsureSchemaOnStartup`, or provision them separately to match the expected table names.
+
+**Register the PostgreSQL outbox:**
 
 ```csharp
-public static void Main(string[] args)
+services.AddOntogonyPostgresOutbox(opts =>
 {
-    var host = CreateHostBuilder(args).Build();
-
-    using (var scope = host.Services.CreateScope())
-    {
-        var db = scope.ServiceProvider.GetRequiredService<MyDbContext>();
-        db.Database.Migrate();
-    }
-
-    host.Run();
-}
+    opts.ConnectionString = configuration.GetConnectionString("Postgres")!;
+    opts.EnsureSchemaOnStartup = true; // dev/sandbox convenience; review for production
+});
 ```
 
-**Or manually:**
-
-```bash
-dotnet ef database update --project src/MyService
-```
-
-**Create migrations:**
-
-```bash
-dotnet ef migrations add AddOrdersTable --project src/MyService
-```
+**If you also use EF Core for domain data**, run EF migrations the way you already do for **your** `DbContext` — that is unrelated to Ontogony outbox schema initialization.
 
 ---
 
@@ -451,13 +438,16 @@ services.Configure<TransportResilienceOptions>(opts =>
 **Fix:** Check connection string pool settings.
 
 ```csharp
-// In Startup
-services.AddPostgresContext<MyDbContext>(options =>
-{
+// Your service: configure Npgsql / EF Core connection pooling (Ontogony does not own your DbContext)
+services.AddDbContext<MyDbContext>(options =>
     options.UseNpgsql(
-        connectionString,
-        postgresOpts => postgresOpts.CommandTimeout(30)
-    );
+        configuration.GetConnectionString("Postgres"),
+        postgresOpts => postgresOpts.CommandTimeout(30)));
+
+// Ontogony outbox: separate registration (see Ontogony.Persistence.Postgres)
+services.AddOntogonyPostgresOutbox(opts =>
+{
+    opts.ConnectionString = configuration.GetConnectionString("Postgres")!;
 });
 
 // Verify pool config in connection string:
@@ -553,15 +543,21 @@ Example: 5 services → min=10, max=50 connections
 Balance **reliability** vs **latency**:
 
 ```csharp
-// Conservative: high success, higher latency
-opts.MaxRetries = 5;
-opts.BaseDelayMilliseconds = 200;
-opts.MaxDelayMilliseconds = 30_000;
+// Example: tune resilience for named integration clients (see Ontogony.Http)
+services.Configure<TransportResilienceOptions>(opts =>
+{
+    opts.MaxRetries = 5;
+    opts.BaseDelayMilliseconds = 200;
+    opts.MaxDelayMilliseconds = 30_000;
+});
 
-// Aggressive: fast fail, some failures
-opts.MaxRetries = 2;
-opts.BaseDelayMilliseconds = 100;
-opts.MaxDelayMilliseconds = 5_000;
+// Aggressive: fast fail, fewer retries
+services.Configure<TransportResilienceOptions>(opts =>
+{
+    opts.MaxRetries = 2;
+    opts.BaseDelayMilliseconds = 100;
+    opts.MaxDelayMilliseconds = 5_000;
+});
 ```
 
 ### Database
@@ -582,6 +578,7 @@ var orders = await db.Orders
 
 ## Next Steps
 
+- **Run docs validators locally:** `./scripts/validate-docs-links.ps1` and `./scripts/validate-docs-api-names.ps1` (same checks as CI)
 - **Review health checks** in your service
 - **Configure monitoring** and trace export
 - **Plan database backups** and recovery

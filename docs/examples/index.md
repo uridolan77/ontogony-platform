@@ -174,7 +174,7 @@ public class OrderService : IOrderService
                 Source = "ontogony://order-service/domain",
                 OccurredAt = _clock.UtcNow,
                 TraceId = OntogonyCorrelationContext.TraceId,
-                Protocol = ProtocolNames.Internal,
+                Protocol = ProtocolNames.GenericJson,
                 Payload = new OrderCreatedEvent(order.Id, order.CustomerId, order.Total)
             },
             ct
@@ -316,7 +316,7 @@ Service A
   ├─ Middleware extracts trace ID
   ├─ OntogonyCorrelationContext.TraceId = "trace-abc123"
   ├─ Response header echoes trace ID
-  ├─ Calls Service B (IntegrationHttpClient propagates trace ID)
+  ├─ Calls Service B (`AddOntogonyIntegrationHttpClient` propagates trace ID)
   │   ↓ (X-Ontogony-Trace-Id: trace-abc123)
   │ Service B
   │   ├─ Middleware extracts trace ID

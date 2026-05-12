@@ -20,7 +20,7 @@ Ontogony is a **.NET 9 / C# 13 infrastructure platform** that provides:
 | **Hashing & Idempotency** | Payload hashing, fingerprints, idempotency keys | Building deterministic, repeatable event processing |
 | **Messaging & Outbox** | Protocol-neutral event bus, outbox pattern | Guaranteeing event delivery across service boundaries |
 | **ProtocolIngress** | External protocol normalization (generic-json, CloudEvents, MCP, A2A, AG-UI) | Adapting inbound events into `OntogonyEnvelope<RawProtocolPayload>`. No gRPC adapter currently. |
-| **Persistence** | Database patterns, migrations, audit trails | Durable event storage and state management |
+| **Persistence** | Outbox contracts, processed-message tracking, dead-letter contracts, in-memory + PostgreSQL providers | Transactional outbox and idempotent dispatch mechanics — **not** a general-purpose ORM, repository layer, or migrations framework for your domain model |
 | **Testing** | Test doubles, conformance kits, harnesses | Verifying consumer services correctly adopt platform mechanics |
 
 ---
@@ -132,6 +132,13 @@ dotnet restore Ontogony.Platform.sln
 dotnet build Ontogony.Platform.sln
 ```
 
+### Docs validation (optional but recommended)
+
+```powershell
+./scripts/validate-docs-links.ps1
+./scripts/validate-docs-api-names.ps1
+```
+
 ### Test
 
 ```bash
@@ -188,10 +195,10 @@ GitHub Actions workflow will automatically:
 
 ## Next Steps
 
-1. **Read** [Why Ontogony Exists](planning/why-ontogony-exists.md)
+1. **Read** [ADR 0001 — shared mechanics, not shared meaning](adr/0001-shared-mechanics-not-shared-meaning.md)
 2. **Install** per your role: [Adoption](adoption/) or [Architecture](architecture/)
 3. **Explore** specific packages: [Package Index](packages/)
-4. **Verify** your service adopts correctly: [Conformance Tests](adoption/conformance-testing.md)
+4. **Verify** your service adopts correctly: [Conformance kits](testing/conformance-kits.md)
 
 ---
 

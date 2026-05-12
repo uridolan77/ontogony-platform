@@ -36,6 +36,12 @@ jobs:
         run: dotnet build Ontogony.Platform.sln --no-restore
       - name: Test
         run: dotnet test Ontogony.Platform.sln --no-build --collect:"XPlat Code Coverage"
+      - name: Validate docs links
+        shell: pwsh
+        run: ./scripts/validate-docs-links.ps1
+      - name: Validate docs API names
+        shell: pwsh
+        run: ./scripts/validate-docs-api-names.ps1
       - name: Pack (version gate)
         env:
           PACKAGE_VERSION: 0.2.0

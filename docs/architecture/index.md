@@ -112,34 +112,21 @@ public class OntogonyExceptionHandlingMiddleware
 - Retry logic duplicated vs Polly library
   - **Mitigation:** Document that Polly can wrap `ResilientIntegrationDelegatingHandler`
 
-**Pattern:**
+**Pattern (illustrative — see shipped code):** `ResilientIntegrationDelegatingHandler` is constructed with a client name, `TransportResilienceRegistry`, `IOptions<TransportResilienceOptions>`, and `IClock`, and it coordinates retries, `IRetryClassifier` (`RetryDecision`), per-attempt and total timeouts, and `RetryBudgetPerMinute`. Register clients with `AddOntogonyIntegrationHttpClient` rather than hand-rolling this pipeline.
 
 ```csharp
-public class ResilientIntegrationDelegatingHandler : DelegatingHandler
+// Shipped handler loop (simplified; see Ontogony.Http)
+for (var attempt = 0; attempt <= maxRetries; attempt++)
 {
-    private readonly TransportResilienceRegistry _registry;
-    private readonly IRetryClassifier _classifier;
+    var response = await base.SendAsync(request, cancellationToken);
+    var decision = _retryClassifier.ShouldRetry(request, response, null);
+    if (decision == RetryDecision.DoNotRetry || attempt == maxRetries)
+        return response;
 
-    protected override async Task<HttpResponseMessage> SendAsync(...)
-    {
-        var budget = _registry.GetBudgetFor(request);
-        for (var attempt = 1; attempt <= _options.MaxRetries + 1; attempt++)
-        {
-            try
-            {
-                var response = await base.SendAsync(request, cancellationToken);
-                if (!_classifier.ShouldRetry(request, response, null))
-                    return response;
+    if (decision == RetryDecision.Retry && !_registry.TryConsumeRetryBudget(_clientName, _options))
+        return response;
 
-                if (!budget.CanAttemptRetry())
-                    return response;  // Budget exhausted, fail fast
-            }
-            catch (Exception ex) when (_classifier.ShouldRetry(request, null, ex))
-            {
-                // Retry exception
-            }
-        }
-    }
+    await Task.Delay(ComputeDelay(attempt, response), cancellationToken);
 }
 ```
 
@@ -147,7 +134,7 @@ public class ResilientIntegrationDelegatingHandler : DelegatingHandler
 
 ### 4. Protocol-Neutral Envelopes (not Protocol-Specific)
 
-**Decision:** Single `OntogonyEnvelope<T>` for all transports (HTTP, gRPC, message bus, in-process).
+**Decision:** Single `OntogonyEnvelope<T>` for HTTP, brokers, in-process dispatch, and any adapter you provide.
 
 **Why:**
 
@@ -177,9 +164,8 @@ await serviceBusClient.SendMessageAsync(new ServiceBusMessage(envelope));
 // In-process
 await publisher.PublishAsync(envelope);
 
-// gRPC (via ProtocolIngress)
-var protoEnvelope = ProtocolIngress.ToProto(envelope);
-await grpcClient.PublishAsync(protoEnvelope);
+// External wire formats (mechanical adapters in Ontogony.ProtocolIngress — generic-json, CloudEvents, MCP, A2A, AG-UI)
+// Example: normalize inbound JSON to OntogonyEnvelope<RawProtocolPayload> (see package docs; no gRPC conversion helper ships today)
 ```
 
 ---
@@ -380,7 +366,7 @@ See `.github/workflows/release-packages.yml` for details.
 
 Current issue: `TaskCanceledException` classification is ambiguous.
 
-Recommended improvement:
+**Hypothetical API sketch (not implemented today):**
 
 ```csharp
 public record RetryExceptionContext
@@ -394,14 +380,14 @@ public record RetryExceptionContext
     public bool IsTotalTimeout { get; init; }
 }
 
-public interface IRetryClassifier
+// Today, IRetryClassifier.ShouldRetry returns RetryDecision and does not take this context.
+public interface IRetryClassifierV2
 {
-    bool ShouldRetry(
+    RetryDecision ShouldRetry(
         HttpRequestMessage request,
-        HttpResponseMessage response,
-        Exception exception,
-        RetryExceptionContext context  // ← New
-    );
+        HttpResponseMessage? response,
+        Exception? exception,
+        RetryExceptionContext context);
 }
 ```
 
@@ -435,12 +421,14 @@ Recommended: Real `dotnet nuget push` to GitHub Packages or private feed.
 
 Location: `docs/adr/`
 
-Key ADRs:
+Key ADRs (filenames in `docs/adr/`):
 
-- `001-async-local-correlation.md` — Why AsyncLocal, not HttpContext
-- `002-payload-hash-strategy.md` — Why hash payload only, not metadata
-- `003-conformance-assertions.md` — Why static helpers, not attributes
-- `004-retry-budget-coordination.md` — How retry and circuit-breaker work together
+- `0001-shared-mechanics-not-shared-meaning.md` — platform boundary
+- `0002-trace-correlation-first.md` — correlation defaults
+- `0003-cloud-events-compatible-envelope.md` — envelope interoperability
+- `0004-postgres-outbox-before-kafka.md` — durable dispatch ordering
+- `0005-fake-http-disabled-integration-modes.md` — test vs integration modes
+- `0006-canonical-json-hashing.md` — deterministic hashing contracts
 
 ---
 

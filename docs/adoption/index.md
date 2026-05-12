@@ -294,7 +294,7 @@ public class MyDownstreamClient(IHttpClientFactory factory)
 ### 4. Validate Incoming Signatures
 
 Signature validation runs automatically through the actor context registered in step 2.
-The middleware reads `X-Ontogony-Signature`, `X-Ontogony-Timestamp`, `X-Ontogony-Nonce`, and `X-Ontogony-Body-Hash` headers and validates HMAC before populating `ICurrentActorAccessor`.
+The accessor reads `OntogonyServiceIdentityHeaders` (`X-Ontogony-Service-Id`, `X-Ontogony-Service-Signature`, `X-Ontogony-Service-Timestamp`, `X-Ontogony-Service-Nonce`, `X-Ontogony-Service-Body-Hash`, and optional `X-Ontogony-Service-Key-Id`) and validates HMAC before populating `ICurrentActorAccessor`.
 
 ```csharp
 // Optionally preload body hash early in the pipeline (before body is consumed)
@@ -440,7 +440,7 @@ dotnet test
 
 **Symptom:** Calling another service, but trace ID is not included.
 
-**Fix:** Ensure `IntegrationHttpClient` is registered and used (not bare `HttpClient`).
+**Fix:** Ensure `AddOntogonyIntegrationHttpClient` named clients are registered and used (not ad hoc `HttpClient` instances that bypass correlation and resilience).
 
 ```csharp
 // ✅ Good
@@ -498,7 +498,7 @@ var now = clock.UtcNow;  // Must be reasonably close to request timestamp
 ## Support
 
 - **Integration questions:** Create issue in `ontogony-platform` with label `adoption-support`
-- **Conformance test failures:** See [Conformance Testing](./conformance-testing.md)
+- **Conformance test failures:** See [Conformance kits](../testing/conformance-kits.md)
 - **Design review:** Request in PR for platform maintainers to review
 
 ---

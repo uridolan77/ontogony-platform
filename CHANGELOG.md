@@ -2,10 +2,18 @@
 
 ## Unreleased
 
+PR35.1 — Documentation accuracy and validation:
+
+- **Stale API cleanup:** Aligned adoption, architecture, examples, operations, packages, and start-here guides with current extension points (`AddOntogonyIntegrationHttpClient`, `TransportResilienceOptions`, `UseOntogonyRequestTracing`, `ProtocolNames.GenericJson`, messaging `IEventPublisher`, etc.).
+- **Security guide rewrite:** Replaced obsolete `OntogonySecurityOptions` / manual signing examples with the PR29 model (`ServiceIdentityOptions`, `IServiceSigningSecretResolver`, `OntogonyServiceIdentitySigningHandler`, `OntogonyServiceIdentityHeaders`, body-hash preload, key-id rotation).
+- **ProtocolIngress / persistence / HTTP accuracy:** Removed nonexistent `ProtocolIngress.ToProto` / gRPC samples; clarified outbox-only persistence scope (not a general ORM); fixed operations snippets for Postgres outbox and resilience options.
+- **Links:** Repaired broken references (e.g. conformance kits path, ADR filenames, ADR 0001 from start-here).
+- **Validation scripts:** Added `scripts/validate-docs-links.ps1` and `scripts/validate-docs-api-names.ps1`; documented usage in `docs/start-here.md` and CI.
+
 PR35 — Developer experience documentation (5 comprehensive guides):
 
 - **`docs/start-here.md`** — Main entry point covering overview, quick links, and what Ontogony is
-- **`docs/packages/index.md`** — Reference for all 14 packages, use cases, and dependency graph
+- **`docs/packages/index.md`** — Reference for all 15 packages, use cases, and dependency graph
 - **`docs/adoption/index.md`** — Step-by-step integration guide (7 phases from setup to conformance testing)
 - **`docs/operations/index.md`** — Deployment, monitoring, database management, security practices, troubleshooting
 - **`docs/architecture/index.md`** — Design decisions, package boundaries, testing strategy, future improvements

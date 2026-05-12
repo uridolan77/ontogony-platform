@@ -435,7 +435,7 @@ dotnet add package Ontogony.Errors
 - **Start integration:** [Adoption Path](../adoption/)
 - **Understand design:** [Architecture Decisions](../architecture/)
 - **See examples:** [Examples](../examples/)
-- **Run conformance tests:** [Testing](../adoption/conformance-testing.md)
+- **Run conformance tests:** [Testing conformance kits](../testing/conformance-kits.md)
 
 ---
 
