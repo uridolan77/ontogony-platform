@@ -45,6 +45,7 @@ public sealed class McpProtocolAdapter : BaseProtocolIngressAdapter, IProtocolIn
         var eventId = raw.EventId ?? IdGenerator.NewGuid().ToString();
 
         var rawJson = JsonSerializer.Serialize(raw);
+        var rawPayloadHash = ComputeRawPayloadHash(rawJson);
         var canonicalPayloadHash = ComputeCanonicalPayloadHash(rawJson);
 
         var rawPayload = new RawProtocolPayload
@@ -53,6 +54,7 @@ public sealed class McpProtocolAdapter : BaseProtocolIngressAdapter, IProtocolIn
             RawJson = rawJson,
             RawEventType = raw.EventType,
             ParsedObject = raw,
+            RawPayloadHash = rawPayloadHash,
             CanonicalPayloadHash = canonicalPayloadHash
         };
 

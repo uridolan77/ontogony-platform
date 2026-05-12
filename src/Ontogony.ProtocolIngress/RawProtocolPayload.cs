@@ -30,6 +30,11 @@ public sealed record RawProtocolPayload
     public object? ParsedObject { get; init; }
 
     /// <summary>
+    /// Gets the deterministic SHA-256 hash computed over the exact raw payload bytes.
+    /// </summary>
+    public string? RawPayloadHash { get; init; }
+
+    /// <summary>
     /// Gets the deterministic SHA-256 hash computed over canonical JSON.
     /// </summary>
     public string? CanonicalPayloadHash { get; init; }

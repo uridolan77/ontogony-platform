@@ -57,7 +57,16 @@ public sealed class CloudEventsProtocolAdapter : BaseProtocolIngressAdapter, IPr
 
         // Serialize the entire CloudEvent as RawProtocolPayload
         var rawJson = System.Text.Json.JsonSerializer.Serialize(raw);
+        var rawPayloadHash = ComputeRawPayloadHash(rawJson);
         var canonicalPayloadHash = ComputeCanonicalPayloadHash(rawJson);
+
+        var traceParent = ExtractExtensionAsString(raw.Extensions, "traceparent");
+        var traceState = ExtractExtensionAsString(raw.Extensions, "tracestate");
+        var metadata = new Dictionary<string, string>(StringComparer.Ordinal);
+        if (!string.IsNullOrWhiteSpace(traceParent))
+            metadata["traceparent"] = traceParent;
+        if (!string.IsNullOrWhiteSpace(traceState))
+            metadata["tracestate"] = traceState;
 
         var rawPayload = new RawProtocolPayload
         {
@@ -65,6 +74,7 @@ public sealed class CloudEventsProtocolAdapter : BaseProtocolIngressAdapter, IPr
             RawJson = rawJson,
             RawEventType = raw.Type,
             ParsedObject = raw,
+            RawPayloadHash = rawPayloadHash,
             CanonicalPayloadHash = canonicalPayloadHash
         };
 
@@ -84,7 +94,8 @@ public sealed class CloudEventsProtocolAdapter : BaseProtocolIngressAdapter, IPr
             WorkspaceId = context.Metadata?.WorkspaceId,
             ProjectId = context.Metadata?.ProjectId,
             ActorId = context.Metadata?.ActorId,
-            SessionId = context.Metadata?.SessionId
+            SessionId = context.Metadata?.SessionId,
+            Metadata = metadata
         };
 
         // Validate envelope against platform contracts

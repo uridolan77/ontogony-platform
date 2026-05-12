@@ -49,6 +49,7 @@ public sealed class A2aProtocolAdapter : BaseProtocolIngressAdapter, IProtocolIn
         var messageId = raw.MessageId ?? IdGenerator.NewGuid().ToString();
 
         var rawJson = JsonSerializer.Serialize(raw);
+        var rawPayloadHash = ComputeRawPayloadHash(rawJson);
         var canonicalPayloadHash = ComputeCanonicalPayloadHash(rawJson);
 
         var rawPayload = new RawProtocolPayload
@@ -57,6 +58,7 @@ public sealed class A2aProtocolAdapter : BaseProtocolIngressAdapter, IProtocolIn
             RawJson = rawJson,
             RawEventType = raw.MessageType,
             ParsedObject = raw,
+            RawPayloadHash = rawPayloadHash,
             CanonicalPayloadHash = canonicalPayloadHash
         };
 

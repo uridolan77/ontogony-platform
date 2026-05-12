@@ -148,7 +148,11 @@ Adapters validate at ingress:
 - **TraceId policy**: RequireProvided (fail) or GenerateIfMissing.
 - **Timestamp**: Normalized to UTC or from context.
 - **Envelope event type policy**: uses mechanical `{protocol}.ingress.normalized`; raw protocol event type is preserved in payload.
-- **Payload hash**: deterministic SHA256 of canonical JSON.
+- **Source normalization**: preserves already-absolute URIs; prefixes only non-URI identifiers with `{protocol}://`.
+- **Payload hash**:
+    - `RawPayloadHash`: SHA-256 of exact raw payload bytes (forensic/replay identity)
+    - `CanonicalPayloadHash`: SHA-256 of canonical JSON (semantic/dedup identity)
+    - `Envelope.PayloadHash`: canonical identity value
 
 Invalid payloads return `ProtocolIngressResult` with structured `ProtocolIngressError` entries.
 
@@ -168,6 +172,16 @@ This enables:
 - Deduplication across retries.
 - Integrity verification.
 - Fingerprinting for idempotency keys.
+
+## DI Registration
+
+For default dependency and adapter registration:
+
+```csharp
+services.AddOntogonyProtocolIngress();
+```
+
+This registers shared dependencies (`PayloadHasher`, `IIdGenerator`, `IClock`, `IEnvelopeValidator`) and all protocol adapters.
 
 ## Boundary
 

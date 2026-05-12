@@ -45,6 +45,7 @@ public sealed class AgUiProtocolAdapter : BaseProtocolIngressAdapter, IProtocolI
         var eventId = raw.EventId ?? IdGenerator.NewGuid().ToString();
 
         var rawJson = JsonSerializer.Serialize(raw);
+        var rawPayloadHash = ComputeRawPayloadHash(rawJson);
         var canonicalPayloadHash = ComputeCanonicalPayloadHash(rawJson);
 
         var rawPayload = new RawProtocolPayload
@@ -53,6 +54,7 @@ public sealed class AgUiProtocolAdapter : BaseProtocolIngressAdapter, IProtocolI
             RawJson = rawJson,
             RawEventType = raw.Action,
             ParsedObject = raw,
+            RawPayloadHash = rawPayloadHash,
             CanonicalPayloadHash = canonicalPayloadHash
         };
 

@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+PR28.2 — ProtocolIngress adoption hardening:
+
+- **Source normalization:** preserves already-absolute source URIs and prefixes only non-URI identifiers.
+- **Hash semantics:** `RawProtocolPayload` now includes `RawPayloadHash` (exact raw bytes) and `CanonicalPayloadHash` (canonical JSON).
+- **CloudEvents tracing:** `CloudEventsProtocolAdapter` now preserves `traceparent` and `tracestate` extensions in envelope metadata.
+- **DI helper:** added `AddOntogonyProtocolIngress()` to register dependencies and all ingress adapters.
+- **Tests/docs:** expanded adapter and DI registration tests, plus protocol-ingress docs for source and hash semantics.
+
 PR28.1 (Phase 2) — ProtocolIngress P1 clarifications:
 
 - **Event type policy:** adapters now emit mechanical envelope event types (`{protocol}.ingress.normalized`) while preserving protocol-native event types in `RawProtocolPayload.RawEventType`.

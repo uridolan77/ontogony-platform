@@ -87,10 +87,18 @@ public abstract class BaseProtocolIngressAdapter
     /// </summary>
     protected string NormalizeSourceUri(string protocol, string source)
     {
-        if (source.StartsWith($"{protocol}://", StringComparison.OrdinalIgnoreCase))
+        if (Uri.TryCreate(source, UriKind.Absolute, out _))
             return source;
 
         return $"{protocol}://{source}";
+    }
+
+    /// <summary>
+    /// Computes a deterministic hash of the exact raw JSON payload bytes.
+    /// </summary>
+    protected string ComputeRawPayloadHash(string rawJson)
+    {
+        return PayloadHasher.ComputeRawJsonHash(rawJson);
     }
 
     /// <summary>

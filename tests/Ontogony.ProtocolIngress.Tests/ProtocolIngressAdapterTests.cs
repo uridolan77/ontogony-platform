@@ -164,6 +164,8 @@ public sealed class GenericJsonProtocolAdapterTests
         Assert.True(result.IsSuccess);
         Assert.NotNull(result.Envelope?.PayloadHash);
         Assert.NotEmpty(result.Envelope.PayloadHash);
+        Assert.NotNull(result.Envelope.Payload.RawPayloadHash);
+        Assert.NotEmpty(result.Envelope.Payload.RawPayloadHash);
         Assert.Equal(result.Envelope.Payload.CanonicalPayloadHash, result.Envelope.PayloadHash);
     }
 
@@ -278,6 +280,26 @@ public sealed class GenericJsonProtocolAdapterTests
     }
 
     [Fact]
+    public void Normalize_WithAbsoluteSourceUri_PreservesSource()
+    {
+        // Arrange
+        var rawJson = """
+        {
+            "eventType": "user.created",
+            "source": "https://user-service/api",
+            "traceId": "trace-123"
+        }
+        """;
+
+        // Act
+        var result = _adapter.Normalize(rawJson, new ProtocolIngressContext());
+
+        // Assert
+        Assert.True(result.IsSuccess);
+        Assert.Equal("https://user-service/api", result.Envelope?.Source);
+    }
+
+    [Fact]
     public void Normalize_WithContextOccurredAt_UsesContextTime()
     {
         // Arrange
@@ -386,6 +408,8 @@ public sealed class CloudEventsProtocolAdapterTests
         Assert.Equal("event-123", result.Envelope.EventId);
         Assert.Equal("cloudevents.ingress.normalized", result.Envelope.EventType);
         Assert.Equal("com.example.user.created", result.Envelope.Payload.RawEventType);
+        Assert.NotNull(result.Envelope.Payload.RawPayloadHash);
+        Assert.NotEmpty(result.Envelope.Payload.RawPayloadHash);
         Assert.Equal("cloudevents", result.Envelope.Protocol);
     }
 
@@ -452,6 +476,26 @@ public sealed class CloudEventsProtocolAdapterTests
     }
 
     [Fact]
+    public void Normalize_WithAbsoluteSourceUri_PreservesSource()
+    {
+        // Arrange
+        var cloudEvent = new CloudEventEnvelope
+        {
+            Id = "event-123",
+            Type = "com.example.user.created",
+            Source = "https://user-service/api",
+            Time = DateTimeOffset.UtcNow.ToString("O")
+        };
+
+        // Act
+        var result = _adapter.Normalize(cloudEvent, new ProtocolIngressContext { TraceId = "trace-123" });
+
+        // Assert
+        Assert.True(result.IsSuccess);
+        Assert.Equal("https://user-service/api", result.Envelope?.Source);
+    }
+
+    [Fact]
     public void Normalize_WithInvalidTime_UsesContextOccurredAtFallback()
     {
         // Arrange
@@ -496,6 +540,32 @@ public sealed class CloudEventsProtocolAdapterTests
         // Assert
         Assert.True(result.IsSuccess);
         Assert.Equal("trace-from-json-element", result.Envelope?.TraceId);
+    }
+
+    [Fact]
+    public void Normalize_PreservesTraceParentAndTraceStateInMetadata()
+    {
+        // Arrange
+        var cloudEvent = new CloudEventEnvelope
+        {
+            Id = "event-123",
+            Type = "com.example.user.created",
+            Source = "https://user-service",
+            Extensions = new Dictionary<string, object>
+            {
+                ["traceId"] = "trace-123",
+                ["traceparent"] = "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-00",
+                ["tracestate"] = "congo=t61rcWkgMzE"
+            }
+        };
+
+        // Act
+        var result = _adapter.Normalize(cloudEvent, new ProtocolIngressContext());
+
+        // Assert
+        Assert.True(result.IsSuccess);
+        Assert.Equal("00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-00", result.Envelope?.Metadata["traceparent"]);
+        Assert.Equal("congo=t61rcWkgMzE", result.Envelope?.Metadata["tracestate"]);
     }
 }
 

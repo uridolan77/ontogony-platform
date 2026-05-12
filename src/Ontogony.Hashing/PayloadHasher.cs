@@ -20,4 +20,12 @@ public sealed class PayloadHasher
         var canonical = CanonicalJson.Normalize(json);
         return _hashService.ComputeUtf8Sha256(canonical);
     }
+
+    /// <summary>
+    /// Computes a SHA-256 hash from the exact input JSON string bytes (UTF-8), without canonicalization.
+    /// </summary>
+    public string ComputeRawJsonHash(string json)
+    {
+        return _hashService.ComputeUtf8Sha256(json);
+    }
 }

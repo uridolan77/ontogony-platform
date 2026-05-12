@@ -66,6 +66,7 @@ public sealed class GenericJsonProtocolAdapter : BaseProtocolIngressAdapter, IPr
             eventId = IdGenerator.NewGuid().ToString();
 
         var timestamp = NormalizeTimestamp(null, context);
+        var rawPayloadHash = ComputeRawPayloadHash(rawJson);
         var canonicalPayloadHash = ComputeCanonicalPayloadHash(rawJson);
 
         var rawPayload = new RawProtocolPayload
@@ -74,6 +75,7 @@ public sealed class GenericJsonProtocolAdapter : BaseProtocolIngressAdapter, IPr
             RawJson = rawJson,
             RawEventType = eventType,
             ParsedObject = root,  // Store the cloned JsonElement
+            RawPayloadHash = rawPayloadHash,
             CanonicalPayloadHash = canonicalPayloadHash
         };
 

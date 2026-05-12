@@ -31,6 +31,8 @@ The adapter now uses the canonical CloudEvents shape from `Ontogony.Contracts.Ev
 | `Source` | `Source` | Normalized to absolute URI as `cloudevents://{source}` when needed. |
 | `Time` | `OccurredAt` | Parsed if valid; fallback to context or clock. |
 | `Extensions["traceId"]` or `Extensions["traceid"]` | `TraceId` | Extracted from extensions if present. Otherwise uses context or generation policy. |
+| `Extensions["traceparent"]` | `Metadata["traceparent"]` | Preserved for W3C trace propagation continuity. |
+| `Extensions["tracestate"]` | `Metadata["tracestate"]` | Preserved for W3C trace propagation continuity. |
 | N/A | `Protocol` | Set to `"cloudevents"`. |
 
 ## Validation Rules
@@ -67,7 +69,7 @@ if (result.IsSuccess)
     // envelope.EventId: "event-123"
     // envelope.EventType: "cloudevents.ingress.normalized"
     // envelope.Payload.RawEventType: "com.example.user.created"
-    // envelope.Source: "cloudevents://https://user-service/api"
+    // envelope.Source: "https://user-service/api"  // absolute URIs are preserved
     // envelope.TraceId: "trace-xyz"
     // envelope.Protocol: "cloudevents"
     // envelope.Payload.RawJson: serialized CloudEvent
