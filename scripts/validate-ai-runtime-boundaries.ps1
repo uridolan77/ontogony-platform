@@ -1,9 +1,9 @@
 #!/usr/bin/env pwsh
-# Scans Ontogony.AI.Contracts source for disallowed *product-meaning* phrases.
-# Scoped to this package only so planning/docs that explain boundaries are not flagged.
+# Scans AI-runtime substrate packages for disallowed *product-meaning* phrases.
+# Scoped to these package source trees only so planning/docs that explain boundaries are not flagged.
 #
-# TODO (PR37+): extend $scanRoots to include other AI-runtime packages as they land, e.g.
-#   Ontogony.Artifacts, Ontogony.Execution, Ontogony.Redaction, Ontogony.Knowledge.Contracts,
+# TODO (PR38+): extend $scanRoots to include other AI-runtime packages as they land, e.g.
+#   Ontogony.Execution, Ontogony.Redaction, Ontogony.Knowledge.Contracts,
 #   Ontogony.Quota, Ontogony.AI.Replay (and their tests).
 $ErrorActionPreference = 'Stop'
 
@@ -11,6 +11,8 @@ $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 $scanRoots = @(
     (Join-Path $repoRoot 'src/Ontogony.AI.Contracts')
     (Join-Path $repoRoot 'tests/Ontogony.AI.Contracts.Tests')
+    (Join-Path $repoRoot 'src/Ontogony.Artifacts')
+    (Join-Path $repoRoot 'tests/Ontogony.Artifacts.Tests')
 )
 
 $forbidden = @(
@@ -45,5 +47,5 @@ if ($violations.Count -gt 0) {
     exit 1
 }
 
-Write-Host 'OK: AI.Contracts boundary scan passed.'
+Write-Host 'OK: AI-runtime substrate boundary scan passed.'
 exit 0

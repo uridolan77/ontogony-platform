@@ -1,0 +1,30 @@
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Ontogony.Hashing;
+using Ontogony.Primitives;
+
+namespace Ontogony.Artifacts;
+
+public static class ArtifactServiceCollectionExtensions
+{
+    /// <summary>
+    /// Registers <see cref="InMemoryArtifactStore"/> as the singleton <see cref="IArtifactStore"/>
+    /// for tests, examples, and single-process hosts.
+    /// </summary>
+    public static IServiceCollection AddOntogonyInMemoryArtifactStore(this IServiceCollection services)
+    {
+        ArgumentNullException.ThrowIfNull(services);
+
+        services.TryAddSingleton<IClock, SystemClock>();
+        services.TryAddSingleton<IIdGenerator, GuidIdGenerator>();
+        services.TryAddSingleton<IContentHashService, Sha256ContentHashService>();
+
+        services.AddSingleton<InMemoryArtifactStore>(sp => new InMemoryArtifactStore(
+            sp.GetRequiredService<IContentHashService>(),
+            sp.GetRequiredService<IClock>(),
+            sp.GetRequiredService<IIdGenerator>()));
+        services.AddSingleton<IArtifactStore>(sp => sp.GetRequiredService<InMemoryArtifactStore>());
+
+        return services;
+    }
+}

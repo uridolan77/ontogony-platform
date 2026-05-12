@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+PR37 — Ontogony.Artifacts (artifact reference contracts and in-memory store):
+
+- **New package `Ontogony.Artifacts`:** `ArtifactRef` (serialization-friendly reference DTO with id, content hash, size, opaque media type / encoding / storage tier / classification, optional scope and locator URI), `ArtifactPutRequest`, `ArtifactPutResult`, `ArtifactContent`, `IArtifactStore`, `ArtifactNotFoundException`, and thread-safe `InMemoryArtifactStore` (lowercase hex SHA-256 content addressing via `Ontogony.Hashing.Sha256ContentHashService`, dedup by content hash + tenant/workspace/project/media-type/classification).
+- **DI helper:** `AddOntogonyInMemoryArtifactStore()` registers `IArtifactStore`, `IClock`, `IIdGenerator`, and `IContentHashService` for tests and single-process hosts.
+- **Tests:** `Ontogony.Artifacts.Tests` — deterministic `CanonicalJson` round-trips, `OntogonyEnvelope<ArtifactRef>` validation via `DefaultEnvelopeValidator`, in-memory store put/get/dedupe/scope/collision behavior, SHA-256 fingerprint vector, and reflection boundary checks (no cloud provider, routing, or product-meaning tokens on public surface).
+- **Docs:** Added `docs/packages/Ontogony.Artifacts.md`; expanded `docs/packages/index.md` (package count 17, dependency graph, quick selection matrix).
+- **Script:** Extended `scripts/validate-ai-runtime-boundaries.ps1` scan roots to include `Ontogony.Artifacts` sources and tests.
+- **Solution:** `Ontogony.Platform.sln` now references `Ontogony.Artifacts` and `Ontogony.Artifacts.Tests`.
+- **Explicit non-scope:** No cloud provider (S3/Azure/GCS) bindings, no retention/eviction/replication policy, no PII or sensitivity registry — `MediaType`, `ContentEncoding`, `StorageTier`, and `Classification` remain opaque caller-defined strings.
+
 PR35.1 — Documentation accuracy and validation:
 
 - **Stale API cleanup:** Aligned adoption, architecture, examples, operations, packages, and start-here guides with current extension points (`AddOntogonyIntegrationHttpClient`, `TransportResilienceOptions`, `UseOntogonyRequestTracing`, `ProtocolNames.GenericJson`, messaging `IEventPublisher`, etc.).

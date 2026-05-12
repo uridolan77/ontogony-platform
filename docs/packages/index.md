@@ -1,6 +1,6 @@
 # Ontogony Packages — Reference
 
-This index describes all 16 NuGet packages and when to use each one.
+This index describes all 17 NuGet packages and when to use each one.
 
 ---
 
@@ -73,6 +73,41 @@ using Ontogony.AI.Contracts;
 
 var usage = new LlmUsageRecord(10, 20, null, "o200k", null);
 var total = usage.ResolveTotalTokensOrSum(); // 30
+```
+
+---
+
+### `Ontogony.Artifacts`
+
+**Purpose:** Mechanical artifact reference contracts and an in-memory, content-addressed artifact store for large or sensitive payloads.
+
+**Provides:**
+- `ArtifactRef` — durable, serialization-friendly reference (id, content hash, size, opaque media/encoding/tier/classification, optional scope and locator URI).
+- `ArtifactPutRequest` / `ArtifactPutResult` / `ArtifactContent` — write/read DTOs.
+- `IArtifactStore` — mechanical port; `InMemoryArtifactStore` — thread-safe reference implementation that dedupes by `(content hash, tenant, workspace, project, media type, classification)`.
+- `ArtifactNotFoundException` — thrown by `GetAsync` on unknown ids.
+- `AddOntogonyInMemoryArtifactStore()` — DI registration helper for the in-memory store.
+
+**Opaque conventions:** `MediaType`, `ContentEncoding`, `StorageTier`, and `Classification` are caller-defined strings (no platform enums or registries).
+
+**When to use:** Recording or transferring large/sensitive LLM, tool, document, or replay payloads by reference instead of inline; wrap `ArtifactRef` in `OntogonyEnvelope<TPayload>` for the standard event pipeline.
+
+**Non-goals:** No cloud provider SDK bindings, retention policy, eviction strategy, or product-specific lifecycle (see `docs/ai-runtime/boundary-guardrails.md` and [package notes](Ontogony.Artifacts.md)).
+
+**Example:**
+```csharp
+services.AddOntogonyInMemoryArtifactStore();
+
+var store = sp.GetRequiredService<IArtifactStore>();
+var result = await store.PutAsync(new ArtifactPutRequest
+{
+    MediaType = "application/json",
+    Content = canonicalJsonBytes,
+    Classification = "internal",
+    TenantId = "tenant-1"
+});
+
+// emit result.Reference inside an OntogonyEnvelope<ArtifactRef>
 ```
 
 ---
@@ -405,6 +440,7 @@ Ontogony.Primitives
 ├── Ontogony.Configuration
 ├── Ontogony.Contracts
 ├── Ontogony.AI.Contracts → Ontogony.Contracts
+├── Ontogony.Artifacts → Ontogony.Contracts, Ontogony.Hashing, Ontogony.Primitives
 ├── Ontogony.Errors
 ├── Ontogony.Hashing
 ├── Ontogony.Hosting
@@ -440,6 +476,7 @@ Ontogony.Primitives
 | Idempotent APIs | `Ontogony.Idempotency` | Custom deduplication |
 | Integration tests | `Ontogony.Testing` | Any test framework + helpers |
 | LLM telemetry contracts | `Ontogony.AI.Contracts` | Product routing/orchestration repos |
+| Large/sensitive payload by-reference | `Ontogony.Artifacts` | Inline payloads in envelopes (only for small DTOs) |
 
 ---
 
