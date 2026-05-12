@@ -4,6 +4,15 @@
 
 - Added planning package for PR26-PR35 infrastructure roadmap under `docs/planning/ontogony-platform-next-prs/`.
 
+PR26 — Ontogony.Hosting service defaults:
+
+- **New package:** `Ontogony.Hosting` adds `AddOntogonyServiceDefaults(...)`, `UseOntogonyServiceDefaults()`, and `MapOntogonyHealthEndpoints()` for mechanical host composition only.
+- **Defaults:** Observability + errors registration by default; middleware ordering keeps request tracing before exception handling so trace IDs flow into error payloads.
+- **Security:** Optional service-identity body-hash preload middleware (`UseServiceIdentityBodyHashPreload`) remains explicit opt-in.
+- **Health:** Configurable health/readiness endpoint mapping (`/health`, `/ready` by default).
+- **Docs:** Added package + hosting docs and minimal example.
+- **Migration:** `docs/migrations/2026-05-12-pr26-ontogony-hosting-service-defaults.md`.
+
 PR25 — Platform release hardening (this repo only):
 
 - **Packaging:** `scripts/pack-all.ps1` requires `PACKAGE_VERSION` (no implicit `0.1.0-starter`). CI packs with an explicit version.

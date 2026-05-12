@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="xunit" />
     <PackageReference Include="xunit.runner.visualstudio">
@@ -26,6 +27,7 @@
     <ProjectReference Include="..\..\src\Ontogony.Contracts\Ontogony.Contracts.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Errors\Ontogony.Errors.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Hashing\Ontogony.Hashing.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Hosting\Ontogony.Hosting.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Http\Ontogony.Http.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Idempotency\Ontogony.Idempotency.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Observability\Ontogony.Observability.csproj" />

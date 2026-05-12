@@ -9,6 +9,7 @@
     "Ontogony.Errors",
     "Ontogony.Http",
     "Ontogony.Hashing",
+    "Ontogony.Hosting",
     "Ontogony.Idempotency",
     "Ontogony.Messaging",
     "Ontogony.Primitives",

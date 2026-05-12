@@ -31,6 +31,7 @@ Athanor, Agentor, and Conexus may all emit events into the same event vocabulary
 
 - Replace `Athanor.Api.Middleware.TraceIdMiddleware` and `Agentor.Api.Middleware.RequestTracingMiddleware` with `Ontogony.Observability`.
 - Replace duplicated exception middleware shapes with `Ontogony.Errors`.
+- Use `Ontogony.Hosting` to compose startup defaults mechanically (observability, errors, middleware order, health endpoints) without introducing service semantics.
 - Use `Ontogony.Http` for integration clients in Agentor, Conexus edges that call other services, and future Athanor adapters.
 - Use `Ontogony.Hashing` for payload/event/fingerprint hashes.
 - Use `Ontogony.Contracts` for future AG-UI/MCP/A2A event recorder payloads.
@@ -43,6 +44,7 @@ Athanor, Agentor, and Conexus may all emit events into the same event vocabulary
 - `docs/adoption/athanor-observability-adoption.md` for Athanor tracing + errors wiring while keeping Athanor mappings local.
 - `docs/adoption/error-middleware-adoption.md` for replacing local Athanor/Agentor exception middleware with Ontogony.Errors while keeping service-specific mappings in service repos.
 - `docs/adoption/observability-error-ordering.md` for middleware ordering guidance when combining Ontogony.Observability with Ontogony.Errors.
+- `docs/adoption/hosting-service-defaults-adoption.md` for replacing duplicated startup mechanics with Ontogony.Hosting while keeping per-service policy and endpoint mapping local.
 
 ## Planning packages
 

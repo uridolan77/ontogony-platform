@@ -64,6 +64,7 @@ What is a valid business approval?
 │   ├── Ontogony.Errors/
 │   ├── Ontogony.Http/
 │   ├── Ontogony.Hashing/
+│   ├── Ontogony.Hosting/
 │   ├── Ontogony.Idempotency/
 │   ├── Ontogony.Messaging/
 │   ├── Ontogony.Security/
@@ -80,6 +81,7 @@ What is a valid business approval?
 ## Examples
 
 - `examples/MinimalApiWithOntogonyObservability/`: minimal API sample for `AddOntogonyObservability`, `UseOntogonyRequestTracing`, and outbound correlation propagation through `Ontogony.Http`.
+- `examples/MinimalApiWithOntogonyHosting/`: minimal API sample for `AddOntogonyServiceDefaults`, `UseOntogonyServiceDefaults`, and `MapOntogonyHealthEndpoints`.
 
 ## Documentation map
 
