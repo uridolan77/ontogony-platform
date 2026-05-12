@@ -43,3 +43,7 @@ Athanor, Agentor, and Conexus may all emit events into the same event vocabulary
 - `docs/adoption/athanor-observability-adoption.md` for Athanor tracing + errors wiring while keeping Athanor mappings local.
 - `docs/adoption/error-middleware-adoption.md` for replacing local Athanor/Agentor exception middleware with Ontogony.Errors while keeping service-specific mappings in service repos.
 - `docs/adoption/observability-error-ordering.md` for middleware ordering guidance when combining Ontogony.Observability with Ontogony.Errors.
+
+## Planning packages
+
+- `docs/planning/ontogony-platform-next-prs/README.md` for the PR26-PR35 infrastructure roadmap package.

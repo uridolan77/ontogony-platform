@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Added planning package for PR26-PR35 infrastructure roadmap under `docs/planning/ontogony-platform-next-prs/`.
+
 PR25 — Platform release hardening (this repo only):
 
 - **Packaging:** `scripts/pack-all.ps1` requires `PACKAGE_VERSION` (no implicit `0.1.0-starter`). CI packs with an explicit version.
