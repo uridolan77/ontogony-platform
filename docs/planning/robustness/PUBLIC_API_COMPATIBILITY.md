@@ -9,13 +9,25 @@ Shipping libraries under `src/Ontogony.*` expose **public API baselines** checke
 
 `dotnet test Ontogony.Platform.sln` runs these tests with all other tests; any unintended public API change fails the build until snapshots are updated.
 
+## Breaking public API changes — required checklist
+
+Updating `*.verified.txt` **only records** the new surface; it does **not** replace product communication.
+
+Before merging a PR that **intentionally** breaks or narrows public API (removals, signature changes, sealed/virtual changes consumers rely on):
+
+1. **[`CHANGELOG.md`](../../../CHANGELOG.md)** — add an **Unreleased** (or versioned) entry describing the break and the consumer impact.
+2. **[`docs/migrations/`](../../../docs/migrations/)** — add a migration note when the change is not trivially discoverable from the changelog alone.
+3. **`*.verified.txt`** — refresh snapshots after the above are drafted so reviewers see API + prose together.
+
+Snapshot-only PRs for **non-breaking** additions (new optional APIs, new types) still need a changelog entry if you want them called out in release notes, but migrations are usually unnecessary.
+
 ## Changing the approved surface
 
 1. Make the intentional API change in the relevant `src/Ontogony.*` project.
 2. Run `dotnet test tests/Ontogony.PublicApi.Tests/Ontogony.PublicApi.Tests.csproj` (or the full solution).
 3. Verify writes `*.received.txt` next to the matching `*.verified.txt` when the snapshot differs. Copy the received content into the verified file (or use your Verify diff tool), then commit **only** the updated `*.verified.txt` files (not `*.received.txt`; those are gitignored).
 
-Breaking changes should still be documented in [`CHANGELOG.md`](../../CHANGELOG.md) and [`docs/migrations/`](../../migrations/) per repository policy.
+For **breaking** changes, complete the [checklist above](#breaking-public-api-changes--required-checklist); do not ship snapshot updates without changelog/migration when the API change is breaking.
 
 ## Related
 

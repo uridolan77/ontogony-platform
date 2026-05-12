@@ -11,7 +11,7 @@ API baselines checked in CI.
 ## Implementation (this repo)
 
 - Project: [`tests/Ontogony.PublicApi.Tests`](../../../../tests/Ontogony.PublicApi.Tests) — Verify + PublicApiGenerator snapshots per shipping assembly (`*.verified.txt`).
-- Documentation: [`PUBLIC_API_COMPATIBILITY.md`](../PUBLIC_API_COMPATIBILITY.md).
+- Documentation: [`PUBLIC_API_COMPATIBILITY.md`](../PUBLIC_API_COMPATIBILITY.md) — mechanism, snapshot refresh, **breaking-change checklist** (changelog + migrations, not snapshots alone).
 
 ## Boundary checklist
 
