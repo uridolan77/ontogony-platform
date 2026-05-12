@@ -1,6 +1,6 @@
 # Ontogony Packages — Reference
 
-This index describes all 14 NuGet packages and when to use each one.
+This index describes all 15 NuGet packages and when to use each one.
 
 ---
 
@@ -8,14 +8,13 @@ This index describes all 14 NuGet packages and when to use each one.
 
 ### `Ontogony.Primitives`
 
-**Purpose:** Lowest-level types and helpers.
+**Purpose:** Lowest-level clock and ID primitives shared by all packages.
 
 **Provides:**
-- Common markers and traits
-- Utility extension methods
-- Base type definitions
+- `IClock` / `SystemClock` — Deterministic time abstraction (used everywhere; swap with `FakeClock` in tests)
+- `IIdGenerator` / `GuidIdGenerator` — Stable identifier generation
 
-**When to use:** Almost always as a transitive dependency. Rarely directly imported.
+**When to use:** Almost always as a transitive dependency. Directly import when you need to inject `IClock` or `IIdGenerator`.
 
 **Example:**
 ```csharp
@@ -31,7 +30,7 @@ using Ontogony.Primitives;
 **Provides:**
 - `OntogonyEnvelope<TPayload>` — Standard event wrapper
 - `OntogonyEventHeaders` — Canonical header names (trace ID, tenant, actor, workspace)
-- `ProtocolNames` — Well-known protocol types (internal, cloudevents, generic-json)
+- `ProtocolNames` — Well-known protocol constants (`agentor`, `athanor`, `conexus`, `generic-json`, `cloudevents`, `mcp`, `a2a`, `ag-ui`, etc.)
 
 **When to use:** Any service that publishes events, consumes from message bus, or needs to validate event format.
 
@@ -46,7 +45,7 @@ var envelope = new OntogonyEnvelope<MyEvent>
     Source = "ontogony://myservice/domain",
     OccurredAt = DateTimeOffset.UtcNow,
     TraceId = correlationContext.TraceId,
-    Protocol = ProtocolNames.Internal,
+    Protocol = ProtocolNames.GenericJson,  // choose protocol matching your transport
     Payload = myEvent
 };
 ```
@@ -71,10 +70,9 @@ var envelope = new OntogonyEnvelope<MyEvent>
 services.Configure<OntogonyObservabilityOptions>(opts =>
 {
     opts.ServiceName = "my-service";
-    opts.TraceHeaderName = "X-Ontogony-Trace-Id";
 });
 
-app.UseRequestTracingMiddleware();
+app.UseOntogonyRequestTracing();
 
 // Later, in handlers:
 var traceId = OntogonyCorrelationContext.TraceId;
@@ -100,7 +98,7 @@ var tenant = OntogonyCorrelationContext.Current?.TenantId;
 ```csharp
 services.Configure<OntogonyExceptionMappingOptions>(opts =>
 {
-    opts.MapException<ValidationException>(StatusCodes.Status400BadRequest, "validation_error");
+    opts.Map<ValidationException>(HttpStatusCode.BadRequest, "validation_error");
 });
 
 app.UseOntogonyExceptionHandling();
@@ -124,15 +122,21 @@ app.UseOntogonyExceptionHandling();
 
 **Example:**
 ```csharp
-services.AddIntegrationHttpClient<IMyServiceClient>(client =>
+// Register resilient HTTP client
+services.AddOntogonyIntegrationHttpClient(
+    "payment-service",
+    sp => new HttpIntegrationOptions
+    {
+        BaseUrl = configuration["Payment:BaseUrl"],
+        TimeoutSeconds = 10
+    });
+
+// Configure resilience globally
+services.Configure<TransportResilienceOptions>(opts =>
 {
-    client.BaseAddress = new Uri("https://my-service");
-})
-.ConfigureHttpClientDefaults(opts =>
-{
-    opts.Timeout = TimeSpan.FromSeconds(10);
-    opts.MaxAttempts = 3;
-    opts.OpenCircuitAfterConsecutiveFailures = 5;
+    opts.MaxRetries = 3;
+    opts.CircuitFailureThreshold = 5;
+    opts.CircuitOpenDurationSeconds = 30;
 });
 ```
 
@@ -145,30 +149,28 @@ services.AddIntegrationHttpClient<IMyServiceClient>(client =>
 **Purpose:** HMAC-SHA256 signing, actor context, claims validation.
 
 **Provides:**
-- `ServiceIdentityHmacSignatureHelper` — Create and verify HMAC signatures
-- `CurrentActorAccessor` — Retrieve authenticated actor from request context
-- `OntogonyClaimsValidator` — Validate JWT/bearer token claims
-- `OntogonySecurityOptions` — Configure identity, signing secrets, clock skew
+- `OntogonyServiceIdentitySigningHandler` — `DelegatingHandler` that signs outbound requests with HMAC-SHA256
+- `ServiceIdentityOptions` — Configure signing secrets, clock skew, nonce requirements
+- `OntogonyAuthenticationOptions` — Configure authentication mode (Disabled / Header / Jwt)
+- `ICurrentActorAccessor` — Retrieve authenticated actor from request context
+- `IServiceSecretResolver` — Plug-in interface for secrets management
 
 **When to use:** Service-to-service authentication, request signing, actor audit trails.
 
 **Example:**
 ```csharp
-services.Configure<OntogonySecurityOptions>(opts =>
-{
-    opts.ServiceIdentity = "ontogony://my-service";
-    opts.SharedSecret = Environment.GetEnvironmentVariable("SERVICE_SHARED_SECRET");
-});
+// Outbound: sign HTTP requests from this service
+services.AddHttpClient("downstream")
+    .AddHttpMessageHandler(sp => new OntogonyServiceIdentitySigningHandler(
+        serviceId: "my-service",
+        secret: configuration["Ontogony:ServiceSecret"]));
 
-// Sign outbound request:
-var signature = ServiceIdentityHmacSignatureHelper.SignRequest(
-    secret: options.SharedSecret,
-    method: "POST",
-    path: "/api/events",
-    timestamp: clock.UtcNow,
-    nonce: Guid.NewGuid().ToString("n"),
-    bodyHash: "..."
-);
+// Inbound: validate HMAC signatures on incoming requests
+services.AddOntogonyServiceIdentityActorContext(opts =>
+{
+    opts.RequireHmacSignature = true;
+    opts.ServiceSecrets["caller-service"] = configuration["Ontogony:CallerSecret"];
+});
 ```
 
 ---
@@ -180,17 +182,20 @@ var signature = ServiceIdentityHmacSignatureHelper.SignRequest(
 **Purpose:** Canonical JSON hashing, payload fingerprints, deterministic serialization.
 
 **Provides:**
-- `CanonicalJsonHasher` — Deterministic SHA256 of JSON payloads
-- `EnvelopePayloadHasher` — Hash event envelope payloads for tamper detection
-- `PayloadHasher` — Generic payload hashing
+- `CanonicalJson` — Static class: deterministic JSON serialization (sorted keys, no whitespace)
+- `PayloadHasher` — SHA-256 over canonical JSON; inject to compute envelope payload hashes
+- `IContentHashService` / `Sha256ContentHashService` — Low-level byte hashing
 
 **When to use:** Building idempotency keys, payload integrity checks, deterministic fingerprints.
 
 **Example:**
 ```csharp
-var payloadJson = JsonSerializer.Serialize(myEvent);
-var hash = hasher.ComputeHash(payloadJson);
-// Use hash in idempotency keys or tamper detection
+// Canonical JSON serialization
+var canonical = CanonicalJson.Serialize(myPayload);
+
+// Payload hash (inject PayloadHasher via DI)
+var hash = payloadHasher.ComputeCanonicalJsonHash(myPayload);
+envelope.PayloadHash = hash;
 ```
 
 ---
@@ -230,9 +235,10 @@ var hash = hasher.ComputeHash(payloadJson);
 **Purpose:** Protocol-neutral event publishing and consumption abstractions.
 
 **Provides:**
-- `IEventPublisher<T>` — Abstract event publishing interface
-- `IEventSubscriber<T>` — Abstract event subscription
-- Event handler patterns
+- `IEventPublisher` — Publish `OntogonyEnvelope<T>` events (not generic on event type)
+- `IEventPublisherWithResult` — Publish and receive a `EventPublishResult`
+- `IEventHandler<TPayload>` — Implement to consume events in-process
+- `EventDispatchOptions` — Control hash computation, validation, and operation mode
 
 **When to use:** Publishing domain events, integrating with message buses (Azure Service Bus, RabbitMQ, etc.).
 
@@ -240,24 +246,28 @@ var hash = hasher.ComputeHash(payloadJson);
 
 ### `Ontogony.ProtocolIngress`
 
-**Purpose:** Convert incoming HTTP/gRPC/protocol messages into canonical `OntogonyEnvelope` format.
+**Purpose:** Mechanical normalization of external protocol events into `OntogonyEnvelope<RawProtocolPayload>`.
+
+**Current adapters:** `generic-json`, `CloudEvents`, `MCP`, `A2A`, `AG-UI`.
+
+**No gRPC adapter.** No product interpretation.
 
 **Provides:**
-- Protocol deserializers (JSON, gRPC)
-- Enum and contract validation
+- `IProtocolIngressAdapter<TRaw>` — Normalize a raw protocol event into `OntogonyEnvelope`
+- `GenericJsonProtocolAdapter`, `CloudEventsProtocolAdapter`, `McpProtocolAdapter`, etc.
 - `DefaultEnvelopeValidator` — Verify envelope schema compliance
-- Header mapping (protocol-specific → canonical)
+- `AddOntogonyProtocolIngress()` — Register all adapters
 
 **When to use:** API gateway, message adapter, protocol translation layers.
 
 **Example:**
 ```csharp
-var incoming = request.Body;
-var envelope = await protocolIngress.DeserializeAsync<MyPayload>(
-    incoming,
-    protocolName: ProtocolNames.CloudEvents
-);
-// Envelope now has canonical shape, validated, trace ID propagated
+services.AddOntogonyProtocolIngress();
+
+// In controller/handler:
+var adapter = sp.GetRequiredService<GenericJsonProtocolAdapter>();
+var envelope = adapter.Normalize(rawJson, ingressContext);
+// envelope is OntogonyEnvelope<RawProtocolPayload> with trace ID propagated
 ```
 
 ---
@@ -266,37 +276,38 @@ var envelope = await protocolIngress.DeserializeAsync<MyPayload>(
 
 ### `Ontogony.Persistence`
 
-**Purpose:** Data access patterns, repository abstractions, migrations.
+**Purpose:** Outbox contracts, processed-message tracking, dead-letter store, and in-memory test implementations.
 
 **Provides:**
-- Entity mapping helpers
-- Migration patterns
-- Audit trail support
+- `IOutboxWriter` / `IOutboxReader` — Write and read outbox messages
+- `IDeadLetterWriter` — Move unprocessable messages to dead-letter store
+- `InMemoryOutboxStore` — In-process implementation (tests / single-process hosts)
+- `AddOntogonyPersistencePrimitives()` — Register `IClock` and `IIdGenerator`
+- `AddOntogonyInMemoryOutboxStore()` — Register in-memory outbox for testing
 
-**When to use:** Setting up data access layer, managing schema changes.
+**When to use:** Services that need durable event outbox or processed-message deduplication (transactional outbox pattern).
 
 ---
 
 ### `Ontogony.Persistence.Postgres`
 
-**Purpose:** PostgreSQL-specific implementations, connection pooling, JSON operators.
+**Purpose:** PostgreSQL outbox provider — durable outbox messages, processed messages, dead-letter, and claim leasing via Npgsql.
 
 **Provides:**
-- Postgres-specific EF Core extensions
-- JSONB column mappings
-- Connection string builders
-- Migration runners
+- `PostgresOutboxOptions` — Connection string, table names, lease duration, schema init
+- `AddOntogonyPostgresOutbox(opts => ...)` — Register Postgres outbox writer/reader/dead-letter writer
+- `PostgresOutboxSchemaInitializer` — Create tables on startup when `EnsureSchemaOnStartup = true`
+- Claim-lease writer for reliable at-least-once dispatch
 
-**When to use:** Using PostgreSQL as your primary data store.
+**When to use:** Production services that need durable outbox with PostgreSQL.
 
 **Example:**
 ```csharp
-services.AddPostgresContext<MyDbContext>(options =>
+services.AddOntogonyPostgresOutbox(opts =>
 {
-    options.UseNpgsql(
-        connectionString,
-        postgresOptions => postgresOptions.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)
-    );
+    opts.ConnectionString = configuration.GetConnectionString("Outbox")!;
+    opts.EnsureSchemaOnStartup = true;
+    opts.ClaimLeaseDuration = TimeSpan.FromSeconds(30);
 });
 ```
 
@@ -306,14 +317,25 @@ services.AddPostgresContext<MyDbContext>(options =>
 
 ### `Ontogony.Idempotency`
 
-**Purpose:** Idempotency keys, request deduplication, at-most-once semantics.
+**Purpose:** Idempotency key generation, at-most-once semantics, request deduplication.
 
 **Provides:**
-- `IdempotencyKeyGenerator` — Create stable fingerprint keys
-- `IdempotencyStore` — Track processed requests
-- Idempotency middleware
+- `IdempotencyKeyBuilder` — Build stable fingerprint keys from operation name + parts
+- `IIdempotencyLedger` — Track `TryBeginAsync` / `MarkSucceededAsync` / `MarkFailedAsync`
+- `InMemoryIdempotencyLedger` — In-process implementation (tests / single-process hosts)
 
 **When to use:** APIs that must be safely retried without duplication (payment APIs, order creation, etc.).
+
+**Example:**
+```csharp
+// Build key
+var key = keyBuilder.BuildKey("create-order", customerId, orderId);
+
+// Check and claim
+if (!await ledger.TryBeginAsync(key)) { return Conflict(); }
+try { ... await ledger.MarkSucceededAsync(key); }
+catch { await ledger.MarkFailedAsync(key); throw; }
+```
 
 ---
 

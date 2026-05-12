@@ -19,7 +19,7 @@ Ontogony is a **.NET 9 / C# 13 infrastructure platform** that provides:
 | **Security** | HMAC signing, actor context, claims validation | Authenticating requests between services |
 | **Hashing & Idempotency** | Payload hashing, fingerprints, idempotency keys | Building deterministic, repeatable event processing |
 | **Messaging & Outbox** | Protocol-neutral event bus, outbox pattern | Guaranteeing event delivery across service boundaries |
-| **ProtocolIngress** | HTTP/gRPC request unpacking, enum validation | Converting external protocol messages into canonical envelopes |
+| **ProtocolIngress** | External protocol normalization (generic-json, CloudEvents, MCP, A2A, AG-UI) | Adapting inbound events into `OntogonyEnvelope<RawProtocolPayload>`. No gRPC adapter currently. |
 | **Persistence** | Database patterns, migrations, audit trails | Durable event storage and state management |
 | **Testing** | Test doubles, conformance kits, harnesses | Verifying consumer services correctly adopt platform mechanics |
 
@@ -29,7 +29,7 @@ Ontogony is a **.NET 9 / C# 13 infrastructure platform** that provides:
 
 ### 1. You are **adopting Ontogony in a consumer service** (Athanor, Agentor, Conexus)
 
-**Start here:** [Adoption Path](../adoption/)
+**Start here:** [Adoption Path](adoption/)
 
 - Install base package: `dotnet add package Ontogony.Observability`
 - Follow step-by-step integration guide
@@ -37,7 +37,7 @@ Ontogony is a **.NET 9 / C# 13 infrastructure platform** that provides:
 
 ### 2. You are **contributing to Ontogony platform itself**
 
-**Start here:** [Architecture & Decisions](../architecture/)
+**Start here:** [Architecture & Decisions](architecture/)
 
 - Review the design principles: "Share mechanics, not meaning"
 - Understand package boundaries
@@ -45,7 +45,7 @@ Ontogony is a **.NET 9 / C# 13 infrastructure platform** that provides:
 
 ### 3. You are **running services that depend on Ontogony**
 
-**Start here:** [Operations & Deployment](../operations/)
+**Start here:** [Operations & Deployment](operations/)
 
 - Learn trace propagation and correlation
 - Understand release artifacts and package feeds
@@ -53,7 +53,7 @@ Ontogony is a **.NET 9 / C# 13 infrastructure platform** that provides:
 
 ### 4. You are **curious about a specific package**
 
-**Start here:** [Package Reference](../packages/)
+**Start here:** [Package Reference](packages/)
 
 Browse by namespace:
 - `Ontogony.Contracts` — DTOs and protocol constants
@@ -61,7 +61,7 @@ Browse by namespace:
 - `Ontogony.Errors` — HTTP error handling
 - `Ontogony.Http` — HTTP clients and resilience
 - `Ontogony.Security` — Authentication and signing
-- ... (14 packages total)
+- ... (15 packages total)
 
 ---
 
@@ -94,13 +94,13 @@ If a change requires understanding what a product feature means, it belongs in t
 
 | Purpose | Link |
 |---------|------|
-| Installation & setup | [Adoption](../adoption/) |
-| API reference | [Packages](../packages/) |
-| How to extend | [Architecture](../architecture/) |
-| Release process | [Operations](../operations/) |
-| Security & compliance | [Security](../security/) |
-| Code examples | [Examples](../examples/) |
-| Changelog | [CHANGELOG.md](../../CHANGELOG.md) |
+| Installation & setup | [Adoption](adoption/) |
+| API reference | [Packages](packages/) |
+| How to extend | [Architecture](architecture/) |
+| Release process | [Operations](operations/) |
+| Security & compliance | [Security](security/) |
+| Code examples | [Examples](examples/) |
+| Changelog | [CHANGELOG.md](../CHANGELOG.md) |
 
 ---
 
@@ -138,7 +138,7 @@ dotnet build Ontogony.Platform.sln
 dotnet test Ontogony.Platform.sln
 ```
 
-Expected: **389 tests passing**, 0 failures (as of latest main)
+Expected: **392 tests passing**, 0 failures (as of latest main)
 
 ### Pack
 
@@ -188,10 +188,10 @@ GitHub Actions workflow will automatically:
 
 ## Next Steps
 
-1. **Read** [Why Ontogony Exists](../planning/why-ontogony-exists.md)
-2. **Install** per your role: [Adoption](../adoption/) or [Architecture](../architecture/)
-3. **Explore** specific packages: [Package Index](../packages/)
-4. **Verify** your service adopts correctly: [Conformance Tests](../adoption/conformance-testing.md)
+1. **Read** [Why Ontogony Exists](planning/why-ontogony-exists.md)
+2. **Install** per your role: [Adoption](adoption/) or [Architecture](architecture/)
+3. **Explore** specific packages: [Package Index](packages/)
+4. **Verify** your service adopts correctly: [Conformance Tests](adoption/conformance-testing.md)
 
 ---
 

@@ -437,11 +437,10 @@ services.AddLogging(builder =>
 **Fix:** Tune circuit-breaker thresholds.
 
 ```csharp
-services.AddIntegrationHttpClient<IMyServiceClient>(...)
-.ConfigureHttpClientDefaults(opts =>
+services.Configure<TransportResilienceOptions>(opts =>
 {
-    opts.OpenCircuitAfterConsecutiveFailures = 10;  // Increase threshold
-    opts.CircuitBreakerResetTimeout = TimeSpan.FromMinutes(1);  // Allow recovery time
+  opts.CircuitFailureThreshold = 10;  // Increase threshold
+  opts.CircuitOpenDurationSeconds = 60;  // Allow recovery time
 });
 ```
 
@@ -554,15 +553,15 @@ Example: 5 services → min=10, max=50 connections
 Balance **reliability** vs **latency**:
 
 ```csharp
-// Conservative: high success, high latency
-opts.MaxAttempts = 5;
-opts.RetryBackoffMultiplier = 2.0;  // exponential
-opts.Timeout = TimeSpan.FromSeconds(30);
+// Conservative: high success, higher latency
+opts.MaxRetries = 5;
+opts.BaseDelayMilliseconds = 200;
+opts.MaxDelayMilliseconds = 30_000;
 
 // Aggressive: fast fail, some failures
-opts.MaxAttempts = 2;
-opts.RetryBackoffMultiplier = 1.5;
-opts.Timeout = TimeSpan.FromSeconds(5);
+opts.MaxRetries = 2;
+opts.BaseDelayMilliseconds = 100;
+opts.MaxDelayMilliseconds = 5_000;
 ```
 
 ### Database

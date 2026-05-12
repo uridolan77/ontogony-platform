@@ -123,7 +123,7 @@ public class ResilientIntegrationDelegatingHandler : DelegatingHandler
     protected override async Task<HttpResponseMessage> SendAsync(...)
     {
         var budget = _registry.GetBudgetFor(request);
-        for (var attempt = 1; attempt <= _options.MaxAttempts; attempt++)
+        for (var attempt = 1; attempt <= _options.MaxRetries + 1; attempt++)
         {
             try
             {
@@ -386,7 +386,7 @@ Recommended improvement:
 public record RetryExceptionContext
 {
     public int AttemptNumber { get; init; }
-    public int MaxAttempts { get; init; }
+    public int MaxRetries { get; init; }
     public TimeSpan TotalElapsed { get; init; }
     public TimeSpan AttemptTimeout { get; init; }
     public bool IsCallerCancellation { get; init; }

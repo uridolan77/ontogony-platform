@@ -38,13 +38,13 @@ services.Configure<OntogonyObservabilityOptions>(options =>
 {
     options.ServiceName = "my-service";
     options.TraceHeaderName = "X-Ontogony-Trace-Id";  // Canonical name
-    options.AllowAliasingLegacyTraceHeader = true;     // Support migration
+    // AcceptedIncomingTraceHeaders defaults include legacy Athanor/Agentor headers
 });
 
 // Middleware (early in pipeline)
 var app = builder.Build();
 
-app.UseRequestTracingMiddleware();
+app.UseOntogonyRequestTracing();
 app.UseOntogonyExceptionHandling();
 
 // ... rest of middleware and endpoints
@@ -79,16 +79,21 @@ dotnet add package Ontogony.Http
 For **each external service** you call:
 
 ```csharp
-services.AddIntegrationHttpClient<IMyServiceClient>(client =>
+// Register resilient HTTP client by name
+services.AddOntogonyIntegrationHttpClient(
+    "external-service",
+    sp => new HttpIntegrationOptions
+    {
+        BaseUrl = configuration["ExternalService:BaseUrl"],
+        TimeoutSeconds = 10
+    });
+
+// Configure retry/circuit-breaker globally
+services.Configure<TransportResilienceOptions>(opts =>
 {
-    client.BaseAddress = new Uri(configuration["ExternalService:BaseUrl"]);
-})
-.ConfigureHttpClientDefaults(opts =>
-{
-    opts.Timeout = TimeSpan.FromSeconds(10);
-    opts.MaxAttempts = 3;
-    opts.OpenCircuitAfterConsecutiveFailures = 5;
-    opts.CircuitBreakerResetTimeout = TimeSpan.FromSeconds(30);
+    opts.MaxRetries = 3;
+    opts.CircuitFailureThreshold = 5;
+    opts.CircuitOpenDurationSeconds = 30;
 });
 ```
 
@@ -126,7 +131,7 @@ public async Task CallsRetryOnTransient()
     // Wire resilience
     var handler = new ResilientIntegrationDelegatingHandler(
         stub, 
-        options: new() { MaxAttempts = 3 }, 
+        options: new() { MaxRetries = 3 }, 
         clock: clock
     );
 
@@ -144,22 +149,11 @@ public async Task CallsRetryOnTransient()
 ### 1. Map Domain Exceptions
 
 ```csharp
-services.Configure<OntogonyExceptionMappingOptions>(opts =>
+services.AddOntogonyErrors(opts =>
 {
-    opts.MapException<ValidationException>(
-        statusCode: StatusCodes.Status400BadRequest,
-        code: "validation_error"
-    );
-    
-    opts.MapException<ItemNotFoundException>(
-        statusCode: StatusCodes.Status404NotFound,
-        code: "not_found"
-    );
-    
-    opts.MapException<OperationFailedException>(
-        statusCode: StatusCodes.Status500InternalServerError,
-        code: "operation_failed"
-    );
+    opts.Map<ValidationException>(HttpStatusCode.BadRequest, "validation_error");
+    opts.Map<ItemNotFoundException>(HttpStatusCode.NotFound, "not_found");
+    opts.Map<OperationFailedException>(HttpStatusCode.InternalServerError, "operation_failed");
 });
 ```
 
@@ -214,7 +208,7 @@ dotnet add package Ontogony.Messaging
 ```csharp
 public class OrderService
 {
-    private readonly IEventPublisher<OrderCreatedEvent> _publisher;
+    private readonly IEventPublisher _publisher;
 
     public async Task CreateOrderAsync(CreateOrderCommand cmd)
     {
@@ -229,7 +223,7 @@ public class OrderService
             Source = "ontogony://order-service/domain",
             OccurredAt = DateTimeOffset.UtcNow,
             TraceId = OntogonyCorrelationContext.TraceId,
-            Protocol = ProtocolNames.Internal,
+            Protocol = ProtocolNames.GenericJson,
             Payload = new OrderCreatedEvent(order.Id, order.Total)
         });
     }
@@ -239,9 +233,9 @@ public class OrderService
 ### 3. Consume & Verify Events
 
 ```csharp
-public class NotificationHandler : IEventSubscriber<OrderCreatedEvent>
+public class NotificationHandler : IEventHandler<OrderCreatedEvent>
 {
-    public async Task HandleAsync(OntogonyEnvelope<OrderCreatedEvent> envelope)
+    public async Task HandleAsync(OntogonyEnvelope<OrderCreatedEvent> envelope, CancellationToken cancellationToken = default)
     {
         // envelope.TraceId is already set and propagated
         // envelope.Payload is validated
@@ -267,75 +261,53 @@ dotnet add package Ontogony.Security
 ### 2. Configure Service Identity
 
 ```csharp
-services.Configure<OntogonySecurityOptions>(opts =>
+// Inbound: validate HMAC signatures on incoming requests
+services.AddOntogonyServiceIdentityActorContext(opts =>
 {
-    opts.ServiceIdentity = "ontogony://order-service";
-    opts.SharedSecret = configuration["Ontogony:SharedSecret"] 
+    opts.RequireHmacSignature = true;
+    opts.MaxTimestampSkew = TimeSpan.FromSeconds(30);
+    opts.RequireNonce = true;
+    // Map caller service IDs to their shared secrets
+    opts.ServiceSecrets["agentor"] = configuration["Ontogony:AgentorSecret"]
         ?? throw new InvalidOperationException("Missing shared secret");
-    opts.ClockSkew = TimeSpan.FromSeconds(30);
 });
 ```
 
 ### 3. Sign Outbound Requests
 
 ```csharp
-public class SecureServiceClient
+// Outbound: add signing handler to HTTP client
+services.AddHttpClient("downstream-service")
+    .AddHttpMessageHandler(sp => new OntogonyServiceIdentitySigningHandler(
+        serviceId: configuration["Ontogony:ServiceId"]!,
+        secret:    configuration["Ontogony:SharedSecret"]!));
+
+// Resolve typed client via IHttpClientFactory in your service:
+public class MyDownstreamClient(IHttpClientFactory factory)
 {
-    private readonly HttpClient _http;
-    private readonly OntogonySecurityOptions _security;
-    private readonly IClock _clock;
-
-    public async Task<T> PostAsync<T>(string path, object payload)
-    {
-        var bodyJson = JsonSerializer.Serialize(payload);
-        var bodyHash = _hasher.ComputeHash(bodyJson);
-
-        // Create HMAC signature
-        var signature = ServiceIdentityHmacSignatureHelper.SignRequest(
-            secret: _security.SharedSecret,
-            method: "POST",
-            path: path,
-            timestamp: _clock.UtcNow,
-            nonce: Guid.NewGuid().ToString("n"),
-            bodyHash: bodyHash
-        );
-
-        var request = new HttpRequestMessage(HttpMethod.Post, path)
-        {
-            Content = new StringContent(bodyJson, Encoding.UTF8, "application/json")
-        };
-
-        request.Headers.Add("X-Ontogony-Signature", signature.Signature);
-        request.Headers.Add("X-Ontogony-Timestamp", signature.Timestamp.ToUniversalTime().ToString("O"));
-        request.Headers.Add("X-Ontogony-Nonce", signature.Nonce);
-        request.Headers.Add("X-Ontogony-Body-Hash", signature.BodyHash);
-
-        var response = await _http.SendAsync(request);
-        // ...
-    }
+    private readonly HttpClient _http = factory.CreateClient("downstream-service");
+    
+    public Task<T?> GetAsync<T>(string path) => ...;
 }
 ```
 
 ### 4. Validate Incoming Signatures
 
+Signature validation runs automatically through the actor context registered in step 2.
+The middleware reads `X-Ontogony-Signature`, `X-Ontogony-Timestamp`, `X-Ontogony-Nonce`, and `X-Ontogony-Body-Hash` headers and validates HMAC before populating `ICurrentActorAccessor`.
+
 ```csharp
-app.UseOntogonySignatureValidation(); // Middleware
+// Optionally preload body hash early in the pipeline (before body is consumed)
+app.UseOntogonyServiceIdentityBodyHashPreload();
 
-// Or manually in handlers
-public class SecureEventHandler
+// In your endpoint, check that the actor was resolved:
+public IResult HandleRequest([FromServices] ICurrentActorAccessor actor)
 {
-    public async Task HandleSignedRequest(HttpContext context)
-    {
-        var isValid = await _validator.ValidateRequestSignatureAsync(context);
-        if (!isValid)
-        {
-            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-            return;
-        }
-
-        var actor = context.User.FindFirst("sub")?.Value;
-        // Process authenticated request
-    }
+    if (actor.Current is null)
+        return Results.Unauthorized();
+    
+    // actor.Current.ServiceId, .TraceId available
+    return Results.Ok();
 }
 ```
 
@@ -388,7 +360,7 @@ public class OntogonyConformanceTests
             Source = "ontogony://myservice/domain",
             OccurredAt = DateTimeOffset.UtcNow,
             TraceId = "trace-123",
-            Protocol = ProtocolNames.Internal,
+            Protocol = ProtocolNames.GenericJson,
             Payload = new MyEvent()
         };
 
@@ -472,7 +444,7 @@ dotnet test
 
 ```csharp
 // ✅ Good
-services.AddIntegrationHttpClient<IMyServiceClient>(...);
+services.AddOntogonyIntegrationHttpClient("external-service", sp => new HttpIntegrationOptions { ... });
 
 // ❌ Bad
 services.AddScoped(sp => new HttpClient());
@@ -486,13 +458,13 @@ services.AddScoped(sp => new HttpClient());
 
 ```csharp
 // ✅ Correct order
-app.UseRequestTracingMiddleware();  // Must be early
+app.UseOntogonyRequestTracing();  // Must be early
 app.UseRouting();
 app.MapEndpoints();
 
 // ❌ Wrong order
 app.UseRouting();
-app.UseRequestTracingMiddleware();  // Too late
+app.UseOntogonyRequestTracing();  // Too late
 ```
 
 ### "Signature validation always fails"
@@ -503,8 +475,8 @@ app.UseRequestTracingMiddleware();  // Too late
 
 ```csharp
 // Check configuration
-var opts = serviceProvider.GetRequiredService<IOptions<OntogonySecurityOptions>>();
-var secret = opts.Value.SharedSecret;  // Must match sender's secret
+var opts = serviceProvider.GetRequiredService<IOptions<ServiceIdentityOptions>>();
+// ServiceSecrets["caller-service"] must match sender's secret
 
 // Check clock
 var clock = serviceProvider.GetRequiredService<IClock>();

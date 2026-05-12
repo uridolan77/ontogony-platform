@@ -43,52 +43,51 @@ builder.Services.Configure<OntogonyObservabilityOptions>(opts =>
 {
     opts.ServiceName = "order-service";
     opts.TraceHeaderName = "X-Ontogony-Trace-Id";
-    opts.AllowAliasingLegacyTraceHeader = true;
+    // AcceptedIncomingTraceHeaders already includes legacy Athanor/Agentor headers
 });
 
 // Configure error handling
-builder.Services.Configure<OntogonyExceptionMappingOptions>(opts =>
+builder.Services.AddOntogonyErrors(opts =>
 {
-    opts.MapException<ArgumentException>(
-        StatusCodes.Status400BadRequest,
-        "invalid_argument"
-    );
-    opts.MapException<InvalidOperationException>(
-        StatusCodes.Status409Conflict,
-        "conflict"
-    );
+    opts.Map<ArgumentException>(HttpStatusCode.BadRequest, "invalid_argument");
+    opts.Map<InvalidOperationException>(HttpStatusCode.Conflict, "conflict");
 });
 
-// Configure database
-builder.Services.AddPostgresContext<OrderDbContext>(opts =>
+// Configure outbox persistence (no EF Core OrderDbContext here — that's product-specific)
+builder.Services.AddOntogonyPostgresOutbox(opts =>
 {
-    opts.UseNpgsql(builder.Configuration.GetConnectionString("Postgres"));
+    opts.ConnectionString = builder.Configuration.GetConnectionString("Outbox")!;
+    opts.EnsureSchemaOnStartup = true;
 });
 
-// Configure HTTP resilience for external calls
-builder.Services
-    .AddIntegrationHttpClient<IPaymentServiceClient>(client =>
+// Configure resilient HTTP client for payment service
+builder.Services.AddOntogonyIntegrationHttpClient(
+    "payment-service",
+    sp => new HttpIntegrationOptions
     {
-        client.BaseAddress = new Uri(builder.Configuration["PaymentService:Url"]);
-    })
-    .ConfigureHttpClientDefaults(opts =>
-    {
-        opts.MaxAttempts = 3;
-        opts.Timeout = TimeSpan.FromSeconds(10);
-        opts.OpenCircuitAfterConsecutiveFailures = 5;
+        BaseUrl = builder.Configuration["PaymentService:Url"],
+        TimeoutSeconds = 10
     });
-
-// Configure security
-builder.Services.Configure<OntogonySecurityOptions>(opts =>
+builder.Services.Configure<TransportResilienceOptions>(opts =>
 {
-    opts.ServiceIdentity = "ontogony://order-service";
-    opts.SharedSecret = builder.Configuration["Ontogony:SharedSecret"];
+    opts.MaxRetries = 3;
+    opts.CircuitFailureThreshold = 5;
 });
+
+// Configure security — sign outbound, validate inbound
+builder.Services.AddOntogonyServiceIdentityActorContext(opts =>
+{
+    opts.RequireHmacSignature = true;
+    opts.ServiceSecrets["agentor"] = builder.Configuration["Ontogony:AgentorSecret"]!;
+});
+builder.Services.AddHttpClient("downstream")
+    .AddHttpMessageHandler(sp => new OntogonyServiceIdentitySigningHandler(
+        serviceId: "order-service",
+        secret: builder.Configuration["Ontogony:SharedSecret"]!));
 
 // Register application services
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IPaymentServiceClient, PaymentServiceClient>();
-builder.Services.AddScoped<IEventPublisher<OrderCreatedEvent>, EventPublisher<OrderCreatedEvent>>();
 
 var app = builder.Build();
 
@@ -100,7 +99,7 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Middleware order matters!
-app.UseRequestTracingMiddleware();        // Must be early
+app.UseOntogonyRequestTracing();          // Must be early
 app.UseOntogonyExceptionHandling();       // Must be early
 app.UseRouting();
 app.MapControllers();
@@ -120,13 +119,13 @@ public interface IOrderService
 public class OrderService : IOrderService
 {
     private readonly OrderDbContext _db;
-    private readonly IEventPublisher<OrderCreatedEvent> _publisher;
+    private readonly IEventPublisher _publisher;
     private readonly IPaymentServiceClient _payment;
     private readonly IClock _clock;
 
     public OrderService(
         OrderDbContext db,
-        IEventPublisher<OrderCreatedEvent> publisher,
+        IEventPublisher publisher,
         IPaymentServiceClient payment,
         IClock clock)
     {
@@ -344,15 +343,15 @@ await eventPublisher.PublishAsync(
         Source = "ontogony://user-service/domain",
         OccurredAt = clock.UtcNow,
         TraceId = OntogonyCorrelationContext.TraceId,
-        Protocol = ProtocolNames.Internal,
+                Protocol = ProtocolNames.GenericJson,
         Payload = new UserRegisteredEvent(userId, email)
     }
 );
 
 // Consume in another service
-public class SendWelcomeEmailHandler : IEventSubscriber<UserRegisteredEvent>
+public class SendWelcomeEmailHandler : IEventHandler<UserRegisteredEvent>
 {
-    public async Task HandleAsync(OntogonyEnvelope<UserRegisteredEvent> envelope)
+    public async Task HandleAsync(OntogonyEnvelope<UserRegisteredEvent> envelope, CancellationToken cancellationToken = default)
     {
         var user = envelope.Payload;
         var traceId = envelope.TraceId;  // Same trace ID!
@@ -375,12 +374,9 @@ public class OrderAlreadyShippedException : Exception
 }
 
 // Configure mapping
-services.Configure<OntogonyExceptionMappingOptions>(opts =>
+services.AddOntogonyErrors(opts =>
 {
-    opts.MapException<OrderAlreadyShippedException>(
-        StatusCodes.Status409Conflict,
-        "order_already_shipped"
-    );
+    opts.Map<OrderAlreadyShippedException>(HttpStatusCode.Conflict, "order_already_shipped");
 });
 
 // In handler
@@ -406,40 +402,20 @@ throw new OrderAlreadyShippedException(orderId);
 public class SecurePaymentClient : IPaymentServiceClient
 {
     private readonly HttpClient _http;
-    private readonly OntogonySecurityOptions _security;
-    private readonly IClock _clock;
-    private readonly IHasher _hasher;
+    // Signing is handled transparently by OntogonyServiceIdentitySigningHandler (registered at startup):
+    //   services.AddHttpClient("payment-service")
+    //       .AddHttpMessageHandler(sp => new OntogonyServiceIdentitySigningHandler(serviceId, secret));
+    // Inject IHttpClientFactory and call factory.CreateClient("payment-service") instead.
 
-    public async Task<PaymentResponse> CaptureAsync(
-        PaymentRequest request,
-        CancellationToken ct)
+    public async Task<PaymentResponse> CaptureAsync(PaymentRequest request, CancellationToken ct)
     {
         var bodyJson = JsonSerializer.Serialize(request);
-        var bodyHash = _hasher.ComputeHash(bodyJson);
-        var timestamp = _clock.UtcNow;
-        var nonce = Guid.NewGuid().ToString("n");
-
-        var signature = ServiceIdentityHmacSignatureHelper.SignRequest(
-            secret: _security.SharedSecret,
-            method: "POST",
-            path: "/api/payments/capture",
-            timestamp: timestamp,
-            nonce: nonce,
-            bodyHash: bodyHash
-        );
-
-        var request = new HttpRequestMessage(HttpMethod.Post, "/api/payments/capture")
-        {
-            Content = new StringContent(bodyJson, Encoding.UTF8, "application/json")
-        };
-
-        request.Headers.Add("X-Ontogony-Signature", signature.Signature);
-        request.Headers.Add("X-Ontogony-Timestamp", timestamp.ToString("O"));
-        request.Headers.Add("X-Ontogony-Nonce", nonce);
-        request.Headers.Add("X-Ontogony-Body-Hash", bodyHash);
-
-        var response = await _http.SendAsync(request, ct);
-        return await response.Content.ReadAsAsync<PaymentResponse>(cancellationToken: ct);
+        var response = await _http.PostAsync(
+            "/api/payments/capture",
+            new StringContent(bodyJson, Encoding.UTF8, "application/json"),
+            ct);
+        return await response.Content.ReadFromJsonAsync<PaymentResponse>(cancellationToken: ct)
+            ?? throw new InvalidOperationException("Empty payment response");
     }
 }
 ```
@@ -447,23 +423,19 @@ public class SecurePaymentClient : IPaymentServiceClient
 ### Validate Signed Request
 
 ```csharp
-app.UseOntogonySignatureValidation();
-
-// Or manually
+// Signature validation happens via AddOntogonyServiceIdentityActorContext (registered at startup).
+// Accessing ICurrentActorAccessor.Current in an endpoint returns null if validation failed.
 public class SecurePaymentController : ControllerBase
 {
-    private readonly OntogonySecurityValidator _validator;
-
     [HttpPost("capture")]
-    public async Task<IActionResult> Capture(
+    public IActionResult Capture(
         [FromBody] PaymentRequest request,
-        CancellationToken ct)
+        [FromServices] ICurrentActorAccessor actor)
     {
-        // Validate signature
-        if (!await _validator.ValidateRequestSignatureAsync(HttpContext))
+        if (actor.Current is null)
             return Unauthorized();
 
-        // Process payment...
+        // actor.Current.ServiceId is the verified caller identity
         return Ok();
     }
 }
@@ -516,7 +488,7 @@ public class IntegrationTests : IClassFixture<WebApplicationFactory<Program>>
             Source = "ontogony://test-service/domain",
             OccurredAt = DateTimeOffset.UtcNow,
             TraceId = "trace-123",
-            Protocol = ProtocolNames.Internal,
+            Protocol = ProtocolNames.GenericJson,
             Payload = new TestEvent("data")
         };
 
