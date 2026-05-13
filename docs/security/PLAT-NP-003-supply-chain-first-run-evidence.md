@@ -24,9 +24,10 @@ Operational proof for **`uridolan77/ontogony-platform`** on `main` after workflo
 | --- | --- |
 | Workflow | `.github/workflows/dependency-submission.yml` |
 | Action pin | `advanced-security/component-detection-dependency-submission-action@v0.1.3` |
-| Latest run | [Run 25791922202](https://github.com/uridolan77/ontogony-platform/actions/runs/25791922202) (fails: **Dependency graph disabled for this repository**) |
+| Green proof run | [Run 25795696616](https://github.com/uridolan77/ontogony-platform/actions/runs/25795696616) (manual `workflow_dispatch`, success) |
+| Prior failure run | [Run 25795478921](https://github.com/uridolan77/ontogony-platform/actions/runs/25795478921) (failed with dependency graph disabled; occurred around settings propagation) |
 
-**Owner action (one-time):** enable **Dependency graph** for this repo in GitHub: open [Code security and analysis](https://github.com/uridolan77/ontogony-platform/settings/security_analysis) and turn on **Dependency graph**. The latest public failure annotation is explicit: `HttpError: The Dependency graph is disabled for this repository. Please enable it before submitting snapshots.` After it is on, re-run **Dependency submission** (`workflow_dispatch` or push to `main`) and replace the link above with the first green run.
+Dependency graph is now enabled and submission proof is captured by the successful run above.
 
 Prior failure modes fixed in code:
 
@@ -51,5 +52,5 @@ Confirm artifact **`sbom-cyclonedx`** on the green Supply chain run; upload uses
 | CodeQL green on `main` | **Previously met** — historical green run linked above. Current public head run `25791922210` for commit `75311d0` is failed due stale `tests/Ontogony.Http.Tests` API usage, so do not treat current head as externally green yet. |
 | Supply chain green on `main` | **Met** — current public head run `25791922188` is green. |
 | SBOM uploaded and retained | **Met** — artifact `sbom-cyclonedx` on green run. |
-| Dependency submission green on `main` | **Blocked** — enable **Dependency graph** for the repository (see section above); link documents latest run until green. |
+| Dependency submission green on `main` | **Met** — run `25795696616` succeeded after dependency graph was enabled. |
 | Dependency review on real PR | **Open** — `dependency-review.yml` is `pull_request`-only (required base/head refs). Capture a real-PR run link when Dependency graph data enables meaningful diffs; until then this row is documentation-only, not a green proof artifact. |
