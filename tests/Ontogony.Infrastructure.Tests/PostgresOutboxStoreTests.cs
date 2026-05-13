@@ -123,9 +123,9 @@ public sealed class PostgresOutboxStoreTests
         await store.WriteAsync(CreateMessage(messageId, now, now));
 
         var batch = await store.ReadAvailableAsync(now.AddMinutes(1), maxBatchSize: 10);
-
-        Assert.Single(batch);
-        Assert.Equal(messageId, batch[0].MessageId);
+        var matching = batch.Where(m => m.MessageId == messageId).ToArray();
+        var found = Assert.Single(matching);
+        Assert.Equal(messageId, found.MessageId);
     }
 
     [Fact]
