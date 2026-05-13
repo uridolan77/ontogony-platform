@@ -1,7 +1,10 @@
 # Security & Compliance
 
 This guide covers **mechanical** security building blocks shipped in `Ontogony.Security` and how services should use them. It is not a substitute for your organization’s threat model, key management, or compliance program.
+## Repository Security
 
+- **[SECURITY.md](../../SECURITY.md)** — Vulnerability reporting, supported versions, and security scope.
+- **[PLAT-NP-003 Supply-Chain Evidence](PLAT-NP-003-supply-chain-first-run-evidence.md)** — CodeQL, dependency review, SBOM, and supply-chain workflow proof.
 ---
 
 ## Core Principles

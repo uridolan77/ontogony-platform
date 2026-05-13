@@ -10,10 +10,13 @@ on:
 jobs:
   dotnet:
     runs-on: ubuntu-latest
+    # PostgreSQL service uses ephemeral test-only credentials (not production secrets).
+    # These credentials exist only within the GitHub Actions container and are not stored in GitHub Secrets.
     services:
       postgres:
         image: postgres:16
         env:
+          # Test-only credentials: ephemeral service container, never used outside CI
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: ontogony
@@ -25,6 +28,7 @@ jobs:
           --health-timeout=5s
           --health-retries=5
     env:
+      # Test-only connection string matching service container credentials above
       ONTOGONY_POSTGRES_TEST_CONNECTION: Host=localhost;Port=5432;Database=ontogony;Username=postgres;Password=postgres
     steps:
       - uses: actions/checkout@v4
