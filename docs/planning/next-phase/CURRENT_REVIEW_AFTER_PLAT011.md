@@ -41,7 +41,7 @@ The platform is structurally strong, but two items are still operational rather 
 
 ## Top risks now
 
-1. Release workflow drift: `ci.yml` includes the Conexus baseline alignment script, but release-packages should also run it before pack/publish.
+1. Release workflow: Conexus baseline alignment and pre-pack `artifacts/packages` cleanup are in `release-packages.yml` on `main`; first tag publish proof (001B) is still outstanding.
 2. Package adoption gap: Conexus still compiles sibling source; real package-mode consumption belongs in Conexus CI or a multi-checkout compatibility workflow.
 3. Over-platforming risk: do not add provider, model, routing, price catalog, or gateway semantics to Ontogony.
 4. Security workflow fragility: Trivy/Gitleaks/dependency submission can fail because of environment/permissions/action behavior, not design.
