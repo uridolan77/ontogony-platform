@@ -7,9 +7,8 @@
    - **001B (pending):** Perform one tag publish; record workflow run URL, GitHub Packages feed proof, `PACKAGE_MANIFEST.json` vs Release `.nupkg` hashes, and Conexus smoke — fill `docs/releases/PR-PLAT-NP-001-release-parity-evidence.md`. **Do not mark NP-001 fully closed until 001B is complete.**
 
 2. **PLAT-NP-002 — Real Conexus package-mode compatibility**
-   - Prefer implementation in `conexus-dotnet` CI.
-   - Build/test Conexus against packed or published Ontogony packages, not sibling source.
-   - Keep the platform-owned smoke test, but do not confuse it with full Conexus compatibility.
+   - **Conexus CI:** `conexus-ontogony-package-mode` job packs Ontogony from a non-sibling path, adds a local feed, then restore/build/test with `UseOntogonyPackages=true` (see `conexus-dotnet` repo).
+   - **Contract:** `docs/consumer-blueprints/CONEXUS_ONTOGONY_PACKAGE_MODE_CONTRACT.md` (this repo).
 
 3. **PLAT-NP-003 — Security workflow first-run evidence**
    - Record successful CodeQL, Supply chain, Dependency submission, and PR-only Dependency Review behavior.

@@ -12,7 +12,7 @@
       "title": "Real Conexus package-mode compatibility",
       "priority": "P0",
       "status": "open",
-      "why": "The package smoke is Conexus-shaped, but the real Conexus repository still compiles sibling source."
+      "why": "Conexus CI now includes a package-mode job + MSBuild switch; keep backlog open until green on main and version policy documented for published feeds."
     },
     {
       "id": "PLAT-NP-003",

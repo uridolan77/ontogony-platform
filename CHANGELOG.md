@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+PR-PLAT-NP-002 — Conexus real package-mode compatibility (implemented in `conexus-dotnet` CI):
+
+- **Docs:** `docs/consumer-blueprints/CONEXUS_ONTOGONY_PACKAGE_MODE_CONTRACT.md` — feed inputs, `UseOntogonyPackages` / `OntogonyPackageVersion`, and CI guard expectations.
+- **Planning:** `docs/planning/next-phase/architecture/CONEXUS_PACKAGE_MODE_COMPATIBILITY.md` — links to the contract and the Conexus `conexus-ontogony-package-mode` workflow job.
+
 PR-PLAT-NP-001 — release workflow parity + first tag publish proof:
 
 - **Release:** `release-packages.yml` runs `scripts/validate-conexus-consumer-baseline-alignment.ps1` (same gate as `ci.yml`) before pack/publish; **Clear package output** step removes `artifacts/packages` before pack (avoids stale `.nupkg` confusing manifest version checks).

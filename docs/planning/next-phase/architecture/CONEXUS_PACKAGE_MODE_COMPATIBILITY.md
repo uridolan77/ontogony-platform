@@ -2,6 +2,8 @@
 
 The current platform package smoke proves a Conexus-shaped skeleton builds against packed Ontogony packages. It does not prove the real `conexus-dotnet` repository can run without sibling project references.
 
+**Contract and Conexus CI:** see `docs/consumer-blueprints/CONEXUS_ONTOGONY_PACKAGE_MODE_CONTRACT.md` and the `conexus-ontogony-package-mode` job in `conexus-dotnet` (restore/build/test with `UseOntogonyPackages=true` and a local feed from packed Ontogony).
+
 ## Preferred home
 
 The strongest implementation belongs in `conexus-dotnet` CI:
