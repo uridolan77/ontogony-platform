@@ -36,9 +36,9 @@
    - Verify all platform-provided in-memory implementations either warn outside Development or are clearly harmless.
    - Baseline is now covered: warning tests cover all current `AddOntogonyInMemory*` registrations (see [`pr-specs/PR-PLAT-NP-008-in-memory-warning-coverage-expansion.md`](./pr-specs/PR-PLAT-NP-008-in-memory-warning-coverage-expansion.md)); keep this item open only as a future maintenance guard for new registrations and audit of test-only fakes.
 
-3. **PLAT-NP-009 — Public API review gate hardening** — **implemented, pending CI proof**
+3. **PLAT-NP-009 — Public API review gate hardening** — **closed**
    - The checklist and PR template are in place, and `scripts/validate-public-api-governance.ps1` now enforces changelog updates for modified, deleted, and renamed `tests/Ontogony.PublicApi.Tests/**/*.verified.txt` files.
-   - Local manual fail/pass proof is recorded in [`docs/public-api-review.md`](../../public-api-review.md), but a green CI run URL for this hardened revision is not yet recorded.
+   - Local manual fail/pass proof is recorded in [`docs/public-api-review.md`](../../public-api-review.md), and green CI proof is recorded at `https://github.com/uridolan77/ontogony-platform/actions/runs/25796705366` (merge commit `89398c03f9516c2c772a9057df9948789d6b2188`).
 
 ## Explicit non-goals
 

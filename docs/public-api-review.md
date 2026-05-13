@@ -139,7 +139,7 @@ You can validate the governance guard locally without committing anything:
 
 ### CI proof status
 
-`ci.yml` runs `./scripts/validate-public-api-governance.ps1`, so the gate is wired into CI. The current public head run for commit `75311d099918835eb863b4ca745fa982a07aaea3` is `https://github.com/uridolan77/ontogony-platform/actions/runs/25791922209`, and it is **failed**, so there is still no green CI proof URL for the rename/delete-aware script revision. The visible failure annotations are stale `tests/Ontogony.Http.Tests` API mismatches on GitHub head; local fixes exist in this workspace, but **PLAT-NP-009 remains implemented, pending external CI proof** until those fixes are pushed and CI reruns green.
+`ci.yml` runs `./scripts/validate-public-api-governance.ps1`, so the gate is wired into CI. Green external proof is now recorded for merge commit `89398c03f9516c2c772a9057df9948789d6b2188`: `https://github.com/uridolan77/ontogony-platform/actions/runs/25796705366` (**success**). This closes the remaining CI-evidence gap for the rename/delete-aware script revision and closes `PLAT-NP-009`.
 
 ## Future Public API Stability
 
