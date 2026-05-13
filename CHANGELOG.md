@@ -7,7 +7,7 @@ PR-PLAT-NP-003 — supply-chain workflow pins + first-run evidence:
 - **Workflow:** `supply-chain.yml` — pin `aquasecurity/trivy-action` to **`v0.36.0`** (legacy `0.28.0` tag no longer resolves after upstream tag migration).
 - **Workflow:** `dependency-submission.yml` — bump `advanced-security/component-detection-dependency-submission-action` to **`v0.1.3`** (fixes null `packageUrl` / `Scheme` submission crash on this solution).
 - **Workflow:** `release-packages.yml` — grant **`contents: write`** so tag-triggered runs can create GitHub Releases with attachments using `GITHUB_TOKEN`.
-- **Docs:** `docs/security/PLAT-NP-003-supply-chain-first-run-evidence.md` — operational run URLs for CodeQL, Supply chain, Dependency submission, and notes on SBOM artifacts.
+- **Docs:** `docs/security/PLAT-NP-003-supply-chain-first-run-evidence.md` — CodeQL + Supply chain + SBOM run URLs; Dependency submission pinned and **documented with Dependency graph UI enablement** (repo setting) until the first green submission run exists.
 - **Runtime:** `DefaultEnvelopeValidator` rejects Unix `file:` interpretations of rooted paths (for example `/events/stream`) so `Source` matches JSON schema intent on all platforms.
 - **Persistence:** `PostgresOutboxStore.ClaimAvailableAsync` disposes the reader before `CommitAsync` to satisfy Npgsql single-command-per-connection rules (fixes Linux CI / release test failures).
 
@@ -20,7 +20,7 @@ PR-PLAT-NP-001 — release workflow parity + first tag publish proof:
 
 - **Release:** `release-packages.yml` runs `scripts/validate-conexus-consumer-baseline-alignment.ps1` (same gate as `ci.yml`) before pack/publish; **Clear package output** step removes `artifacts/packages` before pack (avoids stale `.nupkg` confusing manifest version checks).
 - **Scripts:** `generate-package-manifest.ps1` — default git commit resolution works on Windows PowerShell 5.1 (no `||` operator); status line uses ASCII.
-- **Docs:** `docs/releases/PR-PLAT-NP-001-release-parity-evidence.md` — PLAT-NP-001A vs **001B** status; checklist for post-tag evidence. **Full NP-001 is not closed until 001B** (tag publish + filled table).
+- **Docs:** `docs/releases/PR-PLAT-NP-001-release-parity-evidence.md` — **001B** filled for tag **`v0.3.0-alpha.1`** (release run, Packages feed, manifest vs Release, Conexus smoke).
 
 PR-PLAT-011 — generic secret-value resolver (platform surface; Conexus wires schemes):
 

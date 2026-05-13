@@ -2,14 +2,14 @@
 
 This document records **what was implemented in-repo** and the **evidence checklist** to complete after the first proof tag publish. See also `docs/planning/next-phase/architecture/PACKAGE_RELEASE_EVIDENCE.md`.
 
-## Status (do not treat full NP-001 as closed until 001B is done)
+## Status
 
 | Split | Scope | State |
 | --- | --- | --- |
 | **PLAT-NP-001A** | Release workflow parity: Conexus baseline gate in `release-packages.yml`, manifest script portability, pre-pack cleanup of `artifacts/packages`, evidence doc skeleton | **Done** (in `main` after merge) |
-| **PLAT-NP-001B** | First real tag-triggered publish: run URL, GitHub Packages proof, `PACKAGE_MANIFEST.json` vs Release attachments, filled table below | **Pending** (operational) |
+| **PLAT-NP-001B** | First real tag-triggered publish: run URL, GitHub Packages proof, `PACKAGE_MANIFEST.json` vs Release attachments, filled table below | **Done** — table filled for `v0.3.0-alpha.1` (2026-05-13) |
 
-**PLAT-NP-001** as a whole stays **open** until **001B** evidence is captured.
+**PLAT-NP-001** (release parity + first tag proof) is **closed** with **001B** evidence below.
 
 ## Implemented (workflow parity — 001A)
 
@@ -20,18 +20,18 @@ This document records **what was implemented in-repo** and the **evidence checkl
 
 Use the next SemVer prerelease you intend to ship, for example **`v0.3.0-alpha.1`**, after `main` contains this PR and the release workflow is green on a manual dry run.
 
-## Post-tag evidence (maintainer: fill after publish)
+## Post-tag evidence (`v0.3.0-alpha.1`)
 
 | Item | Value |
 |------|--------|
-| Tag | _e.g. `v0.3.0-alpha.1`_ |
-| Package version | _same without `v` prefix_ |
-| Workflow run URL | _Actions → `release-packages` for the tag push_ |
-| GitHub Release URL | _Releases entry created by `softprops/action-gh-release`_ |
-| GitHub Packages feed | _NuGet feed listing or `dotnet nuget list` against `https://nuget.pkg.github.com/<owner>/index.json`_ |
-| `PACKAGE_MANIFEST.json` | _Download from workflow artifact **`manifest`** or **`packages`**; must list one row per shipping `.nupkg`_ |
-| Manifest vs artifacts | _Confirm every `.nupkg` attached to the Release appears in `PACKAGE_MANIFEST.json` with matching SHA-256_ |
-| Conexus package smoke | _Release job step “Conexus package consumer” must be green (restore + build `examples/ConexusDotNetPackageSmoke` against local feed path / packed packages)_ |
+| Tag | `v0.3.0-alpha.1` |
+| Package version | `0.3.0-alpha.1` |
+| Workflow run URL | https://github.com/uridolan77/ontogony-platform/actions/runs/25777410721 |
+| GitHub Release URL | https://github.com/uridolan77/ontogony-platform/releases/tag/v0.3.0-alpha.1 |
+| GitHub Packages feed | NuGet v3: `https://nuget.pkg.github.com/uridolan77/index.json` (authenticate with a GitHub PAT that has `read:packages`; packages are under the `Ontogony.*` id prefix at version **0.3.0-alpha.1**) |
+| `PACKAGE_MANIFEST.json` | Same run artifact **`manifest`** or Release asset: https://github.com/uridolan77/ontogony-platform/releases/download/v0.3.0-alpha.1/PACKAGE_MANIFEST.json — **23** shipping `.nupkg` rows, `commit` **8819d24f470f5c06771f5d76b5ffad819e28b758**, `generated` **2026-05-13T04:01:32.3615123Z** |
+| Manifest vs artifacts | **Match:** every non-symbol `.nupkg` on the Release is listed in `PACKAGE_MANIFEST.json` with the same filename and SHA-256 for that run (23 packages); `.snupkg` files are attached but not manifest rows. |
+| Conexus package smoke | **Green** on the same workflow run — step **Conexus package consumer (restore + build from local .nupkg)** in run **25777410721** |
 
 ## Workflow behavior (acceptance)
 

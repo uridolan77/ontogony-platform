@@ -23,3 +23,8 @@ When **`UseOntogonyPackages=true`** and **`GITHUB_ACTIONS=true`**, Conexus fails
 ## Non-goals
 
 Ontogony does not embed Conexus product code or gateway semantics. The platform keeps only the existing `examples/ConexusDotNetPackageSmoke` smoke; full compatibility is proven in **Conexus CI**.
+
+## PLAT-NP-002 — Green proof (real Conexus repo)
+
+- **Workflow run:** https://github.com/uridolan77/conexus-dotnet/actions/runs/25776886946 (overall workflow may be red if unrelated jobs fail; the **`conexus-ontogony-package-mode`** job is the acceptance signal.)
+- **Job (success):** https://github.com/uridolan77/conexus-dotnet/actions/runs/25776886946/job/75711313588 — packs Ontogony to a non-sibling path, restores/builds/tests Conexus with `UseOntogonyPackages=true` and explicit `OntogonyPackageVersion`.

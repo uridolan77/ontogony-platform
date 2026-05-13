@@ -203,6 +203,7 @@ Use these as starting prompts for your own security reviews (Ontogony does not c
 
 - [Adoption — Security & signing](../adoption/index.md)
 - [PR29 migration notes](../migrations/2026-05-12-pr29-security-production-hardening.md)
+- [PLAT-NP-003 supply-chain evidence (CodeQL / SBOM / submission)](./PLAT-NP-003-supply-chain-first-run-evidence.md)
 - [Service identity production checklist](./service-identity-production.md)
 
 ---

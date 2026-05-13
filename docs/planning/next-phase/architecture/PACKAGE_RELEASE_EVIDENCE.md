@@ -2,7 +2,7 @@
 
 A package release is not accepted merely because `release-packages.yml` exists.
 
-Track **PLAT-NP-001** in two parts: **001A** (workflow parity + cleanup + evidence scaffold on `main`) vs **001B** (real tag publish + filled evidence table). Do not treat NP-001 as fully closed until **001B** is done (`docs/releases/PR-PLAT-NP-001-release-parity-evidence.md`).
+Track **PLAT-NP-001** in two parts: **001A** (workflow parity + cleanup + evidence scaffold on `main`) vs **001B** (real tag publish + filled evidence table). **001B is complete** for tag **`v0.3.0-alpha.1`** (`docs/releases/PR-PLAT-NP-001-release-parity-evidence.md`).
 
 ## Required evidence
 
