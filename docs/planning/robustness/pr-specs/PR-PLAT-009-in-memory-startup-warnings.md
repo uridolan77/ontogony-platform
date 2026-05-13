@@ -10,6 +10,10 @@ In-memory services warn/guard in Production.
 
 ## Boundary checklist
 
-- [ ] Reusable platform mechanics only.
-- [ ] No Conexus routing/provider/model semantics.
-- [ ] CI/build/package validation updated where relevant.
+- [x] Reusable platform mechanics only.
+- [x] No Conexus routing/provider/model semantics.
+- [x] CI/build/package validation updated where relevant.
+
+## Implementation notes
+
+`AddOntogonyInMemoryArtifactStore`, `AddOntogonyInMemoryExecutionJournal`, `AddOntogonyInMemoryQuotaLedger`, and `AddOntogonyInMemoryOutboxStore` register an `IHostedService` that logs a **warning** on host start when `IHostEnvironment.IsDevelopment()` is false (Staging and Production). No exception is thrown.

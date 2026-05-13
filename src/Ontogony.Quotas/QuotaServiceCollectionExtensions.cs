@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Ontogony.Primitives;
+using Ontogony.Runtime;
 
 namespace Ontogony.Quotas;
 
@@ -9,7 +10,10 @@ namespace Ontogony.Quotas;
 /// </summary>
 public static class QuotaServiceCollectionExtensions
 {
-    /// <summary>Registers <see cref="InMemoryQuotaLedger"/> as <see cref="IQuotaLedger"/>.</summary>
+    /// <summary>
+    /// Registers <see cref="InMemoryQuotaLedger"/> as <see cref="IQuotaLedger"/>.
+    /// When the host environment is not <see cref="Microsoft.Extensions.Hosting.Environments.Development"/>, registers a startup warning that this ledger is not durable for production multi-instance use.
+    /// </summary>
     public static IServiceCollection AddOntogonyInMemoryQuotaLedger(this IServiceCollection services)
     {
         ArgumentNullException.ThrowIfNull(services);
@@ -17,6 +21,8 @@ public static class QuotaServiceCollectionExtensions
         services.TryAddSingleton<IClock, SystemClock>();
         services.TryAddSingleton<InMemoryQuotaLedger>();
         services.TryAddSingleton<IQuotaLedger>(sp => sp.GetRequiredService<InMemoryQuotaLedger>());
+
+        services.AddOntogonyInMemoryNonDurableStartupWarning("Ontogony.Quotas: InMemoryQuotaLedger");
 
         return services;
     }

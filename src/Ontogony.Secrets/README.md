@@ -9,6 +9,7 @@ Mechanical secret handling contracts:
 - safe display masking
 - secret fingerprinting
 - development-only protector for local/test use
+- optional **secret value** resolution (`ISecretValueResolver`, including `EnvironmentVariableSecretValueResolver` for scheme `env` via `AddOntogonyEnvironmentSecretValueResolver()`)
 
 ## What this is not
 

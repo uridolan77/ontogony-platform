@@ -2,6 +2,29 @@
 
 ## Unreleased
 
+PR-PLAT-011 — generic secret-value resolver (platform surface; Conexus wires schemes):
+
+- **`Ontogony.Secrets`:** `ISecretValueResolver`, `SecretValueReference`, `SecretValueResolveResult`, `EnvironmentVariableSecretValueResolver` (scheme `env`), `CompositeSecretValueResolver`, and `AddOntogonyEnvironmentSecretValueResolver()` for optional DI registration.
+- **Tests:** `SecretValueResolverTests`; public API snapshot updated for `Ontogony.Secrets`.
+
+PR-PLAT-009 — in-memory startup warnings:
+
+- **Shared linked source:** `src/Ontogony.SharedInternal/InMemoryNonDurableStartupWarningHostedService.cs` — when the host is not **Development**, `AddOntogonyInMemory*` registrations emit a single **Warning** log at startup (no throw).
+- **Wired into:** `AddOntogonyInMemoryArtifactStore`, `AddOntogonyInMemoryExecutionJournal`, `AddOntogonyInMemoryQuotaLedger`, `AddOntogonyInMemoryOutboxStore`.
+- **Dependencies:** `Microsoft.Extensions.Hosting.Abstractions` and `Microsoft.Extensions.Logging.Abstractions` on the affected shipping projects; `Microsoft.Extensions.Hosting` for `Ontogony.Artifacts.Tests` host-based assertions.
+
+Conexus baseline drift gate:
+
+- **CI:** `scripts/validate-conexus-consumer-baseline-alignment.ps1` — fails if `docs/consumer-blueprints/conexus-dotnet-platform-readiness.md` required-package table and `src/Directory.Build.targets` consumer-surface list diverge.
+- **Docs:** readiness blueprint lists **16** required packages (adds explicit `Ontogony.Primitives` row aligned with CS1591 consumer surface).
+- **CI:** `ci` workflow accepts manual `workflow_dispatch` for on-demand validation.
+
+PR-PLAT-007.1 — supply-chain workflow fixes:
+
+- **Docs:** `docs/operations/index.md` — remove example literals that triggered Gitleaks `generic-api-key` false positives.
+- **Workflow:** `dependency-submission.yml` uses `advanced-security/component-detection-dependency-submission-action@v0.0.5` (correct action slug for NuGet submission).
+- **Workflow:** `dependency-review.yml` remains **pull_request** only (`dependency-review-action` requires base/head refs; manual dispatch removed).
+
 PR-PLAT-004 — public API approval snapshots:
 
 - **Tests:** `tests/Ontogony.PublicApi.Tests` — Verify + PublicApiGenerator baselines for each of the **23** shipping `Ontogony.*` assemblies (`*.verified.txt`); `dotnet test` fails on unintended public surface changes until snapshots are updated.

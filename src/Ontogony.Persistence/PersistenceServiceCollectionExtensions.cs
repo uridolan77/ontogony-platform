@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Ontogony.Runtime;
 
 namespace Ontogony.Persistence;
 
@@ -20,6 +21,7 @@ public static class PersistenceServiceCollectionExtensions
 
     /// <summary>
     /// Registers <see cref="InMemoryOutboxStore"/> as the shared instance for outbox and idempotent-consumer contracts (tests and single-process hosts).
+    /// When the host environment is not <see cref="Microsoft.Extensions.Hosting.Environments.Development"/>, registers a startup warning that this store is not durable for production multi-instance use.
     /// </summary>
     public static IServiceCollection AddOntogonyInMemoryOutboxStore(
         this IServiceCollection services,
@@ -38,6 +40,9 @@ public static class PersistenceServiceCollectionExtensions
         services.AddSingleton<IOutboxReader>(sp => sp.GetRequiredService<InMemoryOutboxStore>());
         services.AddSingleton<IOutboxDispatcher>(sp => sp.GetRequiredService<InMemoryOutboxStore>());
         services.AddSingleton<IProcessedMessageStore>(sp => sp.GetRequiredService<InMemoryOutboxStore>());
+
+        services.AddOntogonyInMemoryNonDurableStartupWarning("Ontogony.Persistence: InMemoryOutboxStore");
+
         return services;
     }
 }

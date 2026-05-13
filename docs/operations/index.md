@@ -273,13 +273,14 @@ Use **environment variables** or **secrets vault**:
 
 ```bash
 # Option 1: Environment (for container orchestration)
-export ONTOGONY_SHARED_SECRET="prod-secret-xyz789"
-export ONTOGONY_POSTGRES_CONNECTION="Host=prod-db.internal;..."
+# Set values from your secret store or orchestrator — never commit real material.
+export ONTOGONY_SHARED_SECRET
+export ONTOGONY_POSTGRES_CONNECTION
 
 # Option 2: Kubernetes secrets
 kubectl create secret generic ontogony-secrets \
-  --from-literal=shared-secret=prod-secret-xyz789 \
-  --from-literal=postgres-connection=Host=prod-db.internal;...
+  --from-literal=shared-secret="$ONTOGONY_SHARED_SECRET" \
+  --from-literal=postgres-connection="$ONTOGONY_POSTGRES_CONNECTION"
 
 # Option 3: Azure Key Vault
 dotnet add package Azure.Extensions.AspNetCore.Configuration.Secrets

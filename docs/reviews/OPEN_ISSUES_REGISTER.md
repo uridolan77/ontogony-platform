@@ -36,9 +36,9 @@
 | PLAT-P1-03 | Typed HTTP client support for Ontogony HTTP resilience |
 | PLAT-P1-04 | Public API approval tests |
 | PLAT-P1-05 | Dependency baseline alignment |
-| PLAT-P1-06 | Generic secret-value resolver |
+| PLAT-P1-06 | ~~Generic secret-value resolver~~ (landed: `ISecretValueResolver` + env scheme; Conexus adoption tracked separately) |
 | PLAT-P2-01 | Security supply-chain workflow |
 | PLAT-P2-02 | Donor folder hygiene |
-| PLAT-P2-03 | In-memory startup warnings |
+| PLAT-P2-03 | ~~In-memory startup warnings~~ (landed: PR-PLAT-009 hosted-service warnings) |
 | PLAT-P2-04 | README resilience contradiction fix |
 | PLAT-P2-05 | Version compatibility matrix |

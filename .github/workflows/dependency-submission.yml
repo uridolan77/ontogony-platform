@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write
 
 jobs:
   submit:
@@ -22,4 +23,5 @@ jobs:
       - name: Restore (ensures assets are present for submission)
         run: dotnet restore Ontogony.Platform.sln
 
-      - uses: actions/dependency-submission-action@v4
+      # `actions/dependency-submission-action` is not a published repo; use GitHub Advanced Security component detection for NuGet graph submission.
+      - uses: advanced-security/component-detection-dependency-submission-action@v0.0.5

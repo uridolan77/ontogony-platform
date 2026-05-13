@@ -7,7 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <Compile Include="..\Ontogony.SharedInternal\InMemoryNonDurableStartupWarningHostedService.cs" Link="InMemoryNonDurableStartupWarningHostedService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
     <ProjectReference Include="..\Ontogony.Contracts\Ontogony.Contracts.csproj" />
     <ProjectReference Include="..\Ontogony.Hashing\Ontogony.Hashing.csproj" />
     <ProjectReference Include="..\Ontogony.Primitives\Ontogony.Primitives.csproj" />

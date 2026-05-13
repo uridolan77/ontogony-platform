@@ -30,8 +30,9 @@ These are the packages Conexus.NET should reference directly for the baseline ga
 | `Ontogony.AI.Contracts` | `LlmRequestEnvelope`, `LlmResponseEnvelope`, `LlmProviderError`, usage/cost records |
 | `Ontogony.Artifacts` | `ArtifactRef` / `IArtifactStore` for large raw payloads by reference |
 | `Ontogony.Execution` | `IExecutionJournal` / records for internal run/step facts (no workflow engine) |
+| `Ontogony.Primitives` | Clock, identifiers, and shared primitives (often pulled transitively; add an explicit reference when you publish envelopes or need stable ID types in your public surface) |
 
-**Transitive packages:** `Ontogony.Primitives` (clock, IDs) and `Ontogony.Configuration` (validated options helpers) are pulled in by the graph where referenced; add an **explicit** `PackageReference` to `Ontogony.Configuration` only if Conexus uses `AddValidatedOptions` / `EnvironmentGuard` directly.
+**Transitive packages:** `Ontogony.Configuration` (validated options helpers) is pulled in by the graph where referenced; add an **explicit** `PackageReference` to `Ontogony.Configuration` only if Conexus uses `AddValidatedOptions` / `EnvironmentGuard` directly.
 
 ## Optional later
 

@@ -11,7 +11,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="..\Ontogony.SharedInternal\InMemoryNonDurableStartupWarningHostedService.cs" Link="InMemoryNonDurableStartupWarningHostedService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
     <ProjectReference Include="..\Ontogony.Primitives\Ontogony.Primitives.csproj" />
   </ItemGroup>
 

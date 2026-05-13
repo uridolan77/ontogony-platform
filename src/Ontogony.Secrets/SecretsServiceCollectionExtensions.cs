@@ -21,4 +21,17 @@ public static class SecretsServiceCollectionExtensions
 
         return services;
     }
+
+    /// <summary>
+    /// Registers <see cref="EnvironmentVariableSecretValueResolver"/> as an <see cref="ISecretValueResolver"/> for scheme <c>env</c> (machine/process environment variables).
+    /// </summary>
+    public static IServiceCollection AddOntogonyEnvironmentSecretValueResolver(this IServiceCollection services)
+    {
+        ArgumentNullException.ThrowIfNull(services);
+
+        services.TryAddEnumerable(
+            ServiceDescriptor.Singleton<ISecretValueResolver, EnvironmentVariableSecretValueResolver>());
+
+        return services;
+    }
 }

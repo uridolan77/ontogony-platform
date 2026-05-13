@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Ontogony.Hashing;
 using Ontogony.Primitives;
+using Ontogony.Runtime;
 
 namespace Ontogony.Artifacts;
 
@@ -13,6 +14,7 @@ public static class ArtifactServiceCollectionExtensions
     /// <summary>
     /// Registers <see cref="InMemoryArtifactStore"/> as the singleton <see cref="IArtifactStore"/>
     /// for tests, examples, and single-process hosts.
+    /// When the host environment is not <see cref="Microsoft.Extensions.Hosting.Environments.Development"/>, registers a startup warning that this store is not durable for production multi-instance use.
     /// </summary>
     public static IServiceCollection AddOntogonyInMemoryArtifactStore(this IServiceCollection services)
     {
@@ -27,6 +29,8 @@ public static class ArtifactServiceCollectionExtensions
             sp.GetRequiredService<IClock>(),
             sp.GetRequiredService<IIdGenerator>()));
         services.AddSingleton<IArtifactStore>(sp => sp.GetRequiredService<InMemoryArtifactStore>());
+
+        services.AddOntogonyInMemoryNonDurableStartupWarning("Ontogony.Artifacts: InMemoryArtifactStore");
 
         return services;
     }
