@@ -17,7 +17,7 @@ Ontogony.Platform is now a credible mechanical substrate for Conexus.NET:
 
 | PR | Status | Judgment |
 | --- | --- | --- |
-| PR-PLAT-001 | Implemented | Package release workflow exists. Operational first tag publish proof remains open. |
+| PR-PLAT-001 | Implemented | Package release workflow exists. **PLAT-NP-001B** first tag publish proof is recorded ([`docs/releases/PR-PLAT-NP-001-release-parity-evidence.md`](../../releases/PR-PLAT-NP-001-release-parity-evidence.md), `v0.3.0-alpha.1`). |
 | PR-PLAT-002 | Implemented | Package-consumer smoke exists. Full real Conexus repo package-mode test remains open. |
 | PR-PLAT-003 | Deferred / not implemented | Typed HTTP client support was not needed by Conexus because existing integration HTTP client pipeline was sufficient. Keep deferred. |
 | PR-PLAT-004 | Implemented | Public API approval snapshots are in place. |
@@ -34,14 +34,15 @@ Ontogony.Platform is now a credible mechanical substrate for Conexus.NET:
 
 ## Important caveat
 
-The platform is structurally strong, but two items are still operational rather than purely code-level:
+The platform is structurally strong, but at least one item is still operational rather than purely code-level:
 
-1. First successful package-tag publish to GitHub Packages (PLAT-NP-001B; NP-001A release/CI parity is done on `main`).
-2. First green run proof for CodeQL / Supply chain / Dependency submission after the latest workflow fixes.
+1. First green run proof for CodeQL / Supply chain / Dependency submission after the latest workflow fixes (see PLAT-NP-003).
+
+**PLAT-NP-001B** (first package-tag publish to GitHub Packages with filled evidence) is **closed** — see [`docs/releases/PR-PLAT-NP-001-release-parity-evidence.md`](../../releases/PR-PLAT-NP-001-release-parity-evidence.md).
 
 ## Top risks now
 
-1. Release workflow: Conexus baseline alignment and pre-pack `artifacts/packages` cleanup are in `release-packages.yml` on `main`; first tag publish proof (001B) is still outstanding.
+1. Release workflow: Conexus baseline alignment and pre-pack `artifacts/packages` cleanup are in `release-packages.yml` on `main`; tag publish proof for **`v0.3.0-alpha.1`** is recorded in the NP-001 evidence doc.
 2. Package adoption gap: Conexus still compiles sibling source; real package-mode consumption belongs in Conexus CI or a multi-checkout compatibility workflow.
 3. Over-platforming risk: do not add provider, model, routing, price catalog, or gateway semantics to Ontogony.
 4. Security workflow fragility: Trivy/Gitleaks/dependency submission can fail because of environment/permissions/action behavior, not design.
@@ -51,9 +52,8 @@ The platform is structurally strong, but two items are still operational rather 
 
 Proceed in this order:
 
-1. PLAT-NP-001 — **001B:** first tag publish proof and evidence table (`001A` parity is on `main`).
-2. PLAT-NP-002 — real Conexus package-mode compatibility.
-3. PLAT-NP-003 — supply-chain first-run evidence and stabilization.
-4. PLAT-NP-004 — donor/incoming package hygiene.
-5. PLAT-NP-005 — README/docs final accuracy pass.
-6. PLAT-NP-006 — explicit deferred-items register for PR-PLAT-003 and PR-PLAT-012.
+1. PLAT-NP-002 — real Conexus package-mode compatibility (NP-001 is closed).
+2. PLAT-NP-003 — supply-chain first-run evidence and stabilization.
+3. PLAT-NP-004 — donor/incoming package hygiene.
+4. PLAT-NP-005 — README/docs final accuracy pass.
+5. PLAT-NP-006 — explicit deferred-items register for PR-PLAT-003 and PR-PLAT-012.

@@ -23,7 +23,9 @@ Values below are maintained to match the repo; **`Directory.Packages.props` and 
 | Microsoft.Extensions.Configuration.Abstractions | 9.0.0 |
 | Microsoft.Extensions.DependencyInjection | 9.0.0 |
 | Microsoft.Extensions.DependencyInjection.Abstractions | 9.0.0 |
+| Microsoft.Extensions.Hosting | 9.0.0 |
 | Microsoft.Extensions.Hosting.Abstractions | 9.0.0 |
+| Microsoft.Extensions.Logging.Abstractions | 9.0.0 |
 | Microsoft.Extensions.Http | 9.0.0 |
 | Microsoft.Extensions.Options | 9.0.0 |
 | Microsoft.Extensions.Options.ConfigurationExtensions | 9.0.0 |

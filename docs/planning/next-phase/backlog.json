@@ -4,8 +4,8 @@
       "id": "PLAT-NP-001",
       "title": "Release workflow parity + first tag publish proof",
       "priority": "P0",
-      "status": "open",
-      "why": "001A (release/CI parity + cleanup + evidence skeleton) is on main; 001B (actual tag publish + filled evidence table) remains pending. Close only after operational proof."
+      "status": "closed",
+      "why": "001A and 001B complete: tag v0.3.0-alpha.1 with filled evidence in docs/releases/PR-PLAT-NP-001-release-parity-evidence.md."
     },
     {
       "id": "PLAT-NP-002",

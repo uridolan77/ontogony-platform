@@ -21,6 +21,7 @@ PR-PLAT-NP-001 — release workflow parity + first tag publish proof:
 - **Release:** `release-packages.yml` runs `scripts/validate-conexus-consumer-baseline-alignment.ps1` (same gate as `ci.yml`) before pack/publish; **Clear package output** step removes `artifacts/packages` before pack (avoids stale `.nupkg` confusing manifest version checks).
 - **Scripts:** `generate-package-manifest.ps1` — default git commit resolution works on Windows PowerShell 5.1 (no `||` operator); status line uses ASCII.
 - **Docs:** `docs/releases/PR-PLAT-NP-001-release-parity-evidence.md` — **001B** filled for tag **`v0.3.0-alpha.1`** (release run, Packages feed, manifest vs Release, Conexus smoke).
+- **Planning:** `docs/planning/next-phase/` — `CURRENT_REVIEW_AFTER_PLAT011.md`, `NEXT_PHASE_SEQUENCE.md`, `backlog.json`, and `pr-specs/PR-PLAT-NP-001-release-workflow-parity-first-tag-proof.md` aligned with **PLAT-NP-001** closed (001B evidence above).
 
 PR-PLAT-011 — generic secret-value resolver (platform surface; Conexus wires schemes):
 

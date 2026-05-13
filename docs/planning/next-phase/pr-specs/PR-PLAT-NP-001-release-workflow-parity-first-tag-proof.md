@@ -34,6 +34,10 @@ Treat **PLAT-NP-001** as two slices so the backlog does not look “closed” wh
 | **PLAT-NP-001A** | Baseline script runs in `release-packages.yml`, **Clear package output** before pack, manifest script/evidence doc as needed; `workflow_dispatch` still does not publish. |
 | **PLAT-NP-001B** | A tag-triggered run completed; evidence table in `docs/releases/PR-PLAT-NP-001-release-parity-evidence.md` filled (run URL, feed, Release, manifest vs hashes, smoke). **Do not mark full NP-001 complete until 001B is done.** |
 
+## Status (repo)
+
+**Closed.** 001A and 001B are done; operational proof for tag **`v0.3.0-alpha.1`** is in [`docs/releases/PR-PLAT-NP-001-release-parity-evidence.md`](../../../releases/PR-PLAT-NP-001-release-parity-evidence.md).
+
 ## Non-goals
 
 - Do not add new platform runtime APIs.

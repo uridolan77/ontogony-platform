@@ -2,9 +2,9 @@
 
 ## Phase A — prove the platform can be consumed and shipped
 
-1. **PLAT-NP-001 — Release workflow parity + first tag publish proof**
+1. **PLAT-NP-001 — Release workflow parity + first tag publish proof** — **closed**
    - **001A (done):** Conexus baseline alignment validation in `release-packages.yml`; pre-pack cleanup of `artifacts/packages`; evidence doc + manifest script fixes on `main`.
-   - **001B (pending):** Perform one tag publish; record workflow run URL, GitHub Packages feed proof, `PACKAGE_MANIFEST.json` vs Release `.nupkg` hashes, and Conexus smoke — fill `docs/releases/PR-PLAT-NP-001-release-parity-evidence.md`. **Do not mark NP-001 fully closed until 001B is complete.**
+   - **001B (done):** Tag `v0.3.0-alpha.1` published; evidence table filled in [`docs/releases/PR-PLAT-NP-001-release-parity-evidence.md`](../../releases/PR-PLAT-NP-001-release-parity-evidence.md) (workflow run, Packages feed, Release, manifest vs artifacts, Conexus smoke).
 
 2. **PLAT-NP-002 — Real Conexus package-mode compatibility**
    - **Conexus CI:** `conexus-ontogony-package-mode` job packs Ontogony from a non-sibling path, adds a local feed, then restore/build/test with `UseOntogonyPackages=true` (see `conexus-dotnet` repo).
