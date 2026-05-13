@@ -8,8 +8,13 @@ Validate public API governance: if public API snapshots changed, CHANGELOG.md mu
 This script checks whether any public API snapshot files (.verified.txt) have been modified
 and ensures that CHANGELOG.md has been updated accordingly.
 
-In a git worktree, detects changed/added public API snapshot files in tests/Ontogory.PublicApi.Tests/
-and requires corresponding CHANGELOG.md changes.
+Detection sources, in order:
+1. Unstaged worktree changes.
+2. Staged index changes.
+3. CI pull_request diffs against origin/$GITHUB_BASE_REF when available.
+4. CI push diffs against HEAD^ when available.
+
+If no comparable diff is available and no local changes are present, the script exits cleanly.
 
 Exit codes:
   0 = All checks passed
@@ -26,17 +31,41 @@ $ErrorActionPreference = 'Stop'
 
 function Write-CheckPass {
     param([string]$Message)
-    Write-Host "✓ $Message" -ForegroundColor Green
+    Write-Host "PASS: $Message" -ForegroundColor Green
 }
 
 function Write-CheckWarn {
     param([string]$Message)
-    Write-Host "⚠ $Message" -ForegroundColor Yellow
+    Write-Host "WARN: $Message" -ForegroundColor Yellow
 }
 
 function Write-CheckFail {
     param([string]$Message)
-    Write-Host "✗ $Message" -ForegroundColor Red
+    Write-Host "FAIL: $Message" -ForegroundColor Red
+}
+
+function Get-ChangedPaths {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string[]]$Commands
+    )
+
+    $results = New-Object 'System.Collections.Generic.List[string]'
+    foreach ($command in $Commands) {
+        try {
+            $output = Invoke-Expression $command 2>$null
+            foreach ($line in @($output)) {
+                if (-not [string]::IsNullOrWhiteSpace($line)) {
+                    [void]$results.Add($line.Trim())
+                }
+            }
+        }
+        catch {
+            Write-CheckWarn "Diff command failed: $command"
+        }
+    }
+
+    return $results.ToArray() | Sort-Object -Unique
 }
 
 # Check if we're in a git repository
@@ -48,20 +77,29 @@ catch {
     exit 2
 }
 
-# Get list of changed/added public API snapshot files
-$snapshotPattern = 'tests/Ontogory.PublicApi.Tests/.*\.verified\.txt$'
-$changedSnapshots = @()
+# Get list of changed/added public API snapshot files.
+$snapshotPattern = '^tests/Ontogony\.PublicApi\.Tests/.*\.verified\.txt$'
 
-try {
-    # Staged + unstaged changes
-    $allChanges = git diff --name-only --diff-filter=A,M 2>$null
-    if ($allChanges) {
-        $changedSnapshots = $allChanges | Where-Object { $_ -match $snapshotPattern }
+$diffCommands = @(
+    'git diff --name-only --diff-filter=AM',
+    'git diff --cached --name-only --diff-filter=AM'
+)
+
+if ($env:GITHUB_EVENT_NAME -eq 'pull_request' -and -not [string]::IsNullOrWhiteSpace($env:GITHUB_BASE_REF)) {
+    $diffCommands += "git diff --name-only --diff-filter=AM origin/$($env:GITHUB_BASE_REF)...HEAD"
+}
+elseif ($env:GITHUB_EVENT_NAME -eq 'push') {
+    try {
+        $null = git rev-parse HEAD^ 2>$null
+        $diffCommands += 'git diff --name-only --diff-filter=AM HEAD^ HEAD'
+    }
+    catch {
+        Write-CheckWarn 'HEAD^ is unavailable for push diff; using local changes only.'
     }
 }
-catch {
-    Write-CheckWarn "Could not enumerate git changes; skipping snapshot detection"
-}
+
+$allChanges = Get-ChangedPaths -Commands $diffCommands
+$changedSnapshots = @($allChanges | Where-Object { $_ -match $snapshotPattern })
 
 if ($changedSnapshots.Count -eq 0) {
     Write-CheckPass "No public API snapshot changes detected"
@@ -73,17 +111,8 @@ $changedSnapshots | ForEach-Object {
     Write-Host "  - $_"
 }
 
-# Check if CHANGELOG.md was modified
-$changelogChanged = $false
-try {
-    $allChanges = git diff --name-only --diff-filter=A,M 2>$null
-    if ($allChanges) {
-        $changelogChanged = $allChanges | Where-Object { $_ -eq 'CHANGELOG.md' }
-    }
-}
-catch {
-    Write-CheckWarn "Could not check CHANGELOG.md status"
-}
+# Check if CHANGELOG.md was modified in the same change set.
+$changelogChanged = @($allChanges | Where-Object { $_ -eq 'CHANGELOG.md' }).Count -gt 0
 
 if ($changelogChanged) {
     Write-CheckPass "CHANGELOG.md was updated"
@@ -96,7 +125,7 @@ else {
     Write-Host "Required actions:" -ForegroundColor Yellow
     Write-Host "  1. Review the public API changes (compare .verified.txt files)"
     Write-Host "  2. Add an entry to CHANGELOG.md under 'Unreleased' section"
-    Write-Host "  3. If breaking change, add/update migration documentation"
+    Write-Host "  3. If the diff removes or changes public members, add or update migration documentation"
     Write-Host "  4. Re-run this script to validate"
     Write-Host ""
     Write-Host "Reference: see docs/public-api-review.md for guidance"

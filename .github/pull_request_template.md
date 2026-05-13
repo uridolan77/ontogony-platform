@@ -44,7 +44,7 @@
 - [ ] Code follows project style and conventions
 - [ ] No hardcoded secrets or credentials
 - [ ] Changes are localized to appropriate package(s)
-- [ ] No Conexus-specific or product semantics added to Ontogory.Platform
+- [ ] No Conexus-specific or product semantics added to Ontogony.Platform
 - [ ] Validated against `AGENTS.md` boundary rules
 
 ## Related Issues

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageId>Ontogony.Contracts</PackageId>
-    <Description>Ontogory.Contracts shared infrastructure package for Ontogony services.</Description>
+    <Description>Ontogony.Contracts shared infrastructure package for Ontogony services.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 

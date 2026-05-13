@@ -12,8 +12,8 @@ Ontogony provides in-memory reference implementations for:
 
 - **Execution Journal** (`Ontogony.Execution`)
 - **Artifact Store** (`Ontogony.Artifacts`)
-- **Quota Ledger** (`Ontogory.Quotas`)
-- **Persistence/Outbox** (`Ontogory.Persistence`)
+- **Quota Ledger** (`Ontogony.Quotas`)
+- **Persistence/Outbox** (`Ontogony.Persistence`)
 
 These are **registered via DI helpers** like:
 
@@ -21,7 +21,7 @@ These are **registered via DI helpers** like:
 services.AddOntogonyInMemoryExecutionJournal();
 services.AddOntogonyInMemoryArtifactStore();
 services.AddOntogonyInMemoryQuotaLedger();
-services.AddOntogonyInMemoryOutbox();
+services.AddOntogonyInMemoryOutboxStore();
 ```
 
 ### Startup Warnings
@@ -97,7 +97,7 @@ Before implementing a durable store:
 
 ### Durable Quota Ledger
 
-**Status:** Deferred (open: PLAT-NP-009 / PR-PLAT-012).
+**Status:** Deferred (PR-PLAT-012 remains deferred).
 
 **Why:** Quota mechanics are tightly coupled to product pricing and rate limits. Conexus owns its EF-based quota ledger; Agentor/Athanor have not articulated a shared need yet.
 

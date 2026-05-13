@@ -1,38 +1,86 @@
-using Xunit;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Ontogony.Configuration;
+using Xunit;
 
 namespace Ontogony.Configuration.Tests;
 
 /// <summary>
-/// Tests for Ontogony configuration registration and validation.
+/// Tests for Ontogony configuration registration and validation helpers.
 /// </summary>
 public class ConfigurationRegistrationTests
 {
     [Fact]
-    public void Options_CanBeResolvedFromDI()
+    public void AddValidatedOptions_BindsConfiguredSection()
     {
+        var configuration = new ConfigurationBuilder()
+            .AddInMemoryCollection(new Dictionary<string, string?>
+            {
+                ["Sample:RequiredValue"] = "configured-value"
+            })
+            .Build();
+
         var services = new ServiceCollection();
-        services.AddOptions();
-        
+        services.AddValidatedOptions<SampleOptions>(configuration, "Sample");
+
         var provider = services.BuildServiceProvider();
-        var optionsFactory = provider.GetRequiredService<IOptionsFactory<OntogonyConfigurationOptions>>();
-        
-        Assert.NotNull(optionsFactory);
+        var options = provider.GetRequiredService<IOptions<SampleOptions>>();
+
+        Assert.Equal("configured-value", options.Value.RequiredValue);
     }
 
     [Fact]
-    public void ConfigurationOptions_WithDefaultValues_HasValidDefaults()
+    public void AddValidatedOptions_WithMissingRequiredValue_ThrowsOptionsValidationException()
     {
-        var options = new OntogonyConfigurationOptions();
-        
-        // Configuration options should initialize without throwing
-        Assert.NotNull(options);
+        var configuration = new ConfigurationBuilder()
+            .AddInMemoryCollection(new Dictionary<string, string?>())
+            .Build();
+
+        var services = new ServiceCollection();
+        services.AddValidatedOptions<SampleOptions>(configuration, "Sample");
+
+        var provider = services.BuildServiceProvider();
+
+        Assert.Throws<OptionsValidationException>(() => provider.GetRequiredService<IOptions<SampleOptions>>().Value);
+    }
+
+    [Fact]
+    public void RequiredConnectionStringValidator_WithMissingConnectionString_Fails()
+    {
+        var validator = new RequiredConnectionStringValidator();
+        var result = validator.Validate(null, new RequiredConnectionStringOptions
+        {
+            Name = "Primary",
+            ConnectionString = null
+        });
+
+        Assert.True(result.Failed);
+        Assert.Contains("Primary", result.FailureMessage);
+    }
+
+    [Fact]
+    public void EnvironmentGuard_ThrowsInProductionForDefaultSecret()
+    {
+        var exception = Assert.Throws<InvalidOperationException>(() =>
+            EnvironmentGuard.ThrowIfProductionDefaultSecret("Production", "SigningSecret", "changeme", "changeme", "default"));
+
+        Assert.Contains("SigningSecret", exception.Message);
+    }
+
+    [Fact]
+    public void EnvironmentGuard_DoesNotThrowInDevelopmentForDangerousSetting()
+    {
+        var exception = Record.Exception(() =>
+            EnvironmentGuard.ThrowIfDangerousOutsideDevelopment("Development", isDangerous: true, "should not throw in development"));
+
+        Assert.Null(exception);
     }
 }
 
-// Placeholder for actual configuration options (adjust based on what's in the package)
-public class OntogonyConfigurationOptions
+public sealed class SampleOptions
 {
+    [Required]
+    public string? RequiredValue { get; set; }
 }

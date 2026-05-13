@@ -32,6 +32,8 @@ jobs:
       ONTOGONY_POSTGRES_TEST_CONNECTION: Host=localhost;Port=5432;Database=ontogony;Username=postgres;Password=postgres
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '9.0.x'
@@ -41,6 +43,16 @@ jobs:
         run: dotnet build Ontogony.Platform.sln --no-restore -c Release
       - name: Test
         run: dotnet test Ontogony.Platform.sln --no-build -c Release --collect:"XPlat Code Coverage"
+      - name: Upload coverage artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xplat-coverage
+          path: |
+            **/TestResults/**/coverage.cobertura.xml
+            **/TestResults/**/*.trx
+          retention-days: 30
+          if-no-files-found: warn
       - name: Validate docs links
         shell: pwsh
         run: ./scripts/validate-docs-links.ps1
@@ -65,6 +77,9 @@ jobs:
       - name: Validate Conexus consumer baseline (readiness vs Directory.Build.targets)
         shell: pwsh
         run: ./scripts/validate-conexus-consumer-baseline-alignment.ps1
+      - name: Validate public API governance
+        shell: pwsh
+        run: ./scripts/validate-public-api-governance.ps1
       - name: Pack (version gate + 23-package smoke)
         env:
           PACKAGE_VERSION: 0.3.0-alpha.1

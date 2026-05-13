@@ -8,10 +8,10 @@ Ontogony.Platform ships **23 NuGet packages** with public APIs that downstream c
 
 This repository uses **public API snapshot testing** to detect changes to public API surface automatically:
 
-- **Location:** `tests/Ontogory.PublicApi.Tests/`
-- **Snapshot files:** `*.verified.txt` files named by assembly (e.g., `Ontogory.Http.verified.txt`)
+- **Location:** `tests/Ontogony.PublicApi.Tests/`
+- **Snapshot files:** `*.verified.txt` files named by assembly (for example, `Ontogony.Http.verified.txt`)
 - **Test:** `ShippingAssemblyPublicApiTests.cs` compares each shipping package's public API surface against the approved snapshot
-- **Tool:** Uses **Approvalt** / **PublicApiGenerator** to extract and compare public types, methods, properties, and signatures
+- **Tool:** Uses approval-style snapshots and `PublicApiGenerator` to extract and compare public types, methods, properties, and signatures
 
 ### What is tracked
 
@@ -33,7 +33,7 @@ This repository uses **public API snapshot testing** to detect changes to public
 If a test fails with:
 
 ```
-Public_api_matches_snapshot_assemblyShortName=Ontogory.SomeName failed
+Public_api_matches_snapshot_assemblyShortName=Ontogony.SomeName failed
 
 The PublicAPI.txt snapshot file does not match the current source
 ```
@@ -81,17 +81,17 @@ When you change a public API surface, ensure:
 Run the public API tests locally:
 
 ```bash
-dotnet test tests/Ontogory.PublicApi.Tests -c Release
+dotnet test tests/Ontogony.PublicApi.Tests/Ontogony.PublicApi.Tests.csproj -c Release
 ```
 
 If snapshots differ, the test output shows a diff. You can review the changes:
 
 ```bash
 # Unix/macOS
-cat tests/Ontogory.PublicApi.Tests/ShippingAssemblyPublicApiTests.Public_api_matches_snapshot_assemblyShortName=Ontogory.Http.received.txt
+cat tests/Ontogony.PublicApi.Tests/ShippingAssemblyPublicApiTests.Public_api_matches_snapshot_assemblyShortName=Ontogony.Http.received.txt
 
 # Windows PowerShell
-Get-Content tests/Ontogory.PublicApi.Tests/ShippingAssemblyPublicApiTests.Public_api_matches_snapshot_assemblyShortName=Ontogory.Http.received.txt
+Get-Content tests/Ontogony.PublicApi.Tests/ShippingAssemblyPublicApiTests.Public_api_matches_snapshot_assemblyShortName=Ontogony.Http.received.txt
 ```
 
 Compare the `.received.txt` (new) and `.verified.txt` (baseline) files.
@@ -106,14 +106,32 @@ If you have intentionally changed the public API and documented it:
 
 ## CI Enforcement
 
-The CI pipeline (`ci.yml`) runs `Ontogory.PublicApi.Tests` as part of the test suite. A PR will fail CI if:
+The CI pipeline (`ci.yml`) runs `Ontogony.PublicApi.Tests` as part of the test suite and also runs `scripts/validate-public-api-governance.ps1`. A PR will fail CI if:
 
 - A public API snapshot differs but has not been approved.
 - The PR modifies a snapshot file **without** a corresponding CHANGELOG entry and (if breaking) migration note.
 
+## Governance Script Scope and Limitations
+
+`scripts/validate-public-api-governance.ps1` is intentionally conservative.
+
+- It detects changed `.verified.txt` files under `tests/Ontogony.PublicApi.Tests/` from staged changes, unstaged changes, or CI PR/base diffs when available.
+- If snapshot files changed, it requires `CHANGELOG.md` to change in the same diff/worktree.
+- It does **not** fully classify removals vs additions yet; reviewers must still inspect the snapshot diff and decide whether a migration note is required.
+- If CI cannot provide a comparable base diff and there are no local snapshot changes, the script exits cleanly rather than guessing.
+
+## Manual Proof
+
+You can validate the governance guard locally without committing anything:
+
+1. Edit any `*.verified.txt` file under `tests/Ontogony.PublicApi.Tests/` and run `./scripts/validate-public-api-governance.ps1`.
+  Expected result: the script fails if `CHANGELOG.md` was not also changed.
+2. Make a corresponding edit to `CHANGELOG.md` and re-run the script.
+  Expected result: the script passes.
+
 ## Future Public API Stability
 
-Once Ontogory.Platform reaches a **stable release** (v1.0.0 or later):
+Once Ontogony.Platform reaches a **stable release** (v1.0.0 or later):
 
 - **Semantic Versioning** will be enforced: patch versions must not contain breaking public API changes.
 - Public API governance will become stricter; deprecation periods will precede removals.
@@ -129,6 +147,6 @@ During **alpha releases** (`v0.3.0-alpha.1` and later):
 
 If you have questions about whether a change is public, breaking, or requires migration documentation:
 
-1. Check `Ontogory.Security`, `Ontogory.Http`, or `Ontogory.Configuration` package READMEs for primary use cases.
+1. Check `Ontogony.Security`, `Ontogony.Http`, or `Ontogony.Configuration` package READMEs for primary use cases.
 2. See [CHANGELOG.md](../CHANGELOG.md) for recent examples.
 3. If uncertain, open a GitHub Discussion or ask in a PR.
