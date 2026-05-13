@@ -2,9 +2,18 @@
 
 This document records **what was implemented in-repo** and the **evidence checklist** to complete after the first proof tag publish. See also `docs/planning/next-phase/architecture/PACKAGE_RELEASE_EVIDENCE.md`.
 
-## Implemented (this PR)
+## Status (do not treat full NP-001 as closed until 001B is done)
 
-- **`release-packages.yml`** — added step **Validate Conexus consumer baseline (readiness vs Directory.Build.targets)** running `./scripts/validate-conexus-consumer-baseline-alignment.ps1`, in the same order as `ci.yml` (after dependency baseline, before strict CHANGELOG validation, pack, manifest, Conexus package smoke).
+| Split | Scope | State |
+| --- | --- | --- |
+| **PLAT-NP-001A** | Release workflow parity: Conexus baseline gate in `release-packages.yml`, manifest script portability, pre-pack cleanup of `artifacts/packages`, evidence doc skeleton | **Done** (in `main` after merge) |
+| **PLAT-NP-001B** | First real tag-triggered publish: run URL, GitHub Packages proof, `PACKAGE_MANIFEST.json` vs Release attachments, filled table below | **Pending** (operational) |
+
+**PLAT-NP-001** as a whole stays **open** until **001B** evidence is captured.
+
+## Implemented (workflow parity — 001A)
+
+- **`release-packages.yml`** — added step **Validate Conexus consumer baseline (readiness vs Directory.Build.targets)** running `./scripts/validate-conexus-consumer-baseline-alignment.ps1`, in the same order as `ci.yml` (after dependency baseline, before strict CHANGELOG validation, pack, manifest, Conexus package smoke). **Clear package output** removes `artifacts/packages` before pack so manifest version validation cannot see stale `.nupkg` files (self-documenting on self-hosted or reused workspaces too).
 - **`scripts/generate-package-manifest.ps1`** — portable default commit hash on Windows PowerShell 5.1; ASCII-only success lines (avoids parser issues with some hosts).
 
 ## Suggested first proof tag

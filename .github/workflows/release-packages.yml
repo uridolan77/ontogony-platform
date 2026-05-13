@@ -105,6 +105,13 @@ jobs:
         shell: pwsh
         run: ./scripts/validate-changelog.ps1 -PackageVersion "${{ steps.version.outputs.version }}" -Strict
 
+      - name: Clear package output
+        shell: pwsh
+        run: |
+          if (Test-Path artifacts/packages) {
+            Remove-Item artifacts/packages -Recurse -Force
+          }
+
       - name: Pack packages
         env:
           PACKAGE_VERSION: ${{ steps.version.outputs.version }}

@@ -36,7 +36,7 @@ Ontogony.Platform is now a credible mechanical substrate for Conexus.NET:
 
 The platform is structurally strong, but two items are still operational rather than purely code-level:
 
-1. First successful package-tag publish to GitHub Packages.
+1. First successful package-tag publish to GitHub Packages (PLAT-NP-001B; NP-001A release/CI parity is done on `main`).
 2. First green run proof for CodeQL / Supply chain / Dependency submission after the latest workflow fixes.
 
 ## Top risks now

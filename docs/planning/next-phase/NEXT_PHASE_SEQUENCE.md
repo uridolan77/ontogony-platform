@@ -3,9 +3,8 @@
 ## Phase A — prove the platform can be consumed and shipped
 
 1. **PLAT-NP-001 — Release workflow parity + first tag publish proof**
-   - Add Conexus baseline alignment validation to `release-packages.yml`.
-   - Perform one tag publish.
-   - Record feed entries, package manifest, artifact hashes, and GitHub Release attachments.
+   - **001A (done):** Conexus baseline alignment validation in `release-packages.yml`; pre-pack cleanup of `artifacts/packages`; evidence doc + manifest script fixes on `main`.
+   - **001B (pending):** Perform one tag publish; record workflow run URL, GitHub Packages feed proof, `PACKAGE_MANIFEST.json` vs Release `.nupkg` hashes, and Conexus smoke — fill `docs/releases/PR-PLAT-NP-001-release-parity-evidence.md`. **Do not mark NP-001 fully closed until 001B is complete.**
 
 2. **PLAT-NP-002 — Real Conexus package-mode compatibility**
    - Prefer implementation in `conexus-dotnet` CI.

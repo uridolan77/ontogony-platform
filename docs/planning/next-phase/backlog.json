@@ -5,7 +5,7 @@
       "title": "Release workflow parity + first tag publish proof",
       "priority": "P0",
       "status": "open",
-      "why": "Publishing exists but first real tag publish proof is still operationally unverified."
+      "why": "001A (release/CI parity + cleanup + evidence skeleton) is on main; 001B (actual tag publish + filled evidence table) remains pending. Close only after operational proof."
     },
     {
       "id": "PLAT-NP-002",
