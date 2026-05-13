@@ -1,0 +1,60 @@
+{
+  "items": [
+    {
+      "id": "PLAT-NP-001",
+      "title": "Release workflow parity + first tag publish proof",
+      "priority": "P0",
+      "status": "open",
+      "why": "Publishing exists but first real tag publish proof is still operationally unverified."
+    },
+    {
+      "id": "PLAT-NP-002",
+      "title": "Real Conexus package-mode compatibility",
+      "priority": "P0",
+      "status": "open",
+      "why": "The package smoke is Conexus-shaped, but the real Conexus repository still compiles sibling source."
+    },
+    {
+      "id": "PLAT-NP-003",
+      "title": "Supply-chain workflow first-run evidence",
+      "priority": "P0",
+      "status": "open",
+      "why": "Workflow definitions are good, but runner behavior/permissions must be proven."
+    },
+    {
+      "id": "PLAT-NP-004",
+      "title": "Donor and incoming-package hygiene",
+      "priority": "P1",
+      "status": "open",
+      "why": "Coordination artifacts should not leak into distributable package or documentation surfaces."
+    },
+    {
+      "id": "PLAT-NP-005",
+      "title": "README/docs accuracy pass",
+      "priority": "P1",
+      "status": "open",
+      "why": "Docs changed rapidly; stale claims around package count/release behavior/resilience are high-risk."
+    },
+    {
+      "id": "PLAT-NP-006",
+      "title": "Deferred-item register",
+      "priority": "P1",
+      "status": "open",
+      "why": "PR-PLAT-003 and PR-PLAT-012 should be explicitly deferred or re-scoped."
+    },
+    {
+      "id": "PLAT-NP-007",
+      "title": "Secret resolver reference parser",
+      "priority": "P2",
+      "status": "open",
+      "why": "Conexus is starting to need resolver-agnostic references such as env:NAME instead of env-var-specific option names."
+    },
+    {
+      "id": "PLAT-NP-008",
+      "title": "In-memory warning coverage expansion",
+      "priority": "P2",
+      "status": "open",
+      "why": "Artifact warning tests exist; warning coverage should be symmetrical across all platform in-memory stores."
+    }
+  ]
+}

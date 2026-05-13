@@ -1,0 +1,59 @@
+# Ontogony.Platform review after PR-PLAT-011
+
+## Current judgment
+
+Ontogony.Platform is now a credible mechanical substrate for Conexus.NET:
+
+- package publishing workflow exists;
+- Conexus package-consumer smoke exists;
+- public API approval tests exist;
+- dependency baseline validation exists;
+- XML docs are enforced for the Conexus consumer surface;
+- supply-chain workflows exist;
+- in-memory non-durable warnings are implemented;
+- generic secret-value resolution exists.
+
+## Status by robustness PR
+
+| PR | Status | Judgment |
+| --- | --- | --- |
+| PR-PLAT-001 | Implemented | Package release workflow exists. Operational first tag publish proof remains open. |
+| PR-PLAT-002 | Implemented | Package-consumer smoke exists. Full real Conexus repo package-mode test remains open. |
+| PR-PLAT-003 | Deferred / not implemented | Typed HTTP client support was not needed by Conexus because existing integration HTTP client pipeline was sufficient. Keep deferred. |
+| PR-PLAT-004 | Implemented | Public API approval snapshots are in place. |
+| PR-PLAT-005 | Implemented | Dependency baseline script and policy are in place. |
+| PR-PLAT-006 | Implemented as docs expansion | XML docs were expanded across consumer-facing APIs. |
+| PR-PLAT-006.1 | Implemented | `src/Directory.Build.targets` strips CS1591 suppression for the 16 Conexus consumer packages only. |
+| PR-PLAT-007 | Implemented | CodeQL, dependency review, dependency submission, and supply-chain workflows exist. |
+| PR-PLAT-007.1 | Implemented as workflow definition | Stabilization changes are present. Green run proof should still be recorded. |
+| PR-PLAT-008 | Not implemented | Donor folder hygiene remains open if donor material is still present. |
+| PR-PLAT-009 | Implemented | Non-durable in-memory store startup warnings are wired for key in-memory stores. |
+| PR-PLAT-010 | Not separately verified | README resilience contradiction appears largely superseded by prior documentation cleanup, but no explicit PR-PLAT-010 closeout exists. |
+| PR-PLAT-011 | Implemented | `ISecretValueResolver`, env resolver, composite resolver, DI extension, docs, tests, and public API updates exist. |
+| PR-PLAT-012 | Deferred / not implemented | Durable quota ledger design spike remains deferred; Conexus currently owns its EF quota ledger. |
+
+## Important caveat
+
+The platform is structurally strong, but two items are still operational rather than purely code-level:
+
+1. First successful package-tag publish to GitHub Packages.
+2. First green run proof for CodeQL / Supply chain / Dependency submission after the latest workflow fixes.
+
+## Top risks now
+
+1. Release workflow drift: `ci.yml` includes the Conexus baseline alignment script, but release-packages should also run it before pack/publish.
+2. Package adoption gap: Conexus still compiles sibling source; real package-mode consumption belongs in Conexus CI or a multi-checkout compatibility workflow.
+3. Over-platforming risk: do not add provider, model, routing, price catalog, or gateway semantics to Ontogony.
+4. Security workflow fragility: Trivy/Gitleaks/dependency submission can fail because of environment/permissions/action behavior, not design.
+5. Donor/incoming package hygiene: `_agent_prompts`, `_issue_bodies`, and any donor/source overlay material should not pollute the distributable package surface.
+
+## Immediate recommendation
+
+Proceed in this order:
+
+1. PLAT-NP-001 — release workflow parity and first tag publish proof.
+2. PLAT-NP-002 — real Conexus package-mode compatibility.
+3. PLAT-NP-003 — supply-chain first-run evidence and stabilization.
+4. PLAT-NP-004 — donor/incoming package hygiene.
+5. PLAT-NP-005 — README/docs final accuracy pass.
+6. PLAT-NP-006 — explicit deferred-items register for PR-PLAT-003 and PR-PLAT-012.
