@@ -60,8 +60,8 @@
       "id": "PLAT-NP-009",
       "title": "Public API review gate hardening",
       "priority": "P2",
-      "status": "open",
-      "why": "Implemented in code and docs: the governance script watches tests/Ontogony.PublicApi.Tests/**/*.verified.txt, requires CHANGELOG.md for snapshot changes, and now catches deleted/renamed snapshot files. Local fail/pass proof is recorded in docs/public-api-review.md. The current public head CI run for commit 75311d0 is https://github.com/uridolan77/ontogony-platform/actions/runs/25791922209 and it failed on stale Ontogony.Http.Tests API usage, so treat this item as implemented pending a new green CI run after the local fixes are pushed."
+      "status": "closed",
+      "why": "Implemented and externally proven: the governance script watches tests/Ontogony.PublicApi.Tests/**/*.verified.txt, requires CHANGELOG.md for snapshot changes, and catches deleted/renamed snapshot files. Local fail/pass proof is recorded in docs/public-api-review.md, and green CI proof is now recorded for merge commit 89398c03f9516c2c772a9057df9948789d6b2188 at https://github.com/uridolan77/ontogony-platform/actions/runs/25796705366."
     }
   ]
 }
