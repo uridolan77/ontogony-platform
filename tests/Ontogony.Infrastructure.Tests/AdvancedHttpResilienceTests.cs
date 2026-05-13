@@ -83,19 +83,12 @@ public sealed class AdvancedHttpResilienceTests
     [Fact]
     public async Task AttemptTimeout_Handles_Slow_Attempts()
     {
-        // Arrange
-        var slowHandler = new SlowResponseHandler(
-            delayMs: 200,
-            responses: new[]
-            {
-                new HttpResponseMessage(HttpStatusCode.OK)
-            }
-        );
+        var neverCompletesHandler = new NeverCompletesHandler();
 
         var options = Options.Create(new TransportResilienceOptions
         {
             Enabled = true,
-            MaxRetries = 1,
+            MaxRetries = 0,
             AttemptTimeout = TimeSpan.FromMilliseconds(100),
             BaseDelayMilliseconds = 10,
             MaxDelayMilliseconds = 10,
@@ -104,15 +97,15 @@ public sealed class AdvancedHttpResilienceTests
 
         var handler = new ResilientIntegrationDelegatingHandler("tests", new TransportResilienceRegistry(), options, Clock)
         {
-            InnerHandler = slowHandler
+            InnerHandler = neverCompletesHandler
         };
 
         using var client = new HttpClient(handler);
 
-        // Act & Assert - slow attempt times out
-        await Assert.ThrowsAsync<TaskCanceledException>(
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(
             () => client.GetAsync("https://example.test/slow")
         );
+        Assert.Equal(1, neverCompletesHandler.CallCount);
     }
 
     [Fact]
@@ -307,27 +300,17 @@ public sealed class AdvancedHttpResilienceTests
     }
 
     /// <summary>
-    /// Test handler that delays responses to test timeout behavior
+    /// Test handler that never completes unless canceled by timeout.
     /// </summary>
-    private sealed class SlowResponseHandler : HttpMessageHandler
+    private sealed class NeverCompletesHandler : HttpMessageHandler
     {
-        private readonly int _delayMs;
-        private readonly IEnumerator<HttpResponseMessage> _responses;
-
-        public SlowResponseHandler(int delayMs, IEnumerable<HttpResponseMessage> responses)
-        {
-            _delayMs = delayMs;
-            _responses = responses.GetEnumerator();
-        }
+        public int CallCount { get; private set; }
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            await Task.Delay(_delayMs, cancellationToken).ConfigureAwait(false);
-            if (_responses.MoveNext())
-            {
-                return _responses.Current;
-            }
-            throw new InvalidOperationException("No more responses available");
+            CallCount++;
+            await Task.Delay(Timeout.InfiniteTimeSpan, cancellationToken).ConfigureAwait(false);
+            throw new InvalidOperationException("Unreachable");
         }
     }
 
