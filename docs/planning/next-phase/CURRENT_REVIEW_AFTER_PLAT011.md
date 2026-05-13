@@ -53,5 +53,6 @@ The platform is structurally strong, but at least one item is still operational 
 Proceed in this order:
 
 1. PLAT-NP-003 — finish **Dependency submission** after enabling Dependency graph (see evidence doc); keep other security runs green.
-2. PLAT-NP-005 — README/docs final accuracy pass.
-3. PLAT-NP-006 — explicit deferred-items register for PR-PLAT-003 and PR-PLAT-012.
+2. ~~PLAT-NP-005 — README/docs final accuracy pass.~~ **Done** (ongoing: keep docs aligned when packages or baselines change).
+3. ~~PLAT-NP-006 — explicit deferred-items register for PR-PLAT-003 and PR-PLAT-012.~~ **Done** — see [`docs/planning/robustness/DEFERRED_ITEMS.md`](../robustness/DEFERRED_ITEMS.md) and [`PLAT_ROBUSTNESS_SEQUENCE.md`](../robustness/PLAT_ROBUSTNESS_SEQUENCE.md).
+4. ~~PLAT-NP-007 — secret reference parser.~~ **Done** — `SecretValueReferenceParser` in `Ontogony.Secrets`.

@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+PR-PLAT-NP-007 — secret reference string parser (`Ontogony.Secrets`):
+
+- **`SecretValueReferenceParser.TryParse`** — parses `scheme:locator` (first colon); rejects missing/blank segments; no cloud SDKs and no scheme semantics.
+- **Tests:** `SecretValueReferenceParserTests`; package README updated; public API snapshot updated for `Ontogony.Secrets`.
+
+PR-PLAT-NP-006 — deferred robustness register:
+
+- **`docs/planning/robustness/DEFERRED_ITEMS.md`** — explicit rationale and revival criteria for **PR-PLAT-003** (typed HTTP clients) and **PR-PLAT-012** (durable quota ledger spike).
+- **`docs/planning/robustness/PLAT_ROBUSTNESS_SEQUENCE.md`** — per-PR status table with links to the deferred register.
+
+PR-PLAT-NP-005 — docs accuracy:
+
+- **`docs/start-here.md`** — package browser line now points at the **23** shipping packages catalog instead of an incorrect “16 packages total” count.
+
 PR-PLAT-NP-004 — donor / coordination path hygiene for shipped `.nupkg` files:
 
 - **CI / release:** new `scripts/validate-nupkg-coordination-path-hygiene.ps1` runs after `pack-all` in `ci.yml` and `release-packages.yml`, failing the job if any non-symbol package archive contains coordination-style paths (`_agent_prompts`, `_issue_bodies`, `docs/_incoming`, `.tmp`, `_donor`, `donors`, etc.).

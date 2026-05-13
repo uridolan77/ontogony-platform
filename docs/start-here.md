@@ -61,7 +61,7 @@ Browse by namespace:
 - `Ontogony.Errors` — HTTP error handling
 - `Ontogony.Http` — HTTP clients and resilience
 - `Ontogony.Security` — Authentication and signing
-- ... (16 packages total)
+- … see the full [**23 shipping packages**](packages/index.md) catalog for the complete list.
 
 ---
 

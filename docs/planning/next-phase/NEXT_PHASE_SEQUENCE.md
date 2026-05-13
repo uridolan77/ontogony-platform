@@ -20,19 +20,16 @@
    - **`scripts/validate-nupkg-coordination-path-hygiene.ps1`** runs in CI and release after pack; fails if `.nupkg` entries contain coordination path fragments.
    - **Docs:** [`docs/packages/index.md`](../../packages/index.md) states planning vs shipped separation.
 
-5. **PLAT-NP-005 — README/docs final accuracy pass**
-   - Remove stale statements about release mode, resilience, package counts, and Conexus readiness.
-   - Keep docs aligned with `Directory.Build.targets`, `CHANGELOG.md`, and package inventory.
+5. **PLAT-NP-005 — README/docs final accuracy pass** — **closed**
+   - Top-level docs aligned with current package inventory and consumer docs (including `docs/start-here.md` vs 23-package catalog).
 
-6. **PLAT-NP-006 — Deferred item register**
-   - Explicitly mark PR-PLAT-003 and PR-PLAT-012 as deferred unless current Conexus pressure proves a platform need.
-   - Avoid silent "not done but still listed" ambiguity.
+6. **PLAT-NP-006 — Deferred item register** — **closed**
+   - [`docs/planning/robustness/DEFERRED_ITEMS.md`](../robustness/DEFERRED_ITEMS.md) and status table in [`PLAT_ROBUSTNESS_SEQUENCE.md`](../robustness/PLAT_ROBUSTNESS_SEQUENCE.md).
 
 ## Phase C — measured capability additions
 
-7. **PLAT-NP-007 — Secret resolver parsing and diagnostics**
-   - Add a small parser/helper for strings like `env:NAME`, `vault:path`, etc., without adding any cloud SDK.
-   - Keep actual vault implementations external.
+7. **PLAT-NP-007 — Secret resolver parsing and diagnostics** — **closed**
+   - `SecretValueReferenceParser` in `Ontogony.Secrets` (see [`pr-specs/PR-PLAT-NP-007-secret-reference-parser.md`](./pr-specs/PR-PLAT-NP-007-secret-reference-parser.md)); vault resolution remains external.
 
 8. **PLAT-NP-008 — In-memory warning coverage expansion**
    - Verify all platform-provided in-memory implementations either warn outside Development or are clearly harmless.
