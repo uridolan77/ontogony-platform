@@ -41,7 +41,9 @@ public static class PersistenceServiceCollectionExtensions
         services.AddSingleton<IOutboxDispatcher>(sp => sp.GetRequiredService<InMemoryOutboxStore>());
         services.AddSingleton<IProcessedMessageStore>(sp => sp.GetRequiredService<InMemoryOutboxStore>());
 
-        services.AddOntogonyInMemoryNonDurableStartupWarning("Ontogony.Persistence: InMemoryOutboxStore");
+        services.AddOntogonyInMemoryNonDurableStartupWarning(
+            "Ontogony.Persistence: InMemoryOutboxStore",
+            "For production outbox semantics, use AddOntogonyPostgresOutbox or another durable IOutboxWriter / IOutboxReader / IOutboxDispatcher instead of the in-memory reference store.");
 
         return services;
     }

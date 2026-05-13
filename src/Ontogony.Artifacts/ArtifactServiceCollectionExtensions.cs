@@ -30,7 +30,9 @@ public static class ArtifactServiceCollectionExtensions
             sp.GetRequiredService<IIdGenerator>()));
         services.AddSingleton<IArtifactStore>(sp => sp.GetRequiredService<InMemoryArtifactStore>());
 
-        services.AddOntogonyInMemoryNonDurableStartupWarning("Ontogony.Artifacts: InMemoryArtifactStore");
+        services.AddOntogonyInMemoryNonDurableStartupWarning(
+            "Ontogony.Artifacts: InMemoryArtifactStore",
+            "For production or multi-instance hosts, register a durable IArtifactStore (for example blob/object storage or your organization's standard backing store) instead of the in-memory reference store.");
 
         return services;
     }

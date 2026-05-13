@@ -13,19 +13,23 @@ internal sealed class InMemoryNonDurableStartupWarningHostedService : IHostedSer
     private readonly IHostEnvironment _environment;
     private readonly ILogger _logger;
     private readonly string _mechanismDisplayName;
+    private readonly string _durableReplacementGuidance;
 
     public InMemoryNonDurableStartupWarningHostedService(
         IHostEnvironment environment,
         ILoggerFactory loggerFactory,
-        string mechanismDisplayName)
+        string mechanismDisplayName,
+        string durableReplacementGuidance)
     {
         ArgumentNullException.ThrowIfNull(environment);
         ArgumentNullException.ThrowIfNull(loggerFactory);
         ArgumentException.ThrowIfNullOrWhiteSpace(mechanismDisplayName);
+        ArgumentException.ThrowIfNullOrWhiteSpace(durableReplacementGuidance);
 
         _environment = environment;
         _logger = loggerFactory.CreateLogger(LoggerCategory);
         _mechanismDisplayName = mechanismDisplayName;
+        _durableReplacementGuidance = durableReplacementGuidance;
     }
 
     public Task StartAsync(CancellationToken cancellationToken)
@@ -36,8 +40,9 @@ internal sealed class InMemoryNonDurableStartupWarningHostedService : IHostedSer
         }
 
         _logger.LogWarning(
-            "Ontogony: non-durable in-memory registration active ({Mechanism}). This is not suitable as a multi-instance or durable production source of truth; replace with a backed implementation for that environment.",
-            _mechanismDisplayName);
+            "Ontogony: non-durable in-memory registration active ({Mechanism}). {DurableReplacementGuidance}",
+            _mechanismDisplayName,
+            _durableReplacementGuidance);
 
         return Task.CompletedTask;
     }
@@ -49,16 +54,19 @@ internal static class InMemoryNonDurableStartupWarningRegistration
 {
     internal static IServiceCollection AddOntogonyInMemoryNonDurableStartupWarning(
         this IServiceCollection services,
-        string mechanismDisplayName)
+        string mechanismDisplayName,
+        string durableReplacementGuidance)
     {
         ArgumentNullException.ThrowIfNull(services);
         ArgumentException.ThrowIfNullOrWhiteSpace(mechanismDisplayName);
+        ArgumentException.ThrowIfNullOrWhiteSpace(durableReplacementGuidance);
 
         services.AddSingleton<IHostedService>(sp =>
             new InMemoryNonDurableStartupWarningHostedService(
                 sp.GetRequiredService<IHostEnvironment>(),
                 sp.GetRequiredService<ILoggerFactory>(),
-                mechanismDisplayName));
+                mechanismDisplayName,
+                durableReplacementGuidance));
 
         return services;
     }

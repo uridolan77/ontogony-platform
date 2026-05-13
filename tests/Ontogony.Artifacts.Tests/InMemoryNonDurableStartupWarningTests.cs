@@ -25,7 +25,7 @@ public sealed class InMemoryNonDurableStartupWarningTests
             sink,
             e => e.Level == LogLevel.Warning &&
                  e.Message.Contains("InMemoryArtifactStore", StringComparison.Ordinal) &&
-                 e.Message.Contains("non-durable", StringComparison.OrdinalIgnoreCase));
+                 e.Message.Contains("IArtifactStore", StringComparison.Ordinal));
 
         await host.StopAsync();
     }

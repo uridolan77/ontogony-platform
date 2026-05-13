@@ -4,6 +4,8 @@
 
 `AddOntogonyInMemoryArtifactStore`, `AddOntogonyInMemoryExecutionJournal`, `AddOntogonyInMemoryQuotaLedger`, and `AddOntogonyInMemoryOutboxStore` each register an `IHostedService` that logs a **single warning** on host start when `IHostEnvironment.IsDevelopment()` is **false**. **Staging** and **Production** are treated the same (anything outside Development).
 
+Each warning includes the mechanism name and **explicit guidance** toward a durable replacement (`IArtifactStore`, `IExecutionJournal`, `IQuotaLedger`, Postgres outbox / durable outbox contracts).
+
 No exception is thrown; services that need a hard fail should validate configuration separately.
 
 ## PR-PLAT-011
@@ -15,6 +17,8 @@ Mechanical secret **value** resolution (distinct from `SecretRef` display metada
 - **`CompositeSecretValueResolver`** — ordered chain until one resolver returns `IsResolved: true`.
 
 **Consumers (e.g. Conexus):** compose additional `ISecretValueResolver` implementations for vault or provider-specific schemes; avoid logging resolved secret material.
+
+`SecretValueResolveResult` is a **readonly struct** with a **safe `ToString()`** (resolved values are redacted). `CompositeSecretValueResolver` uses **constructor order**: first successful resolver wins; if none resolve, the composite returns `UnresolvedReason` **`unresolved`** (individual resolver reasons are not aggregated).
 
 ## Repos
 

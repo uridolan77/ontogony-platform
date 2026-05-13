@@ -6,6 +6,24 @@ namespace Ontogony.Secrets.Tests;
 public sealed class SecretValueResolverTests
 {
     [Fact]
+    public void Resolve_result_ToString_never_contains_secret_material()
+    {
+        var r = new SecretValueResolveResult(true, "super-secret-api-key", null);
+        var text = r.ToString();
+        Assert.DoesNotContain("super-secret", text, StringComparison.Ordinal);
+        Assert.Contains("redacted", text, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public async Task Composite_returns_unresolved_when_entire_chain_fails()
+    {
+        var composite = new CompositeSecretValueResolver(new ISecretValueResolver[] { new NeverResolver(), new NeverResolver() });
+        var result = await composite.TryResolveAsync(new SecretValueReference("env", "ANY_MISSING"));
+        Assert.False(result.IsResolved);
+        Assert.Equal("unresolved", result.UnresolvedReason);
+    }
+
+    [Fact]
     public async Task Environment_resolver_reads_env_var()
     {
         const string name = "ONTOGONY_SECRET_VALUE_RESOLVER_TESTS__X";

@@ -22,7 +22,9 @@ public static class QuotaServiceCollectionExtensions
         services.TryAddSingleton<InMemoryQuotaLedger>();
         services.TryAddSingleton<IQuotaLedger>(sp => sp.GetRequiredService<InMemoryQuotaLedger>());
 
-        services.AddOntogonyInMemoryNonDurableStartupWarning("Ontogony.Quotas: InMemoryQuotaLedger");
+        services.AddOntogonyInMemoryNonDurableStartupWarning(
+            "Ontogony.Quotas: InMemoryQuotaLedger",
+            "For production enforcement across instances, register a durable IQuotaLedger; product plan tiers and policy remain in the gateway.");
 
         return services;
     }

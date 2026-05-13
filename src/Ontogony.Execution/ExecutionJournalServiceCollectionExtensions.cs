@@ -20,7 +20,9 @@ public static class ExecutionJournalServiceCollectionExtensions
         services.TryAddSingleton<InMemoryExecutionJournal>();
         services.TryAddSingleton<IExecutionJournal>(sp => sp.GetRequiredService<InMemoryExecutionJournal>());
 
-        services.AddOntogonyInMemoryNonDurableStartupWarning("Ontogony.Execution: InMemoryExecutionJournal");
+        services.AddOntogonyInMemoryNonDurableStartupWarning(
+            "Ontogony.Execution: InMemoryExecutionJournal",
+            "For production truth across processes, use a durable IExecutionJournal backed by your database or append-only event store instead of the in-memory journal.");
 
         return services;
     }
