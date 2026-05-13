@@ -51,7 +51,7 @@ The platform is structurally strong, but two items are still operational rather 
 
 Proceed in this order:
 
-1. PLAT-NP-001 — release workflow parity and first tag publish proof.
+1. PLAT-NP-001 — **001B:** first tag publish proof and evidence table (`001A` parity is on `main`).
 2. PLAT-NP-002 — real Conexus package-mode compatibility.
 3. PLAT-NP-003 — supply-chain first-run evidence and stabilization.
 4. PLAT-NP-004 — donor/incoming package hygiene.
