@@ -34,7 +34,7 @@
 | --- | --- | --- |
 | `PLAT-NP-001` | Closed | Tag `v0.3.0-alpha.1` publish proof is recorded in `docs/releases/PR-PLAT-NP-001-release-parity-evidence.md`. |
 | `PLAT-NP-002` | Closed | Conexus package-mode compatibility proof remains recorded in `docs/consumer-blueprints/CONEXUS_ONTOGONY_PACKAGE_MODE_CONTRACT.md`. |
-| `PLAT-NP-003` | Open (partial) | Historical CodeQL green proof exists and current Supply chain is green, but current public head CodeQL is failed, Dependency submission is blocked until GitHub Dependency graph is enabled, and Dependency review still needs a real PR proof run. |
+| `PLAT-NP-003` | Closed | Dependency graph enabled; dependency submission run `25795696616` succeeded; real PR dependency-review run `25795820305` succeeded on PR `#1`. |
 | `PLAT-NP-004` | Closed | Package hygiene scan remains enforced in CI/release. |
 | `PLAT-NP-005` | Closed, continuous maintenance | Accuracy baseline remains closed; docs still require normal ongoing maintenance. |
 | `PLAT-NP-006` | Closed | Deferred item register remains explicit and current. |
@@ -72,9 +72,8 @@
 - Historical CodeQL green proof URL: `https://github.com/uridolan77/ontogony-platform/actions/runs/25777405806`
 - Current public head CodeQL run: `https://github.com/uridolan77/ontogony-platform/actions/runs/25791922210` — **failed** on stale `tests/Ontogony.Http.Tests` API usage
 - Current public head Supply-chain green proof URL: `https://github.com/uridolan77/ontogony-platform/actions/runs/25791922188`
-- Dependency submission latest documented run: `https://github.com/uridolan77/ontogony-platform/actions/runs/25791922202` (fails because Dependency graph is disabled)
-- Dependency graph blocker action: `Settings -> Code security and analysis -> Dependency graph -> Enable`
-- Dependency review: workflow is correctly `pull_request`-only; no real PR proof URL is captured yet; `workflow_dispatch` is not valid proof
+- Dependency submission success proof URL: `https://github.com/uridolan77/ontogony-platform/actions/runs/25795696616`
+- Dependency-review real PR success proof URL: `https://github.com/uridolan77/ontogony-platform/actions/runs/25795820305` (PR `https://github.com/uridolan77/ontogony-platform/pull/1`)
 
 ## PLAT-NP-008 in-memory warning inventory
 
@@ -125,10 +124,9 @@ Judgment: baseline warning coverage is complete for current public in-memory DI 
 
 ## Skipped validations and exact reason
 
-- No additional GitHub-hosted CI runs were created from inside this workspace, so external proof remains limited to URLs already recorded in repository docs.
+- A full new external CI rerun for `PLAT-NP-009` proof was not created from this workspace; only the targeted NP-003 runs were triggered/captured.
 
 ## Remaining open items
 
-1. `PLAT-NP-003` remains open until Dependency graph is enabled, Dependency submission goes green, and a real PR Dependency review run is captured.
-2. `PLAT-NP-008` remains intentionally open as a future maintenance guard, not because current baseline coverage is missing.
-3. `PLAT-NP-009` remains implemented but pending external CI proof for this hardened script revision; the current public head CI run is failed, and the local HTTP-test fixes in this workspace have not yet been externally rerun.
+1. `PLAT-NP-008` remains intentionally open as a future maintenance guard, not because current baseline coverage is missing.
+2. `PLAT-NP-009` remains implemented but pending external CI proof for this hardened script revision; the current public head CI run is failed, and the local HTTP-test fixes in this workspace have not yet been externally rerun.

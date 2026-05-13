@@ -34,9 +34,7 @@ Ontogony.Platform is now a credible mechanical substrate for Conexus.NET:
 
 ## Important caveat
 
-The platform is structurally strong, but at least one item is still operational rather than purely code-level:
-
-1. First green run proof for Dependency submission after Dependency graph is enabled, plus the first real PR Dependency review proof run (see PLAT-NP-003).
+The platform is structurally strong; remaining open items are now policy/maintenance oriented, not blocked by missing NP-003 workflow evidence.
 
 **PLAT-NP-001B** (first package-tag publish to GitHub Packages with filled evidence) is **closed** — see [`docs/releases/PR-PLAT-NP-001-release-parity-evidence.md`](../../releases/PR-PLAT-NP-001-release-parity-evidence.md).
 
@@ -52,10 +50,10 @@ The platform is structurally strong, but at least one item is still operational 
 
 Proceed in this order:
 
-1. PLAT-NP-003 — finish **Dependency submission** after enabling Dependency graph (see evidence doc); keep other security runs green.
-2. ~~PLAT-NP-005 — README/docs final accuracy pass.~~ **Done** (ongoing: keep docs aligned when packages or baselines change).
-3. ~~PLAT-NP-006 — explicit deferred-items register for PR-PLAT-003 and PR-PLAT-012.~~ **Done** — see [`docs/planning/robustness/DEFERRED_ITEMS.md`](../robustness/DEFERRED_ITEMS.md) and [`PLAT_ROBUSTNESS_SEQUENCE.md`](../robustness/PLAT_ROBUSTNESS_SEQUENCE.md).
-4. ~~PLAT-NP-007 — secret reference parser.~~ **Done** — `SecretValueReferenceParser` in `Ontogony.Secrets`.
+1. PLAT-NP-009 — capture a green external CI run URL for the hardened public API governance revision.
+2. PLAT-NP-008 — keep as a maintenance guard and re-audit when new in-memory registrations are introduced.
+3. ~~PLAT-NP-005 — README/docs final accuracy pass.~~ **Done** (ongoing: keep docs aligned when packages or baselines change).
+4. ~~PLAT-NP-006 — explicit deferred-items register for PR-PLAT-003 and PR-PLAT-012.~~ **Done** — see [`docs/planning/robustness/DEFERRED_ITEMS.md`](../robustness/DEFERRED_ITEMS.md) and [`PLAT_ROBUSTNESS_SEQUENCE.md`](../robustness/PLAT_ROBUSTNESS_SEQUENCE.md).
 
 ## PLAT-NP next-phase status (backlog-aligned)
 
@@ -63,7 +61,7 @@ Proceed in this order:
 | --- | --- | --- |
 | PLAT-NP-001 | Closed | Tag `v0.3.0-alpha.1` release proof |
 | PLAT-NP-002 | Closed | Conexus `conexus-ontogony-package-mode` + contract |
-| PLAT-NP-003 | Open (partial) | Submission blocked by Dependency graph setting; see evidence doc |
+| PLAT-NP-003 | Closed | Dependency submission run `25795696616` and real PR dependency-review run `25795820305` captured |
 | PLAT-NP-004 | Closed | Packed `.nupkg` coordination-path scan |
 | PLAT-NP-005 | Closed | Docs accuracy baseline; ongoing maintenance |
 | PLAT-NP-006 | Closed | `DEFERRED_ITEMS.md` register |

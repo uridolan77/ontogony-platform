@@ -25,4 +25,4 @@ Convert security workflow definitions into proven operational checks.
 
 ## Status (repo)
 
-**Partially complete.** Evidence lives in [`docs/security/PLAT-NP-003-supply-chain-first-run-evidence.md`](../../../security/PLAT-NP-003-supply-chain-first-run-evidence.md): CodeQL, supply chain (including SBOM artifact), and dependency-review wiring are documented with green or appropriate run links. **Dependency submission** remains **blocked** until the repository enables **Dependency graph** in GitHub settings; the evidence doc records the failure mode and owner follow-up. Full NP-003 acceptance (submission green on `main`) stays **open** in [`backlog.json`](../backlog.json) until that run exists.
+**Closed.** Evidence in [`docs/security/PLAT-NP-003-supply-chain-first-run-evidence.md`](../../../security/PLAT-NP-003-supply-chain-first-run-evidence.md) now includes a successful Dependency submission run (`25795696616`) after enabling Dependency graph and a successful real PR Dependency review run (`25795820305` on PR `#1`).
