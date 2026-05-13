@@ -18,8 +18,8 @@
       "id": "PLAT-NP-003",
       "title": "Supply-chain workflow first-run evidence",
       "priority": "P0",
-      "status": "open",
-      "why": "Partially complete: supply chain is green on current public head, but dependency submission still fails with 'Dependency graph is disabled for this repository' and dependency review still lacks a real PR proof run. Historical CodeQL green proof exists, but the current public head CodeQL run also fails until the latest local HTTP-test fixes are pushed; do not close this item until Dependency graph is enabled, submission goes green, and a real PR dependency-review run exists."
+      "status": "closed",
+      "why": "Evidence is now complete in docs/security/PLAT-NP-003-supply-chain-first-run-evidence.md: dependency graph enabled, dependency submission run 25795696616 succeeded, and dependency-review run 25795820305 succeeded on a real PR (#1). Historical CodeQL and supply-chain proof links remain documented there."
     },
     {
       "id": "PLAT-NP-004",

@@ -10,34 +10,33 @@
    - **Conexus CI:** `conexus-ontogony-package-mode` job packs Ontogony from a non-sibling path, adds a local feed, then restore/build/test with `UseOntogonyPackages=true` (see `conexus-dotnet` repo).
    - **Contract + proof:** [`docs/consumer-blueprints/CONEXUS_ONTOGONY_PACKAGE_MODE_CONTRACT.md`](../../consumer-blueprints/CONEXUS_ONTOGONY_PACKAGE_MODE_CONTRACT.md) (green job URL in doc).
 
-3. **PLAT-NP-003 — Security workflow first-run evidence** — **partially complete**
-   - CodeQL, supply chain (incl. SBOM upload), and action pins are proven in [`docs/security/PLAT-NP-003-supply-chain-first-run-evidence.md`](../../security/PLAT-NP-003-supply-chain-first-run-evidence.md).
-   - **Dependency submission** is blocked until **Dependency graph** is enabled in GitHub repo settings (not a workflow-code defect); see the evidence doc for the latest run link.
-   - **Dependency review** runs on **`pull_request`** only; capture a real-PR run link when meaningful diffs are available after the graph is on. Do not use `workflow_dispatch` as proof.
-   - **Owner follow-up:** enable **Dependency graph** at **Settings -> Code security and analysis -> Dependency graph -> Enable**, re-run Dependency submission, then capture both the first green submission run and the first real PR dependency-review run.
+3. **PLAT-NP-003 — Security workflow first-run evidence** — **closed**
+   - Evidence is consolidated in [`docs/security/PLAT-NP-003-supply-chain-first-run-evidence.md`](../../security/PLAT-NP-003-supply-chain-first-run-evidence.md).
+   - **Dependency submission** proof: run `25795696616` (success) after enabling Dependency graph.
+   - **Dependency review** proof on real PR: run `25795820305` on PR `#1` (success).
 
 ## Phase B — repo hygiene and documentation accuracy
 
-4. **PLAT-NP-004 — Donor and incoming-package hygiene** — **closed**
+1. **PLAT-NP-004 — Donor and incoming-package hygiene** — **closed**
    - **`scripts/validate-nupkg-coordination-path-hygiene.ps1`** runs in CI and release after pack; fails if `.nupkg` entries contain coordination path fragments.
    - **Docs:** [`docs/packages/index.md`](../../packages/index.md) states planning vs shipped separation.
 
-5. **PLAT-NP-005 — README/docs final accuracy pass** — **closed**
+2. **PLAT-NP-005 — README/docs final accuracy pass** — **closed**
    - Top-level docs aligned with current package inventory and consumer docs (including `docs/start-here.md` vs 23-package catalog). Treat doc accuracy as **continuous maintenance** when baselines or package lists change.
 
-6. **PLAT-NP-006 — Deferred item register** — **closed**
+3. **PLAT-NP-006 — Deferred item register** — **closed**
    - [`docs/planning/robustness/DEFERRED_ITEMS.md`](../robustness/DEFERRED_ITEMS.md) and status table in [`PLAT_ROBUSTNESS_SEQUENCE.md`](../robustness/PLAT_ROBUSTNESS_SEQUENCE.md).
 
 ## Phase C — measured capability additions
 
-7. **PLAT-NP-007 — Secret resolver parsing and diagnostics** — **closed**
+1. **PLAT-NP-007 — Secret resolver parsing and diagnostics** — **closed**
    - `SecretValueReferenceParser` in `Ontogony.Secrets` (see [`pr-specs/PR-PLAT-NP-007-secret-reference-parser.md`](./pr-specs/PR-PLAT-NP-007-secret-reference-parser.md)); vault resolution remains external.
 
-8. **PLAT-NP-008 — In-memory warning coverage expansion** — **open**
+2. **PLAT-NP-008 — In-memory warning coverage expansion** — **open**
    - Verify all platform-provided in-memory implementations either warn outside Development or are clearly harmless.
    - Baseline is now covered: warning tests cover all current `AddOntogonyInMemory*` registrations (see [`pr-specs/PR-PLAT-NP-008-in-memory-warning-coverage-expansion.md`](./pr-specs/PR-PLAT-NP-008-in-memory-warning-coverage-expansion.md)); keep this item open only as a future maintenance guard for new registrations and audit of test-only fakes.
 
-9. **PLAT-NP-009 — Public API review gate hardening** — **implemented, pending CI proof**
+3. **PLAT-NP-009 — Public API review gate hardening** — **implemented, pending CI proof**
    - The checklist and PR template are in place, and `scripts/validate-public-api-governance.ps1` now enforces changelog updates for modified, deleted, and renamed `tests/Ontogony.PublicApi.Tests/**/*.verified.txt` files.
    - Local manual fail/pass proof is recorded in [`docs/public-api-review.md`](../../public-api-review.md), but a green CI run URL for this hardened revision is not yet recorded.
 

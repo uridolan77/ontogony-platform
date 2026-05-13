@@ -39,7 +39,8 @@ Prior failure modes fixed in code:
 | Field | Value |
 | --- | --- |
 | Workflow | `.github/workflows/dependency-review.yml` (runs on `pull_request` to `main`) |
-| Note | PR-only by design; requires a populated dependency graph for meaningful diffs. No real PR proof URL is captured yet. Manual `workflow_dispatch` is not a supported shape for `dependency-review-action` (see historical run `25769346940`). |
+| Real PR proof run | [Run 25795820305](https://github.com/uridolan77/ontogony-platform/actions/runs/25795820305) on [PR #1](https://github.com/uridolan77/ontogony-platform/pull/1) (success) |
+| Historical note | Manual `workflow_dispatch` is not a supported shape for `dependency-review-action` (see historical run `25769346940`). |
 
 ## SBOM artifact retention
 
@@ -53,4 +54,4 @@ Confirm artifact **`sbom-cyclonedx`** on the green Supply chain run; upload uses
 | Supply chain green on `main` | **Met** — current public head run `25791922188` is green. |
 | SBOM uploaded and retained | **Met** — artifact `sbom-cyclonedx` on green run. |
 | Dependency submission green on `main` | **Met** — run `25795696616` succeeded after dependency graph was enabled. |
-| Dependency review on real PR | **Open** — `dependency-review.yml` is `pull_request`-only (required base/head refs). Capture a real-PR run link when Dependency graph data enables meaningful diffs; until then this row is documentation-only, not a green proof artifact. |
+| Dependency review on real PR | **Met** — run `25795820305` on PR `#1` succeeded. |
