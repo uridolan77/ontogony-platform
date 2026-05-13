@@ -1,5 +1,6 @@
 # Generates a package manifest from produced .nupkg files.
 # This manifest proves what packages were built and their versions.
+# Default OutputPath is repo-root PACKAGE_MANIFEST.json — that file is gitignored; CI uploads the artifact from the workspace copy.
 # Accepts packages directory path and optionally a git commit hash.
 param(
     [Parameter(Mandatory=$false)]

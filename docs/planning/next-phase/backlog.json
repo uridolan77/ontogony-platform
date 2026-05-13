@@ -19,7 +19,7 @@
       "title": "Supply-chain workflow first-run evidence",
       "priority": "P0",
       "status": "open",
-      "why": "Evidence in docs/security/PLAT-NP-003-supply-chain-first-run-evidence.md: CodeQL + supply-chain + SBOM documented green; Dependency submission blocked until GitHub Dependency graph is enabled (owner UI); then re-run and close."
+      "why": "Partially complete: CodeQL, supply chain (incl. SBOM), and dependency-review wiring are documented green in docs/security/PLAT-NP-003-supply-chain-first-run-evidence.md. Dependency submission remains blocked until GitHub Dependency graph is enabled for the repository (Settings → Code security and analysis), not by workflow code; capture first green submission run and close."
     },
     {
       "id": "PLAT-NP-004",
@@ -32,29 +32,36 @@
       "id": "PLAT-NP-005",
       "title": "README/docs accuracy pass",
       "priority": "P1",
-      "status": "open",
-      "why": "Docs changed rapidly; stale claims around package count/release behavior/resilience are high-risk."
+      "status": "closed",
+      "why": "Baseline accuracy pass merged (23-package catalog, release lines, consumer docs). Docs remain continuous maintenance when packages or baselines change."
     },
     {
       "id": "PLAT-NP-006",
       "title": "Deferred-item register",
       "priority": "P1",
-      "status": "open",
-      "why": "PR-PLAT-003 and PR-PLAT-012 should be explicitly deferred or re-scoped."
+      "status": "closed",
+      "why": "DEFERRED_ITEMS.md plus PLAT_ROBUSTNESS_SEQUENCE.md links give explicit rationale and revival criteria for PR-PLAT-003 and PR-PLAT-012."
     },
     {
       "id": "PLAT-NP-007",
       "title": "Secret resolver reference parser",
       "priority": "P2",
-      "status": "open",
-      "why": "Conexus is starting to need resolver-agnostic references such as env:NAME instead of env-var-specific option names."
+      "status": "closed",
+      "why": "SecretValueReferenceParser.TryParse in Ontogony.Secrets (scheme:locator, first colon); tests and public API snapshots updated; no cloud SDKs."
     },
     {
       "id": "PLAT-NP-008",
       "title": "In-memory warning coverage expansion",
       "priority": "P2",
       "status": "open",
-      "why": "Artifact warning tests exist; warning coverage should be symmetrical across all platform in-memory stores."
+      "why": "Ongoing: audit new in-memory DI registrations; baseline warning tests exist for artifact store, execution journal, quota ledger, and in-memory outbox (see PR-PLAT-NP-008 spec inventory)."
+    },
+    {
+      "id": "PLAT-NP-009",
+      "title": "Public API review gate hardening",
+      "priority": "P2",
+      "status": "open",
+      "why": "Checklist for intentional public API snapshot updates: changelog + migration note when applicable; see pr-specs/PR-PLAT-NP-009-public-api-change-checklist.md."
     }
   ]
 }

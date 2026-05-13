@@ -52,4 +52,4 @@ Confirm artifact **`sbom-cyclonedx`** on the green Supply chain run; upload uses
 | Supply chain green on `main` | **Met** — same workflow run family. |
 | SBOM uploaded and retained | **Met** — artifact `sbom-cyclonedx` on green run. |
 | Dependency submission green on `main` | **Blocked** — enable **Dependency graph** for the repository (see section above); link documents latest run until green. |
-| Dependency review on real PR | **Met in principle** — workflow is `pull_request`-only; meaningful diffs need Dependency graph data. |
+| Dependency review on real PR | **Workflow ready** — `dependency-review.yml` is `pull_request`-only (required base/head refs). Capture a real-PR run link when Dependency graph data enables meaningful diffs; until then this row is documentation-only, not a green proof artifact. |

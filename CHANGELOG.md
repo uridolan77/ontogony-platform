@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+PR-PLAT-NP-010 — repository consistency and guardrails (no product semantics):
+
+- **Planning:** `docs/planning/next-phase/backlog.json` reconciled with `NEXT_PHASE_SEQUENCE.md` — **PLAT-NP-005/006/007** closed; **PLAT-NP-009** listed open; **PLAT-NP-003** clarified as partially complete pending Dependency graph for submission.
+- **Docs:** `CURRENT_REVIEW_AFTER_PLAT011.md`, `PLAT_ROBUSTNESS_SEQUENCE.md`, and `PLAT-NP-003` evidence/spec — Dependency Review described as PR-only; submission blockage tied to GitHub Dependency graph setting.
+- **`scripts/validate-nupkg-coordination-path-hygiene.ps1`** — broader forbidden path fragments; clearer actionable errors.
+- **Repo hygiene:** `/PACKAGE_MANIFEST.json` at repo root is gitignored (local `generate-package-manifest.ps1` output); do not commit generated manifests.
+- **Tests:** `DefaultEnvelopeValidator` HTTPS / `file:` / `urn:` source cases; `PostgresOutboxStore` read/claim path regression; in-memory startup warning coverage for Execution, Quotas, and Persistence outbox DI.
+
 PR-PLAT-NP-007 — secret reference string parser (`Ontogony.Secrets`):
 
 - **`SecretValueReferenceParser.TryParse`** — parses `scheme:locator` (first colon); rejects missing/blank segments; no cloud SDKs and no scheme semantics.
@@ -18,7 +26,7 @@ PR-PLAT-NP-005 — docs accuracy:
 
 PR-PLAT-NP-004 — donor / coordination path hygiene for shipped `.nupkg` files:
 
-- **CI / release:** new `scripts/validate-nupkg-coordination-path-hygiene.ps1` runs after `pack-all` in `ci.yml` and `release-packages.yml`, failing the job if any non-symbol package archive contains coordination-style paths (`_agent_prompts`, `_issue_bodies`, `docs/_incoming`, `.tmp`, `_donor`, `donors`, etc.).
+- **CI / release:** `scripts/validate-nupkg-coordination-path-hygiene.ps1` runs after `pack-all` in `ci.yml` and `release-packages.yml`, failing the job if any non-symbol package archive contains coordination-style paths (`_agent_prompts`, `_issue_bodies`, `docs/_incoming*`, `.tmp/`, `_donor`, `donors/`, `incoming_packages`, etc.).
 - **Docs:** `docs/packages/index.md` — note separating repo planning paths from distributable package content; `QUALITY_GATES.md` lists the script for package/release validation.
 - **Planning:** next-phase backlog, sequence, post-PLAT-011 review — **PLAT-NP-002** and **PLAT-NP-004** marked closed; **PLAT-NP-003** called out as partially complete pending Dependency graph for submission.
 

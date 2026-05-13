@@ -55,7 +55,7 @@ $env:PACKAGE_VERSION = "0.3.0-local.1"
 ./scripts/pack-all.ps1
 ```
 
-Outputs land under `artifacts/packages/`. Push manually only when you intend to override a feed (prefer tag-driven releases).
+Outputs land under `artifacts/packages/`. Push manually only when you intend to override a feed (prefer tag-driven releases). `generate-package-manifest.ps1` may also write `PACKAGE_MANIFEST.json` at the repo root for local inspection; that file is gitignored and should not be committed.
 
 ## First tag publish (operational proof)
 

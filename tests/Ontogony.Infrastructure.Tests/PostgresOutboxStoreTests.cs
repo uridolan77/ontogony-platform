@@ -101,6 +101,33 @@ public sealed class PostgresOutboxStoreTests
         Assert.Equal(messageId, allIds[0]);
     }
 
+    /// <summary>
+    /// Regression guard: <see cref="PostgresOutboxStore.ClaimAvailableAsync"/> must dispose the reader before
+    /// <c>CommitAsync</c> on the same Npgsql connection (Linux CI surfaced failures when they overlapped).
+    /// </summary>
+    [Fact]
+    public async Task ReadAvailableAsync_CompletesAfterWrite_WithoutReaderCommitConflict()
+    {
+        if (!HasConnectionString())
+        {
+            return;
+        }
+
+        var suffix = Guid.NewGuid().ToString("N");
+        await using var dataSource = NpgsqlDataSource.Create(Options.ConnectionString);
+        var store = new PostgresOutboxStore(Options, dataSource);
+        await store.EnsureSchemaAsync();
+
+        var messageId = "pg-read-commit-" + suffix;
+        var now = DateTimeOffset.Parse("2026-05-12T14:00:00Z");
+        await store.WriteAsync(CreateMessage(messageId, now, now));
+
+        var batch = await store.ReadAvailableAsync(now.AddMinutes(1), maxBatchSize: 10);
+
+        Assert.Single(batch);
+        Assert.Equal(messageId, batch[0].MessageId);
+    }
+
     [Fact]
     public async Task MarkFailedAsync_UpdatesAttemptAndSchedule()
     {

@@ -353,23 +353,25 @@ git push origin main --tags
 
 ### Package Manifest
 
+`scripts/generate-package-manifest.ps1` writes `PACKAGE_MANIFEST.json` (default: repo root). That path is **gitignored** so local pack runs do not dirty the tree; CI and Releases attach the manifest from the workflow workspace.
+
 After release, `PACKAGE_MANIFEST.json` contains:
 
 ```json
 {
-  "version": "0.3.0",
+  "version": "0.3.0-alpha.1",
   "generated": "2026-05-12T12:34:56Z",
   "commit": "abc123def456",
-  "packageCount": 15,
+  "packageCount": 23,
   "packages": [
     {
       "id": "Ontogony.Contracts",
-      "version": "0.3.0",
-      "filename": "Ontogony.Contracts.0.3.0.nupkg",
+      "version": "0.3.0-alpha.1",
+      "filename": "Ontogony.Contracts.0.3.0-alpha.1.nupkg",
       "sizeBytes": 29982,
       "sha256": "378E89860F3AF948A31D219D02258B890A45E2723911FE6D558C4216329420AD"
     }
-    // ... 14 more packages
+    // ... 22 more shipping packages (non-symbol .nupkg only)
   ]
 }
 ```

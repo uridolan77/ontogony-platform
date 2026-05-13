@@ -12,7 +12,9 @@
 
 3. **PLAT-NP-003 — Security workflow first-run evidence** — **partially complete**
    - CodeQL, supply chain (incl. SBOM upload), and action pins are proven in [`docs/security/PLAT-NP-003-supply-chain-first-run-evidence.md`](../../security/PLAT-NP-003-supply-chain-first-run-evidence.md).
-   - **Owner follow-up:** enable **Dependency graph** on the GitHub repo, then re-run Dependency submission and replace the evidence link with a green run (see evidence doc).
+   - **Dependency submission** is blocked until **Dependency graph** is enabled in GitHub repo settings (not a workflow-code defect); see the evidence doc for the latest run link.
+   - **Dependency review** runs on **`pull_request`** only; capture a real-PR run link when meaningful diffs are available after the graph is on.
+   - **Owner follow-up:** enable **Dependency graph**, re-run Dependency submission, then replace the evidence link with a green run (see evidence doc).
 
 ## Phase B — repo hygiene and documentation accuracy
 
@@ -21,7 +23,7 @@
    - **Docs:** [`docs/packages/index.md`](../../packages/index.md) states planning vs shipped separation.
 
 5. **PLAT-NP-005 — README/docs final accuracy pass** — **closed**
-   - Top-level docs aligned with current package inventory and consumer docs (including `docs/start-here.md` vs 23-package catalog).
+   - Top-level docs aligned with current package inventory and consumer docs (including `docs/start-here.md` vs 23-package catalog). Treat doc accuracy as **continuous maintenance** when baselines or package lists change.
 
 6. **PLAT-NP-006 — Deferred item register** — **closed**
    - [`docs/planning/robustness/DEFERRED_ITEMS.md`](../robustness/DEFERRED_ITEMS.md) and status table in [`PLAT_ROBUSTNESS_SEQUENCE.md`](../robustness/PLAT_ROBUSTNESS_SEQUENCE.md).
@@ -31,12 +33,12 @@
 7. **PLAT-NP-007 — Secret resolver parsing and diagnostics** — **closed**
    - `SecretValueReferenceParser` in `Ontogony.Secrets` (see [`pr-specs/PR-PLAT-NP-007-secret-reference-parser.md`](./pr-specs/PR-PLAT-NP-007-secret-reference-parser.md)); vault resolution remains external.
 
-8. **PLAT-NP-008 — In-memory warning coverage expansion**
+8. **PLAT-NP-008 — In-memory warning coverage expansion** — **open**
    - Verify all platform-provided in-memory implementations either warn outside Development or are clearly harmless.
-   - Add tests for every registered warning, not only artifacts.
+   - Baseline: warning tests now cover all current `AddOntogonyInMemory*` registrations (see [`pr-specs/PR-PLAT-NP-008-in-memory-warning-coverage-expansion.md`](./pr-specs/PR-PLAT-NP-008-in-memory-warning-coverage-expansion.md)); keep this item open for future registrations and audit of test-only fakes.
 
-9. **PLAT-NP-009 — Public API review gate hardening**
-   - Add a checklist requiring changelog + migration note for intentional public API snapshot updates.
+9. **PLAT-NP-009 — Public API review gate hardening** — **open**
+   - Add a checklist requiring changelog + migration note for intentional public API snapshot updates (see [`pr-specs/PR-PLAT-NP-009-public-api-change-checklist.md`](./pr-specs/PR-PLAT-NP-009-public-api-change-checklist.md)).
 
 ## Explicit non-goals
 

@@ -15,8 +15,8 @@ Convert security workflow definitions into proven operational checks.
 
 - CodeQL: green on main.
 - Supply chain: green on main.
-- Dependency submission: green on main.
-- Dependency review: executes on PR and comments/fails as configured.
+- Dependency submission: green on main once **Dependency graph** is enabled (repo setting); until then this criterion is intentionally unmet — not a workflow-code gap.
+- Dependency review: executes on PR and comments/fails as configured (`pull_request` only; see evidence doc).
 - Evidence doc added under `docs/security/`.
 
 ## Non-goals

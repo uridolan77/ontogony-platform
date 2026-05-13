@@ -23,3 +23,9 @@ Ensure overlay/donor/agent-planning material does not become part of package, re
 ## Status (repo)
 
 **Closed.** [`scripts/validate-nupkg-coordination-path-hygiene.ps1`](../../../../scripts/validate-nupkg-coordination-path-hygiene.ps1) runs in **`ci.yml`** and **`release-packages.yml`** immediately after `pack-all`, scanning every non-symbol `.nupkg` for forbidden coordination path fragments. [`docs/packages/index.md`](../../../packages/index.md) explains that planning-only paths must not ship inside packages.
+
+## Manual / local verification
+
+1. From repo root: `$env:PACKAGE_VERSION = "0.3.0-alpha.1"` (or your pack version), then `./scripts/pack-all.ps1 -NoBuild` after a Release build.
+2. Run `./scripts/validate-nupkg-coordination-path-hygiene.ps1` — expect `OK: coordination-path hygiene`.
+3. Optional negative check: add a disposable zip under `artifacts/packages/` whose entry names contain a forbidden fragment (for example `_agent_prompts/x.txt`); the script must throw naming the fragment; remove the test zip afterward.

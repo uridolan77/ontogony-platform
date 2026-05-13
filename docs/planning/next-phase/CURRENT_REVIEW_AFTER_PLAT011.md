@@ -56,3 +56,19 @@ Proceed in this order:
 2. ~~PLAT-NP-005 — README/docs final accuracy pass.~~ **Done** (ongoing: keep docs aligned when packages or baselines change).
 3. ~~PLAT-NP-006 — explicit deferred-items register for PR-PLAT-003 and PR-PLAT-012.~~ **Done** — see [`docs/planning/robustness/DEFERRED_ITEMS.md`](../robustness/DEFERRED_ITEMS.md) and [`PLAT_ROBUSTNESS_SEQUENCE.md`](../robustness/PLAT_ROBUSTNESS_SEQUENCE.md).
 4. ~~PLAT-NP-007 — secret reference parser.~~ **Done** — `SecretValueReferenceParser` in `Ontogony.Secrets`.
+
+## PLAT-NP next-phase status (backlog-aligned)
+
+| ID | Status | Notes |
+| --- | --- | --- |
+| PLAT-NP-001 | Closed | Tag `v0.3.0-alpha.1` release proof |
+| PLAT-NP-002 | Closed | Conexus `conexus-ontogony-package-mode` + contract |
+| PLAT-NP-003 | Open (partial) | Submission blocked by Dependency graph setting; see evidence doc |
+| PLAT-NP-004 | Closed | Packed `.nupkg` coordination-path scan |
+| PLAT-NP-005 | Closed | Docs accuracy baseline; ongoing maintenance |
+| PLAT-NP-006 | Closed | `DEFERRED_ITEMS.md` register |
+| PLAT-NP-007 | Closed | `SecretValueReferenceParser` |
+| PLAT-NP-008 | Open | In-memory warning coverage expansion |
+| PLAT-NP-009 | Open | Public API change checklist hardening |
+
+Source of truth: [`backlog.json`](./backlog.json) and [`NEXT_PHASE_SEQUENCE.md`](./NEXT_PHASE_SEQUENCE.md).

@@ -65,6 +65,29 @@ public sealed class OntogonyEnvelopeValidatorTests
     }
 
     [Fact]
+    public void Validate_Source_HttpsUriWithPath_ReturnsSuccess()
+    {
+        var e = ValidEnvelope() with { Source = "https://example.com/events" };
+        Assert.True(new DefaultEnvelopeValidator().Validate(e).IsValid);
+    }
+
+    [Fact]
+    public void Validate_Source_FileUri_ReturnsError()
+    {
+        var e = ValidEnvelope() with { Source = "file:///tmp/x" };
+        var r = new DefaultEnvelopeValidator().Validate(e);
+        Assert.False(r.IsValid);
+        Assert.Contains(r.Errors, x => x.Field == nameof(OntogonyEnvelope<TestPayload>.Source));
+    }
+
+    [Fact]
+    public void Validate_Source_UrnAbsolute_ReturnsSuccess()
+    {
+        var e = ValidEnvelope() with { Source = "urn:ontogony:test" };
+        Assert.True(new DefaultEnvelopeValidator().Validate(e).IsValid);
+    }
+
+    [Fact]
     public void Validate_StrictRecorderProtocols_AllowsAgUiMcpA2a()
     {
         var allowed = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
