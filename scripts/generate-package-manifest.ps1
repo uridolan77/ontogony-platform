@@ -6,7 +6,7 @@ param(
     [string]$PackagesDir = (Join-Path (Resolve-Path (Join-Path $PSScriptRoot "..")) "artifacts/packages"),
     
     [Parameter(Mandatory=$false)]
-    [string]$CommitHash = $(git rev-parse HEAD 2>$null || "unknown"),
+    [string]$CommitHash = "",
     
     [Parameter(Mandatory=$false)]
     [string]$OutputPath = (Join-Path (Resolve-Path (Join-Path $PSScriptRoot "..")) "PACKAGE_MANIFEST.json"),
@@ -16,6 +16,14 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+
+if ([string]::IsNullOrWhiteSpace($CommitHash)) {
+    $CommitHash = "unknown"
+    $gitHead = git rev-parse HEAD 2>$null
+    if ($LASTEXITCODE -eq 0 -and -not [string]::IsNullOrWhiteSpace($gitHead)) {
+        $CommitHash = ([string]$gitHead).Trim()
+    }
+}
 
 if (-not (Test-Path $PackagesDir)) {
     throw "Packages directory not found: $PackagesDir"
@@ -95,7 +103,7 @@ $json = $manifest | ConvertTo-Json -Depth 10
 $json | Out-File -FilePath $OutputPath -Encoding UTF8 -Force
 
 Write-Host ""
-Write-Host "✓ Manifest generated: $OutputPath"
+Write-Host "OK: Manifest generated: $OutputPath"
 Write-Host "  Version: $($manifest.version)"
 Write-Host "  Generated: $($manifest.generated)"
 Write-Host "  Commit: $($manifest.commit)"

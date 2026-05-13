@@ -97,6 +97,10 @@ jobs:
         shell: pwsh
         run: ./scripts/validate-dependency-baseline.ps1
 
+      - name: Validate Conexus consumer baseline (readiness vs Directory.Build.targets)
+        shell: pwsh
+        run: ./scripts/validate-conexus-consumer-baseline-alignment.ps1
+
       - name: Validate CHANGELOG
         shell: pwsh
         run: ./scripts/validate-changelog.ps1 -PackageVersion "${{ steps.version.outputs.version }}" -Strict

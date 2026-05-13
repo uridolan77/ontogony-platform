@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+PR-PLAT-NP-001 — release workflow parity + first tag publish proof:
+
+- **Release:** `release-packages.yml` runs `scripts/validate-conexus-consumer-baseline-alignment.ps1` (same gate as `ci.yml`) before pack/publish.
+- **Scripts:** `generate-package-manifest.ps1` — default git commit resolution works on Windows PowerShell 5.1 (no `||` operator); status line uses ASCII.
+- **Docs:** `docs/releases/PR-PLAT-NP-001-release-parity-evidence.md` — checklist for workflow/feed/release URLs after tag publish; local parity notes.
+
 PR-PLAT-011 — generic secret-value resolver (platform surface; Conexus wires schemes):
 
 - **`Ontogony.Secrets`:** `ISecretValueResolver`, `SecretValueReference`, `SecretValueResolveResult`, `EnvironmentVariableSecretValueResolver` (scheme `env`), `CompositeSecretValueResolver`, and `AddOntogonyEnvironmentSecretValueResolver()` for optional DI registration.
