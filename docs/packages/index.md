@@ -2,6 +2,8 @@
 
 This index describes all 23 NuGet packages and when to use each one.
 
+**Planning vs shipped content:** coordination paths such as `_agent_prompts/`, `_issue_bodies/`, `docs/_incoming/`, and `.tmp/` live in the repo for humans and automation only. They must **never** appear inside published `.nupkg` archives; CI runs [`scripts/validate-nupkg-coordination-path-hygiene.ps1`](../../scripts/validate-nupkg-coordination-path-hygiene.ps1) after pack (see [PLAT-NP-004 spec](../planning/next-phase/pr-specs/PR-PLAT-NP-004-donor-incoming-package-hygiene.md)).
+
 ---
 
 ## Core Foundation

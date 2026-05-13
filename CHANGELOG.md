@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+PR-PLAT-NP-004 — donor / coordination path hygiene for shipped `.nupkg` files:
+
+- **CI / release:** new `scripts/validate-nupkg-coordination-path-hygiene.ps1` runs after `pack-all` in `ci.yml` and `release-packages.yml`, failing the job if any non-symbol package archive contains coordination-style paths (`_agent_prompts`, `_issue_bodies`, `docs/_incoming`, `.tmp`, `_donor`, `donors`, etc.).
+- **Docs:** `docs/packages/index.md` — note separating repo planning paths from distributable package content; `QUALITY_GATES.md` lists the script for package/release validation.
+- **Planning:** next-phase backlog, sequence, post-PLAT-011 review — **PLAT-NP-002** and **PLAT-NP-004** marked closed; **PLAT-NP-003** called out as partially complete pending Dependency graph for submission.
+
 PR-PLAT-NP-003 — supply-chain workflow pins + first-run evidence:
 
 - **Workflow:** `supply-chain.yml` — pin `aquasecurity/trivy-action` to **`v0.36.0`** (legacy `0.28.0` tag no longer resolves after upstream tag migration).

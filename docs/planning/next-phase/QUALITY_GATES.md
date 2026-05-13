@@ -17,6 +17,7 @@
 ## Package/release PRs
 
 - `./scripts/pack-all.ps1 -NoBuild`
+- `./scripts/validate-nupkg-coordination-path-hygiene.ps1` (after pack; rejects donor/agent/incoming paths inside `.nupkg` archives)
 - `./scripts/generate-package-manifest.ps1 -PackageVersion <version>`
 - Conexus package smoke restore/build from local `.nupkg`
 - Manifest contains all expected packages and SHA-256 hashes.

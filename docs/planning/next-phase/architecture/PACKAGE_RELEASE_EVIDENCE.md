@@ -29,7 +29,8 @@ The release workflow must run all validation that protects the package line, inc
 - Conexus consumer baseline alignment;
 - changelog strict validation;
 - package manifest generation;
-- Conexus package smoke.
+- Conexus package smoke;
+- coordination path scan on packed `.nupkg` archives ([`validate-nupkg-coordination-path-hygiene.ps1`](../../../../scripts/validate-nupkg-coordination-path-hygiene.ps1); PLAT-NP-004).
 
 ## Symbols
 

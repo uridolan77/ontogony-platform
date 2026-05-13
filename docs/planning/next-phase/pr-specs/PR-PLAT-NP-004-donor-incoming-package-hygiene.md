@@ -19,3 +19,7 @@ Ensure overlay/donor/agent-planning material does not become part of package, re
 ## Non-goals
 
 - Do not delete useful planning prompts unless they are obsolete; relocate if needed.
+
+## Status (repo)
+
+**Closed.** [`scripts/validate-nupkg-coordination-path-hygiene.ps1`](../../../../scripts/validate-nupkg-coordination-path-hygiene.ps1) runs in **`ci.yml`** and **`release-packages.yml`** immediately after `pack-all`, scanning every non-symbol `.nupkg` for forbidden coordination path fragments. [`docs/packages/index.md`](../../../packages/index.md) explains that planning-only paths must not ship inside packages.

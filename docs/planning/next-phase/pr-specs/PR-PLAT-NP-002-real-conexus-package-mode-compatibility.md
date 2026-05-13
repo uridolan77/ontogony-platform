@@ -24,3 +24,7 @@ Implement mostly in Conexus CI. Platform may add docs and a contract.
 ## Non-goals
 
 - No Conexus route/provider/pricing semantics in Ontogony.
+
+## Status (repo)
+
+**Closed (platform).** [`docs/consumer-blueprints/CONEXUS_ONTOGONY_PACKAGE_MODE_CONTRACT.md`](../../../consumer-blueprints/CONEXUS_ONTOGONY_PACKAGE_MODE_CONTRACT.md) defines feed/version/`UseOntogonyPackages` inputs and records a green **`conexus-ontogony-package-mode`** job URL. Implementation and MSBuild CI guard live in **`conexus-dotnet`** (`Directory.Build.targets`, `.github/workflows/ci.yml`).

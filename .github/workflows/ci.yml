@@ -66,6 +66,9 @@ jobs:
           PACKAGE_VERSION: 0.3.0-alpha.1
         shell: pwsh
         run: ./scripts/pack-all.ps1 -NoBuild
+      - name: Validate NuGet packages exclude coordination paths (PLAT-NP-004)
+        shell: pwsh
+        run: ./scripts/validate-nupkg-coordination-path-hygiene.ps1
       - name: Generate package manifest
         env:
           PACKAGE_VERSION: 0.3.0-alpha.1

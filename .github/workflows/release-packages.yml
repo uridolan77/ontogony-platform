@@ -119,6 +119,10 @@ jobs:
         shell: pwsh
         run: ./scripts/pack-all.ps1 -NoBuild -IncludeSymbols
 
+      - name: Validate NuGet packages exclude coordination paths (PLAT-NP-004)
+        shell: pwsh
+        run: ./scripts/validate-nupkg-coordination-path-hygiene.ps1
+
       - name: Generate package manifest
         env:
           PACKAGE_VERSION: ${{ steps.version.outputs.version }}

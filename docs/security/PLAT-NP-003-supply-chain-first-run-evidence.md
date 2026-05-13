@@ -43,3 +43,13 @@ Prior failure modes fixed in code:
 ## SBOM artifact retention
 
 Confirm artifact **`sbom-cyclonedx`** on the green Supply chain run; upload uses `if-no-files-found: error`.
+
+## Spec acceptance checklist
+
+| Criterion | State |
+| --- | --- |
+| CodeQL green on `main` | **Met** — run linked above. |
+| Supply chain green on `main` | **Met** — same workflow run family. |
+| SBOM uploaded and retained | **Met** — artifact `sbom-cyclonedx` on green run. |
+| Dependency submission green on `main` | **Blocked** — enable **Dependency graph** for the repository (see section above); link documents latest run until green. |
+| Dependency review on real PR | **Met in principle** — workflow is `pull_request`-only; meaningful diffs need Dependency graph data. |

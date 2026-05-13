@@ -18,7 +18,7 @@ Ontogony.Platform is now a credible mechanical substrate for Conexus.NET:
 | PR | Status | Judgment |
 | --- | --- | --- |
 | PR-PLAT-001 | Implemented | Package release workflow exists. **PLAT-NP-001B** first tag publish proof is recorded ([`docs/releases/PR-PLAT-NP-001-release-parity-evidence.md`](../../releases/PR-PLAT-NP-001-release-parity-evidence.md), `v0.3.0-alpha.1`). |
-| PR-PLAT-002 | Implemented | Package-consumer smoke exists. Full real Conexus repo package-mode test remains open. |
+| PR-PLAT-002 | Implemented | Package-consumer smoke exists. **PLAT-NP-002** real Conexus package-mode job + contract documented ([`CONEXUS_ONTOGONY_PACKAGE_MODE_CONTRACT.md`](../../consumer-blueprints/CONEXUS_ONTOGONY_PACKAGE_MODE_CONTRACT.md)). |
 | PR-PLAT-003 | Deferred / not implemented | Typed HTTP client support was not needed by Conexus because existing integration HTTP client pipeline was sufficient. Keep deferred. |
 | PR-PLAT-004 | Implemented | Public API approval snapshots are in place. |
 | PR-PLAT-005 | Implemented | Dependency baseline script and policy are in place. |
@@ -26,7 +26,7 @@ Ontogony.Platform is now a credible mechanical substrate for Conexus.NET:
 | PR-PLAT-006.1 | Implemented | `src/Directory.Build.targets` strips CS1591 suppression for the 16 Conexus consumer packages only. |
 | PR-PLAT-007 | Implemented | CodeQL, dependency review, dependency submission, and supply-chain workflows exist. |
 | PR-PLAT-007.1 | Implemented as workflow definition | Stabilization changes are present. Green run proof should still be recorded. |
-| PR-PLAT-008 | Not implemented | Donor folder hygiene remains open if donor material is still present. |
+| PR-PLAT-008 | Partially addressed | **PLAT-NP-004** adds CI scanning of packed `.nupkg` for coordination path fragments; donor tree hygiene in-repo remains a docs/process concern. |
 | PR-PLAT-009 | Implemented | Non-durable in-memory store startup warnings are wired for key in-memory stores. |
 | PR-PLAT-010 | Not separately verified | README resilience contradiction appears largely superseded by prior documentation cleanup, but no explicit PR-PLAT-010 closeout exists. |
 | PR-PLAT-011 | Implemented | `ISecretValueResolver`, env resolver, composite resolver, DI extension, docs, tests, and public API updates exist. |
@@ -43,17 +43,15 @@ The platform is structurally strong, but at least one item is still operational 
 ## Top risks now
 
 1. Release workflow: Conexus baseline alignment and pre-pack `artifacts/packages` cleanup are in `release-packages.yml` on `main`; tag publish proof for **`v0.3.0-alpha.1`** is recorded in the NP-001 evidence doc.
-2. Package adoption gap: Conexus still compiles sibling source; real package-mode consumption belongs in Conexus CI or a multi-checkout compatibility workflow.
+2. Package adoption gap: default Conexus dev layout still uses sibling `ProjectReference`; **package-mode** is proven in CI (`conexus-ontogony-package-mode`) per [`CONEXUS_ONTOGONY_PACKAGE_MODE_CONTRACT.md`](../../consumer-blueprints/CONEXUS_ONTOGONY_PACKAGE_MODE_CONTRACT.md).
 3. Over-platforming risk: do not add provider, model, routing, price catalog, or gateway semantics to Ontogony.
 4. Security workflow fragility: Trivy/Gitleaks/dependency submission can fail because of environment/permissions/action behavior, not design.
-5. Donor/incoming package hygiene: `_agent_prompts`, `_issue_bodies`, and any donor/source overlay material should not pollute the distributable package surface.
+5. **PLAT-NP-004** packs are scanned in CI/release for forbidden coordination paths; keep planning overlays out of `src/` pack patterns.
 
 ## Immediate recommendation
 
 Proceed in this order:
 
-1. PLAT-NP-002 — real Conexus package-mode compatibility (NP-001 is closed).
-2. PLAT-NP-003 — supply-chain first-run evidence and stabilization.
-3. PLAT-NP-004 — donor/incoming package hygiene.
-4. PLAT-NP-005 — README/docs final accuracy pass.
-5. PLAT-NP-006 — explicit deferred-items register for PR-PLAT-003 and PR-PLAT-012.
+1. PLAT-NP-003 — finish **Dependency submission** after enabling Dependency graph (see evidence doc); keep other security runs green.
+2. PLAT-NP-005 — README/docs final accuracy pass.
+3. PLAT-NP-006 — explicit deferred-items register for PR-PLAT-003 and PR-PLAT-012.
