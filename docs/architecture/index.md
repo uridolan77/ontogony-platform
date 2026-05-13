@@ -346,7 +346,7 @@ Directory.Build.props ← Shared build properties (includes version)
 ```
 1. Update global.json version
 2. Update CHANGELOG.md with changes
-3. Commit and tag: git tag v0.3.0
+3. Commit and tag: git tag v0.3.0-alpha.1
 4. GitHub Actions runs:
    - restore, build, test
    - validate changelog

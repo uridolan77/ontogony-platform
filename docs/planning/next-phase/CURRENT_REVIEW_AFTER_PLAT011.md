@@ -36,7 +36,7 @@ Ontogony.Platform is now a credible mechanical substrate for Conexus.NET:
 
 The platform is structurally strong, but at least one item is still operational rather than purely code-level:
 
-1. First green run proof for CodeQL / Supply chain / Dependency submission after the latest workflow fixes (see PLAT-NP-003).
+1. First green run proof for Dependency submission after Dependency graph is enabled, plus the first real PR Dependency review proof run (see PLAT-NP-003).
 
 **PLAT-NP-001B** (first package-tag publish to GitHub Packages with filled evidence) is **closed** — see [`docs/releases/PR-PLAT-NP-001-release-parity-evidence.md`](../../releases/PR-PLAT-NP-001-release-parity-evidence.md).
 
@@ -68,7 +68,7 @@ Proceed in this order:
 | PLAT-NP-005 | Closed | Docs accuracy baseline; ongoing maintenance |
 | PLAT-NP-006 | Closed | `DEFERRED_ITEMS.md` register |
 | PLAT-NP-007 | Closed | `SecretValueReferenceParser` |
-| PLAT-NP-008 | Open | In-memory warning coverage expansion |
-| PLAT-NP-009 | Open | Public API change checklist hardening |
+| PLAT-NP-008 | Open (maintenance guard) | Baseline warning coverage is complete for current public in-memory registrations |
+| PLAT-NP-009 | Implemented, pending CI proof | Local governance proof recorded; CI step exists, but no green run URL captured for the hardened script revision |
 
 Source of truth: [`backlog.json`](./backlog.json) and [`NEXT_PHASE_SEQUENCE.md`](./NEXT_PHASE_SEQUENCE.md).

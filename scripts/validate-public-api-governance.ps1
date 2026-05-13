@@ -56,7 +56,20 @@ function Get-ChangedPaths {
             $output = Invoke-Expression $command 2>$null
             foreach ($line in @($output)) {
                 if (-not [string]::IsNullOrWhiteSpace($line)) {
-                    [void]$results.Add($line.Trim())
+                    $trimmedLine = $line.Trim()
+
+                    if ($trimmedLine -match '^[ACDMRTUXB][0-9]*\s+') {
+                        $parts = $trimmedLine -split '\s+'
+                        foreach ($part in $parts[1..($parts.Length - 1)]) {
+                            if (-not [string]::IsNullOrWhiteSpace($part)) {
+                                [void]$results.Add($part.Trim())
+                            }
+                        }
+
+                        continue
+                    }
+
+                    [void]$results.Add($trimmedLine)
                 }
             }
         }
@@ -77,21 +90,21 @@ catch {
     exit 2
 }
 
-# Get list of changed/added public API snapshot files.
+# Get list of changed public API snapshot files, including deletes and renames.
 $snapshotPattern = '^tests/Ontogony\.PublicApi\.Tests/.*\.verified\.txt$'
 
 $diffCommands = @(
-    'git diff --name-only --diff-filter=AM',
-    'git diff --cached --name-only --diff-filter=AM'
+    'git diff --name-status --find-renames --diff-filter=AMDR',
+    'git diff --cached --name-status --find-renames --diff-filter=AMDR'
 )
 
 if ($env:GITHUB_EVENT_NAME -eq 'pull_request' -and -not [string]::IsNullOrWhiteSpace($env:GITHUB_BASE_REF)) {
-    $diffCommands += "git diff --name-only --diff-filter=AM origin/$($env:GITHUB_BASE_REF)...HEAD"
+    $diffCommands += "git diff --name-status --find-renames --diff-filter=AMDR origin/$($env:GITHUB_BASE_REF)...HEAD"
 }
 elseif ($env:GITHUB_EVENT_NAME -eq 'push') {
     try {
         $null = git rev-parse HEAD^ 2>$null
-        $diffCommands += 'git diff --name-only --diff-filter=AM HEAD^ HEAD'
+        $diffCommands += 'git diff --name-status --find-renames --diff-filter=AMDR HEAD^ HEAD'
     }
     catch {
         Write-CheckWarn 'HEAD^ is unavailable for push diff; using local changes only.'

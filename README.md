@@ -188,7 +188,7 @@ Use SemVer syntax for NuGet; treat **0.x** and **pre-release** tags as “evolvi
 
 ## Current status
 
-**Shared infrastructure (0.3.0-alpha.1)** — contracts, reference implementations, docs, and automated tests (see `CHANGELOG.md`). CI restores, builds, tests, validates docs, **shipping inventory**, **AI runtime docs**, **package dependency levels**, and packs **23** libraries on **.NET 9** (see `.github/workflows/`). A non-shipping [`examples/ConexusDotNetSkeleton/`](examples/ConexusDotNetSkeleton/) project compiles against the Conexus v1 package slice.
+**Shared infrastructure (0.3.0-alpha.1)** — contracts, reference implementations, docs, and automated tests (see `CHANGELOG.md`). CI restores, builds, tests, uploads coverage artifacts (`coverage.cobertura.xml` and `.trx`), validates docs, **shipping inventory**, **AI runtime docs**, **package dependency levels**, and packs **23** libraries on **.NET 9** (see `.github/workflows/`). Coverage thresholds remain deferred until the newer test projects mature. A non-shipping [`examples/ConexusDotNetSkeleton/`](examples/ConexusDotNetSkeleton/) project compiles against the Conexus v1 package slice.
 
 **Still evolving (check `docs/migrations/` before upgrading):**
 

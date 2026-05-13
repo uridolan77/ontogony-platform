@@ -1,86 +1,71 @@
+using System.Net;
 using Xunit;
 
 namespace Ontogony.Http.Tests;
 
-/// <summary>
-/// Tests for <see cref="DefaultRetryClassifier"/>.
-/// </summary>
-public class DefaultRetryClassifierTests
+public sealed class DefaultRetryClassifierTests
 {
-    [Theory]
-    [InlineData(408)]  // Request Timeout
-    [InlineData(429)]  // Too Many Requests
-    [InlineData(500)]  // Internal Server Error
-    [InlineData(502)]  // Bad Gateway
-    [InlineData(503)]  // Service Unavailable
-    [InlineData(504)]  // Gateway Timeout
-    public void IsTransient_WithTransientStatusCode_ReturnsTrue(int statusCode)
-    {
-        var classifier = new DefaultRetryClassifier();
-        
-        var isTransient = classifier.IsTransient(new HttpStatusCodeException((System.Net.HttpStatusCode)statusCode, "Test"));
-        
-        Assert.True(isTransient);
-    }
+    private static readonly HttpRequestMessage Request = new(HttpMethod.Get, "https://example.test/retry");
 
     [Theory]
-    [InlineData(200)]  // OK
-    [InlineData(201)]  // Created
-    [InlineData(400)]  // Bad Request
-    [InlineData(401)]  // Unauthorized
-    [InlineData(403)]  // Forbidden
-    [InlineData(404)]  // Not Found
-
-    public void IsTransient_WithNonTransientStatusCode_ReturnsFalse(int statusCode)
+    [InlineData(HttpStatusCode.RequestTimeout)]
+    [InlineData(HttpStatusCode.TooManyRequests)]
+    [InlineData(HttpStatusCode.InternalServerError)]
+    [InlineData(HttpStatusCode.BadGateway)]
+    [InlineData(HttpStatusCode.ServiceUnavailable)]
+    [InlineData(HttpStatusCode.GatewayTimeout)]
+    public void ShouldRetry_ReturnsRetry_ForRetryableResponse(HttpStatusCode statusCode)
     {
-        var classifier = new DefaultRetryClassifier();
-        
-        var isTransient = classifier.IsTransient(new HttpStatusCodeException((System.Net.HttpStatusCode)statusCode, "Test"));
-        
-        Assert.False(isTransient);
+        var classifier = new DefaultRetryClassifier(new TransportResilienceOptions());
+        using var response = new HttpResponseMessage(statusCode);
+
+        var decision = classifier.ShouldRetry(Request, response, null);
+
+        Assert.Equal(RetryDecision.Retry, decision);
+    }
+
+    [Theory]
+    [InlineData(HttpStatusCode.OK)]
+    [InlineData(HttpStatusCode.BadRequest)]
+    [InlineData(HttpStatusCode.Unauthorized)]
+    [InlineData(HttpStatusCode.NotFound)]
+    public void ShouldRetry_ReturnsDoNotRetry_ForNonRetryableResponse(HttpStatusCode statusCode)
+    {
+        var classifier = new DefaultRetryClassifier(new TransportResilienceOptions());
+        using var response = new HttpResponseMessage(statusCode);
+
+        var decision = classifier.ShouldRetry(Request, response, null);
+
+        Assert.Equal(RetryDecision.DoNotRetry, decision);
     }
 
     [Fact]
-    public void IsTransient_WithTaskCanceledException_ReturnsTrue()
+    public void ShouldRetry_ReturnsRetry_ForHttpRequestException()
     {
-        var classifier = new DefaultRetryClassifier();
-        var ex = new TaskCanceledException("Timeout");
-        
-        var isTransient = classifier.IsTransient(ex);
-        
-        Assert.True(isTransient);
+        var classifier = new DefaultRetryClassifier(new TransportResilienceOptions());
+
+        var decision = classifier.ShouldRetry(Request, null, new HttpRequestException("transient"));
+
+        Assert.Equal(RetryDecision.Retry, decision);
     }
 
     [Fact]
-    public void IsTransient_WithOperationCanceledException_ReturnsTrue()
+    public void ShouldRetry_ReturnsRetry_ForNonUserCancelledTaskCanceledException()
     {
-        var classifier = new DefaultRetryClassifier();
-        var ex = new OperationCanceledException("Canceled");
-        
-        var isTransient = classifier.IsTransient(ex);
-        
-        Assert.True(isTransient);
+        var classifier = new DefaultRetryClassifier(new TransportResilienceOptions());
+
+        var decision = classifier.ShouldRetry(Request, null, new TaskCanceledException("timeout"));
+
+        Assert.Equal(RetryDecision.Retry, decision);
     }
 
     [Fact]
-    public void IsTransient_WithHttpRequestException_ReturnsFalse()
+    public void ShouldRetry_ReturnsDoNotRetry_ForOperationCanceledException()
     {
-        var classifier = new DefaultRetryClassifier();
-        var ex = new HttpRequestException("Connection error");
-        
-        var isTransient = classifier.IsTransient(ex);
-        
-        Assert.False(isTransient);
-    }
+        var classifier = new DefaultRetryClassifier(new TransportResilienceOptions());
 
-    [Fact]
-    public void IsTransient_WithArbitraryException_ReturnsFalse()
-    {
-        var classifier = new DefaultRetryClassifier();
-        var ex = new InvalidOperationException("Some error");
-        
-        var isTransient = classifier.IsTransient(ex);
-        
-        Assert.False(isTransient);
+        var decision = classifier.ShouldRetry(Request, null, new OperationCanceledException("cancelled"));
+
+        Assert.Equal(RetryDecision.DoNotRetry, decision);
     }
 }

@@ -1,142 +1,123 @@
+using System.Net;
+using Microsoft.Extensions.Options;
+using Ontogony.Primitives;
 using Xunit;
 
 namespace Ontogony.Http.Tests;
 
-/// <summary>
-/// Tests for <see cref="ResilientIntegrationDelegatingHandler"/>.
-/// </summary>
-public class ResilientIntegrationDelegatingHandlerTests
+public sealed class ResilientIntegrationDelegatingHandlerTests
 {
-    [Fact]
-    public async Task SendAsync_SuccessfulRequest_ReturnsSuccess()
-    {
-        var innerHandler = new FakeHttpMessageHandler(System.Net.HttpStatusCode.OK, "Success");
-        var classifier = new DefaultRetryClassifier();
-        var handler = new ResilientIntegrationDelegatingHandler(classifier, maxRetries: 3)
-        {
-            InnerHandler = innerHandler
-        };
-        
-        var request = new HttpRequestMessage(HttpMethod.Get, "http://example.com/test");
-        
-        var response = await handler.SendAsync(request, CancellationToken.None);
-        
-        Assert.NotNull(response);
-        Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
-        Assert.Equal(1, innerHandler.AttemptCount);
-    }
+    private static readonly IClock Clock = new SystemClock();
 
     [Fact]
-    public async Task SendAsync_TransientFailure_Retries()
+    public async Task SendAsync_RetriesGet_OnRetryableResponse()
     {
-        int attemptCount = 0;
-        
-        var innerHandler = new FakeHttpMessageHandler((ct) =>
+        var sequence = new SequenceHandler(new HttpResponseMessage(HttpStatusCode.ServiceUnavailable), new HttpResponseMessage(HttpStatusCode.OK));
+        var options = Options.Create(new TransportResilienceOptions
         {
-            attemptCount++;
-            if (attemptCount < 3)
-            {
-                // First 2 attempts return transient error
-                return new HttpResponseMessage(System.Net.HttpStatusCode.ServiceUnavailable);
-            }
-            // Third attempt succeeds
-            return new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+            Enabled = true,
+            MaxRetries = 1,
+            BaseDelayMilliseconds = 10,
+            MaxDelayMilliseconds = 10,
+            RetryableStatusCodes = [503],
+            EmitAttemptMetrics = false
         });
-        
-        var classifier = new DefaultRetryClassifier();
-        var handler = new ResilientIntegrationDelegatingHandler(classifier, maxRetries: 3)
+
+        var handler = new ResilientIntegrationDelegatingHandler("tests", new TransportResilienceRegistry(), options, Clock)
         {
-            InnerHandler = innerHandler
+            InnerHandler = sequence
         };
-        
-        var request = new HttpRequestMessage(HttpMethod.Get, "http://example.com/test");
-        
-        var response = await handler.SendAsync(request, CancellationToken.None);
-        
-        Assert.NotNull(response);
-        Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
-        Assert.Equal(3, attemptCount);
+
+        using var client = new HttpClient(handler);
+        var response = await client.GetAsync("https://example.test/flaky");
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Equal(2, sequence.CallCount);
     }
 
     [Fact]
-    public async Task SendAsync_NonTransientFailure_NoRetry()
+    public async Task SendAsync_DoesNotRetryPost_WithoutIdempotencyKey()
     {
-        int attemptCount = 0;
-        
-        var innerHandler = new FakeHttpMessageHandler((ct) =>
+        var sequence = new SequenceHandler(new HttpResponseMessage(HttpStatusCode.ServiceUnavailable), new HttpResponseMessage(HttpStatusCode.OK));
+        var options = Options.Create(new TransportResilienceOptions
         {
-            attemptCount++;
-            // Always return non-transient error
-            return new HttpResponseMessage(System.Net.HttpStatusCode.NotFound);
+            Enabled = true,
+            MaxRetries = 1,
+            BaseDelayMilliseconds = 10,
+            MaxDelayMilliseconds = 10,
+            RetryableStatusCodes = [503],
+            EmitAttemptMetrics = false
         });
-        
-        var classifier = new DefaultRetryClassifier();
-        var handler = new ResilientIntegrationDelegatingHandler(classifier, maxRetries: 3)
+
+        var handler = new ResilientIntegrationDelegatingHandler("tests", new TransportResilienceRegistry(), options, Clock)
         {
-            InnerHandler = innerHandler
+            InnerHandler = sequence
         };
-        
-        var request = new HttpRequestMessage(HttpMethod.Get, "http://example.com/test");
-        
-        var response = await handler.SendAsync(request, CancellationToken.None);
-        
-        Assert.NotNull(response);
-        Assert.Equal(System.Net.HttpStatusCode.NotFound, response.StatusCode);
-        Assert.Equal(1, attemptCount);  // No retries for non-transient
+
+        using var client = new HttpClient(handler);
+        using var request = new HttpRequestMessage(HttpMethod.Post, "https://example.test/retry")
+        {
+            Content = new StringContent("payload")
+        };
+
+        var response = await client.SendAsync(request);
+
+        Assert.Equal(HttpStatusCode.ServiceUnavailable, response.StatusCode);
+        Assert.Equal(1, sequence.CallCount);
     }
 
     [Fact]
-    public async Task SendAsync_CancellationToken_Honored()
+    public async Task SendAsync_HonorsAttemptTimeout()
     {
-        var cts = new CancellationTokenSource();
-        var innerHandler = new FakeHttpMessageHandler(async (ct) =>
+        var options = Options.Create(new TransportResilienceOptions
         {
-            // Simulate work that respects cancellation
-            await Task.Delay(100, ct);
-            return new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+            Enabled = true,
+            MaxRetries = 0,
+            AttemptTimeout = TimeSpan.FromMilliseconds(50),
+            EmitAttemptMetrics = false
         });
-        
-        var classifier = new DefaultRetryClassifier();
-        var handler = new ResilientIntegrationDelegatingHandler(classifier, maxRetries: 1)
+
+        var handler = new ResilientIntegrationDelegatingHandler("tests", new TransportResilienceRegistry(), options, Clock)
         {
-            InnerHandler = innerHandler
+            InnerHandler = new SlowHandler(TimeSpan.FromMilliseconds(150))
         };
-        
-        var request = new HttpRequestMessage(HttpMethod.Get, "http://example.com/test");
-        
-        cts.CancelAfter(50);  // Cancel before handler completes
-        
-        await Assert.ThrowsAsync<OperationCanceledException>(() =>
-            handler.SendAsync(request, cts.Token));
+
+        using var client = new HttpClient(handler);
+
+        await Assert.ThrowsAsync<TaskCanceledException>(() => client.GetAsync("https://example.test/slow"));
     }
 
-    private class FakeHttpMessageHandler : HttpMessageHandler
+    private sealed class SequenceHandler : HttpMessageHandler
     {
-        private readonly Func<CancellationToken, HttpResponseMessage> _responseFactory;
-        public int AttemptCount { get; private set; }
+        private readonly Queue<HttpResponseMessage> _responses;
 
-        public FakeHttpMessageHandler(System.Net.HttpStatusCode statusCode, string content)
+        public SequenceHandler(params HttpResponseMessage[] responses)
         {
-            _responseFactory = (_) => new HttpResponseMessage(statusCode) 
-            { 
-                Content = new StringContent(content) 
-            };
+            _responses = new Queue<HttpResponseMessage>(responses);
         }
 
-        public FakeHttpMessageHandler(Func<CancellationToken, HttpResponseMessage> responseFactory)
-        {
-            _responseFactory = responseFactory;
-        }
-
-        public FakeHttpMessageHandler(Func<CancellationToken, Task<HttpResponseMessage>> responseFactory)
-        {
-            _responseFactory = (ct) => responseFactory(ct).Result;
-        }
+        public int CallCount { get; private set; }
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            AttemptCount++;
-            return Task.FromResult(_responseFactory(cancellationToken));
+            CallCount++;
+            return Task.FromResult(_responses.Dequeue());
+        }
+    }
+
+    private sealed class SlowHandler : HttpMessageHandler
+    {
+        private readonly TimeSpan _delay;
+
+        public SlowHandler(TimeSpan delay)
+        {
+            _delay = delay;
+        }
+
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            await Task.Delay(_delay, cancellationToken);
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }
 }

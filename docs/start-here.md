@@ -146,7 +146,7 @@ dotnet build Ontogony.Platform.sln
 dotnet test Ontogony.Platform.sln
 ```
 
-Expected: **401 tests passing**, 0 failures (as of latest main)
+Expected: the current solution test suite passes; CI also uploads `coverage.cobertura.xml` and `.trx` artifacts for inspection. Coverage thresholds remain deferred until the newer test projects mature.
 
 ### Pack
 
@@ -155,13 +155,13 @@ $env:PACKAGE_VERSION = "0.3.0-alpha.1"
 ./scripts/pack-all.ps1
 ```
 
-This creates 16 NuGet packages in `artifacts/packages/`.
+This creates 23 NuGet packages in `artifacts/packages/`.
 
 ### Release
 
 ```bash
-git tag v0.3.0
-git push origin v0.3.0
+git tag v0.3.0-alpha.1
+git push origin v0.3.0-alpha.1
 ```
 
 GitHub Actions workflow will automatically:
@@ -180,8 +180,8 @@ GitHub Actions workflow will automatically:
 | Observability | ✅ Stable | In production |
 | HTTP resilience | ✅ Good | Needs timeout context polish |
 | Testing/conformance | ✅ Strong | Ready for consumer adoption |
-| Release automation | ✅ Working | Dry-run release only (for now) |
-| Documentation | 🆕 Starting | This page; more coming |
+| Release automation | ✅ Working | Tag `v0.3.0-alpha.1` proof is recorded |
+| Documentation | ✅ Maintained | Coverage artifacts collected; thresholds intentionally deferred |
 
 ---
 

@@ -13,8 +13,8 @@
 3. **PLAT-NP-003 — Security workflow first-run evidence** — **partially complete**
    - CodeQL, supply chain (incl. SBOM upload), and action pins are proven in [`docs/security/PLAT-NP-003-supply-chain-first-run-evidence.md`](../../security/PLAT-NP-003-supply-chain-first-run-evidence.md).
    - **Dependency submission** is blocked until **Dependency graph** is enabled in GitHub repo settings (not a workflow-code defect); see the evidence doc for the latest run link.
-   - **Dependency review** runs on **`pull_request`** only; capture a real-PR run link when meaningful diffs are available after the graph is on.
-   - **Owner follow-up:** enable **Dependency graph**, re-run Dependency submission, then replace the evidence link with a green run (see evidence doc).
+   - **Dependency review** runs on **`pull_request`** only; capture a real-PR run link when meaningful diffs are available after the graph is on. Do not use `workflow_dispatch` as proof.
+   - **Owner follow-up:** enable **Dependency graph** at **Settings -> Code security and analysis -> Dependency graph -> Enable**, re-run Dependency submission, then capture both the first green submission run and the first real PR dependency-review run.
 
 ## Phase B — repo hygiene and documentation accuracy
 
@@ -35,10 +35,11 @@
 
 8. **PLAT-NP-008 — In-memory warning coverage expansion** — **open**
    - Verify all platform-provided in-memory implementations either warn outside Development or are clearly harmless.
-   - Baseline: warning tests now cover all current `AddOntogonyInMemory*` registrations (see [`pr-specs/PR-PLAT-NP-008-in-memory-warning-coverage-expansion.md`](./pr-specs/PR-PLAT-NP-008-in-memory-warning-coverage-expansion.md)); keep this item open for future registrations and audit of test-only fakes.
+   - Baseline is now covered: warning tests cover all current `AddOntogonyInMemory*` registrations (see [`pr-specs/PR-PLAT-NP-008-in-memory-warning-coverage-expansion.md`](./pr-specs/PR-PLAT-NP-008-in-memory-warning-coverage-expansion.md)); keep this item open only as a future maintenance guard for new registrations and audit of test-only fakes.
 
-9. **PLAT-NP-009 — Public API review gate hardening** — **open**
-   - Add a checklist requiring changelog + migration note for intentional public API snapshot updates (see [`pr-specs/PR-PLAT-NP-009-public-api-change-checklist.md`](./pr-specs/PR-PLAT-NP-009-public-api-change-checklist.md)).
+9. **PLAT-NP-009 — Public API review gate hardening** — **implemented, pending CI proof**
+   - The checklist and PR template are in place, and `scripts/validate-public-api-governance.ps1` now enforces changelog updates for modified, deleted, and renamed `tests/Ontogony.PublicApi.Tests/**/*.verified.txt` files.
+   - Local manual fail/pass proof is recorded in [`docs/public-api-review.md`](../../public-api-review.md), but a green CI run URL for this hardened revision is not yet recorded.
 
 ## Explicit non-goals
 

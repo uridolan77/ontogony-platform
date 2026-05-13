@@ -77,7 +77,7 @@ Before implementing a durable store:
 
 ### Durable Execution Journal
 
-**Status:** Deferred (open: PLAT-NP-008 partial).
+**Status:** Deferred; consumer-pressure driven.
 
 **Why:** Conexus and Agentor have not yet applied cross-service execution tracing at scale. Ontogony's in-memory journal is adequate for MVP tracing within a single service.
 
@@ -87,7 +87,7 @@ Before implementing a durable store:
 
 ### Durable Artifact Store
 
-**Status:** Deferred (open: PLAT-NP-008 partial).
+**Status:** Deferred; consumer-pressure driven.
 
 **Why:** Artifact retention policies are often product-specific (Conexus may want S3, Agentor may want Blob Storage, etc.). In-memory is suitable for testing.
 
@@ -133,6 +133,8 @@ Ontogony will:
 - ✅ Add **durable shared implementations** when evidence supports it.
 - ❌ NOT add **product-specific stores** (those belong in product repos).
 - ❌ NOT ship **cloud-specific SDKs** (each service integrates its cloud provider).
+
+`PLAT-NP-008` governs warning coverage for current in-memory registrations only. It does not change the deferred, consumer-pressure-driven posture for durable execution, artifact, or quota stores.
 
 ## See Also
 

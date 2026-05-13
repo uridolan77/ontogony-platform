@@ -341,7 +341,7 @@ Examples:
 ```bash
 git add global.json CHANGELOG.md
 git commit -m "Release 0.3.0"
-git tag v0.3.0
+git tag v0.3.0-alpha.1
 git push origin main --tags
 ```
 

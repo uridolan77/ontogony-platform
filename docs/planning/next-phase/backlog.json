@@ -19,7 +19,7 @@
       "title": "Supply-chain workflow first-run evidence",
       "priority": "P0",
       "status": "open",
-      "why": "Partially complete: CodeQL, supply chain (incl. SBOM), and dependency-review wiring are documented green in docs/security/PLAT-NP-003-supply-chain-first-run-evidence.md. Dependency submission remains blocked until GitHub Dependency graph is enabled for the repository (Settings → Code security and analysis), not by workflow code; capture first green submission run and close."
+      "why": "Partially complete: supply chain is green on current public head, but dependency submission still fails with 'Dependency graph is disabled for this repository' and dependency review still lacks a real PR proof run. Historical CodeQL green proof exists, but the current public head CodeQL run also fails until the latest local HTTP-test fixes are pushed; do not close this item until Dependency graph is enabled, submission goes green, and a real PR dependency-review run exists."
     },
     {
       "id": "PLAT-NP-004",
@@ -54,14 +54,14 @@
       "title": "In-memory warning coverage expansion",
       "priority": "P2",
       "status": "open",
-      "why": "Ongoing: audit new in-memory DI registrations; baseline warning tests exist for artifact store, execution journal, quota ledger, and in-memory outbox (see PR-PLAT-NP-008 spec inventory)."
+      "why": "Baseline covered: all current public AddOntogonyInMemory* registrations (artifact store, execution journal, quota ledger, outbox store) warn outside Development and have tests. Keep this item open as a future maintenance guard for new registrations and to avoid warning churn on test-only fakes."
     },
     {
       "id": "PLAT-NP-009",
       "title": "Public API review gate hardening",
       "priority": "P2",
       "status": "open",
-      "why": "Checklist for intentional public API snapshot updates: changelog + migration note when applicable; see pr-specs/PR-PLAT-NP-009-public-api-change-checklist.md."
+      "why": "Implemented in code and docs: the governance script watches tests/Ontogony.PublicApi.Tests/**/*.verified.txt, requires CHANGELOG.md for snapshot changes, and now catches deleted/renamed snapshot files. Local fail/pass proof is recorded in docs/public-api-review.md. The current public head CI run for commit 75311d0 is https://github.com/uridolan77/ontogony-platform/actions/runs/25791922209 and it failed on stale Ontogony.Http.Tests API usage, so treat this item as implemented pending a new green CI run after the local fixes are pushed."
     }
   ]
 }

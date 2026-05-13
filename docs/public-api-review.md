@@ -32,7 +32,7 @@ This repository uses **public API snapshot testing** to detect changes to public
 
 If a test fails with:
 
-```
+```text
 Public_api_matches_snapshot_assemblyShortName=Ontogony.SomeName failed
 
 The PublicAPI.txt snapshot file does not match the current source
@@ -115,7 +115,7 @@ The CI pipeline (`ci.yml`) runs `Ontogony.PublicApi.Tests` as part of the test s
 
 `scripts/validate-public-api-governance.ps1` is intentionally conservative.
 
-- It detects changed `.verified.txt` files under `tests/Ontogony.PublicApi.Tests/` from staged changes, unstaged changes, or CI PR/base diffs when available.
+- It detects changed `.verified.txt` files under `tests/Ontogony.PublicApi.Tests/` from staged changes, unstaged changes, deleted snapshot files, renamed snapshot files, or CI PR/base diffs when available.
 - If snapshot files changed, it requires `CHANGELOG.md` to change in the same diff/worktree.
 - It does **not** fully classify removals vs additions yet; reviewers must still inspect the snapshot diff and decide whether a migration note is required.
 - If CI cannot provide a comparable base diff and there are no local snapshot changes, the script exits cleanly rather than guessing.
@@ -128,6 +128,18 @@ You can validate the governance guard locally without committing anything:
   Expected result: the script fails if `CHANGELOG.md` was not also changed.
 2. Make a corresponding edit to `CHANGELOG.md` and re-run the script.
   Expected result: the script passes.
+
+### Recorded local proof (2026-05-13)
+
+- Repository HEAD during the proof: `75311d099918835eb863b4ca745fa982a07aaea3`
+- Snapshot file used: `tests/Ontogony.PublicApi.Tests/ShippingAssemblyPublicApiTests.Public_api_matches_snapshot_assemblyShortName=Ontogony.AI.Contracts.verified.txt`
+- Result without `CHANGELOG.md` edit: **failed as expected** with `FAIL: Public API snapshots changed but CHANGELOG.md was NOT updated` and exit code `1`
+- Result after temporary `CHANGELOG.md` edit: **passed as expected** with `PASS: Public API governance check passed` and exit code `0`
+- Temporary proof edits were reverted after the check; the proof demonstrates local behavior only.
+
+### CI proof status
+
+`ci.yml` runs `./scripts/validate-public-api-governance.ps1`, so the gate is wired into CI. The current public head run for commit `75311d099918835eb863b4ca745fa982a07aaea3` is `https://github.com/uridolan77/ontogony-platform/actions/runs/25791922209`, and it is **failed**, so there is still no green CI proof URL for the rename/delete-aware script revision. The visible failure annotations are stale `tests/Ontogony.Http.Tests` API mismatches on GitHub head; local fixes exist in this workspace, but **PLAT-NP-009 remains implemented, pending external CI proof** until those fixes are pushed and CI reruns green.
 
 ## Future Public API Stability
 

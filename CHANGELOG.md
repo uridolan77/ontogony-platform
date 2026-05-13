@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+PR-PLAT-NP-011 — final open-item closure pass:
+
+- **Public API governance:** `scripts/validate-public-api-governance.ps1` now detects modified, deleted, and renamed `tests/Ontogony.PublicApi.Tests/**/*.verified.txt` snapshot files across unstaged, staged, `pull_request`, and `push` diffs, and still requires a matching `CHANGELOG.md` change.
+- **Manual proof:** `docs/public-api-review.md` records a local fail-without-changelog / pass-with-changelog proof for the governance script at HEAD `75311d099918835eb863b4ca745fa982a07aaea3`; CI wiring exists in `ci.yml`, but green proof for this hardened revision is still pending.
+- **Status reconciliation:** next-phase and review docs now state `PLAT-NP-003` as partial/open pending GitHub Dependency graph enablement and a real PR dependency-review proof, `PLAT-NP-008` as baseline-covered but intentionally open as a maintenance guard, and `PLAT-NP-009` as implemented pending CI proof.
+- **Docs accuracy:** `docs/start-here.md`, `docs/architecture/index.md`, `docs/operations/index.md`, `docs/VERSION_COMPATIBILITY_MATRIX.md`, `MIGRATION.md`, `README.md`, and `docs/architecture/durability-boundaries.md` were reconciled to the current `0.3.0-alpha.1` / `v0.3.0-alpha.1` / 23-package baseline and the current coverage-artifact policy.
+
+
 PR-PLAT-NP-010 — repository consistency and guardrails (no product semantics):
 
 - **Planning:** `docs/planning/next-phase/backlog.json` reconciled with `NEXT_PHASE_SEQUENCE.md` — **PLAT-NP-005/006/007** closed; **PLAT-NP-009** listed open; **PLAT-NP-003** clarified as partially complete pending Dependency graph for submission.

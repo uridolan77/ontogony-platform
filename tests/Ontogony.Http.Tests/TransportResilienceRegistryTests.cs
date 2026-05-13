@@ -1,94 +1,55 @@
+using Ontogony.Primitives;
 using Xunit;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Ontogony.Http.Tests;
 
-/// <summary>
-/// Tests for <see cref="TransportResilienceRegistry"/>.
-/// </summary>
-public class TransportResilienceRegistryTests
+public sealed class TransportResilienceRegistryTests
 {
     [Fact]
-    public void Register_StoresOptionsUnderName()
+    public void RecordFailure_OpensCircuit_AfterThreshold()
     {
-        var registry = new TransportResilienceRegistry();
-        var options = new TransportResilienceOptions { MaxRetries = 5 };
-        
-        registry.Register("my-client", options);
-        
-        Assert.True(registry.TryGet("my-client", out var retrieved));
-        Assert.NotNull(retrieved);
-        Assert.Equal(5, retrieved.MaxRetries);
+        var clock = new TestClock();
+        var registry = new TransportResilienceRegistry(clock);
+        var options = new TransportResilienceOptions
+        {
+            Enabled = true,
+            CircuitFailureThreshold = 2,
+            CircuitOpenDurationSeconds = 60
+        };
+
+        registry.RecordFailure("client-a", options);
+        Assert.Null(registry.TryGetCircuitOpenSyntheticResponse("client-a", options));
+
+        registry.RecordFailure("client-a", options);
+        var response = registry.TryGetCircuitOpenSyntheticResponse("client-a", options);
+
+        Assert.NotNull(response);
+        Assert.Equal("ontogony_circuit_open", response!.ReasonPhrase);
     }
 
     [Fact]
-    public void TryGet_NonExistentName_ReturnsFalse()
+    public void RetryBudget_Resets_WhenClockAdvancesBeyondWindow()
     {
-        var registry = new TransportResilienceRegistry();
-        
-        var result = registry.TryGet("nonexistent", out var retrieved);
-        
-        Assert.False(result);
-        Assert.Null(retrieved);
+        var clock = new TestClock();
+        var registry = new TransportResilienceRegistry(clock);
+        var options = new TransportResilienceOptions
+        {
+            Enabled = true,
+            RetryBudgetPerMinute = 1
+        };
+
+        Assert.True(registry.TryConsumeRetryBudget("client-budget", options));
+        Assert.False(registry.TryConsumeRetryBudget("client-budget", options));
+
+        clock.Advance(TimeSpan.FromMinutes(1).Add(TimeSpan.FromSeconds(1)));
+
+        Assert.True(registry.TryConsumeRetryBudget("client-budget", options));
     }
 
-    [Fact]
-    public void Register_OverwritesPreviousEntry()
+    private sealed class TestClock : IClock
     {
-        var registry = new TransportResilienceRegistry();
-        var options1 = new TransportResilienceOptions { MaxRetries = 3 };
-        var options2 = new TransportResilienceOptions { MaxRetries = 10 };
-        
-        registry.Register("client", options1);
-        registry.Register("client", options2);
-        
-        Assert.True(registry.TryGet("client", out var retrieved));
-        Assert.Equal(10, retrieved.MaxRetries);
-    }
+        public DateTimeOffset UtcNow { get; private set; } = new(2026, 5, 13, 12, 0, 0, TimeSpan.Zero);
 
-    [Fact]
-    public void Register_MultipleNames_RetrievesCorrectly()
-    {
-        var registry = new TransportResilienceRegistry();
-        var options1 = new TransportResilienceOptions { MaxRetries = 2 };
-        var options2 = new TransportResilienceOptions { MaxRetries = 5 };
-        var options3 = new TransportResilienceOptions { MaxRetries = 8 };
-        
-        registry.Register("client-a", options1);
-        registry.Register("client-b", options2);
-        registry.Register("client-c", options3);
-        
-        Assert.True(registry.TryGet("client-a", out var a));
-        Assert.True(registry.TryGet("client-b", out var b));
-        Assert.True(registry.TryGet("client-c", out var c));
-        
-        Assert.Equal(2, a.MaxRetries);
-        Assert.Equal(5, b.MaxRetries);
-        Assert.Equal(8, c.MaxRetries);
-    }
-
-    [Fact]
-    public void Register_CaseSensitive()
-    {
-        var registry = new TransportResilienceRegistry();
-        var options = new TransportResilienceOptions { MaxRetries = 3 };
-        
-        registry.Register("MyClient", options);
-        
-        Assert.True(registry.TryGet("MyClient", out _));
-        Assert.False(registry.TryGet("myclient", out _));
-        Assert.False(registry.TryGet("MYCLIENT", out _));
-    }
-
-    [Fact]
-    public void DI_Integration_CanResolveFromContainer()
-    {
-        var services = new ServiceCollection();
-        services.AddSingleton<TransportResilienceRegistry>();
-        
-        var provider = services.BuildServiceProvider();
-        var registry = provider.GetRequiredService<TransportResilienceRegistry>();
-        
-        Assert.NotNull(registry);
+        public void Advance(TimeSpan delta) => UtcNow = UtcNow.Add(delta);
     }
 }

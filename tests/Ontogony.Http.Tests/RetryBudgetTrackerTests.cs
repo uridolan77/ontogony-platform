@@ -1,63 +1,34 @@
+using Ontogony.Primitives;
 using Xunit;
 
 namespace Ontogony.Http.Tests;
 
-/// <summary>
-/// Tests for <see cref="RetryBudgetTracker"/>.
-/// </summary>
-public class RetryBudgetTrackerTests
+public sealed class RetryBudgetTrackerTests
 {
     [Fact]
-    public void CanRetry_WithinBudget_ReturnsTrue()
+    public void TryConsumeRetryBudget_AllowsUnlimitedRetries_WhenBudgetDisabled()
     {
-        var tracker = new RetryBudgetTracker(maxRetries: 3);
-        
-        Assert.True(tracker.CanRetry());
-        Assert.True(tracker.CanRetry());
-        Assert.True(tracker.CanRetry());
+        var registry = new TransportResilienceRegistry(new TestClock());
+        var options = new TransportResilienceOptions { RetryBudgetPerMinute = 0 };
+
+        Assert.True(registry.TryConsumeRetryBudget("tests", options));
+        Assert.True(registry.TryConsumeRetryBudget("tests", options));
+        Assert.True(registry.TryConsumeRetryBudget("tests", options));
     }
 
     [Fact]
-    public void CanRetry_ExhaustedBudget_ReturnsFalse()
+    public void TryConsumeRetryBudget_StopsAtConfiguredLimit()
     {
-        var tracker = new RetryBudgetTracker(maxRetries: 1);
-        
-        Assert.True(tracker.CanRetry());
-        Assert.False(tracker.CanRetry());
+        var registry = new TransportResilienceRegistry(new TestClock());
+        var options = new TransportResilienceOptions { RetryBudgetPerMinute = 2 };
+
+        Assert.True(registry.TryConsumeRetryBudget("tests", options));
+        Assert.True(registry.TryConsumeRetryBudget("tests", options));
+        Assert.False(registry.TryConsumeRetryBudget("tests", options));
     }
 
-    [Fact]
-    public void CanRetry_ZeroBudget_ReturnsFalse()
+    private sealed class TestClock : IClock
     {
-        var tracker = new RetryBudgetTracker(maxRetries: 0);
-        
-        Assert.False(tracker.CanRetry());
-    }
-
-    [Fact]
-    public void Reset_ReleasesPreviouslyExhaustedBudget()
-    {
-        var tracker = new RetryBudgetTracker(maxRetries: 1);
-        
-        Assert.True(tracker.CanRetry());
-        Assert.False(tracker.CanRetry());
-        
-        tracker.Reset();
-        
-        Assert.True(tracker.CanRetry());
-    }
-
-    [Fact]
-    public void AttemptCount_TracksRetries()
-    {
-        var tracker = new RetryBudgetTracker(maxRetries: 5);
-        
-        Assert.Equal(0, tracker.AttemptCount);
-        
-        tracker.CanRetry();
-        Assert.Equal(1, tracker.AttemptCount);
-        
-        tracker.CanRetry();
-        Assert.Equal(2, tracker.AttemptCount);
+        public DateTimeOffset UtcNow { get; private set; } = new(2026, 5, 13, 12, 0, 0, TimeSpan.Zero);
     }
 }
