@@ -59,7 +59,7 @@ public sealed partial class DefaultEnvelopeValidator : IEnvelopeValidator
 
         if (string.IsNullOrWhiteSpace(envelope.Source))
             errors.Add(new EnvelopeValidationError(nameof(envelope.Source), "Source is required.", "required"));
-        else if (!Uri.TryCreate(envelope.Source.Trim(), UriKind.Absolute, out _))
+        else if (!IsValidEnvelopeSourceUri(envelope.Source.Trim()))
             errors.Add(new EnvelopeValidationError(nameof(envelope.Source), "Source must be an absolute URI.", "format"));
 
         if (envelope.OccurredAt == default)
@@ -85,6 +85,17 @@ public sealed partial class DefaultEnvelopeValidator : IEnvelopeValidator
             errors.Add(new EnvelopeValidationError(nameof(envelope.PayloadHash), "PayloadHash must be 64 lowercase hex digits (SHA-256) when present.", "format"));
 
         return errors.Count == 0 ? EnvelopeValidationResult.Ok() : EnvelopeValidationResult.Fail(errors);
+    }
+
+    private static bool IsValidEnvelopeSourceUri(string source)
+    {
+        // UriKind.Absolute accepts rooted paths on Unix as file:// URIs; reject those so "/events/stream" stays invalid on all OSes.
+        if (!Uri.TryCreate(source, UriKind.Absolute, out var uri))
+        {
+            return false;
+        }
+
+        return !uri.IsFile;
     }
 
     private static bool IsValidPayloadHash(string hash) => PayloadHashRegex().IsMatch(hash);

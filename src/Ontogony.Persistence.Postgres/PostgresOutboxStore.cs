@@ -186,22 +186,24 @@ public sealed class PostgresOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
         };
 
         var rows = new List<OutboxMessage>(Math.Min(maxBatchSize, 512));
-        await using var reader = await command.ExecuteReaderAsync(cancellationToken).ConfigureAwait(false);
-        while (await reader.ReadAsync(cancellationToken).ConfigureAwait(false))
         {
-            rows.Add(new OutboxMessage(
-                MessageId: reader.GetString(0),
-                EventId: reader.GetString(1),
-                EventType: reader.GetString(2),
-                Source: reader.GetString(3),
-                TraceId: reader.GetString(4),
-                OccurredAt: reader.GetFieldValue<DateTimeOffset>(5),
-                AvailableAt: reader.GetFieldValue<DateTimeOffset>(6),
-                AttemptCount: reader.GetInt32(7),
-                LastError: reader.IsDBNull(8) ? null : reader.GetString(8),
-                PayloadJson: reader.GetFieldValue<string>(9),
-                PayloadHash: reader.GetString(10),
-                MetadataJson: reader.GetFieldValue<string>(11)));
+            await using var reader = await command.ExecuteReaderAsync(cancellationToken).ConfigureAwait(false);
+            while (await reader.ReadAsync(cancellationToken).ConfigureAwait(false))
+            {
+                rows.Add(new OutboxMessage(
+                    MessageId: reader.GetString(0),
+                    EventId: reader.GetString(1),
+                    EventType: reader.GetString(2),
+                    Source: reader.GetString(3),
+                    TraceId: reader.GetString(4),
+                    OccurredAt: reader.GetFieldValue<DateTimeOffset>(5),
+                    AvailableAt: reader.GetFieldValue<DateTimeOffset>(6),
+                    AttemptCount: reader.GetInt32(7),
+                    LastError: reader.IsDBNull(8) ? null : reader.GetString(8),
+                    PayloadJson: reader.GetFieldValue<string>(9),
+                    PayloadHash: reader.GetString(10),
+                    MetadataJson: reader.GetFieldValue<string>(11)));
+            }
         }
 
         await transaction.CommitAsync(cancellationToken).ConfigureAwait(false);

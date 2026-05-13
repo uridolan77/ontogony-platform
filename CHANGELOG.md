@@ -8,6 +8,8 @@ PR-PLAT-NP-003 — supply-chain workflow pins + first-run evidence:
 - **Workflow:** `dependency-submission.yml` — bump `advanced-security/component-detection-dependency-submission-action` to **`v0.1.3`** (fixes null `packageUrl` / `Scheme` submission crash on this solution).
 - **Workflow:** `release-packages.yml` — grant **`contents: write`** so tag-triggered runs can create GitHub Releases with attachments using `GITHUB_TOKEN`.
 - **Docs:** `docs/security/PLAT-NP-003-supply-chain-first-run-evidence.md` — operational run URLs for CodeQL, Supply chain, Dependency submission, and notes on SBOM artifacts.
+- **Runtime:** `DefaultEnvelopeValidator` rejects Unix `file:` interpretations of rooted paths (for example `/events/stream`) so `Source` matches JSON schema intent on all platforms.
+- **Persistence:** `PostgresOutboxStore.ClaimAvailableAsync` disposes the reader before `CommitAsync` to satisfy Npgsql single-command-per-connection rules (fixes Linux CI / release test failures).
 
 PR-PLAT-NP-002 — Conexus real package-mode compatibility (implemented in `conexus-dotnet` CI):
 
