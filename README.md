@@ -1,6 +1,8 @@
 # Ontogony Platform
 
-**Ontogony.Platform** is the mechanical infrastructure base for new Ontogony services. It is safe to break before v1 because no external consumers exist. The first target consumer is **Conexus.NET**.
+**Ontogony.Platform** is the mechanical infrastructure base for new Ontogony services.
+
+Ontogony.Platform is pre-1.0 and still evolving, but **Conexus.NET** is now its first **active alpha consumer**. Breaking changes are allowed only with public API snapshot review, `CHANGELOG` notes, migration guidance when applicable, and Conexus compatibility validation.
 
 This repository is intentionally **not** a domain framework. It contains reusable mechanics only:
 
@@ -51,9 +53,20 @@ What is a valid business approval?
 
 Keep this repository free of product meaning: no canonization, no agent plans, no provider routing policy, no business approval rules, no RAG/graph extraction logic, no UI. If a change requires understanding those domains, it belongs in a product repo. See [`AGENTS.md`](AGENTS.md).
 
-## Conexus.NET starter target
+## Active consumer (Conexus.NET, alpha)
 
-The platform is shaped so **Conexus.NET** can adopt it as the default substrate: observability, errors, HTTP, security, idempotency, contracts, AI telemetry, artifacts, and execution journaling — without importing Ontogony-specific business rules. Optional packages (messaging, persistence, Postgres outbox, protocol ingress, testing) layer on when a service needs them. See [`docs/consumer-blueprints/conexus-dotnet-platform-readiness.md`](docs/consumer-blueprints/conexus-dotnet-platform-readiness.md) for the minimal package list and reference request flow.
+**Conexus.NET** consumes this stack today in **sibling-source** and **NuGet package** modes as the default substrate: observability, errors, HTTP, security, idempotency, contracts, AI telemetry, artifacts, and execution journaling — without importing Ontogony-specific business rules. Optional packages (messaging, persistence, Postgres outbox, protocol ingress, testing) layer on when a service needs them.
+
+Consumer alignment and governance (read before upgrading or breaking public surface area):
+
+- [`docs/consumer-blueprints/conexus-dotnet-platform-readiness.md`](docs/consumer-blueprints/conexus-dotnet-platform-readiness.md) — minimal package set and reference request flow.
+- [`docs/consumer-blueprints/CONEXUS_ONTOGONY_PACKAGE_MODE_CONTRACT.md`](docs/consumer-blueprints/CONEXUS_ONTOGONY_PACKAGE_MODE_CONTRACT.md) — package-mode contract and validation expectations.
+- [`docs/VERSION_COMPATIBILITY_MATRIX.md`](docs/VERSION_COMPATIBILITY_MATRIX.md) — version compatibility expectations across packages.
+- [`docs/public-api-review.md`](docs/public-api-review.md) — public API snapshot and review process.
+- [`docs/planning/next-phase/architecture/PACKAGE_RELEASE_EVIDENCE.md`](docs/planning/next-phase/architecture/PACKAGE_RELEASE_EVIDENCE.md) — release evidence model for shipped packages.
+- [`docs/security/PLAT-NP-003-supply-chain-first-run-evidence.md`](docs/security/PLAT-NP-003-supply-chain-first-run-evidence.md) — security and supply-chain workflow proof (CodeQL, dependency review, SBOM).
+
+`PLAT-NP-008` remains an **intentionally open** maintenance guard for in-memory registration warning coverage when new public DI surfaces land; see [`docs/planning/next-phase/pr-specs/PR-PLAT-NP-008-in-memory-warning-coverage-expansion.md`](docs/planning/next-phase/pr-specs/PR-PLAT-NP-008-in-memory-warning-coverage-expansion.md).
 
 ## Current finalized package layers
 
@@ -144,6 +157,9 @@ src/
 - [`docs/architecture/package-levels.md`](docs/architecture/package-levels.md) — package layers, dependency matrix, forbidden edges.
 - [`docs/FRAMEWORK_BASELINE.md`](docs/FRAMEWORK_BASELINE.md) — SDK, target framework, central package versions, upgrade procedure.
 - [`docs/consumer-blueprints/conexus-dotnet-platform-readiness.md`](docs/consumer-blueprints/conexus-dotnet-platform-readiness.md) — Conexus.NET minimal package set and reference request flow.
+- [`docs/consumer-blueprints/CONEXUS_ONTOGONY_PACKAGE_MODE_CONTRACT.md`](docs/consumer-blueprints/CONEXUS_ONTOGONY_PACKAGE_MODE_CONTRACT.md) — Conexus package-mode contract and proof expectations.
+- [`docs/VERSION_COMPATIBILITY_MATRIX.md`](docs/VERSION_COMPATIBILITY_MATRIX.md) — cross-package compatibility expectations.
+- [`docs/public-api-review.md`](docs/public-api-review.md) — public API governance and snapshot review.
 - [`docs/consumer-blueprints/conexus-dotnet-starter-plan.md`](docs/consumer-blueprints/conexus-dotnet-starter-plan.md) — v0 substrate freeze and validation checkpoint before the external starter (PR54).
 - [`docs/packages/`](docs/packages/) — per-package guarantees and non-goals.
 - [`CHANGELOG.md`](CHANGELOG.md) — PR history, migrations, and breaking-change notes.
@@ -173,22 +189,22 @@ pwsh ./scripts/bootstrap-solution.ps1
 
 **Current shipping line:** `0.3.0-alpha.1` (set in [`Directory.Build.props`](Directory.Build.props) as `<Version>`; CI uses the same value for `PACKAGE_VERSION` when packing).
 
-**Before 1.0** there are no stability guarantees for external consumers that do not exist yet:
+**Before 1.0** the line is still **alpha**: breaking API and contract changes remain possible, but they must not be silent for **Conexus.NET** (see [ADR-PLAT-013](docs/adr/ADR-PLAT-013-active-consumer-versioning.md) and the links under **Active consumer** above).
 
-- Breaking API and contract changes are allowed without pretending full SemVer stability.
-- Migration notes in `docs/migrations/` are required when the change matters for **adopted** mechanics; unused internal experiments do not need a migration file.
-- What matters pre-1.0 is a coherent **package shape** and honest docs.
+- Breaking changes need public API snapshot review where applicable, `CHANGELOG.md` entries, and migration notes in `docs/migrations/` when consumer-visible behavior shifts.
+- Conexus package-mode and baseline scripts should stay green across upgrades (see [`docs/planning/next-phase/pr-specs/PR-PLAT-NP-002-real-conexus-package-mode-compatibility.md`](docs/planning/next-phase/pr-specs/PR-PLAT-NP-002-real-conexus-package-mode-compatibility.md) and [`scripts/validate-conexus-consumer-baseline-alignment.ps1`](scripts/validate-conexus-consumer-baseline-alignment.ps1)).
+- Unused internal experiments do not need a migration file; what matters pre-1.0 is a coherent **package shape** and honest docs.
 
-**After Conexus.NET starts consuming this stack** (informal roadmap):
+**Informal roadmap** (subject to consumer validation):
 
-- `0.4.x` — Conexus.NET incubation baseline while the gateway is built against the platform.
+- `0.4.x` — Conexus.NET incubation baseline while the gateway hardens against the platform.
 - `1.0.0` — reserved for when a shipped Conexus.NET (or successor) uses the core packages end-to-end in production and smoke-validates telemetry, artifacts, and execution recording.
 
 Use SemVer syntax for NuGet; treat **0.x** and **pre-release** tags as “evolving substrate,” not locked LTS.
 
 ## Current status
 
-**Shared infrastructure (0.3.0-alpha.1)** — contracts, reference implementations, docs, and automated tests (see `CHANGELOG.md`). CI restores, builds, tests, uploads coverage artifacts (`coverage.cobertura.xml` and `.trx`), validates docs, **shipping inventory**, **AI runtime docs**, **package dependency levels**, and packs **23** libraries on **.NET 9** (see `.github/workflows/`). Coverage thresholds remain deferred until the newer test projects mature. A non-shipping [`examples/ConexusDotNetSkeleton/`](examples/ConexusDotNetSkeleton/) project compiles against the Conexus v1 package slice.
+**Shared infrastructure (0.3.0-alpha.1)** — contracts, reference implementations, docs, and automated tests (see `CHANGELOG.md`). CI restores, builds, tests, uploads coverage artifacts (`coverage.cobertura.xml` and `.trx`), validates docs, **shipping inventory**, **AI runtime docs**, **package dependency levels**, and packs **23** libraries on **.NET 9** (see `.github/workflows/`). Coverage thresholds remain deferred until the newer test projects mature. A non-shipping [`examples/ConexusDotNetSkeleton/`](examples/ConexusDotNetSkeleton/) project compiles against the Conexus v1 package slice as a compile-only smoke; **Conexus.NET** in `conexus-dotnet` is the live alpha consumer exercising the same stack in product code.
 
 **Still evolving (check `docs/migrations/` before upgrading):**
 
