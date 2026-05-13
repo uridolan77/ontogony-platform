@@ -12,7 +12,8 @@ on:
         type: string
 
 permissions:
-  contents: read
+  # Tag pushes create a GitHub Release + attach packages/manifest (softprops/action-gh-release).
+  contents: write
   packages: write
 
 jobs:

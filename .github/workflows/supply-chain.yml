@@ -40,7 +40,8 @@ jobs:
 
       # SBOM only: do not fail the job on unrelated CVE hits (NuGet audit job covers packages).
       - name: Generate SBOM with Trivy
-        uses: aquasecurity/trivy-action@0.28.0
+        # Pin v-prefixed tag (aquasecurity/trivy-action removed legacy 0.x.y tags after supply-chain hardening).
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           scan-type: "fs"
           format: "cyclonedx"

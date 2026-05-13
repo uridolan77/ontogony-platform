@@ -24,4 +24,5 @@ jobs:
         run: dotnet restore Ontogony.Platform.sln
 
       # `actions/dependency-submission-action` is not a published repo; use GitHub Advanced Security component detection for NuGet graph submission.
-      - uses: advanced-security/component-detection-dependency-submission-action@v0.0.5
+      # v0.0.5 threw TypeError on null package URLs; v0.1.3 includes null-safety fixes (see PLAT-NP-003 evidence doc).
+      - uses: advanced-security/component-detection-dependency-submission-action@v0.1.3

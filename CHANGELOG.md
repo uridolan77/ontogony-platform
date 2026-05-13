@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+PR-PLAT-NP-003 — supply-chain workflow pins + first-run evidence:
+
+- **Workflow:** `supply-chain.yml` — pin `aquasecurity/trivy-action` to **`v0.36.0`** (legacy `0.28.0` tag no longer resolves after upstream tag migration).
+- **Workflow:** `dependency-submission.yml` — bump `advanced-security/component-detection-dependency-submission-action` to **`v0.1.3`** (fixes null `packageUrl` / `Scheme` submission crash on this solution).
+- **Workflow:** `release-packages.yml` — grant **`contents: write`** so tag-triggered runs can create GitHub Releases with attachments using `GITHUB_TOKEN`.
+- **Docs:** `docs/security/PLAT-NP-003-supply-chain-first-run-evidence.md` — operational run URLs for CodeQL, Supply chain, Dependency submission, and notes on SBOM artifacts.
+
 PR-PLAT-NP-002 — Conexus real package-mode compatibility (implemented in `conexus-dotnet` CI):
 
 - **Docs:** `docs/consumer-blueprints/CONEXUS_ONTOGONY_PACKAGE_MODE_CONTRACT.md` — feed inputs, `UseOntogonyPackages` / `OntogonyPackageVersion`, and CI guard expectations.
