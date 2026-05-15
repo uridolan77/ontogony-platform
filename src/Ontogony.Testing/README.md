@@ -6,6 +6,7 @@ Test doubles, harnesses, and conformance assertion kits for validating Ontogony 
 
 - **Fakes** — clocks, IDs, publishers, HTTP stubs, correlation scopes.
 - **Conformance kits** — assertions for tracing, errors, envelopes, HMAC, outbox, HTTP resilience.
+- **Architecture helpers** — forbidden MSBuild reference and `using` directive scanners.
 
 ## What this is not
 
@@ -58,6 +59,10 @@ HmacConformanceAssertions.AssertSignatureRoundTrip(secret, method, path, timesta
 - `StubHttpMessageHandler` — Scripted HTTP responses
 - `RecordingHttpMessageHandler` — Records outgoing HTTP requests
 - `TestCorrelationScope` — Pushes temporary correlation context
+
+### Architecture Helpers
+- `ArchitectureReferenceAssertions` — scan `PackageReference`, `ProjectReference`, and `PackageVersion` entries
+- `ArchitectureScanTargets` — collect `*.csproj`, `Directory.Packages.props`, and resolve `src/**/*.cs` globs
 
 ### Conformance Kits
 - `TracingConformanceAssertions` — Trace header echo and propagation
