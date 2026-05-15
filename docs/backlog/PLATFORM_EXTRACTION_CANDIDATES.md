@@ -1,14 +1,18 @@
 # Platform extraction candidates (mechanical only)
 
-This document records **repeated mechanics** observed across consumer repos that **could** move into Ontogony.Platform. Nothing here is committed work: review with [`PLATFORM_CLEANUP_TIGHTENING_STATUS.md`](PLATFORM_CLEANUP_TIGHTENING_STATUS.md) and product owners before opening implementation PRs.
+**Update 2026-05-15:** §1 (**`Ontogony.Http` / `IntegrationClientCallOptions`**) is **implemented** in platform + Kanon/Conexus consumers; downstream extraction decision record: [`allagma-dotnet` `docs/backlog/PLATFORM_EXTRACTION_DECISION_RECORD.md`](../../../allagma-dotnet/docs/backlog/PLATFORM_EXTRACTION_DECISION_RECORD.md).
+
+This document records **repeated mechanics** observed across consumer repos that **could** move into Ontogony.Platform. Open items beyond §1 remain planning-only unless another decision record adopts them.
 
 **Rule:** extractions must not import Kanon meaning, Allagma run or tool-intent protocols, Conexus routing DTOs, Microsoft Agent Framework, or provider SDKs.
 
 ---
 
-## 1. Per-integration `HttpClient` call options → `OntogonyIntegrationContext`
+## 1. Per-integration `HttpClient` call options → `OntogonyIntegrationContext` — **DONE**
 
-### Current duplicate locations
+Canonical type: **`IntegrationClientCallOptions`** in `Ontogony.Http`, with **`PushScope()`** → **`OntogonyIntegrationContext`**. Removed duplicate **`KanonClientCallOptions`** / **`ConexusClientCallOptions`** records.
+
+### ~~Current duplicate locations~~ (historical)
 
 | Location | Type |
 | --- | --- |
@@ -33,13 +37,14 @@ Product repos keep their HTTP paths, DTOs, and business rules. This record is a 
 - **Method:** `public IDisposable PushScope()` delegating to `OntogonyIntegrationContext.Push(new IntegrationOutboundState(...))`.
 - **Migration:** deprecate `KanonClientCallOptions` / `ConexusClientCallOptions` in favor of the platform type, or keep thin type aliases in product clients for a release if needed.
 
-### Migration plan per product repo
+### Migration plan per product repo — **completed** (2026-05-15)
 
-| Repo | Steps |
+| Repo | Status |
 | --- | --- |
-| **kanon-dotnet** | Replace `KanonClientCallOptions` with platform type (or inherit/alias); update XML docs and tests in `Kanon.Tests`. |
-| **conexus-dotnet** | Same for `ConexusClientCallOptions`. |
-| **allagma-dotnet** | Consume via `Kanon.Client` / `Conexus.Client` after those packages switch; no direct duplicate today beyond product clients. |
+| **ontogony-platform** | Shipped **`IntegrationClientCallOptions`** + **`Ontogony.Http.Tests`** + public API snapshot update. |
+| **kanon-dotnet** | **`KanonClient`** uses platform type; **`GlobalUsings`** for `Ontogony.Http`; tests updated. |
+| **conexus-dotnet** | **`Conexus.Client`** uses platform type; **`GlobalUsings`**; tests updated. |
+| **allagma-dotnet** | **`Allagma.Infrastructure`** call sites + tests use **`IntegrationClientCallOptions`**. |
 
 ### Tests required
 

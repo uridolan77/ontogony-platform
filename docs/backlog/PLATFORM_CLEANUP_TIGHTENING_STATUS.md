@@ -90,5 +90,4 @@ _Note: On Windows, run the `.ps1` validators via `powershell -File …` if `pwsh
 
 ## Next recommended platform PR
 
-1. **If extracting call options:** Implement `IntegrationClientCallOptions` (name TBD) in `Ontogony.Http` + tests; coordinate SemVer releases with `Kanon.Client` and `Conexus.Client` (see extraction doc).
-2. **Otherwise:** Keep **PLAT-NP-008** / in-memory registration warning coverage gaps as the maintenance-style next item; or consumer-driven HTTP resilience doc/test hardening per `docs/packages/Ontogony.Http.md`.
+1. **Maintenance:** **PLAT-NP-008** / in-memory registration warning coverage gaps, or consumer-driven HTTP resilience doc/test hardening per `docs/packages/Ontogony.Http.md`. (**`IntegrationClientCallOptions`** extraction is complete as of 2026-05-15.)
