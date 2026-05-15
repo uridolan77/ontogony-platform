@@ -98,6 +98,21 @@ public sealed class IntegrationConventionsTests
     }
 
     [Fact]
+    public async Task IntegrationClientCallOptions_PushScope_matches_IntegrationOutboundState()
+    {
+        using var _ = new IntegrationClientCallOptions(IdempotencyKey: "idem-001").PushScope();
+
+        var capture = new CaptureHandler();
+        var handler = new IntegrationHeadersDelegatingHandler();
+        handler.InnerHandler = capture;
+        using var client = new HttpClient(handler);
+
+        await client.GetAsync("https://example.test/ping");
+
+        Assert.Equal("idem-001", ReadSingleHeader(capture.LastRequest!, OntogonyIntegrationHeaders.IdempotencyKey));
+    }
+
+    [Fact]
     public async Task SendAsync_PropagatesIdempotencyKey_FromIntegrationContext()
     {
         using var _ = OntogonyIntegrationContext.Push(new IntegrationOutboundState(IdempotencyKey: "idem-001"));

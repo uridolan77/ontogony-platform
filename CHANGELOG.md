@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- **`Ontogony.Http` — `IntegrationClientCallOptions`** — shared per-call outbound metadata (idempotency, actor, tenant/workspace) with `PushScope()` over `OntogonyIntegrationContext`; replaces duplicate product-client option records in Kanon/Conexus clients.
+
 Platform cleanup / consumer blueprint tightening (docs + examples only):
 
 - **Allagma blueprint:** integration flow rewritten as a mechanical request pipeline (no run/tool/human-gate steps); boundary table wording decoupled from product-specific semantics; AI.Contracts row describes gateway telemetry without naming a product stack.

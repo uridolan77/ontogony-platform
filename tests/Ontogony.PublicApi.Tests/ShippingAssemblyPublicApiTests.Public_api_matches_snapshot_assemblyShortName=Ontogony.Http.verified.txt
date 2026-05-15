@@ -38,6 +38,17 @@
         Fake = 1,
         Http = 2,
     }
+    public sealed class IntegrationClientCallOptions : System.IEquatable<Ontogony.Http.IntegrationClientCallOptions>
+    {
+        public IntegrationClientCallOptions(string? IdempotencyKey = null, string? ActorId = null, string? ActorType = null, System.Collections.Generic.IReadOnlyList<string>? ActorRoles = null, string? TenantId = null, string? WorkspaceId = null) { }
+        public string? ActorId { get; init; }
+        public System.Collections.Generic.IReadOnlyList<string>? ActorRoles { get; init; }
+        public string? ActorType { get; init; }
+        public string? IdempotencyKey { get; init; }
+        public string? TenantId { get; init; }
+        public string? WorkspaceId { get; init; }
+        public System.IDisposable PushScope() { }
+    }
     public class IntegrationHeadersDelegatingHandler : System.Net.Http.DelegatingHandler
     {
         public IntegrationHeadersDelegatingHandler(System.Collections.Generic.IEnumerable<Ontogony.Http.IOutboundActorPropagator>? propagators = null) { }
