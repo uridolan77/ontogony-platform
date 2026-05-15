@@ -49,6 +49,52 @@ public sealed class IntegrationConventionsTests
         Assert.Equal("actor-42", ReadSingleHeader(capture.LastRequest!, OntogonyIntegrationHeaders.ActorId));
         Assert.Equal("service", ReadSingleHeader(capture.LastRequest!, OntogonyIntegrationHeaders.ActorType));
         Assert.Equal("operator,admin", ReadSingleHeader(capture.LastRequest!, OntogonyIntegrationHeaders.ActorRoles));
+        Assert.Equal("tenant-42", ReadSingleHeader(capture.LastRequest!, OntogonyIntegrationHeaders.TenantId));
+        Assert.Equal("workspace-42", ReadSingleHeader(capture.LastRequest!, OntogonyIntegrationHeaders.WorkspaceId));
+    }
+
+    [Fact]
+    public async Task SendAsync_PropagatesActorId_FromIntegrationContext()
+    {
+        using var _ = OntogonyIntegrationContext.Push(new IntegrationOutboundState(
+            ActorId: "background-actor",
+            TenantId: "tenant-bg",
+            WorkspaceId: "workspace-bg"));
+
+        var capture = new CaptureHandler();
+        var handler = new IntegrationHeadersDelegatingHandler();
+        handler.InnerHandler = capture;
+        using var client = new HttpClient(handler);
+
+        await client.GetAsync("https://example.test/ping");
+
+        Assert.Equal("background-actor", ReadSingleHeader(capture.LastRequest!, OntogonyIntegrationHeaders.ActorId));
+        Assert.Equal("tenant-bg", ReadSingleHeader(capture.LastRequest!, OntogonyIntegrationHeaders.TenantId));
+        Assert.Equal("workspace-bg", ReadSingleHeader(capture.LastRequest!, OntogonyIntegrationHeaders.WorkspaceId));
+    }
+
+    [Fact]
+    public async Task SendAsync_DoesNotOverwriteExplicitIntegrationHeaders()
+    {
+        using var _ = OntogonyCorrelationContext.Push(new CorrelationState(
+            "trace-ctx",
+            "op-ctx",
+            ActorId: "actor-ctx",
+            TenantId: "tenant-ctx"));
+
+        var capture = new CaptureHandler();
+        var handler = new IntegrationHeadersDelegatingHandler([new TestActorPropagator()]);
+        handler.InnerHandler = capture;
+        using var client = new HttpClient(handler);
+        using var request = new HttpRequestMessage(HttpMethod.Get, "https://example.test/ping");
+        request.Headers.TryAddWithoutValidation(OntogonyIntegrationHeaders.ActorId, "already-set");
+        request.Headers.TryAddWithoutValidation(OntogonyIntegrationHeaders.TenantId, "tenant-explicit");
+
+        await client.SendAsync(request);
+
+        Assert.Equal("already-set", ReadSingleHeader(capture.LastRequest!, OntogonyIntegrationHeaders.ActorId));
+        Assert.Equal("tenant-explicit", ReadSingleHeader(capture.LastRequest!, OntogonyIntegrationHeaders.TenantId));
+        Assert.Equal("workspace-42", ReadSingleHeader(capture.LastRequest!, OntogonyIntegrationHeaders.WorkspaceId));
     }
 
     [Fact]
@@ -93,7 +139,12 @@ public sealed class IntegrationConventionsTests
     {
         public bool TryGetActor(out OutboundActorSnapshot snapshot)
         {
-            snapshot = new OutboundActorSnapshot("actor-42", "service", ["operator", "admin"]);
+            snapshot = new OutboundActorSnapshot(
+                "actor-42",
+                "service",
+                ["operator", "admin"],
+                TenantId: "tenant-42",
+                WorkspaceId: "workspace-42");
             return true;
         }
     }

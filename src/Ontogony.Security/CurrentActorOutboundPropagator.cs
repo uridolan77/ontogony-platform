@@ -25,7 +25,12 @@ public sealed class CurrentActorOutboundPropagator : IOutboundActorPropagator
             return false;
         }
 
-        snapshot = new OutboundActorSnapshot(actor.ActorId, actor.ActorType, actor.Roles);
+        snapshot = new OutboundActorSnapshot(
+            actor.ActorId,
+            actor.ActorType,
+            actor.Roles,
+            actor.TenantId,
+            actor.WorkspaceId);
         return true;
     }
 }

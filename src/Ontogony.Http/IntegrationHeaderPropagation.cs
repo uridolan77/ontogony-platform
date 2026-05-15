@@ -34,7 +34,13 @@ internal static class IntegrationHeaderPropagation
         if (integration is not null)
         {
             AddIfMissing(headers, OntogonyIntegrationHeaders.IdempotencyKey, integration.IdempotencyKey);
+            AddIfMissing(headers, OntogonyIntegrationHeaders.ActorId, integration.ActorId);
+            AddIfMissing(headers, OntogonyEventHeaders.ActorId, integration.ActorId);
             AddIfMissing(headers, OntogonyIntegrationHeaders.ActorType, integration.ActorType);
+            AddIfMissing(headers, OntogonyIntegrationHeaders.TenantId, integration.TenantId);
+            AddIfMissing(headers, OntogonyEventHeaders.TenantId, integration.TenantId);
+            AddIfMissing(headers, OntogonyIntegrationHeaders.WorkspaceId, integration.WorkspaceId);
+            AddIfMissing(headers, OntogonyEventHeaders.WorkspaceId, integration.WorkspaceId);
             AddRolesIfMissing(headers, integration.ActorRoles);
         }
 
@@ -48,6 +54,10 @@ internal static class IntegrationHeaderPropagation
             AddIfMissing(headers, OntogonyIntegrationHeaders.ActorId, actor.ActorId);
             AddIfMissing(headers, OntogonyEventHeaders.ActorId, actor.ActorId);
             AddIfMissing(headers, OntogonyIntegrationHeaders.ActorType, actor.ActorType);
+            AddIfMissing(headers, OntogonyIntegrationHeaders.TenantId, actor.TenantId);
+            AddIfMissing(headers, OntogonyEventHeaders.TenantId, actor.TenantId);
+            AddIfMissing(headers, OntogonyIntegrationHeaders.WorkspaceId, actor.WorkspaceId);
+            AddIfMissing(headers, OntogonyEventHeaders.WorkspaceId, actor.WorkspaceId);
             AddRolesIfMissing(headers, actor.Roles);
         }
     }

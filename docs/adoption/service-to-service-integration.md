@@ -18,6 +18,19 @@ Use `OntogonyIntegrationHeaders` from `Ontogony.Http`:
 
 Legacy `Idempotency-Key` and `X-Ontogony-Roles` are still recognized for retry and inbound interop.
 
+`X-Ontogony-Actor-Roles` values are comma-separated. Role names must not contain commas; normalize role names before propagation.
+
+## Actor and tenancy propagation
+
+| Source | What propagates |
+|--------|-----------------|
+| `OntogonyCorrelationContext` | Trace/correlation id, actor id, tenant, workspace (when present on correlation state) |
+| `OntogonyIntegrationContext` | Idempotency key, actor id, actor type, roles, tenant, workspace (for background/outbound flows) |
+| `AddOntogonyOutboundActorPropagation()` | Actor id, type, roles, tenant, workspace from `ICurrentActorAccessor` |
+| Custom `IOutboundActorPropagator` | Service-specific actor metadata |
+
+Existing request headers are never overwritten.
+
 ## Registration
 
 Named client:
@@ -50,7 +63,10 @@ builder.Services.AddOntogonyOutboundActorPropagation();
 Set `OntogonyIntegrationContext` before an outbound unsafe call when a key is known:
 
 ```csharp
-using (OntogonyIntegrationContext.Push(new IntegrationOutboundState(IdempotencyKey: key)))
+using (OntogonyIntegrationContext.Push(new IntegrationOutboundState(
+    IdempotencyKey: key,
+    ActorId: actorId,
+    TenantId: tenantId)))
 {
     await client.PostAsync(...);
 }

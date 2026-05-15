@@ -2,11 +2,18 @@
 
 ## Unreleased
 
+PLAT-INT-001A — integration header propagation tightening (`Ontogony.Http`, `Ontogony.Security`):
+
+- **`OutboundActorSnapshot`** — optional `TenantId` and `WorkspaceId`; populated by `CurrentActorOutboundPropagator` when available.
+- **`IntegrationOutboundState`** — optional `ActorId`, `TenantId`, and `WorkspaceId` for background/outbound flows without HTTP actor context.
+- **Docs:** role comma-separation constraint; actor/tenant propagation notes in `docs/adoption/service-to-service-integration.md`.
+- **Tests:** tenant propagation, integration-context actor id, explicit header no-overwrite.
+
 PLAT-INT-001 — service-to-service integration conventions (`Ontogony.Http`):
 
 - **`OntogonyIntegrationHeaders`** — canonical cross-service header names.
 - **Typed `AddOntogonyIntegrationHttpClient<TClient,TImplementation>`** — product repos register typed clients without shared implementation assemblies.
-- **`IntegrationHeadersDelegatingHandler`** — propagates correlation, actor, and optional idempotency headers; `CorrelationHeadersDelegatingHandler` remains as a compatibility alias.
+- **`IntegrationHeadersDelegatingHandler`** — propagates correlation, actor, and optional idempotency headers; `CorrelationHeadersDelegatingHandler` remains as a compatibility **subclass** of `IntegrationHeadersDelegatingHandler`.
 - **`OntogonyIntegrationContext`** — async-local outbound idempotency/actor metadata.
 - **`IOutboundActorPropagator`** — extensible actor propagation; `AddOntogonyOutboundActorPropagation()` in `Ontogony.Security` bridges `ICurrentActorAccessor`.
 - **Docs:** `docs/adoption/service-to-service-integration.md`; package README and `docs/packages/Ontogony.Http.md` updated.

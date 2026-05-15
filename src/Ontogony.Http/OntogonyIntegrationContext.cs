@@ -28,9 +28,15 @@ public static class OntogonyIntegrationContext
 /// Outbound-only integration metadata carried on the async flow.
 /// </summary>
 /// <param name="IdempotencyKey">Optional idempotency key to emit on the next outbound call.</param>
+/// <param name="ActorId">Optional actor identifier when no HTTP actor context exists.</param>
 /// <param name="ActorType">Optional actor type classifier.</param>
-/// <param name="ActorRoles">Optional actor roles.</param>
+/// <param name="ActorRoles">Optional actor roles (comma-free role names only).</param>
+/// <param name="TenantId">Optional tenant scope.</param>
+/// <param name="WorkspaceId">Optional workspace scope.</param>
 public sealed record IntegrationOutboundState(
     string? IdempotencyKey = null,
+    string? ActorId = null,
     string? ActorType = null,
-    IReadOnlyList<string>? ActorRoles = null);
+    IReadOnlyList<string>? ActorRoles = null,
+    string? TenantId = null,
+    string? WorkspaceId = null);

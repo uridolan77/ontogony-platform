@@ -58,10 +58,13 @@
     }
     public sealed class IntegrationOutboundState : System.IEquatable<Ontogony.Http.IntegrationOutboundState>
     {
-        public IntegrationOutboundState(string? IdempotencyKey = null, string? ActorType = null, System.Collections.Generic.IReadOnlyList<string>? ActorRoles = null) { }
+        public IntegrationOutboundState(string? IdempotencyKey = null, string? ActorId = null, string? ActorType = null, System.Collections.Generic.IReadOnlyList<string>? ActorRoles = null, string? TenantId = null, string? WorkspaceId = null) { }
+        public string? ActorId { get; init; }
         public System.Collections.Generic.IReadOnlyList<string>? ActorRoles { get; init; }
         public string? ActorType { get; init; }
         public string? IdempotencyKey { get; init; }
+        public string? TenantId { get; init; }
+        public string? WorkspaceId { get; init; }
     }
     public static class OntogonyIntegrationContext
     {
@@ -82,10 +85,12 @@
     }
     public readonly struct OutboundActorSnapshot : System.IEquatable<Ontogony.Http.OutboundActorSnapshot>
     {
-        public OutboundActorSnapshot(string ActorId, string? ActorType, System.Collections.Generic.IReadOnlyList<string> Roles) { }
+        public OutboundActorSnapshot(string ActorId, string? ActorType, System.Collections.Generic.IReadOnlyList<string> Roles, string? TenantId = null, string? WorkspaceId = null) { }
         public string ActorId { get; init; }
         public string? ActorType { get; init; }
         public System.Collections.Generic.IReadOnlyList<string> Roles { get; init; }
+        public string? TenantId { get; init; }
+        public string? WorkspaceId { get; init; }
     }
     public sealed class ResilientIntegrationDelegatingHandler : System.Net.Http.DelegatingHandler
     {

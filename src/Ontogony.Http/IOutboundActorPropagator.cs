@@ -13,4 +13,11 @@ public interface IOutboundActorPropagator
 /// <param name="ActorId">Stable actor identifier.</param>
 /// <param name="ActorType">Opaque actor type classifier.</param>
 /// <param name="Roles">Role names attached to the actor.</param>
-public readonly record struct OutboundActorSnapshot(string ActorId, string? ActorType, IReadOnlyList<string> Roles);
+/// <param name="TenantId">Optional tenant scope.</param>
+/// <param name="WorkspaceId">Optional workspace scope.</param>
+public readonly record struct OutboundActorSnapshot(
+    string ActorId,
+    string? ActorType,
+    IReadOnlyList<string> Roles,
+    string? TenantId = null,
+    string? WorkspaceId = null);

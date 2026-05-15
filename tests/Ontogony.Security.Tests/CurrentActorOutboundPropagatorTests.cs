@@ -26,6 +26,24 @@ public sealed class CurrentActorOutboundPropagatorTests
         Assert.Equal("actor-1", snapshot.ActorId);
         Assert.Equal(OntogonyActorTypes.Human, snapshot.ActorType);
         Assert.Equal(["reviewer"], snapshot.Roles);
+        Assert.Equal("tenant-1", snapshot.TenantId);
+        Assert.Null(snapshot.WorkspaceId);
+    }
+
+    [Fact]
+    public void TryGetActor_PropagatesWorkspace_WhenPresent()
+    {
+        var actor = new CurrentActor(
+            "actor-2",
+            OntogonyActorTypes.Service,
+            [],
+            TenantId: "tenant-2",
+            WorkspaceId: "workspace-2");
+        var propagator = new CurrentActorOutboundPropagator(new StubActorAccessor(actor));
+
+        Assert.True(propagator.TryGetActor(out var snapshot));
+        Assert.Equal("tenant-2", snapshot.TenantId);
+        Assert.Equal("workspace-2", snapshot.WorkspaceId);
     }
 
     private sealed class StubActorAccessor(CurrentActor? actor) : ICurrentActorAccessor
