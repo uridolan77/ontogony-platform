@@ -31,7 +31,7 @@
 - **`examples/AllagmaDotNetSkeleton/Program.cs`** — Named HTTP clients `partner-alpha` / `partner-beta`; integration metric operation `SmokeOperation` (replacing product-specific labels).
 - **`CHANGELOG.md`** — Unreleased notes for the above.
 - **`README.md`** — Documentation map already includes [`docs/backlog/PLATFORM_CLEANUP_TIGHTENING_STATUS.md`](PLATFORM_CLEANUP_TIGHTENING_STATUS.md) (periodic audit entry point).
-- **`docs/backlog/PLATFORM_EXTRACTION_CANDIDATES.md`** — New planning doc for safe mechanical extractions (implementation **not** done here except documentation).
+- **`docs/backlog/PLATFORM_EXTRACTION_CANDIDATES.md`** — Mechanical extraction queue (**§1 `IntegrationClientCallOptions`** is **shipped** in `Ontogony.Http` per 2026-05-15; this file tracks **remaining** deferrals — error readers, Postgres ledgers, observability helpers).
 
 ---
 
@@ -44,9 +44,9 @@
 
 ---
 
-## What is proposed for extraction
+## What remains in the extraction queue
 
-See [`PLATFORM_EXTRACTION_CANDIDATES.md`](PLATFORM_EXTRACTION_CANDIDATES.md). **Highest-confidence tiny candidate:** unify `KanonClientCallOptions` and `ConexusClientCallOptions` into a single `Ontogony.Http` type (same `IntegrationOutboundState` push logic). Additional candidates (generic error reader, durable Postgres ledgers, artifact durability) are **deferred** until duplication and schema stability are proven.
+See [`PLATFORM_EXTRACTION_CANDIDATES.md`](PLATFORM_EXTRACTION_CANDIDATES.md). **Completed (2026-05-15):** §1 **`IntegrationClientCallOptions`** in **`Ontogony.Http`** (replaces duplicate `KanonClientCallOptions` / `ConexusClientCallOptions` patterns in product clients — see Allagma **`docs/backlog/PLATFORM_EXTRACTION_DECISION_RECORD.md`**). **Still deferred:** generic error reader (when a second gateway shares an envelope shape), Postgres idempotency / execution journal, durable artifact store, optional observability extraction — only when duplication and schema stability justify it.
 
 ---
 
