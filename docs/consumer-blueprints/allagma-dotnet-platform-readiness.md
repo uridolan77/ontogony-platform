@@ -39,7 +39,7 @@ These are the packages Allagma.NET should reference directly for the baseline ex
 | `Ontogony.Idempotency` | Idempotency keys and ledger for safe retries on outbound mutations |
 | `Ontogony.Execution` | `IExecutionJournal` / records for run/step facts (**no workflow engine**) |
 | `Ontogony.Artifacts` | `ArtifactRef` / `IArtifactStore` for large payloads by reference |
-| `Ontogony.AI.Contracts` | Mechanical LLM telemetry DTOs when recording Conexus-assisted calls (no routing) |
+| `Ontogony.AI.Contracts` | Mechanical LLM telemetry DTOs when recording model-gateway traffic (opaque provider/model strings; no routing in platform) |
 | `Ontogony.Replay.Contracts` | Shared replay manifest DTOs (no replay engine in platform) |
 | `Ontogony.Persistence` | Outbox / processed-message contracts (in-memory reference for dev/tests) |
 | `Ontogony.Persistence.Postgres` | Durable transactional outbox when Allagma needs Postgres |
@@ -57,22 +57,21 @@ Add when the execution host grows beyond “record facts + call Kanon/Conexus ov
 | `Ontogony.ProtocolIngress` | Normalize external protocols into envelopes |
 | `Ontogony.Quotas` | Mechanical quota windows (product owns plan tiers and enforcement policy) |
 
-## Proposed integration flow (reference)
+## Proposed request pipeline (reference)
 
-Mechanical ordering only; Allagma.NET owns handler names, DI, and policies.
+Mechanical ordering only: names of routes, peer systems, and business steps are **owned by the consumer repo**. This list is the Ontogony-owned cross-cutting spine a typical execution host wires in.
 
 ```text
-POST /v1/runs (Allagma product API — not in Ontogony)
+Inbound HTTP request (consumer-defined surface — not in Ontogony)
   → request tracing (Ontogony.Observability)
   → structured logging scope (Ontogony.Logging + Ontogony.Redaction)
   → actor / service identity (Ontogony.Security)
-  → idempotency / fingerprint on outbound mutations (Ontogony.Idempotency)
-  → compile semantic plan (HTTP → Kanon — Allagma product)
-  → evaluate action before consequential step (HTTP → Kanon — Allagma product)
-  → optional model assist (HTTP → Conexus — Allagma product; record Ontogony.AI.Contracts telemetry)
-  → append execution journal lines (Ontogony.Execution)
-  → optional ArtifactRef for large payloads (Ontogony.Artifacts)
-  → optional outbox event (Ontogony.Persistence / Postgres)
+  → idempotency / fingerprinting for safe retries on mutating work (Ontogony.Idempotency)
+  → outbound integration calls over resilient HttpClient (Ontogony.Http; correlation + integration context)
+  → optional structured LLM-call telemetry records where the consumer records gateway traffic (Ontogony.AI.Contracts)
+  → execution journal append for durable run/step facts (Ontogony.Execution)
+  → optional large-payload handles (Ontogony.Artifacts)
+  → optional outbox / processed-message usage (Ontogony.Persistence / Postgres)
 ```
 
 ### Recommended ASP.NET middleware order (Ontogony)
@@ -96,8 +95,8 @@ Ontogony.Platform **must not** include:
 | Kanon or Conexus product assemblies | respective product repos |
 | Workflow execution semantics | Allagma.NET |
 | Tool-intent / plan semantics | Allagma.NET |
-| Human-gate policy rules | Kanon (meaning); Allagma orchestrates pauses only |
-| Semantic planning / model routing | Kanon / Conexus |
+| Human-gate policy rules | Meaning authority + consumer orchestration (product repos — not Ontogony) |
+| Semantic planning / model routing | Product repos (not Ontogony) |
 
 ## Related documentation
 

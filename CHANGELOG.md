@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+Platform cleanup / consumer blueprint tightening (docs + examples only):
+
+- **Allagma blueprint:** integration flow rewritten as a mechanical request pipeline (no run/tool/human-gate steps); boundary table wording decoupled from product-specific semantics; AI.Contracts row describes gateway telemetry without naming a product stack.
+- **Allagma skeleton:** integration HTTP client names and integration-metric operation labels are neutral placeholders (`partner-alpha` / `partner-beta`, `SmokeOperation`).
+- **Planning:** [`docs/backlog/PLATFORM_EXTRACTION_CANDIDATES.md`](docs/backlog/PLATFORM_EXTRACTION_CANDIDATES.md) (mechanical extractions under consideration); [`docs/backlog/PLATFORM_CLEANUP_TIGHTENING_STATUS.md`](docs/backlog/PLATFORM_CLEANUP_TIGHTENING_STATUS.md) (audit + validation summary).
+
 PLAT-INT-001A — integration header propagation tightening (`Ontogony.Http`, `Ontogony.Security`):
 
 - **`OutboundActorSnapshot`** — optional `TenantId` and `WorkspaceId`; populated by `CurrentActorOutboundPropagator` when available.

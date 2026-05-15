@@ -172,6 +172,8 @@ src/
 - [`docs/consumer-blueprints/allagma-dotnet-starter-plan.md`](docs/consumer-blueprints/allagma-dotnet-starter-plan.md) — Allagma v0 substrate checkpoint (PLAT-ALLAGMA-001).
 - [`docs/packages/`](docs/packages/) — per-package guarantees and non-goals.
 - [`CHANGELOG.md`](CHANGELOG.md) — PR history, migrations, and breaking-change notes.
+- [`docs/backlog/PLATFORM_CLEANUP_TIGHTENING_STATUS.md`](docs/backlog/PLATFORM_CLEANUP_TIGHTENING_STATUS.md) — periodic substrate audit status, build proof, and recommended next PRs.
+- [`docs/backlog/PLATFORM_EXTRACTION_CANDIDATES.md`](docs/backlog/PLATFORM_EXTRACTION_CANDIDATES.md) — mechanical extraction candidates under review (no product semantics).
 
 ## Using this repository (starter substrate)
 

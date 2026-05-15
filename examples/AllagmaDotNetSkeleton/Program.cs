@@ -53,13 +53,13 @@ builder.Services.AddOntogonyRedaction();
 builder.Services.AddOntogonySecrets();
 builder.Services.AddOntogonyHeaderActorContext();
 
-builder.Services.AddOntogonyIntegrationHttpClient("kanon", _ => new HttpIntegrationOptions
+builder.Services.AddOntogonyIntegrationHttpClient("partner-alpha", _ => new HttpIntegrationOptions
 {
     BaseUrl = "https://example.invalid/",
     TimeoutSeconds = 30
 });
 
-builder.Services.AddOntogonyIntegrationHttpClient("conexus", _ => new HttpIntegrationOptions
+builder.Services.AddOntogonyIntegrationHttpClient("partner-beta", _ => new HttpIntegrationOptions
 {
     BaseUrl = "https://example.invalid/",
     TimeoutSeconds = 30
@@ -87,9 +87,9 @@ app.MapGet("/", () => Results.Ok(new { ok = true }));
 app.MapGet("/integration-metrics-smoke", (IIntegrationOperationMeter meter) =>
 {
     var started = Stopwatch.GetTimestamp();
-    using (meter.StartCall("kanon", "CompileSemanticPlan"))
+    using (meter.StartCall("partner-alpha", "SmokeOperation"))
     {
-        meter.RecordSuccess("kanon", "CompileSemanticPlan", Stopwatch.GetElapsedTime(started));
+        meter.RecordSuccess("partner-alpha", "SmokeOperation", Stopwatch.GetElapsedTime(started));
     }
 
     return Results.Ok();
