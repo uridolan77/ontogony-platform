@@ -107,27 +107,19 @@ public static class OntogonyMetrics
     /// <summary>Records one outbound integration call.</summary>
     public static void RecordIntegrationCall(string integrationName, string operation, int statusCode)
     {
-        OntogonyDiagnostics.IntegrationCallCount.Add(1,
-            new("integration", integrationName),
-            new("operation", operation),
-            new("status_code", statusCode));
+        IntegrationMetricsRecorder.RecordLegacyCall(integrationName, operation, statusCode);
     }
 
     /// <summary>Records outbound integration duration.</summary>
     public static void RecordIntegrationDuration(string integrationName, string operation, double durationMs)
     {
-        OntogonyDiagnostics.IntegrationDurationMs.Record(durationMs,
-            new("integration", integrationName),
-            new("operation", operation));
+        IntegrationMetricsRecorder.RecordLegacyDuration(integrationName, operation, durationMs);
     }
 
     /// <summary>Records an outbound integration error.</summary>
     public static void RecordIntegrationError(string integrationName, string operation, int statusCode)
     {
-        OntogonyDiagnostics.IntegrationErrorCount.Add(1,
-            new("integration", integrationName),
-            new("operation", operation),
-            new("status_code", statusCode));
+        IntegrationMetricsRecorder.RecordLegacyError(integrationName, operation, statusCode);
     }
 
     /// <summary>Records an accepted event publish.</summary>

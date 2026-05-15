@@ -24,6 +24,7 @@ public static class OntogonyObservabilityExtensions
         }
 
         services.AddSingleton<IValidateOptions<OntogonyObservabilityOptions>, OntogonyObservabilityOptionsValidator>();
+        services.AddSingleton<IIntegrationOperationMeter, IntegrationOperationMeter>();
         return services;
     }
 

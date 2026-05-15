@@ -13,6 +13,28 @@
         public string? TraceState { get; init; }
         public string? WorkspaceId { get; init; }
     }
+    public interface IIntegrationOperationMeter
+    {
+        void RecordFailure(string targetService, string operation, string errorCode, System.TimeSpan duration, System.Collections.Generic.IReadOnlyDictionary<string, string>? dimensions = null);
+        void RecordSuccess(string targetService, string operation, System.TimeSpan duration, System.Collections.Generic.IReadOnlyDictionary<string, string>? dimensions = null);
+        System.IDisposable StartCall(string targetService, string operation, System.Collections.Generic.IReadOnlyDictionary<string, string>? dimensions = null);
+    }
+    public static class IntegrationMetricDimensions
+    {
+        public const string ErrorCode = "error_code";
+        public const string HttpStatus = "http_status";
+        public const string Operation = "operation";
+        public const string SourceService = "source_service";
+        public const string Status = "status";
+        public const string TargetService = "target_service";
+    }
+    public sealed class IntegrationOperationMeter : Ontogony.Observability.IIntegrationOperationMeter
+    {
+        public IntegrationOperationMeter(Microsoft.Extensions.Options.IOptions<Ontogony.Observability.OntogonyObservabilityOptions> options) { }
+        public void RecordFailure(string targetService, string operation, string errorCode, System.TimeSpan duration, System.Collections.Generic.IReadOnlyDictionary<string, string>? dimensions = null) { }
+        public void RecordSuccess(string targetService, string operation, System.TimeSpan duration, System.Collections.Generic.IReadOnlyDictionary<string, string>? dimensions = null) { }
+        public System.IDisposable StartCall(string targetService, string operation, System.Collections.Generic.IReadOnlyDictionary<string, string>? dimensions = null) { }
+    }
     public static class OntogonyCorrelationContext
     {
         public static Ontogony.Observability.CorrelationState? Current { get; }
