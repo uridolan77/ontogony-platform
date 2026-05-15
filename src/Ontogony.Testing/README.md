@@ -61,8 +61,10 @@ HmacConformanceAssertions.AssertSignatureRoundTrip(secret, method, path, timesta
 - `TestCorrelationScope` — Pushes temporary correlation context
 
 ### Architecture Helpers
-- `ArchitectureReferenceAssertions` — scan `PackageReference`, `ProjectReference`, and `PackageVersion` entries
+- `ArchitectureReferenceAssertions` — scan `PackageReference`, `ProjectReference`, and `PackageVersion` entries (including multiline `Include`), plus `using` / `using static` / alias directives
 - `ArchitectureScanTargets` — collect `*.csproj`, `Directory.Packages.props`, and resolve `src/**/*.cs` globs
+
+See [../docs/adoption/architecture-tests-adoption.md](../docs/adoption/architecture-tests-adoption.md).
 
 ### Conformance Kits
 - `TracingConformanceAssertions` — Trace header echo and propagation

@@ -113,8 +113,62 @@ public sealed class ArchitectureReferenceAssertionsTests
             ["OpenAI", "Agentor"]);
 
         Assert.Equal(2, violations.Count);
-        Assert.Contains(violations, v => v.Contains("using OpenAI", StringComparison.Ordinal));
+        Assert.Contains(violations, v => v.Contains("global using OpenAI", StringComparison.Ordinal));
         Assert.Contains(violations, v => v.Contains("using Agentor.Contracts", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public void FindForbiddenReferences_Detects_Multiline_Include_Attributes()
+    {
+        const string content = """
+            <Project>
+              <ItemGroup>
+                <PackageReference
+                  Include="OpenAI"
+                  Version="1.0.0" />
+                <ProjectReference
+                  Include=
+                  "..\\..\\agentor\\Agentor.Api\\Agentor.Api.csproj" />
+                <PackageVersion
+                  Include="Azure.AI.OpenAI"
+                  Version="1.0.0" />
+              </ItemGroup>
+            </Project>
+            """;
+
+        var violations = ArchitectureReferenceAssertions.FindForbiddenReferences(
+            "Sample.csproj",
+            content,
+            ["OpenAI", "Agentor", "Azure.AI.OpenAI"]);
+
+        Assert.Equal(4, violations.Count);
+        Assert.Contains(violations, v => v.Contains("PackageReference", StringComparison.Ordinal) && v.Contains("-> OpenAI", StringComparison.Ordinal));
+        Assert.Contains(violations, v => v.Contains("ProjectReference", StringComparison.Ordinal) && v.Contains("Agentor", StringComparison.Ordinal));
+        Assert.Contains(violations, v => v.Contains("PackageVersion", StringComparison.Ordinal) && v.Contains("Azure.AI.OpenAI", StringComparison.Ordinal));
+        Assert.Equal(2, violations.Count(v => v.Contains("PackageVersion", StringComparison.Ordinal)));
+    }
+
+    [Fact]
+    public void FindForbiddenUsingDirectives_Detects_Alias_And_Static_Directives()
+    {
+        const string content = """
+            using OAI = OpenAI.Chat;
+            using static Agentor.Contracts.RunStatus;
+            global using static OpenAI;
+            global using ConexusAlias = Conexus.Sdk;
+            namespace Sample;
+            """;
+
+        var violations = ArchitectureReferenceAssertions.FindForbiddenUsingDirectives(
+            "Sample.cs",
+            content,
+            ["OpenAI", "Agentor", "Conexus"]);
+
+        Assert.Equal(4, violations.Count);
+        Assert.Contains(violations, v => v.Contains("using OAI = OpenAI.Chat", StringComparison.Ordinal));
+        Assert.Contains(violations, v => v.Contains("using static Agentor.Contracts.RunStatus", StringComparison.Ordinal));
+        Assert.Contains(violations, v => v.Contains("global using static OpenAI", StringComparison.Ordinal));
+        Assert.Contains(violations, v => v.Contains("global using ConexusAlias = Conexus.Sdk", StringComparison.Ordinal));
     }
 
     [Fact]

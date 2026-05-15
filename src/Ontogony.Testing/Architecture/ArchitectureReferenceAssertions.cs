@@ -7,18 +7,12 @@ namespace Ontogony.Testing.Architecture;
 /// </summary>
 public static class ArchitectureReferenceAssertions
 {
-    private static readonly Regex[] ReferencePatterns =
-    [
-        new(
-            @"<(?<kind>PackageReference|ProjectReference)\s+Include=""(?<ref>[^""]+)""",
-            RegexOptions.IgnoreCase | RegexOptions.Compiled),
-        new(
-            @"<(?<kind>PackageVersion)\s+Include=""(?<ref>[^""]+)""",
-            RegexOptions.IgnoreCase | RegexOptions.Compiled),
-    ];
+    private static readonly Regex MsBuildReferencePattern = new(
+        @"<(?<kind>PackageReference|ProjectReference|PackageVersion)\b[^>]*?\s+Include\s*=\s*""(?<ref>[^""]+)""",
+        RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
     private static readonly Regex UsingDirectivePattern = new(
-        @"^\s*(?:global\s+)?using\s+(?<ns>[\w.]+)\s*;",
+        @"^\s*(?:global\s+)?using\s+(?:(?<alias>[\w]+)\s*=\s*)?(?:(?<static>static)\s+)?(?<ns>[\w.]+)\s*;",
         RegexOptions.Multiline | RegexOptions.Compiled);
 
     /// <summary>
@@ -35,24 +29,21 @@ public static class ArchitectureReferenceAssertions
 
         var violations = new List<string>();
 
-        foreach (var pattern in ReferencePatterns)
+        foreach (Match match in MsBuildReferencePattern.Matches(content))
         {
-            foreach (Match match in pattern.Matches(content))
+            var kind = match.Groups["kind"].Value;
+            var reference = match.Groups["ref"].Value;
+
+            foreach (var forbidden in forbiddenFragments)
             {
-                var kind = match.Groups["kind"].Value;
-                var reference = match.Groups["ref"].Value;
-
-                foreach (var forbidden in forbiddenFragments)
+                if (string.IsNullOrWhiteSpace(forbidden))
                 {
-                    if (string.IsNullOrWhiteSpace(forbidden))
-                    {
-                        continue;
-                    }
+                    continue;
+                }
 
-                    if (reference.Contains(forbidden, StringComparison.OrdinalIgnoreCase))
-                    {
-                        violations.Add($"{fileName}: {kind} -> {reference} (matches {forbidden})");
-                    }
+                if (reference.Contains(forbidden, StringComparison.OrdinalIgnoreCase))
+                {
+                    violations.Add($"{fileName}: {kind} -> {reference} (matches {forbidden})");
                 }
             }
         }
@@ -110,6 +101,7 @@ public static class ArchitectureReferenceAssertions
         foreach (Match match in UsingDirectivePattern.Matches(content))
         {
             var ns = match.Groups["ns"].Value;
+            var directive = DescribeUsingDirective(match);
             foreach (var forbidden in forbiddenNamespaces)
             {
                 if (string.IsNullOrWhiteSpace(forbidden))
@@ -119,7 +111,7 @@ public static class ArchitectureReferenceAssertions
 
                 if (MatchesForbiddenNamespace(ns, forbidden))
                 {
-                    violations.Add($"{fileName}: using {ns} (matches {forbidden})");
+                    violations.Add($"{fileName}: {directive} (matches {forbidden})");
                 }
             }
         }
@@ -159,4 +151,21 @@ public static class ArchitectureReferenceAssertions
     private static bool MatchesForbiddenNamespace(string ns, string forbidden) =>
         ns.Equals(forbidden, StringComparison.Ordinal)
         || ns.StartsWith(forbidden + ".", StringComparison.Ordinal);
+
+    private static string DescribeUsingDirective(Match match)
+    {
+        var isGlobal = match.Value.Contains("global using", StringComparison.Ordinal);
+        var prefix = isGlobal ? "global using" : "using";
+        if (match.Groups["alias"].Success)
+        {
+            return $"{prefix} {match.Groups["alias"].Value} = {match.Groups["ns"].Value}";
+        }
+
+        if (match.Groups["static"].Success)
+        {
+            return $"{prefix} static {match.Groups["ns"].Value}";
+        }
+
+        return $"{prefix} {match.Groups["ns"].Value}";
+    }
 }
