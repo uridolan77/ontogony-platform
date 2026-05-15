@@ -57,10 +57,16 @@ Keep this repository free of product meaning: no canonization, no agent plans, n
 
 **Conexus.NET** consumes this stack today in **sibling-source** and **NuGet package** modes as the default substrate: observability, errors, HTTP, security, idempotency, contracts, AI telemetry, artifacts, and execution journaling — without importing Ontogony-specific business rules. Optional packages (messaging, persistence, Postgres outbox, protocol ingress, testing) layer on when a service needs them.
 
+## Consumer blueprint (Allagma.NET)
+
+**Allagma.NET** is documented as a future consumer only — not an active platform dependency. See [`docs/consumer-blueprints/README.md`](docs/consumer-blueprints/README.md) and the Allagma readiness blueprint for the mechanical package slice and compile-only [`examples/AllagmaDotNetSkeleton/`](examples/AllagmaDotNetSkeleton/) smoke.
+
 Consumer alignment and governance (read before upgrading or breaking public surface area):
 
 - [`docs/consumer-blueprints/conexus-dotnet-platform-readiness.md`](docs/consumer-blueprints/conexus-dotnet-platform-readiness.md) — minimal package set and reference request flow.
 - [`docs/consumer-blueprints/CONEXUS_ONTOGONY_PACKAGE_MODE_CONTRACT.md`](docs/consumer-blueprints/CONEXUS_ONTOGONY_PACKAGE_MODE_CONTRACT.md) — package-mode contract and validation expectations.
+- [`docs/consumer-blueprints/allagma-dotnet-platform-readiness.md`](docs/consumer-blueprints/allagma-dotnet-platform-readiness.md) — Allagma.NET minimal package set (blueprint).
+- [`docs/consumer-blueprints/ALLAGMA_ONTOGONY_PACKAGE_MODE_CONTRACT.md`](docs/consumer-blueprints/ALLAGMA_ONTOGONY_PACKAGE_MODE_CONTRACT.md) — Allagma package-mode contract (future proof).
 - [`docs/VERSION_COMPATIBILITY_MATRIX.md`](docs/VERSION_COMPATIBILITY_MATRIX.md) — version compatibility expectations across packages.
 - [`docs/public-api-review.md`](docs/public-api-review.md) — public API snapshot and review process.
 - [`docs/planning/next-phase/architecture/PACKAGE_RELEASE_EVIDENCE.md`](docs/planning/next-phase/architecture/PACKAGE_RELEASE_EVIDENCE.md) — release evidence model for shipped packages.
@@ -150,6 +156,7 @@ src/
 - `examples/MinimalApiWithOntogonyObservability/`: minimal API sample for `AddOntogonyObservability`, `UseOntogonyRequestTracing`, and outbound correlation propagation through `Ontogony.Http`.
 - `examples/MinimalApiWithOntogonyHosting/`: minimal API sample for `AddOntogonyServiceDefaults`, `UseOntogonyServiceDefaults`, and `MapOntogonyHealthEndpoints`.
 - `examples/ConexusDotNetSkeleton/`: compile-only smoke with **direct** project references to the Conexus v1 required set including Logging, Redaction, Secrets, and Quotas (see [readiness blueprint](docs/consumer-blueprints/conexus-dotnet-platform-readiness.md)); wires tracing → logging scope → exception handling; not a product.
+- `examples/AllagmaDotNetSkeleton/`: compile-only smoke with **direct** project references to the Allagma v1 required set (see [Allagma readiness blueprint](docs/consumer-blueprints/allagma-dotnet-platform-readiness.md)); integration metrics, actor context, idempotency, execution journal; not a product.
 
 ## Documentation map
 
@@ -161,6 +168,8 @@ src/
 - [`docs/VERSION_COMPATIBILITY_MATRIX.md`](docs/VERSION_COMPATIBILITY_MATRIX.md) — cross-package compatibility expectations.
 - [`docs/public-api-review.md`](docs/public-api-review.md) — public API governance and snapshot review.
 - [`docs/consumer-blueprints/conexus-dotnet-starter-plan.md`](docs/consumer-blueprints/conexus-dotnet-starter-plan.md) — v0 substrate freeze and validation checkpoint before the external starter (PR54).
+- [`docs/consumer-blueprints/README.md`](docs/consumer-blueprints/README.md) — consumer blueprint index (Conexus active; Allagma blueprint).
+- [`docs/consumer-blueprints/allagma-dotnet-starter-plan.md`](docs/consumer-blueprints/allagma-dotnet-starter-plan.md) — Allagma v0 substrate checkpoint (PLAT-ALLAGMA-001).
 - [`docs/packages/`](docs/packages/) — per-package guarantees and non-goals.
 - [`CHANGELOG.md`](CHANGELOG.md) — PR history, migrations, and breaking-change notes.
 

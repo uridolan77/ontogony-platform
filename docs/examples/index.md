@@ -4,6 +4,8 @@ This guide includes code examples for common Ontogony integration patterns.
 
 **Conexus compile smoke:** [`examples/ConexusDotNetSkeleton/`](../../examples/ConexusDotNetSkeleton/) (in-repo; references the [Conexus.NET readiness](../consumer-blueprints/conexus-dotnet-platform-readiness.md) package set).
 
+**Allagma compile smoke:** [`examples/AllagmaDotNetSkeleton/`](../../examples/AllagmaDotNetSkeleton/) (in-repo; references the [Allagma.NET readiness](../consumer-blueprints/allagma-dotnet-platform-readiness.md) package set; blueprint only).
+
 ---
 
 ## Complete Service Example

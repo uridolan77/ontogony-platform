@@ -20,12 +20,16 @@ Per-package intent (guarantees, non-goals, test-only APIs): [`docs/packages/`](.
 
 ```text
 Ontogony.Platform = mechanical substrate
-Athanor           = canonical knowledge / provenance authority
-Agentor           = agent runtime / execution authority
+Kanon             = semantic / ontology authority
+Allagma           = governed execution authority
 Conexus           = LLM gateway / provider authority
+Athanor           = canonical knowledge / provenance authority (legacy naming in some docs)
+Agentor           = historical agent runtime name (see Allagma)
 ```
 
-Athanor, Agentor, and Conexus may all emit events into the same event vocabulary. They should not share domain brains.
+Product repos may emit events into the same mechanical vocabulary. They should not share domain brains.
+
+**Consumer blueprints:** [`docs/consumer-blueprints/README.md`](./consumer-blueprints/README.md) — Conexus.NET is the active alpha consumer; Allagma.NET is documented as a blueprint with compile-only smoke in [`examples/AllagmaDotNetSkeleton/`](../examples/AllagmaDotNetSkeleton/).
 
 ## Immediate extraction targets
 

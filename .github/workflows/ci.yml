@@ -77,6 +77,9 @@ jobs:
       - name: Validate Conexus consumer baseline (readiness vs Directory.Build.targets)
         shell: pwsh
         run: ./scripts/validate-conexus-consumer-baseline-alignment.ps1
+      - name: Validate Allagma consumer baseline (readiness vs skeleton + build)
+        shell: pwsh
+        run: ./scripts/validate-allagma-consumer-baseline-alignment.ps1
       - name: Validate public API governance
         shell: pwsh
         run: ./scripts/validate-public-api-governance.ps1
