@@ -22,6 +22,9 @@ artifacts/
 .vscode/.ropeproject/
 .idea/
 
+# C# Dev Kit language-service cache
+*.lscache
+
 # OS
 .DS_Store
 Thumbs.db
