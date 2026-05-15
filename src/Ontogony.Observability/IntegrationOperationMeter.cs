@@ -92,10 +92,14 @@ public sealed class IntegrationOperationMeter : IIntegrationOperationMeter
 
         foreach (var (key, value) in dimensions)
         {
-            if (!string.IsNullOrWhiteSpace(key) && !string.IsNullOrWhiteSpace(value))
+            if (string.IsNullOrWhiteSpace(key)
+                || string.IsNullOrWhiteSpace(value)
+                || IntegrationMetricDimensions.IsReserved(key))
             {
-                activity.SetTag(key, value);
+                continue;
             }
+
+            activity.SetTag(key, value);
         }
     }
 
@@ -254,7 +258,7 @@ internal static class IntegrationMetricsRecorder
                     continue;
                 }
 
-                if (IsReservedDimension(key))
+                if (IntegrationMetricDimensions.IsReserved(key))
                 {
                     continue;
                 }
@@ -272,12 +276,4 @@ internal static class IntegrationMetricsRecorder
 
         return tags.ToArray();
     }
-
-    private static bool IsReservedDimension(string key) =>
-        string.Equals(key, IntegrationMetricDimensions.SourceService, StringComparison.Ordinal)
-        || string.Equals(key, IntegrationMetricDimensions.TargetService, StringComparison.Ordinal)
-        || string.Equals(key, IntegrationMetricDimensions.Operation, StringComparison.Ordinal)
-        || string.Equals(key, IntegrationMetricDimensions.Status, StringComparison.Ordinal)
-        || string.Equals(key, IntegrationMetricDimensions.ErrorCode, StringComparison.Ordinal)
-        || string.Equals(key, IntegrationMetricDimensions.HttpStatus, StringComparison.Ordinal);
 }

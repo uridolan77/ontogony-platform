@@ -57,12 +57,17 @@ histogram_quantile(
 
 - Name: `ontogony.integration.call.count`
 - Type: Counter<long>
-- Dimensions: `integration`, `operation`, `status_code`
-- Emitted when: integration call completion is recorded through `OntogonyMetrics.RecordIntegrationCall`
+- Dimensions: `source_service`, `target_service`, `operation`, `status`, `error_code`, `http_status`
+- Emitted when: integration call completion is recorded through `IIntegrationOperationMeter.RecordSuccess` / `RecordFailure`, or legacy `OntogonyMetrics.RecordIntegrationCall`
+- Notes:
+  - `source_service` is present when recorded through `IIntegrationOperationMeter`.
+  - Legacy `OntogonyMetrics` methods may omit `source_service`.
+  - `error_code` is present on failures.
+  - `http_status` is present when supplied or recorded through legacy HTTP status methods.
 - Example query:
 
 ```promql
-sum by (integration, operation, status_code) (
+sum by (target_service, operation, status) (
   rate(ontogony_integration_call_count_total[5m])
 )
 ```
@@ -73,12 +78,17 @@ sum by (integration, operation, status_code) (
 
 - Name: `ontogony.integration.error.count`
 - Type: Counter<long>
-- Dimensions: `integration`, `operation`, `status_code`
-- Emitted when: integration failure is recorded through `OntogonyMetrics.RecordIntegrationError`
+- Dimensions: `source_service`, `target_service`, `operation`, `status`, `error_code`, `http_status`
+- Emitted when: integration failure is recorded through `IIntegrationOperationMeter.RecordFailure` or legacy `OntogonyMetrics.RecordIntegrationError`
+- Notes:
+  - `source_service` is present when recorded through `IIntegrationOperationMeter`.
+  - Legacy `OntogonyMetrics` methods may omit `source_service`.
+  - `error_code` is present on failures.
+  - `http_status` is present when supplied or recorded through legacy HTTP status methods.
 - Example query:
 
 ```promql
-sum by (integration, operation) (
+sum by (target_service, operation, error_code) (
   rate(ontogony_integration_error_count_total[5m])
 )
 ```
@@ -89,14 +99,18 @@ sum by (integration, operation) (
 
 - Name: `ontogony.integration.duration.ms`
 - Type: Histogram<double> (unit: ms)
-- Dimensions: `integration`, `operation`
-- Emitted when: integration call duration is recorded through `OntogonyMetrics.RecordIntegrationDuration`
+- Dimensions: `source_service`, `target_service`, `operation`, `status`, `http_status`
+- Emitted when: integration call duration is recorded through `IIntegrationOperationMeter` or legacy `OntogonyMetrics.RecordIntegrationDuration`
+- Notes:
+  - `source_service` is present when recorded through `IIntegrationOperationMeter`.
+  - Legacy `OntogonyMetrics` methods may omit `source_service` and use `status=unknown` for duration-only legacy recordings.
+  - `http_status` is present when supplied or recorded through legacy HTTP status methods.
 - Example query:
 
 ```promql
 histogram_quantile(
   0.95,
-  sum by (le, integration, operation) (
+  sum by (le, target_service, operation) (
     rate(ontogony_integration_duration_ms_bucket[5m])
   )
 )

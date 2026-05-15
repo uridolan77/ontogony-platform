@@ -22,4 +22,15 @@ public static class IntegrationMetricDimensions
 
     /// <summary>HTTP status code when the integration call used HTTP.</summary>
     public const string HttpStatus = "http_status";
+
+    /// <summary>
+    /// Returns true when <paramref name="key"/> is a reserved integration dimension that callers must not override.
+    /// </summary>
+    public static bool IsReserved(string key) =>
+        string.Equals(key, SourceService, StringComparison.Ordinal)
+        || string.Equals(key, TargetService, StringComparison.Ordinal)
+        || string.Equals(key, Operation, StringComparison.Ordinal)
+        || string.Equals(key, Status, StringComparison.Ordinal)
+        || string.Equals(key, ErrorCode, StringComparison.Ordinal)
+        || string.Equals(key, HttpStatus, StringComparison.Ordinal);
 }

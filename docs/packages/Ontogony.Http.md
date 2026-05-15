@@ -14,13 +14,13 @@
 
 `Ontogony.Http` focuses on transport mechanics and propagation.
 
-When services want outbound integration metrics in the shared Ontogony metric namespace, record them through `OntogonyMetrics` in `Ontogony.Observability`:
+When services want outbound integration metrics in the shared Ontogony metric namespace, prefer `IIntegrationOperationMeter` in `Ontogony.Observability`. Legacy static helpers on `OntogonyMetrics` remain available for existing HTTP handlers.
 
 - `ontogony.integration.call.count`
 - `ontogony.integration.error.count`
 - `ontogony.integration.duration.ms`
 
-See [../observability/metrics-catalog.md](../observability/metrics-catalog.md) for dimensions and query examples.
+See [../observability/metrics-catalog.md](../observability/metrics-catalog.md) for dimensions and [../adoption/integration-metrics-adoption.md](../adoption/integration-metrics-adoption.md) for usage.
 
 ## Does not guarantee
 

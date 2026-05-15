@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -129,6 +130,80 @@ public sealed class IntegrationOperationMeterTests
         Assert.Empty(measurements);
     }
 
+    [Fact]
+    public void IntegrationMetricDimensions_IsReserved_Recognizes_Standard_Keys()
+    {
+        Assert.True(IntegrationMetricDimensions.IsReserved(IntegrationMetricDimensions.SourceService));
+        Assert.True(IntegrationMetricDimensions.IsReserved(IntegrationMetricDimensions.TargetService));
+        Assert.True(IntegrationMetricDimensions.IsReserved(IntegrationMetricDimensions.Operation));
+        Assert.True(IntegrationMetricDimensions.IsReserved(IntegrationMetricDimensions.Status));
+        Assert.True(IntegrationMetricDimensions.IsReserved(IntegrationMetricDimensions.ErrorCode));
+        Assert.True(IntegrationMetricDimensions.IsReserved(IntegrationMetricDimensions.HttpStatus));
+        Assert.False(IntegrationMetricDimensions.IsReserved("retry_attempt"));
+    }
+
+    [Fact]
+    public void StartCall_Ignores_Reserved_Dimensions_On_Activity_But_Keeps_Standard_Tags()
+    {
+        Activity? captured = null;
+        using var listener = new ActivityListener
+        {
+            ShouldListenTo = source => source.Name == OntogonyDiagnostics.DefaultActivitySourceName,
+            Sample = static (ref ActivityCreationOptions<ActivityContext> _) => ActivitySamplingResult.AllData,
+            ActivityStopped = activity => captured = activity,
+        };
+        ActivitySource.AddActivityListener(listener);
+
+        var meter = CreateMeter("caller-service");
+        using (meter.StartCall(
+            "kanon",
+            "GetFact",
+            new Dictionary<string, string>
+            {
+                [IntegrationMetricDimensions.SourceService] = "override-source",
+                [IntegrationMetricDimensions.TargetService] = "override-target",
+                [IntegrationMetricDimensions.Operation] = "override-operation",
+                ["retry_attempt"] = "1",
+            }))
+        {
+        }
+
+        Assert.NotNull(captured);
+        Assert.Equal("caller-service", captured.GetTagItem(IntegrationMetricDimensions.SourceService));
+        Assert.Equal("kanon", captured.GetTagItem(IntegrationMetricDimensions.TargetService));
+        Assert.Equal("GetFact", captured.GetTagItem(IntegrationMetricDimensions.Operation));
+        Assert.Equal("1", captured.GetTagItem("retry_attempt"));
+        Assert.Null(captured.GetTagItem(IntegrationMetricDimensions.Status));
+    }
+
+    [Fact]
+    public void RecordSuccess_Ignores_Reserved_Dimensions_In_Caller_Supplied_Metric_Tags()
+    {
+        var measurements = CaptureMeasurements();
+        var meter = CreateMeter("caller-service");
+
+        meter.RecordSuccess(
+            "kanon",
+            "GetFact",
+            TimeSpan.FromMilliseconds(10),
+            new Dictionary<string, string>
+            {
+                [IntegrationMetricDimensions.SourceService] = "override-source",
+                [IntegrationMetricDimensions.TargetService] = "override-target",
+                [IntegrationMetricDimensions.Status] = "override-status",
+                ["transport_policy"] = "retry-safe",
+            });
+
+        Assert.Contains(
+            measurements,
+            m => m.InstrumentName == "ontogony.integration.call.count"
+                 && HasTag(m.Tags, IntegrationMetricDimensions.SourceService, "caller-service")
+                 && HasTag(m.Tags, IntegrationMetricDimensions.TargetService, "kanon")
+                 && HasTag(m.Tags, IntegrationMetricDimensions.Status, "success")
+                 && HasTag(m.Tags, "transport_policy", "retry-safe")
+                 && !HasTagKey(m.Tags, IntegrationMetricDimensions.TargetService, "override-target"));
+    }
+
     private static IntegrationOperationMeter CreateMeter(string sourceService) =>
         new(Options.Create(new OntogonyObservabilityOptions { ServiceName = sourceService }));
 
@@ -158,6 +233,10 @@ public sealed class IntegrationOperationMeterTests
     private static bool HasTag(KeyValuePair<string, object?>[] tags, string key, object expected) =>
         tags.Any(tag => string.Equals(tag.Key, key, StringComparison.Ordinal)
                         && Equals(NormalizeTagValue(tag.Value), NormalizeTagValue(expected)));
+
+    private static bool HasTagKey(KeyValuePair<string, object?>[] tags, string key, object unexpectedValue) =>
+        tags.Any(tag => string.Equals(tag.Key, key, StringComparison.Ordinal)
+                        && Equals(NormalizeTagValue(tag.Value), NormalizeTagValue(unexpectedValue)));
 
     private static object? NormalizeTagValue(object? value) =>
         value switch

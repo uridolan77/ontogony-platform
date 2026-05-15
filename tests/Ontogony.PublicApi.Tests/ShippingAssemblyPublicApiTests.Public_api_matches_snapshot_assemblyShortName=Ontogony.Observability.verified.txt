@@ -27,6 +27,7 @@
         public const string SourceService = "source_service";
         public const string Status = "status";
         public const string TargetService = "target_service";
+        public static bool IsReserved(string key) { }
     }
     public sealed class IntegrationOperationMeter : Ontogony.Observability.IIntegrationOperationMeter
     {
