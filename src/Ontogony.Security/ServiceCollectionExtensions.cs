@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
+using Ontogony.Http;
 
 namespace Ontogony.Security;
 
@@ -66,6 +67,16 @@ public static class ServiceCollectionExtensions
                 sp.GetRequiredService<Ontogony.Primitives.IClock>(),
                 sp.GetService<IServiceSigningSecretResolver>()));
         services.AddScoped<ICurrentActorAccessor>(sp => sp.GetRequiredService<ServiceIdentityCurrentActorAccessor>());
+        return services;
+    }
+
+    /// <summary>
+    /// Registers <see cref="CurrentActorOutboundPropagator"/> for outbound <see cref="HttpClient"/> integration calls.
+    /// </summary>
+    public static IServiceCollection AddOntogonyOutboundActorPropagation(this IServiceCollection services)
+    {
+        services.TryAddEnumerable(
+            ServiceDescriptor.Scoped<IOutboundActorPropagator, CurrentActorOutboundPropagator>());
         return services;
     }
 

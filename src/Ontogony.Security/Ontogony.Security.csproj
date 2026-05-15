@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ontogony.Contracts\Ontogony.Contracts.csproj" />
+    <ProjectReference Include="..\Ontogony.Http\Ontogony.Http.csproj" />
     <ProjectReference Include="..\Ontogony.Primitives\Ontogony.Primitives.csproj" />
   </ItemGroup>
 </Project>

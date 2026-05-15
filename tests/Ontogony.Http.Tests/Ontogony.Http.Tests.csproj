@@ -21,6 +21,7 @@
     <ProjectReference Include="..\..\src\Ontogony.Http\Ontogony.Http.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Primitives\Ontogony.Primitives.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Observability\Ontogony.Observability.csproj" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
   </ItemGroup>
 
 </Project>

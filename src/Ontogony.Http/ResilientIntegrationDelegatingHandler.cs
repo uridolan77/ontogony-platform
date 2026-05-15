@@ -224,8 +224,13 @@ public sealed class ResilientIntegrationDelegatingHandler : DelegatingHandler
             return true;
         }
 
-        return request.Headers.TryGetValues(_options.IdempotencyKeyHeaderName, out var values)
-            && values.Any(v => !string.IsNullOrWhiteSpace(v));
+        if (request.Headers.TryGetValues(_options.IdempotencyKeyHeaderName, out var values)
+            && values.Any(static v => !string.IsNullOrWhiteSpace(v)))
+        {
+            return true;
+        }
+
+        return IntegrationHeaderPropagation.HasIdempotencyKey(request.Headers);
     }
 
     private static bool IsSafeRetryMethod(HttpMethod method)

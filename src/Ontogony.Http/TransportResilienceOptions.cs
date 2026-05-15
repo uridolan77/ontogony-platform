@@ -53,8 +53,8 @@ public sealed class TransportResilienceOptions
     [Range(1, 100_000_000)]
     public int MaxBufferedContentBytes { get; set; } = 1_000_000;
 
-    /// <summary>Header name examined for idempotency-aware retries.</summary>
-    public string IdempotencyKeyHeaderName { get; set; } = "Idempotency-Key";
+    /// <summary>Primary header name examined for idempotency-aware retries.</summary>
+    public string IdempotencyKeyHeaderName { get; set; } = OntogonyIntegrationHeaders.IdempotencyKey;
 
     /// <summary>
     /// When true and the failing response includes a <c>Retry-After</c> header, the wait before the next attempt is at least that duration (capped by <see cref="MaxDelayMilliseconds"/>).

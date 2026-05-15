@@ -1,16 +1,18 @@
 # Ontogony.Http
 
-Resilient **outbound HTTP** client registration: retries, circuit breaker, correlation propagation.
+Resilient **outbound HTTP** client registration: retries, circuit breaker, and service-to-service integration conventions.
 
 ## What this is
 
-- `AddOntogonyIntegrationHttpClient` and related types wiring `Ontogony.Observability` correlation into `HttpClient` pipelines.
-- `TransportResilienceOptions`, `ResilientIntegrationDelegatingHandler`, and classification hooks.
+- `OntogonyIntegrationHeaders` — canonical cross-service header names.
+- `AddOntogonyIntegrationHttpClient` / typed `AddOntogonyIntegrationHttpClient<TClient,TImplementation>` — named clients with correlation, actor, and idempotency propagation.
+- `IntegrationHeadersDelegatingHandler`, `TransportResilienceOptions`, `ResilientIntegrationDelegatingHandler`, and `IntegrationHttpError`.
 
 ## What this is not
 
-- Not inbound API design, authentication policy, or integration-specific DTO clients (those live in product code).
+- Not inbound API design, authentication policy, or product clients (`KanonClient`, `AgentorClient`, `ConexusClient`).
 
 ## See also
 
-- `docs/packages/Ontogony.Http.md`.
+- `docs/packages/Ontogony.Http.md`
+- `docs/adoption/service-to-service-integration.md`

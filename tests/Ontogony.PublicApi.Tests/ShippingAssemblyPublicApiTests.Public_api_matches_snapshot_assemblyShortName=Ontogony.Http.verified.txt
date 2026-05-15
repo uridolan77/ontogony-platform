@@ -1,9 +1,13 @@
 ﻿namespace Ontogony.Http
 {
-    public sealed class CorrelationHeadersDelegatingHandler : System.Net.Http.DelegatingHandler
+    public sealed class CorrelationHeadersDelegatingHandler : Ontogony.Http.IntegrationHeadersDelegatingHandler
     {
-        public CorrelationHeadersDelegatingHandler() { }
-        protected override System.Threading.Tasks.Task<System.Net.Http.HttpResponseMessage> SendAsync(System.Net.Http.HttpRequestMessage request, System.Threading.CancellationToken cancellationToken) { }
+        public CorrelationHeadersDelegatingHandler(System.Collections.Generic.IEnumerable<Ontogony.Http.IOutboundActorPropagator>? propagators = null) { }
+    }
+    public sealed class CorrelationOutboundActorPropagator : Ontogony.Http.IOutboundActorPropagator
+    {
+        public CorrelationOutboundActorPropagator() { }
+        public bool TryGetActor(out Ontogony.Http.OutboundActorSnapshot snapshot) { }
     }
     public sealed class DefaultRetryClassifier : Ontogony.Http.IRetryClassifier
     {
@@ -20,6 +24,10 @@
         [System.ComponentModel.DataAnnotations.Range(1, 600)]
         public int TimeoutSeconds { get; set; }
     }
+    public interface IOutboundActorPropagator
+    {
+        bool TryGetActor(out Ontogony.Http.OutboundActorSnapshot snapshot);
+    }
     public interface IRetryClassifier
     {
         Ontogony.Http.RetryDecision ShouldRetry(System.Net.Http.HttpRequestMessage request, System.Net.Http.HttpResponseMessage? response, System.Exception? exception);
@@ -30,15 +38,54 @@
         Fake = 1,
         Http = 2,
     }
+    public class IntegrationHeadersDelegatingHandler : System.Net.Http.DelegatingHandler
+    {
+        public IntegrationHeadersDelegatingHandler(System.Collections.Generic.IEnumerable<Ontogony.Http.IOutboundActorPropagator>? propagators = null) { }
+        protected override System.Threading.Tasks.Task<System.Net.Http.HttpResponseMessage> SendAsync(System.Net.Http.HttpRequestMessage request, System.Threading.CancellationToken cancellationToken) { }
+    }
     public static class IntegrationHttpClientExtensions
     {
         public static Microsoft.Extensions.DependencyInjection.IHttpClientBuilder AddOntogonyIntegrationHttpClient(this Microsoft.Extensions.DependencyInjection.IServiceCollection services, string clientName, System.Func<System.IServiceProvider, Ontogony.Http.HttpIntegrationOptions> resolveOptions) { }
+        public static Microsoft.Extensions.DependencyInjection.IHttpClientBuilder AddOntogonyIntegrationHttpClient<TClient, TImplementation>(this Microsoft.Extensions.DependencyInjection.IServiceCollection services, string clientName, System.Func<System.IServiceProvider, Ontogony.Http.HttpIntegrationOptions> resolveOptions)
+            where TClient :  class
+            where TImplementation :  class, TClient { }
     }
     public static class IntegrationHttpError
     {
         public const int DefaultMaxBodyChars = 512;
         public static string RedactAndTruncate(string? body, int maxChars = 512) { }
         public static System.Threading.Tasks.Task ThrowIfUnsuccessfulAsync(System.Net.Http.HttpResponseMessage response, string integrationLabel, System.Threading.CancellationToken cancellationToken) { }
+    }
+    public sealed class IntegrationOutboundState : System.IEquatable<Ontogony.Http.IntegrationOutboundState>
+    {
+        public IntegrationOutboundState(string? IdempotencyKey = null, string? ActorType = null, System.Collections.Generic.IReadOnlyList<string>? ActorRoles = null) { }
+        public System.Collections.Generic.IReadOnlyList<string>? ActorRoles { get; init; }
+        public string? ActorType { get; init; }
+        public string? IdempotencyKey { get; init; }
+    }
+    public static class OntogonyIntegrationContext
+    {
+        public static Ontogony.Http.IntegrationOutboundState? Current { get; }
+        public static System.IDisposable Push(Ontogony.Http.IntegrationOutboundState state) { }
+    }
+    public static class OntogonyIntegrationHeaders
+    {
+        public const string ActorId = "X-Ontogony-Actor-Id";
+        public const string ActorRoles = "X-Ontogony-Actor-Roles";
+        public const string ActorType = "X-Ontogony-Actor-Type";
+        public const string CorrelationId = "X-Ontogony-Correlation-Id";
+        public const string IdempotencyKey = "X-Ontogony-Idempotency-Key";
+        public const string LegacyActorRoles = "X-Ontogony-Roles";
+        public const string LegacyIdempotencyKey = "Idempotency-Key";
+        public const string TenantId = "X-Ontogony-Tenant-Id";
+        public const string WorkspaceId = "X-Ontogony-Workspace-Id";
+    }
+    public readonly struct OutboundActorSnapshot : System.IEquatable<Ontogony.Http.OutboundActorSnapshot>
+    {
+        public OutboundActorSnapshot(string ActorId, string? ActorType, System.Collections.Generic.IReadOnlyList<string> Roles) { }
+        public string ActorId { get; init; }
+        public string? ActorType { get; init; }
+        public System.Collections.Generic.IReadOnlyList<string> Roles { get; init; }
     }
     public sealed class ResilientIntegrationDelegatingHandler : System.Net.Http.DelegatingHandler
     {

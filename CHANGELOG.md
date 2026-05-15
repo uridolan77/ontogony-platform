@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+PLAT-INT-001 — service-to-service integration conventions (`Ontogony.Http`):
+
+- **`OntogonyIntegrationHeaders`** — canonical cross-service header names.
+- **Typed `AddOntogonyIntegrationHttpClient<TClient,TImplementation>`** — product repos register typed clients without shared implementation assemblies.
+- **`IntegrationHeadersDelegatingHandler`** — propagates correlation, actor, and optional idempotency headers; `CorrelationHeadersDelegatingHandler` remains as a compatibility alias.
+- **`OntogonyIntegrationContext`** — async-local outbound idempotency/actor metadata.
+- **`IOutboundActorPropagator`** — extensible actor propagation; `AddOntogonyOutboundActorPropagation()` in `Ontogony.Security` bridges `ICurrentActorAccessor`.
+- **Docs:** `docs/adoption/service-to-service-integration.md`; package README and `docs/packages/Ontogony.Http.md` updated.
+- **Tests:** `IntegrationConventionsTests`, `CurrentActorOutboundPropagatorTests`.
+
 PR-PLAT-NP-011 — final open-item closure pass:
 
 - **Public API governance:** `scripts/validate-public-api-governance.ps1` now detects modified, deleted, and renamed `tests/Ontogony.PublicApi.Tests/**/*.verified.txt` snapshot files across unstaged, staged, `pull_request`, and `push` diffs, and still requires a matching `CHANGELOG.md` change.

@@ -4,9 +4,11 @@
 
 ## Guarantees
 
-- Typed registration of named `HttpClient` instances with optional **delegating handlers** for correlation headers and transport policies.
+- `OntogonyIntegrationHeaders` canonical names for cross-service HTTP calls.
+- Named and typed `AddOntogonyIntegrationHttpClient` registration with correlation, actor, and idempotency propagation.
 - **Mechanical** error surfaces (`IntegrationHttpError`) for adapters without domain exception types.
 - Correlation propagation includes W3C trace context headers (`traceparent`, `tracestate`) and Ontogony correlation headers when present.
+- Optional `AddOntogonyOutboundActorPropagation()` in `Ontogony.Security` bridges `ICurrentActorAccessor` to outbound calls.
 
 ## Metrics interoperability
 

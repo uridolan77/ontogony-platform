@@ -27,6 +27,11 @@
         public string? TenantId { get; init; }
         public string? WorkspaceId { get; init; }
     }
+    public sealed class CurrentActorOutboundPropagator : Ontogony.Http.IOutboundActorPropagator
+    {
+        public CurrentActorOutboundPropagator(Ontogony.Security.ICurrentActorAccessor actorAccessor) { }
+        public bool TryGetActor(out Ontogony.Http.OutboundActorSnapshot snapshot) { }
+    }
     public sealed class DictionaryServiceSecretResolver : Ontogony.Security.IServiceSecretResolver
     {
         public DictionaryServiceSecretResolver(System.Collections.Generic.IReadOnlyDictionary<string, string> secrets) { }
@@ -162,6 +167,7 @@
         public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddOntogonyAuthenticationGuards(this Microsoft.Extensions.DependencyInjection.IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration configuration, string sectionName = "Ontogony:Security:Authentication") { }
         public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddOntogonyClaimsActorContext(this Microsoft.Extensions.DependencyInjection.IServiceCollection services, System.Action<Ontogony.Security.ClaimsCurrentActorAccessorOptions>? configure = null) { }
         public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddOntogonyHeaderActorContext(this Microsoft.Extensions.DependencyInjection.IServiceCollection services) { }
+        public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddOntogonyOutboundActorPropagation(this Microsoft.Extensions.DependencyInjection.IServiceCollection services) { }
         public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddOntogonyServiceIdentityActorContext(this Microsoft.Extensions.DependencyInjection.IServiceCollection services, System.Action<Ontogony.Security.ServiceIdentityOptions>? configure = null) { }
     }
     public static class ServiceIdentityBodyHashContext
