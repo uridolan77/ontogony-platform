@@ -93,9 +93,11 @@ public static class OntogonyCorrelationContext
             return null;
         }
 
+        var operationId = ResolveOperationId(headers) ?? Guid.NewGuid().ToString("n");
+
         return new CorrelationState(
             traceId.Trim(),
-            Guid.NewGuid().ToString("n"),
+            operationId,
             TenantId: FirstNonEmpty(headers, OntogonyEventHeaders.TenantId),
             WorkspaceId: FirstNonEmpty(headers, OntogonyEventHeaders.WorkspaceId),
             ProjectId: FirstNonEmpty(headers, OntogonyEventHeaders.ProjectId),
@@ -104,6 +106,9 @@ public static class OntogonyCorrelationContext
             TraceParent: traceParent,
             TraceState: FirstNonEmpty(headers, OntogonyEventHeaders.TraceState));
     }
+
+    private static string? ResolveOperationId(IReadOnlyDictionary<string, string?> headers) =>
+        FirstNonEmpty(headers, new[] { OntogonyEventHeaders.CorrelationId, OntogonyEventHeaders.LegacyCorrelationId });
 
     private static string[] BuildTraceHeaderLookupOrder(
         string canonicalTraceHeaderName,

@@ -93,6 +93,37 @@ public sealed class CorrelationContextTests
     }
 
     [Fact]
+    public void FromHeaders_Uses_Incoming_Correlation_Header_As_OperationId()
+    {
+        var headers = new Dictionary<string, string?>
+        {
+            [OntogonyEventHeaders.TraceId] = "trace-1",
+            [OntogonyEventHeaders.CorrelationId] = "corr-inbound-1"
+        };
+
+        var state = OntogonyCorrelationContext.FromHeaders(headers);
+
+        Assert.NotNull(state);
+        Assert.Equal("trace-1", state!.TraceId);
+        Assert.Equal("corr-inbound-1", state.OperationId);
+    }
+
+    [Fact]
+    public void FromHeaders_Accepts_Legacy_Correlation_Header_As_OperationId()
+    {
+        var headers = new Dictionary<string, string?>
+        {
+            [OntogonyEventHeaders.TraceId] = "trace-1",
+            [OntogonyEventHeaders.LegacyCorrelationId] = "corr-legacy-1"
+        };
+
+        var state = OntogonyCorrelationContext.FromHeaders(headers);
+
+        Assert.NotNull(state);
+        Assert.Equal("corr-legacy-1", state!.OperationId);
+    }
+
+    [Fact]
     public void FromHeaders_Uses_Ontogony_Header_Over_Legacy_Header()
     {
         var headers = new Dictionary<string, string?>

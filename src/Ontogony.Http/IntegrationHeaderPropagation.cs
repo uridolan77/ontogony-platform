@@ -17,7 +17,8 @@ internal static class IntegrationHeaderPropagation
     {
         if (correlation is not null)
         {
-            AddIfMissing(headers, OntogonyIntegrationHeaders.CorrelationId, correlation.TraceId);
+            AddIfMissing(headers, OntogonyIntegrationHeaders.CorrelationId, correlation.OperationId);
+            AddIfMissing(headers, OntogonyIntegrationHeaders.LegacyCorrelationId, correlation.OperationId);
             AddIfMissing(headers, OntogonyEventHeaders.TraceId, correlation.TraceId);
             AddIfMissing(headers, OntogonyIntegrationHeaders.ActorId, correlation.ActorId);
             AddIfMissing(headers, OntogonyEventHeaders.ActorId, correlation.ActorId);

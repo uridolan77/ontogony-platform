@@ -14,6 +14,12 @@ public static class OntogonyEventHeaders
     /// <summary>Ontogony trace id header.</summary>
     public const string TraceId = "X-Ontogony-Trace-Id";
 
+    /// <summary>Cross-service operation correlation id (distinct from trace id when callers supply one).</summary>
+    public const string CorrelationId = "X-Ontogony-Correlation-Id";
+
+    /// <summary>Legacy correlation header accepted for inbound interop.</summary>
+    public const string LegacyCorrelationId = "X-Correlation-ID";
+
     /// <summary>Legacy Athanor trace header (interop).</summary>
     public const string LegacyAthanorTraceId = "X-Athanor-Trace-Id";
 

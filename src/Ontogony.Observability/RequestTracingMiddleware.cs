@@ -41,7 +41,9 @@ public sealed class RequestTracingMiddleware
             _options.TraceHeaderName,
             _options.AcceptedIncomingTraceHeaders);
         var traceId = incomingState?.TraceId ?? CreateTraceId();
-        var operationId = Guid.NewGuid().ToString("n");
+        var operationId = incomingState?.OperationId
+            ?? ResolveOperationId(incomingHeaders)
+            ?? Guid.NewGuid().ToString("n");
 
         context.Items[TraceIdItemKey] = traceId;
         context.Items[OperationIdItemKey] = operationId;
@@ -120,6 +122,19 @@ public sealed class RequestTracingMiddleware
                 elapsedMs,
                 isError);
         }
+    }
+
+    private static string? ResolveOperationId(IReadOnlyDictionary<string, string?> headers)
+    {
+        foreach (var name in new[] { OntogonyEventHeaders.CorrelationId, OntogonyEventHeaders.LegacyCorrelationId })
+        {
+            if (headers.TryGetValue(name, out var value) && !string.IsNullOrWhiteSpace(value))
+            {
+                return value.Trim();
+            }
+        }
+
+        return null;
     }
 
     private static IReadOnlyDictionary<string, string?> BuildHeaderSnapshot(IHeaderDictionary headers)

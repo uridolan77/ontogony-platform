@@ -23,7 +23,7 @@ public sealed class IntegrationConventionsTests
     [Fact]
     public async Task SendAsync_PropagatesCorrelationId_AndTraceId_FromContext()
     {
-        using var _ = OntogonyCorrelationContext.Push("trace-correlation");
+        using var _ = OntogonyCorrelationContext.Push(new CorrelationState("trace-correlation", "corr-op-1"));
 
         var capture = new CaptureHandler();
         var handler = new IntegrationHeadersDelegatingHandler();
@@ -32,7 +32,8 @@ public sealed class IntegrationConventionsTests
 
         await client.GetAsync("https://example.test/ping");
 
-        Assert.Equal("trace-correlation", ReadSingleHeader(capture.LastRequest!, OntogonyIntegrationHeaders.CorrelationId));
+        Assert.Equal("corr-op-1", ReadSingleHeader(capture.LastRequest!, OntogonyIntegrationHeaders.CorrelationId));
+        Assert.Equal("corr-op-1", ReadSingleHeader(capture.LastRequest!, OntogonyIntegrationHeaders.LegacyCorrelationId));
         Assert.Equal("trace-correlation", ReadSingleHeader(capture.LastRequest!, OntogonyEventHeaders.TraceId));
     }
 

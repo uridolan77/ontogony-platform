@@ -26,6 +26,9 @@ public static class OntogonyIntegrationHeaders
     /// <summary>Correlation identifier for cross-service tracing.</summary>
     public const string CorrelationId = "X-Ontogony-Correlation-Id";
 
+    /// <summary>Legacy correlation header accepted for inbound interop.</summary>
+    public const string LegacyCorrelationId = "X-Correlation-ID";
+
     /// <summary>Legacy roles header accepted for inbound interop.</summary>
     public const string LegacyActorRoles = "X-Ontogony-Roles";
 
