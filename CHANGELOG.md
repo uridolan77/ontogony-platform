@@ -21,6 +21,8 @@ Platform cleanup / consumer blueprint tightening (docs + examples only):
 - **Allagma blueprint:** integration flow rewritten as a mechanical request pipeline (no run/tool/human-gate steps); boundary table wording decoupled from product-specific semantics; AI.Contracts row describes gateway telemetry without naming a product stack.
 - **Allagma skeleton:** integration HTTP client names and integration-metric operation labels are neutral placeholders (`partner-alpha` / `partner-beta`, `SmokeOperation`).
 - **Planning:** [`docs/backlog/PLATFORM_EXTRACTION_CANDIDATES.md`](docs/backlog/PLATFORM_EXTRACTION_CANDIDATES.md) (mechanical extractions under consideration); [`docs/backlog/PLATFORM_CLEANUP_TIGHTENING_STATUS.md`](docs/backlog/PLATFORM_CLEANUP_TIGHTENING_STATUS.md) (audit + validation summary).
+- **Docs tightening (no runtime behavior change):** root/index docs now treat Conexus.NET and Allagma.NET as active alpha consumers, align Agentor references to historical context, and clarify trace id (`X-Ontogony-Trace-Id`) vs correlation id (`X-Ontogony-Correlation-Id`, legacy `X-Correlation-ID`) semantics.
+- **Error contract docs:** explicitly distinguish endpoint API error payload mechanics (`ApiError`, middleware/JSON builder, mapped JSON results) from `CrossServiceErrorEnvelope` as an internal cross-service envelope, with product repos owning public HTTP contract variants.
 
 PLAT-INT-001A — integration header propagation tightening (`Ontogony.Http`, `Ontogony.Security`):
 

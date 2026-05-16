@@ -124,7 +124,7 @@ spec:
 
 ### Distributed Tracing
 
-All requests automatically propagate the `X-Ontogony-Trace-Id` header.
+All requests automatically propagate the canonical `X-Ontogony-Trace-Id` header. When present, operation-level correlation is carried separately via `X-Ontogony-Correlation-Id` (legacy `X-Correlation-ID` remains accepted inbound for compatibility).
 
 **View traces:**
 

@@ -8,7 +8,8 @@ Use `OntogonyIntegrationHeaders` from `Ontogony.Http`:
 
 | Header | Purpose |
 |--------|---------|
-| `X-Ontogony-Correlation-Id` | Cross-service correlation (mirrors trace id when propagated from context) |
+| `X-Ontogony-Trace-Id` | Canonical distributed trace identifier |
+| `X-Ontogony-Correlation-Id` | Canonical operation/request correlation identifier (may differ from trace id) |
 | `X-Ontogony-Actor-Id` | Actor identifier |
 | `X-Ontogony-Actor-Type` | Opaque actor classifier |
 | `X-Ontogony-Actor-Roles` | Comma-separated roles |
@@ -16,7 +17,7 @@ Use `OntogonyIntegrationHeaders` from `Ontogony.Http`:
 | `X-Ontogony-Workspace-Id` | Workspace scope |
 | `X-Ontogony-Idempotency-Key` | Idempotency key for unsafe-method retries |
 
-Legacy `Idempotency-Key` and `X-Ontogony-Roles` are still recognized for retry and inbound interop.
+Legacy `X-Correlation-ID`, `Idempotency-Key`, and `X-Ontogony-Roles` are still recognized for inbound/retry interop.
 
 `X-Ontogony-Actor-Roles` values are comma-separated. Role names must not contain commas; normalize role names before propagation.
 
@@ -24,7 +25,7 @@ Legacy `Idempotency-Key` and `X-Ontogony-Roles` are still recognized for retry a
 
 | Source | What propagates |
 |--------|-----------------|
-| `OntogonyCorrelationContext` | Trace/correlation id, actor id, tenant, workspace (when present on correlation state) |
+| `OntogonyCorrelationContext` | Trace id + operation correlation id, actor id, tenant, workspace (when present on correlation state) |
 | `OntogonyIntegrationContext` | Idempotency key, actor id, actor type, roles, tenant, workspace (for background/outbound flows) |
 | `AddOntogonyOutboundActorPropagation()` | Actor id, type, roles, tenant, workspace from `ICurrentActorAccessor` |
 | Custom `IOutboundActorPropagator` | Service-specific actor metadata |
@@ -80,5 +81,5 @@ Use `IntegrationHttpError.ThrowIfUnsuccessfulAsync` for mechanical HTTP failures
 
 ## Do not
 
-- Add `KanonClient`, `AgentorClient`, or `ConexusClient` to Ontogony.Platform.
+- Add product-specific HTTP clients to Ontogony.Platform.
 - Import another product service's implementation assembly.

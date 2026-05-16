@@ -2,7 +2,7 @@
 
 **Ontogony.Platform** is the mechanical infrastructure base for new Ontogony services.
 
-Ontogony.Platform is pre-1.0 and still evolving, but **Conexus.NET** is now its first **active alpha consumer**. Breaking changes are allowed only with public API snapshot review, `CHANGELOG` notes, migration guidance when applicable, and Conexus compatibility validation.
+Ontogony.Platform is pre-1.0 and still evolving, with **Conexus.NET** and **Allagma.NET** as active alpha consumers. Breaking changes are allowed only with public API snapshot review, `CHANGELOG` notes, migration guidance when applicable, and consumer compatibility validation.
 
 This repository is intentionally **not** a domain framework. It contains reusable mechanics only:
 
@@ -20,7 +20,7 @@ This repository is intentionally **not** a domain framework. It contains reusabl
 - LLM telemetry DTOs, artifact references, execution journal facts
 - test fixtures
 
-It must not contain Athanor canonization logic, Agentor orchestration semantics, Conexus routing strategy, iGaming rules, or any product-specific workflow logic.
+It must not contain Kanon semantic authority logic, Allagma orchestration semantics, Conexus routing strategy, iGaming rules, or any product-specific workflow logic.
 
 ## Strategic rule
 
@@ -69,8 +69,8 @@ Consumer alignment and governance (read before upgrading or breaking public surf
 
 - [`docs/consumer-blueprints/conexus-dotnet-platform-readiness.md`](docs/consumer-blueprints/conexus-dotnet-platform-readiness.md) — minimal package set and reference request flow.
 - [`docs/consumer-blueprints/CONEXUS_ONTOGONY_PACKAGE_MODE_CONTRACT.md`](docs/consumer-blueprints/CONEXUS_ONTOGONY_PACKAGE_MODE_CONTRACT.md) — package-mode contract and validation expectations.
-- [`docs/consumer-blueprints/allagma-dotnet-platform-readiness.md`](docs/consumer-blueprints/allagma-dotnet-platform-readiness.md) — Allagma.NET minimal package set (blueprint).
-- [`docs/consumer-blueprints/ALLAGMA_ONTOGONY_PACKAGE_MODE_CONTRACT.md`](docs/consumer-blueprints/ALLAGMA_ONTOGONY_PACKAGE_MODE_CONTRACT.md) — Allagma package-mode contract (future proof).
+- [`docs/consumer-blueprints/allagma-dotnet-platform-readiness.md`](docs/consumer-blueprints/allagma-dotnet-platform-readiness.md) — Allagma.NET minimal package set.
+- [`docs/consumer-blueprints/ALLAGMA_ONTOGONY_PACKAGE_MODE_CONTRACT.md`](docs/consumer-blueprints/ALLAGMA_ONTOGONY_PACKAGE_MODE_CONTRACT.md) — Allagma package-mode contract.
 - [`docs/VERSION_COMPATIBILITY_MATRIX.md`](docs/VERSION_COMPATIBILITY_MATRIX.md) — version compatibility expectations across packages.
 - [`docs/public-api-review.md`](docs/public-api-review.md) — public API snapshot and review process.
 - [`docs/planning/next-phase/architecture/PACKAGE_RELEASE_EVIDENCE.md`](docs/planning/next-phase/architecture/PACKAGE_RELEASE_EVIDENCE.md) — release evidence model for shipped packages.
@@ -107,7 +107,7 @@ Level 3 — AI runtime mechanics
 
 | Source repo | What we take | What we do not take |
 | --- | --- | --- |
-| Agentor | request tracing, correlation context, Activity/Meter pattern, fake/http/disabled integration modes, resilience, idempotency, outbox/queue discipline, auth-mode discipline | agent runtime semantics, policy business rules, plan execution domain |
+| Agentor (historical donor) | request tracing, correlation context, Activity/Meter pattern, fake/http/disabled integration modes, resilience, idempotency, outbox/queue discipline, auth-mode discipline | agent runtime semantics, policy business rules, plan execution domain |
 | Athanor | evidence/provenance discipline, append-only invariants, trace ID discipline, startup guards, content hashing, DB-first caution, Postgres-canonical/graph-projection principle | canonization services, contradiction logic, snapshot semantics as shared domain |
 | Conexus | gateway operational posture: request IDs, project API keys, usage/cost logging, readiness, encrypted config, production hardening | Python code, provider routing internals, BO-specific UI logic |
 | KGB | historical lessons: chunk hashing, pipeline stages, human review, export formats | old infrastructure foundation |

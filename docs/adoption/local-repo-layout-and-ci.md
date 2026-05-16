@@ -1,17 +1,18 @@
 # Local layout and CI when consuming `ontogony-platform` via project reference
 
-Some consumer repos (Athanor, Agentor) use **sibling project references** to `ontogony-platform` during pilot adoption. That keeps iteration fast but is **not** a long-term release strategy.
+Some consumer repos (for example Allagma and Conexus) use **sibling project references** to `ontogony-platform` during pilot adoption. That keeps iteration fast but is **not** a long-term release strategy.
 
 ## Recommended local directory layout
 
 ```text
 {workspace}/
   ontogony-platform/
-  athanor/
-  agentor/
+  allagma-dotnet/
+  conexus-dotnet/
+  kanon-dotnet/
 ```
 
-From `athanor/backend/src/Athanor.Application` the relative path to packages is typically `..\..\..\..\ontogony-platform\src\...`. From `agentor/src/Agentor.Infrastructure` use `..\..\..\ontogony-platform\src\...`. Adjust if your clone depth differs.
+Relative `ProjectReference` paths depend on your clone layout and repo depth. Keep all repos as siblings so references stay short and deterministic.
 
 ## CI options
 

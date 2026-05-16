@@ -1,6 +1,6 @@
 # Error Middleware Adoption
 
-This guide shows how Athanor and Agentor can replace local exception middleware with Ontogony.Errors while keeping service-specific exception types and mappings in each service repository.
+This guide shows how services can replace local exception middleware with Ontogony.Errors while keeping service-specific exception types and mappings in each service repository.
 
 ## Goal
 
@@ -140,8 +140,8 @@ ApiError roundTrip = pd.ToApiError();
    - response-started scenarios do not write a second response
 6. Keep backward-compatible error codes/messages for public APIs where required.
 
-## Notes for Athanor and Agentor
+## Notes for consuming services
 
-- Athanor and Agentor should preserve their own exception taxonomies and policy semantics.
+- Allagma, Kanon, and Conexus should preserve their own exception taxonomies and policy semantics.
 - Ontogony.Errors provides mechanics only: payload shape, mapping workflow, safe defaults, middleware behavior.
 - If a service needs API compatibility with an existing error schema, perform adaptation in that service boundary.

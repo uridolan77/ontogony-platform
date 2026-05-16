@@ -4,7 +4,7 @@ This document establishes how breaking changes to wire contracts and public APIs
 
 ## Core principle
 
-> Envelopes and headers are shared infrastructure. Breaking changes must be documented, tested, and migrated carefully across all consuming services (Athanor, Agentor, Conexus, and future protocol recorders).
+> Envelopes and headers are shared infrastructure. Breaking changes must be documented, tested, and migrated carefully across all consuming services (Allagma, Kanon, Conexus, and others).
 
 ## What is a breaking change?
 
@@ -61,10 +61,10 @@ Before merging a PR that modifies contracts, headers, or envelope validation:
   - [ ] This policy updated if scope changed?
   - [ ] Header compatibility matrix updated?
 - [ ] **Consuming services contacted?**
-  - [ ] Athanor aware and prepared?
-  - [ ] Agentor aware and prepared?
+  - [ ] Allagma aware and prepared?
+  - [ ] Kanon aware and prepared?
   - [ ] Conexus aware and prepared?
-  - [ ] Any other protocol recorders aware?
+  - [ ] Any other consumers aware?
 
 ## Review gates
 

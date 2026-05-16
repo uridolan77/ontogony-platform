@@ -38,7 +38,7 @@ services.Configure<OntogonyObservabilityOptions>(options =>
 {
     options.ServiceName = "my-service";
     options.TraceHeaderName = "X-Ontogony-Trace-Id";  // Canonical name
-    // AcceptedIncomingTraceHeaders defaults include legacy Athanor/Agentor headers
+    // AcceptedIncomingTraceHeaders defaults include legacy compatibility aliases.
 });
 
 // Middleware (early in pipeline)
@@ -268,7 +268,7 @@ services.AddOntogonyServiceIdentityActorContext(opts =>
     opts.MaxTimestampSkew = TimeSpan.FromSeconds(30);
     opts.RequireNonce = true;
     // Map caller service IDs to their shared secrets
-    opts.ServiceSecrets["agentor"] = configuration["Ontogony:AgentorSecret"]
+    opts.ServiceSecrets["caller-service"] = configuration["Ontogony:CallerServiceSecret"]
         ?? throw new InvalidOperationException("Missing shared secret");
 });
 ```

@@ -1,6 +1,6 @@
 # AGENTS.md — Ontogony Platform Contributor Rules
 
-This repository is shared infrastructure. Treat it as the common nervous system for Athanor, Agentor, Conexus, and future protocol recorder services.
+This repository is shared infrastructure. Treat it as the common nervous system for Allagma, Kanon, Conexus, and other runtime services.
 
 ## Non-negotiable rule
 
@@ -29,7 +29,7 @@ You may add reusable mechanics such as:
 Do not add:
 
 - Athanor canonization, contradiction, snapshot, review, or epistemic semantics
-- Agentor run/plan/tool/skill orchestration rules
+- Allagma run/plan/tool/human-gate orchestration rules
 - Conexus model routing/pricing/provider decision logic
 - iGaming/business approval rules
 - RAG/knowledge graph extraction logic
@@ -61,7 +61,7 @@ Breaking changes require:
 
 - a migration note in `docs/migrations/`
 - a changelog entry
-- an explanation of which repos must change: Athanor, Agentor, Conexus, or future services
+- an explanation of which repos must change: Allagma, Kanon, Conexus, or other consumers
 
 ## Review checklist
 

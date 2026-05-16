@@ -2,7 +2,7 @@
 
 ## Overview
 
-Ontogony.Platform ships **23 NuGet packages** with public APIs that downstream consumers (Conexus, Agentor, Athanor, etc.) depend on. Public API changes—including additions, removals, and signature modifications—must be intentional, documented, and reviewed.
+Ontogony.Platform ships **23 NuGet packages** with public APIs that downstream consumers (Conexus, Allagma, Kanon, and others) depend on. Public API changes—including additions, removals, and signature modifications—must be intentional, documented, and reviewed.
 
 ## Public API Snapshots
 
@@ -65,7 +65,7 @@ When you change a public API surface, ensure:
 
 ### If breaking change
 
-- [ ] **Migration note** — Add or update `docs/migrations/MIGRATION_v0.3_to_v0.4.md` (or current→next version) explaining:
+- [ ] **Migration note** — Add or update an appropriate file under `docs/migrations/` (for example `docs/migrations/YYYY-MM-DD-topic.md`) explaining:
   - What changed and why.
   - How consumers should update their code.
   - Any deprecation timeline.
@@ -149,9 +149,9 @@ Once Ontogony.Platform reaches a **stable release** (v1.0.0 or later):
 - Public API governance will become stricter; deprecation periods will precede removals.
 - Consumers will have minimum notice windows for breaking changes.
 
-During **alpha releases** (`v0.3.0-alpha.1` and later):
+During **alpha releases** (`0.3.0-alpha.1` line and later):
 
-- Public API changes may happen more frequently.
+- Public API changes may happen more frequently than post-1.0 releases.
 - Each change must still be intentional and documented.
 - Alpha consumers should monitor CHANGELOG and migration notes carefully.
 

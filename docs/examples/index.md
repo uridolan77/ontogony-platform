@@ -47,7 +47,7 @@ builder.Services.Configure<OntogonyObservabilityOptions>(opts =>
 {
     opts.ServiceName = "order-service";
     opts.TraceHeaderName = "X-Ontogony-Trace-Id";
-    // AcceptedIncomingTraceHeaders already includes legacy Athanor/Agentor headers
+    // AcceptedIncomingTraceHeaders already includes legacy compatibility aliases.
 });
 
 // Configure error handling
@@ -82,7 +82,7 @@ builder.Services.Configure<TransportResilienceOptions>(opts =>
 builder.Services.AddOntogonyServiceIdentityActorContext(opts =>
 {
     opts.RequireHmacSignature = true;
-    opts.ServiceSecrets["agentor"] = builder.Configuration["Ontogony:AgentorSecret"]!;
+    opts.ServiceSecrets["caller-service"] = builder.Configuration["Ontogony:CallerServiceSecret"]!;
 });
 builder.Services.AddHttpClient("downstream")
     .AddHttpMessageHandler(sp => new OntogonyServiceIdentitySigningHandler(

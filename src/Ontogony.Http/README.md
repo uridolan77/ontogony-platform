@@ -10,7 +10,7 @@ Resilient **outbound HTTP** client registration: retries, circuit breaker, and s
 
 ## What this is not
 
-- Not inbound API design, authentication policy, or product clients (`KanonClient`, `AgentorClient`, `ConexusClient`).
+- Not inbound API design, authentication policy, or product clients (`KanonClient`, `AllagmaClient`, `ConexusClient`).
 
 ## See also
 

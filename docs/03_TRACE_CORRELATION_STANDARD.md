@@ -10,6 +10,12 @@ Every event across AG-UI, MCP, A2A, model calls, tool calls, HTTP calls, queues,
 X-Ontogony-Trace-Id
 ```
 
+## Canonical correlation header
+
+```text
+X-Ontogony-Correlation-Id
+```
+
 ## Accepted legacy aliases
 
 ```text
@@ -24,18 +30,19 @@ X-Conexus-Request-Id
 2. Else if a legacy trace/request header exists, adopt it.
 3. Else generate a new trace ID.
 4. Echo `X-Ontogony-Trace-Id` in every response.
-5. Optionally echo Athanor/Agentor legacy trace headers on responses when `OntogonyObservabilityOptions.EchoLegacyHeaders` is true (default is false).
-6. Propagate trace context to outgoing HTTP calls.
-7. Include the trace ID in every `OntogonyEnvelope`.
+5. Resolve operation correlation from `X-Ontogony-Correlation-Id` (or legacy `X-Correlation-ID`), or generate one when absent.
+6. Optionally echo Athanor/Agentor legacy trace headers on responses when `OntogonyObservabilityOptions.EchoLegacyHeaders` is true (default is false).
+7. Propagate trace and correlation context to outgoing HTTP calls.
+8. Include the trace ID in every `OntogonyEnvelope`.
 
 ## Recommended trace lifecycle
 
 ```text
 Frontend / AG-UI session
-  → Agentor run
+  → Allagma run
   → Conexus model call
   → MCP tool call
-  → Athanor event record
+  → Kanon event record
   → canonical decision/evidence reconstruction
 ```
 

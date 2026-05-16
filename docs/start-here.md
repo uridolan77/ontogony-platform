@@ -1,6 +1,6 @@
 # Ontogony Platform — Start Here
 
-Welcome to **Ontogony**, the shared infrastructure platform for Athanor, Agentor, Conexus, and future protocol recorder services.
+Welcome to **Ontogony**, the shared infrastructure platform for Allagma, Kanon, Conexus, and related runtime services.
 
 This is not a product library. This is the **common nervous system** for cross-service mechanics: tracing, errors, contracts, resilience, security, and release automation.
 
@@ -27,7 +27,7 @@ Ontogony is a **.NET 9 / C# 13 infrastructure platform** that provides:
 
 ## Where to Start
 
-### 1. You are **adopting Ontogony in a consumer service** (Athanor, Agentor, Conexus)
+### 1. You are **adopting Ontogony in a consumer service** (Allagma, Kanon, Conexus)
 
 **Start here:** [Adoption Path](adoption/)
 
