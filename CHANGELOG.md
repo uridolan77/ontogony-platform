@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+PLAT-QUALITY-001 — public API XML docs policy and coverage HTML artifacts:
+
+- **Docs:** [`docs/quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md`](docs/quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md) — Tier A (`CS1591` enforced, Conexus baseline) vs Tier B (shipped, docs deferred), exempt trees, and deferred numeric coverage gate.
+- **CI:** [`ci.yml`](.github/workflows/ci.yml) — ReportGenerator step + `coverage-report-html` artifact (Cobertura thresholds still not enforced).
+- **README:** points to the policy doc; clarifies staged `CS1591` posture.
+
 - **`Ontogony.Http` — `IntegrationClientCallOptions`** — shared per-call outbound metadata (idempotency, actor, tenant/workspace) with `PushScope()` over `OntogonyIntegrationContext`; replaces duplicate product-client option records in Kanon/Conexus clients.
 
 Platform cleanup / consumer blueprint tightening (docs + examples only):

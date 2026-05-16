@@ -1,7 +1,7 @@
 <Project>
   <!--
-    PR-PLAT-006.1: enforce CS1591 (missing XML comment) on the Conexus baseline package set only.
-    See docs/consumer-blueprints/conexus-dotnet-platform-readiness.md (Required packages).
+    PR-PLAT-006.1 / PLAT-QUALITY-001 Tier A: enforce CS1591 (missing XML comment) on the Conexus baseline package set only.
+    See docs/consumer-blueprints/conexus-dotnet-platform-readiness.md (Required packages) and docs/quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md.
     Root Directory.Build.props suppresses CS1591 globally; this strips it for these projects only.
   -->
   <PropertyGroup>

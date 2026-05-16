@@ -215,12 +215,12 @@ Use SemVer syntax for NuGet; treat **0.x** and **pre-release** tags as “evolvi
 
 ## Current status
 
-**Shared infrastructure (0.3.0-alpha.1)** — contracts, reference implementations, docs, and automated tests (see `CHANGELOG.md`). CI restores, builds, tests, uploads coverage artifacts (`coverage.cobertura.xml` and `.trx`), validates docs, **shipping inventory**, **AI runtime docs**, **package dependency levels**, and packs **23** libraries on **.NET 9** (see `.github/workflows/`). Coverage thresholds remain deferred until the newer test projects mature. A non-shipping [`examples/ConexusDotNetSkeleton/`](examples/ConexusDotNetSkeleton/) project compiles against the Conexus v1 package slice as a compile-only smoke; **Conexus.NET** in `conexus-dotnet` is the live alpha consumer exercising the same stack in product code.
+**Shared infrastructure (0.3.0-alpha.1)** — contracts, reference implementations, docs, and automated tests (see `CHANGELOG.md`). CI restores, builds, tests, uploads Cobertura/TRX coverage artifacts and a **ReportGenerator HTML** bundle (`coverage-report-html`; see [`docs/quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md`](docs/quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md)), validates docs, **shipping inventory**, **AI runtime docs**, **package dependency levels**, and packs **23** libraries on **.NET 9** (see `.github/workflows/`). Numeric coverage **thresholds** remain advisory until baselines stabilize (same doc). A non-shipping [`examples/ConexusDotNetSkeleton/`](examples/ConexusDotNetSkeleton/) project compiles against the Conexus v1 package slice as a compile-only smoke; **Conexus.NET** in `conexus-dotnet` is the live alpha consumer exercising the same stack in product code.
 
 **Still evolving (check `docs/migrations/` before upgrading):**
 
 ```text
 HTTP resilience          // Retry-After, jitter, backoff, and circuit breaking exist; richer policies and budgets still evolve — see docs/packages/Ontogony.Http.md
 Envelope rules           // mechanical validation + JSON schema; product ingest policies stay in product repos
-Public XML (CS1591)      // suppressed at solution level until core types are fully documented
+Public XML (CS1591)      // Tier A = Conexus baseline (enforced); Tier B = other shipped libs still suppressed — see docs/quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md
 ```

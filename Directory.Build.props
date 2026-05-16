@@ -8,7 +8,7 @@
     <LangVersion>latest</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <!-- CS1591 suppressed globally; stripped for Conexus consumer-surface packages in src/Directory.Build.targets (PR-PLAT-006.1). -->
+    <!-- CS1591 suppressed globally; stripped for Tier A (Conexus consumer-surface) packages in src/Directory.Build.targets — see docs/quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md. -->
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <RepositoryUrl>https://github.com/uridolan77/ontogony-platform</RepositoryUrl>
     <RepositoryType>git</RepositoryType>

@@ -53,6 +53,24 @@ jobs:
             **/TestResults/**/*.trx
           retention-days: 30
           if-no-files-found: warn
+      # PLAT-QUALITY-001: HTML report for review; Cobertura gate / thresholds remain deferred (see docs/quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md).
+      - name: Generate coverage HTML (ReportGenerator)
+        if: ${{ always() && hashFiles('**/TestResults/**/coverage.cobertura.xml') != '' }}
+        uses: danielpalme/ReportGenerator-GitHub-Action@v5
+        with:
+          reports: "${{ github.workspace }}/**/TestResults/**/coverage.cobertura.xml"
+          targetdir: "${{ github.workspace }}/coveragereport"
+          reporttypes: "Html;HtmlSummary;Badges"
+          title: "Ontogony.Platform"
+          tag: "${{ github.run_number }}_${{ github.sha }}"
+      - name: Upload coverage HTML report
+        if: ${{ always() && hashFiles('**/TestResults/**/coverage.cobertura.xml') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report-html
+          path: coveragereport/
+          retention-days: 30
+          if-no-files-found: warn
       - name: Validate docs links
         shell: pwsh
         run: ./scripts/validate-docs-links.ps1
