@@ -54,6 +54,19 @@ These **ship** as NuGet packages but remain on the repo-wide `NoWarn` for `CS159
 
 **Promoting to Tier A:** add the project to `OntogonyConsumerSurfaceProject` in `src/Directory.Build.targets`, add the matching row to the Conexus readiness **Required packages** table (if Conexus is the driver), fix any new `CS1591` warnings, and merge as an intentional doc-hardening PR.
 
+### Promotion checklist (Tier B → Tier A)
+
+Use this as a **single PR** (or a tightly coupled PR pair) so enforcement and docs never drift.
+
+1. **Targets** — Add the `MSBuildProjectName` clause to `OntogonyConsumerSurfaceProject` in `src/Directory.Build.targets`.
+2. **Consumer baseline** — If Conexus is the driver for Tier A membership, add the matching table row for `Ontogony.<YourPackage>` under **Required packages** in `docs/consumer-blueprints/conexus-dotnet-platform-readiness.md` (before **Optional later**), using the same column shape as sibling rows. If another consumer owns the contract, document that alignment instead of silently diverging from Conexus.
+3. **Validate alignment** — Run `./scripts/validate-conexus-consumer-baseline-alignment.ps1` when the readiness table changed.
+4. **Build** — `dotnet build Ontogony.Platform.sln -c Release` and fix every new **`CS1591`** (and any knock-on warnings) in the promoted project.
+5. **Policy tables** — Update the Tier A / Tier B tables in this file in the same change set.
+6. **Public API** — If the package participates in `tests/Ontogony.PublicApi.Tests`, refresh verified snapshots and satisfy `scripts/validate-public-api-governance.ps1` (CHANGELOG note when required by that script).
+7. **Shipping narrative** — If package README or `docs/packages/*.md` promised “docs relaxed,” adjust wording to match enforced XML.
+8. **Consumer-visible shifts** — If the promotion is paired with contract or behavior changes (unusual for a pure doc gate), add `docs/migrations/` + `CHANGELOG.md` per Ontogony.Platform rules.
+
 ## Exempt from shipping rules (not Tier A/B)
 
 - **`examples/**`** — sample/skeleton apps; not in the 23-package inventory.

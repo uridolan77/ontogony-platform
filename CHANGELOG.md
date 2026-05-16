@@ -4,7 +4,7 @@
 
 PLAT-QUALITY-001 — public API XML docs policy and coverage HTML artifacts:
 
-- **Docs:** [`docs/quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md`](docs/quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md) — Tier A (`CS1591` enforced, Conexus baseline) vs Tier B (shipped, docs deferred), exempt trees, and deferred numeric coverage gate.
+- **Docs:** [`docs/quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md`](docs/quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md) — Tier A (`CS1591` enforced, Conexus baseline) vs Tier B (shipped, docs deferred), exempt trees, deferred numeric coverage gate, and a **Tier B → Tier A promotion checklist**.
 - **CI:** [`ci.yml`](.github/workflows/ci.yml) — ReportGenerator step + `coverage-report-html` artifact (Cobertura thresholds still not enforced).
 - **README:** points to the policy doc; clarifies staged `CS1591` posture.
 
