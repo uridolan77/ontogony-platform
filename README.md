@@ -57,9 +57,13 @@ Keep this repository free of product meaning: no canonization, no agent plans, n
 
 **Conexus.NET** consumes this stack today in **sibling-source** and **NuGet package** modes as the default substrate: observability, errors, HTTP, security, idempotency, contracts, AI telemetry, artifacts, and execution journaling — without importing Ontogony-specific business rules. Optional packages (messaging, persistence, Postgres outbox, protocol ingress, testing) layer on when a service needs them.
 
+## Active consumer (Allagma.NET, alpha)
+
+**Allagma.NET** consumes this stack today for governed execution: observability, errors, HTTP, security, idempotency, execution journaling, and related mechanics — without importing Ontogony-specific business rules. The first cross-repo system path (Allagma → Kanon → Conexus fake-provider) is documented in the Allagma repo; package-mode and readiness blueprints below remain the upgrade/breaking-change contract.
+
 ## Consumer blueprint (Allagma.NET)
 
-**Allagma.NET** is documented as a future consumer only — not an active platform dependency. See [`docs/consumer-blueprints/README.md`](docs/consumer-blueprints/README.md) and the Allagma readiness blueprint for the mechanical package slice and compile-only [`examples/AllagmaDotNetSkeleton/`](examples/AllagmaDotNetSkeleton/) smoke.
+Historical **blueprint-only** wording referred to pre–first-system integration. Active runtime consumption is described above; see [`docs/consumer-blueprints/README.md`](docs/consumer-blueprints/README.md) and compile-only [`examples/AllagmaDotNetSkeleton/`](examples/AllagmaDotNetSkeleton/) smoke for the mechanical package slice.
 
 Consumer alignment and governance (read before upgrading or breaking public surface area):
 
@@ -168,7 +172,7 @@ src/
 - [`docs/VERSION_COMPATIBILITY_MATRIX.md`](docs/VERSION_COMPATIBILITY_MATRIX.md) — cross-package compatibility expectations.
 - [`docs/public-api-review.md`](docs/public-api-review.md) — public API governance and snapshot review.
 - [`docs/consumer-blueprints/conexus-dotnet-starter-plan.md`](docs/consumer-blueprints/conexus-dotnet-starter-plan.md) — v0 substrate freeze and validation checkpoint before the external starter (PR54).
-- [`docs/consumer-blueprints/README.md`](docs/consumer-blueprints/README.md) — consumer blueprint index (Conexus active; Allagma blueprint).
+- [`docs/consumer-blueprints/README.md`](docs/consumer-blueprints/README.md) — consumer blueprint index (Conexus and Allagma active alpha consumers).
 - [`docs/consumer-blueprints/allagma-dotnet-starter-plan.md`](docs/consumer-blueprints/allagma-dotnet-starter-plan.md) — Allagma v0 substrate checkpoint (PLAT-ALLAGMA-001).
 - [`docs/packages/`](docs/packages/) — per-package guarantees and non-goals.
 - [`CHANGELOG.md`](CHANGELOG.md) — PR history, migrations, and breaking-change notes.
