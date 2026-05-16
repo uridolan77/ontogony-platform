@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+SYS-ERR-001 — shared Ontogony JSON error payload for middleware and minimal APIs (`Ontogony.Errors`):
+
+- **`OntogonyErrorJsonPayloadBuilder`** — builds the same `code` / `message` / `traceId` / details-key dictionary the exception middleware serializes.
+- **`OntogonyMappedJsonResults.ApiError`** — minimal-API helper returning `Results.Json(...)` using host `JsonOptions` and `OntogonyExceptionMappingOptions` key names; merges `OntogonyCorrelationContext.TraceId` when the `ApiError` has none.
+- **Tests:** `OntogonyErrorJsonPayloadBuilderTests`; public API snapshot for `Ontogony.Errors` updated.
+
 PLAT-QUALITY-001 — public API XML docs policy and coverage HTML artifacts:
 
 - **Docs:** [`docs/quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md`](docs/quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md) — Tier A (`CS1591` enforced, Conexus baseline) vs Tier B (shipped, docs deferred), exempt trees, deferred numeric coverage gate, and a **Tier B → Tier A promotion checklist**.

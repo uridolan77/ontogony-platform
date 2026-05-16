@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Net;
 using System.Text.Json;
 using Microsoft.AspNetCore.Http;
@@ -56,7 +55,6 @@ public sealed class OntogonyExceptionHandlingMiddleware
             var code = mapping is null ? _mappingOptions.UnhandledErrorCode : ResolveErrorCode(mapping, ex);
             var message = ResolveMessage(mapping, ex);
             var details = ResolveDetails(mapping, ex);
-            var instance = context.Request.Path.HasValue ? context.Request.Path.Value : null;
 
             if (mapping is null)
             {
@@ -73,35 +71,17 @@ public sealed class OntogonyExceptionHandlingMiddleware
 
             context.Response.StatusCode = (int)status;
             context.Response.ContentType = "application/json";
-            var payload = SerializeErrorPayload(code, message, traceId, details, instance);
+            string? instance = null;
+            if (_mappingOptions.IncludeInstanceInJson && context.Request.Path.HasValue)
+            {
+                instance = context.Request.Path.Value;
+            }
+
+            var apiError = new ApiError(code, message, traceId, details, instance);
+            var dict = OntogonyErrorJsonPayloadBuilder.Build(_mappingOptions, apiError);
+            var payload = JsonSerializer.Serialize(dict, _jsonOptions);
             await context.Response.WriteAsync(payload);
         }
-    }
-
-    private string SerializeErrorPayload(string code, string message, string? traceId, object? details, string? instance)
-    {
-        var dict = new Dictionary<string, object?>(StringComparer.Ordinal)
-        {
-            [_mappingOptions.ErrorCodeJsonKey] = code,
-            ["message"] = message
-        };
-
-        if (!string.IsNullOrWhiteSpace(traceId))
-        {
-            dict["traceId"] = traceId;
-        }
-
-        if (details is not null)
-        {
-            dict[_mappingOptions.DetailsJsonKey] = details;
-        }
-
-        if (_mappingOptions.IncludeInstanceInJson && !string.IsNullOrWhiteSpace(instance))
-        {
-            dict["instance"] = instance;
-        }
-
-        return JsonSerializer.Serialize(dict, _jsonOptions);
     }
 
     private static string ResolveErrorCode(ExceptionMapping mapping, Exception exception)

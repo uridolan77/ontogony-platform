@@ -9,6 +9,10 @@
         public string Message { get; init; }
         public string? TraceId { get; init; }
     }
+    public static class OntogonyErrorJsonPayloadBuilder
+    {
+        public static System.Collections.Generic.Dictionary<string, object?> Build(Ontogony.Errors.OntogonyExceptionMappingOptions options, Ontogony.Errors.ApiError error) { }
+    }
     public sealed class ExceptionMapping : System.IEquatable<Ontogony.Errors.ExceptionMapping>
     {
         public ExceptionMapping(System.Net.HttpStatusCode StatusCode, string ErrorCode, string? PublicMessage = null, bool IncludeExceptionMessage = false, bool LogAsWarning = true, bool IncludeDetails = false, System.Func<System.Exception, string>? ResolveErrorCode = null, System.Func<System.Exception, string?>? ResolvePublicMessage = null, System.Func<System.Exception, object?>? DetailsFactory = null, System.Func<System.Exception, System.Net.HttpStatusCode>? ResolveStatusCode = null) { }
@@ -45,5 +49,9 @@
         public Ontogony.Errors.ExceptionMapping? Find(System.Exception exception) { }
         public Ontogony.Errors.OntogonyExceptionMappingOptions Map<TException>(System.Net.HttpStatusCode statusCode, string errorCode, string? publicMessage = null, bool includeExceptionMessage = false, bool logAsWarning = true, bool includeDetails = false, System.Func<System.Exception, string>? resolveErrorCode = null, System.Func<System.Exception, string?>? resolvePublicMessage = null, System.Func<System.Exception, object?>? detailsFactory = null, System.Func<System.Exception, System.Net.HttpStatusCode>? resolveStatusCode = null)
             where TException : System.Exception { }
+    }
+    public static class OntogonyMappedJsonResults
+    {
+        public static Microsoft.AspNetCore.Http.IResult ApiError(Microsoft.AspNetCore.Http.HttpContext httpContext, int statusCode, Ontogony.Errors.ApiError error) { }
     }
 }
