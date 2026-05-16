@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -11,7 +12,7 @@ namespace Ontogony.Errors;
 public static class OntogonyMappedJsonResults
 {
     /// <summary>
-    /// Returns <see cref="Results.Json"/> using configured <see cref="OntogonyExceptionMappingOptions"/> keys and JSON options.
+    /// Returns an <see cref="IResult"/> that writes JSON using configured <see cref="OntogonyExceptionMappingOptions"/> keys and JSON options.
     /// Fills <see cref="ApiError.TraceId"/> from <see cref="OntogonyCorrelationContext"/> when missing.
     /// </summary>
     public static IResult ApiError(HttpContext httpContext, int statusCode, ApiError error)
