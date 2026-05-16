@@ -7,10 +7,11 @@ Async-local correlation context, trace header propagation, and diagnostic event 
 - **`OntogonyCorrelationContext`** — async-local trace, actor, and tenant scope.
 - **`RequestTracingMiddleware`** and **`UseOntogonyRequestTracing`** — ASP.NET pipeline wiring.
 - **`AddOntogonyObservability`** — options registration with validation.
+- **`AddOntogonyOpenTelemetryExport`** — optional OTLP trace/metric export when `OTEL_EXPORTER_OTLP_ENDPOINT` is set (no-op otherwise).
 
 ## What this is not
 
-- Not OpenTelemetry exporter configuration or vendor-specific backends (this package exposes hooks; hosts wire exporters).
+- Not mandatory OpenTelemetry export: `AddOntogonyOpenTelemetryExport` is opt-in via `OTEL_EXPORTER_OTLP_ENDPOINT` and uses the standard OTLP exporter only.
 
 ## Overview
 

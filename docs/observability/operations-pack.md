@@ -9,45 +9,25 @@ It focuses on mechanics only: trace and metric transport, stable instrument name
 Use the Ontogony activity source and meter names as first-class telemetry sources.
 
 ```csharp
-using OpenTelemetry.Metrics;
-using OpenTelemetry.Resources;
-using OpenTelemetry.Trace;
+using Ontogony.Hosting;
 using Ontogony.Observability;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services
-    .AddOntogonyObservability(options =>
-    {
-        options.ServiceName = "my-service";
-    });
+builder.Services.AddOntogonyServiceDefaults(builder.Configuration, options =>
+{
+    options.ServiceName = "my-service";
+});
 
-builder.Services
-    .AddOpenTelemetry()
-    .ConfigureResource(resource =>
-    {
-        resource.AddService(serviceName: "my-service");
-    })
-    .WithTracing(tracing =>
-    {
-        tracing
-            .AddSource(OntogonyDiagnostics.DefaultActivitySourceName)
-            .AddAspNetCoreInstrumentation()
-            .AddHttpClientInstrumentation()
-            .AddOtlpExporter();
-    })
-    .WithMetrics(metrics =>
-    {
-        metrics
-            .AddMeter(OntogonyDiagnostics.DefaultActivitySourceName)
-            .AddAspNetCoreInstrumentation()
-            .AddHttpClientInstrumentation()
-            .AddOtlpExporter();
-    });
+// Or, without Hosting defaults:
+// builder.Services.AddOntogonyObservability(options => options.ServiceName = "my-service");
+// builder.Services.AddOntogonyOpenTelemetryExport("my-service");
 
 var app = builder.Build();
-app.UseOntogonyRequestTracing();
+app.UseOntogonyServiceDefaults();
 ```
+
+`AddOntogonyServiceDefaults` calls `AddOntogonyOpenTelemetryExport`, which registers OTLP export only when `OTEL_EXPORTER_OTLP_ENDPOINT` is set.
 
 Set OTLP endpoint via environment variable in development:
 

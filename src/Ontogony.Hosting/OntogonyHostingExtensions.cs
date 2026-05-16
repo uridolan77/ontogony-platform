@@ -49,6 +49,8 @@ public static class OntogonyHostingExtensions
                     options.ServiceVersion = resolved.ServiceVersion;
                 }
             });
+
+            services.AddOntogonyOpenTelemetryExport(resolved.ServiceName, resolved.ServiceVersion);
         }
 
         if (resolved.AddErrors)
