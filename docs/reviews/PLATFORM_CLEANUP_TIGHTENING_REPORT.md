@@ -22,6 +22,9 @@
 - Tightened public API governance docs:
   - `docs/public-api-review.md` now references current consumers (Allagma/Kanon/Conexus) and generic migration-note conventions under `docs/migrations/`
 - Recorded this cleanup in `CHANGELOG.md` under `Unreleased` as docs-only tightening (no runtime behavior change)
+- Follow-up failure remediation:
+  - added repo-level `nuget.config` with package source mapping to remove local `NU1507` restore/build failures caused by external user-level feeds
+  - refreshed public API verified snapshots for `Ontogony.Contracts`, `Ontogony.Errors`, `Ontogony.Http`, and `Ontogony.Observability`
 
 ## What was intentionally not changed
 
@@ -36,8 +39,6 @@
 
 ## Remaining risks
 
-- Local environment restore/build still fails with `NU1507` due multiple configured package sources (`nuget.org` + `ProgressPlay Nuget Manager`) under central package management; this blocks clean local restore/build unless package source mapping (or single-source configuration) is applied in the operator environment.
-- `dotnet test` executes most suites successfully, but `Ontogony.PublicApi.Tests` currently reports snapshot mismatches (`Ontogony.Contracts`, `Ontogony.Errors`, `Ontogony.Http`, `Ontogony.Observability`) in this environment. This appears pre-existing and was not modified by this docs-only pass.
 - Legacy-header deprecation timeline remains partly planned (documented as phased); runtime behavior remains unchanged.
 
 ## Validation results
@@ -45,13 +46,11 @@
 ### Requested commands
 
 - `dotnet restore Ontogony.Platform.sln`  
-  - **Failed**: `NU1507` (multiple package sources with central package management)
+  - **Passed**
 - `dotnet build Ontogony.Platform.sln -c Release --no-restore`  
-  - **Failed**: same `NU1507` source-mapping issue
+  - **Passed**
 - `dotnet test Ontogony.Platform.sln -c Release --no-build`  
-  - **Partially passed / overall failed**:
-    - most test projects passed
-    - `Ontogony.PublicApi.Tests` reported snapshot mismatches (`Ontogony.Contracts`, `Ontogony.Errors`, `Ontogony.Http`, `Ontogony.Observability`)
+  - **Passed**
 - `./scripts/validate-docs-links.ps1`  
   - **Passed**
 - `./scripts/validate-public-api-governance.ps1`  

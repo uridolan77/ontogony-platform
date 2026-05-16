@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+Build/test failure remediation:
+
+- Added repo-level `nuget.config` with explicit source clearing and package source mapping to `nuget.org` so central package management restores/builds are stable even when user-level NuGet sources include additional feeds.
+- Refreshed public API approval snapshots for `Ontogony.Contracts`, `Ontogony.Errors`, `Ontogony.Http`, and `Ontogony.Observability` so `Ontogony.PublicApi.Tests` matches the current generated surface.
+
 SYS-ERR-001 — shared Ontogony JSON error payload for middleware and minimal APIs (`Ontogony.Errors`):
 
 - **`OntogonyErrorJsonPayloadBuilder`** — builds the same `code` / `message` / `traceId` / details-key dictionary the exception middleware serializes.

@@ -9,9 +9,49 @@
         public string Message { get; init; }
         public string? TraceId { get; init; }
     }
-    public static class OntogonyErrorJsonPayloadBuilder
+    public static class CrossServiceErrorCodes
     {
-        public static System.Collections.Generic.Dictionary<string, object?> Build(Ontogony.Errors.OntogonyExceptionMappingOptions options, Ontogony.Errors.ApiError error) { }
+        public const string AuthForbidden = "auth.forbidden";
+        public const string AuthMissing = "auth.missing";
+        public const string DownstreamFailure = "downstream.failure";
+        public const string DownstreamUnavailable = "downstream.unavailable";
+        public const string IdempotencyConflict = "idempotency.conflict";
+        public const string IdempotencyInProgress = "idempotency.in_progress";
+        public const string ReadinessUnavailable = "readiness.unavailable";
+        public const string Timeout = "timeout";
+        public const string ValidationFailed = "validation.failed";
+    }
+    public sealed class CrossServiceErrorEnvelope : System.IEquatable<Ontogony.Errors.CrossServiceErrorEnvelope>
+    {
+        public CrossServiceErrorEnvelope(string Code, string Message, string System, string? Stage = null, string? DownstreamSystem = null, string? TraceId = null, string? CorrelationId = null, bool? Retryable = default, object? Detail = null) { }
+        public string Code { get; init; }
+        public string? CorrelationId { get; init; }
+        public object? Detail { get; init; }
+        public string? DownstreamSystem { get; init; }
+        public string Message { get; init; }
+        public bool? Retryable { get; init; }
+        public string? Stage { get; init; }
+        public string System { get; init; }
+        public string? TraceId { get; init; }
+    }
+    public static class CrossServiceErrorEnvelopeExtensions
+    {
+        public static Ontogony.Errors.CrossServiceErrorEnvelope FromApiError(Ontogony.Errors.ApiError apiError, string system, string? stage = null, string? downstreamSystem = null, string? correlationId = null, bool? retryable = default) { }
+        public static Ontogony.Errors.ApiError ToApiError(this Ontogony.Errors.CrossServiceErrorEnvelope envelope) { }
+        public static string ToJson(this Ontogony.Errors.CrossServiceErrorEnvelope envelope) { }
+        public static bool TryParse(System.Text.Json.JsonElement element, out Ontogony.Errors.CrossServiceErrorEnvelope? envelope) { }
+        public static bool TryParseJson(string json, out Ontogony.Errors.CrossServiceErrorEnvelope? envelope) { }
+    }
+    public static class CrossServiceErrorStage
+    {
+        public const string Downstream = "downstream";
+        public const string Idempotency = "idempotency";
+        public const string Model = "model";
+        public const string Persistence = "persistence";
+        public const string Planning = "planning";
+        public const string Policy = "policy";
+        public const string Readiness = "readiness";
+        public const string Request = "request";
     }
     public sealed class ExceptionMapping : System.IEquatable<Ontogony.Errors.ExceptionMapping>
     {
@@ -26,6 +66,10 @@
         public System.Func<System.Exception, string?>? ResolvePublicMessage { get; init; }
         public System.Func<System.Exception, System.Net.HttpStatusCode>? ResolveStatusCode { get; init; }
         public System.Net.HttpStatusCode StatusCode { get; init; }
+    }
+    public static class OntogonyErrorJsonPayloadBuilder
+    {
+        public static System.Collections.Generic.Dictionary<string, object?> Build(Ontogony.Errors.OntogonyExceptionMappingOptions options, Ontogony.Errors.ApiError error) { }
     }
     public static class OntogonyErrorsExtensions
     {

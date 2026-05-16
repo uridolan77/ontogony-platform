@@ -99,6 +99,11 @@
         public OntogonyObservabilityOptionsValidator() { }
         public Microsoft.Extensions.Options.ValidateOptionsResult Validate(string? name, Ontogony.Observability.OntogonyObservabilityOptions options) { }
     }
+    public static class OntogonyOpenTelemetryExtensions
+    {
+        public const string OtlpEndpointEnvironmentVariable = "OTEL_EXPORTER_OTLP_ENDPOINT";
+        public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddOntogonyOpenTelemetryExport(this Microsoft.Extensions.DependencyInjection.IServiceCollection services, string serviceName, string? serviceVersion = null) { }
+    }
     public static class OntogonySpanAttributes
     {
         public const string ActorId = "ontogony.actor_id";

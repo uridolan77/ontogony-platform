@@ -143,9 +143,9 @@ namespace Ontogony.Contracts.Events
         public const string ConexusRequestId = "X-Conexus-Request-Id";
         public const string CorrelationId = "X-Ontogony-Correlation-Id";
         public const string IdempotencyKey = "Idempotency-Key";
-        public const string LegacyCorrelationId = "X-Correlation-ID";
         public const string LegacyAgentorTraceId = "X-Agentor-Trace-Id";
         public const string LegacyAthanorTraceId = "X-Athanor-Trace-Id";
+        public const string LegacyCorrelationId = "X-Correlation-ID";
         public const string ProjectId = "X-Ontogony-Project-Id";
         public const string SessionId = "X-Ontogony-Session-Id";
         public const string TenantId = "X-Ontogony-Tenant-Id";
