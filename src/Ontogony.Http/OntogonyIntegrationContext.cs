@@ -33,10 +33,12 @@ public static class OntogonyIntegrationContext
 /// <param name="ActorRoles">Optional actor roles (comma-free role names only).</param>
 /// <param name="TenantId">Optional tenant scope.</param>
 /// <param name="WorkspaceId">Optional workspace scope.</param>
+/// <param name="AdditionalHeaders">Optional product-specific headers (e.g. <c>X-Allagma-Run-Id</c>); keys must not duplicate platform headers.</param>
 public sealed record IntegrationOutboundState(
     string? IdempotencyKey = null,
     string? ActorId = null,
     string? ActorType = null,
     IReadOnlyList<string>? ActorRoles = null,
     string? TenantId = null,
-    string? WorkspaceId = null);
+    string? WorkspaceId = null,
+    IReadOnlyDictionary<string, string>? AdditionalHeaders = null);

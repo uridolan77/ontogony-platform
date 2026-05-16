@@ -128,6 +128,38 @@ public sealed class IntegrationConventionsTests
     }
 
     [Fact]
+    public async Task SendAsync_PropagatesAdditionalHeaders_FromIntegrationContext()
+    {
+        using var _ = OntogonyIntegrationContext.Push(new IntegrationOutboundState(
+            AdditionalHeaders: new Dictionary<string, string> { ["X-Product-Run-Id"] = "run-abc" }));
+
+        var capture = new CaptureHandler();
+        var handler = new IntegrationHeadersDelegatingHandler();
+        handler.InnerHandler = capture;
+        using var client = new HttpClient(handler);
+
+        await client.GetAsync("https://example.test/ping");
+
+        Assert.Equal("run-abc", ReadSingleHeader(capture.LastRequest!, "X-Product-Run-Id"));
+    }
+
+    [Fact]
+    public async Task IntegrationClientCallOptions_PropagatesAdditionalHeaders()
+    {
+        using var _ = new IntegrationClientCallOptions(
+            AdditionalHeaders: new Dictionary<string, string> { ["X-Product-Run-Id"] = "run-xyz" }).PushScope();
+
+        var capture = new CaptureHandler();
+        var handler = new IntegrationHeadersDelegatingHandler();
+        handler.InnerHandler = capture;
+        using var client = new HttpClient(handler);
+
+        await client.GetAsync("https://example.test/ping");
+
+        Assert.Equal("run-xyz", ReadSingleHeader(capture.LastRequest!, "X-Product-Run-Id"));
+    }
+
+    [Fact]
     public async Task AddOntogonyIntegrationHttpClient_TypedClient_Resolves_FromDi()
     {
         var services = new ServiceCollection();

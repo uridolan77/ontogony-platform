@@ -42,6 +42,14 @@ internal static class IntegrationHeaderPropagation
             AddIfMissing(headers, OntogonyIntegrationHeaders.WorkspaceId, integration.WorkspaceId);
             AddIfMissing(headers, OntogonyEventHeaders.WorkspaceId, integration.WorkspaceId);
             AddRolesIfMissing(headers, integration.ActorRoles);
+
+            if (integration.AdditionalHeaders is not null)
+            {
+                foreach (var (name, value) in integration.AdditionalHeaders)
+                {
+                    AddIfMissing(headers, name, value);
+                }
+            }
         }
 
         foreach (var propagator in propagators)

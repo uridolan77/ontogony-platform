@@ -9,13 +9,15 @@ namespace Ontogony.Http;
 /// <param name="ActorRoles">Optional actor roles (comma-free role names only).</param>
 /// <param name="TenantId">Optional tenant scope.</param>
 /// <param name="WorkspaceId">Optional workspace scope.</param>
+/// <param name="AdditionalHeaders">Optional product-specific headers propagated on the next outbound call.</param>
 public sealed record IntegrationClientCallOptions(
     string? IdempotencyKey = null,
     string? ActorId = null,
     string? ActorType = null,
     IReadOnlyList<string>? ActorRoles = null,
     string? TenantId = null,
-    string? WorkspaceId = null)
+    string? WorkspaceId = null,
+    IReadOnlyDictionary<string, string>? AdditionalHeaders = null)
 {
     /// <summary>Replaces outbound integration state until the returned scope is disposed.</summary>
     public IDisposable PushScope() =>
@@ -25,5 +27,6 @@ public sealed record IntegrationClientCallOptions(
             ActorType,
             ActorRoles,
             TenantId,
-            WorkspaceId));
+            WorkspaceId,
+            AdditionalHeaders));
 }
