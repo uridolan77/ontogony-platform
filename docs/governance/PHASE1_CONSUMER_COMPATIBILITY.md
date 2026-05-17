@@ -19,7 +19,7 @@ Historical name **Agentor** is replaced by **Allagma**; platform docs reference 
 | --- | --- | --- | --- |
 | **Conexus.NET** | LLM/model gateway | Sibling `ProjectReference` (default) or `UseOntogonyPackages=true` | [`validate-conexus-consumer-baseline-alignment.ps1`](../../scripts/validate-conexus-consumer-baseline-alignment.ps1); [`CONEXUS_ONTOGONY_PACKAGE_MODE_CONTRACT.md`](../consumer-blueprints/CONEXUS_ONTOGONY_PACKAGE_MODE_CONTRACT.md); `examples/ConexusDotNetPackageSmoke` |
 | **Allagma.NET** | Governed execution | Sibling or package mode (see Allagma repo) | [`validate-allagma-consumer-baseline-alignment.ps1`](../../scripts/validate-allagma-consumer-baseline-alignment.ps1); [`ALLAGMA_ONTOGONY_PACKAGE_MODE_CONTRACT.md`](../consumer-blueprints/ALLAGMA_ONTOGONY_PACKAGE_MODE_CONTRACT.md); `examples/AllagmaDotNetSkeleton` |
-| **Kanon.NET** | Semantic authority | Sibling `ProjectReference` (default) or `UseOntogonyPackages=true` | Kanon CI package-mode job; package set in Kanon `eng/Ontogony.References.props` (no platform-owned product code) |
+| **Kanon.NET** | Semantic authority | Sibling `ProjectReference` (default) or `UseOntogonyPackages=true` | Kanon CI package-mode job; package set in Kanon `eng/Ontogony.References.props`; platform doc guard [`kanon-ontogony-package-union.txt`](./kanon-ontogony-package-union.txt) + [`validate-kanon-ontogony-package-union.ps1`](../../scripts/validate-kanon-ontogony-package-union.ps1) (optional drift check when `../kanon-dotnet` or `KANON_SIBLING_ROOT` is present) |
 
 ## How each consumer should consume Platform
 
@@ -37,7 +37,7 @@ Historical name **Agentor** is replaced by **Allagma**; platform docs reference 
 
 ### Kanon.NET
 
-- **Package set (by project):** defined in `kanon-dotnet` → `eng/Ontogony.References.props` (Api: Hosting, Observability, Logging, Redaction, Errors, Security, Contracts; Application: Contracts, Hashing, Idempotency, Observability, Primitives, Execution, Artifacts, Replay.Contracts; Infrastructure: Persistence, Postgres, Http, Secrets, AI.Contracts, etc.; Client: Http, Errors, Security, Observability, Idempotency, Contracts).
+- **Package set (by project):** defined in `kanon-dotnet` → `eng/Ontogony.References.props`. The sorted **union** of all `Ontogony.*` references is mirrored in [`kanon-ontogony-package-union.txt`](./kanon-ontogony-package-union.txt) and validated in platform CI by [`validate-kanon-ontogony-package-union.ps1`](../../scripts/validate-kanon-ontogony-package-union.ps1). When Kanon changes references, update the union file in the same PR (or follow-up) that touches `Ontogony.References.props`.
 - **Package mode:** `dotnet restore/build/test` with `-p:UseOntogonyPackages=true` and aligned `OntogonyPackageVersion` (see Kanon `docs/reviews/KANON_PHASE_3_CLOSEOUT_REPORT.md`).
 - **Do not** expect Ontogony to own ontology, canonization, semantic query plans, or action-policy meaning.
 
@@ -61,4 +61,4 @@ Historical name **Agentor** is replaced by **Allagma**; platform docs reference 
 
 - No Kanon/Conexus/Allagma domain types or policies in Platform.
 - No new Platform packages for Phase 1 governance (docs + existing validation scripts only).
-- No compile-only Kanon skeleton in Platform (Kanon proves compatibility in `kanon-dotnet` CI).
+- No compile-only Kanon skeleton in Platform (Kanon proves build compatibility in `kanon-dotnet` CI; Platform holds the Ontogony package **union** doc guard only).

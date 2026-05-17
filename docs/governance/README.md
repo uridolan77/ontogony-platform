@@ -4,6 +4,7 @@ Mechanical governance for Ontogony.Platform **0.3.0-alpha.1** and Phase 1 system
 
 | Document | Purpose |
 | --- | --- |
+| [`kanon-ontogony-package-union.txt`](./kanon-ontogony-package-union.txt) | Sorted union of Ontogony packages referenced by Kanon.NET (`eng/Ontogony.References.props`); validated by `validate-kanon-ontogony-package-union.ps1` |
 | [`PHASE1_CONSUMER_COMPATIBILITY.md`](./PHASE1_CONSUMER_COMPATIBILITY.md) | Phase 1 consumer matrix: Allagma, Kanon, Conexus — package lines, validation scripts, upgrade expectations |
 | [`PACKAGE_COMPATIBILITY_CHECKLIST_0.3.0-alpha.1.md`](./PACKAGE_COMPATIBILITY_CHECKLIST_0.3.0-alpha.1.md) | Pre-merge / pre-tag checklist for the current alpha package line |
 | [`PACKAGE_LEVEL_GOVERNANCE.md`](./PACKAGE_LEVEL_GOVERNANCE.md) | Golden map, forbidden edges, and change workflow (`validate-package-levels.ps1` + `package-levels.md`) |
