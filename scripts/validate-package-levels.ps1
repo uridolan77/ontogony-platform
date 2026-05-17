@@ -30,7 +30,7 @@ $expectedRefs = [ordered]@{
     'Ontogony.Redaction'           = @()
     'Ontogony.Replay.Contracts'    = @()
     'Ontogony.Secrets'             = @('Ontogony.Redaction')
-    'Ontogony.Security'            = @('Ontogony.Contracts', 'Ontogony.Primitives')
+    'Ontogony.Security'            = @('Ontogony.Contracts', 'Ontogony.Http', 'Ontogony.Primitives')
     'Ontogony.Testing'             = @(
         'Ontogony.Contracts',
         'Ontogony.Errors',

@@ -20,7 +20,7 @@ Documentation and governance artifacts now explicitly describe how **Conexus.NET
 | `./scripts/validate-ai-runtime-boundaries.ps1` | **Passed** |
 | `./scripts/validate-shipping-inventory.ps1` | **Passed** (23 packages) |
 | `./scripts/validate-ai-runtime-docs.ps1` | **Passed** |
-| `./scripts/validate-package-levels.ps1` | **Failed** (pre-existing) — `Ontogony.Security` references `Ontogony.Http`; golden map expects only `Contracts` + `Primitives` |
+| `./scripts/validate-package-levels.ps1` | **Passed** (after PLATFORM-GOV-001A — `Ontogony.Security` → `Ontogony.Http` in golden map) |
 | `./scripts/validate-dependency-baseline.ps1` | **Passed** |
 | `./scripts/validate-conexus-consumer-baseline-alignment.ps1` | **Passed** |
 | `./scripts/validate-allagma-consumer-baseline-alignment.ps1` | **Passed** |
@@ -44,7 +44,6 @@ Documentation and governance artifacts now explicitly describe how **Conexus.NET
 
 | Item | Notes |
 | --- | --- |
-| `validate-package-levels.ps1` drift | **Pre-existing** — update golden map + `docs/architecture/package-levels.md` in a follow-up (not required for docs-only governance) |
 | Kanon platform validation script | Kanon proves package-mode in `kanon-dotnet` CI; no `validate-kanon-consumer-baseline-alignment.ps1` in platform (documented in Phase 1 compatibility doc) |
 | PR template checklist | NP-009 optional PR-template item not added; checklist lives in governance + `PUBLIC_API_COMPATIBILITY.md` |
 | External CI proof | This report is local; green GitHub Actions run not re-recorded for this docs PR |
@@ -58,4 +57,18 @@ Documentation and governance artifacts now explicitly describe how **Conexus.NET
 
 ## Ready for review
 
-**Yes** — docs and smoke `nuget.config` fix are complete; call out `validate-package-levels` pre-existing failure for reviewers/CI awareness.
+**Yes** — docs and smoke `nuget.config` fix are complete.
+
+---
+
+## PLATFORM-GOV-001A follow-up (2026-05-17)
+
+Aligned golden map with intentional `Ontogony.Security` → `Ontogony.Http` (`CurrentActorOutboundPropagator`, PLAT-INT-001).
+
+| Command | Result |
+| --- | --- |
+| `./scripts/validate-package-levels.ps1` | **Passed** |
+
+**Files:** `scripts/validate-package-levels.ps1`, `docs/architecture/package-levels.md`, `CHANGELOG.md`.
+
+Phase 1 package checklist item **B / validate-package-levels** is now satisfied locally.

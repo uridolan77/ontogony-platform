@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+PLATFORM-GOV-001A — package-level golden map alignment:
+
+- **`scripts/validate-package-levels.ps1`** and **`docs/architecture/package-levels.md`** — record intentional `Ontogony.Security` → `Ontogony.Http` edge (outbound actor propagation).
+
 PLATFORM-GOV-001 — Phase 1 release-governance tightening (docs only):
 
 - **`docs/governance/`** — Phase 1 consumer compatibility (Allagma, Kanon, Conexus), package compatibility checklist for `0.3.0-alpha.1`, NuGet source mapping guide.

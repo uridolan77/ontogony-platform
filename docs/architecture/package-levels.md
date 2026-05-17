@@ -32,6 +32,8 @@ Many higher-level packages depend on one or both of these; that is why they are 
 
 **Purpose:** ASP.NET defaults, trace/correlation, error shape, resilient outbound HTTP, service identity and actor context, structured logging fields and scopes, deterministic redaction, and secret-reference mechanics (no cloud secret store).
 
+`Ontogony.Security` references `Ontogony.Http` for outbound actor/tenant propagation (`CurrentActorOutboundPropagator`, integration header helpers) — not for product routing semantics.
+
 ---
 
 ## Level 2 — Event, consistency, persistence mechanics
@@ -93,7 +95,7 @@ Rows depend on columns. **✓** means the row package may `ProjectReference` the
 | **Ontogony.Redaction** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 | **Ontogony.Replay.Contracts** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 | **Ontogony.Secrets** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |
-| **Ontogony.Security** |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |
+| **Ontogony.Security** |   |   |   | ✓ |   |   |   |   | ✓ |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |
 | **Ontogony.Testing** |   |   |   | ✓ | ✓ |   | ✓ |   | ✓ |   |   | ✓ | ✓ | ✓ |   | ✓ |   |   |   |   |   | ✓ |   |
 
 **Header abbreviations:** AI = AI.Contracts, Art = Artifacts, Cfg = Configuration, Con = Contracts, Err = Errors, Exe = Execution, Hash = Hashing, Hst = Hosting, Http = Http, Idem = Idempotency, Log = Logging, Msg = Messaging, Obs = Observability, Per = Persistence, Pg = Persistence.Postgres, Pri = Primitives, Ing = ProtocolIngress, Quo = Quotas, Rdc = Redaction, Rpl = Replay.Contracts, Scr = Secrets, Sec = Security, Tst = Testing.
