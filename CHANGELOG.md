@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+PLATFORM-GOV-002 — package-level governance closure (docs only):
+
+- **`docs/governance/PACKAGE_LEVEL_GOVERNANCE.md`** — golden map workflow, forbidden edges, CI pointers, consumer guidance.
+- **`docs/governance/README.md`**, **`PACKAGE_COMPATIBILITY_CHECKLIST_0.3.0-alpha.1.md`**, **`docs/architecture/package-levels.md`**, **`scripts/validate-package-levels.ps1`** — cross-links; validation report updated (`PLATFORM_GOV_001_VALIDATION_REPORT.md`).
+
 PLATFORM-GOV-001A — package-level golden map alignment:
 
 - **`scripts/validate-package-levels.ps1`** and **`docs/architecture/package-levels.md`** — record intentional `Ontogony.Security` → `Ontogony.Http` edge (outbound actor propagation).

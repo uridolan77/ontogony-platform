@@ -67,7 +67,7 @@ Historical **blueprint-only** wording referred to pre–first-system integration
 
 Consumer alignment and governance (read before upgrading or breaking public surface area):
 
-- [`docs/governance/README.md`](docs/governance/README.md) — Phase 1 release governance index (PLATFORM-GOV-001).
+- [`docs/governance/README.md`](docs/governance/README.md) — Phase 1 release governance index (PLATFORM-GOV-001 / package-level closure PLATFORM-GOV-002).
 - [`docs/governance/PHASE1_CONSUMER_COMPATIBILITY.md`](docs/governance/PHASE1_CONSUMER_COMPATIBILITY.md) — Allagma, Kanon, Conexus compatibility on `0.3.0-alpha.1`.
 - [`docs/governance/PACKAGE_COMPATIBILITY_CHECKLIST_0.3.0-alpha.1.md`](docs/governance/PACKAGE_COMPATIBILITY_CHECKLIST_0.3.0-alpha.1.md) — pre-tag / pre-merge checklist.
 - [`docs/governance/NUGET_SOURCE_MAPPING.md`](docs/governance/NUGET_SOURCE_MAPPING.md) — repo `nuget.config` and consumer feed mapping.

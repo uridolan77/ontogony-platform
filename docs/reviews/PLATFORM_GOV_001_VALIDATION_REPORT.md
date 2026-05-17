@@ -72,3 +72,32 @@ Aligned golden map with intentional `Ontogony.Security` → `Ontogony.Http` (`Cu
 **Files:** `scripts/validate-package-levels.ps1`, `docs/architecture/package-levels.md`, `CHANGELOG.md`.
 
 Phase 1 package checklist item **B / validate-package-levels** is now satisfied locally.
+
+---
+
+## PLATFORM-GOV-002 closure (2026-05-17)
+
+Finalized package-level governance after the PLATFORM-GOV-001A golden map fix (`Ontogony.Security` → `Ontogony.Http`). Docs-only; no product semantics and no package version bump.
+
+| Deliverable | Path |
+| --- | --- |
+| Package-level governance index | `docs/governance/PACKAGE_LEVEL_GOVERNANCE.md` |
+| Governance README link | `docs/governance/README.md` |
+| Checklist cross-link | `docs/governance/PACKAGE_COMPATIBILITY_CHECKLIST_0.3.0-alpha.1.md` |
+| Script header → governance doc | `scripts/validate-package-levels.ps1` |
+| Architecture cross-link | `docs/architecture/package-levels.md` |
+
+| Command | Result |
+| --- | --- |
+| `./scripts/validate-package-levels.ps1` | **Passed** |
+| `./scripts/validate-docs-links.ps1` | **Passed** |
+| `./scripts/validate-shipping-inventory.ps1` | **Passed** (23 packages) |
+
+### Reviewer checklist (GOV-002)
+
+- [x] Golden map and human matrix stay aligned (`Ontogony.Security` → `Ontogony.Http` documented)
+- [x] Change workflow documented for future edge updates
+- [x] No product semantics in new governance text
+- [x] CI still runs `validate-package-levels.ps1` (unchanged workflow)
+
+**Ready for review:** Yes — package-level governance is closed for Phase 1 alpha line.

@@ -7,7 +7,7 @@ Use this checklist before merging a Platform PR that changes shipped packages, b
 - [ ] `<Version>` in [`Directory.Build.props`](../../Directory.Build.props) matches intended tag (e.g. `0.3.0-alpha.1`).
 - [ ] CI `PACKAGE_VERSION` / manifest generation use the same version.
 - [ ] [`scripts/validate-shipping-inventory.ps1`](../../scripts/validate-shipping-inventory.ps1) passes (**23** shipping packages).
-- [ ] [`scripts/validate-package-levels.ps1`](../../scripts/validate-package-levels.ps1) passes (no illegal `ProjectReference` edges).
+- [ ] [`scripts/validate-package-levels.ps1`](../../scripts/validate-package-levels.ps1) passes (no illegal `ProjectReference` edges) — see [`PACKAGE_LEVEL_GOVERNANCE.md`](./PACKAGE_LEVEL_GOVERNANCE.md).
 
 ## B. Build and tests
 

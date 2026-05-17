@@ -1,6 +1,6 @@
 #!/usr/bin/env pwsh
 # Validates Ontogony.* ProjectReference edges under src/ against the golden dependency map.
-# See docs/architecture/package-levels.md for the human-readable matrix and rules.
+# See docs/architecture/package-levels.md (matrix) and docs/governance/PACKAGE_LEVEL_GOVERNANCE.md (change workflow).
 $ErrorActionPreference = 'Stop'
 
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
