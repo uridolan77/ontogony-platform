@@ -2,7 +2,9 @@
 
 ## Overview
 
-Ontogony.Platform ships **23 NuGet packages** with public APIs that downstream consumers (Conexus, Allagma, Kanon, and others) depend on. Public API changes—including additions, removals, and signature modifications—must be intentional, documented, and reviewed.
+Ontogony.Platform ships **23 NuGet packages** with public APIs that downstream consumers (**Conexus.NET**, **Kanon.NET**, **Allagma.NET**, and others) depend on. Public API changes—including additions, removals, and signature modifications—must be intentional, documented, and reviewed.
+
+Phase 1 consumer expectations: [`docs/governance/PHASE1_CONSUMER_COMPATIBILITY.md`](./governance/PHASE1_CONSUMER_COMPATIBILITY.md).
 
 ## Public API Snapshots
 
@@ -69,6 +71,7 @@ When you change a public API surface, ensure:
   - What changed and why.
   - How consumers should update their code.
   - Any deprecation timeline.
+- [ ] **Consumer impact** — Name affected Phase 1 repos (Conexus / Kanon / Allagma) and whether they need a package version bump, sibling HEAD sync, or runtime lock update.
 - [ ] **Package README update** — If the change affects primary use cases in a shipping package, update the package README.
 
 ### If non-breaking addition
@@ -161,4 +164,5 @@ If you have questions about whether a change is public, breaking, or requires mi
 
 1. Check `Ontogony.Security`, `Ontogony.Http`, or `Ontogony.Configuration` package READMEs for primary use cases.
 2. See [CHANGELOG.md](../CHANGELOG.md) for recent examples.
-3. If uncertain, open a GitHub Discussion or ask in a PR.
+3. See [Phase 1 consumer compatibility](./governance/PHASE1_CONSUMER_COMPATIBILITY.md) and [package compatibility checklist](./governance/PACKAGE_COMPATIBILITY_CHECKLIST_0.3.0-alpha.1.md).
+4. If uncertain, open a GitHub Discussion or ask in a PR.

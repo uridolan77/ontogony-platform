@@ -6,6 +6,9 @@ Planning and inventory for **product repositories** that consume Ontogony.Platfo
 | --- | --- | --- | --- |
 | **Conexus.NET** | Active alpha consumer | [`conexus-dotnet-platform-readiness.md`](conexus-dotnet-platform-readiness.md) | [`CONEXUS_ONTOGONY_PACKAGE_MODE_CONTRACT.md`](CONEXUS_ONTOGONY_PACKAGE_MODE_CONTRACT.md) |
 | **Allagma.NET** | Active alpha consumer (governed execution; first system with Kanon + Conexus) | [`allagma-dotnet-platform-readiness.md`](allagma-dotnet-platform-readiness.md) | [`ALLAGMA_ONTOGONY_PACKAGE_MODE_CONTRACT.md`](ALLAGMA_ONTOGONY_PACKAGE_MODE_CONTRACT.md) |
+| **Kanon.NET** | Active alpha consumer (semantic authority) | Package set in `kanon-dotnet` → `eng/Ontogony.References.props` | Kanon CI with `UseOntogonyPackages=true` — see [`PHASE1_CONSUMER_COMPATIBILITY.md`](../governance/PHASE1_CONSUMER_COMPATIBILITY.md) |
+
+Phase 1 cross-consumer governance: [`docs/governance/PHASE1_CONSUMER_COMPATIBILITY.md`](../governance/PHASE1_CONSUMER_COMPATIBILITY.md).
 
 Compile-only smoke projects:
 

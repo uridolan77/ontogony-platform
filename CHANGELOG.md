@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+PLATFORM-GOV-001 — Phase 1 release-governance tightening (docs only):
+
+- **`docs/governance/`** — Phase 1 consumer compatibility (Allagma, Kanon, Conexus), package compatibility checklist for `0.3.0-alpha.1`, NuGet source mapping guide.
+- **`docs/examples/error-correlation-mechanics.md`** — mechanical error/correlation patterns without product semantics.
+- **`PUBLIC_API_COMPATIBILITY.md`**, **`public-api-review.md`**, **`VERSION_COMPATIBILITY_MATRIX.md`**, consumer blueprint index, **`README.md`**, **`private-nuget-feed.md`** — consumer-breaking workflow and governance cross-links.
+- **`examples/ConexusDotNetPackageSmoke/nuget.config`** — `packageSourceMapping` for `Ontogony.*` → local folder feed when repo-root mapping would send all packages to nuget.org.
+
 Build/test failure remediation:
 
 - Added repo-level `nuget.config` with explicit source clearing and package source mapping to `nuget.org` so central package management restores/builds are stable even when user-level NuGet sources include additional feeds.

@@ -6,6 +6,8 @@ This guide includes code examples for common Ontogony integration patterns.
 
 **Allagma compile smoke:** [`examples/AllagmaDotNetSkeleton/`](../../examples/AllagmaDotNetSkeleton/) (in-repo; references the [Allagma.NET readiness](../consumer-blueprints/allagma-dotnet-platform-readiness.md) package set; blueprint only).
 
+**Error + correlation (mechanical only):** [`error-correlation-mechanics.md`](./error-correlation-mechanics.md) — trace headers, middleware order, API error JSON; no product semantics.
+
 ---
 
 ## Complete Service Example

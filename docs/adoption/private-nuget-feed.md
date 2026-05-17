@@ -2,16 +2,20 @@
 
 For the full migration checklist (feed auth, pinning, CI), start at [consumer-package-migration.md](./consumer-package-migration.md).
 
+For **package source mapping** (avoiding NU1507 with multiple feeds), see [NuGet source mapping](../governance/NUGET_SOURCE_MAPPING.md).
+
 For CI and machines that do not clone `ontogony-platform` next to every consumer, publish packages to an **internal NuGet feed** (Azure Artifacts, GitHub Packages, self-hosted BaGet, etc.) and reference them by version.
 
 **This repository:** version tags trigger publish to **GitHub Packages** from CI. See [Package publishing (GitHub Packages)](../planning/robustness/PACKAGE_PUBLISHING_GITHUB_PACKAGES.md) for the feed URL, permissions, and consumer setup.
+
+**Platform repo restore:** root [`nuget.config`](../../nuget.config) clears user feeds and maps all packages to nuget.org for deterministic platform builds.
 
 ## Pack from this repository
 
 From the repo root:
 
 ```powershell
-$env:PACKAGE_VERSION = "0.2.0-local.1"
+$env:PACKAGE_VERSION = "0.3.0-alpha.1"   # or 0.3.0-local.1 for local feeds
 ./scripts/pack-all.ps1
 ```
 
@@ -22,7 +26,7 @@ Outputs under `artifacts/packages/`. The script uses `dotnet pack Ontogony.Platf
 In consumer `.csproj` files, replace `ProjectReference` to `ontogony-platform` with:
 
 ```xml
-<PackageReference Include="Ontogony.Observability" Version="0.2.0-local.1" />
+<PackageReference Include="Ontogony.Observability" Version="0.3.0-alpha.1" />
 ```
 
 Use the same version for all Ontogony packages you adopt in a given PR.
