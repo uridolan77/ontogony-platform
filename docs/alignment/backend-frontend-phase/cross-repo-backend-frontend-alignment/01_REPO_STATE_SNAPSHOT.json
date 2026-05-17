@@ -1,0 +1,41 @@
+{
+  "generatedAt": "2026-05-18",
+  "scope": "Cross-repo backend/frontend alignment after ontogony-frontend Phase I RC",
+  "repos": {
+    "ontogony-frontend": {
+      "repo": "uridolan77/ontogony-frontend",
+      "knownHead": "7c375b6ffbce8110c484912913f0e6357299da73",
+      "role": "Contract consumer, operator UI, release gate/evidence owner",
+      "status": "Phase I implementation complete; user reports npm run check:full passed with 164 E2E tests."
+    },
+    "ontogony-platform": {
+      "repo": "uridolan77/ontogony-platform",
+      "knownHead": "17ec442c9ced00125c5166d92d51723c17c79123",
+      "role": "Shared headers, errors, tracing, OpenTelemetry, integration primitives",
+      "status": "Shared correlation ID support, error payload helpers, header propagation, OpenTelemetry support."
+    },
+    "conexus-dotnet": {
+      "repo": "uridolan77/conexus-dotnet",
+      "knownHead": "dc959e8b5ca5bb0014a0e38e02bd5b9d03d86b93",
+      "role": "LLM gateway, model calls, chat, observability, projects/keys/aliases",
+      "status": "Streaming support and execution-run request-id diagnostics exist; request list/search is target alignment work."
+    },
+    "kanon-dotnet": {
+      "repo": "uridolan77/kanon-dotnet",
+      "knownHead": "003ceed03b71780656a6da338f52c456144c5e60",
+      "role": "Semantic authority, facts, decisions, provenance, replay bundles, domain packs",
+      "status": "Domain-pack lifecycle governance and decision tracking active; schema/provenance alignment remains target work."
+    },
+    "allagma-dotnet": {
+      "repo": "uridolan77/allagma-dotnet",
+      "knownHead": "fd477826ff2012ca02f76f538f91caa2040b734d",
+      "role": "Governed execution runtime, runs, gates, replay/evidence, cross-service orchestration",
+      "status": "System cohesion CI evidence and runtime profile work present; run operation contracts and typed replay schemas remain target work."
+    }
+  },
+  "naming": {
+    "current": "Allagma",
+    "former": "Agentor",
+    "rule": "Use Allagma everywhere in current code/docs. Agentor may appear only in clearly marked historical material."
+  }
+}
