@@ -1,0 +1,23 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../allagma-dotnet"
+		},
+		{
+			"path": "../conexus-dotnet"
+		},
+		{
+			"path": "../kanon-dotnet"
+		},
+		{
+			"path": "../ontogony-ui"
+		},
+		{
+			"path": "../ontogony-frontend"
+		}
+	],
+	"settings": {}
+}
