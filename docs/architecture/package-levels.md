@@ -46,9 +46,9 @@ Many higher-level packages depend on one or both of these; that is why they are 
 
 ## Level 3 — AI runtime mechanics
 
-**Packages:** `Ontogony.AI.Contracts`, `Ontogony.Artifacts`, `Ontogony.Evaluation.Contracts`, `Ontogony.Execution`, `Ontogony.Replay.Contracts`
+**Packages:** `Ontogony.AI.Contracts`, `Ontogony.Artifacts`, `Ontogony.Evaluation.Contracts`, `Ontogony.Execution`, `Ontogony.Replay.Contracts`, `Ontogony.Topology.Contracts`
 
-**Purpose:** LLM request/response telemetry, usage/cost/error records, large payload references, neutral evaluation run/score/baseline DTOs, execution journal facts and checkpoints, and replay bundle contracts — **without** orchestration, provider policy, eval harnesses, or a replay engine.
+**Purpose:** LLM request/response telemetry, usage/cost/error records, large payload references, neutral evaluation run/score/baseline DTOs, neutral task classification and topology selection DTOs, execution journal facts and checkpoints, and replay bundle contracts — **without** orchestration, provider policy, eval harnesses, topology planners, or a replay engine.
 
 ---
 
@@ -72,34 +72,35 @@ Many higher-level packages depend on one or both of these; that is why they are 
 
 Rows depend on columns. **✓** means the row package may `ProjectReference` the column package (golden set in `validate-package-levels.ps1`). Column order is alphabetical by package id.
 
-|  | AI | Art | Cfg | Con | Err | Eva | Exe | Hash | Hst | Http | Idem | Log | Msg | Obs | Per | Pg | Pri | Ing | Quo | Rdc | Rpl | Scr | Sec | Tst |
-|--|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| **Ontogony.AI.Contracts** |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-| **Ontogony.Artifacts** |   |   |   | ✓ |   |   | ✓ |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |
-| **Ontogony.Configuration** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-| **Ontogony.Contracts** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |
-| **Ontogony.Errors** |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |   |
-| **Ontogony.Evaluation.Contracts** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-| **Ontogony.Execution** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-| **Ontogony.Hashing** |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-| **Ontogony.Hosting** |   |   |   |   | ✓ |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   | ✓ |   |
-| **Ontogony.Http** |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   | ✓ |   |   |   |   |   |   |   |
-| **Ontogony.Idempotency** |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-| **Ontogony.Logging** |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   | ✓ |   |   |   |   |
-| **Ontogony.Messaging** |   |   |   | ✓ |   |   | ✓ |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |
-| **Ontogony.Observability** |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-| **Ontogony.Persistence** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |
-| **Ontogony.Persistence.Postgres** |   |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   | ✓ |   |   |   |   |   |   |   |
-| **Ontogony.Primitives** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-| **Ontogony.ProtocolIngress** |   |   |   | ✓ |   |   | ✓ |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |
-| **Ontogony.Quotas** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |
-| **Ontogony.Redaction** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-| **Ontogony.Replay.Contracts** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-| **Ontogony.Secrets** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |
-| **Ontogony.Security** |   |   |   | ✓ |   |   |   |   | ✓ |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |
-| **Ontogony.Testing** |   |   |   | ✓ | ✓ |   | ✓ |   | ✓ |   |   | ✓ | ✓ | ✓ |   | ✓ |   |   |   |   |   | ✓ |   |
+|  | AI | Art | Cfg | Con | Err | Eva | Exe | Hash | Hst | Http | Idem | Log | Msg | Obs | Per | Pg | Pri | Ing | Quo | Rdc | Rpl | Scr | Sec | Top | Tst |
+|--|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **Ontogony.AI.Contracts** |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Artifacts** |   |   |   | ✓ |   |   | ✓ |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   |
+| **Ontogony.Configuration** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Contracts** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   |
+| **Ontogony.Errors** |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Evaluation.Contracts** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Execution** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Hashing** |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Hosting** |   |   |   |   | ✓ |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   | ✓ |   |   |
+| **Ontogony.Http** |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   | ✓ |   |   |   |   |   |   |   |   |
+| **Ontogony.Idempotency** |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Logging** |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   | ✓ |   |   |   |   |   |
+| **Ontogony.Messaging** |   |   |   | ✓ |   |   | ✓ |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Observability** |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Persistence** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   |
+| **Ontogony.Persistence.Postgres** |   |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   | ✓ |   |   |   |   |   |   |   |   |
+| **Ontogony.Primitives** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.ProtocolIngress** |   |   |   | ✓ |   |   | ✓ |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   |
+| **Ontogony.Quotas** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   |
+| **Ontogony.Redaction** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Replay.Contracts** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Secrets** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |
+| **Ontogony.Security** |   |   |   | ✓ |   |   |   |   | ✓ |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   |
+| **Ontogony.Topology.Contracts** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Testing** |   |   |   | ✓ | ✓ |   | ✓ |   | ✓ |   |   | ✓ | ✓ | ✓ |   | ✓ |   |   |   |   |   | ✓ |   |   |
 
-**Header abbreviations:** AI = AI.Contracts, Art = Artifacts, Cfg = Configuration, Con = Contracts, Err = Errors, Eva = Evaluation.Contracts, Exe = Execution, Hash = Hashing, Hst = Hosting, Http = Http, Idem = Idempotency, Log = Logging, Msg = Messaging, Obs = Observability, Per = Persistence, Pg = Persistence.Postgres, Pri = Primitives, Ing = ProtocolIngress, Quo = Quotas, Rdc = Redaction, Rpl = Replay.Contracts, Scr = Secrets, Sec = Security, Tst = Testing.
+**Header abbreviations:** AI = AI.Contracts, Art = Artifacts, Cfg = Configuration, Con = Contracts, Err = Errors, Eva = Evaluation.Contracts, Exe = Execution, Hash = Hashing, Hst = Hosting, Http = Http, Idem = Idempotency, Log = Logging, Msg = Messaging, Obs = Observability, Per = Persistence, Pg = Persistence.Postgres, Pri = Primitives, Ing = ProtocolIngress, Quo = Quotas, Rdc = Redaction, Rpl = Replay.Contracts, Scr = Secrets, Sec = Security, Top = Topology.Contracts, Tst = Testing.
 
 The matrix matches `validate-package-levels.ps1`. When you add or change a `ProjectReference`, update **both** the script and this table.
 

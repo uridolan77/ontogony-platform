@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+PLAT-TOPO-001 — neutral topology contracts (`Ontogony.Topology.Contracts`):
+
+- **`Ontogony.Topology.Contracts`** — task classification, topology selection, and constraint DTOs plus standard topology mode and task classification string constants (opaque strings; no planner or policy engine).
+- **Tests:** `Ontogony.Topology.Contracts.Tests` (JSON round-trip, stable constants, canonical hash); public API snapshot in `Ontogony.PublicApi.Tests`.
+- **Docs:** [`docs/packages/Ontogony.Topology.Contracts.md`](docs/packages/Ontogony.Topology.Contracts.md); package-level matrix updated.
+
 PLAT-EVAL-001 — neutral evaluation contracts (`Ontogony.Evaluation.Contracts`):
 
 - **`Ontogony.Evaluation.Contracts`** — evaluation run, case, metric, score, baseline comparison, verdict, and artifact reference DTOs (opaque strings; no eval engine or product semantics).

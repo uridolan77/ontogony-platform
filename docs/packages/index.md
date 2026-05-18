@@ -180,6 +180,30 @@ var run = new EvaluationRunRecord(
 
 ---
 
+### `Ontogony.Topology.Contracts`
+
+**Purpose:** Mechanical DTOs for task classification, topology selection, and topology constraints.
+
+**Provides:** `TaskClassificationRecord`, `TopologySelectionRecord`, `TopologyConstraintRecord`, `StandardTopologyModes`, `StandardTaskClassifications` — opaque string vocabularies only.
+
+**When to use:** Recording or exchanging topology metadata (Allagma selection events, Kanon policy links, audit bundles) before product-specific selector or authorization logic lands in consumer repos.
+
+**Non-goals:** No topology planner, Kanon policy evaluation, eval harness, or model routing (see [package notes](Ontogony.Topology.Contracts.md)).
+
+**Example:**
+
+```csharp
+using Ontogony.Topology.Contracts;
+
+var selection = new TopologySelectionRecord(
+    TopologySelectionId: "toposel-1",
+    RunId: "run-1",
+    SelectedTopology: StandardTopologyModes.SingleWorkflow,
+    SelectorVersion: "topology-selector-v0");
+```
+
+---
+
 ## Observability & Tracing
 
 ### `Ontogony.Observability`
@@ -573,6 +597,7 @@ Do not rely on an informal ASCII tree here: it drifts from the real graph. **Aut
 | Mechanical quotas / in-memory ledger | `Ontogony.Quotas` | External rate-limit appliances only |
 | Replay bundle DTOs (no engine) | `Ontogony.Replay.Contracts` | Product-specific debug formats |
 | Eval run / baseline DTOs (no harness) | `Ontogony.Evaluation.Contracts` | Product-specific eval JSON only |
+| Task classification / topology DTOs (no planner) | `Ontogony.Topology.Contracts` | Product-specific topology JSON only |
 | Handle errors | `Ontogony.Errors` | — (required) |
 | Call other services | `Ontogony.Http` | `HttpClient` (not recommended) |
 | Authenticate | `Ontogony.Security` | — (required) |

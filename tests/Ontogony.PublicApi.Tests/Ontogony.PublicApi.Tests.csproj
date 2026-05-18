@@ -30,6 +30,7 @@
     <ProjectReference Include="..\..\src\Ontogony.Contracts\Ontogony.Contracts.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Errors\Ontogony.Errors.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Evaluation.Contracts\Ontogony.Evaluation.Contracts.csproj" />
+    <ProjectReference Include="..\..\src\Ontogony.Topology.Contracts\Ontogony.Topology.Contracts.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Execution\Ontogony.Execution.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Hashing\Ontogony.Hashing.csproj" />
     <ProjectReference Include="..\..\src\Ontogony.Hosting\Ontogony.Hosting.csproj" />
