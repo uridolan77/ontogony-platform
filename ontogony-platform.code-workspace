@@ -11,12 +11,6 @@
 		},
 		{
 			"path": "../kanon-dotnet"
-		},
-		{
-			"path": "../ontogony-ui"
-		},
-		{
-			"path": "../ontogony-frontend"
 		}
 	],
 	"settings": {}
