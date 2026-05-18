@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "backend-capability-status-v1.schema.json",
+  "title": "Backend Capability Status",
+  "type": "object",
+  "properties": {
+    "service": {
+      "type": "string"
+    },
+    "generatedAt": {
+      "type": "string"
+    },
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "supported": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string"
+          },
+          "reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "contractVersion": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "supported",
+          "status"
+        ]
+      }
+    }
+  },
+  "required": [
+    "service",
+    "capabilities"
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "allagma-sandbox-evidence-v1.schema.json",
+  "title": "Allagma Sandbox Evidence",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "ledgerRows": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ledgerRow"
+      }
+    },
+    "dryRunSideEffectId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "executeSideEffectId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "markerRelativePath": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "effectFingerprint": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "executorRef": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "hasReplaySafeExecute": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "ledgerRows",
+    "hasReplaySafeExecute"
+  ],
+  "$defs": {
+    "ledgerRow": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "sideEffectId": {
+          "type": "string"
+        },
+        "phase": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "effectFingerprint": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "kanonDecisionId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "registryVersion": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "executorRef": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "externalRefs": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "traceId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "recordedAtUtc": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "updatedAtUtc": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "failureClass": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "failureMessage": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "sideEffectId",
+        "phase",
+        "status"
+      ]
+    }
+  }
+}
