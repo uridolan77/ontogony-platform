@@ -62,8 +62,9 @@ C:\dev\
 | ENV-DOCKER-001 | **Done** — Docker local working system plan | `ontogony-platform` |
 | ENV-DOCKER-002 | **Done** — Dockerfiles + `.dockerignore` | `allagma-dotnet`, `kanon-dotnet`, `conexus-dotnet`, `ontogony-frontend` |
 | ENV-DB-001 | **Done** — Postgres DB bootstrap | `ontogony-platform/docker/local-working-system/` |
-| **ENV-SEED-001** | **Next** — deterministic seed/bootstrap | See `docker-local-working-system/00_MANIFEST.json` |
-| ENV-COMPOSE-001 … ENV-DOCKER-CLOSEOUT-001 | Planned | See `docker-local-working-system/00_MANIFEST.json` |
+| ENV-SEED-001 | **Done** — deterministic seed/bootstrap | `ontogony-platform/docker/local-working-system/` |
+| **ENV-COMPOSE-001** | **Next** — Docker Compose orchestration | See `docker-local-working-system/00_MANIFEST.json` |
+| ENV-DOCKER-RUN-001 … ENV-DOCKER-CLOSEOUT-001 | Planned | See `docker-local-working-system/00_MANIFEST.json` |
 
 Evidence:
 
@@ -71,6 +72,7 @@ Evidence:
 - `docs/evidence/ENV_CLOSEOUT_001_FIRST_WORKING_ENVIRONMENT.md`
 - `docs/evidence/ENV_DOCKER_001_PLAN_EVIDENCE.md`
 - `docs/evidence/ENV_DB_001_POSTGRES_BOOTSTRAP_EVIDENCE.md`
+- `docs/evidence/ENV_SEED_001_DETERMINISTIC_BOOTSTRAP_EVIDENCE.md`
 - Closeout (script-based): `docs/releases/FIRST_WORKING_ENVIRONMENT_CLOSEOUT.md`
 
 ## Boundary

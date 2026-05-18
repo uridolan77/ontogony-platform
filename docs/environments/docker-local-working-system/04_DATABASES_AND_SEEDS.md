@@ -40,6 +40,14 @@ Do not bypass migrations with hand-written schema dumps.
 
 ## Seed outcomes (ENV-SEED-001)
 
+Seed/bootstrap script (runtime API path):
+
+```text
+ontogony-platform/docker/local-working-system/scripts/seed-and-verify-local-working-system.ps1
+```
+
+Runs after APIs are healthy and migrations are applied.
+
 ### Conexus
 
 ```text
@@ -64,6 +72,12 @@ Postgres mode active
 evaluation persistence active
 manual eval write enabled in Development only
 real external execution blocked
+```
+
+Evidence report output:
+
+```text
+ontogony-platform/docker/local-working-system/artifacts/env-seed-001-report.json
 ```
 
 ## Parity with script-based program

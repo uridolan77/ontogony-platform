@@ -42,7 +42,7 @@ Allagma__Persistence__Mode=Postgres
 ## Route evidence missing
 
 - Confirm Conexus has `ConnectionStrings__ConexusPostgres` set (persistence enabled).
-- Confirm fake/local provider bootstrap ran (ENV-SEED-001).
+- Confirm fake/local provider bootstrap ran (ENV-SEED-001): `docker/local-working-system/scripts/seed-and-verify-local-working-system.ps1`.
 - Check Conexus logs for migration or project-key errors.
 
 ## Kanon migrations fail

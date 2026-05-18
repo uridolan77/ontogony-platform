@@ -39,6 +39,22 @@ cd C:\dev\ontogony-platform
 .\docker\local-working-system\scripts\verify-postgres-bootstrap.ps1 -Recreate
 ```
 
+## Seed/bootstrap (ENV-SEED-001)
+
+`seed-and-verify-local-working-system.ps1` performs deterministic API/bootstrap steps:
+
+- Conexus `POST /admin/v0/dev/bootstrap` (dev project + fake provider alias)
+- baseline + subject Allagma runs
+- Kanon topology evidence checks (`single_workflow` null baseline auth ID; centralized subject auth decision)
+- Conexus route-decision evidence checks
+- Allagma eval write/list + baseline comparison create/fetch
+- JSON evidence report export under `docker/local-working-system/artifacts/`
+
+```powershell
+cd C:\dev\ontogony-platform
+.\docker\local-working-system\scripts\seed-and-verify-local-working-system.ps1
+```
+
 ## Docs
 
 Canonical plan: `docs/environments/docker-local-working-system/`.

@@ -22,6 +22,7 @@ Use when closing the **Docker local working system** program (through ENV-DOCKER
 [ ] Conexus dev project/API key cx-dev-key-change-me works
 [ ] Conexus fake provider route works
 [ ] Kanon topology policy works
+[ ] ENV-SEED-001 script passes (`docker/local-working-system/scripts/seed-and-verify-local-working-system.ps1`)
 [ ] Allagma can call Kanon by container DNS (kanon-api:8080)
 [ ] Allagma can call Conexus by container DNS (conexus-api:8080)
 [ ] Host health probes pass on 5081–5083

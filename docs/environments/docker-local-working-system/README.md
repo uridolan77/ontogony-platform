@@ -35,10 +35,12 @@ Script-based local operator sanity: `docs/environments/local-operator-sanity/` �
 
 ## Next implementation PR
 
-**ENV-SEED-001** — deterministic seed/bootstrap rows after migrations (no raw schema dumps).
+**ENV-COMPOSE-001** — Docker Compose orchestration.
 
 ## Completed
 
 **ENV-DOCKER-002** — Dockerfiles and `.dockerignore` merged in allagma-dotnet, kanon-dotnet, conexus-dotnet, ontogony-frontend (2026-05-19).
 
 **ENV-DB-001** — Postgres init SQL and verify script in `docker/local-working-system/postgres/init/` (2026-05-19).
+
+**ENV-SEED-001** — deterministic seed/bootstrap script + API verification report in `docker/local-working-system/scripts/` (2026-05-19).
