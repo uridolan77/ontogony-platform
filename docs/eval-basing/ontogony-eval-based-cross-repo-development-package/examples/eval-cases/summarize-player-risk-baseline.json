@@ -1,0 +1,29 @@
+{
+  "scenarioId": "summarize-player-risk-baseline",
+  "description": "Low-risk model-mediated summary should complete using single_workflow.",
+  "request": {
+    "ontologyVersionId": "gaming-core@0.1.0",
+    "actorId": "system-eval",
+    "actorType": "System",
+    "actorRoles": [
+      "System"
+    ],
+    "objective": "Summarize player risk using available context.",
+    "context": {
+      "playerRiskScore": 72,
+      "recentActivity": "elevated"
+    },
+    "modelPurpose": "summarize-player-risk"
+  },
+  "expectations": {
+    "selectedTopology": "single_workflow",
+    "runStatus": "Completed",
+    "requiresHumanGate": false,
+    "unsafeToolBlocked": null,
+    "minQualityScore": 0.85
+  },
+  "budgets": {
+    "maxLatencyMs": 15000,
+    "maxCostUsd": 0.05
+  }
+}

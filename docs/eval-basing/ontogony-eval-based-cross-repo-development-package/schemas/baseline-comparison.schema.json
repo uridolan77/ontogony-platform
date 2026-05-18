@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Baseline Comparison",
+  "type": "object",
+  "required": [
+    "comparisonId",
+    "subjectRunId",
+    "baselineMode",
+    "promotionRecommendation"
+  ],
+  "properties": {
+    "comparisonId": {
+      "type": "string"
+    },
+    "subjectRunId": {
+      "type": "string"
+    },
+    "baselineRunId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "baselineMode": {
+      "type": "string"
+    },
+    "qualityDelta": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "costDeltaUsd": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "latencyDeltaMs": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "policyEquivalent": {
+      "type": "boolean"
+    },
+    "sideEffectSafe": {
+      "type": "boolean"
+    },
+    "promotionRecommendation": {
+      "enum": [
+        "promote",
+        "do_not_promote",
+        "keep_single_workflow",
+        "insufficient_evidence"
+      ]
+    }
+  }
+}

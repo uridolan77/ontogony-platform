@@ -1,5 +1,9 @@
 # Handoff to Eval-Basing
 
+Implementation package registered at:
+
+- docs/eval-basing/ontogony-eval-based-cross-repo-development-package/
+
 **Bridge status:** FBA2-000 through FBA2-007 **DONE** (2026-05-18).  
 **Eval-basing:** **READY** to start.
 
