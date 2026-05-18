@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/run-tool-safety-001-evidence-smoke.ps1 -WriteCiEvidenceSummary)"
+    ]
+  }
+}
