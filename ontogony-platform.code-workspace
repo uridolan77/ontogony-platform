@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../allagma-dotnet"
+		},
+		{
+			"path": "../conexus-dotnet"
+		},
+		{
+			"path": "../kanon-dotnet"
+		}
+	],
+	"settings": {}
+}

@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+PLATFORM-GOV-003 — consumer compatibility validation round two (Kanon Ontogony union doc guard):
+
+- **`docs/governance/kanon-ontogony-package-union.txt`** — sorted union of `Ontogony.*` packages referenced from Kanon `eng/Ontogony.References.props`.
+- **`scripts/validate-kanon-ontogony-package-union.ps1`** — CI guard: sorted/unique ids, each maps to `src/<id>/<id>.csproj`; when `../kanon-dotnet` (or `KANON_SIBLING_ROOT`) is present, diffs the union file against the live props file.
+- **`docs/governance/PHASE1_CONSUMER_COMPATIBILITY.md`**, **`docs/governance/README.md`**, **`docs/reviews/PLATFORM_GOV_001_VALIDATION_REPORT.md`**, **`.github/workflows/ci.yml`**, **`release-packages.yml`** — wire script into consumer matrix and workflows.
+
 PLATFORM-GOV-002 — package-level governance closure (docs only):
 
 - **`docs/governance/PACKAGE_LEVEL_GOVERNANCE.md`** — golden map workflow, forbidden edges, CI pointers, consumer guidance.

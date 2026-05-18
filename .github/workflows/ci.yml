@@ -98,6 +98,9 @@ jobs:
       - name: Validate Allagma consumer baseline (readiness vs skeleton + build)
         shell: pwsh
         run: ./scripts/validate-allagma-consumer-baseline-alignment.ps1
+      - name: Validate Kanon Ontogony package union (PLATFORM-GOV-003)
+        shell: pwsh
+        run: ./scripts/validate-kanon-ontogony-package-union.ps1
       - name: Validate public API governance
         shell: pwsh
         run: ./scripts/validate-public-api-governance.ps1

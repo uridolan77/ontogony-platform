@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/run-tool-safety-001-evidence-smoke.ps1 -WriteCiEvidenceSummary)",
+      "Bash(Get-ChildItem \"c:\\\\dev\\\\ontogony-platform\" -ErrorAction SilentlyContinue)",
+      "Bash(Select-Object Name)",
+      "Bash(Get-ChildItem \"c:\\\\dev\\\\allagma-dotnet\" -ErrorAction SilentlyContinue)",
+      "Bash(powershell.exe -Version)",
+      "Bash(powershell.exe -NonInteractive -File ./scripts/validate-phase2-rc-readiness.ps1)",
+      "Bash(echo \"Exit: $?\")"
+    ]
+  }
+}

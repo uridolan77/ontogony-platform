@@ -1,0 +1,22 @@
+# Sorted union of Ontogony.* packages referenced from Kanon.NET eng/Ontogony.References.props
+# (both sibling ProjectReference and UseOntogonyPackages PackageReference branches).
+# When Kanon adds/removes a platform reference, update this list and run:
+#   ./scripts/validate-kanon-ontogony-package-union.ps1
+Ontogony.AI.Contracts
+Ontogony.Artifacts
+Ontogony.Contracts
+Ontogony.Errors
+Ontogony.Execution
+Ontogony.Hashing
+Ontogony.Hosting
+Ontogony.Http
+Ontogony.Idempotency
+Ontogony.Logging
+Ontogony.Observability
+Ontogony.Persistence
+Ontogony.Persistence.Postgres
+Ontogony.Primitives
+Ontogony.Redaction
+Ontogony.Replay.Contracts
+Ontogony.Secrets
+Ontogony.Security

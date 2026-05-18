@@ -44,7 +44,7 @@ Documentation and governance artifacts now explicitly describe how **Conexus.NET
 
 | Item | Notes |
 | --- | --- |
-| Kanon platform validation script | Kanon proves package-mode in `kanon-dotnet` CI; no `validate-kanon-consumer-baseline-alignment.ps1` in platform (documented in Phase 1 compatibility doc) |
+| Kanon Ontogony union in platform CI | **Addressed in PLATFORM-GOV-003** — `validate-kanon-ontogony-package-union.ps1` + `kanon-ontogony-package-union.txt` (optional diff vs sibling `kanon-dotnet`) |
 | PR template checklist | NP-009 optional PR-template item not added; checklist lives in governance + `PUBLIC_API_COMPATIBILITY.md` |
 | External CI proof | This report is local; green GitHub Actions run not re-recorded for this docs PR |
 
@@ -101,3 +101,30 @@ Finalized package-level governance after the PLATFORM-GOV-001A golden map fix (`
 - [x] CI still runs `validate-package-levels.ps1` (unchanged workflow)
 
 **Ready for review:** Yes — package-level governance is closed for Phase 1 alpha line.
+
+---
+
+## PLATFORM-GOV-003 closure (2026-05-18)
+
+Consumer compatibility **round two**: Kanon.NET joins the same mechanical pattern as Conexus/Allagma baseline scripts — a checked-in sorted **union** of `Ontogony.*` package ids with CI validation and an optional diff against a sibling `kanon-dotnet` checkout (`../kanon-dotnet` or `KANON_SIBLING_ROOT`).
+
+| Deliverable | Path |
+| --- | --- |
+| Kanon Ontogony union list | `docs/governance/kanon-ontogony-package-union.txt` |
+| Validation script | `scripts/validate-kanon-ontogony-package-union.ps1` |
+| Consumer matrix update | `docs/governance/PHASE1_CONSUMER_COMPATIBILITY.md` |
+| Governance index | `docs/governance/README.md` |
+| CI / release workflows | `.github/workflows/ci.yml`, `.github/workflows/release-packages.yml` |
+
+| Command | Result |
+| --- | --- |
+| `./scripts/validate-kanon-ontogony-package-union.ps1` | **Passed** (local, with sibling `../kanon-dotnet` present — record your run in PR) |
+
+### Reviewer checklist (GOV-003)
+
+- [x] Mechanics-only (no Kanon semantics in Platform)
+- [x] Union file stays sorted and matches shipping `src/*/Ontogony.*.csproj` projects
+- [x] Kanon `eng/Ontogony.References.props` is the source of truth in the Kanon repo; Platform holds the mirrored union for CI and docs
+- [x] No SANDBOX-003 / real external tool execution
+
+**Ready for review:** Yes — Kanon consumer Ontogony surface is guarded in platform CI.

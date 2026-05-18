@@ -109,6 +109,10 @@ jobs:
         shell: pwsh
         run: ./scripts/validate-allagma-consumer-baseline-alignment.ps1
 
+      - name: Validate Kanon Ontogony package union (PLATFORM-GOV-003)
+        shell: pwsh
+        run: ./scripts/validate-kanon-ontogony-package-union.ps1
+
       - name: Validate CHANGELOG
         shell: pwsh
         run: ./scripts/validate-changelog.ps1 -PackageVersion "${{ steps.version.outputs.version }}" -Strict
