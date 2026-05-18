@@ -23,6 +23,7 @@ Use when closing the **Docker local working system** program (through ENV-DOCKER
 [ ] Conexus fake provider route works
 [ ] Kanon topology policy works
 [ ] ENV-SEED-001 script passes (`docker/local-working-system/scripts/seed-and-verify-local-working-system.ps1`)
+[ ] Host-local seed verification is documented separately from Docker Compose networking proof
 [ ] Allagma can call Kanon by container DNS (kanon-api:8080)
 [ ] Allagma can call Conexus by container DNS (conexus-api:8080)
 [ ] Host health probes pass on 5081–5083

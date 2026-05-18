@@ -108,196 +108,206 @@ function Assert-Topology {
     }
 }
 
-Write-Host "=== ENV-SEED-001 seed + verify ==="
-Write-Host "Boundary: first Dockerized local working system, not production readiness."
-Write-Host "Output: $OutputPath"
+try {
+    Write-Host "=== ENV-SEED-001 seed + verify ==="
+    Write-Host "Boundary: first Dockerized local working system, not production readiness."
+    Write-Host "Mode: host-local API verification (Docker compose networking proof is deferred)."
+    Write-Host "Output: $OutputPath"
 
-Wait-Healthy -Name "Kanon" -BaseUrl $KanonBaseUrl
-Wait-Healthy -Name "Conexus" -BaseUrl $ConexusBaseUrl
-Wait-Healthy -Name "Allagma" -BaseUrl $AllagmaBaseUrl
+    Wait-Healthy -Name "Kanon" -BaseUrl $KanonBaseUrl
+    Wait-Healthy -Name "Conexus" -BaseUrl $ConexusBaseUrl
+    Wait-Healthy -Name "Allagma" -BaseUrl $AllagmaBaseUrl
 
-$script:AllagmaHeaders = @{ Authorization = "Bearer $AllagmaServiceToken" }
-$conexusAdminHeaders = @{ "X-Conexus-Admin-Key" = $ConexusAdminApiKey }
-$conexusProjectHeaders = @{ Authorization = "Bearer $ConexusProjectApiKey" }
-$kanonHeaders = @{
-    "X-Ontogony-Actor-Id" = "env-seed-001"
-    "X-Ontogony-Actor-Type" = "service"
-    "X-Ontogony-Roles" = "ProvenanceReader"
-    Authorization = "Bearer $KanonServiceToken"
-}
-
-$bootstrapBody = @{
-    projectId = "dev-project"
-    displayName = "Development Project"
-    modelAlias = "gpt-4o-mini"
-    providerKey = "fake"
-    providerModel = "fake.chat"
-    createProjectKey = $true
-} | ConvertTo-Json
-
-$bootstrap = Invoke-RestMethod `
-    -Method Post `
-    -Uri "$ConexusBaseUrl/admin/v0/dev/bootstrap" `
-    -Headers $conexusAdminHeaders `
-    -ContentType "application/json" `
-    -Body $bootstrapBody
-
-if ($bootstrap.projectId -ne "dev-project") { throw "Conexus bootstrap projectId mismatch." }
-if ($bootstrap.alias -ne "gpt-4o-mini") { throw "Conexus bootstrap alias mismatch." }
-if ($bootstrap.providerKey -ne "fake") { throw "Conexus bootstrap providerKey mismatch." }
-if (-not [string]::IsNullOrWhiteSpace($bootstrap.apiKey) -and $bootstrap.apiKey -ne $ConexusProjectApiKey) {
-    throw "Conexus bootstrap apiKey does not match ConexusProjectApiKey."
-}
-Write-Host "PASS bootstrap: Conexus dev project + fake provider route."
-
-$baselineRun = Start-AllagmaRun -Context @{ playerId = "123" } -Label "baseline(single_workflow)"
-$subjectRun = Start-AllagmaRun -Context @{ playerId = "123"; topologyOverride = "centralized_orchestrator" } -Label "subject(centralized_orchestrator)"
-
-$baselineEventsWithTopology = Invoke-RestMethod `
-    -Uri "$AllagmaBaseUrl/allagma/v0/runs/$($baselineRun.runId)/events?includeTopologySummary=true" `
-    -Headers $script:AllagmaHeaders
-$subjectEventsWithTopology = Invoke-RestMethod `
-    -Uri "$AllagmaBaseUrl/allagma/v0/runs/$($subjectRun.runId)/events?includeTopologySummary=true" `
-    -Headers $script:AllagmaHeaders
-
-Assert-Topology -Topology $baselineEventsWithTopology.topology -ExpectedTopology "single_workflow" -ExpectedAuthorizationRequired $false -Label "baseline"
-Assert-Topology -Topology $subjectEventsWithTopology.topology -ExpectedTopology "centralized_orchestrator" -ExpectedAuthorizationRequired $true -Label "subject"
-
-if ($null -ne $baselineEventsWithTopology.topology.topologyAuthorizationDecisionId) {
-    throw "baseline topologyAuthorizationDecisionId must be null by design."
-}
-$subjectTopologyDecisionId = $subjectEventsWithTopology.topology.topologyAuthorizationDecisionId
-if ([string]::IsNullOrWhiteSpace($subjectTopologyDecisionId)) {
-    throw "subject topologyAuthorizationDecisionId must be present."
-}
-
-$subjectTopologyDecision = Invoke-RestMethod `
-    -Uri "$KanonBaseUrl/ontology/v0/decision-records/$subjectTopologyDecisionId" `
-    -Headers $kanonHeaders
-if ([string]::IsNullOrWhiteSpace($subjectTopologyDecision.decisionId)) {
-    throw "Kanon decision record for subject topology authorization was not found."
-}
-Write-Host "PASS topology: baseline null auth ID; subject auth decision recorded."
-
-$baselineModel = Invoke-RestMethod `
-    -Uri "$ConexusBaseUrl/conexus/v0/model-calls/$($baselineRun.modelCallId)" `
-    -Headers $conexusProjectHeaders
-$subjectModel = Invoke-RestMethod `
-    -Uri "$ConexusBaseUrl/conexus/v0/model-calls/$($subjectRun.modelCallId)" `
-    -Headers $conexusProjectHeaders
-
-$missingRouteDecisionIds = @()
-if ([string]::IsNullOrWhiteSpace($baselineModel.routeDecisionId)) { $missingRouteDecisionIds += "baseline" }
-if ([string]::IsNullOrWhiteSpace($subjectModel.routeDecisionId)) { $missingRouteDecisionIds += "subject" }
-if ($missingRouteDecisionIds.Count -gt 0 -and -not $AllowMissingRouteDecisionId) {
-    throw "Missing routeDecisionId for: $($missingRouteDecisionIds -join ', '). Use -AllowMissingRouteDecisionId only if explicitly documenting limitation."
-}
-
-$baselineRoute = $null
-$subjectRoute = $null
-if (-not [string]::IsNullOrWhiteSpace($baselineModel.routeDecisionId)) {
-    $baselineRoute = Invoke-RestMethod `
-        -Uri "$ConexusBaseUrl/admin/v0/route-decisions/$($baselineModel.routeDecisionId)" `
-        -Headers $conexusAdminHeaders
-}
-if (-not [string]::IsNullOrWhiteSpace($subjectModel.routeDecisionId)) {
-    $subjectRoute = Invoke-RestMethod `
-        -Uri "$ConexusBaseUrl/admin/v0/route-decisions/$($subjectModel.routeDecisionId)" `
-        -Headers $conexusAdminHeaders
-}
-Write-Host "PASS route evidence: routeDecisionId captured on model-call evidence."
-
-$writeBody = @{
-    scenarioId = $ScenarioId
-    evaluationProfileId = $EvaluationProfileId
-    sourceKind = "runtime_evidence"
-} | ConvertTo-Json
-
-$baselineEval = Invoke-RestMethod -Method Post `
-    -Uri "$AllagmaBaseUrl/allagma/v0/runs/$($baselineRun.runId)/evaluations" `
-    -Headers $script:AllagmaHeaders -ContentType "application/json" -Body $writeBody
-$subjectEval = Invoke-RestMethod -Method Post `
-    -Uri "$AllagmaBaseUrl/allagma/v0/runs/$($subjectRun.runId)/evaluations" `
-    -Headers $script:AllagmaHeaders -ContentType "application/json" -Body $writeBody
-
-$baselineEvalList = Invoke-RestMethod `
-    -Uri "$AllagmaBaseUrl/allagma/v0/runs/$($baselineRun.runId)/evaluations" `
-    -Headers $script:AllagmaHeaders
-$subjectEvalList = Invoke-RestMethod `
-    -Uri "$AllagmaBaseUrl/allagma/v0/runs/$($subjectRun.runId)/evaluations" `
-    -Headers $script:AllagmaHeaders
-
-if (-not ($baselineEvalList.items | Where-Object { $_.evaluationRunId -eq $baselineEval.evaluationRunId })) {
-    throw "baseline evaluation not listed after write."
-}
-if (-not ($subjectEvalList.items | Where-Object { $_.evaluationRunId -eq $subjectEval.evaluationRunId })) {
-    throw "subject evaluation not listed after write."
-}
-Write-Host "PASS evaluation persistence APIs: write + list."
-
-$comparisonBody = @{
-    baselineRunId = $baselineRun.runId
-    subjectRunId = $subjectRun.runId
-    scenarioId = $ScenarioId
-} | ConvertTo-Json
-
-$comparison = Invoke-RestMethod -Method Post `
-    -Uri "$AllagmaBaseUrl/allagma/v0/evaluations/baseline-comparisons" `
-    -Headers $script:AllagmaHeaders -ContentType "application/json" -Body $comparisonBody
-$comparisonFetched = Invoke-RestMethod `
-    -Uri "$AllagmaBaseUrl/allagma/v0/evaluations/baseline-comparisons/$($comparison.comparisonId)" `
-    -Headers $script:AllagmaHeaders
-
-if ([string]::IsNullOrWhiteSpace($comparisonFetched.comparisonId)) {
-    throw "Baseline comparison fetch failed."
-}
-Write-Host "PASS baseline comparison: create + fetch."
-
-$report = [ordered]@{
-    schema = "env-seed-001-report-v1"
-    generatedAtUtc = (Get-Date).ToUniversalTime().ToString("o")
-    verdict = "PASS"
-    boundary = "first Dockerized local working system, not production readiness"
-    services = [ordered]@{
-        allagmaBaseUrl = $AllagmaBaseUrl
-        kanonBaseUrl = $KanonBaseUrl
-        conexusBaseUrl = $ConexusBaseUrl
+    $script:AllagmaHeaders = @{ Authorization = "Bearer $AllagmaServiceToken" }
+    $conexusAdminHeaders = @{ "X-Conexus-Admin-Key" = $ConexusAdminApiKey }
+    $conexusProjectHeaders = @{ Authorization = "Bearer $ConexusProjectApiKey" }
+    $kanonHeaders = @{
+        "X-Ontogony-Actor-Id" = "env-seed-001"
+        "X-Ontogony-Actor-Type" = "service"
+        "X-Ontogony-Roles" = "ProvenanceReader"
+        Authorization = "Bearer $KanonServiceToken"
     }
-    bootstrap = [ordered]@{
-        projectId = $bootstrap.projectId
-        alias = $bootstrap.alias
-        providerKey = $bootstrap.providerKey
-        warnings = @($bootstrap.warnings)
+
+    $bootstrapBody = @{
+        projectId = "dev-project"
+        displayName = "Development Project"
+        modelAlias = "gpt-4o-mini"
+        providerKey = "fake"
+        providerModel = "fake.chat"
+        createProjectKey = $true
+    } | ConvertTo-Json
+
+    $bootstrap = Invoke-RestMethod `
+        -Method Post `
+        -Uri "$ConexusBaseUrl/admin/v0/dev/bootstrap" `
+        -Headers $conexusAdminHeaders `
+        -ContentType "application/json" `
+        -Body $bootstrapBody
+
+    if ($bootstrap.projectId -ne "dev-project") { throw "Conexus bootstrap projectId mismatch." }
+    if ($bootstrap.alias -ne "gpt-4o-mini") { throw "Conexus bootstrap alias mismatch." }
+    if ($bootstrap.providerKey -ne "fake") { throw "Conexus bootstrap providerKey mismatch." }
+    if (-not [string]::IsNullOrWhiteSpace($bootstrap.apiKey) -and $bootstrap.apiKey -ne $ConexusProjectApiKey) {
+        throw "Conexus bootstrap apiKey does not match ConexusProjectApiKey."
     }
-    runs = [ordered]@{
-        baselineRunId = $baselineRun.runId
-        subjectRunId = $subjectRun.runId
-        baselineModelCallId = $baselineRun.modelCallId
-        subjectModelCallId = $subjectRun.modelCallId
+    Write-Host "PASS bootstrap: Conexus dev project + fake provider route."
+
+    $baselineRun = Start-AllagmaRun -Context @{ playerId = "123" } -Label "baseline(single_workflow)"
+    $subjectRun = Start-AllagmaRun -Context @{ playerId = "123"; topologyOverride = "centralized_orchestrator" } -Label "subject(centralized_orchestrator)"
+
+    $baselineEventsWithTopology = Invoke-RestMethod `
+        -Uri "$AllagmaBaseUrl/allagma/v0/runs/$($baselineRun.runId)/events?includeTopologySummary=true" `
+        -Headers $script:AllagmaHeaders
+    $subjectEventsWithTopology = Invoke-RestMethod `
+        -Uri "$AllagmaBaseUrl/allagma/v0/runs/$($subjectRun.runId)/events?includeTopologySummary=true" `
+        -Headers $script:AllagmaHeaders
+
+    Assert-Topology -Topology $baselineEventsWithTopology.topology -ExpectedTopology "single_workflow" -ExpectedAuthorizationRequired $false -Label "baseline"
+    Assert-Topology -Topology $subjectEventsWithTopology.topology -ExpectedTopology "centralized_orchestrator" -ExpectedAuthorizationRequired $true -Label "subject"
+
+    if ($null -ne $baselineEventsWithTopology.topology.topologyAuthorizationDecisionId) {
+        throw "baseline topologyAuthorizationDecisionId must be null by design."
     }
-    topology = [ordered]@{
-        baselineSelectedTopology = $baselineEventsWithTopology.topology.topologySelection.value.selectedTopology
-        baselineTopologyAuthorizationDecisionId = $baselineEventsWithTopology.topology.topologyAuthorizationDecisionId
-        subjectSelectedTopology = $subjectEventsWithTopology.topology.topologySelection.value.selectedTopology
-        subjectTopologyAuthorizationDecisionId = $subjectTopologyDecisionId
+    $subjectTopologyDecisionId = $subjectEventsWithTopology.topology.topologyAuthorizationDecisionId
+    if ([string]::IsNullOrWhiteSpace($subjectTopologyDecisionId)) {
+        throw "subject topologyAuthorizationDecisionId must be present."
     }
-    routeEvidence = [ordered]@{
-        baselineRouteDecisionId = $baselineModel.routeDecisionId
-        subjectRouteDecisionId = $subjectModel.routeDecisionId
-        baselineRouteDecisionFound = ($null -ne $baselineRoute)
-        subjectRouteDecisionFound = ($null -ne $subjectRoute)
+
+    $subjectTopologyDecision = Invoke-RestMethod `
+        -Uri "$KanonBaseUrl/ontology/v0/decision-records/$subjectTopologyDecisionId" `
+        -Headers $kanonHeaders
+    if ([string]::IsNullOrWhiteSpace($subjectTopologyDecision.decisionId)) {
+        throw "Kanon decision record for subject topology authorization was not found."
     }
-    evaluations = [ordered]@{
+    Write-Host "PASS topology: baseline null auth ID; subject auth decision recorded."
+
+    $baselineModel = Invoke-RestMethod `
+        -Uri "$ConexusBaseUrl/conexus/v0/model-calls/$($baselineRun.modelCallId)" `
+        -Headers $conexusProjectHeaders
+    $subjectModel = Invoke-RestMethod `
+        -Uri "$ConexusBaseUrl/conexus/v0/model-calls/$($subjectRun.modelCallId)" `
+        -Headers $conexusProjectHeaders
+
+    $missingRouteDecisionIds = @()
+    if ([string]::IsNullOrWhiteSpace($baselineModel.routeDecisionId)) { $missingRouteDecisionIds += "baseline" }
+    if ([string]::IsNullOrWhiteSpace($subjectModel.routeDecisionId)) { $missingRouteDecisionIds += "subject" }
+    if ($missingRouteDecisionIds.Count -gt 0 -and -not $AllowMissingRouteDecisionId) {
+        throw "Missing routeDecisionId for: $($missingRouteDecisionIds -join ', '). Use -AllowMissingRouteDecisionId only if explicitly documenting limitation."
+    }
+
+    $baselineRoute = $null
+    $subjectRoute = $null
+    if (-not [string]::IsNullOrWhiteSpace($baselineModel.routeDecisionId)) {
+        $baselineRoute = Invoke-RestMethod `
+            -Uri "$ConexusBaseUrl/admin/v0/route-decisions/$($baselineModel.routeDecisionId)" `
+            -Headers $conexusAdminHeaders
+    }
+    if (-not [string]::IsNullOrWhiteSpace($subjectModel.routeDecisionId)) {
+        $subjectRoute = Invoke-RestMethod `
+            -Uri "$ConexusBaseUrl/admin/v0/route-decisions/$($subjectModel.routeDecisionId)" `
+            -Headers $conexusAdminHeaders
+    }
+    Write-Host "PASS route evidence: routeDecisionId captured on model-call evidence."
+
+    $writeBody = @{
         scenarioId = $ScenarioId
         evaluationProfileId = $EvaluationProfileId
-        baselineEvaluationRunId = $baselineEval.evaluationRunId
-        subjectEvaluationRunId = $subjectEval.evaluationRunId
-        baselineEvaluationCount = @($baselineEvalList.items).Count
-        subjectEvaluationCount = @($subjectEvalList.items).Count
-        baselineComparisonId = $comparisonFetched.comparisonId
-    }
-}
+        sourceKind = "runtime_evidence"
+    } | ConvertTo-Json
 
-$report | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $OutputPath -Encoding UTF8
-Write-Host "Wrote seed report: $OutputPath"
-Write-Host "ENV-SEED-001 seed + verify PASS."
+    $baselineEval = Invoke-RestMethod -Method Post `
+        -Uri "$AllagmaBaseUrl/allagma/v0/runs/$($baselineRun.runId)/evaluations" `
+        -Headers $script:AllagmaHeaders -ContentType "application/json" -Body $writeBody
+    $subjectEval = Invoke-RestMethod -Method Post `
+        -Uri "$AllagmaBaseUrl/allagma/v0/runs/$($subjectRun.runId)/evaluations" `
+        -Headers $script:AllagmaHeaders -ContentType "application/json" -Body $writeBody
+
+    $baselineEvalList = Invoke-RestMethod `
+        -Uri "$AllagmaBaseUrl/allagma/v0/runs/$($baselineRun.runId)/evaluations" `
+        -Headers $script:AllagmaHeaders
+    $subjectEvalList = Invoke-RestMethod `
+        -Uri "$AllagmaBaseUrl/allagma/v0/runs/$($subjectRun.runId)/evaluations" `
+        -Headers $script:AllagmaHeaders
+
+    if (-not ($baselineEvalList.items | Where-Object { $_.evaluationRunId -eq $baselineEval.evaluationRunId })) {
+        throw "baseline evaluation not listed after write."
+    }
+    if (-not ($subjectEvalList.items | Where-Object { $_.evaluationRunId -eq $subjectEval.evaluationRunId })) {
+        throw "subject evaluation not listed after write."
+    }
+    Write-Host "PASS evaluation persistence APIs: write + list."
+
+    $comparisonBody = @{
+        baselineRunId = $baselineRun.runId
+        subjectRunId = $subjectRun.runId
+        scenarioId = $ScenarioId
+    } | ConvertTo-Json
+
+    $comparison = Invoke-RestMethod -Method Post `
+        -Uri "$AllagmaBaseUrl/allagma/v0/evaluations/baseline-comparisons" `
+        -Headers $script:AllagmaHeaders -ContentType "application/json" -Body $comparisonBody
+    $comparisonFetched = Invoke-RestMethod `
+        -Uri "$AllagmaBaseUrl/allagma/v0/evaluations/baseline-comparisons/$($comparison.comparisonId)" `
+        -Headers $script:AllagmaHeaders
+
+    if ([string]::IsNullOrWhiteSpace($comparisonFetched.comparisonId)) {
+        throw "Baseline comparison fetch failed."
+    }
+    Write-Host "PASS baseline comparison: create + fetch."
+
+    $report = [ordered]@{
+        schema = "env-seed-001-report-v1"
+        generatedAtUtc = (Get-Date).ToUniversalTime().ToString("o")
+        verdict = "PASS"
+        boundary = "first Dockerized local working system, not production readiness"
+        verificationMode = "host-local-api"
+        dockerComposeNetworkingVerified = $false
+        services = [ordered]@{
+            allagmaBaseUrl = $AllagmaBaseUrl
+            kanonBaseUrl = $KanonBaseUrl
+            conexusBaseUrl = $ConexusBaseUrl
+        }
+        bootstrap = [ordered]@{
+            projectId = $bootstrap.projectId
+            alias = $bootstrap.alias
+            providerKey = $bootstrap.providerKey
+            warnings = @($bootstrap.warnings)
+        }
+        runs = [ordered]@{
+            baselineRunId = $baselineRun.runId
+            subjectRunId = $subjectRun.runId
+            baselineModelCallId = $baselineRun.modelCallId
+            subjectModelCallId = $subjectRun.modelCallId
+        }
+        topology = [ordered]@{
+            baselineSelectedTopology = $baselineEventsWithTopology.topology.topologySelection.value.selectedTopology
+            baselineTopologyAuthorizationDecisionId = $baselineEventsWithTopology.topology.topologyAuthorizationDecisionId
+            subjectSelectedTopology = $subjectEventsWithTopology.topology.topologySelection.value.selectedTopology
+            subjectTopologyAuthorizationDecisionId = $subjectTopologyDecisionId
+        }
+        routeEvidence = [ordered]@{
+            baselineRouteDecisionId = $baselineModel.routeDecisionId
+            subjectRouteDecisionId = $subjectModel.routeDecisionId
+            baselineRouteDecisionFound = ($null -ne $baselineRoute)
+            subjectRouteDecisionFound = ($null -ne $subjectRoute)
+        }
+        evaluations = [ordered]@{
+            scenarioId = $ScenarioId
+            evaluationProfileId = $EvaluationProfileId
+            baselineEvaluationRunId = $baselineEval.evaluationRunId
+            subjectEvaluationRunId = $subjectEval.evaluationRunId
+            baselineEvaluationCount = @($baselineEvalList.items).Count
+            subjectEvaluationCount = @($subjectEvalList.items).Count
+            baselineComparisonId = $comparisonFetched.comparisonId
+        }
+    }
+
+    $report | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $OutputPath -Encoding UTF8
+    Write-Host "Wrote seed report: $OutputPath"
+    Write-Host "ENV-SEED-001 seed + verify PASS."
+    exit 0
+}
+catch {
+    Write-Error "ENV-SEED-001 seed + verify FAIL: $($_.Exception.Message)"
+    exit 1
+}
