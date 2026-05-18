@@ -6,7 +6,6 @@ Items below are **accepted** for v1. They are not excuses to relax safety gates.
 
 ## Program scope
 
-- ENV-DOCKER-001 is **plan documentation only** — no compose file, Dockerfiles, or runners until later PRs.
 - Single PostgreSQL container with three logical databases (not three Postgres instances).
 - Development credentials only (`*_local_pw`) — never use in staging/production.
 - Fake/local Conexus provider first; no real provider mode in default compose.
@@ -46,7 +45,6 @@ Items below are **accepted** for v1. They are not excuses to relax safety gates.
 
 | PR | Delivers |
 | --- | --- |
-| ENV-COMPOSE-001 | Working `docker-compose.yml` |
 | ENV-DOCKER-RUN-001 | Dockerized guided main flow |
 | ENV-DOCKER-FE-001 | Frontend Docker walkthrough |
 | ENV-DOCKER-CLOSEOUT-001 | Docker phase closeout |

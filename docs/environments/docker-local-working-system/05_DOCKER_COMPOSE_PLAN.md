@@ -1,8 +1,8 @@
 # Docker Compose plan — Docker local working system
 
-**Status:** Plan only (ENV-DOCKER-001). Compose file lands in **ENV-COMPOSE-001**.
+**Status:** Implemented in **ENV-COMPOSE-001**.
 
-## Planned location
+## Location
 
 ```text
 ontogony-platform/docker/local-working-system/docker-compose.yml
@@ -10,7 +10,7 @@ ontogony-platform/docker/local-working-system/.env.example
 ontogony-platform/docker/local-working-system/postgres/init/   # ENV-DB-001
 ```
 
-Reference stub (not executed until COMPOSE PR):
+Reference stub source:
 
 ```text
 allagma-dotnet/docs/environments/working-local-environment-complete-package/06_SCRIPT_STUBS/docker-compose.yml
@@ -71,23 +71,30 @@ conexus-api   GET /health
 allagma-api   GET /health
 ```
 
+Operator helper:
+
+```powershell
+cd C:\dev\ontogony-platform
+.\docker\local-working-system\scripts\wait-local-working-system.ps1
+```
+
 ## Environment injection
 
 Use compose `environment:` or `.env` file derived from `03_EXACT_SETTINGS.md`. **Do not** commit `.env` with real provider keys.
 
 `.env.example` should list every variable with placeholder dev values and point to `03_EXACT_SETTINGS.md`.
 
-## Operator scripts (later PRs)
+## Operator scripts
 
-Stubs in planning package (implementation not in ENV-DOCKER-001):
+Implemented in compose tree:
 
 ```text
-06_SCRIPT_STUBS/start-local-working-system.ps1
-06_SCRIPT_STUBS/wait-local-working-system.ps1
-06_SCRIPT_STUBS/reset-local-working-system.ps1
+docker/local-working-system/scripts/start-local-working-system.ps1
+docker/local-working-system/scripts/wait-local-working-system.ps1
+docker/local-working-system/scripts/reset-local-working-system.ps1
 ```
 
-ENV-DOCKER-RUN-001 will wire guided main flow against the Docker stack.
+ENV-DOCKER-RUN-001 will wire the guided main flow against this Docker stack.
 
 ## Prerequisites before `docker compose up`
 
@@ -96,4 +103,4 @@ ENV-DOCKER-RUN-001 will wire guided main flow against the Docker stack.
 | ENV-DOCKER-002 | Dockerfiles + `.dockerignore` per repo |
 | ENV-DB-001 | `postgres/init` SQL |
 | ENV-SEED-001 | Bootstrap rows after migrations |
-| ENV-COMPOSE-001 | Working `docker-compose.yml` |
+| ENV-COMPOSE-001 | Working `docker-compose.yml` (**done**) |

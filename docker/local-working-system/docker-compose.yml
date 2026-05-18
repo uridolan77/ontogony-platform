@@ -1,0 +1,122 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-ontogony_admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ontogony_admin_pw}
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+    ports:
+      - "${POSTGRES_HOST_PORT:-5432}:5432"
+    volumes:
+      - ontogony_postgres_data:/var/lib/postgresql/data
+      - ./postgres/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-ontogony_admin} -d ${POSTGRES_DB:-postgres}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+
+  kanon-api:
+    build:
+      context: ../../../kanon-dotnet
+      additional_contexts:
+        ontogony_platform: ../../../ontogony-platform
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Development}
+      ASPNETCORE_URLS: ${ASPNETCORE_URLS:-http://+:8080}
+      Kanon__Persistence__Mode: ${KANON_PERSISTENCE_MODE:-Postgres}
+      Kanon__Persistence__Postgres__ConnectionString: ${KANON_POSTGRES_CONNECTION_STRING:-Host=postgres;Port=5432;Database=kanon_local;Username=kanon_local;Password=kanon_local_pw}
+      Kanon__Persistence__Postgres__ApplyMigrationsOnStartup: ${KANON_APPLY_MIGRATIONS_ON_STARTUP:-true}
+    ports:
+      - "${KANON_HOST_PORT:-5081}:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "bash", "-ec", "exec 3<>/dev/tcp/127.0.0.1/8080"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 20s
+
+  conexus-api:
+    build:
+      context: ../../../conexus-dotnet
+      additional_contexts:
+        ontogony_platform: ../../../ontogony-platform
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Development}
+      ASPNETCORE_URLS: ${ASPNETCORE_URLS:-http://+:8080}
+      ConnectionStrings__ConexusPostgres: ${CONEXUS_POSTGRES_CONNECTION_STRING:-Host=postgres;Port=5432;Database=conexus_local;Username=conexus_local;Password=conexus_local_pw}
+      CONEXUS_DEV_PROJECT_API_KEY: ${CONEXUS_DEV_PROJECT_API_KEY:-cx-dev-key-change-me}
+      CONEXUS_ADMIN_API_KEY: ${CONEXUS_ADMIN_API_KEY:-cx-conexus-admin-dev}
+    ports:
+      - "${CONEXUS_HOST_PORT:-5082}:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "bash", "-ec", "exec 3<>/dev/tcp/127.0.0.1/8080"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 20s
+
+  allagma-api:
+    build:
+      context: ../../../allagma-dotnet
+      additional_contexts:
+        ontogony_platform: ../../../ontogony-platform
+        kanon_dotnet: ../../../kanon-dotnet
+        conexus_dotnet: ../../../conexus-dotnet
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Development}
+      ASPNETCORE_URLS: ${ASPNETCORE_URLS:-http://+:8080}
+      Allagma__Persistence__Mode: ${ALLAGMA_PERSISTENCE_MODE:-Postgres}
+      Allagma__Evaluation__ManualWriteEnabled: ${ALLAGMA_MANUAL_EVAL_WRITE_ENABLED:-true}
+      ConnectionStrings__Allagma: ${ALLAGMA_POSTGRES_CONNECTION_STRING:-Host=postgres;Port=5432;Database=allagma_local;Username=allagma_local;Password=allagma_local_pw}
+      Kanon__BaseUrl: ${KANON_INTERNAL_BASE_URL:-http://kanon-api:8080}
+      Conexus__BaseUrl: ${CONEXUS_INTERNAL_BASE_URL:-http://conexus-api:8080}
+      Conexus__ProjectApiKey: ${CONEXUS_PROJECT_API_KEY_FOR_ALLAGMA:-cx-dev-key-change-me}
+      Allagma__Authentication__ServiceToken: ${ALLAGMA_SERVICE_TOKEN:-allagma-dev-service-token-change-in-production}
+      Allagma__Downstream__Kanon__ServiceToken: ${KANON_SERVICE_TOKEN:-kanon-dev-service-token-change-in-production}
+    ports:
+      - "${ALLAGMA_HOST_PORT:-5083}:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      kanon-api:
+        condition: service_started
+      conexus-api:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "bash", "-ec", "exec 3<>/dev/tcp/127.0.0.1/8080"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 20s
+
+  ontogony-frontend:
+    build:
+      context: ../../../ontogony-frontend
+      additional_contexts:
+        ontogony_ui: ../../../ontogony-ui
+      args:
+        VITE_KANON_BASE_URL: ${FRONTEND_VITE_KANON_BASE_URL:-http://localhost:5081}
+        VITE_CONEXUS_BASE_URL: ${FRONTEND_VITE_CONEXUS_BASE_URL:-http://localhost:5082}
+        VITE_ALLAGMA_BASE_URL: ${FRONTEND_VITE_ALLAGMA_BASE_URL:-http://localhost:5083}
+    ports:
+      - "${FRONTEND_HOST_PORT:-5175}:8080"
+    depends_on:
+      allagma-api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget --quiet --spider http://127.0.0.1:8080/ || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+
+volumes:
+  ontogony_postgres_data:

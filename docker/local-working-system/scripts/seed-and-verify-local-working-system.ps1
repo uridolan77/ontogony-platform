@@ -112,7 +112,7 @@ function Invoke-EnvSeed001 {
     Write-Host "=== ENV-SEED-001 seed + verify ==="
     Write-Host "Boundary: first Dockerized local working system, not production readiness."
     Write-Host "Mode: host-local API verification."
-    Write-Host "Docker compose networking proof is deferred to ENV-COMPOSE-001 / ENV-DOCKER-RUN-001."
+    Write-Host "Docker compose networking proof is provided by ENV-COMPOSE-001; restart-survival proof remains in ENV-DOCKER-RUN-001."
     Write-Host "Output: $OutputPath"
 
     Wait-Healthy -Name "Kanon" -BaseUrl $KanonBaseUrl

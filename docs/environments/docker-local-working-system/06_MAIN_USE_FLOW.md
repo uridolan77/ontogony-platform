@@ -6,8 +6,8 @@ Twelve-step proof target for the Docker phase (parity with script-based program,
 
 ## Flow
 
-1. **Start Docker stack** — `docker compose up` from `ontogony-platform/docker/local-working-system/` (ENV-COMPOSE-001).
-2. **Wait for health** — postgres, kanon-api, conexus-api, allagma-api healthy.
+1. **Start Docker stack** — run `docker/local-working-system/scripts/start-local-working-system.ps1` (ENV-COMPOSE-001).
+2. **Wait for health** — postgres, kanon-api, conexus-api, allagma-api healthy (`wait-local-working-system.ps1`).
 3. **Run baseline** `single_workflow` governed run (Allagma).
 4. **Run subject** `centralized_orchestrator` topology override run.
 5. **Verify Kanon topology authorization** for subject (`topologyAuthorizationDecisionId` non-empty).

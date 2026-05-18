@@ -62,8 +62,8 @@ C:\dev\
 | ENV-DOCKER-001 | **Done** — Docker local working system plan | `ontogony-platform` |
 | ENV-DOCKER-002 | **Done** — Dockerfiles + `.dockerignore` | `allagma-dotnet`, `kanon-dotnet`, `conexus-dotnet`, `ontogony-frontend` |
 | ENV-DB-001 | **Done** — Postgres DB bootstrap | `ontogony-platform/docker/local-working-system/` |
-| ENV-SEED-001 | **Done** — deterministic seed/bootstrap (host-local API verification; compose networking proof pending) | `ontogony-platform/docker/local-working-system/` |
-| **ENV-COMPOSE-001** | **Next** — Docker Compose orchestration | See `docker-local-working-system/00_MANIFEST.json` |
+| ENV-SEED-001 | **Done** — deterministic seed/bootstrap (host-local API verification) | `ontogony-platform/docker/local-working-system/` |
+| **ENV-COMPOSE-001** | **Done** — Docker Compose orchestration | `ontogony-platform/docker/local-working-system/` |
 | ENV-DOCKER-RUN-001 … ENV-DOCKER-CLOSEOUT-001 | Planned | See `docker-local-working-system/00_MANIFEST.json` |
 
 Evidence:
@@ -73,9 +73,10 @@ Evidence:
 - `docs/evidence/ENV_DOCKER_001_PLAN_EVIDENCE.md`
 - `docs/evidence/ENV_DB_001_POSTGRES_BOOTSTRAP_EVIDENCE.md`
 - `docs/evidence/ENV_SEED_001_DETERMINISTIC_BOOTSTRAP_EVIDENCE.md`
+- `docs/evidence/ENV_COMPOSE_001_DOCKER_COMPOSE_ORCHESTRATION_EVIDENCE.md`
 - Closeout (script-based): `docs/releases/FIRST_WORKING_ENVIRONMENT_CLOSEOUT.md`
 
-Scope note: ENV-SEED-001 evidence validates host-local API behavior against running services (`localhost:5081`–`5083`). Container DNS / Docker Compose networking proof remains gated by ENV-COMPOSE-001 and ENV-DOCKER-RUN-001.
+Scope note: ENV-SEED-001 evidence validates host-local API behavior against running services (`localhost:5081`–`5083`). ENV-COMPOSE-001 adds compose orchestration and container DNS wiring. Restart-survival proof remains gated by ENV-DOCKER-RUN-001.
 
 ## Boundary
 

@@ -1,6 +1,6 @@
 # Docker local working system — canonical plan
 
-Operator-facing plan for the **first Docker/Postgres local working system**. This tree is **documentation only** until later ENV-DOCKER-* implementation PRs land compose, Dockerfiles, and runners.
+Operator-facing plan for the **first Docker/Postgres local working system**.
 
 ## Boundary
 
@@ -35,7 +35,7 @@ Script-based local operator sanity: `docs/environments/local-operator-sanity/` �
 
 ## Next implementation PR
 
-**ENV-COMPOSE-001** — Docker Compose orchestration.
+**ENV-DOCKER-RUN-001** — Dockerized guided main flow.
 
 ## Completed
 
@@ -45,8 +45,10 @@ Script-based local operator sanity: `docs/environments/local-operator-sanity/` �
 
 **ENV-SEED-001** — deterministic seed/bootstrap script + API verification report in `docker/local-working-system/scripts/` (2026-05-19).
 
+**ENV-COMPOSE-001** — compose orchestration (`docker-compose.yml`, `.env.example`, start/wait/reset scripts) in `docker/local-working-system/` (2026-05-19).
+
 ## Scope note (ENV-SEED-001)
 
 ENV-SEED-001 evidence validates deterministic seed/bootstrap behavior via host-local API endpoints (`localhost:5081`–`5083`) against the currently running local stack.
 
-It does **not** prove Docker Compose networking (`kanon-api:8080`, `conexus-api:8080`, `postgres` DNS) — that proof is gated by **ENV-COMPOSE-001** and **ENV-DOCKER-RUN-001**.
+It does **not** prove restart-survival behavior after container restarts — that proof is gated by **ENV-DOCKER-RUN-001**.

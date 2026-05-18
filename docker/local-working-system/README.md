@@ -7,15 +7,45 @@
 ```text
 docker/local-working-system/
   README.md
+  docker-compose.yml
+  .env.example
   postgres/init/          # ENV-DB-001 — first-init bootstrap SQL
-  scripts/                # operator helpers (no full compose until ENV-COMPOSE-001)
+  scripts/
+    start-local-working-system.ps1
+    wait-local-working-system.ps1
+    reset-local-working-system.ps1
+    verify-postgres-bootstrap.ps1
+    seed-and-verify-local-working-system.ps1
 ```
 
-Planned in later PRs:
+Copy `.env.example` to `.env` to override placeholders locally without committing changes:
 
-```text
-  docker-compose.yml      # ENV-COMPOSE-001
-  .env.example            # ENV-COMPOSE-001
+```powershell
+cd C:\dev\ontogony-platform\docker\local-working-system
+Copy-Item .env.example .env
+```
+
+## Compose orchestration (ENV-COMPOSE-001)
+
+Start stack:
+
+```powershell
+cd C:\dev\ontogony-platform
+.\docker\local-working-system\scripts\start-local-working-system.ps1 -Build
+```
+
+Wait-only (if stack already running):
+
+```powershell
+cd C:\dev\ontogony-platform
+.\docker\local-working-system\scripts\wait-local-working-system.ps1
+```
+
+Reset stack + volumes:
+
+```powershell
+cd C:\dev\ontogony-platform
+.\docker\local-working-system\scripts\reset-local-working-system.ps1 -Force
 ```
 
 ## Postgres bootstrap (ENV-DB-001)
