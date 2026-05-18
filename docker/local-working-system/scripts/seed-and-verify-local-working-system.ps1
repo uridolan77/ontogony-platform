@@ -108,10 +108,11 @@ function Assert-Topology {
     }
 }
 
-try {
+function Invoke-EnvSeed001 {
     Write-Host "=== ENV-SEED-001 seed + verify ==="
     Write-Host "Boundary: first Dockerized local working system, not production readiness."
-    Write-Host "Mode: host-local API verification (Docker compose networking proof is deferred)."
+    Write-Host "Mode: host-local API verification."
+    Write-Host "Docker compose networking proof is deferred to ENV-COMPOSE-001 / ENV-DOCKER-RUN-001."
     Write-Host "Output: $OutputPath"
 
     Wait-Healthy -Name "Kanon" -BaseUrl $KanonBaseUrl
@@ -305,6 +306,10 @@ try {
     $report | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $OutputPath -Encoding UTF8
     Write-Host "Wrote seed report: $OutputPath"
     Write-Host "ENV-SEED-001 seed + verify PASS."
+}
+
+try {
+    Invoke-EnvSeed001
     exit 0
 }
 catch {

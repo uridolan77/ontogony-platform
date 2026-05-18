@@ -18,7 +18,6 @@ No compose orchestration, no raw schema SQL seed rows, and no production hardeni
 
 ```text
 docker/local-working-system/scripts/seed-and-verify-local-working-system.ps1
-docker/local-working-system/artifacts/env-seed-001-report.json
 docker/local-working-system/README.md
 docs/environments/docker-local-working-system/04_DATABASES_AND_SEEDS.md
 docs/environments/docker-local-working-system/08_TROUBLESHOOTING.md
@@ -27,6 +26,12 @@ docs/environments/docker-local-working-system/README.md
 docs/environments/README.md
 docs/releases/FIRST_WORKING_ENVIRONMENT_NEXT_STEPS.md
 docs/evidence/ENV_SEED_001_DETERMINISTIC_BOOTSTRAP_EVIDENCE.md
+```
+
+Runtime report generated locally:
+
+```text
+docker/local-working-system/artifacts/env-seed-001-report.json
 ```
 
 ## Command run
