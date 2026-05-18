@@ -1,0 +1,47 @@
+{
+  "program": "local-operator-sanity",
+  "spec": "ENV-SETUP-001",
+  "generatedAt": "2026-05-18",
+  "purpose": "Canonical operator docs for the first working local Ontogony stack (workspace layout, exact settings, flows, acceptance, troubleshooting).",
+  "planningSource": "docs/environments/local-operator-sanity-package/",
+  "boundary": "First working local environment, not production readiness.",
+  "workspaceLayout": [
+    "C:\\dev\\ontogony-platform",
+    "C:\\dev\\allagma-dotnet",
+    "C:\\dev\\kanon-dotnet",
+    "C:\\dev\\conexus-dotnet",
+    "C:\\dev\\ontogony-frontend",
+    "C:\\dev\\ontogony-ui"
+  ],
+  "ports": {
+    "kanon": "http://localhost:5081",
+    "conexus": "http://localhost:5082",
+    "allagma": "http://localhost:5083",
+    "frontend": "Vite dev server (see ontogony-frontend README)"
+  },
+  "prSequence": [
+    "ENV-SETUP-001 — workspace/settings docs (this tree)",
+    "ENV-SETUP-002 — stack start/check scripts (allagma-dotnet)",
+    "ENV-RUN-001 — guided main flow runner",
+    "ENV-FE-001 — guided frontend operator walkthrough",
+    "ENV-PG-001 — optional Postgres durable mode",
+    "ENV-UI-001 — ontogony-ui / ontogony-frontend readiness",
+    "ENV-REAL-PROVIDER-001 — optional backend-only real provider",
+    "ENV-CLOSEOUT-001 — first working environment closeout"
+  ],
+  "safety": [
+    "Fake/local Conexus provider first",
+    "No real external execution",
+    "No raw prompts/completions/secrets/provider keys in UI or reports",
+    "Manual eval POST only in Development with Allagma__Evaluation__ManualWriteEnabled=true"
+  ],
+  "docs": {
+    "workspace": "01_WORKSPACE_LAYOUT.md",
+    "settings": "02_EXACT_SETTINGS.md",
+    "mainFlow": "03_MAIN_USE_FLOW.md",
+    "startupModes": "04_STARTUP_MODES.md",
+    "acceptance": "05_ACCEPTANCE_CHECKLIST.md",
+    "troubleshooting": "06_TROUBLESHOOTING.md",
+    "limitations": "07_KNOWN_LIMITATIONS.md"
+  }
+}

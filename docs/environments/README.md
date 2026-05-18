@@ -1,16 +1,23 @@
 # Environment planning docs
 
-This folder holds planning packages for local Ontogony operator environments. Packages here are documentation and script stubs only—not runtime code.
+This folder holds planning packages and **canonical operator documentation** for local Ontogony environments. Planning packages are specs and stubs; `local-operator-sanity/` is the operator-facing doc set for the active program.
 
-## Active package — First working local operator environment
+## Active program — First working local operator environment
 
-Path:
+**Canonical docs (operator-facing):**
+
+- `docs/environments/local-operator-sanity/`
+
+Start with:
+
+- `local-operator-sanity/00_MANIFEST.json`
+- `local-operator-sanity/01_WORKSPACE_LAYOUT.md`
+- `local-operator-sanity/02_EXACT_SETTINGS.md`
+- `local-operator-sanity/03_MAIN_USE_FLOW.md`
+
+**Planning package (PR specs, prompts, script stubs):**
 
 - `docs/environments/local-operator-sanity-package/`
-
-Purpose:
-
-Plan and implement the **first working local environment** for the cross-repo stack: exact settings, PR sequence, guided operator flow, script stubs, acceptance checklist, and evidence template.
 
 Incoming ZIP preserved at:
 
@@ -28,16 +35,17 @@ C:\dev\
   ontogony-ui\
 ```
 
-Start with:
+## PR status
 
-- `local-operator-sanity-package/00_MANIFEST.json`
-- `local-operator-sanity-package/01_EXACT_SETTINGS.md`
-- `local-operator-sanity-package/03_PR_SEQUENCE.md`
-- `local-operator-sanity-package/04_PR_SPECS/`
+| PR | Status | Repo |
+| --- | --- | --- |
+| ENV-SETUP-001 | **Done** — workspace/settings docs | `ontogony-platform` |
+| ENV-SETUP-002 | Next — stack start/check scripts | `allagma-dotnet` |
+| ENV-RUN-001 … ENV-CLOSEOUT-001 | Planned | See `local-operator-sanity-package/03_PR_SEQUENCE.md` |
 
-Next implementation PR (after unpack-only):
+Evidence:
 
-- **ENV-SETUP-001** — Workspace layout, settings, and environment docs (`ontogony-platform`)
+- `docs/evidence/ENV_SETUP_001_LOCAL_OPERATOR_SANITY_DOCS.md`
 
 ## Boundary
 
@@ -45,7 +53,7 @@ This program targets a **first working local environment**, not production readi
 
 ## Other planning (unchanged)
 
-Eval and platform planning packages remain in their own trees and are not replaced by this package:
+Eval and platform planning packages remain in their own trees:
 
 - `docs/planning/eval-durability-to-first-sanity-current/` — active eval durability → first sanity program
 - `docs/eval-basing/ontogony-eval-based-cross-repo-development-package/` — completed eval-basing baseline
@@ -53,5 +61,5 @@ Eval and platform planning packages remain in their own trees and are not replac
 
 Notes:
 
-- Unpack PRs add or refresh planning docs only; implementation PRs land in the repos named in each spec.
-- Do not implement `06_SCRIPT_STUBS/` or start ENV-SETUP-001 from an unpack-only PR unless explicitly requested.
+- Implementation PRs land in the repos named in each spec under `local-operator-sanity-package/04_PR_SPECS/`.
+- Script stubs under `local-operator-sanity-package/06_SCRIPT_STUBS/` are not executed until copied into `allagma-dotnet` (ENV-SETUP-002 onward).
