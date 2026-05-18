@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+PLAT-EVAL-001 — neutral evaluation contracts (`Ontogony.Evaluation.Contracts`):
+
+- **`Ontogony.Evaluation.Contracts`** — evaluation run, case, metric, score, baseline comparison, verdict, and artifact reference DTOs (opaque strings; no eval engine or product semantics).
+- **Tests:** `Ontogony.Evaluation.Contracts.Tests` (JSON round-trip, nullable fields, canonical hash); public API snapshot in `Ontogony.PublicApi.Tests`.
+- **Docs:** [`docs/packages/Ontogony.Evaluation.Contracts.md`](docs/packages/Ontogony.Evaluation.Contracts.md); package-level matrix updated.
+
 PLATFORM-GOV-003 — consumer compatibility validation round two (Kanon Ontogony union doc guard):
 
 - **`docs/governance/kanon-ontogony-package-union.txt`** — sorted union of `Ontogony.*` packages referenced from Kanon `eng/Ontogony.References.props`.

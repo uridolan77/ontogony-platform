@@ -46,9 +46,9 @@ Many higher-level packages depend on one or both of these; that is why they are 
 
 ## Level 3 — AI runtime mechanics
 
-**Packages:** `Ontogony.AI.Contracts`, `Ontogony.Artifacts`, `Ontogony.Execution`, `Ontogony.Replay.Contracts`
+**Packages:** `Ontogony.AI.Contracts`, `Ontogony.Artifacts`, `Ontogony.Evaluation.Contracts`, `Ontogony.Execution`, `Ontogony.Replay.Contracts`
 
-**Purpose:** LLM request/response telemetry, usage/cost/error records, large payload references, execution journal facts and checkpoints, and replay bundle contracts — **without** orchestration, provider policy, or a replay engine.
+**Purpose:** LLM request/response telemetry, usage/cost/error records, large payload references, neutral evaluation run/score/baseline DTOs, execution journal facts and checkpoints, and replay bundle contracts — **without** orchestration, provider policy, eval harnesses, or a replay engine.
 
 ---
 
@@ -72,14 +72,15 @@ Many higher-level packages depend on one or both of these; that is why they are 
 
 Rows depend on columns. **✓** means the row package may `ProjectReference` the column package (golden set in `validate-package-levels.ps1`). Column order is alphabetical by package id.
 
-|  | AI | Art | Cfg | Con | Err | Exe | Hash | Hst | Http | Idem | Log | Msg | Obs | Per | Pg | Pri | Ing | Quo | Rdc | Rpl | Scr | Sec | Tst |
-|--|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| **Ontogony.AI.Contracts** |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+|  | AI | Art | Cfg | Con | Err | Eva | Exe | Hash | Hst | Http | Idem | Log | Msg | Obs | Per | Pg | Pri | Ing | Quo | Rdc | Rpl | Scr | Sec | Tst |
+|--|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **Ontogony.AI.Contracts** |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 | **Ontogony.Artifacts** |   |   |   | ✓ |   |   | ✓ |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |
 | **Ontogony.Configuration** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 | **Ontogony.Contracts** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |
-| **Ontogony.Errors** |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |
-| **Ontogony.Execution** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Errors** |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Evaluation.Contracts** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+| **Ontogony.Execution** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 | **Ontogony.Hashing** |   |   |   | ✓ |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 | **Ontogony.Hosting** |   |   |   |   | ✓ |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   | ✓ |   |
 | **Ontogony.Http** |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   | ✓ |   |   |   |   |   |   |   |
@@ -98,7 +99,7 @@ Rows depend on columns. **✓** means the row package may `ProjectReference` the
 | **Ontogony.Security** |   |   |   | ✓ |   |   |   |   | ✓ |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |
 | **Ontogony.Testing** |   |   |   | ✓ | ✓ |   | ✓ |   | ✓ |   |   | ✓ | ✓ | ✓ |   | ✓ |   |   |   |   |   | ✓ |   |
 
-**Header abbreviations:** AI = AI.Contracts, Art = Artifacts, Cfg = Configuration, Con = Contracts, Err = Errors, Exe = Execution, Hash = Hashing, Hst = Hosting, Http = Http, Idem = Idempotency, Log = Logging, Msg = Messaging, Obs = Observability, Per = Persistence, Pg = Persistence.Postgres, Pri = Primitives, Ing = ProtocolIngress, Quo = Quotas, Rdc = Redaction, Rpl = Replay.Contracts, Scr = Secrets, Sec = Security, Tst = Testing.
+**Header abbreviations:** AI = AI.Contracts, Art = Artifacts, Cfg = Configuration, Con = Contracts, Err = Errors, Eva = Evaluation.Contracts, Exe = Execution, Hash = Hashing, Hst = Hosting, Http = Http, Idem = Idempotency, Log = Logging, Msg = Messaging, Obs = Observability, Per = Persistence, Pg = Persistence.Postgres, Pri = Primitives, Ing = ProtocolIngress, Quo = Quotas, Rdc = Redaction, Rpl = Replay.Contracts, Scr = Secrets, Sec = Security, Tst = Testing.
 
 The matrix matches `validate-package-levels.ps1`. When you add or change a `ProjectReference`, update **both** the script and this table.
 

@@ -1,6 +1,6 @@
 # Ontogony Packages — Reference
 
-This index describes all 23 NuGet packages and when to use each one.
+This index describes all 24 NuGet packages and when to use each one.
 
 **Planning vs shipped content:** coordination paths such as `_agent_prompts/`, `_issue_bodies/`, `docs/_incoming/`, and `.tmp/` live in the repo for humans and automation only. They must **never** appear inside published `.nupkg` archives; CI runs [`scripts/validate-nupkg-coordination-path-hygiene.ps1`](../../scripts/validate-nupkg-coordination-path-hygiene.ps1) after pack (see [PLAT-NP-004 spec](../planning/next-phase/pr-specs/PR-PLAT-NP-004-donor-incoming-package-hygiene.md)).
 
@@ -154,6 +154,29 @@ var run = await journal.GetRunAsync("run-1");
 **When to use:** When you need a shared wire format for debug bundles alongside LLM telemetry; adopt when request replay flows land.
 
 **Non-goals:** No execution engine, no guarantee of deterministic model output (see [package notes](Ontogony.Replay.Contracts.md)).
+
+---
+
+### `Ontogony.Evaluation.Contracts`
+
+**Purpose:** Mechanical DTOs for evaluation runs, per-scenario cases, raw metrics, scored outcomes, baseline comparisons, verdicts, and eval artifact references.
+
+**Provides:** `EvaluationRunRecord`, `EvaluationCaseRecord`, `EvaluationMetricRecord`, `EvaluationScoreRecord`, `BaselineComparisonRecord`, `EvaluationVerdictRecord`, `EvaluationArtifactRef` — opaque string vocabularies only.
+
+**When to use:** Recording or exchanging cross-repo eval evidence (Allagma harness, Conexus route evidence, Kanon policy links) before product-specific rubrics land in consumer repos.
+
+**Non-goals:** No eval harness, scoring policy, topology authorization, or model routing (see [package notes](Ontogony.Evaluation.Contracts.md)).
+
+**Example:**
+
+```csharp
+using Ontogony.Evaluation.Contracts;
+
+var run = new EvaluationRunRecord(
+    EvaluationRunId: "eval-run-1",
+    SubjectRunId: "run-1",
+    Verdict: new EvaluationVerdictRecord("pass", QualityScore: 0.92m));
+```
 
 ---
 
@@ -549,6 +572,7 @@ Do not rely on an informal ASCII tree here: it drifts from the real graph. **Aut
 | Secret refs / masks (no vault SDK) | `Ontogony.Secrets` | Host-specific secret stores |
 | Mechanical quotas / in-memory ledger | `Ontogony.Quotas` | External rate-limit appliances only |
 | Replay bundle DTOs (no engine) | `Ontogony.Replay.Contracts` | Product-specific debug formats |
+| Eval run / baseline DTOs (no harness) | `Ontogony.Evaluation.Contracts` | Product-specific eval JSON only |
 | Handle errors | `Ontogony.Errors` | — (required) |
 | Call other services | `Ontogony.Http` | `HttpClient` (not recommended) |
 | Authenticate | `Ontogony.Security` | — (required) |

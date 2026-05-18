@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <PackageId>Ontogony.Evaluation.Contracts</PackageId>
+    <Description>Provider-neutral evaluation run, metric, score, baseline comparison, and artifact reference contracts (contracts only, no eval engine).</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+</Project>

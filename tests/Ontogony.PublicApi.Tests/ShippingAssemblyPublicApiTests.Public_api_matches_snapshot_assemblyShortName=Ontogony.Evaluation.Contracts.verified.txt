@@ -1,0 +1,87 @@
+﻿namespace Ontogony.Evaluation.Contracts
+{
+    public sealed class BaselineComparisonRecord : System.IEquatable<Ontogony.Evaluation.Contracts.BaselineComparisonRecord>
+    {
+        public BaselineComparisonRecord(string ComparisonId, string SubjectRunId, string? BaselineRunId = null, string? ScenarioId = null, string? BaselineMode = null, decimal? QualityDelta = default, decimal? CostDeltaUsd = default, long? LatencyDeltaMs = default, bool? PolicyEquivalent = default, bool? SideEffectSafe = default, string? PromotionRecommendation = null) { }
+        public string? BaselineMode { get; init; }
+        public string? BaselineRunId { get; init; }
+        public string ComparisonId { get; init; }
+        public decimal? CostDeltaUsd { get; init; }
+        public long? LatencyDeltaMs { get; init; }
+        public bool? PolicyEquivalent { get; init; }
+        public string? PromotionRecommendation { get; init; }
+        public decimal? QualityDelta { get; init; }
+        public string? ScenarioId { get; init; }
+        public bool? SideEffectSafe { get; init; }
+        public string SubjectRunId { get; init; }
+    }
+    public sealed class EvaluationArtifactRef : System.IEquatable<Ontogony.Evaluation.Contracts.EvaluationArtifactRef>
+    {
+        public EvaluationArtifactRef(string ArtifactId, string? ContentHash = null, string? MediaType = null, string? Role = null, string? LocatorUri = null, long? SizeBytes = default) { }
+        public string ArtifactId { get; init; }
+        public string? ContentHash { get; init; }
+        public string? LocatorUri { get; init; }
+        public string? MediaType { get; init; }
+        public string? Role { get; init; }
+        public long? SizeBytes { get; init; }
+    }
+    public sealed class EvaluationCaseRecord : System.IEquatable<Ontogony.Evaluation.Contracts.EvaluationCaseRecord>
+    {
+        public EvaluationCaseRecord(string CaseId, string ScenarioId, string? EvaluationRunId = null, string? SubjectRunId = null, string? TraceId = null, Ontogony.Evaluation.Contracts.EvaluationVerdictRecord? Verdict = null, System.Collections.Generic.IReadOnlyList<Ontogony.Evaluation.Contracts.EvaluationScoreRecord>? Scores = null, System.Collections.Generic.IReadOnlyList<Ontogony.Evaluation.Contracts.EvaluationMetricRecord>? Metrics = null, System.Collections.Generic.IReadOnlyDictionary<string, string>? Metadata = null) { }
+        public string CaseId { get; init; }
+        public string? EvaluationRunId { get; init; }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string>? Metadata { get; init; }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.Evaluation.Contracts.EvaluationMetricRecord>? Metrics { get; init; }
+        public string ScenarioId { get; init; }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.Evaluation.Contracts.EvaluationScoreRecord>? Scores { get; init; }
+        public string? SubjectRunId { get; init; }
+        public string? TraceId { get; init; }
+        public Ontogony.Evaluation.Contracts.EvaluationVerdictRecord? Verdict { get; init; }
+    }
+    public sealed class EvaluationMetricRecord : System.IEquatable<Ontogony.Evaluation.Contracts.EvaluationMetricRecord>
+    {
+        public EvaluationMetricRecord(string MetricName, string? MetricKind = null, decimal? NumericValue = default, string? TextValue = null, string? Unit = null, string? SourceRef = null, System.DateTimeOffset? ObservedAtUtc = default) { }
+        public string? MetricKind { get; init; }
+        public string MetricName { get; init; }
+        public decimal? NumericValue { get; init; }
+        public System.DateTimeOffset? ObservedAtUtc { get; init; }
+        public string? SourceRef { get; init; }
+        public string? TextValue { get; init; }
+        public string? Unit { get; init; }
+    }
+    public sealed class EvaluationRunRecord : System.IEquatable<Ontogony.Evaluation.Contracts.EvaluationRunRecord>
+    {
+        public EvaluationRunRecord(string EvaluationRunId, string? SubjectRunId = null, string? TraceId = null, string? ScenarioId = null, string? EvaluationProfileId = null, System.DateTimeOffset? StartedAtUtc = default, System.DateTimeOffset? CompletedAtUtc = default, Ontogony.Evaluation.Contracts.EvaluationVerdictRecord? Verdict = null, System.Collections.Generic.IReadOnlyList<Ontogony.Evaluation.Contracts.EvaluationScoreRecord>? Scores = null, System.Collections.Generic.IReadOnlyList<Ontogony.Evaluation.Contracts.EvaluationCaseRecord>? Cases = null, System.Collections.Generic.IReadOnlyList<Ontogony.Evaluation.Contracts.EvaluationArtifactRef>? Artifacts = null, System.Collections.Generic.IReadOnlyDictionary<string, string>? Metadata = null) { }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.Evaluation.Contracts.EvaluationArtifactRef>? Artifacts { get; init; }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.Evaluation.Contracts.EvaluationCaseRecord>? Cases { get; init; }
+        public System.DateTimeOffset? CompletedAtUtc { get; init; }
+        public string? EvaluationProfileId { get; init; }
+        public string EvaluationRunId { get; init; }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string>? Metadata { get; init; }
+        public string? ScenarioId { get; init; }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.Evaluation.Contracts.EvaluationScoreRecord>? Scores { get; init; }
+        public System.DateTimeOffset? StartedAtUtc { get; init; }
+        public string? SubjectRunId { get; init; }
+        public string? TraceId { get; init; }
+        public Ontogony.Evaluation.Contracts.EvaluationVerdictRecord? Verdict { get; init; }
+    }
+    public sealed class EvaluationScoreRecord : System.IEquatable<Ontogony.Evaluation.Contracts.EvaluationScoreRecord>
+    {
+        public EvaluationScoreRecord(string MetricName, string? MetricKind = null, decimal? Score = default, bool? Passed = default, decimal? Threshold = default, string? Reason = null, string? SourceRef = null) { }
+        public string? MetricKind { get; init; }
+        public string MetricName { get; init; }
+        public bool? Passed { get; init; }
+        public string? Reason { get; init; }
+        public decimal? Score { get; init; }
+        public string? SourceRef { get; init; }
+        public decimal? Threshold { get; init; }
+    }
+    public sealed class EvaluationVerdictRecord : System.IEquatable<Ontogony.Evaluation.Contracts.EvaluationVerdictRecord>
+    {
+        public EvaluationVerdictRecord(string Verdict, decimal? QualityScore = default, string? Summary = null, System.Collections.Generic.IReadOnlyList<string>? Reasons = null) { }
+        public decimal? QualityScore { get; init; }
+        public System.Collections.Generic.IReadOnlyList<string>? Reasons { get; init; }
+        public string? Summary { get; init; }
+        public string Verdict { get; init; }
+    }
+}

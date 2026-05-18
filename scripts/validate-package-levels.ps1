@@ -14,6 +14,7 @@ $expectedRefs = [ordered]@{
     'Ontogony.Configuration'       = @()
     'Ontogony.Contracts'           = @('Ontogony.Primitives')
     'Ontogony.Errors'              = @('Ontogony.Observability')
+    'Ontogony.Evaluation.Contracts' = @()
     'Ontogony.Execution'           = @()
     'Ontogony.Hashing'             = @('Ontogony.Contracts')
     'Ontogony.Hosting'             = @('Ontogony.Errors', 'Ontogony.Observability', 'Ontogony.Security')

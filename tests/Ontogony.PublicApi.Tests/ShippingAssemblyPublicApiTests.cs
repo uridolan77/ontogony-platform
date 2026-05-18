@@ -4,6 +4,7 @@ using Ontogony.Artifacts;
 using Ontogony.Configuration;
 using Ontogony.Contracts.Events;
 using Ontogony.Errors;
+using Ontogony.Evaluation.Contracts;
 using Ontogony.Execution;
 using Ontogony.Hashing;
 using Ontogony.Hosting;
@@ -41,6 +42,7 @@ public class ShippingAssemblyPublicApiTests
         Add("Ontogony.Configuration", typeof(EnvironmentGuard).Assembly);
         Add("Ontogony.Contracts", typeof(OntogonyEnvelope<>).Assembly);
         Add("Ontogony.Errors", typeof(ApiError).Assembly);
+        Add("Ontogony.Evaluation.Contracts", typeof(EvaluationRunRecord).Assembly);
         Add("Ontogony.Execution", typeof(IExecutionJournal).Assembly);
         Add("Ontogony.Hashing", typeof(CanonicalJson).Assembly);
         Add("Ontogony.Hosting", typeof(OntogonyHostingExtensions).Assembly);
