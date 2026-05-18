@@ -1,7 +1,7 @@
 # OpenAPI and Provenance Plan
 
 ## Backend artifacts
-For each backend service: OpenAPI JSON, service name, repo, commit SHA, generatedAt, OpenAPI SHA-256 hash, contract version, and test evidence path.
+For each backend service: OpenAPI JSON, service name, repo, **sourceCommit** (last commit that changed the snapshot), **provenanceCommit** (commit that wrote the sidecar), generatedAt, **snapshotSha256** (canonical contract identity), contract version, and test evidence path. Legacy `commit` mirrors `sourceCommit`.
 
 ## Frontend artifacts
 Snapshot source repo, snapshot commit, snapshot hash, generated client version/date, frontend commit, and adapter test results.
