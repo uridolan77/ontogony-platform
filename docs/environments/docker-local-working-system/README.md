@@ -35,4 +35,8 @@ Script-based local operator sanity: `docs/environments/local-operator-sanity/` �
 
 ## Next implementation PR
 
-**ENV-DOCKER-002** — Dockerfiles and `.dockerignore` for allagma-dotnet, kanon-dotnet, conexus-dotnet, ontogony-frontend.
+**ENV-DB-001** — dedicated PostgreSQL DB bootstrap (init SQL, user/grant verification; no service seed rows; no full compose orchestration yet).
+
+## Completed
+
+**ENV-DOCKER-002** — Dockerfiles and `.dockerignore` merged in allagma-dotnet, kanon-dotnet, conexus-dotnet, ontogony-frontend (2026-05-19).

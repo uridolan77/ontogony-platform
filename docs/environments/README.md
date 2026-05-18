@@ -60,8 +60,9 @@ C:\dev\
 | ENV-CLOSEOUT-001 | **Done** — first working environment closeout | `ontogony-platform` |
 | ENV-REAL-PROVIDER-001 | Deferred (optional) | — |
 | ENV-DOCKER-001 | **Done** — Docker local working system plan | `ontogony-platform` |
-| **ENV-DOCKER-002** | **Next** — Dockerfiles + `.dockerignore` | `allagma-dotnet`, siblings |
-| ENV-DOCKER-002 … ENV-DOCKER-CLOSEOUT-001 | Planned | See `docker-local-working-system/00_MANIFEST.json` |
+| ENV-DOCKER-002 | **Done** — Dockerfiles + `.dockerignore` | `allagma-dotnet`, `kanon-dotnet`, `conexus-dotnet`, `ontogony-frontend` |
+| **ENV-DB-001** | **Next** — Postgres DB bootstrap | `ontogony-platform` compose tree |
+| ENV-SEED-001 … ENV-DOCKER-CLOSEOUT-001 | Planned | See `docker-local-working-system/00_MANIFEST.json` |
 
 Evidence:
 
