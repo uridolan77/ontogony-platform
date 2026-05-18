@@ -40,12 +40,20 @@ C:\dev\
 | PR | Status | Repo |
 | --- | --- | --- |
 | ENV-SETUP-001 | **Done** — workspace/settings docs | `ontogony-platform` |
-| ENV-SETUP-002 | Next — stack start/check scripts | `allagma-dotnet` |
-| ENV-RUN-001 … ENV-CLOSEOUT-001 | Planned | See `local-operator-sanity-package/03_PR_SEQUENCE.md` |
+| ENV-SETUP-002 | **Done** — stack start/check scripts | `allagma-dotnet` |
+| ENV-RUN-001 | **Done** — guided main flow | `allagma-dotnet` |
+| ENV-FE-001 | **Done** — frontend walkthrough | `ontogony-frontend` |
+| ENV-PG-001 | **Done** — optional Postgres durable mode | `allagma-dotnet` |
+| ENV-UI-001 | **Done** — ontogony-ui integration readiness | `ontogony-frontend` |
+| ENV-CLOSEOUT-001 | **Done** — first working environment closeout | `ontogony-platform` |
+| ENV-REAL-PROVIDER-001 | Deferred (optional) | — |
+| **ENV-DOCKER-LOCAL** | **Next** — Docker/Postgres local working system | See `allagma-dotnet/docs/environments/working-local-environment-complete-package/` |
 
 Evidence:
 
 - `docs/evidence/ENV_SETUP_001_LOCAL_OPERATOR_SANITY_DOCS.md`
+- `docs/evidence/ENV_CLOSEOUT_001_FIRST_WORKING_ENVIRONMENT.md`
+- Closeout: `docs/releases/FIRST_WORKING_ENVIRONMENT_CLOSEOUT.md`
 
 ## Boundary
 

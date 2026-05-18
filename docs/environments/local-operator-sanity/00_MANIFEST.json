@@ -29,6 +29,14 @@
     "ENV-REAL-PROVIDER-001 — optional backend-only real provider",
     "ENV-CLOSEOUT-001 — first working environment closeout"
   ],
+  "closeout": {
+    "status": "closed",
+    "date": "2026-05-19",
+    "gate": "ENV-CLOSEOUT-001",
+    "releaseDoc": "docs/releases/FIRST_WORKING_ENVIRONMENT_CLOSEOUT.md",
+    "evidence": "docs/evidence/ENV_CLOSEOUT_001_FIRST_WORKING_ENVIRONMENT.md",
+    "nextPhase": "ENV-DOCKER-LOCAL"
+  },
   "safety": [
     "Fake/local Conexus provider first",
     "No real external execution",

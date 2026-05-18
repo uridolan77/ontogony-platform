@@ -54,12 +54,14 @@ Items below are **accepted** for this program. They are not excuses to relax saf
 | Manual eval POST | `ManualWriteEnabled` + non-production only |
 | Secrets / raw prompts in UI or reports | Forbidden |
 
-## Next implementation PRs
+## Program status
 
-| PR | Repo | Delivers |
+Script-based local operator sanity is **closed** (ENV-CLOSEOUT-001, 2026-05-19). See `docs/releases/FIRST_WORKING_ENVIRONMENT_CLOSEOUT.md`.
+
+## Next major phase
+
+| Phase | Repo | Delivers |
 | --- | --- | --- |
-| ENV-SETUP-002 | `allagma-dotnet` | Start/check/stop scripts |
-| ENV-RUN-001 | `allagma-dotnet` | Guided main flow runner |
-| ENV-FE-001 | `ontogony-frontend` | Operator walkthrough |
-| ENV-PG-001 | `allagma-dotnet`, `conexus-dotnet` | Optional Postgres mode |
-| ENV-CLOSEOUT-001 | `ontogony-platform` | Program closeout evidence |
+| ENV-DOCKER-LOCAL | `allagma-dotnet` (+ siblings) | First Docker/Postgres local working system — start with `ENV-DOCKER-001` in `allagma-dotnet/docs/environments/working-local-environment-complete-package/` |
+
+Optional later: ENV-REAL-PROVIDER-001 (backend-only real provider smoke).
