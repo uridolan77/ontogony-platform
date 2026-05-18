@@ -1,6 +1,11 @@
 # Handoff to Eval-Basing
 
-This package intentionally stops before eval-basing.
+**Bridge status:** FBA2-000 through FBA2-007 **DONE** (2026-05-18).  
+**Eval-basing:** **READY** to start.
+
+Release scorecard: `07_evidence/FBA2-007_RELEASE_SCORECARD.md`
+
+This package intentionally stops before eval-basing implementation; the bridge deliverables below are complete.
 
 ## What eval-basing should consume from this bridge
 
