@@ -1,0 +1,28 @@
+{
+  "package": "backend-frontend-phase-v2-sandbox-evidence-alignment",
+  "generatedAt": "2026-05-18",
+  "status": "fresh plan package after Allagma P3-SB-005 and P3-SB-006 hygiene",
+  "targetRepos": [
+    "uridolan77/ontogony-platform",
+    "uridolan77/ontogony-frontend",
+    "uridolan77/allagma-dotnet",
+    "uridolan77/conexus-dotnet",
+    "uridolan77/kanon-dotnet"
+  ],
+  "primaryGoal": "Align frontend and backend contracts around Allagma Phase 3 sandbox evidence before starting eval-basing.",
+  "verifiedBackendSignals": {
+    "allagmaDashboardP3SB005": "DONE visible on main",
+    "allagmaP3EvidenceCommit": "c87f1d8b03b07a4178843705ef7af589089e55ce",
+    "sandboxAuditFallback": [
+      "sandbox.file:marker_relative_path",
+      "sandbox_file"
+    ],
+    "sandboxEvidenceRegression": "AuditBundle_SandboxEvidence_MarkerRelativePath_maps_from_sandbox_file_external_ref"
+  },
+  "principles": [
+    "No fake frontend functionality.",
+    "Limitation banners disappear only when backend route + OpenAPI + tests exist.",
+    "Operator evidence must be typed, redacted, traceable, and replay-aware.",
+    "This bridge prepares eval-basing; it does not implement eval-basing."
+  ]
+}
