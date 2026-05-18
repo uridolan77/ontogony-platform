@@ -1,0 +1,57 @@
+{
+  "program": "docker-local-working-system",
+  "spec": "ENV-DOCKER-001",
+  "generatedAt": "2026-05-19",
+  "purpose": "Canonical plan for the first Docker/Postgres local working Ontogony stack (compose, settings, DBs, seeds, operator flow).",
+  "planningSource": "allagma-dotnet/docs/environments/working-local-environment-complete-package/",
+  "priorProgram": {
+    "name": "local-operator-sanity",
+    "status": "closed",
+    "closeout": "docs/releases/FIRST_WORKING_ENVIRONMENT_CLOSEOUT.md"
+  },
+  "boundary": "First Dockerized local working system; not production readiness.",
+  "workspaceLayout": [
+    "C:\\dev\\ontogony-platform",
+    "C:\\dev\\allagma-dotnet",
+    "C:\\dev\\kanon-dotnet",
+    "C:\\dev\\conexus-dotnet",
+    "C:\\dev\\ontogony-frontend",
+    "C:\\dev\\ontogony-ui"
+  ],
+  "composeRoot": "docker/local-working-system",
+  "ports": {
+    "postgres": "localhost:5432 (planned; may use alternate host port to avoid conflicts)",
+    "kanon": "http://localhost:5081",
+    "conexus": "http://localhost:5082",
+    "allagma": "http://localhost:5083",
+    "frontend": "http://localhost:5175 or http://localhost:5080"
+  },
+  "prSequence": [
+    "ENV-DOCKER-001 — canonical plan (this tree)",
+    "ENV-DOCKER-002 — Dockerfiles and .dockerignore",
+    "ENV-DB-001 — Postgres DB bootstrap",
+    "ENV-SEED-001 — deterministic seed/bootstrap rows",
+    "ENV-COMPOSE-001 — Docker Compose orchestration",
+    "ENV-DOCKER-RUN-001 — Dockerized guided main flow",
+    "ENV-DOCKER-FE-001 — frontend Docker/local walkthrough",
+    "ENV-DOCKER-CLOSEOUT-001 — first Docker local system closeout"
+  ],
+  "safety": [
+    "Fake/local Conexus provider first",
+    "No real external execution on Allagma",
+    "No raw prompts/completions/secrets/provider keys in UI or reports",
+    "Manual eval POST only in Development with Allagma__Evaluation__ManualWriteEnabled=true",
+    "Development credentials only in compose env — never commit real secrets"
+  ],
+  "docs": {
+    "workspace": "01_WORKSPACE_LAYOUT.md",
+    "architecture": "02_TARGET_ARCHITECTURE.md",
+    "settings": "03_EXACT_SETTINGS.md",
+    "databases": "04_DATABASES_AND_SEEDS.md",
+    "compose": "05_DOCKER_COMPOSE_PLAN.md",
+    "mainFlow": "06_MAIN_USE_FLOW.md",
+    "acceptance": "07_ACCEPTANCE_CHECKLIST.md",
+    "troubleshooting": "08_TROUBLESHOOTING.md",
+    "limitations": "09_KNOWN_LIMITATIONS.md"
+  }
+}

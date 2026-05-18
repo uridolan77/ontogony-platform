@@ -1,21 +1,33 @@
 # Environment planning docs
 
-This folder holds planning packages and **canonical operator documentation** for local Ontogony environments. Planning packages are specs and stubs; `local-operator-sanity/` is the operator-facing doc set for the active program.
+This folder holds planning packages and **canonical operator documentation** for local Ontogony environments.
 
-## Active program — First working local operator environment
+## Active program — Docker local working system (ENV-DOCKER-LOCAL)
 
-**Canonical docs (operator-facing):**
+**Canonical plan (operator-facing):**
 
-- `docs/environments/local-operator-sanity/`
+- [`docs/environments/docker-local-working-system/`](docker-local-working-system/)
 
 Start with:
 
-- `local-operator-sanity/00_MANIFEST.json`
-- `local-operator-sanity/01_WORKSPACE_LAYOUT.md`
-- `local-operator-sanity/02_EXACT_SETTINGS.md`
-- `local-operator-sanity/03_MAIN_USE_FLOW.md`
+- `docker-local-working-system/00_MANIFEST.json`
+- `docker-local-working-system/02_TARGET_ARCHITECTURE.md`
+- `docker-local-working-system/03_EXACT_SETTINGS.md`
+- `docker-local-working-system/05_DOCKER_COMPOSE_PLAN.md`
 
-**Planning package (PR specs, prompts, script stubs):**
+**Implementation specs and stubs:**
+
+- `allagma-dotnet/docs/environments/working-local-environment-complete-package/`
+
+**Prior program (closed):** script-based local operator sanity — `local-operator-sanity/` + [FIRST_WORKING_ENVIRONMENT_CLOSEOUT.md](../releases/FIRST_WORKING_ENVIRONMENT_CLOSEOUT.md)
+
+## Closed program — Script-based local operator environment
+
+**Canonical docs:**
+
+- `docs/environments/local-operator-sanity/`
+
+**Planning package:**
 
 - `docs/environments/local-operator-sanity-package/`
 
@@ -47,13 +59,16 @@ C:\dev\
 | ENV-UI-001 | **Done** — ontogony-ui integration readiness | `ontogony-frontend` |
 | ENV-CLOSEOUT-001 | **Done** — first working environment closeout | `ontogony-platform` |
 | ENV-REAL-PROVIDER-001 | Deferred (optional) | — |
-| **ENV-DOCKER-LOCAL** | **Next** — Docker/Postgres local working system | See `allagma-dotnet/docs/environments/working-local-environment-complete-package/` |
+| ENV-DOCKER-001 | **Done** — Docker local working system plan | `ontogony-platform` |
+| **ENV-DOCKER-002** | **Next** — Dockerfiles + `.dockerignore` | `allagma-dotnet`, siblings |
+| ENV-DOCKER-002 … ENV-DOCKER-CLOSEOUT-001 | Planned | See `docker-local-working-system/00_MANIFEST.json` |
 
 Evidence:
 
 - `docs/evidence/ENV_SETUP_001_LOCAL_OPERATOR_SANITY_DOCS.md`
 - `docs/evidence/ENV_CLOSEOUT_001_FIRST_WORKING_ENVIRONMENT.md`
-- Closeout: `docs/releases/FIRST_WORKING_ENVIRONMENT_CLOSEOUT.md`
+- `docs/evidence/ENV_DOCKER_001_PLAN_EVIDENCE.md`
+- Closeout (script-based): `docs/releases/FIRST_WORKING_ENVIRONMENT_CLOSEOUT.md`
 
 ## Boundary
 
