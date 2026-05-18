@@ -132,7 +132,7 @@ $frontendPort = Get-DotEnvValue -Path $envFileToUse -Key "FRONTEND_HOST_PORT" -D
 Write-Host "Waiting for Docker local working system health ..."
 Wait-PostgresHealthy
 Wait-HttpHealthy -Name "kanon-api" -Url "http://localhost:$kanonPort/health" -ServiceName "kanon-api"
-Wait-HttpHealthy -Name "conexus-api" -Url "http://localhost:$conexusPort/health" -ServiceName "conexus-api"
+Wait-HttpHealthy -Name "conexus-api" -Url "http://localhost:$conexusPort/health/live" -ServiceName "conexus-api"
 Wait-HttpHealthy -Name "allagma-api" -Url "http://localhost:$allagmaPort/health" -ServiceName "allagma-api"
 
 if (-not $SkipFrontend) {

@@ -45,6 +45,13 @@ Allagma__Persistence__Mode=Postgres
 - Confirm fake/local provider bootstrap ran (ENV-SEED-001): `docker/local-working-system/scripts/seed-and-verify-local-working-system.ps1`.
 - Check Conexus logs for migration or project-key errors.
 
+## Conexus health vs readiness confusion
+
+- `wait-local-working-system.ps1` uses **Conexus liveness** (`/health/live`) for startup gating.
+- Conexus `/ready` is intentionally stricter and includes provider-credential consistency checks.
+- Before dev bootstrap (`POST /admin/v0/dev/bootstrap`), `/ready` can remain non-green even when liveness is healthy.
+- Do not add real provider keys to fix local startup probes; use fake/local bootstrap flow.
+
 ## Kanon migrations fail
 
 - Verify `Kanon__Persistence__Postgres__ConnectionString` (not `ConnectionStrings__Kanon`).

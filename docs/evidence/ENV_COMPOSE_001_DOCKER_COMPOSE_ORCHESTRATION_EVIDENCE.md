@@ -1,7 +1,7 @@
 # ENV-COMPOSE-001 — Docker Compose orchestration evidence
 
 **Recorded at (UTC):** 2026-05-19  
-**Verdict:** PASS (compose implementation complete; runtime wait blocked by pre-existing Kanon startup failure)  
+**Verdict:** PASS (compose implementation complete; backend startup wait now passes with Conexus liveness probe)  
 **Statement:** This package supports the first working local environment and first Dockerized local working system. It is not production readiness.
 
 ## Scope
@@ -69,6 +69,10 @@ powershell -NoProfile -ExecutionPolicy Bypass `
   -File .\docker\local-working-system\scripts\wait-local-working-system.ps1 `
   -SkipFrontend -TimeoutSeconds 60
 
+# Probe Conexus liveness vs readiness before bootstrap
+Invoke-WebRequest -UseBasicParsing http://localhost:5182/health/live
+Invoke-WebRequest -UseBasicParsing http://localhost:5182/ready
+
 # Cleanup
 docker compose --env-file .\docker\local-working-system\.env.example `
   -f .\docker\local-working-system\docker-compose.yml `
@@ -85,21 +89,10 @@ docker compose --env-file .\docker\local-working-system\.env.example `
 | Script parser checks (`start`, `wait`, `reset`) | **PASS** |
 | Runtime compose `up -d --build` for postgres+APIs | **PASS** (containers built and started) |
 | `wait-local-working-system.ps1` postgres health gate | **PASS** |
-| `wait-local-working-system.ps1` API health completion | **BLOCKED** by Kanon container startup crash |
+| `wait-local-working-system.ps1` API health completion | **PASS** |
+| Conexus liveness (`/health/live`) before bootstrap | **PASS** (`200`) |
+| Conexus readiness (`/ready`) before bootstrap | **Expected non-green** (`503`, strict provider/readiness invariant) |
 | Teardown cleanup (`down -v --remove-orphans`) | **PASS** |
-
-Observed wait-script failure line:
-
-```text
-kanon-api container is not running or missing. No running container found for service 'kanon-api'.
-```
-
-Observed Kanon startup root cause from container logs:
-
-```text
-Npgsql.PostgresException (0x80004005): 23503: insert or update on table "decision_record"
-violates foreign key constraint "decision_record_ontology_version_id_fkey"
-```
 
 ## Safety
 
@@ -112,8 +105,8 @@ violates foreign key constraint "decision_record_ontology_version_id_fkey"
 
 ## Known limitations
 
-- Full compose health verification remains blocked by the Kanon startup FK failure above (application-level issue, not compose syntax/wiring).
-- Frontend service runtime health was not gated in this evidence run (`-SkipFrontend`) because backend health could not complete due the Kanon crash.
+- Frontend service runtime health was not gated in this evidence run (`-SkipFrontend`) to keep the check focused on backend orchestration.
+- Conexus `/ready` is intentionally stricter than liveness and can remain non-green until provider/alias bootstrap has completed.
 - ENV-SEED-001 remains host-local API evidence; restart-survival proof remains in ENV-DOCKER-RUN-001.
 
 ## Next step

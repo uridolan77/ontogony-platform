@@ -153,6 +153,22 @@ function Invoke-EnvSeed001 {
     }
     Write-Host "PASS bootstrap: Conexus dev project + fake provider route."
 
+    $conexusReadinessStatusAfterBootstrap = $null
+    try {
+        $conexusReadyResponse = Invoke-WebRequest -Uri "$ConexusBaseUrl/ready" -UseBasicParsing -TimeoutSec 5
+        $conexusReadinessStatusAfterBootstrap = [int]$conexusReadyResponse.StatusCode
+        Write-Host "Conexus readiness after bootstrap: HTTP $conexusReadinessStatusAfterBootstrap"
+    }
+    catch {
+        if ($_.Exception.Response -and $_.Exception.Response.StatusCode) {
+            $conexusReadinessStatusAfterBootstrap = [int]$_.Exception.Response.StatusCode
+            Write-Host "Conexus readiness after bootstrap remains non-green: HTTP $conexusReadinessStatusAfterBootstrap"
+        }
+        else {
+            Write-Host "Conexus readiness after bootstrap check unavailable: $($_.Exception.Message)"
+        }
+    }
+
     $baselineRun = Start-AllagmaRun -Context @{ playerId = "123" } -Label "baseline(single_workflow)"
     $subjectRun = Start-AllagmaRun -Context @{ playerId = "123"; topologyOverride = "centralized_orchestrator" } -Label "subject(centralized_orchestrator)"
 
@@ -273,6 +289,7 @@ function Invoke-EnvSeed001 {
             alias = $bootstrap.alias
             providerKey = $bootstrap.providerKey
             warnings = @($bootstrap.warnings)
+            conexusReadinessStatusAfterBootstrap = $conexusReadinessStatusAfterBootstrap
         }
         runs = [ordered]@{
             baselineRunId = $baselineRun.runId

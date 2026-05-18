@@ -67,7 +67,7 @@ Wait for:
 ```text
 postgres healthy
 kanon-api     GET /health
-conexus-api   GET /health
+conexus-api   GET /health/live (liveness; readiness remains on /ready)
 allagma-api   GET /health
 ```
 
