@@ -1,0 +1,40 @@
+{
+  "package": "eval-full-sanity-alignment",
+  "generatedAt": "2026-05-18",
+  "alignmentPr": "ALIGN-EVAL-001",
+  "nextPr": "SYS-FULL-SANITY-001",
+  "principle": "Frontend consumes only OpenAPI-backed Allagma eval routes; limitation banners remain until a real backend capability exists.",
+  "targetRepos": [
+    "allagma-dotnet",
+    "ontogony-frontend",
+    "kanon-dotnet",
+    "conexus-dotnet",
+    "ontogony-platform"
+  ],
+  "repoHeads": {
+    "allagma-dotnet": "38e6b7c79aeac30d6db03d8fae02853f9354a8f6",
+    "ontogony-frontend": "61b111c57e30cf9dd2921cda6f197bc159a5ed0e",
+    "kanon-dotnet": "b4e1d34123534fcdd29dbfcb9aa294ab57ad9791",
+    "conexus-dotnet": "cb7860694e53b0abe8fe607ec5532d6734de73ae",
+    "ontogony-platform": "4754824e49d2fcd684cb408a930c30500d9cb8f8"
+  },
+  "completedPrerequisites": [
+    "EVAL-DUR-001",
+    "EVAL-CI-001",
+    "EVAL-QUALITY-001",
+    "EVAL-DATA-001",
+    "FE-EVAL-002",
+    "BE-POLISH-001",
+    "FE-POLISH-001"
+  ],
+  "files": [
+    "01_BACKEND_CONTRACT_SNAPSHOT.md",
+    "02_FRONTEND_CONSUMPTION_MATRIX.md",
+    "03_EVAL_DATASET_MATRIX.md",
+    "04_OPENAPI_PROVENANCE.md",
+    "05_CAPABILITY_LIMITATION_MATRIX.md",
+    "06_FULL_SANITY_TEST_PLAN.md",
+    "07_KNOWN_LIMITATIONS.md"
+  ],
+  "evidence": "docs/evidence/ALIGN_EVAL_001_EVAL_ALIGNMENT_REFRESH_EVIDENCE.md"
+}
