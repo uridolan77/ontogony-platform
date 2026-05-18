@@ -18,13 +18,15 @@ kanon_local    / kanon_local_pw
 conexus_local  / conexus_local_pw
 ```
 
-Bootstrap SQL stub (implementation: ENV-DB-001):
+Bootstrap SQL (ENV-DB-001):
 
 ```text
-allagma-dotnet/docs/environments/working-local-environment-complete-package/06_SCRIPT_STUBS/001-create-databases-and-users.sql
+ontogony-platform/docker/local-working-system/postgres/init/001-create-databases-and-users.sql
 ```
 
-Planned mount: `docker/local-working-system/postgres/init/` → `/docker-entrypoint-initdb.d`.
+Mount `postgres/init` read-only → `/docker-entrypoint-initdb.d` (first init only).
+
+Verify: `docker/local-working-system/scripts/verify-postgres-bootstrap.ps1 -Recreate`
 
 ## Migration responsibility
 

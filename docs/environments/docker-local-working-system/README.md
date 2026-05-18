@@ -35,8 +35,10 @@ Script-based local operator sanity: `docs/environments/local-operator-sanity/` �
 
 ## Next implementation PR
 
-**ENV-DB-001** — dedicated PostgreSQL DB bootstrap (init SQL, user/grant verification; no service seed rows; no full compose orchestration yet).
+**ENV-SEED-001** — deterministic seed/bootstrap rows after migrations (no raw schema dumps).
 
 ## Completed
 
 **ENV-DOCKER-002** — Dockerfiles and `.dockerignore` merged in allagma-dotnet, kanon-dotnet, conexus-dotnet, ontogony-frontend (2026-05-19).
+
+**ENV-DB-001** — Postgres init SQL and verify script in `docker/local-working-system/postgres/init/` (2026-05-19).

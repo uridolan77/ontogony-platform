@@ -46,7 +46,6 @@ Items below are **accepted** for v1. They are not excuses to relax safety gates.
 
 | PR | Delivers |
 | --- | --- |
-| ENV-DB-001 | Postgres init SQL in compose tree |
 | ENV-SEED-001 | Deterministic bootstrap rows |
 | ENV-COMPOSE-001 | Working `docker-compose.yml` |
 | ENV-DOCKER-RUN-001 | Dockerized guided main flow |

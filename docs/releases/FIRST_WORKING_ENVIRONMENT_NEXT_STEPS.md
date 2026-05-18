@@ -19,8 +19,8 @@ Recommended PR order (from package `07_PR_SEQUENCE.md`):
 | ---: | --- | --- |
 | 1 | ENV-DOCKER-001 | Canonical Docker local working system plan |
 | 2 | ENV-DOCKER-002 | Service Dockerfile readiness |
-| 3 | ENV-DB-001 | Dedicated Postgres DB bootstrap |
-| 4 | ENV-SEED-001 | Deterministic seed/bootstrap rows |
+| 3 | ENV-DB-001 | Dedicated Postgres DB bootstrap — **done** |
+| 4 | ENV-SEED-001 | Deterministic seed/bootstrap rows — **next** |
 | 5 | ENV-COMPOSE-001 | Docker Compose orchestration |
 | 6 | ENV-DOCKER-RUN-001 | Dockerized guided main flow |
 | 7 | ENV-DOCKER-FE-001 | Frontend Docker/local walkthrough |
