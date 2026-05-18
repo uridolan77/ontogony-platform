@@ -1,0 +1,36 @@
+{
+  "package": "ontogony-first-working-environment-package",
+  "generatedAt": "2026-05-18",
+  "purpose": "Plan and implement the first local working Ontogony environment with exact settings, PR sequence, scripts, guided run, and operator walkthrough.",
+  "workspaceLayout": [
+    "C:\\dev\\ontogony-platform",
+    "C:\\dev\\allagma-dotnet",
+    "C:\\dev\\kanon-dotnet",
+    "C:\\dev\\conexus-dotnet",
+    "C:\\dev\\ontogony-frontend",
+    "C:\\dev\\ontogony-ui"
+  ],
+  "ports": {
+    "kanon": "http://localhost:5081",
+    "conexus": "http://localhost:5082",
+    "allagma": "http://localhost:5083",
+    "frontend": "Vite/dev server"
+  },
+  "prSequence": [
+    "ENV-SETUP-001 \u2014 workspace/settings docs",
+    "ENV-SETUP-002 \u2014 stack start/check scripts",
+    "ENV-RUN-001 \u2014 guided main flow runner",
+    "ENV-FE-001 \u2014 guided frontend operator walkthrough",
+    "ENV-PG-001 \u2014 Postgres durable mode",
+    "ENV-UI-001 \u2014 ontogony-ui/frontend readiness",
+    "ENV-REAL-PROVIDER-001 \u2014 optional backend-only real provider",
+    "ENV-CLOSEOUT-001 \u2014 first working environment closeout"
+  ],
+  "safety": [
+    "First working local environment, not production readiness",
+    "Use fake/local Conexus provider first",
+    "No real external execution",
+    "No raw prompts/completions/secrets/provider keys in UI or reports",
+    "Manual eval POST only in Development with ManualWriteEnabled=true"
+  ]
+}
