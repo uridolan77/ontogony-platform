@@ -5,7 +5,7 @@ $ErrorActionPreference = 'Stop'
 
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 $srcRoot = Join-Path $repoRoot 'src'
-$expectedCount = 23
+$expectedCount = 25
 
 $dirs = @(Get-ChildItem -LiteralPath $srcRoot -Directory | Where-Object { $_.Name -like 'Ontogony.*' } | Sort-Object Name)
 $csprojs = [System.Collections.Generic.List[string]]::new()
