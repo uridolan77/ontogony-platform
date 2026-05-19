@@ -23,7 +23,8 @@ Production readiness                       NOT STARTED
 
 | Priority | Item | Why |
 | ---: | --- | --- |
-| **1** | `RP-HARDEN-001` | Fix guided-flow `selectedProviderKey` reporting bug; close token metric gaps on eval export |
+| **1** | `RP-HARDEN-001` | **DONE / PASS** — see [`docs/evidence/RP_HARDEN_001_REAL_PROVIDER_HARDENING_EVIDENCE.md`](../evidence/RP_HARDEN_001_REAL_PROVIDER_HARDENING_EVIDENCE.md) |
+| **2** | `PROD-READINESS-001` | Production readiness program (identity, TLS, DR, ops) — **not started** |
 
 ## Strategic next options (not mandates)
 
@@ -33,8 +34,8 @@ Production readiness                       NOT STARTED
 | 2 | `CLOUD-DEPLOY-001` | Cloud deployment program — **out of RP v1 scope** |
 | 3 | `COST-OBSERVABILITY-001` | Real token/cost accounting and operator dashboards |
 | 4 | `PROVIDER-MATRIX-001` | Additional provider/model validation matrix |
-| 5 | `RP-HARDEN-001` | Fix script reporting + eval route token fields |
-| 6 | `FRONTEND-LIVE-VERIFY-001` | Rebuilt Docker UI verification for RP-004 banners |
+| 5 | `RP-HARDEN-001` | **CLOSED / PASS** — script reporting + token/stream usage + frontend verification docs |
+| 6 | `FRONTEND-LIVE-VERIFY-001` | Optional deeper live Docker walkthrough beyond RP-HARDEN-001 operator rebuild note |
 
 ## Operator references (repeat local validation)
 

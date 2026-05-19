@@ -34,10 +34,10 @@ Including: development credentials, `VITE_*` compile-time injection, and InMemor
 
 | Limitation | Detail |
 | --- | --- |
-| Script reporting bug | Guided-flow JSON marks `realProvider.status=classified` despite successful Allagma real run because PowerShell probe object lacks `selectedProviderKey`; use eval `route_provider_key` and run status |
-| Token/cost metrics gap | `route_input_tokens` / `route_output_tokens` empty on eval metrics in RP-005 run; no cost totals in export |
+| Script reporting bug | **Addressed in RP-HARDEN-001** — guided-flow script now reads `providerKey` from `RouteDecisionRecord`; re-run script for updated JSON |
+| Token/cost metrics gap | **Narrowed in RP-HARDEN-001** — non-stream usage asserted; stream requests `include_usage` when provider returns terminal `usage`; metric `route_token_usage_available` when absent; RP-005 historical export may still show empty tokens |
 | Conexus execution-run lookup | Admin path returned **404** for model-call id used as request id; route evidence still on eval |
-| Docker UI banners | RP-004 source + E2E PASS; live container UI may need `docker compose build ontogony-frontend` |
+| Docker UI banners | RP-004 source + E2E PASS; **RP-HARDEN-001** documents `docker compose build ontogony-frontend` when container UI is stale |
 | Single-session proof | One controlled end-to-end PASS documented; not repeated across operators/machines |
 | TLS environment | RP-003A required Avast root CA inject in Docker runtime for this workstation |
 | Budget enforcement | Manual/script caps (≤3 calls, small model); not billing integration |
