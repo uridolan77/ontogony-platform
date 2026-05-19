@@ -55,4 +55,4 @@ npx playwright test e2e/fixture-live-boundary.spec.ts e2e/allagma-eval-dashboard
 
 | PR | Focus |
 | --- | --- |
-| `FE-TEST-REPLAY-001` | Replay/test improvements |
+| `FE-TEST-REPLAY-001` | DONE — `ontogony-frontend/docs/evidence/FE_TEST_REPLAY_001_REPLAY_TEST_EVIDENCE.md` |

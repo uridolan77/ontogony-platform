@@ -73,4 +73,4 @@ Fixture-only HTTP smoke (no guided report):
 | PR | Focus |
 | --- | --- |
 | `FE-AUDIT-FIXTURES-001` | Fixture/live boundary audit |
-| `FE-TEST-REPLAY-001` | Replay/test improvements |
+| `FE-TEST-REPLAY-001` | DONE — replay catalog + E2E |
