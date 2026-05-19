@@ -61,7 +61,9 @@ Evidence:
 
 **RCQ sweeps:** **DONE** (2026-05-19) — six-repo `RCQ-CODE-001` + `RCQ-DOCS-001`; closeout [`RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md`](../evidence/RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md).
 
-**Next step:** **`PRODUCT-MANUAL-QA-001`** — full guided operator acceptance package (see [`sequences/01_REPO_CLEANING_SEQUENCE.md`](repo-cleaning-documentation-manual-qa-prep-v1/sequences/01_REPO_CLEANING_SEQUENCE.md)).
+**`PRODUCT-MANUAL-QA-001`:** **DONE** (2026-05-19) — package published at [`docs/product-hardening/manual-guided-qa/`](manual-guided-qa/), evidence [`PRODUCT_MANUAL_QA_001_PACKAGE_EVIDENCE.md`](../evidence/PRODUCT_MANUAL_QA_001_PACKAGE_EVIDENCE.md).
+
+**Next step:** **`PRODUCT-MANUAL-QA-002`** — execute the manual guided QA package and record run results.
 
 ## Related (not superseded — different scope)
 

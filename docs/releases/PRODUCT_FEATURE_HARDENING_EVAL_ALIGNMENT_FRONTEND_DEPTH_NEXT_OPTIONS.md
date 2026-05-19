@@ -35,7 +35,7 @@ Before full manual guided QA, the six repos follow the **repo cleaning + documen
 | Unified documentation standard | [`docs/operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md`](../operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md) |
 | Platform docs index | [`docs/README.md`](../README.md) |
 
-`DOCS-STANDARD-001` and RCQ code/docs sweeps are **done** (2026-05-19) — see [`RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md`](../evidence/RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md). Next: `PRODUCT-MANUAL-QA-001` / `002`.
+`DOCS-STANDARD-001` and RCQ code/docs sweeps are **done** (2026-05-19) — see [`RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md`](../evidence/RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md). `PRODUCT-MANUAL-QA-001` package is **done** (2026-05-19) — [`PRODUCT_MANUAL_QA_001_PACKAGE_EVIDENCE.md`](../evidence/PRODUCT_MANUAL_QA_001_PACKAGE_EVIDENCE.md). Next: `PRODUCT-MANUAL-QA-002`.
 
 ## Remaining optional tracks
 

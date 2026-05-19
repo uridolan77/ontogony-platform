@@ -91,9 +91,9 @@ Cross-repo milestone closeouts: [`releases/`](releases/).
 | Package | Status | Path |
 | --- | --- | --- |
 | Eval / alignment / frontend depth v1 | **CLOSED / PASS** | [`product-hardening/eval-alignment-frontend-depth/`](product-hardening/eval-alignment-frontend-depth/) |
-| Repo cleaning / docs / manual QA prep v1 | **SWEEPS DONE** — manual QA next | [`product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/`](product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/) |
+| Repo cleaning / docs / manual QA prep v1 | **MANUAL QA PACKAGE DONE** — execution next | [`product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/`](product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/) |
 
-Index: [`product-hardening/README.md`](product-hardening/README.md). RCQ code + docs sweeps: **DONE** (2026-05-19) — closeout [`evidence/RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md`](evidence/RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md).
+Index: [`product-hardening/README.md`](product-hardening/README.md). RCQ code + docs sweeps: **DONE** (2026-05-19) — closeout [`evidence/RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md`](evidence/RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md). `PRODUCT-MANUAL-QA-001` package: **DONE** (2026-05-19) — [`evidence/PRODUCT_MANUAL_QA_001_PACKAGE_EVIDENCE.md`](evidence/PRODUCT_MANUAL_QA_001_PACKAGE_EVIDENCE.md).
 
 ---
 

@@ -318,7 +318,7 @@ DOCS-STANDARD-001 unified standard         DONE (this document)
 RCQ-CODE-001 per-repo code tightening      DONE (six repos; see RCQ closeout evidence)
 RCQ-DOCS-001 per-repo documentation sweep  DONE (six repos; see RCQ closeout evidence)
 RCQ-DOCS-FINAL-001 docs polish + closeout  DONE (route-doc fixes; program status)
-PRODUCT-MANUAL-QA-001 package              NOT STARTED
+PRODUCT-MANUAL-QA-001 package              DONE (manual-guided-qa package published)
 PRODUCT-MANUAL-QA-002 execution            NOT STARTED
 ```
 
@@ -360,3 +360,4 @@ cloud deployment, production identity/TLS/secrets, or unscoped runtime refactors
 | --- | --- |
 | 2026-05-19 | v1 published (`DOCS-STANDARD-001`) |
 | 2026-05-19 | §10 program sequence updated after RCQ sweeps + `RCQ-DOCS-FINAL-001` |
+| 2026-05-19 | §10 updated: `PRODUCT-MANUAL-QA-001` marked done; `002` next |

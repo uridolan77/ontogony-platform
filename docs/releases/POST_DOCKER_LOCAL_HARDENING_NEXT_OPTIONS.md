@@ -101,7 +101,7 @@ Most teams should **keep using the closed Docker-local stack daily** and choose 
 
 **Done:** `DOCS-STANDARD-001`, six-repo `RCQ-CODE-001` + `RCQ-DOCS-001`, `RCQ-DOCS-FINAL-001` closeout — [`RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md`](../evidence/RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md).
 
-**Next:** `PRODUCT-MANUAL-QA-001` / `002` (package + execution). **Not production readiness.**
+**Next:** `PRODUCT-MANUAL-QA-002` execution. `PRODUCT-MANUAL-QA-001` package is **done** (2026-05-19) — see [`../evidence/PRODUCT_MANUAL_QA_001_PACKAGE_EVIDENCE.md`](../evidence/PRODUCT_MANUAL_QA_001_PACKAGE_EVIDENCE.md). **Not production readiness.**
 
 ## Operator quick reference (unchanged)
 
