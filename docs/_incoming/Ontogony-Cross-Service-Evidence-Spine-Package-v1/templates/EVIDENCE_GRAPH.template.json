@@ -1,0 +1,15 @@
+{
+  "schema": "ontogony-evidence-graph-v1",
+  "root": {
+    "kind": "allagma.run",
+    "id": "run_..."
+  },
+  "nodes": [],
+  "edges": [],
+  "sources": [],
+  "completeness": {
+    "resolvedNodeCount": 0,
+    "unresolvedEdgeCount": 0
+  },
+  "warnings": []
+}
