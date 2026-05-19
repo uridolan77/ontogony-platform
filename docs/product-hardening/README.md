@@ -67,16 +67,20 @@ Manual guided QA package: [`docs/product-hardening/manual-guided-qa/`](manual-gu
 
 - `docs/_incoming/Ontogony-Real-Provider-Validation-Package-v1.zip`
 
-**First step:** **`RP-000`** — package setup (**DONE** 2026-05-19) — [`RP_000_PACKAGE_SETUP_EVIDENCE.md`](../evidence/RP_000_PACKAGE_SETUP_EVIDENCE.md)
+**Steps:**
 
-**Next after setup:** **`RP-001`** — secret, budget, and safety gates
+| Step | Status | Evidence |
+| --- | --- | --- |
+| `RP-000` package setup | **DONE** (2026-05-19) | [`RP_000_PACKAGE_SETUP_EVIDENCE.md`](../evidence/RP_000_PACKAGE_SETUP_EVIDENCE.md) |
+| `RP-001` secret, budget, safety gates | **DONE** (2026-05-19) | [`RP_001_SECRET_BUDGET_SAFETY_GATES_EVIDENCE.md`](../evidence/RP_001_SECRET_BUDGET_SAFETY_GATES_EVIDENCE.md) |
+| `RP-002` Conexus real-provider local mode | **Next** | — |
+
+**Operator policy:** [`docs/operators/REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md`](../operators/REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md)
 
 Start with:
 
-- `real-provider-validation-package-v1/00_MANIFEST.json`
-- `real-provider-validation-package-v1/01_EXECUTIVE_PLAN.md`
-- `real-provider-validation-package-v1/02_SECRET_AND_BUDGET_POLICY.md`
-- `real-provider-validation-package-v1/prompts/RP-001_SECRET_BUDGET_AND_SAFETY_GATES.md`
+- `real-provider-validation-package-v1/prompts/RP-002_CONEXUS_REAL_PROVIDER_LOCAL_MODE.md`
+- `conexus-dotnet/docs/development/REAL_PROVIDER_LOCAL_VALIDATION.md`
 
 ## Related (not superseded — different scope)
 
