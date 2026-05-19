@@ -7,9 +7,9 @@
 
 | Service | Liveness | Readiness | Notes |
 |---------|----------|-----------|-------|
-| Conexus (5083) | `/health`, `/health/live`, `/live` | `/ready` | Strict readiness may 503 while liveness OK |
+| Conexus (5082) | `/health`, `/health/live`, `/live` | `/ready` | Strict readiness may 503 while liveness OK |
 | Kanon (5081) | `/health` | `/ready` | No `/live` or `/health/live` |
-| Allagma (5082) | `/health` | `/ready` | No `/live` or `/health/live` |
+| Allagma (5083) | `/health` | `/ready` | No `/live` or `/health/live` |
 
 ## Docker-local Kanon domain packs
 
@@ -19,11 +19,15 @@ No Kanon image change required for Option A (frontend role header).
 
 ## Rebuild
 
+Use the orchestrator so `DOCKER_EXTRA_CA_CERT_BASE64` is injected when local TLS interception breaks `npm ci` in the UI build stage (see `PMQA002_002`):
+
 ```powershell
-cd C:\dev\ontogony-platform\docker\local-working-system
-docker compose build --no-cache ontogony-frontend
-docker compose up -d ontogony-frontend
+cd C:\dev\ontogony-platform
+.\docker\local-working-system\scripts\start-local-working-system.ps1 -Build
+# or: docker compose build ontogony-frontend && docker compose up -d ontogony-frontend
 ```
+
+**RCQ note:** A bare `docker compose build --no-cache ontogony-frontend` without CA injection can fail at `ontogony-ui` with `tsc: not found`; the running container may then still serve a **pre-003A** image until a successful rebuild.
 
 ## Acceptance checklist
 
