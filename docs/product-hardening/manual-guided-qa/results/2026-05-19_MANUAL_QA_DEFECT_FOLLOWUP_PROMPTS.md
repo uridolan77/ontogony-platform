@@ -16,7 +16,7 @@ execution recorded in `2026-05-19_FULL_MANUAL_QA_RESULTS.md`.
   - guided main flow + validation PASS,
   - required backend/frontend route probes PASS,
   - frontend inspect script PASS.
-- Remaining path is execution flow only: `PRODUCT-MANUAL-QA-002R1` full manual QA rerun.
+- `PRODUCT-MANUAL-QA-002R1` full rerun completed and PASS.
 
 ## Next execution prompts
 
@@ -36,11 +36,15 @@ Outcome:
 ### PRODUCT-MANUAL-QA-002R1 — full manual QA rerun
 
 ```text
-Execute the full PRODUCT-MANUAL-QA-002 checklist from fresh rebuilt stack/images only.
-Produce a new results artifact set and verdict independent from the blocked initial run.
+Status: DONE / PASS.
+
+Evidence:
+- docs/evidence/PRODUCT_MANUAL_QA_002R1_EXECUTION_EVIDENCE.md
+- docs/product-hardening/manual-guided-qa/results/2026-05-19_FULL_MANUAL_QA_RESULTS.md (R1 addendum)
+- docker/local-working-system/artifacts/manual-qa/2026-05-19/product-manual-qa-002r1-endpoint-probe.json
 ```
 
-## Defect prompts
+## Defect prompts (historical context)
 
 ### 1) Docker build trust chain blocker
 
@@ -158,4 +162,14 @@ Current gate state before rerun:
 - [x] `GET /allagma/v0/evaluations/baseline-comparisons` returns 200
 - [x] `GET /allagma/v0/evaluation-datasets` returns 200
 - [ ] Full checklist re-executed from fresh stack with new artifacts only
+- [x] Boundary preserved: not production readiness, no secrets in evidence
+
+Gate state after rerun:
+
+- [x] Fresh rebuild path succeeds (`start-local-working-system.ps1 -Build`)
+- [x] `GET /allagma/v0/evaluations` returns 200
+- [x] `GET /allagma/v0/evaluations/{evaluationRunId}/evidence` returns 200
+- [x] `GET /allagma/v0/evaluations/baseline-comparisons` returns 200
+- [x] `GET /allagma/v0/evaluation-datasets` returns 200
+- [x] Full checklist re-executed from fresh stack with new artifacts only
 - [x] Boundary preserved: not production readiness, no secrets in evidence

@@ -191,3 +191,46 @@ Existing frontend inspect script:
 - No stale-image/version-skew evidence remains in rebuilt-stack smoke.
 - Rebuild coherence gate is now satisfied.
 - Next step remains unchanged: run `PRODUCT-MANUAL-QA-002R1` full manual QA rerun from fresh rebuilt stack.
+
+## Addendum — PRODUCT-MANUAL-QA-002R1 rerun execution (2026-05-19)
+
+This addendum records the full rerun after PMQA002-001/002/003 completion.
+
+- Rerun status: **PASS**
+- Evidence:
+  - `docs/evidence/PRODUCT_MANUAL_QA_002R1_EXECUTION_EVIDENCE.md`
+  - `docker/local-working-system/artifacts/manual-qa/2026-05-19/product-manual-qa-002r1-endpoint-probe.json`
+
+### Fresh IDs captured (rerun)
+
+- `subjectRunId`: `run_51349d9077ac4c48a8fd6b44bf5fecb5`
+- `baselineRunId`: `run_be59dc3bf70646c19a91497441e14dd6`
+- `subjectEvaluationRunId`: `eval_cb125f2cd98c4d2ba31e205b9aafc8d2`
+- `baselineEvaluationRunId`: `eval_5218f5d3d28f481994a263be1008537a`
+- `baselineComparisonId`: `cmp_5f44bf81529c4a47a8ce3dae8d9094ed`
+- `subjectTopologyAuthorizationDecisionId`: `decision_172b9caad8b545be97298553192f05b3`
+- `subjectRouteDecisionId`: `rd-0HNLLPVKSUP2G-00000004`
+- `subjectTraceId`: `1fbf0978f83fc5cad6e97e4dabb7bbe8`
+
+### Rerun step verdicts
+
+| Step | Verdict | Route(s) tested | Notes |
+| --- | --- | --- | --- |
+| 01 Preconditions | PASS | repo and package checks | Executed from fresh rebuilt stack context |
+| 02 Start stack and seed | PASS | reset + build + wait + seed | Build/wait PASS; seed PASS after Allagma local migration apply |
+| 03 Guided main flow | PASS | run/eval/baseline flow | Guided main flow + validation PASS |
+| 04 Eval dashboard | PASS | `/allagma/evaluations` + API list | Frontend route `200`; backend list route `200` |
+| 05 Eval detail and export | PASS | eval detail + `/evidence` | Both backend routes returned `200`; frontend detail route `200` |
+| 06 Baseline comparison workbench | PASS | baseline list/detail routes | Backend list/detail `200`; frontend list/detail `200` |
+| 07 Scenario dataset surfaces | PASS | dataset list route/page | Backend dataset route `200`; frontend route `200` |
+| 08 Run detail evidence journey | PASS | run/events/evaluations routes | All run journey APIs returned `200` |
+| 09 Replay workbench | PASS | replay run/trace/decision modes | All replay SPA routes returned `200` |
+| 10 Trace / Conexus / Kanon links | PASS | Kanon + Conexus evidence routes | Kanon provenance and Conexus route decision probes `200` |
+| 11 Fixture/live/degraded states | PASS | fixture/live pages + inspect | Fixture/live pages `200`; frontend inspect script PASS |
+| 12 Export and evidence checks | PASS | artifact/report generation | Required rerun artifacts generated and validated |
+
+### Overall rerun verdict
+
+- `PRODUCT-MANUAL-QA-002R1`: **PASS**
+- Manual QA rerun acceptance conditions met on fresh rebuilt stack.
+- Boundary preserved: Docker-local hardening verification only, not production readiness.
