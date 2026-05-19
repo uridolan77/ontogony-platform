@@ -76,4 +76,4 @@ Artifact (local, not committed): `docker/local-working-system/artifacts/trace-co
 
 | PR | Focus |
 | --- | --- |
-| `FE-HARDEN-001` | Frontend hardening beyond walkthrough |
+| `FE-HARDEN-001` | DONE — Frontend hardening beyond walkthrough |

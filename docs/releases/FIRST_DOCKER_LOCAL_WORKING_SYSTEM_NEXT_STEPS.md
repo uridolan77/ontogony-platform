@@ -11,9 +11,9 @@ Post-closeout work is **explicitly separate** from the closeout criteria. Do not
 
 **Post-Docker-local hardening** — the minimal Docker-local closeout path is closed. The active decision is which hardening PR to run first.
 
-**Active PR:** `FE-HARDEN-001` — Frontend hardening beyond walkthrough.
+**Active PR:** `FE-AUDIT-FIXTURES-001` — Fixture/live boundary audit.
 
-**Completed:** `CONEXUS-PERSIST-001`–`003`, `KANON-OP-001`, `KANON-OP-002`, `TRACE-CONTRACT-001`.
+**Completed:** `CONEXUS-PERSIST-001`–`003`, `KANON-OP-001`, `KANON-OP-002`, `TRACE-CONTRACT-001`, `FE-HARDEN-001`.
 
 | Doc | Path |
 | --- | --- |
@@ -35,7 +35,7 @@ Sequence: `docs/environments/compose-to-docker-closeout-package-v2/01_PR_SEQUENC
 | 4 | `KANON-OP-001` | DONE — Operator-readable Kanon topology/decision evidence |
 | 5 | `KANON-OP-002` | DONE — Kanon operational diagnostics |
 | 6 | `TRACE-CONTRACT-001` | DONE — Cross-service trace/correlation contract |
-| 7 | `FE-HARDEN-001` | **active** — Frontend hardening beyond walkthrough |
+| 7 | `FE-HARDEN-001` | DONE — Frontend hardening beyond walkthrough |
 | 8 | `FE-AUDIT-FIXTURES-001` | Fixture/live boundary audit |
 | 9 | `FE-TEST-REPLAY-001` | Replay/test improvements |
 | 10 | `FE-HYGIENE-CONFIG-001` | Frontend config hygiene |

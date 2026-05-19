@@ -15,7 +15,7 @@ This closes the first Dockerized local working system. It is not production read
 
 Post-closeout hardening is separate from the closed Docker-local milestone.
 
-**Active:** **`KANON-OP-002`** — Kanon operational diagnostics.
+**Active:** none — post-closeout hardening in progress; next backlog item **`FE-AUDIT-FIXTURES-001`**.
 
 Planning detail: `docs/releases/FIRST_DOCKER_LOCAL_WORKING_SYSTEM_NEXT_STEPS.md`
 
@@ -27,9 +27,9 @@ Recommended order:
 | 2 | `CONEXUS-PERSIST-002` | DONE | Conexus migration/bootstrap validation |
 | 3 | `CONEXUS-PERSIST-003` | DONE | Conexus restart/durability regression checks |
 | 4 | `KANON-OP-001` | DONE | Operator-readable Kanon topology/decision evidence |
-| 5 | `KANON-OP-002` | **active** | Kanon operational diagnostics |
+| 5 | `KANON-OP-002` | DONE | Kanon operational diagnostics |
 | 6 | `TRACE-CONTRACT-001` | DONE | Cross-service trace/correlation contract |
-| 7 | `FE-HARDEN-001` | backlog | Frontend hardening beyond walkthrough |
+| 7 | `FE-HARDEN-001` | DONE | Frontend hardening beyond walkthrough |
 | 8 | `FE-AUDIT-FIXTURES-001` | backlog | Fixture/live boundary audit |
 | 9 | `FE-TEST-REPLAY-001` | backlog | Replay/test improvements |
 | 10 | `FE-HYGIENE-CONFIG-001` | backlog | Frontend config hygiene |

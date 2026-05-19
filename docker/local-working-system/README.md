@@ -342,6 +342,19 @@ cd C:\dev\ontogony-frontend
 Walkthrough: `ontogony-frontend/docs/development/DOCKER_LOCAL_OPERATOR_WALKTHROUGH.md`  
 Evidence: `ontogony-frontend/docs/evidence/ENV_DOCKER_FE_001_OPERATOR_WALKTHROUGH_EVIDENCE.md`
 
+## Frontend hardening (FE-HARDEN-001)
+
+Automated HTTP SPA checks + Playwright fixture/correlation coverage beyond the manual walkthrough:
+
+```powershell
+cd C:\dev\ontogony-frontend
+.\scripts\docker\inspect-docker-local-operator-frontend.ps1
+.\scripts\docker\validate-docker-local-operator-frontend-report.ps1
+```
+
+Contract: `ontogony-frontend/docs/operators/FRONTEND_DOCKER_LOCAL_CONTRACT.md`  
+Evidence: `ontogony-frontend/docs/evidence/FE_HARDEN_001_FRONTEND_HARDENING_EVIDENCE.md`
+
 ## Troubleshooting
 
 ### Conexus `/health/live` returns 404 but container is healthy

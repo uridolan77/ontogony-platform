@@ -70,3 +70,4 @@ Optional guided replay (after seed or guided flow):
 | `docs/system/SYSTEM_TRACE_CONTEXT_MATRIX.md` | allagma-dotnet |
 | `docs/integrations/IDEMPOTENCY_AND_TRACE_HEADERS.md` | kanon-dotnet |
 | `docs/environments/.../TRACE-CONTRACT-001.md` | ontogony-platform (acceptance spec) |
+| `ontogony-frontend/docs/operators/FRONTEND_DOCKER_LOCAL_CONTRACT.md` | ontogony-frontend (run detail UI checks) |
