@@ -11,9 +11,9 @@ Post-closeout work is **explicitly separate** from the closeout criteria. Do not
 
 **Post-Docker-local hardening** — the minimal Docker-local closeout path is closed. The active decision is which hardening PR to run first.
 
-**Active PR:** `UI-PACKAGING-STATUS-001` — `@ontogony/ui` packaging status.
+**Active PR:** `TERMINOLOGY-CLEANUP-001` — operator/doc terminology cleanup.
 
-**Completed:** `CONEXUS-PERSIST-001`–`003`, `KANON-OP-001`, `KANON-OP-002`, `TRACE-CONTRACT-001`, `FE-HARDEN-001`, `FE-AUDIT-FIXTURES-001`, `FE-TEST-REPLAY-001`, `FE-HYGIENE-CONFIG-001`.
+**Completed:** `CONEXUS-PERSIST-001`–`003`, `KANON-OP-001`, `KANON-OP-002`, `TRACE-CONTRACT-001`, `FE-HARDEN-001`, `FE-AUDIT-FIXTURES-001`, `FE-TEST-REPLAY-001`, `FE-HYGIENE-CONFIG-001`, `UI-PACKAGING-STATUS-001`.
 
 | Doc | Path |
 | --- | --- |
@@ -39,7 +39,7 @@ Sequence: `docs/environments/compose-to-docker-closeout-package-v2/01_PR_SEQUENC
 | 8 | `FE-AUDIT-FIXTURES-001` | DONE — Fixture/live boundary audit |
 | 9 | `FE-TEST-REPLAY-001` | DONE — Replay/test improvements |
 | 10 | `FE-HYGIENE-CONFIG-001` | DONE — Frontend config hygiene |
-| 11 | `UI-PACKAGING-STATUS-001` | `@ontogony/ui` packaging status |
+| 11 | `UI-PACKAGING-STATUS-001` | DONE — `@ontogony/ui` packaging status |
 | 12 | `TERMINOLOGY-CLEANUP-001` | Operator/doc terminology cleanup |
 
 ## Optional (not blocking)

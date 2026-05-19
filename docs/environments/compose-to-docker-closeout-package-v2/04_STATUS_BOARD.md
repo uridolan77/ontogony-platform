@@ -35,7 +35,7 @@ First Dockerized local working system: **CLOSED / PASS**. Not production readine
 | **FE-AUDIT-FIXTURES-001** | **DONE** | Fixture/live catalog + `fixtures:check` + E2E; `ontogony-frontend/docs/evidence/FE_AUDIT_FIXTURES_001_FIXTURE_LIVE_BOUNDARY_EVIDENCE.md` |
 | **FE-TEST-REPLAY-001** | **DONE** | Replay catalog + `replay:check` + E2E; `ontogony-frontend/docs/evidence/FE_TEST_REPLAY_001_REPLAY_TEST_EVIDENCE.md` |
 | **FE-HYGIENE-CONFIG-001** | **DONE** | `VITE_*` catalog + `config:check`; `ontogony-frontend/docs/evidence/FE_HYGIENE_CONFIG_001_FRONTEND_CONFIG_EVIDENCE.md` |
-| UI-PACKAGING-STATUS-001 | backlog | `@ontogony/ui` packaging status |
+| **UI-PACKAGING-STATUS-001** | **DONE** | `@ontogony/ui` packaging status — `ontogony-ui/docs/development/PACKAGING_STATUS.md`, `ontogony-ui/docs/evidence/UI_PACKAGING_STATUS_001_EVIDENCE.md` |
 | TERMINOLOGY-CLEANUP-001 | backlog | Operator/doc terminology cleanup |
 
 See `docs/releases/FIRST_DOCKER_LOCAL_WORKING_SYSTEM_NEXT_STEPS.md` and `01_PR_SEQUENCE.md`.

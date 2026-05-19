@@ -15,7 +15,7 @@ This closes the first Dockerized local working system. It is not production read
 
 Post-closeout hardening is separate from the closed Docker-local milestone.
 
-**Active:** none — post-closeout hardening in progress; next backlog item **`UI-PACKAGING-STATUS-001`**.
+**Active:** none — post-closeout hardening in progress; next backlog item **`TERMINOLOGY-CLEANUP-001`**.
 
 Planning detail: `docs/releases/FIRST_DOCKER_LOCAL_WORKING_SYSTEM_NEXT_STEPS.md`
 
@@ -33,7 +33,7 @@ Recommended order:
 | 8 | `FE-AUDIT-FIXTURES-001` | DONE | Fixture/live boundary audit — `ontogony-frontend/docs/evidence/FE_AUDIT_FIXTURES_001_FIXTURE_LIVE_BOUNDARY_EVIDENCE.md` |
 | 9 | `FE-TEST-REPLAY-001` | DONE | Replay/test improvements — `ontogony-frontend/docs/evidence/FE_TEST_REPLAY_001_REPLAY_TEST_EVIDENCE.md` |
 | 10 | `FE-HYGIENE-CONFIG-001` | DONE | Frontend config hygiene — `ontogony-frontend/docs/evidence/FE_HYGIENE_CONFIG_001_FRONTEND_CONFIG_EVIDENCE.md` |
-| 11 | `UI-PACKAGING-STATUS-001` | backlog | `@ontogony/ui` packaging status |
+| 11 | `UI-PACKAGING-STATUS-001` | DONE | `@ontogony/ui` packaging — `ontogony-ui/docs/development/PACKAGING_STATUS.md` |
 | 12 | `TERMINOLOGY-CLEANUP-001` | backlog | Operator/doc terminology cleanup |
 
 ## Optional later work

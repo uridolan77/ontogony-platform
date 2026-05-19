@@ -2,14 +2,19 @@
 
 ## Purpose
 
-Clarify ontogony-ui packaging status after closeout.
+Clarify `@ontogony/ui` packaging and integration status after Docker-local closeout and frontend hardening.
 
-## Timing
+## Status
 
-Post-`ENV-DOCKER-CLOSEOUT-001`.
+**DONE** (2026-05-19)
 
-Do not block first Docker-local closeout unless this item becomes a direct blocker.
+## Evidence
+
+| Repo | Doc |
+| --- | --- |
+| ontogony-ui | `docs/development/PACKAGING_STATUS.md`, `docs/evidence/UI_PACKAGING_STATUS_001_EVIDENCE.md` |
+| ontogony-frontend | `docs/development/ONTOGONY_UI_INTEGRATION.md`, `docs/evidence/UI_PACKAGING_STATUS_001_FRONTEND_INTEGRATION_EVIDENCE.md` |
 
 ## Boundary
 
-Hardening only. Not production readiness unless promoted into a dedicated production-readiness program.
+Documentation and verification only. Not production readiness. No npm registry publish.
