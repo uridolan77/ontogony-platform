@@ -39,10 +39,10 @@
 | ID | Classification | Severity | Route/Area | Expected | Actual |
 | --- | --- | --- | --- | --- | --- |
 | PMQA002-001 | blocking defect | high | stack build (`start-local-working-system.ps1 -Build`) | Build from current main should complete | Build failed during `dotnet restore` in Docker with `NU1301` TLS `PartialChain` to NuGet |
-| PMQA002-002 | product bug | high | `GET /allagma/v0/evaluations` | Route should exist and return list | `404 Not Found` |
-| PMQA002-003 | docs mismatch | high | `GET /allagma/v0/evaluations/{evaluationRunId}/evidence` | Route should exist per docs and preflight wording | `404 Not Found` in running stack |
-| PMQA002-004 | product bug | medium | `GET /allagma/v0/evaluations/baseline-comparisons` | List route should return comparisons | `404 Not Found` |
-| PMQA002-005 | product bug | medium | `GET /allagma/v0/evaluation-datasets` | Dataset list route should return data/empty | `404 Not Found` |
+| PMQA002-002 | inconclusive (possible version-skew) | high | `GET /allagma/v0/evaluations` | Route should exist and return list | `404 Not Found` in running stack after rebuild failure |
+| PMQA002-003 | docs/runtime mismatch (inconclusive until rebuild succeeds) | high | `GET /allagma/v0/evaluations/{evaluationRunId}/evidence` | Route should exist per docs and preflight wording | `404 Not Found` in running stack after rebuild failure |
+| PMQA002-004 | inconclusive (possible version-skew) | medium | `GET /allagma/v0/evaluations/baseline-comparisons` | List route should return comparisons | `404 Not Found` in running stack after rebuild failure |
+| PMQA002-005 | inconclusive (possible version-skew) | medium | `GET /allagma/v0/evaluation-datasets` | Dataset list route should return data/empty | `404 Not Found` in running stack after rebuild failure |
 | PMQA002-006 | operator usability improvement | low | manual QA automation | Single probe should capture all checklist states including export artifacts | Extra script-level probing needed due mixed route availability |
 
 ## Artifacts used (fresh)
@@ -68,5 +68,5 @@ or production identity/TLS/secrets posture.
 - Acceptance status: **not met** (every checklist executed, but export/list route failures and build blocker prevent PASS)
 - Next required actions:
   1. Fix Docker build certificate chain trust for NuGet (or provide approved internal feed/trust configuration).
-  2. Resolve Allagma route availability mismatch for `evaluations list`, `evidence export`, `baseline list`, and `dataset list`.
+  2. Rebuild current images successfully, then re-verify Allagma route availability for `evaluations list`, `evidence export`, `baseline list`, and `dataset list`.
   3. Re-run `PRODUCT-MANUAL-QA-002` from fresh stack after fixes.

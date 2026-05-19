@@ -24,28 +24,30 @@ Acceptance:
 - Root cause + remediation documented in operator docs.
 ```
 
-### 2) Missing Allagma evaluation list route
+### 2) Allagma evaluation list returned 404 (inconclusive)
 
 - ID: `PMQA002-002`
-- Classification: `product bug`
+- Classification: `inconclusive (possible version-skew)`
 - Severity: `high`
 - Route: `GET /allagma/v0/evaluations`
 - Prompt text:
 
 ```text
-Restore/implement `GET /allagma/v0/evaluations` so the global evaluation list
-contract is available in Docker-local runtime and matches current docs/frontend expectations.
+After Docker rebuild trust is fixed, verify whether
+`GET /allagma/v0/evaluations` is present in rebuilt current images.
+Current 404 was observed after rebuild failure and may indicate stale-image/version-skew.
 
 Acceptance:
-- Endpoint returns 200 with list payload (or explicit typed empty list).
-- Frontend `/allagma/evaluations` works in live mode without hidden fallback.
-- Contract verified by API test and manual QA probe.
+- Rebuilt stack (`start-local-working-system.ps1 -Build`) succeeds first.
+- Endpoint returns 200 with list payload (or explicit typed empty list) on rebuilt images,
+  or a source-backed route decision is documented.
+- Frontend `/allagma/evaluations` behavior is re-verified with fresh probe.
 ```
 
 ### 3) Eval evidence export route mismatch
 
 - ID: `PMQA002-003`
-- Classification: `docs mismatch` (possibly runtime bug)
+- Classification: `docs/runtime mismatch (inconclusive until rebuild succeeds)`
 - Severity: `high`
 - Route: `GET /allagma/v0/evaluations/{evaluationRunId}/evidence`
 - Prompt text:
@@ -54,44 +56,47 @@ Acceptance:
 Align runtime and docs for evaluation evidence export route.
 Current docs and preflight expect:
 `GET /allagma/v0/evaluations/{evaluationRunId}/evidence`
-but Docker-local runtime returned 404.
+but Docker-local runtime returned 404 after rebuild failure.
 
 Acceptance:
+- Rebuilt stack (`start-local-working-system.ps1 -Build`) succeeds first.
 - Either route is implemented and returns 200 for valid evaluation IDs,
   or docs/contracts/frontend are corrected consistently to the true route.
 - One canonical route only; no ambiguous dual wording.
 ```
 
-### 4) Missing baseline comparison list route
+### 4) Baseline comparison list returned 404 (inconclusive)
 
 - ID: `PMQA002-004`
-- Classification: `product bug`
+- Classification: `inconclusive (possible version-skew)`
 - Severity: `medium`
 - Route: `GET /allagma/v0/evaluations/baseline-comparisons`
 - Prompt text:
 
 ```text
-Restore/implement baseline comparison list route:
+After Docker rebuild trust is fixed, verify baseline comparison list route availability on rebuilt images:
 `GET /allagma/v0/evaluations/baseline-comparisons`.
 
 Acceptance:
+- Rebuilt stack (`start-local-working-system.ps1 -Build`) succeeds first.
 - Endpoint returns 200 with list payload and supports expected query shape.
 - Frontend baseline list page uses live route without degraded fallback by default.
 ```
 
-### 5) Missing evaluation dataset list route
+### 5) Evaluation dataset list returned 404 (inconclusive)
 
 - ID: `PMQA002-005`
-- Classification: `product bug`
+- Classification: `inconclusive (possible version-skew)`
 - Severity: `medium`
 - Route: `GET /allagma/v0/evaluation-datasets`
 - Prompt text:
 
 ```text
-Restore/implement evaluation dataset list route:
+After Docker rebuild trust is fixed, verify dataset list route availability on rebuilt images:
 `GET /allagma/v0/evaluation-datasets`.
 
 Acceptance:
+- Rebuilt stack (`start-local-working-system.ps1 -Build`) succeeds first.
 - Endpoint returns 200 with dataset list payload (or explicit typed empty response).
 - Frontend dataset route remains read-only and renders honest live state.
 ```

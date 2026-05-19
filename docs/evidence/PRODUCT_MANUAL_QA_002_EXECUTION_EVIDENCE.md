@@ -38,7 +38,8 @@ Execute the full manual guided QA package from `docs/product-hardening/manual-gu
    - trace correlation evidence PASS
    - Kanon topology evidence PASS
 6. Ran explicit endpoint probe across Allagma/Kanon/Conexus/frontend routes:
-   - Found multiple expected Allagma list/export routes returning `404`.
+   - Found multiple expected Allagma list/export routes returning `404` in the running stack.
+   - Because rebuild failed earlier, these `404`s are treated as inconclusive until rebuilt current images are verified.
 
 ## Key route outcomes
 
@@ -59,10 +60,10 @@ Execute the full manual guided QA package from `docs/product-hardening/manual-gu
 | ID | Classification | Severity | Summary |
 | --- | --- | --- | --- |
 | PMQA002-001 | blocking defect | high | Docker rebuild from current main fails due NuGet TLS trust (`PartialChain`) inside build containers |
-| PMQA002-002 | product bug | high | Missing Allagma eval list route (`GET /allagma/v0/evaluations` -> `404`) |
-| PMQA002-003 | docs mismatch | high | Documented eval evidence export route returns `404` in running stack |
-| PMQA002-004 | product bug | medium | Missing Allagma baseline list route (`404`) |
-| PMQA002-005 | product bug | medium | Missing Allagma dataset list route (`404`) |
+| PMQA002-002 | inconclusive (possible version-skew) | high | Allagma eval list route returned `404` in running stack after rebuild failure |
+| PMQA002-003 | docs/runtime mismatch (inconclusive until rebuild succeeds) | high | Documented eval evidence export route returned `404` in running stack after rebuild failure |
+| PMQA002-004 | inconclusive (possible version-skew) | medium | Allagma baseline list route returned `404` in running stack after rebuild failure |
+| PMQA002-005 | inconclusive (possible version-skew) | medium | Allagma dataset list route returned `404` in running stack after rebuild failure |
 
 ## Deliverables produced
 
