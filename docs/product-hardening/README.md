@@ -34,6 +34,26 @@ Evidence:
 
 Release pointer: [`PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH.md`](../releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH.md)
 
+## Active next package — Repo cleaning / documentation / manual QA prep (v1)
+
+**Product feature hardening v1 is closed.** The active next preparation package is:
+
+- [`docs/product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/`](repo-cleaning-documentation-manual-qa-prep-v1/)
+
+**Incoming ZIP (preserved):**
+
+- `docs/_incoming/Ontogony-Repo-Cleaning-Documentation-Manual-QA-Prep-v1.zip`
+
+Start with:
+
+- `repo-cleaning-documentation-manual-qa-prep-v1/00_MANIFEST.json`
+- `repo-cleaning-documentation-manual-qa-prep-v1/01_EXECUTIVE_PLAN.md`
+- `repo-cleaning-documentation-manual-qa-prep-v1/sequences/01_REPO_CLEANING_SEQUENCE.md`
+
+Evidence: [`RCQ_000_PACKAGE_SETUP_EVIDENCE.md`](../evidence/RCQ_000_PACKAGE_SETUP_EVIDENCE.md)
+
+**Next step after `RCQ-000`:** **`DOCS-STANDARD-001`** — unified documentation structure standard (`prompts/00-meta/DOCS-STANDARD-001_UNIFIED_DOCUMENTATION_STANDARD.md`).
+
 ## Related (not superseded — different scope)
 
 | Area | Path | Notes |
