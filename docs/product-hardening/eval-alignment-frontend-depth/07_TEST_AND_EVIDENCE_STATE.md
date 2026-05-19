@@ -61,7 +61,7 @@ Closeout: `allagma-dotnet/docs/releases/FIRST_FULL_SANITY_CLOSEOUT.md` (2026-05-
 | --- | --- |
 | `EVAL-PRODUCT-001` | New API/DTO tests if route added; OpenAPI + `openapi:check`; adapter tests for new list model |
 | `ALIGN-PRODUCT-001` | **Done:** `ALIGN_PRODUCT_001_CONTRACT_MATRIX_REFRESH_EVIDENCE.md`; matrix `04`; consumption matrix refresh |
-| `FE-PRODUCT-001` | Dashboard adapter + stable Playwright for filters/dimensions |
+| `FE-PRODUCT-001` | **Done:** `FE_PRODUCT_001_EVAL_DASHBOARD_V2_EVIDENCE.md`; filter e2e in `allagma-eval-dashboards.spec.ts` |
 | `EVAL-PRODUCT-002` | Comparison list/history tests if routes added |
 | `EVAL-PRODUCT-003` | Dataset matrix + fixture/live parity tests |
 | `EVAL-PRODUCT-004` | Scoring/calibration adapter + limitation copy tests |

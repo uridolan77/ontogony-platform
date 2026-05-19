@@ -4,7 +4,7 @@
 
 | Surface | Current base (audited) | Product-depth gap | Suggested PR |
 | --- | --- | --- | --- |
-| Eval dashboard | `EvaluationsOverviewPage` — cards, scenario matrix, trend panel, limitations card, live sample banner; fixture `ci-suite` | Filters (status, verdict, date), suite/dataset dimensions, comparison entry points, clear list semantics after EVAL-PRODUCT-001 | `FE-PRODUCT-001` (after `EVAL-PRODUCT-001`) |
+| Eval dashboard | **Closed (FE-PRODUCT-001):** filters, dimensions, comparison entries, results list, cursor hook; fixture client-side filters | Deeper pagination UX, saved views | `EVAL-PRODUCT-002` / follow-ups |
 | Eval run detail | `EvaluationRunDetailPage` — quality panel, fixture/live banners | Deeper metric/score breakdown, correlation links to run/trace/decision | `FE-PRODUCT-002` |
 | Run detail | `AllagmaRunEvalTopologyEvidenceSection` — eval + topology; link to evaluations | Integrated journey: run → evals → topology → Conexus route → replay | `FE-PRODUCT-002` |
 | Replay evidence | `ReplayEvidencePage` + `AllagmaReplayEvidenceWorkbench` — run/trace/decision modes; `@ontogony/ui` panels | Workbench lookup UX, limitation-aware actions, export, cross-links to eval/comparison | `FE-PRODUCT-003` |

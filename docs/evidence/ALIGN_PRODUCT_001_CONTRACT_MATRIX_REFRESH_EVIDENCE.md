@@ -87,4 +87,4 @@ dotnet test tests/Allagma.Tests/Allagma.Tests.csproj -c Release --filter "FullyQ
 
 ## Next step
 
-**FE-PRODUCT-001** — eval dashboard v2 per `02_PRODUCT_HARDENING_SEQUENCE.md`.
+**FE-PRODUCT-001** — eval dashboard v2 (see `FE_PRODUCT_001_EVAL_DASHBOARD_V2_EVIDENCE.md`).

@@ -4,8 +4,8 @@
 
 | Area | Current state (audited) | Product gap | Priority | Target PR | Not in scope |
 | --- | --- | --- | --- | --- | --- |
-| Eval list/query | **Closed (EVAL-PRODUCT-001):** `GET /allagma/v0/evaluations` + summary/page DTOs; per-run list retained | Filters/pagination depth, dataset/baseline metadata filters when sparse | **P1** | `FE-PRODUCT-001` | Analytics warehouse |
-| Eval dashboard | **Closed (EVAL-PRODUCT-001):** live mode uses global list; fixture `ci-suite` explicit | Dashboard v2 filters, suite/dataset dimensions UI | **P1** | `FE-PRODUCT-001` | Full BI dashboard |
+| Eval list/query | **Closed (EVAL-PRODUCT-001):** `GET /allagma/v0/evaluations` + summary/page DTOs; per-run list retained | Saved views, export | **P2** | — | Analytics warehouse |
+| Eval dashboard | **Closed (FE-PRODUCT-001):** filters, dimensions, comparison entries, results list | Saved views, richer pagination | **P2** | — | Full BI dashboard |
 | Eval detail | `GET /evaluations/{id}` + FE detail page | Richer verdict/quality/metric presentation; correlation IDs | **P1** | `FE-PRODUCT-002` | — |
 | Baseline comparison | POST create + GET by id; promotion rules in service | History, filters, drilldown, list route or documented deferral | **P1** | `EVAL-PRODUCT-002` | Enterprise reporting |
 | Scenario dataset | `docs/evals/datasets/scenario-dataset-v0/` + harness; 8 cases | HTTP dataset index and/or UI suite labels; fixture/live parity matrix | **P1** | `EVAL-PRODUCT-003` | Full dataset authoring UI (unless scoped) |

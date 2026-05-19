@@ -14,8 +14,8 @@
 
 | Limitation | Detail | PFH track |
 | --- | --- | --- |
-| Global eval list filters | `datasetId` / `baselineComparisonId` depend on evaluation metadata (sparse for manual writes) | Clarify in `FE-PRODUCT-001` |
-| Dashboard list limit | Live dashboard requests default limit 100; not full history | `FE-PRODUCT-001` |
+| Global eval list filters | `datasetId` / `baselineComparisonId` depend on evaluation metadata (sparse for manual writes) | Documented in filter UI (`FE-PRODUCT-001`) |
+| Dashboard list limit | Live dashboard requests default limit 100; cursor via URL `cursor` param | `Load next page` in FE-PRODUCT-001; full history still deferred |
 | Baseline comparison history | GET-by-id only in UI; no list/filter route | `EVAL-PRODUCT-002` |
 | Baseline create in UI | POST exists; harness/smoke only — no operator form | Documented (`ALIGN-PRODUCT-001`) |
 | Scenario datasets | Strong in `docs/evals/datasets/`; weak HTTP/UI index | `EVAL-PRODUCT-003` |
