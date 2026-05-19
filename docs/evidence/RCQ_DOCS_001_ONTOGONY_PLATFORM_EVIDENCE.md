@@ -72,4 +72,4 @@ git diff --name-only HEAD -- 'src/' '.github/' 'docker/' '*.cs' '*.csproj' '*.sl
 
 ## Next step
 
-**`RCQ-CODE-001`** on backend repos per [`01_REPO_CLEANING_SEQUENCE.md`](../product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/sequences/01_REPO_CLEANING_SEQUENCE.md) (typically `allagma-dotnet` first).
+**`RCQ-CODE-001`** completed on platform — see [`RCQ_CODE_001_ONTOGONY_PLATFORM_EVIDENCE.md`](./RCQ_CODE_001_ONTOGONY_PLATFORM_EVIDENCE.md). Sister-repo code sweeps completed 2026-05-19 — see [`RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md`](./RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md).

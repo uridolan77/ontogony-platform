@@ -125,4 +125,4 @@ Recorded for `RCQ-DOCS-001` planning — **not modified** in this item.
 
 **`RCQ-DOCS-001`** on `ontogony-platform` completed — see [`RCQ_DOCS_001_ONTOGONY_PLATFORM_EVIDENCE.md`](./RCQ_DOCS_001_ONTOGONY_PLATFORM_EVIDENCE.md).
 
-**`RCQ-CODE-001`** — per-repo code tightening (`prompts/<repo>/CODE_CLEANING_PROMPT.md`), starting with backend services per [`01_REPO_CLEANING_SEQUENCE.md`](../product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/sequences/01_REPO_CLEANING_SEQUENCE.md).
+**`RCQ-CODE-001`** — completed on all six repos (2026-05-19); platform: [`RCQ_CODE_001_ONTOGONY_PLATFORM_EVIDENCE.md`](./RCQ_CODE_001_ONTOGONY_PLATFORM_EVIDENCE.md); closeout: [`RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md`](./RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md).
