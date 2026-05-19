@@ -167,7 +167,7 @@ cd C:\dev\ontogony-platform
 .\docker\local-working-system\scripts\validate-conexus-persistence-bootstrap.ps1
 ```
 
-Report: `docker/local-working-system/artifacts/conexus-persist-002-report.json`
+Report: `docker/local-working-system/artifacts/conexus-persist-002-report.json` (local only; redacts passwords and API keys — no raw secrets).
 
 Options:
 

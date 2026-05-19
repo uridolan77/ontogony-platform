@@ -63,6 +63,31 @@ function Get-DotEnvValue {
     return $line.Matches[0].Groups[1].Value.Trim()
 }
 
+function Redact-SecretValue {
+    param([string]$Value)
+    if ([string]::IsNullOrWhiteSpace($Value)) { return "" }
+    if ($Value.Length -le 6) { return "***" }
+    return "$($Value.Substring(0, 3))***$($Value.Substring($Value.Length - 3))"
+}
+
+function Redact-ConnectionString {
+    param([string]$Value)
+    if ([string]::IsNullOrWhiteSpace($Value)) { return "" }
+    return ($Value -replace "Password=[^;]+", "Password=***")
+}
+
+function Get-ConnectionStringPart {
+    param(
+        [string]$ConnectionString,
+        [string]$Key,
+        [string]$DefaultValue
+    )
+    if ($ConnectionString -match "${Key}=([^;]+)") {
+        return $Matches[1].Trim()
+    }
+    return $DefaultValue
+}
+
 function Get-ComposeContainerId {
     param([string]$Service)
     $rawOutput = docker compose --env-file $envFileToUse -f $composeFile ps -q $Service 2>&1
@@ -93,13 +118,17 @@ function Invoke-HttpStatus {
 function Invoke-AdminPsql {
     param([string]$Query)
     $postgresId = Get-ComposeContainerId -Service "postgres"
-    $result = docker exec -e PGPASSWORD=ontogony_admin_pw $postgresId `
-        psql -U ontogony_admin -d postgres -tAc $Query 2>&1
+    $result = docker exec -e "PGPASSWORD=$script:PostgresAdminPassword" $postgresId `
+        psql -U $script:PostgresAdminUser -d $script:PostgresAdminDatabase -tAc $Query 2>&1
     if ($LASTEXITCODE -ne 0) {
         throw "Admin psql failed (exit $LASTEXITCODE): $result"
     }
     return ($result | Out-String).Trim()
 }
+
+$script:PostgresAdminUser = Get-DotEnvValue -Path $envFileToUse -Key "POSTGRES_USER" -DefaultValue "ontogony_admin"
+$script:PostgresAdminPassword = Get-DotEnvValue -Path $envFileToUse -Key "POSTGRES_PASSWORD" -DefaultValue "ontogony_admin_pw"
+$script:PostgresAdminDatabase = Get-DotEnvValue -Path $envFileToUse -Key "POSTGRES_DB" -DefaultValue "postgres"
 
 Write-Host "=== CONEXUS-PERSIST-002 Conexus persistence/bootstrap validation ==="
 Write-Host "Boundary: post-Docker-local hardening; not production readiness."
@@ -125,6 +154,9 @@ $conexusAdminKey = Get-DotEnvValue -Path $envFileToUse -Key "CONEXUS_ADMIN_API_K
 $conexusDevProjectKey = Get-DotEnvValue -Path $envFileToUse -Key "CONEXUS_DEV_PROJECT_API_KEY" -DefaultValue "cx-dev-key-change-me"
 $conexusAllagmaKey = Get-DotEnvValue -Path $envFileToUse -Key "CONEXUS_PROJECT_API_KEY_FOR_ALLAGMA" -DefaultValue "cx-dev-key-change-me"
 $conexusPostgresConn = Get-DotEnvValue -Path $envFileToUse -Key "CONEXUS_POSTGRES_CONNECTION_STRING" -DefaultValue "Host=postgres;Port=5432;Database=conexus_local;Username=conexus_local;Password=conexus_local_pw"
+$conexusDbUser = Get-ConnectionStringPart -ConnectionString $conexusPostgresConn -Key "Username" -DefaultValue "conexus_local"
+$conexusDbPassword = Get-ConnectionStringPart -ConnectionString $conexusPostgresConn -Key "Password" -DefaultValue "conexus_local_pw"
+$keysAligned = ($conexusDevProjectKey -eq $conexusAllagmaKey)
 
 # 2) /health/live
 $live = Invoke-HttpStatus -Url "$conexusBaseUrl/health/live"
@@ -173,10 +205,10 @@ catch {
 try {
     $postgresId = Get-ComposeContainerId -Service "postgres"
     $migrationSql = 'SELECT COUNT(*) FROM public."__EFMigrationsHistory";'
-    $migrationCount = ($migrationSql | docker exec -i -e PGPASSWORD=conexus_local_pw $postgresId `
-        psql -U conexus_local -d conexus_local -tA 2>&1 | Out-String).Trim()
-    $aliasTable = (docker exec -e PGPASSWORD=conexus_local_pw $postgresId `
-        psql -U conexus_local -d conexus_local -tAc "SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'conexus_model_alias';" 2>&1 | Out-String).Trim()
+    $migrationCount = ($migrationSql | docker exec -i -e "PGPASSWORD=$conexusDbPassword" $postgresId `
+        psql -U $conexusDbUser -d conexus_local -tA 2>&1 | Out-String).Trim()
+    $aliasTable = (docker exec -e "PGPASSWORD=$conexusDbPassword" $postgresId `
+        psql -U $conexusDbUser -d conexus_local -tAc "SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'conexus_model_alias';" 2>&1 | Out-String).Trim()
 
     if ([int]$migrationCount -gt 0 -and $aliasTable -eq "1") {
         Add-Check -Id "postgres.migrations" -Status "PASS" -Detail "EF migrations applied ($migrationCount rows in __EFMigrationsHistory; conexus_model_alias present)." -Data @{
@@ -204,10 +236,10 @@ try {
     }
     $hasConexusConn = $rendered -match "ConnectionStrings__ConexusPostgres" -or $rendered -match "CONEXUS_POSTGRES_CONNECTION_STRING"
     $hasAllagmaProjectKey = $rendered -match "Conexus__ProjectApiKey" -or $rendered -match "CONEXUS_PROJECT_API_KEY_FOR_ALLAGMA"
-  if ($hasConexusConn -and $hasAllagmaProjectKey) {
+    if ($hasConexusConn -and $hasAllagmaProjectKey) {
         Add-Check -Id "compose.render" -Status "PASS" -Detail "Rendered compose includes Conexus Postgres connection and Allagma Conexus__ProjectApiKey." -Data @{
             connectionStringConfigured = $true
-            conexusPostgresConnectionString = $conexusPostgresConn
+            allagmaProjectKeyConfigured = $true
         }
     }
     else {
@@ -219,16 +251,18 @@ catch {
 }
 
 # 7) Dev key alignment
-if ($conexusDevProjectKey -eq $conexusAllagmaKey) {
+if ($keysAligned) {
     Add-Check -Id "keys.aligned" -Status "PASS" -Detail "CONEXUS_DEV_PROJECT_API_KEY matches CONEXUS_PROJECT_API_KEY_FOR_ALLAGMA." -Data @{
-        devProjectApiKey = $conexusDevProjectKey
-        allagmaProjectApiKey = $conexusAllagmaKey
+        devProjectApiKeyConfigured = -not [string]::IsNullOrWhiteSpace($conexusDevProjectKey)
+        allagmaProjectApiKeyConfigured = -not [string]::IsNullOrWhiteSpace($conexusAllagmaKey)
+        keysAligned = $true
     }
 }
 else {
     Add-Check -Id "keys.aligned" -Status "FAIL" -Detail "Key mismatch: CONEXUS_DEV_PROJECT_API_KEY and CONEXUS_PROJECT_API_KEY_FOR_ALLAGMA must match unless both are intentionally overridden." -Data @{
-        devProjectApiKey = $conexusDevProjectKey
-        allagmaProjectApiKey = $conexusAllagmaKey
+        devProjectApiKeyConfigured = -not [string]::IsNullOrWhiteSpace($conexusDevProjectKey)
+        allagmaProjectApiKeyConfigured = -not [string]::IsNullOrWhiteSpace($conexusAllagmaKey)
+        keysAligned = $false
     }
 }
 
@@ -327,9 +361,18 @@ if ($UseExistingReports) {
     elseif (Test-Path -LiteralPath $seedReportPath) {
         $seed = Get-Content -Raw -LiteralPath $seedReportPath | ConvertFrom-Json
         $routeEvidence.source = "env-seed-001-report.json"
-        if ($seed.PSObject.Properties.Name -contains "runs") {
-            $routeEvidence.baselineRouteDecisionId = $seed.runs.baseline.routeDecisionId
-            $routeEvidence.subjectRouteDecisionId = $seed.runs.subject.routeDecisionId
+
+        if ($seed.PSObject.Properties.Name -contains "routeEvidence") {
+            $routeEvidence.baselineRouteDecisionId = $seed.routeEvidence.baselineRouteDecisionId
+            $routeEvidence.subjectRouteDecisionId = $seed.routeEvidence.subjectRouteDecisionId
+        }
+        elseif ($seed.PSObject.Properties.Name -contains "runs") {
+            if ($seed.runs.PSObject.Properties.Name -contains "baseline") {
+                $routeEvidence.baselineRouteDecisionId = $seed.runs.baseline.routeDecisionId
+            }
+            if ($seed.runs.PSObject.Properties.Name -contains "subject") {
+                $routeEvidence.subjectRouteDecisionId = $seed.runs.subject.routeDecisionId
+            }
         }
     }
 }
@@ -359,10 +402,11 @@ $report = [ordered]@{
         envFile = $envFileToUse
     }
     configuration = [ordered]@{
-        conexusPostgresConnectionString = $conexusPostgresConn
-        conexusDevProjectApiKey = $conexusDevProjectKey
-        conexusProjectApiKeyForAllagma = $conexusAllagmaKey
-        keysAligned = ($conexusDevProjectKey -eq $conexusAllagmaKey)
+        conexusPostgresConnectionStringConfigured = -not [string]::IsNullOrWhiteSpace($conexusPostgresConn)
+        conexusPostgresConnectionStringRedacted = Redact-ConnectionString $conexusPostgresConn
+        conexusDevProjectApiKeyConfigured = -not [string]::IsNullOrWhiteSpace($conexusDevProjectKey)
+        conexusProjectApiKeyForAllagmaConfigured = -not [string]::IsNullOrWhiteSpace($conexusAllagmaKey)
+        keysAligned = $keysAligned
     }
     readiness = [ordered]@{
         beforeBootstrap = $ready
@@ -370,7 +414,18 @@ $report = [ordered]@{
     }
     bootstrap = [ordered]@{
         invoked = $bootstrapInvoked
-        response = $bootstrapResponse
+        response = if ($null -eq $bootstrapResponse) {
+            $null
+        }
+        else {
+            [ordered]@{
+                projectId = $bootstrapResponse.projectId
+                alias = $bootstrapResponse.alias
+                providerKey = $bootstrapResponse.providerKey
+                warnings = @($bootstrapResponse.warnings)
+                apiKeyIssued = -not [string]::IsNullOrWhiteSpace([string]$bootstrapResponse.apiKey)
+            }
+        }
     }
     checks = @($checks)
     warnings = @($warnings)

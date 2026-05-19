@@ -42,6 +42,10 @@ docs/evidence/CONEXUS_PERSIST_002_VALIDATION_EVIDENCE.md
 | 9 | Route/model evidence from guided/seed report | WARN if missing; FAIL with `-RequireRouteEvidence` |
 | 10 | JSON report under `artifacts/conexus-persist-002-report.json` | yes |
 
+## Report redaction
+
+The JSON report must not contain raw API keys or connection-string passwords. It records configured booleans, `keysAligned`, and a redacted connection string (`Password=***`). Bootstrap responses omit raw `apiKey` values (`apiKeyIssued` boolean only).
+
 ## Script parameters
 
 | Parameter | Default | Meaning |

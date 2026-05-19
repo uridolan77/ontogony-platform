@@ -6,7 +6,7 @@
 
 ## Scope
 
-Add `validate-conexus-persistence-bootstrap.ps1` and supporting docs for repeatable Conexus Docker-local persistence/bootstrap checks. No runtime source changes in service repos; no workflows or secrets.
+Add `validate-conexus-persistence-bootstrap.ps1` and supporting docs for repeatable Conexus Docker-local persistence/bootstrap checks. No runtime source changes in service repos; no workflows or secrets committed.
 
 ## Delivered
 
@@ -20,52 +20,83 @@ docs/releases/FIRST_DOCKER_LOCAL_WORKING_SYSTEM_NEXT_STEPS.md
 docs/evidence/CONEXUS_PERSIST_002_VALIDATION_EVIDENCE.md
 ```
 
+## Report redaction
+
+The JSON report under `docker/local-working-system/artifacts/conexus-persist-002-report.json` is a local operator artifact. It must **not** contain raw API keys or connection-string passwords.
+
+The script records:
+
+- configured booleans for keys and connection strings
+- `keysAligned` boolean
+- `conexusPostgresConnectionStringRedacted` with `Password=***`
+- bootstrap response metadata only (`apiKeyIssued` boolean, no raw `apiKey`)
+
+Postgres admin credentials are read from `POSTGRES_USER` / `POSTGRES_PASSWORD` / `POSTGRES_DB` in `.env` / `.env.example` (not hardcoded in the script).
+
 ## Prerequisites
 
 - Docker local working system running (`docker compose ps` shows `conexus-api`, `postgres` healthy).
-- Prior guided flow artifacts optional but present on validation host (`docker-guided-main-flow-report.json`).
+- Prior guided flow or seed artifacts optional; required when using `-RequireRouteEvidence`.
 
 ## Commands run
 
 ```powershell
 cd C:\dev\ontogony-platform
 .\docker\local-working-system\scripts\validate-conexus-persistence-bootstrap.ps1
-Get-Content .\docker\local-working-system\artifacts\conexus-persist-002-report.json |
-  ConvertFrom-Json | Select-Object schema, verdict, @{n='checks';e={$_.checks.Count}}
+.\docker\local-working-system\scripts\validate-conexus-persistence-bootstrap.ps1 -RequireRouteEvidence
+
+# Confirm report contains no raw secrets
+Select-String -Path .\docker\local-working-system\artifacts\conexus-persist-002-report.json `
+  -Pattern 'cx-dev-key-change-me|cx-conexus-admin-dev|conexus_local_pw|ontogony_admin_pw'
+# Expected: no matches
 ```
 
 ## Results
 
 | Check | Result |
 | --- | --- |
-| Script exit code | **0** |
+| Script exit code (default) | **0** |
+| Script exit code (`-RequireRouteEvidence`) | **0** |
 | Report verdict | **PASS** |
+| Raw keys/passwords in report | **none** (grep confirmed) |
 | `stack.reachable` | PASS |
 | `conexus.health.live` | PASS (HTTP 200) |
-| `conexus.ready.captured` | INFO (HTTP 503 — expected; strict readiness) |
+| `conexus.ready.captured` | INFO (HTTP 503 — expected strict readiness) |
 | `postgres.conexus_local` | PASS |
-| `postgres.migrations` | PASS (11 migration rows; `conexus_model_alias` present) |
+| `postgres.migrations` | PASS |
 | `compose.render` | PASS |
-| `keys.aligned` | PASS (`cx-dev-key-change-me` both sides) |
-| `bootstrap.state` | PASS (fake provider + `gpt-4o-mini` alias detected; bootstrap not invoked) |
+| `keys.aligned` | PASS |
+| `bootstrap.state` | PASS |
 | `route.evidence` | PASS (from `docker-guided-main-flow-report.json`) |
 | Production readiness claimed | **no** |
 
-Sample route evidence IDs from report:
+Sample redacted configuration from report:
 
-```text
-baselineRouteDecisionId: rd-0HNLL7I92B7KF-00000001
-subjectRouteDecisionId: rd-0HNLL7I92B7KF-00000002
+```json
+"configuration": {
+  "conexusPostgresConnectionStringConfigured": true,
+  "conexusPostgresConnectionStringRedacted": "Host=postgres;Port=5432;Database=conexus_local;Username=conexus_local;Password=***",
+  "conexusDevProjectApiKeyConfigured": true,
+  "conexusProjectApiKeyForAllagmaConfigured": true,
+  "keysAligned": true
+}
 ```
+
+## Seed report route-evidence fallback
+
+The validator reads route IDs from:
+
+1. `docker-guided-main-flow-report.json` (`baselineRouteDecisionId` / `subjectRouteDecisionId`)
+2. `env-seed-001-report.json` — `routeEvidence.*` (current seed schema) or legacy `runs.baseline` / `runs.subject`
 
 ## Validation checks (repo diff)
 
 | Check | Result |
 | --- | --- |
-| No `src/` changes in service repos | **yes** |
+| No service `src/` changes | **yes** |
 | No workflow changes | **yes** |
 | No secrets committed | **yes** |
-| JSON report under `artifacts/` (local, not committed) | **yes** |
+| JSON report local only (not committed) | **yes** |
 
 ## Safety
 
@@ -73,7 +104,7 @@ subjectRouteDecisionId: rd-0HNLL7I92B7KF-00000002
 | --- | --- |
 | Fake/local provider only | **yes** |
 | Real external execution | **disabled** |
-| Dev bootstrap auto-invoke optional | **yes** (`-SkipBootstrap` / `-InvokeBootstrap`) |
+| Report redacts secrets | **yes** |
 
 ## Follow-up
 
