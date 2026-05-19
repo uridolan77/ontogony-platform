@@ -10,18 +10,27 @@ execution recorded in `2026-05-19_FULL_MANUAL_QA_RESULTS.md`.
 - Previous `404` observations are reclassified as stale-image/version-skew caused by rebuild failure.
 - `PMQA002-002` frontend scope completed: full-stack `start-local-working-system.ps1 -Build` now succeeds including `ontogony-frontend`.
 - Frontend Docker-local SPA route probes on rebuilt image return `200` for `/`, `/allagma/evaluations`, `/allagma/evaluations/baseline-comparisons`, `/allagma/evaluations/datasets`, `/allagma/replay`.
-- Remaining path is execution flow, not blocker remediation: `PMQA002-003` rebuilt-stack smoke and `PRODUCT-MANUAL-QA-002R1` rerun.
+- `PMQA002-003` rebuilt-stack smoke completed and PASS:
+  - reset + full rebuild + wait PASS,
+  - seed/bootstrap PASS,
+  - guided main flow + validation PASS,
+  - required backend/frontend route probes PASS,
+  - frontend inspect script PASS.
+- Remaining path is execution flow only: `PRODUCT-MANUAL-QA-002R1` full manual QA rerun.
 
 ## Next execution prompts
 
 ### PMQA002-003 — full rebuilt stack route/UI smoke
 
 ```text
-Run a narrow rebuilt-stack smoke after PMQA002-001 and PMQA002-002 fixes:
-- Verify compose build/start from current main succeeds.
-- Re-probe Allagma evaluation routes and frontend SPA routes.
-- Confirm no stale image/version-skew remains.
-- Export a compact smoke evidence bundle for rerun gate.
+Status: DONE / PASS.
+
+Evidence:
+- docs/evidence/PMQA002_003_FULL_REBUILT_STACK_SMOKE_EVIDENCE.md
+
+Outcome:
+- Rebuilt-stack smoke gate satisfied.
+- No stale image/version-skew evidence remained in required probes.
 ```
 
 ### PRODUCT-MANUAL-QA-002R1 — full manual QA rerun
@@ -140,3 +149,13 @@ Do not mark rerun as PASS until all are true:
 - [ ] `GET /allagma/v0/evaluation-datasets` returns 200
 - [ ] Full checklist re-executed from fresh stack with new artifacts only
 - [ ] Boundary preserved: not production readiness, no secrets in evidence
+
+Current gate state before rerun:
+
+- [x] Fresh rebuild path succeeds (`start-local-working-system.ps1 -Build`)
+- [x] `GET /allagma/v0/evaluations` returns 200
+- [x] `GET /allagma/v0/evaluations/{evaluationRunId}/evidence` returns 200
+- [x] `GET /allagma/v0/evaluations/baseline-comparisons` returns 200
+- [x] `GET /allagma/v0/evaluation-datasets` returns 200
+- [ ] Full checklist re-executed from fresh stack with new artifacts only
+- [x] Boundary preserved: not production readiness, no secrets in evidence

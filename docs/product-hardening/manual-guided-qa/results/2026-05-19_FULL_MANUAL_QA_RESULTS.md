@@ -142,3 +142,52 @@ This addendum records the frontend Docker build blocker resolution. Prior histor
 
 - Previous frontend blocker (`tsc not found`) is resolved.
 - Manual QA remains pending rerun (`PRODUCT-MANUAL-QA-002R1`) to produce a fresh end-to-end execution package on rebuilt images.
+
+## Addendum — PMQA002-003 rebuilt-stack smoke verification (2026-05-19)
+
+This addendum records rebuilt-stack smoke execution prior to full checklist rerun.
+
+- `PMQA002-003` status: **implemented / PASS**
+- Evidence: `docs/evidence/PMQA002_003_FULL_REBUILT_STACK_SMOKE_EVIDENCE.md`
+
+### Smoke execution verdict
+
+- Fresh Docker-local reset + full rebuild succeeded:
+  - `reset-local-working-system.ps1 -Force`
+  - `start-local-working-system.ps1 -Build`
+  - `wait-local-working-system.ps1`
+- Seed/bootstrap and guided main flow both passed on rebuilt stack:
+  - `seed-and-verify-local-working-system.ps1` -> PASS
+  - `run-docker-guided-main-flow.ps1` -> PASS
+  - `validate-docker-guided-main-flow.ps1` -> PASS
+- Guided-flow restart durability remained PASS after `allagma-api` restart.
+
+### Required route/UI probes
+
+Backend (with required Allagma Bearer token):
+
+- `GET http://localhost:5083/health` -> `200`
+- `GET http://localhost:5083/allagma/v0/evaluations` -> `200`
+- `GET http://localhost:5083/allagma/v0/evaluations/{evaluationRunId}/evidence` -> `200`
+- `GET http://localhost:5083/allagma/v0/evaluations/baseline-comparisons` -> `200`
+- `GET http://localhost:5083/allagma/v0/evaluation-datasets` -> `200`
+- `GET http://localhost:5081/health` -> `200`
+- `GET http://localhost:5082/health/live` -> `200`
+
+Frontend:
+
+- `GET http://localhost:5175/` -> `200`
+- `GET http://localhost:5175/allagma/evaluations` -> `200`
+- `GET http://localhost:5175/allagma/evaluations/baseline-comparisons` -> `200`
+- `GET http://localhost:5175/allagma/evaluations/datasets` -> `200`
+- `GET http://localhost:5175/allagma/replay` -> `200`
+
+Existing frontend inspect script:
+
+- `ontogony-frontend/scripts/docker/inspect-docker-local-operator-frontend.ps1` -> PASS
+
+### Reclassification / gate outcome
+
+- No stale-image/version-skew evidence remains in rebuilt-stack smoke.
+- Rebuild coherence gate is now satisfied.
+- Next step remains unchanged: run `PRODUCT-MANUAL-QA-002R1` full manual QA rerun from fresh rebuilt stack.
