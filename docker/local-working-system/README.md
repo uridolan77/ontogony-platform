@@ -430,6 +430,21 @@ Docker-local compose sets `Kanon__Cors__*`, `Conexus__Cors__*`, and `Allagma__Co
 
 Evidence: `docs/evidence/FE_LOCAL_CORS_001_DOCKER_LOCAL_BROWSER_API_EVIDENCE.md`, `docs/evidence/FE_LOCAL_OPERATOR_UX_001_EVIDENCE.md`
 
+### Kanon operator actor (KANON-DEEPEN-001)
+
+Docker-local frontend build defaults (also in `.env.example`):
+
+```text
+FRONTEND_VITE_KANON_DEFAULT_ACTOR_ID=local-operator
+FRONTEND_VITE_KANON_DEFAULT_ACTOR_ROLES=Auditor,ProvenanceReader
+```
+
+The operator UI sends these as `X-Ontogony-Actor-Id` / `X-Ontogony-Roles` on Kanon calls. **Auditor** grants domain-pack read; **ProvenanceReader** grants provenance read; validate/load/promote still require **Admin** or **System** on Kanon.
+
+If `/kanon/domain-packs` shows a role card instead of packs, open **Settings → Allagma defaults** and set roles to `Auditor,ProvenanceReader`, or reset operator settings. A 403 here is **authorization**, not Kanon being down.
+
+Evidence: `docs/evidence/KANON_DEEPEN_001_LOCAL_OPERATOR_AUTH_AND_READ_WORKBENCH_EVIDENCE.md`
+
 Operator console health badges distinguish **live**, **readiness strict (not ready)**, **browser blocked (CORS)**, and **not configured** — not generic “degraded” without explanation. Sidebar groups collapse/expand; **Settings** stays in the pinned System section.
 
 ## Troubleshooting
