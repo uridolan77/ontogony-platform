@@ -377,6 +377,21 @@ cd C:\dev\ontogony-frontend
 Contract: `ontogony-frontend/docs/operators/FRONTEND_DOCKER_LOCAL_CONTRACT.md`  
 Evidence: `ontogony-frontend/docs/evidence/FE_HARDEN_001_FRONTEND_HARDENING_EVIDENCE.md`
 
+## Browser API access (FE-LOCAL-CORS-001)
+
+The operator frontend at **http://localhost:5175** calls Kanon, Conexus, and Allagma **directly from the browser** (no IIS/proxy shim). Service tokens and API keys stay in **browser localStorage** only.
+
+When `ASPNETCORE_ENVIRONMENT=Development`, each API enables a **narrow CORS policy** for:
+
+- `http://localhost:5175`
+- `http://127.0.0.1:5175`
+
+Allowed methods: `GET`, `POST`, `OPTIONS`. Allowed headers include `Authorization`, `Content-Type`, and Conexus admin/project keys. Production images keep CORS **disabled** unless explicitly configured — this is **not** production readiness.
+
+Docker-local compose sets `Kanon__Cors__*`, `Conexus__Cors__*`, and `Allagma__Cors__*` via `.env` (`FRONTEND_CORS_ORIGIN_*`). If DevTools shows `No Access-Control-Allow-Origin`, rebuild API containers after pulling CORS changes and confirm the frontend origin matches `.env`.
+
+Evidence: `docs/evidence/FE_LOCAL_CORS_001_DOCKER_LOCAL_BROWSER_API_EVIDENCE.md`
+
 ## Troubleshooting
 
 ### Conexus `/health/live` returns 404 but container is healthy

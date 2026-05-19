@@ -30,6 +30,9 @@ services:
       Kanon__Persistence__Mode: ${KANON_PERSISTENCE_MODE:-Postgres}
       Kanon__Persistence__Postgres__ConnectionString: ${KANON_POSTGRES_CONNECTION_STRING:-Host=postgres;Port=5432;Database=kanon_local;Username=kanon_local;Password=kanon_local_pw}
       Kanon__Persistence__Postgres__ApplyMigrationsOnStartup: ${KANON_APPLY_MIGRATIONS_ON_STARTUP:-true}
+      Kanon__Cors__Enabled: ${KANON_CORS_ENABLED:-true}
+      Kanon__Cors__AllowedOrigins__0: ${FRONTEND_CORS_ORIGIN_LOCALHOST:-http://localhost:5175}
+      Kanon__Cors__AllowedOrigins__1: ${FRONTEND_CORS_ORIGIN_LOOPBACK:-http://127.0.0.1:5175}
     ports:
       - "${KANON_HOST_PORT:-5081}:8080"
     depends_on:
@@ -61,6 +64,9 @@ services:
       CONEXUS_REAL_PROVIDER_MAX_CALLS: ${CONEXUS_REAL_PROVIDER_MAX_CALLS:-3}
       CONEXUS_REAL_PROVIDER_MAX_OUTPUT_TOKENS: ${CONEXUS_REAL_PROVIDER_MAX_OUTPUT_TOKENS:-256}
       CONEXUS_PROVIDER_OPENAI_API_KEY: ${CONEXUS_PROVIDER_OPENAI_API_KEY:-}
+      Conexus__Cors__Enabled: ${CONEXUS_CORS_ENABLED:-true}
+      Conexus__Cors__AllowedOrigins__0: ${FRONTEND_CORS_ORIGIN_LOCALHOST:-http://localhost:5175}
+      Conexus__Cors__AllowedOrigins__1: ${FRONTEND_CORS_ORIGIN_LOOPBACK:-http://127.0.0.1:5175}
     ports:
       - "${CONEXUS_HOST_PORT:-5082}:8080"
     depends_on:
@@ -99,6 +105,9 @@ services:
       Conexus__ProjectApiKey: ${CONEXUS_PROJECT_API_KEY_FOR_ALLAGMA:-cx-dev-key-change-me}
       Allagma__Authentication__ServiceToken: ${ALLAGMA_SERVICE_TOKEN:-allagma-dev-service-token-change-in-production}
       Allagma__Downstream__Kanon__ServiceToken: ${KANON_SERVICE_TOKEN:-kanon-dev-service-token-change-in-production}
+      Allagma__Cors__Enabled: ${ALLAGMA_CORS_ENABLED:-true}
+      Allagma__Cors__AllowedOrigins__0: ${FRONTEND_CORS_ORIGIN_LOCALHOST:-http://localhost:5175}
+      Allagma__Cors__AllowedOrigins__1: ${FRONTEND_CORS_ORIGIN_LOOPBACK:-http://127.0.0.1:5175}
     ports:
       - "${ALLAGMA_HOST_PORT:-5083}:8080"
     depends_on:
