@@ -12,7 +12,7 @@
 | Baseline comparison read | `GET /evaluations/baseline-comparisons/{id}` | aligned | `getAllagmaBaselineComparison` | `useAllagmaBaselineComparison` | `allagmaEvaluationAdapters` | `/allagma/evaluations/baseline-comparisons/:id` | `dashboardFixture=ci-suite` | e2e + unit | `EVAL_RUN_003`, `FE_EVAL_002` |
 | Baseline comparison create | `POST /evaluations/baseline-comparisons` | aligned (no FE form) | not wrapped for UI | — | — | — | harness only | `BaselineComparisonTests` | `EVAL_RUN_003` |
 | Baseline comparison list/history | `GET /evaluations/baseline-comparisons` | aligned | `listAllagmaBaselineComparisons` | `useAllagmaBaselineComparisons` | `mapBaselineComparisonSummaryDto` | `/allagma/evaluations/baseline-comparisons` | `dashboardFixture=ci-suite` | `BaselineComparisonQuery`, e2e dashboard spec | `EVAL_PRODUCT_002_*` |
-| Scenario dataset index | filesystem/harness only | **missing** HTTP | **missing** | **missing** | **missing** | matrix on dashboard (fixture) | `ci-suite` fixture | `EvaluationScenarioDatasetTests` | `EVAL_DATA_001` |
+| Scenario dataset index | `GET /evaluation-datasets`, `GET /evaluation-datasets/{datasetId}` | aligned | `listAllagmaEvaluationDatasets`, `getAllagmaEvaluationDataset` | `useAllagmaEvaluationDatasets`, `useAllagmaEvaluationDataset` | dataset metadata adapters + dashboard label lookup | `/allagma/evaluations/datasets` + dashboard links | `dashboardFixture=ci-suite` + live list | backend API tests + FE route/adapter tests | `EVAL_PRODUCT_003_*` |
 | Quality scoring display | DTOs on eval run | aligned on eval GET | via eval GET | via eval hooks | `buildEvalQualityBreakdownViewModel` | eval detail | fixture eval ids | `EvalQualityScoringTests`, adapter tests | `EVAL_QUALITY_001` |
 | Replay evidence | Kanon replay routes + Allagma run GET | partial (Kanon client separate) | kanon + allagma clients | `useKanonReplayBundles`, `useTraceCorrelation`, `useAllagmaRun` | `kanonProvenanceAdapters`, `buildAllagmaReplayEvidence` | `/allagma/replay` | E2E mock only | `e2e/allagma-replay-evidence.spec.ts` | `FE_TEST_REPLAY_001` |
 | Trace correlation | platform + service headers | N/A cross-service | correlation services | `useTraceCorrelation` | `correlationAdapters` | run detail, replay, system | fixture/live e2e | `TRACE_CONTRACT_001` | platform `TRACE_*` |
@@ -34,9 +34,9 @@ Operator UI exposes neither POST. Limitations card lists GET routes only.
 
 | Status | Count (major surfaces) |
 | --- | --- |
-| aligned (read paths + FE consume) | 6 |
+| aligned (read paths + FE consume) | 7 |
 | partial (cross-service, POST without UI, filter depth, replay) | 5 |
-| missing (dataset HTTP, export) | 2 |
+| missing (export) | 1 |
 | deferred (run mutations) | 1 |
 
 A surface is **aligned** only when route, OpenAPI, client, hook, adapter, UI state, fixture/live behavior, tests, and evidence are all mapped and honest.

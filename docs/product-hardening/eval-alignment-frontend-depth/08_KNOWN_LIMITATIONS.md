@@ -18,9 +18,11 @@
 | Dashboard list limit | Live dashboard requests default limit 100; cursor via URL `cursor` param | `Load next page` in FE-PRODUCT-001; full history still deferred |
 | Baseline comparison history depth | List/history route exists with cursor + filters; no saved views or pinned workbench queries | follow-up |
 | Baseline create in UI | POST exists; harness/smoke only — no operator form | Documented (`ALIGN-PRODUCT-001`) |
-| Scenario datasets | Strong in `docs/evals/datasets/`; weak HTTP/UI index | `EVAL-PRODUCT-003` |
+| Scenario datasets | Read-only dataset index/detail now available; no dataset authoring workflow | keep read-only by design |
 | Judge/scoring depth | Scaffold exists; shallow calibration/confidence in UI | `EVAL-PRODUCT-004` |
 | Eval export bundle | No coherent product artifact | `EVAL-PRODUCT-005` |
+| Dataset views/bookmarks | No saved workbench or per-operator dataset view presets | follow-up |
+| Semantic diff visualization | Baseline comparison remains summary/detail cards; no rich side-by-side semantic diff viewer | follow-up |
 | Replay trigger | Allagma retry/cancel/replay POST not in OpenAPI; FE limitation UI | Out of PFH unless backend adds routes |
 | Replay page fixtures | No `?replayFixture=`; E2E uses service mocks | `FE-PRODUCT-003` may add catalog |
 | Manual eval write gate | POST eval gated; baseline POST not gated identically | Documented (`ALIGN-PRODUCT-001`, matrix § manual write) |

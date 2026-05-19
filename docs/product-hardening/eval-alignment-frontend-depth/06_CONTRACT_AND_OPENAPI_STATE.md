@@ -21,6 +21,8 @@ Route/DTO semantics → OpenAPI snapshot → generated client → product wrappe
 | Method | Path | In FE client |
 | --- | --- | --- |
 | GET | `/allagma/v0/evaluations` | `listAllagmaEvaluations` (EVAL-PRODUCT-001) |
+| GET | `/allagma/v0/evaluation-datasets` | `listAllagmaEvaluationDatasets` (EVAL-PRODUCT-003) |
+| GET | `/allagma/v0/evaluation-datasets/{datasetId}` | `getAllagmaEvaluationDataset` (EVAL-PRODUCT-003) |
 | GET | `/allagma/v0/runs/{runId}/evaluations` | `listAllagmaRunEvaluations` |
 | GET | `/allagma/v0/evaluations/{evaluationRunId}` | `getAllagmaEvaluationRun` |
 | POST | `/allagma/v0/runs/{runId}/evaluations` | not in operator UI |
@@ -28,6 +30,8 @@ Route/DTO semantics → OpenAPI snapshot → generated client → product wrappe
 | GET | `/allagma/v0/evaluations/baseline-comparisons/{comparisonId}` | `getAllagmaBaselineComparison` |
 
 **Added (EVAL-PRODUCT-001):** `GET /allagma/v0/evaluations` — `AllagmaEvaluationRunSummaryResponse`, `AllagmaEvaluationRunListPageResponse`.
+
+**Added (EVAL-PRODUCT-003):** `GET /allagma/v0/evaluation-datasets`, `GET /allagma/v0/evaluation-datasets/{datasetId}` — dataset summary/list/detail DTOs for operator dataset/scenario surfaces.
 
 ## Provenance cross-repo (baseline)
 
@@ -57,6 +61,6 @@ If a product capability is desired but no backend route exists, the PR must choo
 - explicitly mark as missing capability and expose limitation state
 - defer the capability and remove UI affordance
 
-**Current honest limitations:** baseline list, eval export, sparse metadata filters on global eval list, Allagma replay/retry/cancel POST mutations.
+**Current honest limitations:** baseline create UI missing, dataset saved views missing, rich semantic diff missing, eval export missing, Allagma replay/retry/cancel POST mutations.
 
 No hidden placeholder success states.
