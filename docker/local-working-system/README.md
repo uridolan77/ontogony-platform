@@ -50,6 +50,18 @@ cd C:\dev\ontogony-platform
 .\docker\local-working-system\scripts\start-local-working-system.ps1 -Build
 ```
 
+If Docker restore fails with NuGet TLS chain errors (`NU1301`, `PartialChain`), the
+start script now probes NuGet from the SDK container and auto-injects a matching
+trusted root CA from Windows cert store into .NET Docker build stages. This keeps
+TLS verification enabled and avoids committing local CA material.
+
+Backend-only startup (skip frontend build when isolating backend defects):
+
+```powershell
+cd C:\dev\ontogony-platform
+.\docker\local-working-system\scripts\start-local-working-system.ps1 -Build -SkipFrontend
+```
+
 Wait-only (if stack already running):
 
 ```powershell

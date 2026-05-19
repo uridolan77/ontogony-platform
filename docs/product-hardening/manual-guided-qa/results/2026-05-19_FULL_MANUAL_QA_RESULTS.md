@@ -70,3 +70,38 @@ or production identity/TLS/secrets posture.
   1. Fix Docker build certificate chain trust for NuGet (or provide approved internal feed/trust configuration).
   2. Rebuild current images successfully, then re-verify Allagma route availability for `evaluations list`, `evidence export`, `baseline list`, and `dataset list`.
   3. Re-run `PRODUCT-MANUAL-QA-002` from fresh stack after fixes.
+
+## Addendum — PMQA002-001 follow-up execution (2026-05-19)
+
+This addendum records post-run defect follow-up only. Original run history above remains unchanged.
+
+- `PMQA002-001` status: **implemented / backend rebuild path fixed**
+- Evidence: `docs/evidence/PMQA002_001_DOCKER_REBUILD_TLS_FIX_EVIDENCE.md`
+
+### Rebuild outcome
+
+- Reproduced `NU1301` / `PartialChain` during Docker restore.
+- Root cause isolated to local TLS interception trust gap (Windows trusted root CA not present in Linux Docker build stages).
+- Applied narrow fix: optional CA injection build arg + automatic local trusted-root export/injection from Windows cert store at build time.
+- No TLS verification bypass introduced.
+- Backend compose build from current sources succeeded (`allagma-api`, `kanon-api`, `conexus-api`).
+
+### Route re-check on rebuilt images
+
+After rebuild and seed/migration setup:
+
+- `GET /allagma/v0/evaluations` → `200`
+- `GET /allagma/v0/evaluations/{evaluationRunId}/evidence` → `200`
+- `GET /allagma/v0/evaluations/baseline-comparisons` → `200`
+- `GET /allagma/v0/evaluation-datasets` → `200`
+
+### Reclassification of prior 404 findings
+
+- `PMQA002-002` (`/allagma/v0/evaluations`): stale-image/version-skew, resolved on rebuilt image
+- `PMQA002-003` (`/allagma/v0/evaluations/{evaluationRunId}/evidence`): stale-image/version-skew, resolved on rebuilt image
+- `PMQA002-004` (`/allagma/v0/evaluations/baseline-comparisons`): stale-image/version-skew, resolved on rebuilt image
+- `PMQA002-005` (`/allagma/v0/evaluation-datasets`): stale-image/version-skew, resolved on rebuilt image
+
+### Remaining non-PMQA002-001 blocker
+
+Full-stack `start-local-working-system.ps1 -Build` still fails on `ontogony-frontend` image build (`tsc: not found`), which is separate from the NuGet TLS trust defect.

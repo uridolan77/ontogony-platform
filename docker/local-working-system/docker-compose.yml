@@ -20,6 +20,8 @@ services:
   kanon-api:
     build:
       context: ../../../kanon-dotnet
+      args:
+        EXTRA_CA_CERT_BASE64: ${DOCKER_EXTRA_CA_CERT_BASE64:-}
       additional_contexts:
         ontogony_platform: ../../../ontogony-platform
     environment:
@@ -43,6 +45,8 @@ services:
   conexus-api:
     build:
       context: ../../../conexus-dotnet
+      args:
+        EXTRA_CA_CERT_BASE64: ${DOCKER_EXTRA_CA_CERT_BASE64:-}
       additional_contexts:
         ontogony_platform: ../../../ontogony-platform
     environment:
@@ -72,6 +76,8 @@ services:
   allagma-api:
     build:
       context: ../../../allagma-dotnet
+      args:
+        EXTRA_CA_CERT_BASE64: ${DOCKER_EXTRA_CA_CERT_BASE64:-}
       additional_contexts:
         ontogony_platform: ../../../ontogony-platform
         kanon_dotnet: ../../../kanon-dotnet

@@ -3,6 +3,13 @@
 Use this file to open targeted follow-up issues/PR prompts from the `PARTIAL / BLOCKED`
 execution recorded in `2026-05-19_FULL_MANUAL_QA_RESULTS.md`.
 
+## Execution update (2026-05-19 addendum)
+
+- `PMQA002-001` backend scope completed: Docker-local .NET image rebuild path now succeeds with trusted local CA injection (no TLS bypass).
+- Rebuilt-image probes for prior inconclusive Allagma routes now return `200` (`/evaluations`, `/evaluations/{id}/evidence`, `/evaluations/baseline-comparisons`, `/evaluation-datasets`).
+- Previous `404` observations are reclassified as stale-image/version-skew caused by rebuild failure.
+- Full-stack compose rebuild remains blocked by a separate frontend image build error (`ontogony-frontend`: `tsc: not found`), outside NuGet TLS trust scope.
+
 ## Defect prompts
 
 ### 1) Docker build trust chain blocker
