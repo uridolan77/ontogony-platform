@@ -18,6 +18,7 @@ docker/local-working-system/
     seed-and-verify-local-working-system.ps1
     run-docker-guided-main-flow.ps1
     validate-docker-guided-main-flow.ps1
+    validate-conexus-persistence-bootstrap.ps1
 ```
 
 Copy `.env.example` to `.env` to override placeholders locally without committing changes:
@@ -156,6 +157,25 @@ Seed exports `docker/local-working-system/artifacts/env-seed-001-report.json` (b
 | Missing `routeDecisionId` | Bootstrap/route not established; runs didn’t reach Conexus | Re-run seed; check Allagma→Conexus with project bearer key |
 
 More Conexus detail: `conexus-dotnet/docs/development/DOCKER_LOCAL.md`, `conexus-dotnet/docs/deployment/STARTUP_AND_READINESS.md`.
+
+### Conexus persistence validation (CONEXUS-PERSIST-002)
+
+Repeatable validation for Postgres, migrations, key alignment, bootstrap state, and route evidence:
+
+```powershell
+cd C:\dev\ontogony-platform
+.\docker\local-working-system\scripts\validate-conexus-persistence-bootstrap.ps1
+```
+
+Report: `docker/local-working-system/artifacts/conexus-persist-002-report.json` (local only; redacts passwords and API keys — no raw secrets).
+
+Options:
+
+- `-InvokeBootstrap` — force dev bootstrap when fake provider/alias missing
+- `-SkipBootstrap` — detect only; fail if bootstrap state absent
+- `-RequireRouteEvidence` — require `baselineRouteDecisionId` / `subjectRouteDecisionId` in guided or seed artifacts
+
+Run after `wait-local-working-system.ps1`. For full route proof, run `run-docker-guided-main-flow.ps1` first (or pass `-RequireRouteEvidence` only when artifacts exist).
 
 ## Seed/bootstrap (ENV-SEED-001)
 
