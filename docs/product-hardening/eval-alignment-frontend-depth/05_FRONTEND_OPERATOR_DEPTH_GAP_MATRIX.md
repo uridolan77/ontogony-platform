@@ -5,8 +5,8 @@
 | Surface | Current base (audited) | Product-depth gap | Suggested PR |
 | --- | --- | --- | --- |
 | Eval dashboard | **Closed (FE-PRODUCT-001 + EVAL-PRODUCT-003):** filters, dimensions, comparison entries, results list, cursor hook; metadata-backed dataset/suite/scenario hints | Deeper pagination UX, saved views | follow-ups |
-| Eval run detail | `EvaluationRunDetailPage` — quality panel, fixture/live banners, judge metadata card | Correlation links to run/trace/decision and deeper evidence drilldown | `FE-PRODUCT-002` |
-| Run detail | `AllagmaRunEvalTopologyEvidenceSection` — eval + topology; link to evaluations | Integrated journey: run → evals → topology → Conexus route → replay | `FE-PRODUCT-002` |
+| Eval run detail | **Closed (FE-PRODUCT-002):** quality panel + `AllagmaRunEvidenceJourneyCard` + `CrossServiceLinksCard` when correlation resolves | Calibration history/trend workspace | follow-up |
+| Run detail | **Closed (FE-PRODUCT-002):** evidence journey card, eval/topology panel cross-links (eval detail, baseline, Conexus) | Saved operator views / richer dataset deep-links | follow-up |
 | Replay evidence | `ReplayEvidencePage` + `AllagmaReplayEvidenceWorkbench` — run/trace/decision modes; `@ontogony/ui` panels | Workbench lookup UX, limitation-aware actions, export, cross-links to eval/comparison | `FE-PRODUCT-003` |
 | Baseline comparison | **Closed (EVAL-PRODUCT-002):** `BaselineComparisonWorkbenchPage` list/history filters + detail/workbench cross-links | Richer visual diff/side-by-side outcomes; operator create flow still out of scope | follow-up |
 | Scenario datasets | **Closed (EVAL-PRODUCT-003):** dataset index page + read-only scenario metadata + links to filtered evaluations | No saved dataset views/bookmarks | follow-up |
