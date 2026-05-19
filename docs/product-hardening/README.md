@@ -57,9 +57,9 @@ Evidence:
 
 Manual guided QA package: [`docs/product-hardening/manual-guided-qa/`](manual-guided-qa/).
 
-## Active next package — Real provider validation (v1)
+## Closed package — Real provider validation (v1)
 
-**Fake-provider Docker-local manual QA is closed.** The active next controlled phase is:
+**Planning/control package:**
 
 - [`docs/product-hardening/real-provider-validation-package-v1/`](real-provider-validation-package-v1/)
 
@@ -67,23 +67,24 @@ Manual guided QA package: [`docs/product-hardening/manual-guided-qa/`](manual-gu
 
 - `docs/_incoming/Ontogony-Real-Provider-Validation-Package-v1.zip`
 
-**Steps:**
+**Status:** **CLOSED / PASS** (`RP-CLOSEOUT-001`, 2026-05-19). See [closeout](../releases/REAL_PROVIDER_VALIDATION_CLOSEOUT.md).
 
 | Step | Status | Evidence |
 | --- | --- | --- |
-| `RP-000` package setup | **DONE** (2026-05-19) | [`RP_000_PACKAGE_SETUP_EVIDENCE.md`](../evidence/RP_000_PACKAGE_SETUP_EVIDENCE.md) |
-| `RP-001` secret, budget, safety gates | **DONE** (2026-05-19) | [`RP_001_SECRET_BUDGET_SAFETY_GATES_EVIDENCE.md`](../evidence/RP_001_SECRET_BUDGET_SAFETY_GATES_EVIDENCE.md) |
-| `RP-002` Conexus real-provider local mode | **DONE** (2026-05-19) | [`RP_002_CONEXUS_REAL_PROVIDER_LOCAL_MODE_EVIDENCE.md`](../evidence/RP_002_CONEXUS_REAL_PROVIDER_LOCAL_MODE_EVIDENCE.md) |
-| `RP-003` Allagma real-provider guided flow | **DONE** (2026-05-19) | [`RP_003_ALLAGMA_REAL_PROVIDER_GUIDED_FLOW_EVIDENCE.md`](../evidence/RP_003_ALLAGMA_REAL_PROVIDER_GUIDED_FLOW_EVIDENCE.md) |
-| `RP-003A` live provider completion (Docker TLS) | **DONE** (2026-05-19) | [`RP_003A_LIVE_REAL_PROVIDER_COMPLETION_EVIDENCE.md`](../evidence/RP_003A_LIVE_REAL_PROVIDER_COMPLETION_EVIDENCE.md) |
-| `RP-004` frontend operator visibility | **DONE** (2026-05-19) | [`RP_004_FRONTEND_REAL_PROVIDER_OPERATOR_VISIBILITY_EVIDENCE.md`](../evidence/RP_004_FRONTEND_REAL_PROVIDER_OPERATOR_VISIBILITY_EVIDENCE.md) |
-| `RP-005` manual QA execution | **DONE** (2026-05-19) | [`RP_005_REAL_PROVIDER_MANUAL_QA_EXECUTION_EVIDENCE.md`](../evidence/RP_005_REAL_PROVIDER_MANUAL_QA_EXECUTION_EVIDENCE.md) |
+| `RP-000` package setup | **DONE** | [`RP_000_PACKAGE_SETUP_EVIDENCE.md`](../evidence/RP_000_PACKAGE_SETUP_EVIDENCE.md) |
+| `RP-001` secret, budget, safety gates | **DONE** | [`RP_001_SECRET_BUDGET_SAFETY_GATES_EVIDENCE.md`](../evidence/RP_001_SECRET_BUDGET_SAFETY_GATES_EVIDENCE.md) |
+| `RP-002` Conexus real-provider local mode | **DONE** | [`RP_002_CONEXUS_REAL_PROVIDER_LOCAL_MODE_EVIDENCE.md`](../evidence/RP_002_CONEXUS_REAL_PROVIDER_LOCAL_MODE_EVIDENCE.md) |
+| `RP-003` Allagma real-provider guided flow | **DONE** | [`RP_003_ALLAGMA_REAL_PROVIDER_GUIDED_FLOW_EVIDENCE.md`](../evidence/RP_003_ALLAGMA_REAL_PROVIDER_GUIDED_FLOW_EVIDENCE.md) |
+| `RP-003A` live provider completion (Docker TLS) | **DONE** | [`RP_003A_LIVE_REAL_PROVIDER_COMPLETION_EVIDENCE.md`](../evidence/RP_003A_LIVE_REAL_PROVIDER_COMPLETION_EVIDENCE.md) |
+| `RP-004` frontend operator visibility | **DONE** | [`RP_004_FRONTEND_REAL_PROVIDER_OPERATOR_VISIBILITY_EVIDENCE.md`](../evidence/RP_004_FRONTEND_REAL_PROVIDER_OPERATOR_VISIBILITY_EVIDENCE.md) |
+| `RP-005` manual QA execution | **DONE / PASS** | [`RP_005_REAL_PROVIDER_MANUAL_QA_EXECUTION_EVIDENCE.md`](../evidence/RP_005_REAL_PROVIDER_MANUAL_QA_EXECUTION_EVIDENCE.md) |
+| `RP-CLOSEOUT-001` | **DONE** | [`RP_CLOSEOUT_001_REAL_PROVIDER_VALIDATION_EVIDENCE.md`](../evidence/RP_CLOSEOUT_001_REAL_PROVIDER_VALIDATION_EVIDENCE.md) |
 
 **Results:** [`real-provider-validation-package-v1/results/2026-05-19_REAL_PROVIDER_VALIDATION_RESULTS.md`](real-provider-validation-package-v1/results/2026-05-19_REAL_PROVIDER_VALIDATION_RESULTS.md)
 
 **Operator policy:** [`docs/operators/REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md`](../operators/REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md)
 
-**Next:** `RP-CLOSEOUT-001` — package closeout (`real-provider-validation-package-v1/prompts/RP-CLOSEOUT-001_REAL_PROVIDER_VALIDATION_CLOSEOUT.md`).
+**Recommended next engineering:** `RP-HARDEN-001` (guided-flow report bug + token metrics). See [next options](../releases/REAL_PROVIDER_VALIDATION_NEXT_OPTIONS.md).
 
 Reference:
 
@@ -102,6 +103,6 @@ Reference:
 
 Product hardening improves eval product depth, contract alignment, and operator-facing frontend surfaces on the **closed Docker-local foundation**.
 
-The **real provider validation** package (`RP-*`) is a separate controlled phase for **local** real-provider smoke and manual QA after fake-provider manual QA PASS. It is still **not production readiness** — no cloud deployment, no CI real-provider calls, and no secrets in repo.
+The **real provider validation** package (`RP-*`) is **closed**. It proved one controlled local path (Conexus → OpenAI → Allagma → eval export → fake regression). It is **not production readiness** — no cloud deployment, no CI real-provider calls, and no secrets in repo.
 
-Production readiness remains **not started** unless explicitly chartered elsewhere.
+Production readiness remains **not started** unless explicitly chartered elsewhere (`PROD-READINESS-001` in [next options](../releases/REAL_PROVIDER_VALIDATION_NEXT_OPTIONS.md)).

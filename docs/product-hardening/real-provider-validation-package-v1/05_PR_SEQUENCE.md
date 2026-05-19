@@ -15,10 +15,14 @@
 
 | Item | Status |
 | --- | --- |
-| `RP-000` – `RP-005` | **DONE** |
-| `RP-CLOSEOUT-001` | **NEXT** |
+| `RP-000` – `RP-005` | **DONE / PASS** |
+| `RP-CLOSEOUT-001` | **DONE / CLOSED** |
+
+**Package:** **CLOSED / PASS**
 
 Results: [`results/2026-05-19_REAL_PROVIDER_VALIDATION_RESULTS.md`](results/2026-05-19_REAL_PROVIDER_VALIDATION_RESULTS.md)
+
+Closeout: [`docs/releases/REAL_PROVIDER_VALIDATION_CLOSEOUT.md`](../../releases/REAL_PROVIDER_VALIDATION_CLOSEOUT.md)
 
 ## Rules
 

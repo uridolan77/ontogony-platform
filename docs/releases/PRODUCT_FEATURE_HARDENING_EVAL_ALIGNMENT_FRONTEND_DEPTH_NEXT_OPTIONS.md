@@ -15,7 +15,7 @@ Post-Docker-local hardening                CLOSED / PASS
 Product feature hardening v1 (PFH)         CLOSED / PASS
 Repo cleaning + manual QA prep (RCQ)       CLOSED / PASS
 PRODUCT-MANUAL-QA-002R1 (fake provider)    PASS
-Real provider validation v1 (RP-*)       ACTIVE (RP-003A live completion done)
+Real provider validation v1 (RP-*)       CLOSED / PASS
 CI-COST-001 (6 repos)                      DONE
 Production readiness                       NOT STARTED
 ```
@@ -38,7 +38,7 @@ After fake-provider `PRODUCT-MANUAL-QA-002R1` **PASS**, the next controlled phas
 | RP-000 setup evidence | [`docs/evidence/RP_000_PACKAGE_SETUP_EVIDENCE.md`](../evidence/RP_000_PACKAGE_SETUP_EVIDENCE.md) |
 | Product hardening index | [`docs/product-hardening/README.md`](../product-hardening/README.md) |
 
-**Done:** `RP-000`–`RP-004` (2026-05-19). **Next:** `RP-005` real-provider manual QA execution. Policy: [`REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md`](../operators/REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md). Live completion: [`RP_003A_LIVE_REAL_PROVIDER_COMPLETION_EVIDENCE.md`](../evidence/RP_003A_LIVE_REAL_PROVIDER_COMPLETION_EVIDENCE.md).
+**Done:** `RP-000`–`RP-005` (2026-05-19). **Next:** `RP-CLOSEOUT-001` real-provider validation closeout. Policy: [`REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md`](../operators/REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md). Live completion: [`RP_003A_LIVE_REAL_PROVIDER_COMPLETION_EVIDENCE.md`](../evidence/RP_003A_LIVE_REAL_PROVIDER_COMPLETION_EVIDENCE.md).
 
 **Closed (prerequisite):** RCQ + `PRODUCT-MANUAL-QA-002R1` — see [`RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md`](../evidence/RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md), [`PRODUCT_MANUAL_QA_002R1_EXECUTION_EVIDENCE.md`](../evidence/PRODUCT_MANUAL_QA_002R1_EXECUTION_EVIDENCE.md).
 

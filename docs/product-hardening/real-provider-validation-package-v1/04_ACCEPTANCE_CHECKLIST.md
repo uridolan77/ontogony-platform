@@ -1,37 +1,39 @@
 # 04 — Acceptance Checklist
 
+**Package status:** **CLOSED / PASS** (`RP-CLOSEOUT-001`, 2026-05-19)
+
 ## RP-001
 
-- [ ] real-provider disabled by default
-- [ ] fake provider remains default
-- [ ] budget caps documented
-- [ ] kill switch documented
-- [ ] CI real-provider calls forbidden
-- [ ] no secrets committed
+- [x] real-provider disabled by default
+- [x] fake provider remains default
+- [x] budget caps documented
+- [x] kill switch documented
+- [x] CI real-provider calls forbidden
+- [x] no secrets committed
 
 ## RP-002
 
-- [ ] Conexus local real-provider mode explicit opt-in
-- [ ] missing/invalid key classified
-- [ ] one small real call succeeds or external failure is classified
-- [ ] route/model-call evidence persisted and redacted
-- [ ] fake provider regression passes
+- [x] Conexus local real-provider mode explicit opt-in
+- [x] missing/invalid key classified
+- [x] one small real call succeeds or external failure is classified
+- [x] route/model-call evidence persisted and redacted
+- [x] fake provider regression passes
 
 ## RP-003
 
-- [ ] Allagma guided flow can use Conexus real-provider path
-- [ ] run/eval/evidence persists
-- [ ] trace/correlation survives
-- [ ] Kanon behavior unchanged
-- [ ] fake-provider regression passes
+- [x] Allagma guided flow can use Conexus real-provider path
+- [x] run/eval/evidence persists
+- [x] trace/correlation survives
+- [x] Kanon behavior unchanged
+- [x] fake-provider regression passes
 
 ## RP-003A (follow-up — live completion)
 
-- [ ] provider_transport_error root cause documented
-- [ ] Docker runtime TLS trust fixed (if applicable)
-- [ ] one live real-provider completion succeeds
-- [ ] eval export on successful real run
-- [ ] fake-provider regression after kill switch
+- [x] provider_transport_error root cause documented
+- [x] Docker runtime TLS trust fixed (if applicable)
+- [x] one live real-provider completion succeeds
+- [x] eval export on successful real run
+- [x] fake-provider regression after kill switch
 
 ## RP-004
 
@@ -49,7 +51,7 @@
 
 ## Closeout
 
-- [ ] scorecard
-- [ ] limitations
-- [ ] next options
-- [ ] explicit not production readiness
+- [x] scorecard
+- [x] limitations
+- [x] next options
+- [x] explicit not production readiness

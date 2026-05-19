@@ -18,9 +18,9 @@
 | Trace / correlation contract | [`operators/TRACE_CORRELATION_CONTRACT.md`](operators/TRACE_CORRELATION_CONTRACT.md) |
 | CI cost / branch protection | [`operators/CI_COST_CONTROL.md`](operators/CI_COST_CONTROL.md) |
 | Operator docs index | [`operators/README.md`](operators/README.md) |
-| Docker-local compose stack | `docker/local-working-system/README.md` (repo root) |
+| Docker-local compose stack (incl. real-provider scripts) | `docker/local-working-system/README.md` (repo root) |
 | Environment programs index | [`environments/README.md`](environments/README.md) |
-| Active RCQ prep package | [`product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/`](product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/) |
+| Real provider local validation policy | [`operators/REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md`](operators/REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md) |
 
 ---
 
@@ -62,6 +62,8 @@ Recent / program evidence:
 | DOCS-STANDARD-001 | [`evidence/DOCS_STANDARD_001_UNIFIED_DOCUMENTATION_STRUCTURE_EVIDENCE.md`](evidence/DOCS_STANDARD_001_UNIFIED_DOCUMENTATION_STRUCTURE_EVIDENCE.md) |
 | RCQ-000 package setup | [`evidence/RCQ_000_PACKAGE_SETUP_EVIDENCE.md`](evidence/RCQ_000_PACKAGE_SETUP_EVIDENCE.md) |
 | PFH closeout | [`evidence/FE_PRODUCT_CLOSEOUT_001_EVIDENCE.md`](evidence/FE_PRODUCT_CLOSEOUT_001_EVIDENCE.md) |
+| RP closeout | [`evidence/RP_CLOSEOUT_001_REAL_PROVIDER_VALIDATION_EVIDENCE.md`](evidence/RP_CLOSEOUT_001_REAL_PROVIDER_VALIDATION_EVIDENCE.md) |
+| RP-005 manual QA | [`evidence/RP_005_REAL_PROVIDER_MANUAL_QA_EXECUTION_EVIDENCE.md`](evidence/RP_005_REAL_PROVIDER_MANUAL_QA_EXECUTION_EVIDENCE.md) |
 | Post-Docker hardening closeout | [`evidence/POST_DOCKER_HARDENING_CLOSEOUT_001_EVIDENCE.md`](evidence/POST_DOCKER_HARDENING_CLOSEOUT_001_EVIDENCE.md) |
 
 Naming: `<ITEM>_EVIDENCE.md` — see the [documentation structure standard](operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md#6-evidence-files).
@@ -77,12 +79,14 @@ Cross-repo milestone closeouts: [`releases/`](releases/).
 | First Dockerized local working system | **CLOSED / PASS** | [`releases/FIRST_DOCKER_LOCAL_WORKING_SYSTEM_CLOSEOUT.md`](releases/FIRST_DOCKER_LOCAL_WORKING_SYSTEM_CLOSEOUT.md) |
 | Post-Docker-local hardening | **CLOSED / PASS** | [`releases/POST_DOCKER_LOCAL_HARDENING_CLOSEOUT.md`](releases/POST_DOCKER_LOCAL_HARDENING_CLOSEOUT.md) |
 | Product feature hardening v1 (PFH) | **CLOSED / PASS** | [`releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_CLOSEOUT.md`](releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_CLOSEOUT.md) |
+| Real provider validation v1 (RP) | **CLOSED / PASS** | [`releases/REAL_PROVIDER_VALIDATION_CLOSEOUT.md`](releases/REAL_PROVIDER_VALIDATION_CLOSEOUT.md) |
 | Production readiness | **NOT STARTED** | — |
 
 **Next options (strategic, not mandates):**
 
 - [`releases/POST_DOCKER_LOCAL_HARDENING_NEXT_OPTIONS.md`](releases/POST_DOCKER_LOCAL_HARDENING_NEXT_OPTIONS.md)
 - [`releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_NEXT_OPTIONS.md`](releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_NEXT_OPTIONS.md)
+- [`releases/REAL_PROVIDER_VALIDATION_NEXT_OPTIONS.md`](releases/REAL_PROVIDER_VALIDATION_NEXT_OPTIONS.md)
 
 ---
 
@@ -91,9 +95,10 @@ Cross-repo milestone closeouts: [`releases/`](releases/).
 | Package | Status | Path |
 | --- | --- | --- |
 | Eval / alignment / frontend depth v1 | **CLOSED / PASS** | [`product-hardening/eval-alignment-frontend-depth/`](product-hardening/eval-alignment-frontend-depth/) |
-| Repo cleaning / docs / manual QA prep v1 | **MANUAL QA PACKAGE DONE** — execution next | [`product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/`](product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/) |
+| Repo cleaning / docs / manual QA prep v1 | **CLOSED / PASS** | [`product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/`](product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/) |
+| Real provider validation v1 | **CLOSED / PASS** | [`product-hardening/real-provider-validation-package-v1/`](product-hardening/real-provider-validation-package-v1/) |
 
-Index: [`product-hardening/README.md`](product-hardening/README.md). RCQ code + docs sweeps: **DONE** (2026-05-19) — closeout [`evidence/RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md`](evidence/RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md). `PRODUCT-MANUAL-QA-001` package: **DONE** (2026-05-19) — [`evidence/PRODUCT_MANUAL_QA_001_PACKAGE_EVIDENCE.md`](evidence/PRODUCT_MANUAL_QA_001_PACKAGE_EVIDENCE.md).
+Index: [`product-hardening/README.md`](product-hardening/README.md). RCQ closeout: [`evidence/RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md`](evidence/RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md). Fake-provider manual QA: [`evidence/PRODUCT_MANUAL_QA_002R1_EXECUTION_EVIDENCE.md`](evidence/PRODUCT_MANUAL_QA_002R1_EXECUTION_EVIDENCE.md). Real-provider manual QA: [`evidence/RP_005_REAL_PROVIDER_MANUAL_QA_EXECUTION_EVIDENCE.md`](evidence/RP_005_REAL_PROVIDER_MANUAL_QA_EXECUTION_EVIDENCE.md).
 
 ---
 
@@ -111,6 +116,7 @@ Index: [`product-hardening/README.md`](product-hardening/README.md). RCQ code + 
 
 - Production readiness is **not started** — see PFH and post-Docker closeouts for scoped limitations.
 - PFH v1: [`releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_KNOWN_LIMITATIONS.md`](releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_KNOWN_LIMITATIONS.md)
+- Real provider validation v1: [`releases/REAL_PROVIDER_VALIDATION_KNOWN_LIMITATIONS.md`](releases/REAL_PROVIDER_VALIDATION_KNOWN_LIMITATIONS.md)
 - Post-Docker: [`releases/POST_DOCKER_HARDENING_KNOWN_LIMITATIONS.md`](releases/POST_DOCKER_HARDENING_KNOWN_LIMITATIONS.md)
 
 ---
