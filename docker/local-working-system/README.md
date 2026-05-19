@@ -79,8 +79,13 @@ cd C:\dev\ontogony-platform
 .\docker\local-working-system\scripts\verify-frontend-browser-provenance.ps1 -Build
 ```
 
-This runs CA-aware `start-local-working-system.ps1 -Build` (explicit `docker compose build
-ontogony-frontend` with your repo `git` SHA, then recreates the container), probes
+`-Build` is **frontend-only** when Postgres is already up: `docker compose build
+ontogony-frontend` (without `--with-dependencies`), recreate that container, wait on `:5175`
+only. First-time or cold stack: backends start once via `-SkipFrontend`, then the frontend image
+builds. Do not pass `--with-dependencies` on build unless you intend to rebuild APIs too.
+
+This runs CA-aware build (explicit `docker compose build ontogony-frontend` with your repo
+`git` SHA, then recreates the container), probes
 `GET /provenance.json` and `index.html` meta tags, checks the main JS bundle is not stale,
 validates the Docker image label, and writes `artifacts/docker-local-verify-001-report.json`.
 

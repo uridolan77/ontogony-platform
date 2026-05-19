@@ -151,6 +151,40 @@ function Invoke-FrontendDockerImageBuild {
     return $provenance
 }
 
+function Test-DockerLocalPostgresRunning {
+    $composeRoot = Get-DockerLocalComposeRoot
+    $composeFile = Join-Path $composeRoot "docker-compose.yml"
+    $envFile = Get-DockerLocalEnvFilePath
+    $id = docker compose --env-file $envFile -f $composeFile ps -q postgres 2>$null
+    return ($LASTEXITCODE -eq 0 -and -not [string]::IsNullOrWhiteSpace(($id | Out-String).Trim()))
+}
+
+function Wait-FrontendBrowserHealthy {
+    param(
+        [int]$TimeoutSeconds = 90,
+        [int]$PollIntervalSeconds = 2,
+        [string]$FrontendBaseUrl = ""
+    )
+
+    $baseUrl = Get-FrontendBrowserBaseUrl -FrontendBaseUrl $FrontendBaseUrl
+    $deadline = (Get-Date).AddSeconds($TimeoutSeconds)
+    while ((Get-Date) -lt $deadline) {
+        try {
+            $response = Invoke-WebRequest -Uri "$baseUrl/" -UseBasicParsing -TimeoutSec 5
+            if ($response.StatusCode -ge 200 -and $response.StatusCode -lt 300) {
+                Write-Host "PASS ontogony-frontend healthy: $baseUrl/"
+                return
+            }
+        }
+        catch {
+            # retry
+        }
+        Start-Sleep -Seconds $PollIntervalSeconds
+    }
+
+    throw "ontogony-frontend did not become healthy within ${TimeoutSeconds}s at $baseUrl/"
+}
+
 function Get-FrontendBrowserBaseUrl {
     param([string]$FrontendBaseUrl = "")
 

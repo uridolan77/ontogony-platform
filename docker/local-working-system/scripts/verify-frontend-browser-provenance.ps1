@@ -1,4 +1,5 @@
-# DOCKER-LOCAL-VERIFY-001 — rebuild (optional), browser provenance probe, and report validation.
+# DOCKER-LOCAL-VERIFY-001 - rebuild (optional), browser provenance probe, and report validation.
+# -Build rebuilds only ontogony-frontend when the stack is already up.
 
 param(
     [switch]$Build,
@@ -20,35 +21,34 @@ $validateScript = Join-Path $PSScriptRoot "validate-frontend-browser-provenance-
 $startScript = Join-Path $PSScriptRoot "start-local-working-system.ps1"
 
 if ($Build) {
-    Write-Host "DOCKER-LOCAL-VERIFY-001: rebuilding frontend image with repo git HEAD, then starting stack ..."
-    $provenance = Set-FrontendDockerBuildProvenanceEnv
-    Write-Host "Expected browser commit: $($provenance.GitSha.Substring(0, [Math]::Min(7, $provenance.GitSha.Length))) ($($provenance.GitSha))"
-
-    # Must pass [switch] parameters by name — @("-Build") is a positional string and is ignored.
-    $null = Invoke-FrontendDockerImageBuild -DisableAutoCaInjection:$DisableAutoCaInjection
-
-    # Stack is already up in most cases — avoid rebuilding all APIs (slow). Start without -Build.
-    $startParams = @{}
-    if ($NoWait) { $startParams.NoWait = $true }
-    if ($DisableAutoCaInjection) { $startParams.DisableAutoCaInjection = $true }
-    & $startScript @startParams
-    if ($LASTEXITCODE -ne 0) {
-        throw "start-local-working-system.ps1 -Build failed (exit $LASTEXITCODE)."
-    }
-
     $composeRoot = Get-DockerLocalComposeRoot
     $composeFile = Join-Path $composeRoot "docker-compose.yml"
     $envFile = Get-DockerLocalEnvFilePath
-    Write-Host "Recreating ontogony-frontend container from freshly built image ..."
-    docker compose --env-file $envFile -f $composeFile up -d --force-recreate --no-deps ontogony-frontend
+
+    Write-Host "DOCKER-LOCAL-VERIFY-001: frontend-only rebuild (git HEAD -> image -> container -> probe) ..."
+    $provenance = Set-FrontendDockerBuildProvenanceEnv
+    Write-Host "Expected browser commit: $($provenance.GitSha.Substring(0, [Math]::Min(7, $provenance.GitSha.Length))) ($($provenance.GitSha))"
+
+    if (-not (Test-DockerLocalPostgresRunning)) {
+        Write-Host "Postgres not running - starting backend stack once (skip frontend image build) ..."
+        $startParams = @{ SkipFrontend = $true }
+        if ($DisableAutoCaInjection) { $startParams.DisableAutoCaInjection = $true }
+        & $startScript @startParams
+        if ($LASTEXITCODE -ne 0) {
+            throw "start-local-working-system.ps1 -SkipFrontend failed (exit $LASTEXITCODE)."
+        }
+    }
+
+    $null = Invoke-FrontendDockerImageBuild -DisableAutoCaInjection:$DisableAutoCaInjection
+
+    Write-Host "Recreating ontogony-frontend container only (backends untouched) ..."
+    docker compose --env-file $envFile -f $composeFile up -d --no-deps --force-recreate ontogony-frontend
     if ($LASTEXITCODE -ne 0) {
         throw "docker compose up --force-recreate ontogony-frontend failed (exit $LASTEXITCODE)."
     }
+
     if (-not $NoWait) {
-        & (Join-Path $PSScriptRoot "wait-local-working-system.ps1")
-        if ($LASTEXITCODE -ne 0) {
-            throw "wait-local-working-system.ps1 failed (exit $LASTEXITCODE)."
-        }
+        Wait-FrontendBrowserHealthy -FrontendBaseUrl $FrontendBaseUrl
     }
 }
 elseif (-not $SkipStart) {
