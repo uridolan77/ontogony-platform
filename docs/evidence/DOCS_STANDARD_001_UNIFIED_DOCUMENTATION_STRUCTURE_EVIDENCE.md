@@ -111,7 +111,7 @@ Recorded for `RCQ-DOCS-001` planning — **not modified** in this item.
 
 ## Known limitations
 
-- Sister repos do not yet have `docs/README.md`; creation is scoped to `RCQ-DOCS-001` sweeps.
+- Sister-repo `docs/README.md` indexes created in `RCQ-DOCS-001` (2026-05-19) — see [`RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md`](./RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md).
 - No link validation pass across hundreds of historical planning paths.
 - Package control copy under `repo-cleaning-documentation-manual-qa-prep-v1/standards/` is unchanged (platform publishes canonical operator copy).
 - No ZIP checksum pinned.
