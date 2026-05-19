@@ -24,7 +24,7 @@
 | Dataset views/bookmarks | No saved workbench or per-operator dataset view presets | follow-up |
 | Semantic diff visualization | Baseline comparison remains summary/detail cards; no rich side-by-side semantic diff viewer | follow-up |
 | Replay trigger | Allagma retry/cancel/replay POST not in OpenAPI; FE limitation UI | Out of PFH unless backend adds routes |
-| Replay page fixtures | No `?replayFixture=`; E2E uses service mocks | `FE-PRODUCT-003` may add catalog |
+| Replay page fixtures | No `?replayFixture=`; E2E uses service mocks | follow-up |
 | Manual eval write gate | POST eval gated; baseline POST not gated identically | Documented (`ALIGN-PRODUCT-001`, matrix § manual write) |
 | Run ↔ eval ids on run GET | May not list `evaluationRunIds` on live run response | `FE-PRODUCT-002` |
 | Param routes in release catalog | `/allagma/evaluations/:id` not in `release-route-catalog.json` | `ALIGN-PRODUCT-002` |

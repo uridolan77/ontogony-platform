@@ -11,7 +11,7 @@
 | Scenario dataset | **Closed (EVAL-PRODUCT-003):** `GET /allagma/v0/evaluation-datasets`, detail route, FE dataset surface, metadata-backed labels | Saved views/bookmarks, richer dataset analytics | **P2** | — | Full dataset authoring UI (unless scoped) |
 | Quality scoring | **Closed (EVAL-PRODUCT-004):** quality/judge metadata contract exposed in eval list/detail; FE detail shows calibration metadata + advisory limits | Calibration history trends and operator tuning workflows | **P2** | — | Training judge models |
 | Eval evidence export | Audit export on run; no eval bundle route | Operator export bundle (run/eval/comparison/dataset/trace) | **P2** | `EVAL-PRODUCT-005` | Compliance archive |
-| Replay relation | Replay page + Kanon bundles; limitation banners | Cross-links eval ↔ run ↔ comparison ↔ route evidence | **P2** | `FE-PRODUCT-003` | Live replay trigger (no backend route) |
+| Replay relation | **Closed (FE-PRODUCT-003):** journey links + cross-service card on replay workbench | Live replay trigger (no backend route) | follow-up | — | `?replayFixture=` catalog |
 | Persistence | Postgres + in-memory modes; `EVAL_DUR_001` done | Product retention/query semantics for operators | **P2** | (clarify in EVAL-PRODUCT-001) | DR/backup/SLO |
 | OpenAPI discipline | `allagma-openapi-v1.snapshot.json` + `openapi:check` | New eval semantics must update snapshot before FE hooks | **P0** | `EVAL-PRODUCT-001`, `ALIGN-PRODUCT-003` | Ad hoc routes |
 | Manual eval write | POST gated; baseline POST not gated same way | Documented in alignment matrix; no operator write UI | **P2** | — (closed ALIGN-PRODUCT-001) | — |

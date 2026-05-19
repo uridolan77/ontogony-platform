@@ -34,6 +34,8 @@
 | `docs/evidence/EVAL_POLISH_001_EVALUATION_SURFACE_CORRECTNESS_EVIDENCE.md` | Cross-repo polish closeout (parity + error semantics + wording) |
 | `docs/evidence/FE_PRODUCT_002_RUN_DETAIL_EVIDENCE_DEPTH_EVIDENCE.md` | Run/eval detail evidence journey (FE-PRODUCT-002) |
 | `ontogony-frontend/docs/evidence/FE_PRODUCT_002_RUN_DETAIL_EVIDENCE_DEPTH_EVIDENCE.md` | Frontend implementation evidence |
+| `docs/evidence/FE_PRODUCT_003_REPLAY_EVIDENCE_WORKBENCH_EVIDENCE.md` | Replay workbench journey + limitations (FE-PRODUCT-003) |
+| `ontogony-frontend/docs/evidence/FE_PRODUCT_003_REPLAY_EVIDENCE_WORKBENCH_EVIDENCE.md` | Frontend implementation evidence |
 | `allagma-dotnet/docs/evidence/EVAL_POLISH_001A_BASELINE_QUERY_PARITY_EVIDENCE.md` | Backend parity and baseline cursor tests |
 | `ontogony-frontend/docs/evidence/FE_EVAL_POLISH_001_ERROR_SEMANTICS_AND_WORDING_EVIDENCE.md` | Frontend detail error semantics, tri-state copy, fixture/live correction |
 | `allagma-dotnet/docs/evidence/EVAL_PRODUCT_001_QUERY_LIST_CONTRACT_EVIDENCE.md` | Backend implementation |
@@ -75,7 +77,7 @@ Closeout: `allagma-dotnet/docs/releases/FIRST_FULL_SANITY_CLOSEOUT.md` (2026-05-
 | `EVAL-PRODUCT-004` | **Done:** backend quality metadata contract tests + FE metadata adapter/detail wording tests |
 | `EVAL-POLISH-001` | **Done:** baseline recommendation parity + baseline cursor tests + frontend detail error semantics and tri-state quality wording |
 | `FE-PRODUCT-002` | **Done:** run detail + eval detail journey links; `buildRunEvidenceJourneyLinks` unit tests; `allagma-run-detail-evidence-journey` e2e; `FE_PRODUCT_002_RUN_DETAIL_EVIDENCE_DEPTH_EVIDENCE.md` |
-| `FE-PRODUCT-003` | Replay workbench fixture/live/degraded |
+| `FE-PRODUCT-003` | **Done:** `FE_PRODUCT_003_REPLAY_EVIDENCE_WORKBENCH_EVIDENCE.md`; replay journey + limitation e2e in `allagma-replay-evidence.spec.ts` |
 | `EVAL-PRODUCT-005` | Export bundle schema validator |
 | `PFH-001` | `docs/evidence/PFH_001_CURRENT_STATE_AUDIT_EVIDENCE.md` (this audit) |
 
