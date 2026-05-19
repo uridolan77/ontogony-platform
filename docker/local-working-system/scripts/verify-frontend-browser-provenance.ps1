@@ -13,18 +13,38 @@ param(
 $ErrorActionPreference = "Stop"
 Set-StrictMode -Version Latest
 
+. "$PSScriptRoot\_docker-local-env.ps1"
+
 $inspectScript = Join-Path $PSScriptRoot "inspect-frontend-browser-provenance.ps1"
 $validateScript = Join-Path $PSScriptRoot "validate-frontend-browser-provenance-report.ps1"
 $startScript = Join-Path $PSScriptRoot "start-local-working-system.ps1"
 
 if ($Build) {
-    Write-Host "DOCKER-LOCAL-VERIFY-001: rebuilding Docker local working system (CA-aware) ..."
+    Write-Host "DOCKER-LOCAL-VERIFY-001: rebuilding frontend image with repo git HEAD, then starting stack ..."
+    $provenance = Set-FrontendDockerBuildProvenanceEnv
+    Write-Host "Expected browser commit: $($provenance.GitSha.Substring(0, [Math]::Min(7, $provenance.GitSha.Length))) ($($provenance.GitSha))"
+
     $startArgs = @("-Build")
     if ($NoWait) { $startArgs += "-NoWait" }
     if ($DisableAutoCaInjection) { $startArgs += "-DisableAutoCaInjection" }
     & $startScript @startArgs
     if ($LASTEXITCODE -ne 0) {
         throw "start-local-working-system.ps1 -Build failed (exit $LASTEXITCODE)."
+    }
+
+    $composeRoot = Get-DockerLocalComposeRoot
+    $composeFile = Join-Path $composeRoot "docker-compose.yml"
+    $envFile = Get-DockerLocalEnvFilePath
+    Write-Host "Recreating ontogony-frontend container from freshly built image ..."
+    docker compose --env-file $envFile -f $composeFile up -d --force-recreate --no-deps ontogony-frontend
+    if ($LASTEXITCODE -ne 0) {
+        throw "docker compose up --force-recreate ontogony-frontend failed (exit $LASTEXITCODE)."
+    }
+    if (-not $NoWait) {
+        & (Join-Path $PSScriptRoot "wait-local-working-system.ps1")
+        if ($LASTEXITCODE -ne 0) {
+            throw "wait-local-working-system.ps1 failed (exit $LASTEXITCODE)."
+        }
     }
 }
 elseif (-not $SkipStart) {

@@ -2,7 +2,8 @@ param(
     [switch]$Build,
     [switch]$NoWait,
     [switch]$SkipFrontend,
-    [switch]$DisableAutoCaInjection
+    [switch]$DisableAutoCaInjection,
+    [switch]$ForceFrontendNoCache
 )
 
 $ErrorActionPreference = "Stop"
@@ -100,16 +101,6 @@ $composeArgs = @(
     "-d"
 )
 if ($Build) {
-    if (-not $SkipFrontend) {
-        try {
-            $provenance = Set-FrontendDockerBuildProvenanceEnv
-            Write-Host "Frontend Docker build provenance: git $($provenance.GitSha.Substring(0, [Math]::Min(7, $provenance.GitSha.Length))) · v$($provenance.AppVersion)"
-        }
-        catch {
-            Write-Warning "Could not resolve ontogony-frontend git HEAD for Docker build args: $($_.Exception.Message)"
-        }
-    }
-
     if (-not $DisableAutoCaInjection -and [string]::IsNullOrWhiteSpace($env:DOCKER_EXTRA_CA_CERT_BASE64)) {
         $nugetTlsOk = Test-NuGetTlsFromContainer -Image $dotnetSdkImage
         $npmTlsOk = Test-NpmRegistryTlsFromContainer -Image $nodeImage
@@ -121,6 +112,10 @@ if ($Build) {
             }
             $null = Set-DockerExtraCaFromWindowsTrustStore -Issuer $issuer
         }
+    }
+
+    if (-not $SkipFrontend) {
+        $null = Invoke-FrontendDockerImageBuild -NoCache:$ForceFrontendNoCache
     }
 
     $composeArgs += "--build"

@@ -79,10 +79,14 @@ cd C:\dev\ontogony-platform
 .\docker\local-working-system\scripts\verify-frontend-browser-provenance.ps1 -Build
 ```
 
-This runs CA-aware `start-local-working-system.ps1 -Build` (embedding git SHA into the SPA),
-probes `GET /provenance.json` and `index.html` meta tags, checks the main JS bundle is not stale,
-validates the Docker image label, and writes
-`artifacts/docker-local-verify-001-report.json`.
+This runs CA-aware `start-local-working-system.ps1 -Build` (explicit `docker compose build
+ontogony-frontend` with your repo `git` SHA, then recreates the container), probes
+`GET /provenance.json` and `index.html` meta tags, checks the main JS bundle is not stale,
+validates the Docker image label, and writes `artifacts/docker-local-verify-001-report.json`.
+
+If verify reports `gitSha: local`, the frontend image was not rebuilt — re-run with `-Build`
+(do not rely on `docker compose up --build` alone). For a full no-cache frontend rebuild after
+TLS fixes: `start-local-working-system.ps1 -Build -ForceFrontendNoCache`.
 
 Inspect only (stack already running):
 

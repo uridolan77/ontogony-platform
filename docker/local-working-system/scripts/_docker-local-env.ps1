@@ -67,6 +67,44 @@ function Set-FrontendDockerBuildProvenanceEnv {
     }
 }
 
+function Invoke-FrontendDockerImageBuild {
+    param(
+        [switch]$NoCache
+    )
+
+    $composeRoot = Get-DockerLocalComposeRoot
+    $composeFile = Join-Path $composeRoot "docker-compose.yml"
+    $envFile = Get-DockerLocalEnvFilePath
+    $provenance = Set-FrontendDockerBuildProvenanceEnv
+
+    $shortSha = $provenance.GitSha.Substring(0, [Math]::Min(7, $provenance.GitSha.Length))
+    Write-Host "Building ontogony-frontend image (git $shortSha, v$($provenance.AppVersion)) ..."
+
+    $buildArgs = @(
+        "compose",
+        "--env-file", $envFile,
+        "-f", $composeFile,
+        "build",
+        "ontogony-frontend",
+        "--build-arg", "VITE_GIT_SHA=$($provenance.GitSha)",
+        "--build-arg", "VITE_BUILD_TIME=$($provenance.BuildTime)",
+        "--build-arg", "VITE_APP_VERSION=$($provenance.AppVersion)"
+    )
+    if (-not [string]::IsNullOrWhiteSpace($env:DOCKER_EXTRA_CA_CERT_BASE64)) {
+        $buildArgs += @("--build-arg", "EXTRA_CA_CERT_BASE64=$($env:DOCKER_EXTRA_CA_CERT_BASE64)")
+    }
+    if ($NoCache) {
+        $buildArgs += "--no-cache"
+    }
+
+    docker @buildArgs
+    if ($LASTEXITCODE -ne 0) {
+        throw "docker compose build ontogony-frontend failed (exit $LASTEXITCODE)."
+    }
+
+    return $provenance
+}
+
 function Get-FrontendBrowserBaseUrl {
     param([string]$FrontendBaseUrl = "")
 
