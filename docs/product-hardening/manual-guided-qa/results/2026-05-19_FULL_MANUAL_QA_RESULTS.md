@@ -105,3 +105,40 @@ After rebuild and seed/migration setup:
 ### Remaining non-PMQA002-001 blocker
 
 Full-stack `start-local-working-system.ps1 -Build` still fails on `ontogony-frontend` image build (`tsc: not found`), which is separate from the NuGet TLS trust defect.
+
+## Addendum — PMQA002-002 follow-up execution (2026-05-19)
+
+This addendum records the frontend Docker build blocker resolution. Prior history remains unchanged.
+
+- `PMQA002-002` status: **implemented / fixed**
+- Evidence:
+  - `docs/evidence/PMQA002_002_FRONTEND_DOCKER_BUILD_FIX_EVIDENCE.md`
+  - `ontogony-frontend/docs/evidence/PMQA002_002_FRONTEND_DOCKER_BUILD_FIX_EVIDENCE.md`
+
+### Frontend blocker resolution
+
+- Reproduced failing frontend stage: `ontogony-frontend build-ui` at `RUN npm run build`.
+- Error confirmed: `tsc: not found`.
+- Applied narrow frontend build-stage fix:
+  - deterministic build-time dev tool installation (`npm ci --include=dev`),
+  - Node build-stage TLS trust alignment via optional CA injection and npm `cafile`,
+  - compose wiring for frontend `EXTRA_CA_CERT_BASE64`,
+  - startup probe expansion to include npm registry TLS.
+
+### Full-stack rebuild status
+
+- `start-local-working-system.ps1 -Build` now succeeds for all services including `ontogony-frontend`.
+- Docker-local stack reached healthy state after rebuild.
+
+### Frontend route smoke on rebuilt image
+
+- `GET http://localhost:5175/` → `200`
+- `GET http://localhost:5175/allagma/evaluations` → `200`
+- `GET http://localhost:5175/allagma/evaluations/baseline-comparisons` → `200`
+- `GET http://localhost:5175/allagma/evaluations/datasets` → `200`
+- `GET http://localhost:5175/allagma/replay` → `200`
+
+### Reclassification
+
+- Previous frontend blocker (`tsc not found`) is resolved.
+- Manual QA remains pending rerun (`PRODUCT-MANUAL-QA-002R1`) to produce a fresh end-to-end execution package on rebuilt images.

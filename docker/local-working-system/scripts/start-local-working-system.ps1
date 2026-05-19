@@ -14,6 +14,7 @@ $defaultEnvFile = Join-Path $composeRoot ".env"
 $exampleEnvFile = Join-Path $composeRoot ".env.example"
 $waitScript = Join-Path $PSScriptRoot "wait-local-working-system.ps1"
 $dotnetSdkImage = "mcr.microsoft.com/dotnet/sdk:9.0-bookworm-slim"
+$nodeImage = "node:20-bookworm-slim"
 
 function Test-NuGetTlsFromContainer {
     param([string]$Image)
@@ -22,10 +23,20 @@ function Test-NuGetTlsFromContainer {
     return ($LASTEXITCODE -eq 0)
 }
 
-function Get-NuGetIssuerFromContainer {
+function Test-NpmRegistryTlsFromContainer {
     param([string]$Image)
 
-    $issuer = & docker run --rm $Image bash -lc "echo | openssl s_client -connect api.nuget.org:443 -servername api.nuget.org 2>/dev/null | sed -n 's/^issuer=//p'"
+    & docker run --rm $Image node -e "fetch('https://registry.npmjs.org').then(()=>process.exit(0)).catch(()=>process.exit(1))"
+    return ($LASTEXITCODE -eq 0)
+}
+
+function Get-TlsIssuerFromContainer {
+    param(
+        [string]$Image,
+        [string]$HostName
+    )
+
+    $issuer = & docker run --rm $Image bash -lc "echo | openssl s_client -connect $HostName`:443 -servername $HostName 2>/dev/null | sed -n 's/^issuer=//p'"
     if ($LASTEXITCODE -ne 0) {
         return $null
     }
@@ -88,9 +99,14 @@ $composeArgs = @(
 )
 if ($Build) {
     if (-not $DisableAutoCaInjection -and [string]::IsNullOrWhiteSpace($env:DOCKER_EXTRA_CA_CERT_BASE64)) {
-        $tlsProbeOk = Test-NuGetTlsFromContainer -Image $dotnetSdkImage
-        if (-not $tlsProbeOk) {
-            $issuer = Get-NuGetIssuerFromContainer -Image $dotnetSdkImage
+        $nugetTlsOk = Test-NuGetTlsFromContainer -Image $dotnetSdkImage
+        $npmTlsOk = Test-NpmRegistryTlsFromContainer -Image $nodeImage
+
+        if (-not $nugetTlsOk -or -not $npmTlsOk) {
+            $issuer = Get-TlsIssuerFromContainer -Image $dotnetSdkImage -Host "api.nuget.org"
+            if ([string]::IsNullOrWhiteSpace($issuer)) {
+                $issuer = Get-TlsIssuerFromContainer -Image $dotnetSdkImage -Host "registry.npmjs.org"
+            }
             $null = Set-DockerExtraCaFromWindowsTrustStore -Issuer $issuer
         }
     }

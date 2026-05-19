@@ -8,7 +8,28 @@ execution recorded in `2026-05-19_FULL_MANUAL_QA_RESULTS.md`.
 - `PMQA002-001` backend scope completed: Docker-local .NET image rebuild path now succeeds with trusted local CA injection (no TLS bypass).
 - Rebuilt-image probes for prior inconclusive Allagma routes now return `200` (`/evaluations`, `/evaluations/{id}/evidence`, `/evaluations/baseline-comparisons`, `/evaluation-datasets`).
 - Previous `404` observations are reclassified as stale-image/version-skew caused by rebuild failure.
-- Full-stack compose rebuild remains blocked by a separate frontend image build error (`ontogony-frontend`: `tsc: not found`), outside NuGet TLS trust scope.
+- `PMQA002-002` frontend scope completed: full-stack `start-local-working-system.ps1 -Build` now succeeds including `ontogony-frontend`.
+- Frontend Docker-local SPA route probes on rebuilt image return `200` for `/`, `/allagma/evaluations`, `/allagma/evaluations/baseline-comparisons`, `/allagma/evaluations/datasets`, `/allagma/replay`.
+- Remaining path is execution flow, not blocker remediation: `PMQA002-003` rebuilt-stack smoke and `PRODUCT-MANUAL-QA-002R1` rerun.
+
+## Next execution prompts
+
+### PMQA002-003 — full rebuilt stack route/UI smoke
+
+```text
+Run a narrow rebuilt-stack smoke after PMQA002-001 and PMQA002-002 fixes:
+- Verify compose build/start from current main succeeds.
+- Re-probe Allagma evaluation routes and frontend SPA routes.
+- Confirm no stale image/version-skew remains.
+- Export a compact smoke evidence bundle for rerun gate.
+```
+
+### PRODUCT-MANUAL-QA-002R1 — full manual QA rerun
+
+```text
+Execute the full PRODUCT-MANUAL-QA-002 checklist from fresh rebuilt stack/images only.
+Produce a new results artifact set and verdict independent from the blocked initial run.
+```
 
 ## Defect prompts
 

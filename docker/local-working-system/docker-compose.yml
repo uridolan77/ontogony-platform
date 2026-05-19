@@ -115,6 +115,7 @@ services:
       additional_contexts:
         ontogony_ui: ../../../ontogony-ui
       args:
+        EXTRA_CA_CERT_BASE64: ${DOCKER_EXTRA_CA_CERT_BASE64:-}
         VITE_KANON_BASE_URL: ${FRONTEND_VITE_KANON_BASE_URL:-http://localhost:5081}
         VITE_CONEXUS_BASE_URL: ${FRONTEND_VITE_CONEXUS_BASE_URL:-http://localhost:5082}
         VITE_ALLAGMA_BASE_URL: ${FRONTEND_VITE_ALLAGMA_BASE_URL:-http://localhost:5083}
