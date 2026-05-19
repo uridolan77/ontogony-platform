@@ -386,7 +386,7 @@ When `ASPNETCORE_ENVIRONMENT=Development`, each API enables a **narrow CORS poli
 - `http://localhost:5175`
 - `http://127.0.0.1:5175`
 
-Allowed methods: `GET`, `POST`, `OPTIONS`. Allowed headers include `Authorization`, `Content-Type`, and Conexus admin/project keys. Production images keep CORS **disabled** unless explicitly configured — this is **not** production readiness.
+Allowed methods: `GET`, `POST`, `OPTIONS`. Allowed headers include `Authorization`, `Content-Type`, Ontogony actor/context headers (`X-Ontogony-Actor-Id`, `X-Ontogony-Actor-Type`, trace/correlation/tenant/idempotency), and Conexus admin/project keys. Production images keep CORS **disabled** unless explicitly configured — this is **not** production readiness.
 
 Docker-local compose sets `Kanon__Cors__*`, `Conexus__Cors__*`, and `Allagma__Cors__*` via `.env` (`FRONTEND_CORS_ORIGIN_*`). If DevTools shows `No Access-Control-Allow-Origin`, rebuild API containers after pulling CORS changes and confirm the frontend origin matches `.env`.
 

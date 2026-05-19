@@ -106,3 +106,71 @@ await fetch("http://localhost:5081/health").then(async r => ({
 - No real-provider behavior changes.
 - Fake provider remains default.
 - No secrets in git diff.
+
+---
+
+## FE-LOCAL-CORS-001A addendum — Kanon Ontogony actor/header CORS follow-up
+
+**Status:** Implementation complete (operator browser verification pending rebuild)  
+**Scope:** Docker-local / Development only — **not production readiness**
+
+### Context after FE-LOCAL-CORS-001
+
+- Allagma evaluations load live in the browser from `http://localhost:5175`.
+- Operator `localStorage` settings remain valid.
+- Remaining browser CORS failure on Kanon operator routes that send Ontogony actor headers.
+
+### Remaining failure (before 001A)
+
+DevTools from `http://localhost:5175`:
+
+```text
+Access to fetch at 'http://localhost:5081/ontology/v0/domain-packs' from origin
+'http://localhost:5175' has been blocked by CORS policy: Request header field
+x-ontogony-actor-id is not allowed by Access-Control-Allow-Headers.
+```
+
+Frontend Kanon client sends `X-Ontogony-Actor-Id` and `X-Ontogony-Actor-Type` when `defaultActorId` is set.
+
+### Fix (001A)
+
+| Repo | Change |
+|------|--------|
+| `kanon-dotnet` | Extend `Kanon:Cors` allowed request headers: `Authorization`, `Content-Type`, `X-Ontogony-Actor-Id`, `X-Ontogony-Actor-Type`, plus standard Ontogony context headers (`X-Ontogony-Trace-Id`, `X-Ontogony-Correlation-Id`, `X-Ontogony-Tenant-Id`, `X-Ontogony-Idempotency-Key`); add OPTIONS preflight test for `/ontology/v0/domain-packs` |
+| `ontogony-platform` | This addendum; README browser API header list |
+
+Allagma and Conexus CORS behavior unchanged.
+
+### Browser fetch check (after 001A — operator rerun)
+
+Rebuild Kanon API container, restart compose, then from DevTools Console:
+
+```javascript
+const s = JSON.parse(localStorage.getItem("ontogony.frontend.operator-settings.v1"));
+
+await fetch("http://localhost:5081/ontology/v0/domain-packs", {
+  headers: {
+    Authorization: "Bearer " + s.kanon.serviceToken,
+    "X-Ontogony-Actor-Id": s.allagma.defaultActorId || "local-operator",
+    "X-Ontogony-Actor-Type": "human"
+  }
+}).then(async r => ({
+  status: r.status,
+  contentType: r.headers.get("content-type"),
+  bodyStart: (await r.text()).slice(0, 200)
+})).catch(e => ({ error: String(e) }));
+```
+
+Expected: no CORS failure; normal HTTP status (ideally 200).
+
+### UI verification (after 001A — operator rerun)
+
+| Route | Expected |
+|-------|----------|
+| `/kanon/domain-packs` (if routed) | Live domain pack data |
+| `/allagma/evaluations` | Continues to load live data |
+| `/conexus/observability` | Continues to load |
+
+### Automated tests (001A)
+
+- `kanon-dotnet`: `CorsIntegrationTests.OPTIONS_preflight_for_domain_packs_allows_ontogony_actor_headers`
