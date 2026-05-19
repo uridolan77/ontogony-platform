@@ -7,32 +7,22 @@ param(
 $ErrorActionPreference = "Stop"
 Set-StrictMode -Version Latest
 
-$composeRoot = Split-Path -Parent $PSScriptRoot
+. "$PSScriptRoot\_docker-local-env.ps1"
+
+$composeRoot = Get-DockerLocalComposeRoot
 if ([string]::IsNullOrWhiteSpace($ReportPath)) {
     $ReportPath = Join-Path $composeRoot "artifacts\kanon-op-001-topology-evidence-report.json"
 }
 
-$secretPatterns = @(
-    "allagma-dev-service-token-change-in-production",
-    "kanon-dev-service-token-change-in-production",
-    "cx-dev-key-change-me",
-    "cx-conexus-admin-dev",
-    "allagma_local_pw",
-    "kanon_local_pw",
-    "conexus_local_pw",
-    "ontogony_admin_pw"
-)
+$config = Get-DockerLocalComposeConfig
+$secretPatterns = @(Get-DockerLocalSecretPatterns -ComposeConfig $config)
 
 if (-not (Test-Path -LiteralPath $ReportPath)) {
     throw "Kanon topology evidence report not found: $ReportPath"
 }
 
 $raw = Get-Content -Raw -LiteralPath $ReportPath
-foreach ($pattern in $secretPatterns) {
-    if ($raw -match [regex]::Escape($pattern)) {
-        throw "Report contains raw secret pattern: $pattern"
-    }
-}
+Assert-ReportHasNoSecretPatterns -Json $raw -SecretPatterns $secretPatterns
 
 $doc = $raw | ConvertFrom-Json
 

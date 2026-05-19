@@ -28,8 +28,8 @@ First Dockerized local working system: **CLOSED / PASS**. Not production readine
 | CONEXUS-PERSIST-001 | **DONE** | Operator docs — platform PR #7, conexus PR #13 |
 | CONEXUS-PERSIST-002 | **DONE** | Validation automation — platform PR #8 |
 | CONEXUS-PERSIST-003 | **DONE** | Durability regression — PR #9 merged |
-| **KANON-OP-001** | **active** | `inspect-kanon-topology-evidence.ps1` |
-| KANON-OP-002 | backlog | Kanon operational diagnostics |
+| KANON-OP-001 | **DONE** | Topology evidence — PR #10 / kanon #2 |
+| **KANON-OP-002** | **active** | `diagnose-kanon-topology-ops.ps1` |
 | TRACE-CONTRACT-001 | backlog | Cross-service trace/correlation contract |
 | FE-HARDEN-001 | backlog | Frontend hardening beyond walkthrough |
 | FE-AUDIT-FIXTURES-001 | backlog | Fixture/live boundary audit |
