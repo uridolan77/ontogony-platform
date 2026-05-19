@@ -103,6 +103,7 @@ Planning packages: [`docs/alignment/`](../alignment/README.md) (historical; PFH 
 | Item | File |
 | --- | --- |
 | UI-HARDEN-000 current-state audit | [UI_HARDEN_000_CURRENT_STATE_AUDIT_EVIDENCE.md](./UI_HARDEN_000_CURRENT_STATE_AUDIT_EVIDENCE.md) |
+| UI-HARDEN-001 AppShell contract + tests | [UI_HARDEN_001_APPSHELL_CONTRACT_EVIDENCE.md](./UI_HARDEN_001_APPSHELL_CONTRACT_EVIDENCE.md) |
 
 Primary audit: `ontogony-ui/docs/reviews/UI_HARDEN_000_CURRENT_STATE_AUDIT.md`
 
