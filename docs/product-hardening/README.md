@@ -75,6 +75,7 @@ Manual guided QA package: [`docs/product-hardening/manual-guided-qa/`](manual-gu
 | `RP-001` secret, budget, safety gates | **DONE** (2026-05-19) | [`RP_001_SECRET_BUDGET_SAFETY_GATES_EVIDENCE.md`](../evidence/RP_001_SECRET_BUDGET_SAFETY_GATES_EVIDENCE.md) |
 | `RP-002` Conexus real-provider local mode | **DONE** (2026-05-19) | [`RP_002_CONEXUS_REAL_PROVIDER_LOCAL_MODE_EVIDENCE.md`](../evidence/RP_002_CONEXUS_REAL_PROVIDER_LOCAL_MODE_EVIDENCE.md) |
 | `RP-003` Allagma real-provider guided flow | **DONE** (2026-05-19) | [`RP_003_ALLAGMA_REAL_PROVIDER_GUIDED_FLOW_EVIDENCE.md`](../evidence/RP_003_ALLAGMA_REAL_PROVIDER_GUIDED_FLOW_EVIDENCE.md) |
+| `RP-003A` live provider completion (Docker TLS) | **DONE** (2026-05-19) | [`RP_003A_LIVE_REAL_PROVIDER_COMPLETION_EVIDENCE.md`](../evidence/RP_003A_LIVE_REAL_PROVIDER_COMPLETION_EVIDENCE.md) |
 | `RP-004` frontend operator visibility | **Next** | — |
 
 **Operator policy:** [`docs/operators/REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md`](../operators/REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md)

@@ -52,8 +52,12 @@ cd C:\dev\ontogony-platform
 
 If Docker restore fails with NuGet TLS chain errors (`NU1301`, `PartialChain`), the
 start script now probes NuGet from the SDK container and auto-injects a matching
-trusted root CA from Windows cert store into .NET Docker build stages. This keeps
-TLS verification enabled and avoids committing local CA material.
+trusted root CA from Windows cert store into .NET Docker **build and runtime** stages
+(Conexus `Dockerfile` applies the same `EXTRA_CA_CERT_BASE64` at runtime for outbound
+provider HTTPS). This keeps TLS verification enabled and avoids committing local CA material.
+
+**Real provider live validation (RP-003A):** after a classified `provider_transport_error` in Docker,
+run `scripts/run-rp-003a-live-provider-validation.ps1` with a local `CONEXUS_PROVIDER_OPENAI_API_KEY`.
 
 Backend-only startup (skip frontend build when isolating backend defects):
 

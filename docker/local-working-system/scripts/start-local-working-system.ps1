@@ -73,7 +73,7 @@ function Set-DockerExtraCaFromWindowsTrustStore {
     $pem = "-----BEGIN CERTIFICATE-----`n$pemBody`n-----END CERTIFICATE-----`n"
     $env:DOCKER_EXTRA_CA_CERT_BASE64 = [Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes($pem))
 
-    Write-Host "Detected TLS-intercept issuer '$($cert.Subject)'. Injecting local trusted root CA into Docker build stages."
+    Write-Host "Detected TLS-intercept issuer '$($cert.Subject)'. Injecting local trusted root CA into Docker build/runtime stages."
     return $true
 }
 

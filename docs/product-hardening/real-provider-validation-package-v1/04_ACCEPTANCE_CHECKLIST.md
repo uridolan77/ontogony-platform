@@ -25,6 +25,14 @@
 - [ ] Kanon behavior unchanged
 - [ ] fake-provider regression passes
 
+## RP-003A (follow-up — live completion)
+
+- [ ] provider_transport_error root cause documented
+- [ ] Docker runtime TLS trust fixed (if applicable)
+- [ ] one live real-provider completion succeeds
+- [ ] eval export on successful real run
+- [ ] fake-provider regression after kill switch
+
 ## RP-004
 
 - [ ] frontend shows fake vs real-provider validation state

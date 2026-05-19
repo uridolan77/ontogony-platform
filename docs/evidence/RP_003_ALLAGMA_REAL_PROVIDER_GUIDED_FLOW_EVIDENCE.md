@@ -33,6 +33,10 @@ cd C:\dev\allagma-dotnet
 
 Policy: [`docs/operators/REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md`](../operators/REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md)
 
+## Addendum — RP-003A (2026-05-19)
+
+RP-003A closed the live-completion gap: Docker runtime CA trust + successful real OpenAI path. See [`RP_003A_LIVE_REAL_PROVIDER_COMPLETION_EVIDENCE.md`](./RP_003A_LIVE_REAL_PROVIDER_COMPLETION_EVIDENCE.md).
+
 ## Next step
 
 **`RP-004`** — frontend operator visibility (`prompts/RP-004_FRONTEND_REAL_PROVIDER_OPERATOR_VISIBILITY.md`).

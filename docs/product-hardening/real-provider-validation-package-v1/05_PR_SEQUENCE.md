@@ -6,6 +6,7 @@
 | 1 | `RP-001` | platform + conexus | Secret/budget/safety gates |
 | 2 | `RP-002` | conexus + platform | Real-provider local mode |
 | 3 | `RP-003` | allagma + platform | Real-provider guided flow |
+| 3a | `RP-003A` | conexus + allagma + platform | Live completion after Docker TLS fix |
 | 4 | `RP-004` | frontend + platform | Operator visibility |
 | 5 | `RP-005` | platform | Manual execution |
 | 6 | `RP-CLOSEOUT-001` | platform | Closeout |
