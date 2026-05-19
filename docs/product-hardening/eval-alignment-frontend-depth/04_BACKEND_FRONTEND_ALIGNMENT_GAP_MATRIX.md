@@ -13,7 +13,7 @@
 | Baseline comparison create | `POST /evaluations/baseline-comparisons` | aligned (no FE form) | not wrapped for UI | — | — | — | harness only | `BaselineComparisonTests` | `EVAL_RUN_003` |
 | Baseline comparison list/history | `GET /evaluations/baseline-comparisons` | aligned | `listAllagmaBaselineComparisons` | `useAllagmaBaselineComparisons` | `mapBaselineComparisonSummaryDto` | `/allagma/evaluations/baseline-comparisons` | `dashboardFixture=ci-suite` | `BaselineComparisonQuery`, e2e dashboard spec | `EVAL_PRODUCT_002_*` |
 | Scenario dataset index | `GET /evaluation-datasets`, `GET /evaluation-datasets/{datasetId}` | aligned | `listAllagmaEvaluationDatasets`, `getAllagmaEvaluationDataset` | `useAllagmaEvaluationDatasets`, `useAllagmaEvaluationDataset` | dataset metadata adapters + dashboard label lookup | `/allagma/evaluations/datasets` + dashboard links | `dashboardFixture=ci-suite` + live list | backend API tests + FE route/adapter tests | `EVAL_PRODUCT_003_*` |
-| Quality scoring display | DTOs on eval run | aligned on eval GET | via eval GET | via eval hooks | `buildEvalQualityBreakdownViewModel` | eval detail | fixture eval ids | `EvalQualityScoringTests`, adapter tests | `EVAL_QUALITY_001` |
+| Quality scoring display | DTOs + explicit quality metadata on eval list/detail | aligned on eval GET + eval list GET | generated schema + allagma client quality metadata fields | eval hooks + detail composition | `buildEvalQualityBreakdownViewModel`, quality metadata mapping | eval detail (judge metadata card) + list metadata consumption | fixture eval ids | `EvalQualityScoringTests`, `AllagmaEvaluationApiTests`, FE adapter tests | `EVAL_QUALITY_001`, `EVAL_PRODUCT_004_*` |
 | Replay evidence | Kanon replay routes + Allagma run GET | partial (Kanon client separate) | kanon + allagma clients | `useKanonReplayBundles`, `useTraceCorrelation`, `useAllagmaRun` | `kanonProvenanceAdapters`, `buildAllagmaReplayEvidence` | `/allagma/replay` | E2E mock only | `e2e/allagma-replay-evidence.spec.ts` | `FE_TEST_REPLAY_001` |
 | Trace correlation | platform + service headers | N/A cross-service | correlation services | `useTraceCorrelation` | `correlationAdapters` | run detail, replay, system | fixture/live e2e | `TRACE_CONTRACT_001` | platform `TRACE_*` |
 | Kanon topology decision | `POST .../execution-topologies/evaluate` + `GET /decision-records/{id}` | Kanon snapshot | `kanonClient` | run audit / topology adapters | topology adapters | run detail topology panel | `topologyFixture` | Kanon topology tests, platform scripts | `KANON_OP_001/002` |
@@ -34,8 +34,8 @@ Operator UI exposes neither POST. Limitations card lists GET routes only.
 
 | Status | Count (major surfaces) |
 | --- | --- |
-| aligned (read paths + FE consume) | 7 |
-| partial (cross-service, POST without UI, filter depth, replay) | 5 |
+| aligned (read paths + FE consume) | 8 |
+| partial (cross-service, POST without UI, filter depth, replay) | 4 |
 | missing (export) | 1 |
 | deferred (run mutations) | 1 |
 

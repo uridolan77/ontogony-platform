@@ -30,6 +30,7 @@
 | `docs/evidence/EVAL_PRODUCT_001_QUERY_LIST_CONTRACT_EVIDENCE.md` | Global eval list contract (platform index) |
 | `docs/evidence/EVAL_PRODUCT_002_BASELINE_COMPARISON_WORKBENCH_EVIDENCE.md` | Baseline comparison list/history workbench |
 | `docs/evidence/EVAL_PRODUCT_003_SCENARIO_DATASET_SURFACES_EVIDENCE.md` | Scenario dataset index/detail + dashboard metadata consumption |
+| `docs/evidence/EVAL_PRODUCT_004_QUALITY_SCORING_AND_JUDGE_CALIBRATION_EVIDENCE.md` | Quality/judge metadata contract + FE calibration surfaces |
 | `allagma-dotnet/docs/evidence/EVAL_PRODUCT_001_QUERY_LIST_CONTRACT_EVIDENCE.md` | Backend implementation |
 | `ontogony-frontend/docs/evidence/EVAL_PRODUCT_001_FRONTEND_QUERY_LIST_CONTRACT_EVIDENCE.md` | Frontend consumption |
 | `docs/evidence/ALIGN_EVAL_001_EVAL_ALIGNMENT_REFRESH_EVIDENCE.md` | Eval alignment snapshot |
@@ -66,7 +67,7 @@ Closeout: `allagma-dotnet/docs/releases/FIRST_FULL_SANITY_CLOSEOUT.md` (2026-05-
 | `FE-PRODUCT-001` | **Done:** `FE_PRODUCT_001_EVAL_DASHBOARD_V2_EVIDENCE.md`; filter e2e in `allagma-eval-dashboards.spec.ts` |
 | `EVAL-PRODUCT-002` | **Done:** backend API list tests + frontend/e2e workbench coverage (`EVAL_PRODUCT_002_BASELINE_COMPARISON_WORKBENCH_EVIDENCE.md`) |
 | `EVAL-PRODUCT-003` | **Done:** dataset API route tests + FE route/adapter tests + OpenAPI sync/check evidence |
-| `EVAL-PRODUCT-004` | Scoring/calibration adapter + limitation copy tests |
+| `EVAL-PRODUCT-004` | **Done:** backend quality metadata contract tests + FE metadata adapter/detail wording tests |
 | `FE-PRODUCT-002` | Run detail integration with mocked states |
 | `FE-PRODUCT-003` | Replay workbench fixture/live/degraded |
 | `EVAL-PRODUCT-005` | Export bundle schema validator |

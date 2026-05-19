@@ -9,7 +9,7 @@
 | Eval detail | `GET /evaluations/{id}` + FE detail page | Richer verdict/quality/metric presentation; correlation IDs | **P1** | `FE-PRODUCT-002` | — |
 | Baseline comparison | **Closed (EVAL-PRODUCT-002):** list/history route + FE workbench + detail drilldown links | Create flow still harness-only; richer diff visualization | **P2** | — | Enterprise reporting |
 | Scenario dataset | **Closed (EVAL-PRODUCT-003):** `GET /allagma/v0/evaluation-datasets`, detail route, FE dataset surface, metadata-backed labels | Saved views/bookmarks, richer dataset analytics | **P2** | — | Full dataset authoring UI (unless scoped) |
-| Quality scoring | `EVAL_QUALITY_001` scaffold; FE quality panel on detail | Score breakdown, confidence, calibration metadata, limitation copy | **P1** | `EVAL-PRODUCT-004` | Training judge models |
+| Quality scoring | **Closed (EVAL-PRODUCT-004):** quality/judge metadata contract exposed in eval list/detail; FE detail shows calibration metadata + advisory limits | Calibration history trends and operator tuning workflows | **P2** | — | Training judge models |
 | Eval evidence export | Audit export on run; no eval bundle route | Operator export bundle (run/eval/comparison/dataset/trace) | **P2** | `EVAL-PRODUCT-005` | Compliance archive |
 | Replay relation | Replay page + Kanon bundles; limitation banners | Cross-links eval ↔ run ↔ comparison ↔ route evidence | **P2** | `FE-PRODUCT-003` | Live replay trigger (no backend route) |
 | Persistence | Postgres + in-memory modes; `EVAL_DUR_001` done | Product retention/query semantics for operators | **P2** | (clarify in EVAL-PRODUCT-001) | DR/backup/SLO |
@@ -32,8 +32,8 @@
 3. FE-PRODUCT-001    — eval dashboard v2
 4. EVAL-PRODUCT-002  — baseline comparison depth (**done**)
 5. EVAL-PRODUCT-003  — scenario dataset surfaces (**done**)
-6. EVAL-PRODUCT-004  — quality scoring / judge calibration UI (**next**)
-7. FE-PRODUCT-002    — run detail evidence depth
+6. EVAL-PRODUCT-004  — quality scoring / judge calibration UI (**done**)
+7. FE-PRODUCT-002    — run detail evidence depth (**next**)
 8. FE-PRODUCT-003    — replay evidence workbench
 9. EVAL-PRODUCT-005  — eval evidence export bundle
 10. FE-PRODUCT-CLOSEOUT-001

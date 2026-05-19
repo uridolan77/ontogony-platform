@@ -19,7 +19,7 @@
 | Baseline comparison history depth | List/history route exists with cursor + filters; no saved views or pinned workbench queries | follow-up |
 | Baseline create in UI | POST exists; harness/smoke only — no operator form | Documented (`ALIGN-PRODUCT-001`) |
 | Scenario datasets | Read-only dataset index/detail now available; no dataset authoring workflow | keep read-only by design |
-| Judge/scoring depth | Scaffold exists; shallow calibration/confidence in UI | `EVAL-PRODUCT-004` |
+| Judge/scoring depth | Quality metadata surfaced, but no calibration history/trend controls | follow-up after `EVAL-PRODUCT-004` |
 | Eval export bundle | No coherent product artifact | `EVAL-PRODUCT-005` |
 | Dataset views/bookmarks | No saved workbench or per-operator dataset view presets | follow-up |
 | Semantic diff visualization | Baseline comparison remains summary/detail cards; no rich side-by-side semantic diff viewer | follow-up |

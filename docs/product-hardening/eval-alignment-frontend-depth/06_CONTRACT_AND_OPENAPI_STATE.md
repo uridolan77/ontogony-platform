@@ -33,6 +33,12 @@ Route/DTO semantics → OpenAPI snapshot → generated client → product wrappe
 
 **Added (EVAL-PRODUCT-003):** `GET /allagma/v0/evaluation-datasets`, `GET /allagma/v0/evaluation-datasets/{datasetId}` — dataset summary/list/detail DTOs for operator dataset/scenario surfaces.
 
+**Added (EVAL-PRODUCT-004):** quality/judge metadata contract (`AllagmaEvaluationQualityMetadataResponse`) on:
+- `AllagmaEvaluationRunResponse`
+- `AllagmaEvaluationRunSummaryResponse`
+
+This allows FE to render judge mode, quality tier, composite score, LLM judge flags, and dimension count without parsing arbitrary metadata text.
+
 ## Provenance cross-repo (baseline)
 
 | Artifact | Location |
