@@ -15,7 +15,7 @@ This closes the first Dockerized local working system. It is not production read
 
 Post-closeout hardening is separate from the closed Docker-local milestone.
 
-**Active:** none — post-closeout hardening in progress; next backlog item **`TERMINOLOGY-CLEANUP-001`**.
+**Active:** none — post-closeout hardening backlog **complete** (optional package closeout / scorecard next).
 
 Planning detail: `docs/releases/FIRST_DOCKER_LOCAL_WORKING_SYSTEM_NEXT_STEPS.md`
 
@@ -34,7 +34,7 @@ Recommended order:
 | 9 | `FE-TEST-REPLAY-001` | DONE | Replay/test improvements — `ontogony-frontend/docs/evidence/FE_TEST_REPLAY_001_REPLAY_TEST_EVIDENCE.md` |
 | 10 | `FE-HYGIENE-CONFIG-001` | DONE | Frontend config hygiene — `ontogony-frontend/docs/evidence/FE_HYGIENE_CONFIG_001_FRONTEND_CONFIG_EVIDENCE.md` |
 | 11 | `UI-PACKAGING-STATUS-001` | DONE | `@ontogony/ui` packaging — `ontogony-ui/docs/development/PACKAGING_STATUS.md` |
-| 12 | `TERMINOLOGY-CLEANUP-001` | backlog | Operator/doc terminology cleanup |
+| 12 | `TERMINOLOGY-CLEANUP-001` | DONE | Glossary — `docs/operators/ONTOGONY_TERMINOLOGY_GLOSSARY.md` |
 
 ## Optional later work
 

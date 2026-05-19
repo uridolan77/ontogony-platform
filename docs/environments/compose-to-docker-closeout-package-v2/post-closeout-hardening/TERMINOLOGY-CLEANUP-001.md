@@ -2,14 +2,19 @@
 
 ## Purpose
 
-Clean terms after closeout.
+Clean stale, ambiguous, or superseded terminology across operator docs, status boards, frontend docs, and UI package docs after post-Docker-local hardening.
 
-## Timing
+## Status
 
-Post-`ENV-DOCKER-CLOSEOUT-001`.
+**DONE** (2026-05-19)
 
-Do not block first Docker-local closeout unless this item becomes a direct blocker.
+## Evidence
+
+| Doc | Path |
+| --- | --- |
+| Glossary | `docs/operators/ONTOGONY_TERMINOLOGY_GLOSSARY.md` |
+| Evidence | `docs/evidence/TERMINOLOGY_CLEANUP_001_EVIDENCE.md` |
 
 ## Boundary
 
-Hardening only. Not production readiness unless promoted into a dedicated production-readiness program.
+Docs/text only. Not production readiness. No runtime behavior changes.

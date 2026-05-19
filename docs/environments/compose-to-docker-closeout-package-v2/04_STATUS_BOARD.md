@@ -36,7 +36,7 @@ First Dockerized local working system: **CLOSED / PASS**. Not production readine
 | **FE-TEST-REPLAY-001** | **DONE** | Replay catalog + `replay:check` + E2E; `ontogony-frontend/docs/evidence/FE_TEST_REPLAY_001_REPLAY_TEST_EVIDENCE.md` |
 | **FE-HYGIENE-CONFIG-001** | **DONE** | `VITE_*` catalog + `config:check`; `ontogony-frontend/docs/evidence/FE_HYGIENE_CONFIG_001_FRONTEND_CONFIG_EVIDENCE.md` |
 | **UI-PACKAGING-STATUS-001** | **DONE** | `@ontogony/ui` packaging status — `ontogony-ui/docs/development/PACKAGING_STATUS.md`, `ontogony-ui/docs/evidence/UI_PACKAGING_STATUS_001_EVIDENCE.md` |
-| TERMINOLOGY-CLEANUP-001 | backlog | Operator/doc terminology cleanup |
+| **TERMINOLOGY-CLEANUP-001** | **DONE** | Glossary + doc cleanup — `docs/operators/ONTOGONY_TERMINOLOGY_GLOSSARY.md`, `docs/evidence/TERMINOLOGY_CLEANUP_001_EVIDENCE.md` |
 
 See `docs/releases/FIRST_DOCKER_LOCAL_WORKING_SYSTEM_NEXT_STEPS.md` and `01_PR_SEQUENCE.md`.
 

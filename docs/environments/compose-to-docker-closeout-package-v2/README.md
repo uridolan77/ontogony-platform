@@ -25,6 +25,8 @@ This package targets the **first Dockerized local working system**.
 
 It is **not production readiness**.
 
+Terminology glossary: [`docs/operators/ONTOGONY_TERMINOLOGY_GLOSSARY.md`](../../operators/ONTOGONY_TERMINOLOGY_GLOSSARY.md).
+
 ## Minimal path to close Docker-local
 
 ```text

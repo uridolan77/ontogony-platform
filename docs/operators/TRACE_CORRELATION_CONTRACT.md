@@ -2,6 +2,8 @@
 
 **Scope:** Docker-local cross-service proof for `TRACE-CONTRACT-001`. **Not production readiness.**
 
+Terminology: [`ONTOGONY_TERMINOLOGY_GLOSSARY.md`](./ONTOGONY_TERMINOLOGY_GLOSSARY.md).
+
 ## Canonical headers
 
 | Header | Role |
@@ -10,7 +12,7 @@
 | `X-Ontogony-Correlation-Id` | Operation-level correlation; distinct from trace when both are sent |
 | `X-Allagma-Run-Id` | Allagma run spine; propagated to Kanon and Conexus metadata |
 
-Legacy inbound aliases (`X-Athanor-Trace-Id`, `X-Agentor-Trace-Id`, `X-Conexus-Request-Id`, `X-Correlation-ID`) remain accepted during migration. See `docs/03_TRACE_CORRELATION_STANDARD.md`.
+Legacy inbound aliases (`X-Athanor-Trace-Id`, `X-Agentor-Trace-Id`, `X-Conexus-Request-Id`, `X-Correlation-ID`) remain accepted during migration — **historical product names only**; prefer canonical headers in new integrations. See `docs/03_TRACE_CORRELATION_STANDARD.md`.
 
 ## Expected chain (probe)
 

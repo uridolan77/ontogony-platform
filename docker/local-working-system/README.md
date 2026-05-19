@@ -2,6 +2,8 @@
 
 **Boundary:** first Dockerized local working system. Development credentials only — not for staging or production.
 
+Terminology: [`docs/operators/ONTOGONY_TERMINOLOGY_GLOSSARY.md`](../../docs/operators/ONTOGONY_TERMINOLOGY_GLOSSARY.md) (liveness vs readiness, decision IDs, fake provider).
+
 ## Layout
 
 ```text

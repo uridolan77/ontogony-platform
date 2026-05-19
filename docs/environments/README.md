@@ -15,7 +15,7 @@ This folder holds planning packages and **canonical operator documentation** for
 - **ENV-DOCKER-FE-001** — DONE / PASS
 - **ENV-DOCKER-CLOSEOUT-001** — DONE / PASS
 
-**Current phase:** post-Docker-local hardening. **Recommended next PR:** `CONEXUS-PERSIST-001`. See [`FIRST_DOCKER_LOCAL_WORKING_SYSTEM_NEXT_STEPS.md`](../releases/FIRST_DOCKER_LOCAL_WORKING_SYSTEM_NEXT_STEPS.md) and `compose-to-docker-closeout-package-v2/01_PR_SEQUENCE.md`.
+**Current phase:** post-Docker-local hardening **complete** (through `TERMINOLOGY-CLEANUP-001`). See [`FIRST_DOCKER_LOCAL_WORKING_SYSTEM_NEXT_STEPS.md`](../releases/FIRST_DOCKER_LOCAL_WORKING_SYSTEM_NEXT_STEPS.md), [`ONTOGONY_TERMINOLOGY_GLOSSARY.md`](../operators/ONTOGONY_TERMINOLOGY_GLOSSARY.md), and `compose-to-docker-closeout-package-v2/01_PR_SEQUENCE.md`.
 
 Hardening specs under `compose-to-docker-closeout-package-v2/post-closeout-hardening/` are **post-closeout** and separate from the closed milestone.
 
