@@ -42,10 +42,10 @@
 
 ## RP-005
 
-- [ ] manual results recorded
-- [ ] call count/token/cost notes recorded if available
-- [ ] evidence redacted
-- [ ] fake-provider regression passes
+- [x] manual results recorded
+- [x] call count/token/cost notes recorded if available
+- [x] evidence redacted
+- [x] fake-provider regression passes
 
 ## Closeout
 

@@ -11,6 +11,15 @@
 | 5 | `RP-005` | platform | Manual execution |
 | 6 | `RP-CLOSEOUT-001` | platform | Closeout |
 
+## Status (2026-05-19)
+
+| Item | Status |
+| --- | --- |
+| `RP-000` – `RP-005` | **DONE** |
+| `RP-CLOSEOUT-001` | **NEXT** |
+
+Results: [`results/2026-05-19_REAL_PROVIDER_VALIDATION_RESULTS.md`](results/2026-05-19_REAL_PROVIDER_VALIDATION_RESULTS.md)
+
 ## Rules
 
 - Do not make real-provider mode default.

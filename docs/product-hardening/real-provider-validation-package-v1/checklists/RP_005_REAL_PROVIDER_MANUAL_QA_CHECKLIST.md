@@ -2,25 +2,25 @@
 
 ## Preflight
 
-- [ ] secret local only
-- [ ] no secrets in git diff
-- [ ] budget caps set
-- [ ] fake-provider baseline passes
-- [ ] manual consent recorded
+- [x] secret local only
+- [x] no secrets in git diff
+- [x] budget caps set
+- [x] fake-provider baseline passes
+- [x] manual consent recorded
 
 ## Execution
 
-- [ ] Conexus real-provider smoke
-- [ ] Allagma guided flow
-- [ ] frontend visibility
-- [ ] trace/correlation
-- [ ] evidence export
-- [ ] call/token/cost recorded if available
-- [ ] fake-provider regression after disabling real mode
+- [x] Conexus real-provider smoke
+- [x] Allagma guided flow
+- [x] frontend visibility
+- [x] trace/correlation
+- [x] evidence export
+- [x] call/token/cost recorded if available
+- [x] fake-provider regression after disabling real mode
 
 ## Final
 
-- [ ] results doc created
-- [ ] evidence doc created
-- [ ] failures classified
-- [ ] not production readiness stated
+- [x] results doc created
+- [x] evidence doc created
+- [x] failures classified
+- [x] not production readiness stated

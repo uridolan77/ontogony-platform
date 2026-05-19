@@ -77,12 +77,16 @@ Manual guided QA package: [`docs/product-hardening/manual-guided-qa/`](manual-gu
 | `RP-003` Allagma real-provider guided flow | **DONE** (2026-05-19) | [`RP_003_ALLAGMA_REAL_PROVIDER_GUIDED_FLOW_EVIDENCE.md`](../evidence/RP_003_ALLAGMA_REAL_PROVIDER_GUIDED_FLOW_EVIDENCE.md) |
 | `RP-003A` live provider completion (Docker TLS) | **DONE** (2026-05-19) | [`RP_003A_LIVE_REAL_PROVIDER_COMPLETION_EVIDENCE.md`](../evidence/RP_003A_LIVE_REAL_PROVIDER_COMPLETION_EVIDENCE.md) |
 | `RP-004` frontend operator visibility | **DONE** (2026-05-19) | [`RP_004_FRONTEND_REAL_PROVIDER_OPERATOR_VISIBILITY_EVIDENCE.md`](../evidence/RP_004_FRONTEND_REAL_PROVIDER_OPERATOR_VISIBILITY_EVIDENCE.md) |
+| `RP-005` manual QA execution | **DONE** (2026-05-19) | [`RP_005_REAL_PROVIDER_MANUAL_QA_EXECUTION_EVIDENCE.md`](../evidence/RP_005_REAL_PROVIDER_MANUAL_QA_EXECUTION_EVIDENCE.md) |
+
+**Results:** [`real-provider-validation-package-v1/results/2026-05-19_REAL_PROVIDER_VALIDATION_RESULTS.md`](real-provider-validation-package-v1/results/2026-05-19_REAL_PROVIDER_VALIDATION_RESULTS.md)
 
 **Operator policy:** [`docs/operators/REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md`](../operators/REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md)
 
-Start with:
+**Next:** `RP-CLOSEOUT-001` — package closeout (`real-provider-validation-package-v1/prompts/RP-CLOSEOUT-001_REAL_PROVIDER_VALIDATION_CLOSEOUT.md`).
 
-- `real-provider-validation-package-v1/prompts/RP-004_FRONTEND_REAL_PROVIDER_OPERATOR_VISIBILITY.md`
+Reference:
+
 - `conexus-dotnet/docs/development/REAL_PROVIDER_LOCAL_VALIDATION.md`
 
 ## Related (not superseded — different scope)
