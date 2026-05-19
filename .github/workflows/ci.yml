@@ -7,8 +7,119 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      docs: ${{ steps.filter.outputs.docs }}
+      code: ${{ steps.filter.outputs.code }}
+      scripts: ${{ steps.filter.outputs.scripts }}
+      workflows: ${{ steps.filter.outputs.workflows }}
+      docker_local: ${{ steps.filter.outputs.docker_local }}
+      run_full: ${{ steps.decide.outputs.run_full }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            docs:
+              - 'docs/**'
+              - '**/*.md'
+            code:
+              - 'src/**'
+              - 'tests/**'
+              - 'examples/**'
+              - '**/*.csproj'
+              - '**/*.sln'
+              - 'global.json'
+              - 'Directory.Build.*'
+              - 'nuget.config'
+            scripts:
+              - 'scripts/**'
+            workflows:
+              - '.github/**'
+            docker_local:
+              - 'docker/**'
+      - name: Decide CI scope
+        id: decide
+        env:
+          FILTER_CODE: ${{ steps.filter.outputs.code }}
+          FILTER_SCRIPTS: ${{ steps.filter.outputs.scripts }}
+          FILTER_WORKFLOWS: ${{ steps.filter.outputs.workflows }}
+          FILTER_DOCKER: ${{ steps.filter.outputs.docker_local }}
+          FILTER_DOCS: ${{ steps.filter.outputs.docs }}
+        run: |
+          FULL=false
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then FULL=true; fi
+          if [ "${{ github.ref }}" = "refs/heads/main" ] && [ "${{ github.event_name }}" = "push" ]; then FULL=true; fi
+          if [ "$FILTER_CODE" = "true" ] || [ "$FILTER_SCRIPTS" = "true" ] || [ "$FILTER_WORKFLOWS" = "true" ]; then FULL=true; fi
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            labels='${{ join(github.event.pull_request.labels.*.name, ' ') }}'
+            case " $labels " in
+              *" run-full-ci "*) FULL=true ;;
+            esac
+          fi
+          echo "run_full=$FULL" >> "$GITHUB_OUTPUT"
+          if [ "$FULL" = "true" ]; then
+            echo "::notice::Running full platform CI (dotnet + validations + pack)."
+          elif [ "$FILTER_DOCS" = "true" ]; then
+            echo "::notice::Docs-only PR — dotnet/pack skipped; docs-gates will run."
+          elif [ "$FILTER_DOCKER" = "true" ]; then
+            echo "::notice::Docker-local paths changed — script parse check only (use run-full-ci label or dispatch for full CI)."
+          else
+            echo "::notice::No matching paths — gated jobs skipped."
+          fi
+
+  docs-gates:
+    needs: changes
+    if: needs.changes.outputs.docs == 'true' && needs.changes.outputs.run_full != 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate docs links
+        shell: pwsh
+        run: ./scripts/validate-docs-links.ps1
+      - name: Validate docs API names
+        shell: pwsh
+        run: ./scripts/validate-docs-api-names.ps1
+      - name: Validate AI runtime docs (banned API strings)
+        shell: pwsh
+        run: ./scripts/validate-ai-runtime-docs.ps1
+
+  docker-scripts-parse:
+    needs: changes
+    if: needs.changes.outputs.docker_local == 'true' && needs.changes.outputs.run_full != 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: PowerShell parse check (docker local scripts)
+        shell: pwsh
+        run: |
+          $parseFailures = @()
+          Get-ChildItem -LiteralPath docker/local-working-system/scripts -Filter '*.ps1' -Recurse | ForEach-Object {
+            $tokens = $null
+            $errs = $null
+            [void][System.Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$tokens, [ref]$errs)
+            if ($errs) { $parseFailures += $errs }
+          }
+          if ($parseFailures.Count -gt 0) {
+            $parseFailures | ForEach-Object { Write-Error $_ }
+            exit 1
+          }
+          Write-Host "Parsed docker/local-working-system/scripts/*.ps1 OK."
+
   dotnet:
+    needs: changes
+    if: needs.changes.outputs.run_full == 'true'
     runs-on: ubuntu-latest
     # PostgreSQL service uses ephemeral test-only credentials (not production secrets).
     # These credentials exist only within the GitHub Actions container and are not stored in GitHub Secrets.
@@ -77,15 +188,15 @@ jobs:
       - name: Validate docs API names
         shell: pwsh
         run: ./scripts/validate-docs-api-names.ps1
+      - name: Validate AI runtime docs (banned API strings)
+        shell: pwsh
+        run: ./scripts/validate-ai-runtime-docs.ps1
       - name: Validate AI runtime boundaries (AI.Contracts sources)
         shell: pwsh
         run: ./scripts/validate-ai-runtime-boundaries.ps1
       - name: Validate shipping inventory (src package + README counts)
         shell: pwsh
         run: ./scripts/validate-shipping-inventory.ps1
-      - name: Validate AI runtime docs (banned API strings)
-        shell: pwsh
-        run: ./scripts/validate-ai-runtime-docs.ps1
       - name: Validate package levels (Ontogony ProjectReferences)
         shell: pwsh
         run: ./scripts/validate-package-levels.ps1
@@ -124,3 +235,36 @@ jobs:
         run: |
           dotnet restore examples/ConexusDotNetPackageSmoke/ConexusDotNetPackageSmoke.csproj -p:OntogonyPackageVersion=$PACKAGE_VERSION
           dotnet build examples/ConexusDotNetPackageSmoke/ConexusDotNetPackageSmoke.csproj --no-restore -c Release -p:OntogonyPackageVersion=$PACKAGE_VERSION
+
+  ci-complete:
+    needs: [changes, docs-gates, docker-scripts-parse, dotnet]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify CI scope outcomes
+        run: |
+          RUN_FULL="${{ needs.changes.outputs.run_full }}"
+          DOCS="${{ needs.changes.outputs.docs }}"
+          DOCKER="${{ needs.changes.outputs.docker_local }}"
+          if [ "$RUN_FULL" = "true" ]; then
+            if [ "${{ needs.dotnet.result }}" != "success" ]; then
+              echo "Full CI required but dotnet job result: ${{ needs.dotnet.result }}"
+              exit 1
+            fi
+            exit 0
+          fi
+          if [ "$DOCS" = "true" ]; then
+            if [ "${{ needs.docs-gates.result }}" != "success" ]; then
+              echo "docs-gates result: ${{ needs.docs-gates.result }}"
+              exit 1
+            fi
+            exit 0
+          fi
+          if [ "$DOCKER" = "true" ]; then
+            if [ "${{ needs.docker-scripts-parse.result }}" != "success" ]; then
+              echo "docker-scripts-parse result: ${{ needs.docker-scripts-parse.result }}"
+              exit 1
+            fi
+            exit 0
+          fi
+          echo "::notice::CI complete — no gated jobs matched this push (expected for empty or out-of-scope diffs)."
