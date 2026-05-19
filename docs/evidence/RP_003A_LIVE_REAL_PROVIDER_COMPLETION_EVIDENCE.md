@@ -36,7 +36,9 @@ cd C:\dev\ontogony-platform\docker\local-working-system
 ```text
 RP-003   DONE — classified transport failure acceptable for package
 RP-003A  DONE — live completion proven; supersedes “no successful real call” gap
-RP-004   NEXT
+RP-004   DONE
+RP-005   DONE (manual QA — see RP_005_REAL_PROVIDER_MANUAL_QA_EXECUTION_EVIDENCE.md)
+RP-CLOSEOUT-001   NEXT
 ```
 
 ## Required statement
