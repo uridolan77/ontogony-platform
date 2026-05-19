@@ -1,12 +1,21 @@
 # KANON-DEEPEN-002 — Domain-pack lifecycle workbench
 
-**Status:** Implementation complete (browser verification after frontend image rebuild)  
-**Depends on:** [KANON-DEEPEN-001](KANON_DEEPEN_001_LOCAL_OPERATOR_AUTH_AND_READ_WORKBENCH_EVIDENCE.md) (local operator read roles)  
-**Audit:** [`docs/reviews/KANON_DEEPEN_000_CURRENT_STATE_AUDIT.md`](../reviews/KANON_DEEPEN_000_CURRENT_STATE_AUDIT.md)
+**Status:** Implementation complete — browser walkthrough **not verified in this polish pass**  
+**Depends on:** [KANON-DEEPEN-001](KANON_DEEPEN_001_LOCAL_OPERATOR_AUTH_AND_READ_WORKBENCH_EVIDENCE.md)  
+**Audit:** [`docs/reviews/KANON_DEEPEN_000_CURRENT_STATE_AUDIT.md`](../reviews/KANON_DEEPEN_000_CURRENT_STATE_AUDIT.md)  
+**Sequence index:** [KANON_DEEPEN_SEQUENCE_STATUS.md](./KANON_DEEPEN_SEQUENCE_STATUS.md)
 
 ## Goal
 
 Turn Kanon domain packs from a shallow list into an operator-grade lifecycle workbench: active/current packs, per-version timeline, honest mutation availability, and linked decision IDs.
+
+## Implementation commits
+
+| Repo | Commit | Summary |
+|---|---|---|
+| `ontogony-frontend` | `5bff111` | Operator domain-pack lifecycle workbench |
+| `kanon-dotnet` | `a4eec4a` | OpenAPI schema types for domain-pack lifecycle routes |
+| `ontogony-platform` | `f3fea49` | Initial 002 evidence (this doc expanded in polish pass) |
 
 ## Repos touched
 
@@ -14,37 +23,47 @@ Turn Kanon domain packs from a shallow list into an operator-grade lifecycle wor
 |---|---|
 | `kanon-dotnet` | OpenAPI `Produces<>` for domain-pack list/detail/active/lifecycle/mutation responses; `OpenApiDomainPackSchemaTests` |
 | `ontogony-frontend` | Lifecycle workbench (summary cards, table, detail panel, timeline, decision links); typed lifecycle client; action availability from lifecycle + roles |
-| `ontogony-platform` | This evidence |
+| `ontogony-platform` | Evidence + sequence index |
 
-## Backend
+## Source files (frontend)
 
-Routes unchanged; DTOs already carried lifecycle fields. OpenAPI baseline now includes:
+- `src/kanon/components/KanonDomainPackLifecycleWorkbench.tsx`
+- `src/kanon/components/KanonDomainPackActions.tsx`
+- `src/kanon/components/KanonDecisionIdLink.tsx`
+- `src/kanon/lifecycle/domainPackActionAvailability.ts`
+- `src/kanon/pages/DomainPacksPage.tsx`
+- `src/kanon/api/kanonClient.ts` (lifecycle mutations)
 
-- `DomainPackSummaryContract` (`lifecycleStatus`, `isActivePackVersion`, `contentHash`, `lastDecisionId`, `lastLoadedAt`, …)
+## Backend contracts
+
+Routes unchanged; DTOs already carried lifecycle fields. OpenAPI baseline includes:
+
+- `DomainPackSummaryContract` (`lifecycleStatus`, `isActivePackVersion`, `contentHash`, `lastDecisionId`, …)
 - `DomainPackLifecycleListResponse` / `DomainPackLifecycleStatusContract`
 - `DomainPackActiveListResponse` / `DomainPackActiveRowContract`
 
-Refresh baseline: `./scripts/update-kanon-openapi-baseline.ps1` from `kanon-dotnet` root.
+Kanon evidence (OpenAPI only): `kanon-dotnet/docs/evidence/KANON_DEEPEN_002_DOMAIN_PACK_OPENAPI_EVIDENCE.md`
 
-## Frontend
+## Closed (002 acceptance)
 
-`/kanon/domain-packs` now provides:
-
-1. Summary cards — pack count, active versions (`GET /domain-packs/active`), deprecated count
-2. Pack table — lifecycle badge, active badge, ontology version
-3. Detail panel — hash, last decision, lifecycle timeline with validate/promote/load decision links to `/kanon/decisions`
-4. Actions — validate/load/promote/deprecate gated by **Admin/System** and lifecycle state (Auditor read-only)
+- Domain-pack lifecycle schemas visible in Kanon OpenAPI
+- `/kanon/domain-packs` lifecycle workbench
+- Summary cards, active pack summary, lifecycle table
+- Active/lifecycle badges, detail panel
+- Validate/promote/load decision links to `/kanon/decisions`
+- Role/lifecycle-gated actions (Admin/System mutate; Auditor read-only)
 
 ## Validation
 
-| Check | Command |
-|---|---|
-| Kanon OpenAPI schema tests | `dotnet test kanon-dotnet --filter OpenApiDomainPackSchemaTests` |
-| Kanon domain-pack API tests | `dotnet test kanon-dotnet --filter DomainPackManagementApiTests` |
-| Frontend unit tests | `npm test` in `ontogony-frontend` |
-| Frontend typecheck | `npm run typecheck` in `ontogony-frontend` |
+| Check | Command | Result (2026-05-20 polish pass) |
+|---|---|---|
+| Kanon OpenAPI schema tests | `dotnet test kanon-dotnet --filter OpenApiDomainPackSchemaTests` | Not re-run (no backend code change) |
+| Frontend lifecycle capability tests | `npm test -- src/kanon/lifecycle/` | Not run in this pass |
+| Frontend typecheck | `npm run typecheck` | Pre-existing unrelated failures in repo |
 
-## Manual acceptance
+## Manual browser verification
+
+**Status: NOT VERIFIED** in this polish pass.
 
 After `docker compose build ontogony-frontend kanon-api` in `docker/local-working-system`:
 
@@ -53,14 +72,17 @@ After `docker compose build ontogony-frontend kanon-api` in `docker/local-workin
 | `/kanon/domain-packs` | Summary cards; table shows packs with lifecycle + active badges |
 | Pack **Details** | Timeline lists versions; decision IDs link to decisions workbench |
 | Auditor actor | Read works; mutation buttons disabled with role explanation |
-| Admin actor (settings) | Validate → promote (reviewed → accepted) → load when lifecycle allows |
+| Admin actor | Validate → promote → load when lifecycle allows |
 
 ## Known limitations
 
-- Manifest/signature fields appear on validate response, not on list summary (use validate or lifecycle row hash).
-- HTTP load disabled (`DomainPackHttpLoadDisabled`) surfaces as mutation error, not a pre-flight flag on the UI.
-- Single pack version per directory on disk; lifecycle API returns multiple versions only when Postgres lifecycle store has history.
+- Auditor is read-only; validate/load/promote/deprecate require Admin/System.
+- HTTP load disabled (`DomainPackHttpLoadDisabled`) surfaces as mutation error, not a pre-flight UI flag.
+- Lifecycle history depends on persisted lifecycle rows in Postgres.
+- Manifest/signature fields appear on validate response, not on list summary.
+- Browser verification requires rebuilt frontend image.
 
 ## Follow-up
 
-- **KANON-DEEPEN-003** — provenance explorer polish and cross-service links.
+- **KANON-DEEPEN-003** — decision provenance explorer (done; see 003 evidence).
+- **KANON-DEEPEN-006** — full-track browser closeout checklist.
