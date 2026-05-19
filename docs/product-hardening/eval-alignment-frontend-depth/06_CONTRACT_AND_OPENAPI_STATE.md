@@ -25,6 +25,7 @@ Route/DTO semantics → OpenAPI snapshot → generated client → product wrappe
 | GET | `/allagma/v0/evaluation-datasets/{datasetId}` | `getAllagmaEvaluationDataset` (EVAL-PRODUCT-003) |
 | GET | `/allagma/v0/runs/{runId}/evaluations` | `listAllagmaRunEvaluations` |
 | GET | `/allagma/v0/evaluations/{evaluationRunId}` | `getAllagmaEvaluationRun` |
+| GET | `/allagma/v0/evaluations/{evaluationRunId}/evidence` | `getAllagmaEvalEvidenceExportBundle` (EVAL-PRODUCT-005) |
 | POST | `/allagma/v0/runs/{runId}/evaluations` | not in operator UI |
 | POST | `/allagma/v0/evaluations/baseline-comparisons` | not in operator UI |
 | GET | `/allagma/v0/evaluations/baseline-comparisons/{comparisonId}` | `getAllagmaBaselineComparison` |
@@ -38,6 +39,8 @@ Route/DTO semantics → OpenAPI snapshot → generated client → product wrappe
 - `AllagmaEvaluationRunSummaryResponse`
 
 This allows FE to render judge mode, quality tier, composite score, LLM judge flags, and dimension count without parsing arbitrary metadata text.
+
+**Added (EVAL-PRODUCT-005):** `GET /allagma/v0/evaluations/{evaluationRunId}/evidence` — `AllagmaEvalEvidenceExportBundleContract` and related export DTOs; JSON schema in product-hardening package.
 
 ## Provenance cross-repo (baseline)
 
@@ -67,6 +70,6 @@ If a product capability is desired but no backend route exists, the PR must choo
 - explicitly mark as missing capability and expose limitation state
 - defer the capability and remove UI affordance
 
-**Current honest limitations:** baseline create UI missing, dataset saved views missing, rich semantic diff missing, eval export missing, Allagma replay/retry/cancel POST mutations.
+**Current honest limitations:** baseline create UI missing, dataset saved views missing, rich semantic diff missing, bulk eval export/compliance archive out of scope, Allagma replay/retry/cancel POST mutations.
 
 No hidden placeholder success states.

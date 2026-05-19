@@ -1,0 +1,42 @@
+{
+  "schema": "ontogony-allagma-eval-evidence-export-bundle-v1",
+  "exportedAtUtc": "2026-05-19T12:00:00Z",
+  "evaluationRunId": "eval-sample-001",
+  "evaluation": {
+    "evaluationRunId": "eval-sample-001",
+    "subjectRunId": "run-sample-001",
+    "traceId": "trace-sample-001",
+    "scenarioId": "scenario-risk-summary-v0",
+    "metadata": {
+      "sourceKind": "runtime_evidence"
+    }
+  },
+  "subjectRun": {
+    "runId": "run-sample-001",
+    "status": "Completed"
+  },
+  "artifactRefs": [
+    {
+      "artifactId": "eval-sample-001",
+      "role": "evaluation_run"
+    },
+    {
+      "artifactId": "audit:run-sample-001",
+      "role": "run_audit_bundle",
+      "locatorUri": "/allagma/v0/runs/run-sample-001/audit"
+    }
+  ],
+  "baselineComparisons": [],
+  "dataset": null,
+  "crossReferences": {
+    "traceId": "trace-sample-001",
+    "subjectRunAuditUri": "/allagma/v0/runs/run-sample-001/audit",
+    "relatedEvaluationRunIds": []
+  },
+  "limitations": {
+    "productionReadiness": "not_production_readiness",
+    "notes": [
+      "Operator export bundle for triage and audit handoff; not a compliance archive."
+    ]
+  }
+}

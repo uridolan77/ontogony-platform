@@ -20,7 +20,7 @@
 | Baseline create in UI | POST exists; harness/smoke only — no operator form | Documented (`ALIGN-PRODUCT-001`) |
 | Scenario datasets | Read-only dataset index/detail now available; no dataset authoring workflow | keep read-only by design |
 | Judge/scoring depth | Quality metadata surfaced, but no calibration history/trend controls | follow-up after `EVAL-PRODUCT-004` |
-| Eval export bundle | No coherent product artifact | `EVAL-PRODUCT-005` |
+| Eval export bundle | Single-eval operator export; no bulk/compliance archive | follow-up |
 | Dataset views/bookmarks | No saved workbench or per-operator dataset view presets | follow-up |
 | Semantic diff visualization | Baseline comparison remains summary/detail cards; no rich side-by-side semantic diff viewer | follow-up |
 | Replay trigger | No live replay trigger until Allagma OpenAPI documents `POST /allagma/v0/runs/{runId}/replay`; FE shows limitation banner (no fake button) | Out of PFH unless backend adds route |

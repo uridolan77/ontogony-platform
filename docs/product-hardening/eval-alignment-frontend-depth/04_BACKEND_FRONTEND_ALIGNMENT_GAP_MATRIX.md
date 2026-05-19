@@ -18,7 +18,7 @@
 | Trace correlation | platform + service headers | N/A cross-service | correlation services | `useTraceCorrelation` | `correlationAdapters` | run detail, replay, system | fixture/live e2e | `TRACE_CONTRACT_001` | platform `TRACE_*` |
 | Kanon topology decision | `POST .../execution-topologies/evaluate` + `GET /decision-records/{id}` | Kanon snapshot | `kanonClient` | run audit / topology adapters | topology adapters | run detail topology panel | `topologyFixture` | Kanon topology tests, platform scripts | `KANON_OP_001/002` |
 | Conexus route evidence | `GET /model-calls/{id}`, admin route-decision | Conexus contracts | conexus client (admin) | observability hooks | — | cross-service links (partial) | live / degraded | `ModelCallRouteEvidenceIntegrationTests` | `EVAL_RUN_005`, `CONEXUS_PERSIST_*` |
-| Eval export bundle | **missing** | **missing** | **missing** | **missing** | **missing** | — | — | — | `EVAL-PRODUCT-005` |
+| Eval export bundle | **live** | **live** | **live** | **live** | **live** | `GET /evaluations/{id}/evidence` | `AllagmaEvalEvidenceExportPanel` | export tests | — |
 | Run retry/cancel/replay | **missing** from Allagma OpenAPI | **missing** | not in client | limitation UI | `backendWaitingContracts` | run triage | limitation banners | unit | deferred — not PFH |
 
 ## Manual write gate asymmetry (documented)

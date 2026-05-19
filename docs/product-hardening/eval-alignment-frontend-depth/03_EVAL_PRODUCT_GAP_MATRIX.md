@@ -10,7 +10,7 @@
 | Baseline comparison | **Closed (EVAL-PRODUCT-002):** list/history route + FE workbench + detail drilldown links | Create flow still harness-only; richer diff visualization | **P2** | — | Enterprise reporting |
 | Scenario dataset | **Closed (EVAL-PRODUCT-003):** `GET /allagma/v0/evaluation-datasets`, detail route, FE dataset surface, metadata-backed labels | Saved views/bookmarks, richer dataset analytics | **P2** | — | Full dataset authoring UI (unless scoped) |
 | Quality scoring | **Closed (EVAL-PRODUCT-004):** quality/judge metadata contract exposed in eval list/detail; FE detail shows calibration metadata + advisory limits | Calibration history trends and operator tuning workflows | **P2** | — | Training judge models |
-| Eval evidence export | Audit export on run; no eval bundle route | Operator export bundle (run/eval/comparison/dataset/trace) | **P2** | `EVAL-PRODUCT-005` | Compliance archive |
+| Eval evidence export | **Closed (EVAL-PRODUCT-005):** `GET /evaluations/{id}/evidence` + schema validator + FE export panel | Bulk/warehouse export | **P2** | — | Compliance archive |
 | Replay relation | **Closed (FE-PRODUCT-003):** lookup modes, limitation banner, export, journey links + cross-service card | Live replay trigger; `?replayFixture=` catalog | follow-up | — | Fake replay trigger button |
 | Persistence | Postgres + in-memory modes; `EVAL_DUR_001` done | Product retention/query semantics for operators | **P2** | (clarify in EVAL-PRODUCT-001) | DR/backup/SLO |
 | OpenAPI discipline | `allagma-openapi-v1.snapshot.json` + `openapi:check` | New eval semantics must update snapshot before FE hooks | **P0** | `EVAL-PRODUCT-001`, `ALIGN-PRODUCT-003` | Ad hoc routes |
@@ -35,6 +35,6 @@
 6. EVAL-PRODUCT-004  — quality scoring / judge calibration UI (**done**)
 7. FE-PRODUCT-002    — run detail evidence depth (**done**)
 8. FE-PRODUCT-003    — replay evidence workbench (**done**)
-9. EVAL-PRODUCT-005  — eval evidence export bundle (**next**)
+9. ~~EVAL-PRODUCT-005~~ — eval evidence export bundle (**done**)
 10. FE-PRODUCT-CLOSEOUT-001
 ```

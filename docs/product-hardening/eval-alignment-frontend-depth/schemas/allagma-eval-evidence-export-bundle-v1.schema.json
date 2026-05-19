@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.dev/schemas/allagma-eval-evidence-export-bundle-v1.schema.json",
+  "title": "Allagma eval evidence export bundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "exportedAtUtc",
+    "evaluationRunId",
+    "evaluation",
+    "artifactRefs",
+    "baselineComparisons",
+    "crossReferences",
+    "limitations"
+  ],
+  "properties": {
+    "schema": {
+      "const": "ontogony-allagma-eval-evidence-export-bundle-v1"
+    },
+    "exportedAtUtc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "evaluationRunId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evaluation": {
+      "type": "object",
+      "required": ["evaluationRunId"],
+      "properties": {
+        "evaluationRunId": { "type": "string", "minLength": 1 },
+        "subjectRunId": { "type": ["string", "null"] },
+        "traceId": { "type": ["string", "null"] },
+        "scenarioId": { "type": ["string", "null"] },
+        "evaluationProfileId": { "type": ["string", "null"] },
+        "metadata": {
+          "type": ["object", "null"],
+          "additionalProperties": { "type": "string" }
+        }
+      },
+      "additionalProperties": true
+    },
+    "subjectRun": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "runId": { "type": "string", "minLength": 1 },
+        "status": { "type": "string" },
+        "planningDecisionId": { "type": ["string", "null"] },
+        "modelCallId": { "type": ["string", "null"] },
+        "summary": { "type": ["string", "null"] },
+        "failureReason": { "type": ["string", "null"] }
+      },
+      "required": ["runId", "status"]
+    },
+    "artifactRefs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["artifactId", "role"],
+        "properties": {
+          "artifactId": { "type": "string", "minLength": 1 },
+          "role": { "type": "string", "minLength": 1 },
+          "locatorUri": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "baselineComparisons": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["comparisonId", "subjectRunId", "createdAtUtc"],
+        "properties": {
+          "comparisonId": { "type": "string", "minLength": 1 },
+          "subjectRunId": { "type": "string", "minLength": 1 },
+          "createdAtUtc": { "type": "string", "format": "date-time" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "dataset": {
+      "type": ["object", "null"],
+      "properties": {
+        "datasetId": { "type": "string", "minLength": 1 },
+        "displayName": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "crossReferences": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["relatedEvaluationRunIds"],
+      "properties": {
+        "traceId": { "type": ["string", "null"] },
+        "correlationId": { "type": ["string", "null"] },
+        "subjectRunAuditUri": { "type": ["string", "null"] },
+        "relatedEvaluationRunIds": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "limitations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["productionReadiness", "notes"],
+      "properties": {
+        "productionReadiness": {
+          "const": "not_production_readiness"
+        },
+        "notes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        }
+      }
+    }
+  }
+}

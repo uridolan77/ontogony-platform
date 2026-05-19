@@ -78,7 +78,7 @@ Closeout: `allagma-dotnet/docs/releases/FIRST_FULL_SANITY_CLOSEOUT.md` (2026-05-
 | `EVAL-POLISH-001` | **Done:** baseline recommendation parity + baseline cursor tests + frontend detail error semantics and tri-state quality wording |
 | `FE-PRODUCT-002` | **Done:** run detail + eval detail journey links; `buildRunEvidenceJourneyLinks` unit tests; `allagma-run-detail-evidence-journey` e2e; `FE_PRODUCT_002_RUN_DETAIL_EVIDENCE_DEPTH_EVIDENCE.md` |
 | `FE-PRODUCT-003` | **Done:** `FE_PRODUCT_003_REPLAY_EVIDENCE_WORKBENCH_EVIDENCE.md`; replay journey + limitation e2e in `allagma-replay-evidence.spec.ts` |
-| `EVAL-PRODUCT-005` | **Next:** export bundle schema validator + operator export route |
+| `EVAL-PRODUCT-005` | **Done:** schema validator + `GET /evaluations/{id}/evidence` + FE export panel (`EVAL_PRODUCT_005_EVAL_EVIDENCE_EXPORT_BUNDLE_EVIDENCE.md`) |
 | `PFH-001` | `docs/evidence/PFH_001_CURRENT_STATE_AUDIT_EVIDENCE.md` (this audit) |
 
 ## Product-hardening test additions (unchanged expectations)
