@@ -71,6 +71,92 @@ cd C:\dev\ontogony-platform
 .\docker\local-working-system\scripts\verify-postgres-bootstrap.ps1 -Recreate
 ```
 
+## Conexus persistence & bootstrap (operator)
+
+**Boundary:** fake/local provider only; development credentials; **not production readiness**.
+
+Conexus in this stack uses **PostgreSQL** (`conexus_local`). There is no `Conexus__Persistence__Mode` compose flag — persistence is enabled when `ConnectionStrings__ConexusPostgres` is set (see `docker-compose.yml` and `.env.example`).
+
+| Setting | Default (dev) | Role |
+| --- | --- | --- |
+| `ConnectionStrings__ConexusPostgres` | `Host=postgres;…;Database=conexus_local;…` | Durable Conexus store |
+| `CONEXUS_DEV_PROJECT_API_KEY` | `cx-dev-key-change-me` | Bootstrap issues this key on **fresh** projects (see below) |
+| `CONEXUS_ADMIN_API_KEY` | `cx-conexus-admin-dev` | Admin header `X-Conexus-Admin-Key` for bootstrap |
+| `CONEXUS_PROJECT_API_KEY_FOR_ALLAGMA` | `cx-dev-key-change-me` | Allagma `Conexus__ProjectApiKey` — must match dev project key |
+
+**Migrations:** with `ASPNETCORE_ENVIRONMENT=Development`, Conexus applies EF migrations on startup. See `conexus-dotnet/docs/deployment/MIGRATION_RUNBOOK.md` and `STARTUP_AND_READINESS.md`.
+
+### Fresh volume vs existing volume
+
+| Volume state | Postgres init | Conexus schema | API bootstrap | Operator action |
+| --- | --- | --- | --- | --- |
+| **Fresh** (empty data dir) | `postgres/init` creates DB/users | Migrations on first Conexus start | **Required** — no project keys, aliases, or route evidence yet | Run seed or guided flow after `wait-local-working-system.ps1` |
+| **Existing** | Skipped | Already migrated | Rows may exist (projects, API keys, providers, aliases, telemetry) | Re-seed may fail key/bootstrap checks; use `reset-local-working-system.ps1 -Force` for clean state |
+
+### Dev bootstrap — `POST /admin/v0/dev/bootstrap`
+
+Local/dev-only endpoint (404 in Production). Called by `seed-and-verify-local-working-system.ps1` with:
+
+```json
+{
+  "projectId": "dev-project",
+  "displayName": "Development Project",
+  "modelAlias": "gpt-4o-mini",
+  "providerKey": "fake",
+  "providerModel": "fake.chat",
+  "createProjectKey": true
+}
+```
+
+It upserts the fake provider, model alias, price catalog entry, and dev project. When the project has **no** active API keys, it issues a key using `CONEXUS_DEV_PROJECT_API_KEY` (not a random key). That alignment fix prevents fresh-volume mismatches with Allagma’s `Conexus__ProjectApiKey`.
+
+If the project **already has** API keys, bootstrap skips issuing a new key (warning in response). Re-running seed against an already-bootstrapped volume can then fail the `apiKey` check — reset volumes instead of fighting durable state.
+
+### Health vs readiness
+
+| Endpoint | Use in Docker-local | Meaning |
+| --- | --- | --- |
+| `/health`, `/health/live`, `/live` | **Compose healthcheck** and `wait-local-working-system.ps1` | Liveness — process and HTTP pipeline up |
+| `/ready` | Manual / seed report only — **not** compose startup | Strict readiness: provider credentials, Postgres, durable stores, enabled aliases with runtime clients |
+
+**Before bootstrap:** `/ready` returning **503 is expected** — do not point compose `healthcheck` at `/ready`.
+
+**After bootstrap:** `/ready` may be **200** or still **503** depending on strict invariants; **route/model evidence** is the stronger local proof (see verification below).
+
+### Operator verification
+
+```powershell
+# 1) Liveness (expect 200 when conexus-api is healthy)
+curl -s http://localhost:5082/health/live
+
+# 2) Readiness (503 before bootstrap is OK)
+curl -s -w "\nHTTP %{http_code}\n" http://localhost:5082/ready
+
+# 3) Full seed + evidence (bootstrap, runs, routeDecisionId, evals)
+cd C:\dev\ontogony-platform
+.\docker\local-working-system\scripts\seed-and-verify-local-working-system.ps1
+
+# 4) Guided flow report (includes baselineRouteDecisionId, subjectRouteDecisionId)
+.\docker\local-working-system\scripts\run-docker-guided-main-flow.ps1
+.\docker\local-working-system\scripts\validate-docker-guided-main-flow.ps1
+Get-Content .\docker\local-working-system\artifacts\docker-guided-main-flow-report.json |
+  ConvertFrom-Json | Select-Object baselineRouteDecisionId, subjectRouteDecisionId, verdict
+```
+
+Seed exports `docker/local-working-system/artifacts/env-seed-001-report.json` (bootstrap block + `conexusReadinessStatusAfterBootstrap`). Guided flow writes `docker-guided-main-flow-report.json` with non-empty `baselineRouteDecisionId` and `subjectRouteDecisionId` when route evidence is present.
+
+### Conexus troubleshooting
+
+| Symptom | Likely cause | Action |
+| --- | --- | --- |
+| `/health/live` **404** but container healthy | Host port **5082** hit by stale local `Conexus.Api`, not Docker | `netstat -ano \| findstr :5082`; stop host process or set `CONEXUS_HOST_PORT` in `.env` |
+| `/ready` **503** before seed | Expected — no bootstrap yet | Run `seed-and-verify-local-working-system.ps1` |
+| `/ready` **503** after seed | Provider rows, aliases, runtime clients, or project overrides | Inspect admin routing state; re-bootstrap after `reset … -Force` if corrupted |
+| Seed fails `apiKey` mismatch | `CONEXUS_DEV_PROJECT_API_KEY` ≠ Allagma key, or existing keys on volume | Align `.env` keys; or reset volume |
+| Missing `routeDecisionId` | Bootstrap/route not established; runs didn’t reach Conexus | Re-run seed; check Allagma→Conexus with project bearer key |
+
+More Conexus detail: `conexus-dotnet/docs/development/DOCKER_LOCAL.md`, `conexus-dotnet/docs/deployment/STARTUP_AND_READINESS.md`.
+
 ## Seed/bootstrap (ENV-SEED-001)
 
 `seed-and-verify-local-working-system.ps1` performs deterministic API/bootstrap steps:
@@ -125,11 +211,13 @@ Stop the stale local process, or set `CONEXUS_HOST_PORT` in `.env` to an unused 
 
 **Operator rule:** before Docker-local health checks, stop local services on **5081**, **5082**, **5083**, **5175**, or override host ports in `.env`.
 
-### Health probes
+### Health probes (summary)
+
+See [Conexus persistence & bootstrap (operator)](#conexus-persistence--bootstrap-operator) for full `/ready` semantics.
 
 ```text
 /health, /health/live, /live  → liveness (Docker startup / wait scripts)
-/ready                        → strict readiness (may be 503 before bootstrap)
+/ready                        → strict readiness (503 before bootstrap is expected)
 ```
 
 ### Postgres host port
