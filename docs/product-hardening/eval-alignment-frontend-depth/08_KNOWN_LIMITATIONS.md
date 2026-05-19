@@ -23,10 +23,10 @@
 | Eval export bundle | No coherent product artifact | `EVAL-PRODUCT-005` |
 | Dataset views/bookmarks | No saved workbench or per-operator dataset view presets | follow-up |
 | Semantic diff visualization | Baseline comparison remains summary/detail cards; no rich side-by-side semantic diff viewer | follow-up |
-| Replay trigger | Allagma retry/cancel/replay POST not in OpenAPI; FE limitation UI | Out of PFH unless backend adds routes |
-| Replay page fixtures | No `?replayFixture=`; E2E uses service mocks | follow-up |
+| Replay trigger | No live replay trigger until Allagma OpenAPI documents `POST /allagma/v0/runs/{runId}/replay`; FE shows limitation banner (no fake button) | Out of PFH unless backend adds route |
+| Replay page fixtures | No `?replayFixture=` catalog on `/allagma/replay`; E2E uses service mocks | follow-up |
 | Manual eval write gate | POST eval gated; baseline POST not gated identically | Documented (`ALIGN-PRODUCT-001`, matrix § manual write) |
-| Run ↔ eval ids on run GET | May not list `evaluationRunIds` on live run response | `FE-PRODUCT-002` |
+| Run ↔ eval ids on run GET | May not list `evaluationRunIds` on live run response; run-scoped evaluation list + journey links are the source of truth (`FE-PRODUCT-002`) | follow-up |
 | Param routes in release catalog | `/allagma/evaluations/:id` not in `release-route-catalog.json` | `ALIGN-PRODUCT-002` |
 | InMemory persistence | Eval data not durable without Postgres mode | Operator docs only |
 | Eval artifacts | `artifacts/eval*` gitignored locally | Not a product gap |
@@ -34,6 +34,12 @@
 ## Accepted stance
 
 Document limitations honestly. Do not mask missing capabilities with fake success states.
+
+## FE-PRODUCT-003 outcomes (2026-05-19)
+
+- Replay workbench supports run/trace/decision lookup, evidence export, and evidence journey cross-links to eval/baseline/dataset/Conexus/Kanon/run surfaces.
+- Replay trigger remains limitation-only until Allagma OpenAPI documents `POST /allagma/v0/runs/{runId}/replay`.
+- No `?replayFixture=` on the replay route; E2E continues to use service mocks.
 
 ## EVAL-POLISH-001 outcomes (2026-05-19)
 

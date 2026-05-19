@@ -6,16 +6,16 @@
 | --- | --- | --- | --- | --- | --- |
 | Eval list/query | **Closed (EVAL-PRODUCT-001):** `GET /allagma/v0/evaluations` + summary/page DTOs; per-run list retained | Saved views, export | **P2** | — | Analytics warehouse |
 | Eval dashboard | **Closed (FE-PRODUCT-001):** filters, dimensions, comparison entries, results list | Saved views, richer pagination | **P2** | — | Full BI dashboard |
-| Eval detail | `GET /evaluations/{id}` + FE detail page | Richer verdict/quality/metric presentation; correlation IDs | **P1** | `FE-PRODUCT-002` | — |
+| Eval detail | **Closed (FE-PRODUCT-002):** detail page + evidence journey + cross-service links | Calibration history/trend workspace | **P2** | — | — |
 | Baseline comparison | **Closed (EVAL-PRODUCT-002):** list/history route + FE workbench + detail drilldown links | Create flow still harness-only; richer diff visualization | **P2** | — | Enterprise reporting |
 | Scenario dataset | **Closed (EVAL-PRODUCT-003):** `GET /allagma/v0/evaluation-datasets`, detail route, FE dataset surface, metadata-backed labels | Saved views/bookmarks, richer dataset analytics | **P2** | — | Full dataset authoring UI (unless scoped) |
 | Quality scoring | **Closed (EVAL-PRODUCT-004):** quality/judge metadata contract exposed in eval list/detail; FE detail shows calibration metadata + advisory limits | Calibration history trends and operator tuning workflows | **P2** | — | Training judge models |
 | Eval evidence export | Audit export on run; no eval bundle route | Operator export bundle (run/eval/comparison/dataset/trace) | **P2** | `EVAL-PRODUCT-005` | Compliance archive |
-| Replay relation | **Closed (FE-PRODUCT-003):** journey links + cross-service card on replay workbench | Live replay trigger (no backend route) | follow-up | — | `?replayFixture=` catalog |
+| Replay relation | **Closed (FE-PRODUCT-003):** lookup modes, limitation banner, export, journey links + cross-service card | Live replay trigger; `?replayFixture=` catalog | follow-up | — | Fake replay trigger button |
 | Persistence | Postgres + in-memory modes; `EVAL_DUR_001` done | Product retention/query semantics for operators | **P2** | (clarify in EVAL-PRODUCT-001) | DR/backup/SLO |
 | OpenAPI discipline | `allagma-openapi-v1.snapshot.json` + `openapi:check` | New eval semantics must update snapshot before FE hooks | **P0** | `EVAL-PRODUCT-001`, `ALIGN-PRODUCT-003` | Ad hoc routes |
 | Manual eval write | POST gated; baseline POST not gated same way | Documented in alignment matrix; no operator write UI | **P2** | — (closed ALIGN-PRODUCT-001) | — |
-| Run ↔ eval linkage | Live run GET may not surface `evaluationRunIds` | Surface ids on run detail or document lookup-only | **P1** | `FE-PRODUCT-002` | — |
+| Run ↔ eval linkage | **Closed (FE-PRODUCT-002):** run-scoped evaluation list + journey links; live run GET may still omit `evaluationRunIds` | Surface ids on run GET when backend adds them | **P2** | — | — |
 
 ## Must-fix before frontend product depth (unchanged, now evidenced)
 
@@ -33,8 +33,8 @@
 4. EVAL-PRODUCT-002  — baseline comparison depth (**done**)
 5. EVAL-PRODUCT-003  — scenario dataset surfaces (**done**)
 6. EVAL-PRODUCT-004  — quality scoring / judge calibration UI (**done**)
-7. FE-PRODUCT-002    — run detail evidence depth (**next**)
-8. FE-PRODUCT-003    — replay evidence workbench
-9. EVAL-PRODUCT-005  — eval evidence export bundle
+7. FE-PRODUCT-002    — run detail evidence depth (**done**)
+8. FE-PRODUCT-003    — replay evidence workbench (**done**)
+9. EVAL-PRODUCT-005  — eval evidence export bundle (**next**)
 10. FE-PRODUCT-CLOSEOUT-001
 ```
