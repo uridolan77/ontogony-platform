@@ -85,6 +85,31 @@ cd C:\dev\ontogony-platform
 .\docker\local-working-system\scripts\seed-and-verify-local-working-system.ps1
 ```
 
+## Troubleshooting
+
+### Conexus `/health/live` returns 404 but container is healthy
+
+Usually **not** a stale Docker image. On Windows, a local `Conexus.Api` dev process may bind `127.0.0.1:5082` while Docker binds `0.0.0.0:5082`. `localhost` probes then hit the wrong process.
+
+```powershell
+netstat -ano | findstr :5082
+```
+
+Stop the stale local process, or set `CONEXUS_HOST_PORT` in `.env` to an unused port.
+
+**Operator rule:** before Docker-local health checks, stop local services on **5081**, **5082**, **5083**, **5175**, or override host ports in `.env`.
+
+### Health probes
+
+```text
+/health, /health/live, /live  → liveness (Docker startup / wait scripts)
+/ready                        → strict readiness (may be 503 before bootstrap)
+```
+
+### Postgres host port
+
+Default in `.env.example` is **55433** (avoids collision with local Postgres on **5432**). Change `POSTGRES_HOST_PORT` in `.env` if needed.
+
 ## Docs
 
 Canonical plan: `docs/environments/docker-local-working-system/`.

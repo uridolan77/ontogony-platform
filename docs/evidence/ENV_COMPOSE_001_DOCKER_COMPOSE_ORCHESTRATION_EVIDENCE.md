@@ -1,7 +1,7 @@
 # ENV-COMPOSE-001 — Docker Compose orchestration evidence
 
 **Recorded at (UTC):** 2026-05-19  
-**Verdict:** PASS (compose implementation complete; backend startup wait now passes with Conexus liveness probe)  
+**Verdict:** **ACCEPTED** — DONE / PASS  
 **Statement:** This package supports the first working local environment and first Dockerized local working system. It is not production readiness.
 
 ## Scope
@@ -34,65 +34,102 @@ docs/releases/FIRST_WORKING_ENVIRONMENT_NEXT_STEPS.md
 docs/evidence/ENV_COMPOSE_001_DOCKER_COMPOSE_ORCHESTRATION_EVIDENCE.md
 ```
 
-## Commands run
+## Health endpoint contract (Conexus)
+
+Use for Docker startup vs strict readiness:
+
+```text
+Use /health or /health/live for Docker startup and wait scripts (liveness).
+Use /ready for strict readiness (provider credentials, durable stores).
+```
+
+Conexus maps:
+
+```text
+/health       → lightweight liveness
+/health/live  → lightweight liveness
+/live         → lightweight liveness
+/ready        → strict ready-tag health checks
+```
+
+## Port-collision note (root cause of false 404)
+
+During closeout validation, `/health/live` returned **404** while `docker compose ps` showed `conexus-api` **healthy**. Investigation showed this was **not** a stale Docker image.
+
+**Root cause:** host port collision / `localhost` resolution on Windows.
+
+```text
+A stale local Conexus.Api process was bound to 127.0.0.1:5082 while Docker Conexus was bound to 0.0.0.0:5082. On Windows, localhost probes hit the local process first, producing false 404s for /health/live. After stopping the local process, Docker Conexus returned /health/live=200 and /ready=503 pre-bootstrap as expected.
+```
+
+**Operator rule:**
+
+```text
+Before running Docker-local health checks, stop local services using ports 5081, 5082, 5083, 5175, or override host ports in docker/local-working-system/.env.
+```
+
+**Troubleshooting:**
+
+```text
+If /health/live returns 404 but docker compose ps shows conexus-api healthy, check for a local process already listening on 5082:
+
+netstat -ano | findstr :5082
+
+Stop the stale local Conexus.Api process or change CONEXUS_HOST_PORT in .env.
+```
+
+## Postgres host port default
+
+`.env.example` default:
+
+```text
+POSTGRES_HOST_PORT=55433
+```
+
+Rationale: fewer collisions with a local Postgres on **5432**. Container-internal Postgres remains **5432**; only the host mapping changes. Override in `.env` if **55433** is taken.
+
+Evidence run below used **5432** on the host (port was free at validation time).
+
+## Closeout commands run
 
 ```powershell
 cd C:\dev\ontogony-platform
 
-# Compose schema/config rendering
 docker compose --env-file .\docker\local-working-system\.env.example `
   -f .\docker\local-working-system\docker-compose.yml config
 
-# PowerShell parser checks
-$files = @(
-  'docker/local-working-system/scripts/start-local-working-system.ps1',
-  'docker/local-working-system/scripts/wait-local-working-system.ps1',
-  'docker/local-working-system/scripts/reset-local-working-system.ps1'
-)
-foreach ($f in $files) {
-  $tokens = $null; $errs = $null
-  [System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $f), [ref]$tokens, [ref]$errs) | Out-Null
-  if ($errs.Count -gt 0) { throw "Parse failed: $f" }
-}
-
-# Runtime startup validation on alternate host ports (to avoid local stack collisions)
-$env:POSTGRES_HOST_PORT='55434'
-$env:KANON_HOST_PORT='5181'
-$env:CONEXUS_HOST_PORT='5182'
-$env:ALLAGMA_HOST_PORT='5183'
-$env:FRONTEND_HOST_PORT='5275'
-docker compose --env-file .\docker\local-working-system\.env.example `
-  -f .\docker\local-working-system\docker-compose.yml `
-  up -d --build postgres kanon-api conexus-api allagma-api
-
-powershell -NoProfile -ExecutionPolicy Bypass `
-  -File .\docker\local-working-system\scripts\wait-local-working-system.ps1 `
-  -SkipFrontend -TimeoutSeconds 60
-
-# Probe Conexus liveness vs readiness before bootstrap
-Invoke-WebRequest -UseBasicParsing http://localhost:5182/health/live
-Invoke-WebRequest -UseBasicParsing http://localhost:5182/ready
-
-# Cleanup
-docker compose --env-file .\docker\local-working-system\.env.example `
-  -f .\docker\local-working-system\docker-compose.yml `
-  down -v --remove-orphans
+.\docker\local-working-system\scripts\wait-local-working-system.ps1 -SkipFrontend
+.\docker\local-working-system\scripts\wait-local-working-system.ps1
+.\docker\local-working-system\scripts\seed-and-verify-local-working-system.ps1
 ```
 
-## Results
+## Closeout results (2026-05-19)
 
 | Check | Result |
 | --- | --- |
-| `docker compose config` renders full model | **PASS** |
-| Build contexts resolved for all services (including `additional_contexts`) | **PASS** |
-| `.env.example` placeholders expanded correctly | **PASS** |
-| Script parser checks (`start`, `wait`, `reset`) | **PASS** |
-| Runtime compose `up -d --build` for postgres+APIs | **PASS** (containers built and started) |
-| `wait-local-working-system.ps1` postgres health gate | **PASS** |
-| `wait-local-working-system.ps1` API health completion | **PASS** |
-| Conexus liveness (`/health/live`) before bootstrap | **PASS** (`200`) |
-| Conexus readiness (`/ready`) before bootstrap | **Expected non-green** (`503`, strict provider/readiness invariant) |
-| Teardown cleanup (`down -v --remove-orphans`) | **PASS** |
+| `docker compose config` | **PASS** |
+| postgres healthy | **PASS** |
+| kanon-api `/health` | **PASS** (`http://localhost:5081/health`) |
+| conexus-api `/health/live` | **PASS** (`http://localhost:5082/health/live`) — after stopping stale local Conexus on 5082 |
+| allagma-api `/health` | **PASS** (`http://localhost:5083/health`) |
+| ontogony-frontend `/` | **PASS** (`http://localhost:5175/`) |
+| Conexus `/ready` pre-bootstrap (strict) | **PASS** (`503` expected before seed/bootstrap) |
+| Conexus `/health` liveness | **PASS** (`200`) |
+| `seed-and-verify-local-working-system.ps1` | **PASS** (initial run) — report: `docker/local-working-system/artifacts/env-seed-001-report.json`. Re-run after bootstrap may fail on idempotent key checks; use `reset-local-working-system.ps1 -Force` for a clean re-seed. |
+| Real provider keys | **no** |
+| Real external execution | **no** |
+| Production readiness claim | **no** |
+
+### Wait script output (representative)
+
+```text
+PASS postgres healthy.
+PASS kanon-api healthy: http://localhost:5081/health
+PASS conexus-api healthy: http://localhost:5082/health/live
+PASS allagma-api healthy: http://localhost:5083/health
+PASS ontogony-frontend healthy: http://localhost:5175/
+All requested services are healthy.
+```
 
 ## Safety
 
@@ -105,10 +142,10 @@ docker compose --env-file .\docker\local-working-system\.env.example `
 
 ## Known limitations
 
-- Frontend service runtime health was not gated in this evidence run (`-SkipFrontend`) to keep the check focused on backend orchestration.
-- Conexus `/ready` is intentionally stricter than liveness and can remain non-green until provider/alias bootstrap has completed.
-- ENV-SEED-001 remains host-local API evidence; restart-survival proof remains in ENV-DOCKER-RUN-001.
+- Conexus `/ready` is intentionally stricter than liveness and can remain **503** until provider/alias bootstrap completes; **200** after seed is also valid when strict checks pass.
+- ENV-SEED-001 proves fake-provider local usability via host-local API calls; container DNS wiring is compose-backed; restart-survival proof remains **ENV-DOCKER-RUN-001**.
+- Host port collisions with locally running APIs are an operator concern (see port-collision note above).
 
 ## Next step
 
-**ENV-DOCKER-RUN-001** — Dockerized guided main flow and restart-survival persistence proof (after Kanon startup path is green on compose-backed Postgres).
+**ENV-DOCKER-RUN-001** — Dockerized guided main flow, including Allagma restart and persistence-after-restart verification.
