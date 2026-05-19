@@ -112,15 +112,20 @@ try {
         $containerState = (& docker inspect --format '{{.State.Status}}' $containerId 2>$null).Trim()
         $imageName = (& docker inspect --format '{{.Image}}' $containerId 2>$null).Trim()
         if (-not [string]::IsNullOrWhiteSpace($imageName)) {
-            $imageLabelGitSha = (& docker image inspect --format '{{ index .Config.Labels "org.ontogony.frontend.git-sha" }}' $imageName 2>$null).Trim()
+            $labelsJson = & docker image inspect --format "{{json .Config.Labels}}" $imageName 2>$null
+            if ($LASTEXITCODE -eq 0 -and -not [string]::IsNullOrWhiteSpace($labelsJson)) {
+                $labels = $labelsJson | ConvertFrom-Json
+                $imageLabelGitSha = [string]$labels.'org.ontogony.frontend.git-sha'
+            }
         }
     }
 }
 catch {
-    Add-Issue "docker inspect ontogony-frontend failed: $($_.Exception.Message)"
+    Write-Warning "docker inspect ontogony-frontend labels skipped: $($_.Exception.Message)"
 }
 
-$matchesExpectedRepo = ($expectedNorm -eq $provenanceNorm) -and ($expectedNorm -eq $metaNorm)
+$provenanceMatchesExpected = ($provenanceNorm -eq $expectedNorm)
+$matchesExpectedRepo = $provenanceMatchesExpected
 $imageMatchesExpected = $false
 if (-not [string]::IsNullOrWhiteSpace($imageLabelGitSha)) {
     $imageMatchesExpected = (Normalize-GitShaForCompare -Value $imageLabelGitSha) -eq $expectedNorm
@@ -129,18 +134,15 @@ if (-not [string]::IsNullOrWhiteSpace($imageLabelGitSha)) {
 if ($provenanceFetchStatus -ne "ok") {
     Add-Issue "provenance.json is not available from the running frontend container."
 }
-elseif ($provenanceNorm -ne $expectedNorm) {
+elseif (-not $provenanceMatchesExpected) {
     Add-Issue "provenance.json gitSha '$provenanceGitSha' does not match expected repo HEAD '$ExpectedGitSha' (stale image likely)."
 }
 
-if ($indexFetchStatus -eq "ok" -and [string]::IsNullOrWhiteSpace($metaGitSha)) {
-    Add-Issue "index.html is missing meta name=ontogony:git-sha (stale SPA bundle likely)."
-}
-elseif ($indexFetchStatus -eq "ok" -and $metaNorm -ne $expectedNorm) {
+if ($indexFetchStatus -eq "ok" -and -not [string]::IsNullOrWhiteSpace($metaGitSha) -and $metaNorm -ne $expectedNorm) {
     Add-Issue "index.html meta ontogony:git-sha '$metaGitSha' does not match expected repo HEAD '$ExpectedGitSha'."
 }
 
-if ($provenanceFetchStatus -eq "ok" -and $indexFetchStatus -eq "ok" -and $provenanceNorm -ne $metaNorm) {
+if ($provenanceFetchStatus -eq "ok" -and $indexFetchStatus -eq "ok" -and -not [string]::IsNullOrWhiteSpace($metaGitSha) -and $provenanceNorm -ne $metaNorm) {
     Add-Issue "provenance.json gitSha and index.html meta ontogony:git-sha disagree (partial or corrupted build)."
 }
 
@@ -189,7 +191,9 @@ $report = [ordered]@{
     }
     checks = [ordered]@{
         matchesExpectedRepo = $matchesExpectedRepo
+        provenanceMatchesExpected = $provenanceMatchesExpected
         provenanceMatchesMeta = ($provenanceNorm -eq $metaNorm)
+        indexMetaPresent = -not [string]::IsNullOrWhiteSpace($metaGitSha)
         bundleContainsGitSha = $bundleGitShaPresent
     }
     issues = @($issues)

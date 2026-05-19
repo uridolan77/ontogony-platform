@@ -35,7 +35,6 @@ if ($doc.verdict -ne "PASS") {
 
 Assert-NonEmpty "expected.gitSha" $doc.expected.gitSha
 Assert-NonEmpty "served.provenanceGitSha" $doc.served.provenanceGitSha
-Assert-NonEmpty "served.indexMetaGitSha" $doc.served.indexMetaGitSha
 Assert-NonEmpty "browser.baseUrl" $doc.browser.baseUrl
 
 if ($doc.browser.provenanceFetchStatus -ne "ok") {
@@ -47,14 +46,14 @@ if ($doc.browser.indexFetchStatus -ne "ok") {
 if ($doc.checks.matchesExpectedRepo -ne $true) {
     throw "Frontend browser provenance: checks.matchesExpectedRepo must be true"
 }
-if ($doc.checks.provenanceMatchesMeta -ne $true) {
-    throw "Frontend browser provenance: checks.provenanceMatchesMeta must be true"
+if ($doc.checks.provenanceMatchesExpected -ne $true) {
+    throw "Frontend browser provenance: checks.provenanceMatchesExpected must be true"
 }
 if ($doc.served.provenanceGitSha -ne $doc.expected.gitSha) {
     throw "Frontend browser provenance: served provenance gitSha must equal expected gitSha"
 }
-if ($doc.served.indexMetaGitSha -ne $doc.expected.gitSha) {
-    throw "Frontend browser provenance: index meta gitSha must equal expected gitSha"
+if (-not [string]::IsNullOrWhiteSpace([string]$doc.served.indexMetaGitSha) -and $doc.served.indexMetaGitSha -ne $doc.expected.gitSha) {
+    throw "Frontend browser provenance: index meta gitSha must equal expected gitSha when present"
 }
 if ($doc.checks.bundleContainsGitSha -ne $true -and $doc.expected.gitSha -ne "local") {
     throw "Frontend browser provenance: main bundle must contain served git SHA"

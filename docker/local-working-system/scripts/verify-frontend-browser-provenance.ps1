@@ -27,9 +27,8 @@ if ($Build) {
     # Must pass [switch] parameters by name — @("-Build") is a positional string and is ignored.
     $null = Invoke-FrontendDockerImageBuild -DisableAutoCaInjection:$DisableAutoCaInjection
 
-    $startParams = @{
-        Build = $true
-    }
+    # Stack is already up in most cases — avoid rebuilding all APIs (slow). Start without -Build.
+    $startParams = @{}
     if ($NoWait) { $startParams.NoWait = $true }
     if ($DisableAutoCaInjection) { $startParams.DisableAutoCaInjection = $true }
     & $startScript @startParams
