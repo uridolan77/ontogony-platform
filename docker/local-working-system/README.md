@@ -99,6 +99,18 @@ cd C:\dev\ontogony-platform
 
 Report: `docker/local-working-system/artifacts/docker-guided-main-flow-report.json`
 
+## Frontend operator walkthrough (ENV-DOCKER-FE-001)
+
+After ENV-DOCKER-RUN-001, verify the compose frontend against live report IDs:
+
+```powershell
+cd C:\dev\ontogony-frontend
+.\scripts\docker\open-docker-local-operator-pages.ps1
+```
+
+Walkthrough: `ontogony-frontend/docs/development/DOCKER_LOCAL_OPERATOR_WALKTHROUGH.md`  
+Evidence: `ontogony-frontend/docs/evidence/ENV_DOCKER_FE_001_OPERATOR_WALKTHROUGH_EVIDENCE.md`
+
 ## Troubleshooting
 
 ### Conexus `/health/live` returns 404 but container is healthy

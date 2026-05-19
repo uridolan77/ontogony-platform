@@ -82,7 +82,8 @@ C:\dev\
 | ENV-SEED-001 | **Done** — deterministic seed/bootstrap (host-local API verification) | `ontogony-platform/docker/local-working-system/` |
 | **ENV-COMPOSE-001** | **Done** — Docker Compose orchestration | `ontogony-platform/docker/local-working-system/` |
 | **ENV-DOCKER-RUN-001** | **Done** — Dockerized guided main flow | `ontogony-platform/docker/local-working-system/` |
-| ENV-DOCKER-FE-001 … ENV-DOCKER-CLOSEOUT-001 | Planned | See `compose-to-docker-closeout-package-v2/01_PR_SEQUENCE.md` |
+| **ENV-DOCKER-FE-001** | **Done** — Dockerized frontend walkthrough | `ontogony-frontend/scripts/docker/` |
+| ENV-DOCKER-CLOSEOUT-001 | Planned | See `compose-to-docker-closeout-package-v2/01_PR_SEQUENCE.md` |
 
 Evidence:
 
@@ -93,6 +94,7 @@ Evidence:
 - `docs/evidence/ENV_SEED_001_DETERMINISTIC_BOOTSTRAP_EVIDENCE.md`
 - `docs/evidence/ENV_COMPOSE_001_DOCKER_COMPOSE_ORCHESTRATION_EVIDENCE.md`
 - `docs/evidence/ENV_DOCKER_RUN_001_GUIDED_MAIN_FLOW_EVIDENCE.md`
+- `ontogony-frontend/docs/evidence/ENV_DOCKER_FE_001_OPERATOR_WALKTHROUGH_EVIDENCE.md`
 - `docs/evidence/COMPOSE_TO_DOCKER_CLOSEOUT_PACKAGE_V2_UNPACK_EVIDENCE.md`
 - Closeout (script-based): `docs/releases/FIRST_WORKING_ENVIRONMENT_CLOSEOUT.md`
 

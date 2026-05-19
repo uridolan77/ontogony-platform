@@ -16,8 +16,8 @@
 |---|---|---|
 | ENV-COMPOSE-001 | done | Evidence reaffirmed 2026-05-19 |
 | ENV-DOCKER-RUN-001 | done | Guided flow + Allagma restart durability |
-| ENV-DOCKER-FE-001 | active / next | Frontend walkthrough |
-| ENV-DOCKER-CLOSEOUT-001 | planned | Milestone closeout |
+| ENV-DOCKER-FE-001 | done | Frontend walkthrough |
+| ENV-DOCKER-CLOSEOUT-001 | active / next | Milestone closeout |
 
 ## Boundary notes
 
