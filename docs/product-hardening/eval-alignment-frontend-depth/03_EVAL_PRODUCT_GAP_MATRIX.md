@@ -14,7 +14,7 @@
 | Replay relation | Replay page + Kanon bundles; limitation banners | Cross-links eval ↔ run ↔ comparison ↔ route evidence | **P2** | `FE-PRODUCT-003` | Live replay trigger (no backend route) |
 | Persistence | Postgres + in-memory modes; `EVAL_DUR_001` done | Product retention/query semantics for operators | **P2** | (clarify in EVAL-PRODUCT-001) | DR/backup/SLO |
 | OpenAPI discipline | `allagma-openapi-v1.snapshot.json` + `openapi:check` | New eval semantics must update snapshot before FE hooks | **P0** | `EVAL-PRODUCT-001`, `ALIGN-PRODUCT-003` | Ad hoc routes |
-| Manual eval write | POST gated; baseline POST not gated same way | Document asymmetry; avoid operator UI implying write | **P2** | `ALIGN-PRODUCT-001` | — |
+| Manual eval write | POST gated; baseline POST not gated same way | Documented in alignment matrix; no operator write UI | **P2** | — (closed ALIGN-PRODUCT-001) | — |
 | Run ↔ eval linkage | Live run GET may not surface `evaluationRunIds` | Surface ids on run detail or document lookup-only | **P1** | `FE-PRODUCT-002` | — |
 
 ## Must-fix before frontend product depth (unchanged, now evidenced)

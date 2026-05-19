@@ -25,4 +25,4 @@ Product hardening only. Does not assert production readiness, real provider mode
 
 ## Next implementation (unchanged sequence)
 
-`ALIGN-PRODUCT-001` → `FE-PRODUCT-001` per `02_PRODUCT_HARDENING_SEQUENCE.md`.
+`ALIGN-PRODUCT-001` **done** — see `ALIGN_PRODUCT_001_CONTRACT_MATRIX_REFRESH_EVIDENCE.md`. Next: **FE-PRODUCT-001**.

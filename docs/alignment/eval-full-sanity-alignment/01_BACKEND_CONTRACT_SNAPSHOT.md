@@ -1,6 +1,6 @@
 # Backend contract snapshot — Allagma eval (v0)
 
-**Aligned at:** 2026-05-18  
+**Aligned at:** 2026-05-19 (ALIGN-PRODUCT-001 refresh)  
 **Source of truth:** `allagma-dotnet/docs/api/allagma-openapi-v1.snapshot.json`  
 **API prefix:** `/allagma/v0`
 
@@ -13,8 +13,11 @@
 | GET | `/evaluations/{evaluationRunId}` | `getEvaluationRun` | Bearer | `404` → `allagma.evaluation_not_found` |
 | POST | `/evaluations/baseline-comparisons` | `createBaselineComparison` | Bearer | Harness/operator write path |
 | GET | `/evaluations/baseline-comparisons/{comparisonId}` | `getBaselineComparison` | Bearer | `404` → `allagma.baseline_comparison_not_found` |
+| GET | `/evaluations` | `listEvaluations` | Bearer | Cursor pagination; summary DTOs (EVAL-PRODUCT-001) |
 
-There is **no** `GET /evaluations` global list route.
+### `AllagmaEvaluationRunSummaryResponse` / `AllagmaEvaluationRunListPageResponse`
+
+Global list returns summary rows (`items`, `nextCursor`). Full scores/metrics require `GET /evaluations/{evaluationRunId}`.
 
 ## Core DTOs
 
