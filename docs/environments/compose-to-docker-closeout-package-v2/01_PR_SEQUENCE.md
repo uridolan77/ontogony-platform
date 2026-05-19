@@ -15,7 +15,7 @@ This closes the first Dockerized local working system. It is not production read
 
 Post-closeout hardening is separate from the closed Docker-local milestone.
 
-**Active:** none — post-closeout hardening in progress; next backlog item **`FE-AUDIT-FIXTURES-001`**.
+**Active:** none — post-closeout hardening in progress; next backlog item **`FE-TEST-REPLAY-001`**.
 
 Planning detail: `docs/releases/FIRST_DOCKER_LOCAL_WORKING_SYSTEM_NEXT_STEPS.md`
 
@@ -30,7 +30,7 @@ Recommended order:
 | 5 | `KANON-OP-002` | DONE | Kanon operational diagnostics |
 | 6 | `TRACE-CONTRACT-001` | DONE | Cross-service trace/correlation contract |
 | 7 | `FE-HARDEN-001` | DONE | Frontend hardening beyond walkthrough |
-| 8 | `FE-AUDIT-FIXTURES-001` | backlog | Fixture/live boundary audit |
+| 8 | `FE-AUDIT-FIXTURES-001` | DONE | Fixture/live boundary audit — `ontogony-frontend/docs/evidence/FE_AUDIT_FIXTURES_001_FIXTURE_LIVE_BOUNDARY_EVIDENCE.md` |
 | 9 | `FE-TEST-REPLAY-001` | backlog | Replay/test improvements |
 | 10 | `FE-HYGIENE-CONFIG-001` | backlog | Frontend config hygiene |
 | 11 | `UI-PACKAGING-STATUS-001` | backlog | `@ontogony/ui` packaging status |

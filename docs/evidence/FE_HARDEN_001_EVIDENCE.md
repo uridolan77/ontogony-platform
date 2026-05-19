@@ -34,4 +34,5 @@ Report (local): `docker/local-working-system/artifacts/fe-harden-001-frontend-ev
 
 | PR | Focus |
 | --- | --- |
-| `FE-AUDIT-FIXTURES-001` | Fixture/live boundary audit |
+| `FE-AUDIT-FIXTURES-001` | DONE — `ontogony-frontend/docs/evidence/FE_AUDIT_FIXTURES_001_FIXTURE_LIVE_BOUNDARY_EVIDENCE.md` |
+| `FE-TEST-REPLAY-001` | Replay/test improvements |

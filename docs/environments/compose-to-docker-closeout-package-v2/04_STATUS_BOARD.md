@@ -32,7 +32,7 @@ First Dockerized local working system: **CLOSED / PASS**. Not production readine
 | **KANON-OP-002** | **DONE** | `diagnose-kanon-topology-ops.ps1` |
 | **TRACE-CONTRACT-001** | **DONE** | `inspect-trace-correlation-evidence.ps1` |
 | **FE-HARDEN-001** | **DONE** | Frontend HTTP inspect + Playwright; `ontogony-frontend/docs/evidence/FE_HARDEN_001_FRONTEND_HARDENING_EVIDENCE.md` |
-| FE-AUDIT-FIXTURES-001 | backlog | Fixture/live boundary audit |
+| **FE-AUDIT-FIXTURES-001** | **DONE** | Fixture/live catalog + `fixtures:check` + E2E; `ontogony-frontend/docs/evidence/FE_AUDIT_FIXTURES_001_FIXTURE_LIVE_BOUNDARY_EVIDENCE.md` |
 | FE-TEST-REPLAY-001 | backlog | Replay/test improvements |
 | FE-HYGIENE-CONFIG-001 | backlog | Frontend config hygiene |
 | UI-PACKAGING-STATUS-001 | backlog | `@ontogony/ui` packaging status |
