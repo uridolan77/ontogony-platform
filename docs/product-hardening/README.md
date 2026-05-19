@@ -34,9 +34,9 @@ Evidence:
 
 Release pointer: [`PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH.md`](../releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH.md)
 
-## Active next package — Repo cleaning / documentation / manual QA prep (v1)
+## Closed package — Repo cleaning / documentation / manual QA prep (v1)
 
-**Product feature hardening v1 is closed.** The active next preparation package is:
+**Planning/control package:**
 
 - [`docs/product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/`](repo-cleaning-documentation-manual-qa-prep-v1/)
 
@@ -44,26 +44,39 @@ Release pointer: [`PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH.md`](
 
 - `docs/_incoming/Ontogony-Repo-Cleaning-Documentation-Manual-QA-Prep-v1.zip`
 
-Start with:
-
-- `repo-cleaning-documentation-manual-qa-prep-v1/00_MANIFEST.json`
-- `repo-cleaning-documentation-manual-qa-prep-v1/01_EXECUTIVE_PLAN.md`
-- `repo-cleaning-documentation-manual-qa-prep-v1/sequences/01_REPO_CLEANING_SEQUENCE.md`
+**Status:** **CLOSED / PASS** (2026-05-19) — `DOCS-STANDARD-001`, six-repo RCQ sweeps, `PRODUCT-MANUAL-QA-002R1` manual QA rerun.
 
 Evidence:
 
 - [`RCQ_000_PACKAGE_SETUP_EVIDENCE.md`](../evidence/RCQ_000_PACKAGE_SETUP_EVIDENCE.md)
 - [`DOCS_STANDARD_001_UNIFIED_DOCUMENTATION_STRUCTURE_EVIDENCE.md`](../evidence/DOCS_STANDARD_001_UNIFIED_DOCUMENTATION_STRUCTURE_EVIDENCE.md)
+- [`RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md`](../evidence/RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md)
+- [`PRODUCT_MANUAL_QA_002R1_EXECUTION_EVIDENCE.md`](../evidence/PRODUCT_MANUAL_QA_002R1_EXECUTION_EVIDENCE.md)
 
 **Governance (published):** [`docs/operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md`](../operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md) (`DOCS-STANDARD-001`, 2026-05-19).
 
-**Platform `RCQ-DOCS-001`:** **DONE** (2026-05-19) — [`RCQ_DOCS_001_ONTOGONY_PLATFORM_EVIDENCE.md`](../evidence/RCQ_DOCS_001_ONTOGONY_PLATFORM_EVIDENCE.md).
+Manual guided QA package: [`docs/product-hardening/manual-guided-qa/`](manual-guided-qa/).
 
-**RCQ sweeps:** **DONE** (2026-05-19) — six-repo `RCQ-CODE-001` + `RCQ-DOCS-001`; closeout [`RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md`](../evidence/RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md).
+## Active next package — Real provider validation (v1)
 
-**`PRODUCT-MANUAL-QA-001`:** **DONE** (2026-05-19) — package published at [`docs/product-hardening/manual-guided-qa/`](manual-guided-qa/), evidence [`PRODUCT_MANUAL_QA_001_PACKAGE_EVIDENCE.md`](../evidence/PRODUCT_MANUAL_QA_001_PACKAGE_EVIDENCE.md).
+**Fake-provider Docker-local manual QA is closed.** The active next controlled phase is:
 
-**Next step:** **`PRODUCT-MANUAL-QA-002`** — execute the manual guided QA package and record run results.
+- [`docs/product-hardening/real-provider-validation-package-v1/`](real-provider-validation-package-v1/)
+
+**Incoming ZIP (preserved):**
+
+- `docs/_incoming/Ontogony-Real-Provider-Validation-Package-v1.zip`
+
+**First step:** **`RP-000`** — package setup (**DONE** 2026-05-19) — [`RP_000_PACKAGE_SETUP_EVIDENCE.md`](../evidence/RP_000_PACKAGE_SETUP_EVIDENCE.md)
+
+**Next after setup:** **`RP-001`** — secret, budget, and safety gates
+
+Start with:
+
+- `real-provider-validation-package-v1/00_MANIFEST.json`
+- `real-provider-validation-package-v1/01_EXECUTIVE_PLAN.md`
+- `real-provider-validation-package-v1/02_SECRET_AND_BUDGET_POLICY.md`
+- `real-provider-validation-package-v1/prompts/RP-001_SECRET_BUDGET_AND_SAFETY_GATES.md`
 
 ## Related (not superseded — different scope)
 
@@ -78,4 +91,6 @@ Evidence:
 
 Product hardening improves eval product depth, contract alignment, and operator-facing frontend surfaces on the **closed Docker-local foundation**.
 
-It is **not production readiness**. No real provider mode, cloud deployment, production identity/TLS/secrets, or unscoped runtime refactors belong in this program unless explicitly chartered elsewhere.
+The **real provider validation** package (`RP-*`) is a separate controlled phase for **local** real-provider smoke and manual QA after fake-provider manual QA PASS. It is still **not production readiness** — no cloud deployment, no CI real-provider calls, and no secrets in repo.
+
+Production readiness remains **not started** unless explicitly chartered elsewhere.

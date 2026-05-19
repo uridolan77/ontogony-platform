@@ -13,6 +13,9 @@
 First Dockerized local working system      CLOSED / PASS
 Post-Docker-local hardening                CLOSED / PASS
 Product feature hardening v1 (PFH)         CLOSED / PASS
+Repo cleaning + manual QA prep (RCQ)       CLOSED / PASS
+PRODUCT-MANUAL-QA-002R1 (fake provider)    PASS
+Real provider validation v1 (RP-*)       ACTIVE (RP-000 setup done)
 CI-COST-001 (6 repos)                      DONE
 Production readiness                       NOT STARTED
 ```
@@ -25,17 +28,19 @@ Production readiness                       NOT STARTED
 | `FE-PRODUCT-CLOSEOUT-001` | **DONE** — this closeout |
 | `EVAL-POLISH-001` | **DONE** — cross-repo polish (parity + error semantics) |
 
-## Active preparation — repo cleaning / manual QA (RCQ)
+## Active phase — real provider validation (RP v1)
 
-Before full manual guided QA, the six repos follow the **repo cleaning + documentation + manual QA prep** program (not production readiness):
+After fake-provider `PRODUCT-MANUAL-QA-002R1` **PASS**, the next controlled phase is **real provider validation** (still not production readiness):
 
 | Need | Doc |
 | --- | --- |
-| RCQ package | [`docs/product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/`](../product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/) |
-| Unified documentation standard | [`docs/operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md`](../operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md) |
-| Platform docs index | [`docs/README.md`](../README.md) |
+| RP package | [`docs/product-hardening/real-provider-validation-package-v1/`](../product-hardening/real-provider-validation-package-v1/) |
+| RP-000 setup evidence | [`docs/evidence/RP_000_PACKAGE_SETUP_EVIDENCE.md`](../evidence/RP_000_PACKAGE_SETUP_EVIDENCE.md) |
+| Product hardening index | [`docs/product-hardening/README.md`](../product-hardening/README.md) |
 
-`DOCS-STANDARD-001` and RCQ code/docs sweeps are **done** (2026-05-19) — see [`RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md`](../evidence/RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md). `PRODUCT-MANUAL-QA-001` package is **done** (2026-05-19) — [`PRODUCT_MANUAL_QA_001_PACKAGE_EVIDENCE.md`](../evidence/PRODUCT_MANUAL_QA_001_PACKAGE_EVIDENCE.md). Next: `PRODUCT-MANUAL-QA-002`.
+**Done:** `RP-000` package copy/unpack/register (2026-05-19). **Next:** `RP-001` secret, budget, and safety gates.
+
+**Closed (prerequisite):** RCQ + `PRODUCT-MANUAL-QA-002R1` — see [`RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md`](../evidence/RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md), [`PRODUCT_MANUAL_QA_002R1_EXECUTION_EVIDENCE.md`](../evidence/PRODUCT_MANUAL_QA_002R1_EXECUTION_EVIDENCE.md).
 
 ## Remaining optional tracks
 
@@ -54,11 +59,11 @@ Pick based on team priority. None are required to use the closed Docker-local st
 | Live replay trigger | Requires Allagma OpenAPI route first | Backend + FE |
 | `ALIGN-PRODUCT-002`–`004` | Capability registry, OpenAPI discipline, cross-service id map | `pr-specs/ALIGN-PRODUCT-*.md` |
 
-### Option 2 — `ENV-REAL-PROVIDER-001` (optional backend smoke)
+### Option 2 — Real provider validation v1 (`RP-*`) — **ACTIVE**
 
-**When:** You need confidence that a **real** Conexus provider path works with explicit keys — still not production.
+**When:** Fake-provider manual QA is PASS and you need controlled **local** real-provider validation through Conexus/Allagma/frontend — still not production.
 
-See [POST_DOCKER_LOCAL_HARDENING_NEXT_OPTIONS.md](./POST_DOCKER_LOCAL_HARDENING_NEXT_OPTIONS.md#option-1--env-real-provider-001-optional-backend-smoke).
+Package: [`docs/product-hardening/real-provider-validation-package-v1/`](../product-hardening/real-provider-validation-package-v1/). Legacy pointer: [POST_DOCKER_LOCAL_HARDENING_NEXT_OPTIONS.md](./POST_DOCKER_LOCAL_HARDENING_NEXT_OPTIONS.md#option-1--env-real-provider-001-optional-backend-smoke).
 
 ### Option 3 — `PROD-READINESS-001+` (separate program)
 
@@ -76,8 +81,8 @@ Deferred from ENV: runtime Vite injection in frontend image; full compose-in-CI.
 
 Most teams should **keep using the closed Docker-local stack daily** and choose **one** optional track:
 
-1. **Product polish** → Option 1 (PFH v1 follow-ups above)  
-2. **Provider confidence** → Option 2 (`ENV-REAL-PROVIDER-001`)  
+1. **Real provider validation** → Option 2 (`RP-*`, active after manual QA PASS)  
+2. **Product polish** → Option 1 (PFH v1 follow-ups above)  
 3. **Deploy timeline** → Option 3 (`PROD-READINESS-*`)  
 4. **Hosted environments** → Option 4 (cloud/deployment program)
 
