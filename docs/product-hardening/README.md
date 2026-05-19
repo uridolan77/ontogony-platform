@@ -73,13 +73,14 @@ Manual guided QA package: [`docs/product-hardening/manual-guided-qa/`](manual-gu
 | --- | --- | --- |
 | `RP-000` package setup | **DONE** (2026-05-19) | [`RP_000_PACKAGE_SETUP_EVIDENCE.md`](../evidence/RP_000_PACKAGE_SETUP_EVIDENCE.md) |
 | `RP-001` secret, budget, safety gates | **DONE** (2026-05-19) | [`RP_001_SECRET_BUDGET_SAFETY_GATES_EVIDENCE.md`](../evidence/RP_001_SECRET_BUDGET_SAFETY_GATES_EVIDENCE.md) |
-| `RP-002` Conexus real-provider local mode | **Next** | — |
+| `RP-002` Conexus real-provider local mode | **DONE** (2026-05-19) | [`RP_002_CONEXUS_REAL_PROVIDER_LOCAL_MODE_EVIDENCE.md`](../evidence/RP_002_CONEXUS_REAL_PROVIDER_LOCAL_MODE_EVIDENCE.md) |
+| `RP-003` Allagma real-provider guided flow | **Next** | — |
 
 **Operator policy:** [`docs/operators/REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md`](../operators/REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md)
 
 Start with:
 
-- `real-provider-validation-package-v1/prompts/RP-002_CONEXUS_REAL_PROVIDER_LOCAL_MODE.md`
+- `real-provider-validation-package-v1/prompts/RP-003_ALLAGMA_REAL_PROVIDER_GUIDED_FLOW.md`
 - `conexus-dotnet/docs/development/REAL_PROVIDER_LOCAL_VALIDATION.md`
 
 ## Related (not superseded — different scope)

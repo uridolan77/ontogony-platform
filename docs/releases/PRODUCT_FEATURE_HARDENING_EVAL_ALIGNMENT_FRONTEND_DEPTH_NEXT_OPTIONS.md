@@ -15,7 +15,7 @@ Post-Docker-local hardening                CLOSED / PASS
 Product feature hardening v1 (PFH)         CLOSED / PASS
 Repo cleaning + manual QA prep (RCQ)       CLOSED / PASS
 PRODUCT-MANUAL-QA-002R1 (fake provider)    PASS
-Real provider validation v1 (RP-*)       ACTIVE (RP-001 safety gates done)
+Real provider validation v1 (RP-*)       ACTIVE (RP-002 Conexus gate done)
 CI-COST-001 (6 repos)                      DONE
 Production readiness                       NOT STARTED
 ```
@@ -38,7 +38,7 @@ After fake-provider `PRODUCT-MANUAL-QA-002R1` **PASS**, the next controlled phas
 | RP-000 setup evidence | [`docs/evidence/RP_000_PACKAGE_SETUP_EVIDENCE.md`](../evidence/RP_000_PACKAGE_SETUP_EVIDENCE.md) |
 | Product hardening index | [`docs/product-hardening/README.md`](../product-hardening/README.md) |
 
-**Done:** `RP-000` package setup, `RP-001` safety gates (2026-05-19). **Next:** `RP-002` Conexus real-provider local mode. Policy: [`REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md`](../operators/REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md).
+**Done:** `RP-000`–`RP-002` (2026-05-19). **Next:** `RP-003` Allagma guided flow. Policy: [`REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md`](../operators/REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md). Conexus evidence: [`RP_002_CONEXUS_REAL_PROVIDER_LOCAL_MODE_EVIDENCE.md`](../evidence/RP_002_CONEXUS_REAL_PROVIDER_LOCAL_MODE_EVIDENCE.md).
 
 **Closed (prerequisite):** RCQ + `PRODUCT-MANUAL-QA-002R1` — see [`RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md`](../evidence/RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md), [`PRODUCT_MANUAL_QA_002R1_EXECUTION_EVIDENCE.md`](../evidence/PRODUCT_MANUAL_QA_002R1_EXECUTION_EVIDENCE.md).
 
