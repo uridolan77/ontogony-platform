@@ -50,16 +50,22 @@ Pick based on team priority. None are required to use the closed Docker-local st
 | Out of scope for ENV | Cloud manifests, staging/prod identity, SLOs |
 | Start | New program charter + acceptance matrix — do not relabel ENV closeout as prod |
 
-### Option 3 — Product feature hardening
+### Option 3 — Product feature hardening (**active**)
 
-**When:** Operator UX, eval durability, or cross-repo alignment is the bottleneck.
+**When:** Operator UX, eval product depth, or cross-repo alignment is the bottleneck.
+
+**Canonical control package (registered 2026-05-19):**
+
+- [`docs/product-hardening/eval-alignment-frontend-depth/`](../product-hardening/eval-alignment-frontend-depth/)
+- Release pointer: [`PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH.md`](./PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH.md)
+- Unpack evidence: [`PFH_000_PACKAGE_SETUP_EVIDENCE.md`](../evidence/PFH_000_PACKAGE_SETUP_EVIDENCE.md)
 
 | Track | Example entry points |
 | --- | --- |
-| Eval / sanity | `docs/planning/eval-durability-to-first-sanity-current/` |
-| Backend/frontend alignment | `docs/alignment/backend-frontend-phase-v2-sandbox-evidence-alignment/` |
+| **Active program** | `docs/product-hardening/eval-alignment-frontend-depth/` (`PFH-001` next) |
+| Prior eval durability | `docs/planning/eval-durability-to-first-sanity-current/` |
+| Alignment baseline | `docs/alignment/eval-full-sanity-alignment/`, `docs/alignment/backend-frontend-phase-v2-sandbox-evidence-alignment/` |
 | Allagma eval closeout | `allagma-dotnet/docs/releases/FIRST_FULL_SANITY_CLOSEOUT.md` |
-| Frontend | Route coverage gaps, performance budgets, additional E2E |
 
 ### Option 4 — Cloud / deployment program
 
@@ -75,7 +81,7 @@ Pick based on team priority. None are required to use the closed Docker-local st
 
 Most teams should **keep using the closed Docker-local stack daily** and choose **one** optional track:
 
-1. **Product velocity** → Option 3 (eval/alignment)  
+1. **Product velocity** → Option 3 ([product hardening package](../product-hardening/eval-alignment-frontend-depth/))  
 2. **Provider confidence** → Option 1 (`ENV-REAL-PROVIDER-001`)  
 3. **Deploy timeline** → Option 2 (`PROD-READINESS-*`)  
 4. **Hosted environments** → Option 4 (cloud/deployment program)

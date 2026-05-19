@@ -2,7 +2,25 @@
 
 This folder contains implementation planning packages for Ontogony.Platform and cross-repo programs that originate from platform planning.
 
-## Active package — Eval Durability → First Full Sanity (current)
+## Active product program — Feature hardening (eval / alignment / frontend depth)
+
+Path:
+
+- `docs/product-hardening/eval-alignment-frontend-depth/`
+
+Purpose:
+
+Canonical control package for post-infrastructure product depth: eval query/list semantics, contract matrix refresh, OpenAPI/generated-client discipline, and frontend operator surfaces (dashboard v2, run detail evidence, replay workbench).
+
+Incoming ZIP:
+
+- `docs/_incoming/Ontogony-Product-Feature-Hardening-Eval-Alignment-Frontend-Depth-v1.zip`
+
+Start with `00_MANIFEST.json`, `02_PRODUCT_HARDENING_SEQUENCE.md`, and `pr-specs/`. See `docs/product-hardening/README.md`.
+
+**Not production readiness.**
+
+## Prior package — Eval Durability → First Full Sanity
 
 Path:
 
@@ -10,7 +28,7 @@ Path:
 
 Purpose:
 
-This is the current active eval planning package after the completed eval-basing sequence (EVAL-FIX-001 through SYS-OBS-EVAL-001). It defines the path from durable eval/baseline persistence through CI gates, quality/data improvements, polish, alignment refresh, and the first full cross-repo sanity milestone.
+Completed eval planning path after the eval-basing sequence (EVAL-FIX-001 through SYS-OBS-EVAL-001). Retained as baseline context for the product-hardening gap matrices; superseded as the **active** program by `docs/product-hardening/`.
 
 Incoming ZIP preserved at:
 

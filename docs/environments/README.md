@@ -108,11 +108,26 @@ Scope note: ENV-SEED-001 evidence validates host-local API behavior against runn
 
 This program targets a **first working local environment**, not production readiness. Use fake/local Conexus provider first; optional real-provider mode is a later, explicit PR. Do not treat acceptance here as deploy or hardening sign-off.
 
+## Active program — Product feature hardening (PFH)
+
+**Canonical control package** (post-Docker-local; not production readiness):
+
+- [`docs/product-hardening/eval-alignment-frontend-depth/`](../product-hardening/eval-alignment-frontend-depth/)
+
+Incoming ZIP: `docs/_incoming/Ontogony-Product-Feature-Hardening-Eval-Alignment-Frontend-Depth-v1.zip`
+
+- **PFH-000** — DONE / PASS (package setup)
+- **PFH-001** — NEXT (current-state audit)
+
+See [`docs/product-hardening/README.md`](../product-hardening/README.md) and [`PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH.md`](../releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH.md).
+
+Unpack evidence: `docs/evidence/PFH_000_PACKAGE_SETUP_EVIDENCE.md`
+
 ## Other planning (unchanged)
 
 Eval and platform planning packages remain in their own trees:
 
-- `docs/planning/eval-durability-to-first-sanity-current/` — active eval durability → first sanity program
+- `docs/planning/eval-durability-to-first-sanity-current/` — prior eval durability → first sanity program (baseline for PFH gaps)
 - `docs/eval-basing/ontogony-eval-based-cross-repo-development-package/` — completed eval-basing baseline
 - `docs/planning/` — other non-environment planning packages (see `docs/planning/README.md`)
 
