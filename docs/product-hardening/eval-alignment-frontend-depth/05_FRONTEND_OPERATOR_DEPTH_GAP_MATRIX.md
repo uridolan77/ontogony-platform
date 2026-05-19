@@ -1,18 +1,31 @@
 # 05 — Frontend Operator Depth Gap Matrix
 
-| Surface | Current base | Product-depth gap | Suggested PR |
-|---|---|---|---|
-| Eval dashboard | Hardened, fixture/live audited. | Needs filters, dataset/suite dimensions, comparison entry points, clear list semantics. | `FE-PRODUCT-001` |
-| Run detail | Trace/correlation visibility added. | Needs integrated run → eval → topology → route → replay evidence journey. | `FE-PRODUCT-002` |
-| Replay evidence | Replay catalog/checks exist. | Needs workbench-style lookup, limitation-aware actions, export, cross-links. | `FE-PRODUCT-003` |
-| Baseline comparison | Evidence exists. | Needs comparison history, drilldown, score/case differences. | `EVAL-PRODUCT-002` |
-| Scenario datasets | Catalog/gates may exist. | Needs dataset index and UI-facing suite/scenario labels. | `EVAL-PRODUCT-003` |
-| Quality scoring | Scaffolding exists. | Needs breakdown, confidence, calibration, judge metadata display. | `EVAL-PRODUCT-004` |
+**Audit:** PFH-001 (2026-05-19).
 
-## UX rules
+| Surface | Current base (audited) | Product-depth gap | Suggested PR |
+| --- | --- | --- | --- |
+| Eval dashboard | `EvaluationsOverviewPage` — cards, scenario matrix, trend panel, limitations card, live sample banner; fixture `ci-suite` | Filters (status, verdict, date), suite/dataset dimensions, comparison entry points, clear list semantics after EVAL-PRODUCT-001 | `FE-PRODUCT-001` (after `EVAL-PRODUCT-001`) |
+| Eval run detail | `EvaluationRunDetailPage` — quality panel, fixture/live banners | Deeper metric/score breakdown, correlation links to run/trace/decision | `FE-PRODUCT-002` |
+| Run detail | `AllagmaRunEvalTopologyEvidenceSection` — eval + topology; link to evaluations | Integrated journey: run → evals → topology → Conexus route → replay | `FE-PRODUCT-002` |
+| Replay evidence | `ReplayEvidencePage` + `AllagmaReplayEvidenceWorkbench` — run/trace/decision modes; `@ontogony/ui` panels | Workbench lookup UX, limitation-aware actions, export, cross-links to eval/comparison | `FE-PRODUCT-003` |
+| Baseline comparison | `BaselineComparisonDetailPage` — GET detail only; fixture baseline | History, drilldown, diff emphasis, create flow or explicit “harness only” | `EVAL-PRODUCT-002` + FE |
+| Scenario datasets | Dashboard matrix from fixture; CI dataset in repo | Dataset index labels, suite membership visible in live mode | `EVAL-PRODUCT-003` |
+| Quality scoring | `AllagmaEvalQualityScoreDetail` on detail page | Confidence, calibration, judge metadata, limitation wording | `EVAL-PRODUCT-004` |
+| Route catalogs | `release-route-catalog.json` — static `/allagma/evaluations`, `/allagma/replay` only | Add param routes or document intentional omission | `ALIGN-PRODUCT-002` |
+| Config / fixture ops | `FRONTEND_FIXTURE_LIVE_BOUNDARY.md`, `fixtures:check`, `config:check` | Extend catalogs when new eval query params land | `FE-HYGIENE` follow-ups |
+
+## UX rules (unchanged)
 
 - Never silently substitute fixture data for live failure.
-- Fixture pages must visibly identify fixture/sample mode.
-- Live pages must show live, empty, degraded, or missing-capability states.
-- If backend does not expose an action, show a limitation, not a fake button.
+- Fixture pages must visibly identify fixture/sample mode (`eval-dashboard-fixture-banner`, `eval-live-sample-banner`, etc.).
+- Live pages must show live, empty, degraded, or missing-capability states (`ProductLiveQueryState`).
+- If backend does not expose an action, show a limitation, not a fake button (`backendWaitingContracts`, replay mutations).
 - Prefer evidence-first navigation over decorative dashboards.
+
+## Operator doc anchors
+
+| Doc | Path |
+| --- | --- |
+| Fixture/live boundary | `ontogony-frontend/docs/operators/FRONTEND_FIXTURE_LIVE_BOUNDARY.md` |
+| Config contract | `ontogony-frontend/docs/operators/FRONTEND_CONFIG_OPERATOR_CONTRACT.md` |
+| Replay contract | `ontogony-frontend/docs/operators/FRONTEND_REPLAY_OPERATOR_CONTRACT.md` |

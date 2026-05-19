@@ -1,21 +1,40 @@
 # 03 — Eval Product Gap Matrix
 
-| Area | Current likely state | Product gap | Priority | Not in scope |
-|---|---|---|---|---|
-| Eval routes | Existing Allagma eval routes and API tests exist. | Need current route inventory and formal product semantics. | Must audit | Production API gateway/security. |
-| Eval list/query | Frontend has used per-run list + sampling for dashboard. | Need explicit dashboard/list contract or documented limitation. | Must fix | Real analytics warehouse. |
-| Eval dashboard | Hardening exists; product depth limited. | Filters, status, suite/dataset dimensions, comparison entry points. | High | Full BI dashboard. |
-| Baseline comparison | Create/fetch evidence exists. | History, filters, drilldown, compare semantics, exported result model. | High | Enterprise reporting. |
-| Scenario dataset | Dataset/CI matrix exists historically. | Dataset index, scenario labels, suite membership, fixture/live parity. | High | Full dataset authoring UI unless scoped. |
-| Quality scoring | Judge/scoring scaffolding exists. | Score breakdown, confidence, calibration metadata, limitation language. | High | Training new judge models. |
-| Eval evidence | Individual evidence exists. | Operator export bundle across run/eval/comparison/dataset. | Medium | Compliance archive system. |
-| Replay relation | Replay evidence and limitation banners exist. | Clear relation between replay, eval, run, comparison, and route evidence. | Medium | Live replay trigger if backend does not support it. |
-| Persistence | Docker-local durable evidence exists. | Product-level retention/query behavior needs clarity. | Medium | DR/backup/SLO. |
-| OpenAPI | Snapshots/generation discipline exists. | New eval/product semantics must be contract-first. | Must | Ad hoc undocumented routes. |
+**Audit:** PFH-001 (2026-05-19). Priority: **P0** = blocks FE product depth; **P1** = high; **P2** = medium.
 
-## Must-fix before frontend product depth
+| Area | Current state (audited) | Product gap | Priority | Target PR | Not in scope |
+| --- | --- | --- | --- | --- | --- |
+| Eval list/query | Per-run `GET /runs/{runId}/evaluations` only; no `GET /evaluations` | Formal global list/query contract **or** documented permanent limitation + dashboard model | **P0** | `EVAL-PRODUCT-001` | Analytics warehouse |
+| Eval dashboard | FE samples last N runs (`listAllagmaRuns` + per-run lists); fixture `ci-suite` | Filters, status, suite/dataset dimensions, honest scope without fake global list | **P0** | `EVAL-PRODUCT-001`, `FE-PRODUCT-001` | Full BI dashboard |
+| Eval detail | `GET /evaluations/{id}` + FE detail page | Richer verdict/quality/metric presentation; correlation IDs | **P1** | `FE-PRODUCT-002` | — |
+| Baseline comparison | POST create + GET by id; promotion rules in service | History, filters, drilldown, list route or documented deferral | **P1** | `EVAL-PRODUCT-002` | Enterprise reporting |
+| Scenario dataset | `docs/evals/datasets/scenario-dataset-v0/` + harness; 8 cases | HTTP dataset index and/or UI suite labels; fixture/live parity matrix | **P1** | `EVAL-PRODUCT-003` | Full dataset authoring UI (unless scoped) |
+| Quality scoring | `EVAL_QUALITY_001` scaffold; FE quality panel on detail | Score breakdown, confidence, calibration metadata, limitation copy | **P1** | `EVAL-PRODUCT-004` | Training judge models |
+| Eval evidence export | Audit export on run; no eval bundle route | Operator export bundle (run/eval/comparison/dataset/trace) | **P2** | `EVAL-PRODUCT-005` | Compliance archive |
+| Replay relation | Replay page + Kanon bundles; limitation banners | Cross-links eval ↔ run ↔ comparison ↔ route evidence | **P2** | `FE-PRODUCT-003` | Live replay trigger (no backend route) |
+| Persistence | Postgres + in-memory modes; `EVAL_DUR_001` done | Product retention/query semantics for operators | **P2** | (clarify in EVAL-PRODUCT-001) | DR/backup/SLO |
+| OpenAPI discipline | `allagma-openapi-v1.snapshot.json` + `openapi:check` | New eval semantics must update snapshot before FE hooks | **P0** | `EVAL-PRODUCT-001`, `ALIGN-PRODUCT-003` | Ad hoc routes |
+| Manual eval write | POST gated; baseline POST not gated same way | Document asymmetry; avoid operator UI implying write | **P2** | `ALIGN-PRODUCT-001` | — |
+| Run ↔ eval linkage | Live run GET may not surface `evaluationRunIds` | Surface ids on run detail or document lookup-only | **P1** | `FE-PRODUCT-002` | — |
 
-1. Determine whether a global eval list/query route exists or must be added/formalized.
-2. Define dashboard data model.
-3. Define live vs fixture behavior for every eval surface.
-4. Document limitations that remain intentionally deferred.
+## Must-fix before frontend product depth (unchanged, now evidenced)
+
+1. **Decide** global eval list/query: add route + DTO **or** lock documented sampling contract (`EVAL-PRODUCT-001`).
+2. **Define** dashboard data model aligned with that decision.
+3. **Define** fixture vs live behavior per eval surface (already partially in `FRONTEND_FIXTURE_LIVE_BOUNDARY.md`; extend for new fields).
+4. **Document** limitations that remain intentionally deferred (`08_KNOWN_LIMITATIONS.md`).
+
+## Product gap priority list (implementation order)
+
+```text
+1. EVAL-PRODUCT-001  — list/query contract + dashboard data model
+2. ALIGN-PRODUCT-001 — contract matrix refresh (after backend contract lands or limitation locked)
+3. FE-PRODUCT-001    — eval dashboard v2
+4. EVAL-PRODUCT-002  — baseline comparison depth
+5. EVAL-PRODUCT-003  — scenario dataset surfaces
+6. EVAL-PRODUCT-004  — quality scoring / judge calibration UI
+7. FE-PRODUCT-002    — run detail evidence depth
+8. FE-PRODUCT-003    — replay evidence workbench
+9. EVAL-PRODUCT-005  — eval evidence export bundle
+10. FE-PRODUCT-CLOSEOUT-001
+```

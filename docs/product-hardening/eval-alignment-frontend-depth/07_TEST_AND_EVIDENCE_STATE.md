@@ -1,26 +1,72 @@
 # 07 — Test and Evidence State
 
-## Existing categories to preserve
+**Audit:** PFH-001 (2026-05-19).
 
-| Category | Examples |
-|---|---|
-| Backend API tests | Allagma eval API, persistence, OpenAPI snapshot tests |
-| Frontend adapter tests | Eval adapters, fixture/live/replay/config checks |
-| Playwright | eval dashboards, fixture/live boundary, replay evidence, run detail correlation |
-| Docker-local scripts | Conexus persistence, Kanon topology, trace correlation, guided flow |
-| CI gates | path-filtered aggregate checks after CI-COST-001 |
-| UI packaging | `@ontogony/ui` build, export, pack, smoke checks |
+## Existing categories (preserve)
 
-## Product-hardening test additions
+| Category | Location (representative) | Status |
+| --- | --- | --- |
+| Backend eval API | `allagma-dotnet/tests/Allagma.Tests/AllagmaEvaluationApiTests.cs` | PASS baseline |
+| OpenAPI snapshot | `AllagmaOpenApiSnapshotTests.cs` | PASS |
+| Baseline comparison | `BaselineComparisonTests.cs` | PASS |
+| Postgres persistence | `PostgresEvaluationPersistenceTests.cs` | PASS (smoke category) |
+| Dataset/harness | `EvaluationScenarioDatasetTests.cs`, `EvalHarnessRunnerTests.cs`, `EvalCiSuiteTests.cs` | PASS |
+| Quality scoring | `EvalQualityScoringTests.cs` | PASS |
+| FE adapters | `allagmaEvaluationAdapters.test.ts`, `allagmaEvaluationDashboardAdapters.test.ts` | PASS |
+| Playwright eval | `e2e/allagma-eval-dashboards.spec.ts`, `allagma-eval-topology-evidence.spec.ts`, `fixture-live-boundary.spec.ts` | PASS |
+| Playwright replay | `e2e/allagma-replay-evidence.spec.ts`, `allagma-run-detail-replay-navigation.spec.ts` | PASS |
+| Docker-local FE | `e2e/docker-local-operator-walkthrough.spec.ts` | PASS |
+| Kanon API surface | `kanon-dotnet/tests/Kanon.Tests/ApiSurfaceSnapshotTests.cs` | PASS |
+| Conexus evidence | `ModelCallRouteEvidenceIntegrationTests.cs`, `RouteDecisionAdminIntegrationTests.cs` | PASS |
+| Trace correlation | `ontogony-platform/docker/local-working-system/scripts/inspect-trace-correlation-evidence.ps1` | PASS (`TRACE_CONTRACT_001`) |
+| CI cost gates | path-filtered aggregates (six repos) | PASS (`CI_COST_001`) |
+| UI packaging | `ontogony-ui` `check:pack`, `check:exports`, `check:smoke-dist` | PASS (`UI_PACKAGING_STATUS_001`) |
 
-| PR | Minimum test/evidence expectation |
-|---|---|
-| `EVAL-PRODUCT-001` | API/DTO tests, OpenAPI check, frontend adapter tests. |
-| `ALIGN-PRODUCT-001` | Matrix evidence, generated client verification. |
-| `FE-PRODUCT-001` | Adapter/unit tests and small stable Playwright checks. |
-| `EVAL-PRODUCT-002` | Comparison API/unit tests and frontend drilldown tests. |
-| `EVAL-PRODUCT-003` | Dataset matrix tests and UI fixture/live tests. |
-| `EVAL-PRODUCT-004` | Scoring DTO/adapter tests and limitation wording tests. |
-| `FE-PRODUCT-002` | Run detail integration tests with mocked API states. |
-| `FE-PRODUCT-003` | Replay workbench fixture/live/degraded tests. |
-| `EVAL-PRODUCT-005` | Export bundle schema validator. |
+## Platform evidence (PFH-relevant)
+
+| File | Topic |
+| --- | --- |
+| `docs/evidence/PFH_000_PACKAGE_SETUP_EVIDENCE.md` | Package registration |
+| `docs/evidence/ALIGN_EVAL_001_EVAL_ALIGNMENT_REFRESH_EVIDENCE.md` | Eval alignment snapshot |
+| `docs/evidence/TRACE_CONTRACT_001_EVIDENCE.md` | Trace header contract |
+| `docs/evidence/FE_HARDEN_001_EVIDENCE.md` | Docker-local FE walkthrough |
+| `docs/evidence/FE_AUDIT_FIXTURES_001_EVIDENCE.md` | Fixture/live audit |
+| `docs/evidence/FE_TEST_REPLAY_001_EVIDENCE.md` | Replay tests |
+| `docs/evidence/FE_HYGIENE_CONFIG_001_EVIDENCE.md` | VITE/config catalog |
+| `docs/evidence/POST_DOCKER_HARDENING_CLOSEOUT_001_EVIDENCE.md` | Hardening closeout |
+
+## Allagma evidence (`docs/evidence/*EVAL*` — 20 files)
+
+Index: `allagma-dotnet/docs/evidence/EVAL_SEQUENCE_STATUS_INDEX.md`. Key: `EVAL_DUR_001`, `EVAL_DATA_001`, `EVAL_QUALITY_001`, `EVAL_RUN_001`–`003`, `SYS_FULL_SANITY_001`.
+
+Closeout: `allagma-dotnet/docs/releases/FIRST_FULL_SANITY_CLOSEOUT.md` (2026-05-18 PASS).
+
+## Frontend evidence
+
+| File | Topic |
+| --- | --- |
+| `ontogony-frontend/docs/evidence/FE_EVAL_002_DASHBOARDS_EVIDENCE.md` | Eval dashboards |
+| `ontogony-frontend/docs/evidence/FE_POLISH_001_*` | Query UX, banners |
+| `ontogony-frontend/docs/evidence/FE_AUDIT_FIXTURES_001_*` | Fixture/live |
+| `ontogony-frontend/docs/evidence/FE_TEST_REPLAY_001_*` | Replay |
+| `ontogony-frontend/docs/evidence/FE_HYGIENE_CONFIG_001_*` | Config |
+| `ontogony-frontend/docs/evidence/FE_HARDEN_001_*` | Hardening E2E |
+
+## Gaps for upcoming PRs
+
+| PR | Test/evidence gap |
+| --- | --- |
+| `EVAL-PRODUCT-001` | New API/DTO tests if route added; OpenAPI + `openapi:check`; adapter tests for new list model |
+| `ALIGN-PRODUCT-001` | Updated matrix evidence; client regeneration proof |
+| `FE-PRODUCT-001` | Dashboard adapter + stable Playwright for filters/dimensions |
+| `EVAL-PRODUCT-002` | Comparison list/history tests if routes added |
+| `EVAL-PRODUCT-003` | Dataset matrix + fixture/live parity tests |
+| `EVAL-PRODUCT-004` | Scoring/calibration adapter + limitation copy tests |
+| `FE-PRODUCT-002` | Run detail integration with mocked states |
+| `FE-PRODUCT-003` | Replay workbench fixture/live/degraded |
+| `EVAL-PRODUCT-005` | Export bundle schema validator |
+| `PFH-001` | `docs/evidence/PFH_001_CURRENT_STATE_AUDIT_EVIDENCE.md` (this audit) |
+
+## Product-hardening test additions (unchanged expectations)
+
+See original matrix in package; all rows still apply post-audit.

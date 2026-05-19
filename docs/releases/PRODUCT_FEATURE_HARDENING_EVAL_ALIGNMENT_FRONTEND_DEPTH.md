@@ -19,14 +19,16 @@ Production readiness                       NOT STARTED
 | Order | Item | Status |
 | ---: | --- | --- |
 | 0 | `PFH-000` — package setup | **DONE** |
-| 1 | `PFH-001` — current-state audit | **NEXT** |
-| 2+ | `EVAL-PRODUCT-*`, `ALIGN-PRODUCT-*`, `FE-PRODUCT-*`, closeout | **NOT STARTED** |
+| 1 | `PFH-001` — current-state audit | **DONE** |
+| 2 | `EVAL-PRODUCT-001` — eval query/list contract | **NEXT** |
+| 3+ | `ALIGN-PRODUCT-*`, `FE-PRODUCT-*`, remaining `EVAL-PRODUCT-*`, closeout | **NOT STARTED** |
 
 Full sequence: `docs/product-hardening/eval-alignment-frontend-depth/02_PRODUCT_HARDENING_SEQUENCE.md`
 
 ## Evidence
 
 - Unpack/setup: `docs/evidence/PFH_000_PACKAGE_SETUP_EVIDENCE.md`
+- Current-state audit: `docs/evidence/PFH_001_CURRENT_STATE_AUDIT_EVIDENCE.md`
 - Prior alignment baseline: `docs/evidence/ALIGN_EVAL_001_EVAL_ALIGNMENT_REFRESH_EVIDENCE.md`
 
 ## Required statement

@@ -117,11 +117,12 @@ This program targets a **first working local environment**, not production readi
 Incoming ZIP: `docs/_incoming/Ontogony-Product-Feature-Hardening-Eval-Alignment-Frontend-Depth-v1.zip`
 
 - **PFH-000** — DONE / PASS (package setup)
-- **PFH-001** — NEXT (current-state audit)
+- **PFH-001** — DONE / PASS (current-state audit)
+- **EVAL-PRODUCT-001** — NEXT (eval query/list contract)
 
 See [`docs/product-hardening/README.md`](../product-hardening/README.md) and [`PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH.md`](../releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH.md).
 
-Unpack evidence: `docs/evidence/PFH_000_PACKAGE_SETUP_EVIDENCE.md`
+Evidence: `docs/evidence/PFH_000_PACKAGE_SETUP_EVIDENCE.md`, `docs/evidence/PFH_001_CURRENT_STATE_AUDIT_EVIDENCE.md`
 
 ## Other planning (unchanged)
 

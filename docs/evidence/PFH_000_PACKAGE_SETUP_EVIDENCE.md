@@ -48,7 +48,7 @@ git diff --name-only HEAD -- 'src/' '.github/' 'docker/' '*.cs' '*.csproj' '*.sl
 | `02_PRODUCT_HARDENING_SEQUENCE.md` | **present** |
 | `pr-specs/PFH-000_PACKAGE_SETUP.md` | **present** |
 | `pr-specs/PFH-001_CURRENT_STATE_AUDIT.md` | **present** |
-| All `pr-specs/*.md` (14 specs) | **present** |
+| All `pr-specs/*.md` (15 specs) | **present** |
 | Runtime source changes | **none** (docs-only diff) |
 | Workflow changes | **none** |
 | Secrets committed | **none** |

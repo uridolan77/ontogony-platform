@@ -18,7 +18,7 @@ This folder holds **canonical control packages** for post-infrastructure product
 - Post-Docker-local hardening — [`POST_DOCKER_LOCAL_HARDENING_CLOSEOUT.md`](../releases/POST_DOCKER_LOCAL_HARDENING_CLOSEOUT.md)
 - `CI-COST-001` across six repos
 
-**Current phase:** package setup (`PFH-000` **DONE**). Next: `PFH-001` current-state audit.
+**Current phase:** current-state audit (`PFH-001` **DONE**). Next: `EVAL-PRODUCT-001` eval query/list contract.
 
 Start with:
 
@@ -26,7 +26,10 @@ Start with:
 - `eval-alignment-frontend-depth/02_PRODUCT_HARDENING_SEQUENCE.md`
 - `eval-alignment-frontend-depth/pr-specs/`
 
-Unpack evidence: [`docs/evidence/PFH_000_PACKAGE_SETUP_EVIDENCE.md`](../evidence/PFH_000_PACKAGE_SETUP_EVIDENCE.md)
+Evidence:
+
+- [`PFH_000_PACKAGE_SETUP_EVIDENCE.md`](../evidence/PFH_000_PACKAGE_SETUP_EVIDENCE.md)
+- [`PFH_001_CURRENT_STATE_AUDIT_EVIDENCE.md`](../evidence/PFH_001_CURRENT_STATE_AUDIT_EVIDENCE.md)
 
 Release pointer: [`PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH.md`](../releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH.md)
 

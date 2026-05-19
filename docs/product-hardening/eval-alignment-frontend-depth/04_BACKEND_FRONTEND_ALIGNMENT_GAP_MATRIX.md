@@ -1,18 +1,43 @@
 # 04 — Backend / Frontend Alignment Gap Matrix
 
-Use this as the template for `ALIGN-PRODUCT-001`.
+**Audit:** PFH-001 (2026-05-19). Template for `ALIGN-PRODUCT-001`.
+
+**Legend:** **aligned** | **partial** | **missing** | **deferred**
 
 | Capability | Backend route | OpenAPI | Generated client | Hook | Adapter | UI route/page | Fixture mode | Tests | Evidence |
-|---|---|---|---|---|---|---|---|---|---|
-| Eval dashboard list | TBD | TBD | TBD | TBD | TBD | `/allagma/evaluations` | `dashboardFixture=ci-suite` | adapter + Playwright | TBD |
-| Eval detail | TBD | TBD | TBD | TBD | TBD | eval detail route | eval fixture if supported | adapter + route | TBD |
-| Per-run evals | Existing or TBD | TBD | TBD | TBD | TBD | run detail/evals | fixture topology/eval | adapter + e2e | TBD |
-| Baseline comparison | Existing create/fetch | TBD | TBD | TBD | TBD | comparison route | fixture if supported | e2e + unit | TBD |
-| Scenario dataset | TBD | TBD | TBD | TBD | TBD | dashboard filters/detail | catalog fixtures | unit + e2e | TBD |
-| Quality scoring | Existing DTOs or TBD | TBD | TBD | TBD | TBD | score breakdown panel | fixture | unit | TBD |
-| Replay evidence | Existing evidence routes/limitations | TBD | TBD | TBD | TBD | replay evidence page | replay fixtures | replay checks/e2e | TBD |
-| Trace correlation | Existing proof scripts/docs | TBD | TBD | TBD | TBD | run/cross-service links | fixture/live | e2e mocked | TRACE evidence |
-| Kanon topology decision | Existing decision-record route | TBD | TBD | TBD | TBD | topology panel/run detail | topology fixture | KANON OP scripts | KANON evidence |
-| Conexus route evidence | Existing admin evidence | TBD | TBD | TBD | TBD | cross-service links | maybe live only | scripts | CONEXUS evidence |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Eval dashboard list | **missing** global; uses `GET /runs` + `GET /runs/{id}/evaluations` | partial — runs + per-run eval in snapshot | `listAllagmaRuns`, `listAllagmaRunEvaluations` | `useAllagmaEvalDashboard` | `allagmaEvaluationDashboardAdapters` | `/allagma/evaluations` | `dashboardFixture=ci-suite` | adapter + `e2e/allagma-eval-dashboards.spec.ts` | `FE_EVAL_002`, ALIGN-EVAL-001 |
+| Eval detail | `GET /evaluations/{evaluationRunId}` | aligned | `getAllagmaEvaluationRun` | `useAllagmaEvaluationRun` | `allagmaEvaluationAdapters` | `/allagma/evaluations/:id` | `evalFixture`, `dashboardFixture` | adapter + e2e | `FE_EVAL_002` |
+| Per-run evals (run detail) | `GET /runs/{runId}/evaluations` | aligned | `listAllagmaRunEvaluations` | `useAllagmaRunEvaluations` | `allagmaEvaluationAdapters` | `/allagma/runs/:runId` | `evalFixture` | adapter + `e2e/allagma-eval-topology-evidence.spec.ts` | `EVAL_RUN_004` (FE) |
+| Baseline comparison read | `GET /evaluations/baseline-comparisons/{id}` | aligned | `getAllagmaBaselineComparison` | `useAllagmaBaselineComparison` | `allagmaEvaluationAdapters` | `/allagma/evaluations/baseline-comparisons/:id` | `dashboardFixture=ci-suite` | e2e + unit | `EVAL_RUN_003`, `FE_EVAL_002` |
+| Baseline comparison create | `POST /evaluations/baseline-comparisons` | aligned (no FE form) | not wrapped for UI | — | — | — | harness only | `BaselineComparisonTests` | `EVAL_RUN_003` |
+| Baseline comparison list/history | **missing** | **missing** | **missing** | **missing** | **missing** | — | — | — | gap → `EVAL-PRODUCT-002` |
+| Scenario dataset index | filesystem/harness only | **missing** HTTP | **missing** | **missing** | **missing** | matrix on dashboard (fixture) | `ci-suite` fixture | `EvaluationScenarioDatasetTests` | `EVAL_DATA_001` |
+| Quality scoring display | DTOs on eval run | aligned on eval GET | via eval GET | via eval hooks | `buildEvalQualityBreakdownViewModel` | eval detail | fixture eval ids | `EvalQualityScoringTests`, adapter tests | `EVAL_QUALITY_001` |
+| Replay evidence | Kanon replay routes + Allagma run GET | partial (Kanon client separate) | kanon + allagma clients | `useKanonReplayBundles`, `useTraceCorrelation`, `useAllagmaRun` | `kanonProvenanceAdapters`, `buildAllagmaReplayEvidence` | `/allagma/replay` | E2E mock only | `e2e/allagma-replay-evidence.spec.ts` | `FE_TEST_REPLAY_001` |
+| Trace correlation | platform + service headers | N/A cross-service | correlation services | `useTraceCorrelation` | `correlationAdapters` | run detail, replay | fixture/live e2e | `TRACE_CONTRACT_001` | platform `TRACE_*` |
+| Kanon topology decision | `POST .../execution-topologies/evaluate` + `GET /decision-records/{id}` | Kanon snapshot | `kanonClient` | run audit / topology adapters | topology adapters | run detail topology panel | `topologyFixture` | Kanon topology tests, platform scripts | `KANON_OP_001/002` |
+| Conexus route evidence | `GET /model-calls/{id}`, admin route-decision | Conexus contracts | conexus client (admin) | observability hooks | — | cross-service links (partial) | live / degraded | `ModelCallRouteEvidenceIntegrationTests` | `EVAL_RUN_005`, `CONEXUS_PERSIST_*` |
+| Eval export bundle | **missing** | **missing** | **missing** | **missing** | **missing** | — | — | — | `EVAL-PRODUCT-005` |
+| Run retry/cancel/replay | **missing** from Allagma OpenAPI | **missing** | not in client | limitation UI | `backendWaitingContracts` | run triage | limitation banners | unit | deferred — not PFH |
 
-A surface is aligned only when route, OpenAPI status, frontend wrapper/hook, adapter, UI state, fixture/live behavior, test coverage, and evidence are all mapped.
+## Alignment summary
+
+| Status | Count (major surfaces) |
+| --- | --- |
+| aligned (read paths + FE consume) | 4 |
+| partial (sampling, cross-service, POST without UI) | 6 |
+| missing (global list, dataset HTTP, export, baseline list) | 4 |
+| deferred (run mutations) | 1 |
+
+A surface is **aligned** only when route, OpenAPI, client, hook, adapter, UI state, fixture/live behavior, tests, and evidence are all mapped and honest.
+
+## Key file paths
+
+| Layer | Path |
+| --- | --- |
+| Allagma routes | `allagma-dotnet/src/Allagma.Api/Program.cs` |
+| Allagma OpenAPI | `allagma-dotnet/docs/api/allagma-openapi-v1.snapshot.json` |
+| FE OpenAPI | `ontogony-frontend/openapi/allagma.v0.json` |
+| FE client | `ontogony-frontend/src/allagma/api/allagmaClient.ts` |
+| Prior matrix | `docs/alignment/eval-full-sanity-alignment/02_FRONTEND_CONSUMPTION_MATRIX.md` |
