@@ -390,7 +390,9 @@ Allowed methods: `GET`, `POST`, `OPTIONS`. Allowed headers include `Authorizatio
 
 Docker-local compose sets `Kanon__Cors__*`, `Conexus__Cors__*`, and `Allagma__Cors__*` via `.env` (`FRONTEND_CORS_ORIGIN_*`). If DevTools shows `No Access-Control-Allow-Origin`, rebuild API containers after pulling CORS changes and confirm the frontend origin matches `.env`.
 
-Evidence: `docs/evidence/FE_LOCAL_CORS_001_DOCKER_LOCAL_BROWSER_API_EVIDENCE.md`
+Evidence: `docs/evidence/FE_LOCAL_CORS_001_DOCKER_LOCAL_BROWSER_API_EVIDENCE.md`, `docs/evidence/FE_LOCAL_OPERATOR_UX_001_EVIDENCE.md`
+
+Operator console health badges distinguish **live**, **readiness strict (not ready)**, **browser blocked (CORS)**, and **not configured** — not generic “degraded” without explanation. Sidebar groups collapse/expand; **Settings** stays in the pinned System section.
 
 ## Troubleshooting
 
