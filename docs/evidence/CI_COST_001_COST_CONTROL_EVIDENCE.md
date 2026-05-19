@@ -1,6 +1,8 @@
 # CI-COST-001 — cost control evidence
 
-**Status:** Implemented (workflow + docs). **Not production readiness.**
+**Status:** **DONE** — merged on `main` in all six repos (2026-05-19). **Not production readiness.**
+
+Closeout: [POST_DOCKER_LOCAL_HARDENING_CLOSEOUT.md](../releases/POST_DOCKER_LOCAL_HARDENING_CLOSEOUT.md). Operator guide: [CI_COST_CONTROL.md](../operators/CI_COST_CONTROL.md).
 
 ## Workflows inspected
 

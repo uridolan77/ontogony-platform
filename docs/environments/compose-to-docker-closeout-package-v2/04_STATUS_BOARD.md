@@ -37,11 +37,12 @@ First Dockerized local working system: **CLOSED / PASS**. Not production readine
 | FE-HYGIENE-CONFIG-001 | DONE / PASS | `ontogony-frontend/docs/evidence/FE_HYGIENE_CONFIG_001_FRONTEND_CONFIG_EVIDENCE.md` |
 | UI-PACKAGING-STATUS-001 | DONE / PASS | `ontogony-ui/docs/evidence/UI_PACKAGING_STATUS_001_EVIDENCE.md` |
 | TERMINOLOGY-CLEANUP-001 | DONE / PASS | `docs/evidence/TERMINOLOGY_CLEANUP_001_EVIDENCE.md` |
+| CI-COST-001 | DONE / PASS | `docs/evidence/CI_COST_001_COST_CONTROL_EVIDENCE.md` — merged all six repos 2026-05-19 |
 | **POST-DOCKER-HARDENING-CLOSEOUT-001** | **DONE / PASS** | `docs/evidence/POST_DOCKER_HARDENING_CLOSEOUT_001_EVIDENCE.md` — package closed 2026-05-19 |
 
 Post-Docker-local hardening: **CLOSED / PASS**. Not production readiness.
 
-See `docs/releases/POST_DOCKER_HARDENING_CLOSEOUT.md` and `POST_DOCKER_HARDENING_NEXT_STEPS.md`.
+See `docs/releases/POST_DOCKER_LOCAL_HARDENING_CLOSEOUT.md` and `POST_DOCKER_LOCAL_HARDENING_NEXT_OPTIONS.md`.
 
 ## Boundary notes
 
