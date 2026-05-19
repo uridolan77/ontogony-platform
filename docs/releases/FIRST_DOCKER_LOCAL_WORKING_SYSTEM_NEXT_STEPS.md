@@ -11,15 +11,14 @@ Post-closeout work is **explicitly separate** from the closeout criteria. Do not
 
 **Post-Docker-local hardening** — the minimal Docker-local closeout path is closed. The active decision is which hardening PR to run first.
 
-**Active PR:** `CONEXUS-PERSIST-002` — Conexus migration/bootstrap validation automation (`validate-conexus-persistence-bootstrap.ps1`).
+**Active PR:** `CONEXUS-PERSIST-003` — Conexus restart/durability regression (`run-conexus-persistence-durability-regression.ps1`).
 
 | Doc | Path |
 | --- | --- |
-| Validation script | `docker/local-working-system/scripts/validate-conexus-persistence-bootstrap.ps1` |
-| Acceptance spec | `docs/environments/compose-to-docker-closeout-package-v2/post-closeout-hardening/CONEXUS-PERSIST-002.md` |
-| Operator docs (done) | `docker/local-working-system/README.md` — Conexus persistence & bootstrap |
+| Regression script | `docker/local-working-system/scripts/run-conexus-persistence-durability-regression.ps1` |
+| Acceptance spec | `docs/environments/compose-to-docker-closeout-package-v2/post-closeout-hardening/CONEXUS-PERSIST-003.md` |
 
-**Completed:** `CONEXUS-PERSIST-001` — operator persistence/bootstrap docs (platform PR #7, conexus PR #13).
+**Completed:** `CONEXUS-PERSIST-001` (operator docs — PR #7/#13), `CONEXUS-PERSIST-002` (validation automation — PR #8).
 
 ## Post-closeout hardening backlog
 
@@ -29,11 +28,11 @@ Sequence: `docs/environments/compose-to-docker-closeout-package-v2/01_PR_SEQUENC
 
 | Order | PR | Focus |
 |---:|---|---|
-| 1 | `CONEXUS-PERSIST-001` | Conexus persistence/bootstrap/operator visibility |
-| 2 | `KANON-OP-001` | Operator-readable Kanon topology/decision evidence |
-| 3 | `KANON-OP-002` | Kanon operational diagnostics |
-| 4 | `CONEXUS-PERSIST-002` | Conexus migration/bootstrap validation |
-| 5 | `CONEXUS-PERSIST-003` | Conexus restart/durability regression checks |
+| 1 | `CONEXUS-PERSIST-001` | DONE — Conexus persistence/bootstrap/operator visibility |
+| 2 | `CONEXUS-PERSIST-002` | DONE — Conexus migration/bootstrap validation |
+| 3 | `CONEXUS-PERSIST-003` | **active** — Conexus restart/durability regression |
+| 4 | `KANON-OP-001` | Operator-readable Kanon topology/decision evidence |
+| 5 | `KANON-OP-002` | Kanon operational diagnostics |
 | 6 | `TRACE-CONTRACT-001` | Cross-service trace/correlation contract |
 | 7 | `FE-HARDEN-001` | Frontend hardening beyond walkthrough |
 | 8 | `FE-AUDIT-FIXTURES-001` | Fixture/live boundary audit |
