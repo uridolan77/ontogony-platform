@@ -15,7 +15,7 @@ This folder holds planning packages and **canonical operator documentation** for
 - **ENV-DOCKER-FE-001** — DONE / PASS
 - **ENV-DOCKER-CLOSEOUT-001** — DONE / PASS
 
-**Current phase:** post-Docker-local hardening **CLOSED** (`POST-DOCKER-HARDENING-CLOSEOUT-001`). See [`POST_DOCKER_HARDENING_CLOSEOUT.md`](../releases/POST_DOCKER_HARDENING_CLOSEOUT.md), [`POST_DOCKER_HARDENING_NEXT_STEPS.md`](../releases/POST_DOCKER_HARDENING_NEXT_STEPS.md), and `compose-to-docker-closeout-package-v2/04_STATUS_BOARD.md`.
+**Current phase:** post-Docker-local hardening **CLOSED** (`POST-DOCKER-HARDENING-CLOSEOUT-001`, includes `CI-COST-001`). See [`POST_DOCKER_LOCAL_HARDENING_CLOSEOUT.md`](../releases/POST_DOCKER_LOCAL_HARDENING_CLOSEOUT.md), [`POST_DOCKER_LOCAL_HARDENING_NEXT_OPTIONS.md`](../releases/POST_DOCKER_LOCAL_HARDENING_NEXT_OPTIONS.md), and `compose-to-docker-closeout-package-v2/04_STATUS_BOARD.md`.
 
 Hardening specs under `compose-to-docker-closeout-package-v2/post-closeout-hardening/` are **post-closeout** and separate from the closed milestone.
 

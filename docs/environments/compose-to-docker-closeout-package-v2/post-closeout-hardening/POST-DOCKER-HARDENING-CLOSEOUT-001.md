@@ -16,10 +16,11 @@ Close the post-Docker-local hardening package: summarize completed PRs, scorecar
 
 | Doc | Path |
 | --- | --- |
-| Closeout | `docs/releases/POST_DOCKER_HARDENING_CLOSEOUT.md` |
-| Scorecard | `docs/releases/POST_DOCKER_HARDENING_SCORECARD.md` |
-| Limitations | `docs/releases/POST_DOCKER_HARDENING_KNOWN_LIMITATIONS.md` |
-| Next steps | `docs/releases/POST_DOCKER_HARDENING_NEXT_STEPS.md` |
+| Closeout | `docs/releases/POST_DOCKER_LOCAL_HARDENING_CLOSEOUT.md` |
+| Scorecard | `docs/releases/POST_DOCKER_LOCAL_HARDENING_SCORECARD.md` |
+| Limitations | `docs/releases/POST_DOCKER_LOCAL_HARDENING_KNOWN_LIMITATIONS.md` |
+| Next options | `docs/releases/POST_DOCKER_LOCAL_HARDENING_NEXT_OPTIONS.md` |
+| CI cost | `docs/evidence/CI_COST_001_COST_CONTROL_EVIDENCE.md` |
 | Evidence | `docs/evidence/POST_DOCKER_HARDENING_CLOSEOUT_001_EVIDENCE.md` |
 
 ## Boundary

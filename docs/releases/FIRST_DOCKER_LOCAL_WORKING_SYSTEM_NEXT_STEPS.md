@@ -9,15 +9,17 @@ Post-closeout work is **explicitly separate** from the closeout criteria. Do not
 
 ## Current phase
 
-**Post-Docker-local hardening — CLOSED** (`POST-DOCKER-HARDENING-CLOSEOUT-001`, 2026-05-19).
+**Post-Docker-local hardening — CLOSED** (`POST-DOCKER-HARDENING-CLOSEOUT-001`, 2026-05-19, including `CI-COST-001`).
 
-For strategic options after hardening, see **[POST_DOCKER_HARDENING_NEXT_STEPS.md](./POST_DOCKER_HARDENING_NEXT_STEPS.md)**.
+For strategic options after hardening, see **[POST_DOCKER_LOCAL_HARDENING_NEXT_OPTIONS.md](./POST_DOCKER_LOCAL_HARDENING_NEXT_OPTIONS.md)**.
 
 | Closeout | Path |
 | --- | --- |
-| Hardening closeout | `docs/releases/POST_DOCKER_HARDENING_CLOSEOUT.md` |
-| Hardening scorecard | `docs/releases/POST_DOCKER_HARDENING_SCORECARD.md` |
+| Hardening closeout | `docs/releases/POST_DOCKER_LOCAL_HARDENING_CLOSEOUT.md` |
+| Hardening scorecard | `docs/releases/POST_DOCKER_LOCAL_HARDENING_SCORECARD.md` |
+| Hardening limitations | `docs/releases/POST_DOCKER_LOCAL_HARDENING_KNOWN_LIMITATIONS.md` |
 | Terminology glossary | `docs/operators/ONTOGONY_TERMINOLOGY_GLOSSARY.md` |
+| CI cost control | `docs/operators/CI_COST_CONTROL.md` |
 
 ## Post-closeout hardening backlog (complete)
 
@@ -39,12 +41,14 @@ Sequence: `docs/environments/compose-to-docker-closeout-package-v2/01_PR_SEQUENC
 | 10 | `FE-HYGIENE-CONFIG-001` | DONE — Frontend config hygiene |
 | 11 | `UI-PACKAGING-STATUS-001` | DONE — `@ontogony/ui` packaging status |
 | 12 | `TERMINOLOGY-CLEANUP-001` | DONE — operator/doc terminology glossary |
+| 13 | `CI-COST-001` | DONE — GitHub Actions cost control (six repos) |
+| 14 | `POST-DOCKER-HARDENING-CLOSEOUT-001` | DONE — package closeout docs |
 
 ## Optional (not blocking)
 
 | Item | Notes |
 | --- | --- |
-| `CI-COST-001` | If GitHub Actions cost is painful, do before the hardening backlog |
+| Branch protection | When enabled: `ci-complete` or `check-full` only — see closeout doc |
 | ENV-REAL-PROVIDER-001 | Backend-only real provider smoke; explicit keys; still not production |
 | Runtime Vite config injection | Deferred from ENV-DOCKER-002 / compose frontend image |
 | Cloud deploy manifests | Out of scope for first Docker-local program |

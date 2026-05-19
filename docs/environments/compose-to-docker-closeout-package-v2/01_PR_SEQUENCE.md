@@ -13,13 +13,16 @@ This closes the first Dockerized local working system. It is not production read
 
 ## Post-Docker-local hardening — CLOSED
 
+Items 1–12: see historical table below. Final additions:
+
 | Order | PR | Status | Evidence |
 |---:|---|---|---|
-| 13 | `POST-DOCKER-HARDENING-CLOSEOUT-001` | DONE / PASS | `docs/evidence/POST_DOCKER_HARDENING_CLOSEOUT_001_EVIDENCE.md` |
+| 13 | `CI-COST-001` | DONE / PASS | `docs/evidence/CI_COST_001_COST_CONTROL_EVIDENCE.md` |
+| 14 | `POST-DOCKER-HARDENING-CLOSEOUT-001` | DONE / PASS | `docs/evidence/POST_DOCKER_HARDENING_CLOSEOUT_001_EVIDENCE.md` |
 
-Post-closeout hardening package closed 2026-05-19. Not production readiness.
+Post-closeout hardening package closed 2026-05-19 (includes `CI-COST-001`). Not production readiness.
 
-**Active:** none — choose strategic track in `docs/releases/POST_DOCKER_HARDENING_NEXT_STEPS.md`.
+**Active:** none — choose strategic track in `docs/releases/POST_DOCKER_LOCAL_HARDENING_NEXT_OPTIONS.md`.
 
 ## Historical — Post-Docker-local hardening sequence
 
@@ -42,15 +45,15 @@ Recommended order:
 
 ## Strategic next (not part of closed hardening package)
 
-Planning: `docs/releases/POST_DOCKER_HARDENING_NEXT_STEPS.md`
+Planning: `docs/releases/POST_DOCKER_LOCAL_HARDENING_NEXT_OPTIONS.md`
 
 ## Optional later work
 
 | Item | Timing |
 |---|---|
-| `ENV-REAL-PROVIDER-001` | After local Docker hardening; explicit opt-in only |
+| `ENV-REAL-PROVIDER-001` | Optional backend smoke; explicit opt-in only |
 | `PROD-READINESS-*` | Separate future program |
-| `CI-COST-001` | Optional; if GitHub Actions cost is painful, run before the hardening backlog |
+| Branch protection | Manual when ready — aggregate checks only (`ci-complete` / `check-full`) |
 
 ## Sequence rule (historical)
 

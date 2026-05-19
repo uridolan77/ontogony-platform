@@ -117,11 +117,23 @@ Pin UI ref via repository variable `ONTOGONY_UI_REF` or `workflow_dispatch` inpu
 
 ## Branch protection expectations
 
-Document your required checks in each repo’s GitHub settings. After CI-COST-001:
+Document your required checks in each repo’s GitHub settings when you choose to enable branch protection. After CI-COST-001:
 
 - **Do not** require manual-only workflows (`system-cohesion`, `restart-e2e`) unless you accept that they will not run on every merge.
-- **Do** require aggregate jobs that pass when scoped jobs skip (`check-full` on frontend, `ci-complete` where added).
+- **Do not** require individual scoped jobs (`check`, `e2e`, `check-core`, `check-heavy`, `build-test`, `package-mode`, etc.) — they intentionally skip on docs/workflow-only PRs.
+- **Do** require aggregate jobs that pass when scoped jobs skip:
+
+| Repo | Required check |
+| --- | --- |
+| `ontogony-platform` | `ci-complete` |
+| `ontogony-frontend` | `check-full` |
+| `ontogony-ui` | `ci-complete` |
+| `allagma-dotnet` | `ci-complete` |
+| `kanon-dotnet` | `ci-complete` |
+| `conexus-dotnet` | `ci-complete` |
+
 - Skipped jobs with explicit `if:` should log `::notice::` explaining why.
+- Optional PR labels (`run-full-ci`, `run-e2e`) force expensive jobs when needed — do not add as required checks unless explicitly intended.
 
 ## Not production readiness
 
