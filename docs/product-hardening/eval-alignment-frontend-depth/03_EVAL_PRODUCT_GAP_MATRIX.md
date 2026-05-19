@@ -4,8 +4,8 @@
 
 | Area | Current state (audited) | Product gap | Priority | Target PR | Not in scope |
 | --- | --- | --- | --- | --- | --- |
-| Eval list/query | Per-run `GET /runs/{runId}/evaluations` only; no `GET /evaluations` | Formal global list/query contract **or** documented permanent limitation + dashboard model | **P0** | `EVAL-PRODUCT-001` | Analytics warehouse |
-| Eval dashboard | FE samples last N runs (`listAllagmaRuns` + per-run lists); fixture `ci-suite` | Filters, status, suite/dataset dimensions, honest scope without fake global list | **P0** | `EVAL-PRODUCT-001`, `FE-PRODUCT-001` | Full BI dashboard |
+| Eval list/query | **Closed (EVAL-PRODUCT-001):** `GET /allagma/v0/evaluations` + summary/page DTOs; per-run list retained | Filters/pagination depth, dataset/baseline metadata filters when sparse | **P1** | `FE-PRODUCT-001` | Analytics warehouse |
+| Eval dashboard | **Closed (EVAL-PRODUCT-001):** live mode uses global list; fixture `ci-suite` explicit | Dashboard v2 filters, suite/dataset dimensions UI | **P1** | `FE-PRODUCT-001` | Full BI dashboard |
 | Eval detail | `GET /evaluations/{id}` + FE detail page | Richer verdict/quality/metric presentation; correlation IDs | **P1** | `FE-PRODUCT-002` | — |
 | Baseline comparison | POST create + GET by id; promotion rules in service | History, filters, drilldown, list route or documented deferral | **P1** | `EVAL-PRODUCT-002` | Enterprise reporting |
 | Scenario dataset | `docs/evals/datasets/scenario-dataset-v0/` + harness; 8 cases | HTTP dataset index and/or UI suite labels; fixture/live parity matrix | **P1** | `EVAL-PRODUCT-003` | Full dataset authoring UI (unless scoped) |
@@ -19,8 +19,8 @@
 
 ## Must-fix before frontend product depth (unchanged, now evidenced)
 
-1. **Decide** global eval list/query: add route + DTO **or** lock documented sampling contract (`EVAL-PRODUCT-001`).
-2. **Define** dashboard data model aligned with that decision.
+1. ~~**Decide** global eval list/query~~ — **Done:** Option A (`GET /allagma/v0/evaluations`) in EVAL-PRODUCT-001.
+2. ~~**Define** dashboard data model~~ — **Done:** summary DTO + FE `mapEvaluationSummaryDto` / `useAllagmaEvalDashboard`.
 3. **Define** fixture vs live behavior per eval surface (already partially in `FRONTEND_FIXTURE_LIVE_BOUNDARY.md`; extend for new fields).
 4. **Document** limitations that remain intentionally deferred (`08_KNOWN_LIMITATIONS.md`).
 

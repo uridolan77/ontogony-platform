@@ -20,13 +20,14 @@ Route/DTO semantics → OpenAPI snapshot → generated client → product wrappe
 
 | Method | Path | In FE client |
 | --- | --- | --- |
+| GET | `/allagma/v0/evaluations` | `listAllagmaEvaluations` (EVAL-PRODUCT-001) |
 | GET | `/allagma/v0/runs/{runId}/evaluations` | `listAllagmaRunEvaluations` |
 | GET | `/allagma/v0/evaluations/{evaluationRunId}` | `getAllagmaEvaluationRun` |
 | POST | `/allagma/v0/runs/{runId}/evaluations` | not in operator UI |
 | POST | `/allagma/v0/evaluations/baseline-comparisons` | not in operator UI |
 | GET | `/allagma/v0/evaluations/baseline-comparisons/{comparisonId}` | `getAllagmaBaselineComparison` |
 
-**Not in snapshot:** `GET /allagma/v0/evaluations` (global list).
+**Added (EVAL-PRODUCT-001):** `GET /allagma/v0/evaluations` — `AllagmaEvaluationRunSummaryResponse`, `AllagmaEvaluationRunListPageResponse`.
 
 ## Provenance cross-repo (baseline)
 
@@ -56,6 +57,6 @@ If a product capability is desired but no backend route exists, the PR must choo
 - explicitly mark as missing capability and expose limitation state
 - defer the capability and remove UI affordance
 
-**Current honest limitations:** global eval list, baseline list, eval export, Allagma replay/retry/cancel POST mutations.
+**Current honest limitations:** baseline list, eval export, sparse metadata filters on global eval list, Allagma replay/retry/cancel POST mutations.
 
 No hidden placeholder success states.

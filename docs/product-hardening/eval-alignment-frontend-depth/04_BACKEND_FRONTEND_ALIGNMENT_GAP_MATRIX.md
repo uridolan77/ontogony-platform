@@ -6,7 +6,7 @@
 
 | Capability | Backend route | OpenAPI | Generated client | Hook | Adapter | UI route/page | Fixture mode | Tests | Evidence |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Eval dashboard list | **missing** global; uses `GET /runs` + `GET /runs/{id}/evaluations` | partial — runs + per-run eval in snapshot | `listAllagmaRuns`, `listAllagmaRunEvaluations` | `useAllagmaEvalDashboard` | `allagmaEvaluationDashboardAdapters` | `/allagma/evaluations` | `dashboardFixture=ci-suite` | adapter + `e2e/allagma-eval-dashboards.spec.ts` | `FE_EVAL_002`, ALIGN-EVAL-001 |
+| Eval dashboard list | **aligned** `GET /allagma/v0/evaluations` (EVAL-PRODUCT-001); per-run list retained | aligned in `allagma-openapi-v1.snapshot.json` | `listAllagmaEvaluations` | `useAllagmaEvalDashboard` | `mapEvaluationSummaryDto`, dashboard adapters | `/allagma/evaluations` | `dashboardFixture=ci-suite` | `GlobalEvaluationQuery`, adapter tests, e2e | `EVAL_PRODUCT_001_*` |
 | Eval detail | `GET /evaluations/{evaluationRunId}` | aligned | `getAllagmaEvaluationRun` | `useAllagmaEvaluationRun` | `allagmaEvaluationAdapters` | `/allagma/evaluations/:id` | `evalFixture`, `dashboardFixture` | adapter + e2e | `FE_EVAL_002` |
 | Per-run evals (run detail) | `GET /runs/{runId}/evaluations` | aligned | `listAllagmaRunEvaluations` | `useAllagmaRunEvaluations` | `allagmaEvaluationAdapters` | `/allagma/runs/:runId` | `evalFixture` | adapter + `e2e/allagma-eval-topology-evidence.spec.ts` | `EVAL_RUN_004` (FE) |
 | Baseline comparison read | `GET /evaluations/baseline-comparisons/{id}` | aligned | `getAllagmaBaselineComparison` | `useAllagmaBaselineComparison` | `allagmaEvaluationAdapters` | `/allagma/evaluations/baseline-comparisons/:id` | `dashboardFixture=ci-suite` | e2e + unit | `EVAL_RUN_003`, `FE_EVAL_002` |
@@ -25,9 +25,9 @@
 
 | Status | Count (major surfaces) |
 | --- | --- |
-| aligned (read paths + FE consume) | 4 |
-| partial (sampling, cross-service, POST without UI) | 6 |
-| missing (global list, dataset HTTP, export, baseline list) | 4 |
+| aligned (read paths + FE consume) | 5 |
+| partial (cross-service, POST without UI, filter depth) | 5 |
+| missing (dataset HTTP, export, baseline list) | 3 |
 | deferred (run mutations) | 1 |
 
 A surface is **aligned** only when route, OpenAPI, client, hook, adapter, UI state, fixture/live behavior, tests, and evidence are all mapped and honest.

@@ -14,8 +14,8 @@
 
 | Limitation | Detail | PFH track |
 | --- | --- | --- |
-| No global eval list | `GET /allagma/v0/evaluations` absent; dashboard samples `GET /runs` then per-run eval lists | `EVAL-PRODUCT-001` |
-| Dashboard sampling | Live banner documents sample scope; not a global index | `EVAL-PRODUCT-001`, `FE-PRODUCT-001` |
+| Global eval list filters | `datasetId` / `baselineComparisonId` depend on evaluation metadata (sparse for manual writes) | Clarify in `FE-PRODUCT-001` |
+| Dashboard list limit | Live dashboard requests default limit 100; not full history | `FE-PRODUCT-001` |
 | Baseline comparison history | GET-by-id only in UI; no list/filter route | `EVAL-PRODUCT-002` |
 | Baseline create in UI | POST exists; harness/smoke only — no operator form | Document or defer in `ALIGN-PRODUCT-001` |
 | Scenario datasets | Strong in `docs/evals/datasets/`; weak HTTP/UI index | `EVAL-PRODUCT-003` |

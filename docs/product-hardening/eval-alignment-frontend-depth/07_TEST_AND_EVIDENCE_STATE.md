@@ -6,7 +6,7 @@
 
 | Category | Location (representative) | Status |
 | --- | --- | --- |
-| Backend eval API | `allagma-dotnet/tests/Allagma.Tests/AllagmaEvaluationApiTests.cs` | PASS baseline |
+| Backend eval API | `AllagmaEvaluationApiTests.cs` incl. `GlobalEvaluationQuery` | PASS (EVAL-PRODUCT-001) |
 | OpenAPI snapshot | `AllagmaOpenApiSnapshotTests.cs` | PASS |
 | Baseline comparison | `BaselineComparisonTests.cs` | PASS |
 | Postgres persistence | `PostgresEvaluationPersistenceTests.cs` | PASS (smoke category) |
@@ -27,6 +27,9 @@
 | File | Topic |
 | --- | --- |
 | `docs/evidence/PFH_000_PACKAGE_SETUP_EVIDENCE.md` | Package registration |
+| `docs/evidence/EVAL_PRODUCT_001_QUERY_LIST_CONTRACT_EVIDENCE.md` | Global eval list contract (platform index) |
+| `allagma-dotnet/docs/evidence/EVAL_PRODUCT_001_QUERY_LIST_CONTRACT_EVIDENCE.md` | Backend implementation |
+| `ontogony-frontend/docs/evidence/EVAL_PRODUCT_001_FRONTEND_QUERY_LIST_CONTRACT_EVIDENCE.md` | Frontend consumption |
 | `docs/evidence/ALIGN_EVAL_001_EVAL_ALIGNMENT_REFRESH_EVIDENCE.md` | Eval alignment snapshot |
 | `docs/evidence/TRACE_CONTRACT_001_EVIDENCE.md` | Trace header contract |
 | `docs/evidence/FE_HARDEN_001_EVIDENCE.md` | Docker-local FE walkthrough |
