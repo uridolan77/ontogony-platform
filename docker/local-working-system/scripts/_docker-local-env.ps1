@@ -5,6 +5,111 @@ function Get-DockerLocalComposeRoot {
     Split-Path -Parent $PSScriptRoot
 }
 
+function Get-FrontendRepoRoot {
+    $composeRoot = Get-DockerLocalComposeRoot
+    $candidate = Join-Path $composeRoot "..\..\..\ontogony-frontend"
+    return (Resolve-Path -LiteralPath $candidate).Path
+}
+
+function Get-FrontendExpectedGitHead {
+    param([string]$FrontendRepoRoot = "")
+
+    if ([string]::IsNullOrWhiteSpace($FrontendRepoRoot)) {
+        $FrontendRepoRoot = Get-FrontendRepoRoot
+    }
+    if (-not (Test-Path -LiteralPath $FrontendRepoRoot)) {
+        throw "ontogony-frontend repo not found at: $FrontendRepoRoot"
+    }
+
+    $sha = & git -C $FrontendRepoRoot rev-parse HEAD 2>$null
+    if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($sha)) {
+        throw "git rev-parse HEAD failed in ontogony-frontend ($FrontendRepoRoot)."
+    }
+    return $sha.Trim()
+}
+
+function Get-FrontendPackageVersion {
+    param([string]$FrontendRepoRoot = "")
+
+    if ([string]::IsNullOrWhiteSpace($FrontendRepoRoot)) {
+        $FrontendRepoRoot = Get-FrontendRepoRoot
+    }
+    $pkgPath = Join-Path $FrontendRepoRoot "package.json"
+    if (-not (Test-Path -LiteralPath $pkgPath)) {
+        return ""
+    }
+    $pkg = Get-Content -Raw -LiteralPath $pkgPath | ConvertFrom-Json
+    return [string]$pkg.version
+}
+
+function Set-FrontendDockerBuildProvenanceEnv {
+    param([string]$FrontendRepoRoot = "")
+
+    if ([string]::IsNullOrWhiteSpace($FrontendRepoRoot)) {
+        $FrontendRepoRoot = Get-FrontendRepoRoot
+    }
+
+    $gitSha = Get-FrontendExpectedGitHead -FrontendRepoRoot $FrontendRepoRoot
+    $version = Get-FrontendPackageVersion -FrontendRepoRoot $FrontendRepoRoot
+    if ([string]::IsNullOrWhiteSpace($version)) {
+        $version = "0.0.0"
+    }
+
+    $env:FRONTEND_VITE_GIT_SHA = $gitSha
+    $env:FRONTEND_VITE_APP_VERSION = $version
+    $env:FRONTEND_VITE_BUILD_TIME = (Get-Date).ToUniversalTime().ToString("o")
+
+    return [pscustomobject]@{
+        FrontendRepoRoot = $FrontendRepoRoot
+        GitSha = $gitSha
+        AppVersion = $version
+        BuildTime = $env:FRONTEND_VITE_BUILD_TIME
+    }
+}
+
+function Get-FrontendBrowserBaseUrl {
+    param([string]$FrontendBaseUrl = "")
+
+    if (-not [string]::IsNullOrWhiteSpace($FrontendBaseUrl)) {
+        return $FrontendBaseUrl.TrimEnd("/")
+    }
+
+    $envFile = Get-DockerLocalEnvFilePath
+    $port = Get-DotEnvValue -Path $envFile -Key "FRONTEND_HOST_PORT" -DefaultValue "5175"
+    return "http://localhost:$port"
+}
+
+function Get-HtmlMetaContent {
+    param(
+        [string]$Html,
+        [string]$Name
+    )
+    if ([string]::IsNullOrWhiteSpace($Html)) { return $null }
+    $pattern = "name=`"$([regex]::Escape($Name))`"\s+content=`"([^`"]+)`""
+    if ($Html -match $pattern) {
+        return $Matches[1]
+    }
+    return $null
+}
+
+function Get-FrontendModuleScriptHref {
+    param([string]$Html)
+    if ([string]::IsNullOrWhiteSpace($Html)) { return $null }
+    if ($Html -match '<script[^>]+type="module"[^>]+src="([^"]+)"') {
+        return $Matches[1]
+    }
+    if ($Html -match '<script[^>]+src="([^"]+)"[^>]+type="module"') {
+        return $Matches[1]
+    }
+    return $null
+}
+
+function Normalize-GitShaForCompare {
+    param([string]$Value)
+    if ([string]::IsNullOrWhiteSpace($Value)) { return "" }
+    return $Value.Trim().ToLowerInvariant()
+}
+
 function Get-DockerLocalEnvFilePath {
     $composeRoot = Get-DockerLocalComposeRoot
     $defaultEnvFile = Join-Path $composeRoot ".env"

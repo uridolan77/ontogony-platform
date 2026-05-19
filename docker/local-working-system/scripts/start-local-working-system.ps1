@@ -8,6 +8,8 @@ param(
 $ErrorActionPreference = "Stop"
 Set-StrictMode -Version Latest
 
+. "$PSScriptRoot\_docker-local-env.ps1"
+
 $composeRoot = Split-Path -Parent $PSScriptRoot
 $composeFile = Join-Path $composeRoot "docker-compose.yml"
 $defaultEnvFile = Join-Path $composeRoot ".env"
@@ -98,6 +100,16 @@ $composeArgs = @(
     "-d"
 )
 if ($Build) {
+    if (-not $SkipFrontend) {
+        try {
+            $provenance = Set-FrontendDockerBuildProvenanceEnv
+            Write-Host "Frontend Docker build provenance: git $($provenance.GitSha.Substring(0, [Math]::Min(7, $provenance.GitSha.Length))) · v$($provenance.AppVersion)"
+        }
+        catch {
+            Write-Warning "Could not resolve ontogony-frontend git HEAD for Docker build args: $($_.Exception.Message)"
+        }
+    }
+
     if (-not $DisableAutoCaInjection -and [string]::IsNullOrWhiteSpace($env:DOCKER_EXTRA_CA_CERT_BASE64)) {
         $nugetTlsOk = Test-NuGetTlsFromContainer -Image $dotnetSdkImage
         $npmTlsOk = Test-NpmRegistryTlsFromContainer -Image $nodeImage

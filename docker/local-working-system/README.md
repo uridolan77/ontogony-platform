@@ -31,6 +31,9 @@ docker/local-working-system/
     validate-kanon-topology-diagnostics-report.ps1
     inspect-trace-correlation-evidence.ps1
     validate-trace-correlation-evidence-report.ps1
+    inspect-frontend-browser-provenance.ps1
+    validate-frontend-browser-provenance-report.ps1
+    verify-frontend-browser-provenance.ps1
     _docker-local-env.ps1
 ```
 
@@ -65,6 +68,31 @@ Backend-only startup (skip frontend build when isolating backend defects):
 cd C:\dev\ontogony-platform
 .\docker\local-working-system\scripts\start-local-working-system.ps1 -Build -SkipFrontend
 ```
+
+### Frontend browser freshness (DOCKER-LOCAL-VERIFY-001)
+
+Code review does not prove the browser shows your latest frontend commit. After changing
+`ontogony-frontend`, rebuild and verify served provenance matches `git rev-parse HEAD`:
+
+```powershell
+cd C:\dev\ontogony-platform
+.\docker\local-working-system\scripts\verify-frontend-browser-provenance.ps1 -Build
+```
+
+This runs CA-aware `start-local-working-system.ps1 -Build` (embedding git SHA into the SPA),
+probes `GET /provenance.json` and `index.html` meta tags, checks the main JS bundle is not stale,
+validates the Docker image label, and writes
+`artifacts/docker-local-verify-001-report.json`.
+
+Inspect only (stack already running):
+
+```powershell
+.\docker\local-working-system\scripts\inspect-frontend-browser-provenance.ps1
+.\docker\local-working-system\scripts\validate-frontend-browser-provenance-report.ps1
+```
+
+The operator shell header shows **Build {short-sha}**; Settings → Environment lists the full SHA;
+diagnostics export includes `frontend.gitSha`.
 
 Wait-only (if stack already running):
 
