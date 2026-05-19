@@ -66,4 +66,4 @@ Start-Process "http://localhost:5175/allagma/replay?runId={subjectRunId}"
 
 | PR | Focus |
 | --- | --- |
-| `FE-HYGIENE-CONFIG-001` | Frontend config hygiene |
+| `FE-HYGIENE-CONFIG-001` | DONE — `ontogony-frontend/docs/evidence/FE_HYGIENE_CONFIG_001_FRONTEND_CONFIG_EVIDENCE.md` |

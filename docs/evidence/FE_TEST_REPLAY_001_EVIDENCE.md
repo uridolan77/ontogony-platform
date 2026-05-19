@@ -20,4 +20,4 @@
 
 | PR | Focus |
 | --- | --- |
-| `FE-HYGIENE-CONFIG-001` | Frontend config hygiene |
+| `FE-HYGIENE-CONFIG-001` | DONE — `ontogony-frontend/docs/evidence/FE_HYGIENE_CONFIG_001_FRONTEND_CONFIG_EVIDENCE.md` |
