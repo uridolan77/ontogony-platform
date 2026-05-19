@@ -143,7 +143,7 @@ function Invoke-FrontendDockerImageBuild {
         $buildArgs += "--no-cache"
     }
 
-    docker @buildArgs
+    docker @buildArgs | Out-Null
     if ($LASTEXITCODE -ne 0) {
         throw "docker compose build ontogony-frontend failed (exit $LASTEXITCODE)."
     }

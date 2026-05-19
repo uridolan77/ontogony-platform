@@ -39,7 +39,13 @@ if ($Build) {
         }
     }
 
-    $null = Invoke-FrontendDockerImageBuild -DisableAutoCaInjection:$DisableAutoCaInjection
+    $builtProvenance = Invoke-FrontendDockerImageBuild -DisableAutoCaInjection:$DisableAutoCaInjection
+    $ExpectedGitSha = $builtProvenance.GitSha
+
+    $headNow = Get-FrontendExpectedGitHead
+    if ($headNow -ne $builtProvenance.GitSha) {
+        throw "Repo HEAD changed during build ($headNow vs $($builtProvenance.GitSha)). Commit or stash, then re-run verify -Build."
+    }
 
     Write-Host "Recreating ontogony-frontend container only (backends untouched) ..."
     docker compose --env-file $envFile -f $composeFile up -d --no-deps --force-recreate ontogony-frontend
@@ -66,7 +72,10 @@ if (-not [string]::IsNullOrWhiteSpace($FrontendBaseUrl)) {
 if (-not [string]::IsNullOrWhiteSpace($ReportPath)) {
     $inspectArgs.OutputPath = $ReportPath
 }
-if (-not [string]::IsNullOrWhiteSpace($ExpectedGitSha)) {
+if ($Build -and -not [string]::IsNullOrWhiteSpace($ExpectedGitSha)) {
+    $inspectArgs.ExpectedGitSha = $ExpectedGitSha
+}
+elseif (-not [string]::IsNullOrWhiteSpace($ExpectedGitSha)) {
     $inspectArgs.ExpectedGitSha = $ExpectedGitSha
 }
 
