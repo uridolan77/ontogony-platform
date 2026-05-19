@@ -57,6 +57,7 @@ Recent / program evidence:
 | Item | File |
 | --- | --- |
 | RCQ-DOCS-001 platform docs sweep | [`evidence/RCQ_DOCS_001_ONTOGONY_PLATFORM_EVIDENCE.md`](evidence/RCQ_DOCS_001_ONTOGONY_PLATFORM_EVIDENCE.md) |
+| RCQ-DOCS-FINAL-001 repo-cleaning closeout | [`evidence/RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md`](evidence/RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md) |
 | DOCS-STANDARD-001 | [`evidence/DOCS_STANDARD_001_UNIFIED_DOCUMENTATION_STRUCTURE_EVIDENCE.md`](evidence/DOCS_STANDARD_001_UNIFIED_DOCUMENTATION_STRUCTURE_EVIDENCE.md) |
 | RCQ-000 package setup | [`evidence/RCQ_000_PACKAGE_SETUP_EVIDENCE.md`](evidence/RCQ_000_PACKAGE_SETUP_EVIDENCE.md) |
 | PFH closeout | [`evidence/FE_PRODUCT_CLOSEOUT_001_EVIDENCE.md`](evidence/FE_PRODUCT_CLOSEOUT_001_EVIDENCE.md) |
@@ -89,9 +90,9 @@ Cross-repo milestone closeouts: [`releases/`](releases/).
 | Package | Status | Path |
 | --- | --- | --- |
 | Eval / alignment / frontend depth v1 | **CLOSED / PASS** | [`product-hardening/eval-alignment-frontend-depth/`](product-hardening/eval-alignment-frontend-depth/) |
-| Repo cleaning / docs / manual QA prep v1 | **ACTIVE** (prep) | [`product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/`](product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/) |
+| Repo cleaning / docs / manual QA prep v1 | **SWEEPS DONE** — manual QA next | [`product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/`](product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/) |
 
-Index: [`product-hardening/README.md`](product-hardening/README.md). Platform `RCQ-DOCS-001` documentation sweep: **DONE** (2026-05-19).
+Index: [`product-hardening/README.md`](product-hardening/README.md). RCQ code + docs sweeps: **DONE** (2026-05-19) — closeout [`evidence/RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md`](evidence/RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md).
 
 ---
 
@@ -131,10 +132,10 @@ When editing historical docs, add a **Historical** banner per [`ONTOGONY_DOCUMEN
 
 ## Sister repos (documentation)
 
-| Repo | Docs index (target) |
+| Repo | Docs index |
 | --- | --- |
-| allagma-dotnet | `docs/README.md` — create in `RCQ-DOCS-001` |
-| kanon-dotnet | `docs/README.md` — create in `RCQ-DOCS-001` |
-| conexus-dotnet | `docs/README.md` — create in `RCQ-DOCS-001` |
-| ontogony-frontend | `docs/README.md` — create in `RCQ-DOCS-001` |
-| ontogony-ui | `docs/README.md` — create in `RCQ-DOCS-001` |
+| allagma-dotnet | [`docs/README.md`](https://github.com/uridolan77/allagma-dotnet/blob/main/docs/README.md) — **current** (RCQ-DOCS-001, 2026-05-19) |
+| kanon-dotnet | [`docs/README.md`](https://github.com/uridolan77/kanon-dotnet/blob/main/docs/README.md) — **current** |
+| conexus-dotnet | [`docs/README.md`](https://github.com/uridolan77/conexus-dotnet/blob/main/docs/README.md) — **current** |
+| ontogony-frontend | [`docs/README.md`](https://github.com/uridolan77/ontogony-frontend/blob/main/docs/README.md) — **current** |
+| ontogony-ui | [`docs/README.md`](https://github.com/uridolan77/ontogony-ui/blob/main/docs/README.md) — **current** |

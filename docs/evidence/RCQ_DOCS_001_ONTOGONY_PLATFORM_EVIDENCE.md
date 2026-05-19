@@ -63,7 +63,7 @@ git diff --name-only HEAD -- 'src/' '.github/' 'docker/' '*.cs' '*.csproj' '*.sl
 
 - Hundreds of historical planning paths under `_planning/`, `planning/`, and numbered Sprint files were not individually bannered.
 - No automated link checker across the full docs tree.
-- Sister repos still need `RCQ-DOCS-001` (five remaining).
+- Sister-repo `RCQ-DOCS-001` completed 2026-05-19 — see [`RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md`](./RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md).
 
 ## Safety
 

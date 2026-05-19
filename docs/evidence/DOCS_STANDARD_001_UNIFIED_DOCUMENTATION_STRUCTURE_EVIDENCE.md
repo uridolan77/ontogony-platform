@@ -62,7 +62,7 @@ git diff --name-only HEAD -- 'src/' '.github/' 'docker/' '*.cs' '*.csproj' '*.sl
 | Manageable reorganization rule | **PASS** — §8.3 allowed vs avoid |
 | Closeout / next-options boundary | **PASS** — §7 |
 | Platform `docs/README.md` created | **PASS** |
-| Sister repo `docs/README.md` | **DEFERRED** — 0/5 (expected; `RCQ-DOCS-001` per repo) |
+| Sister repo `docs/README.md` | **DONE** — 5/5 (2026-05-19; see RCQ closeout evidence) |
 | Mass doc reorg performed | **none** |
 | Runtime source changes | **none** |
 | Workflow changes | **none** |

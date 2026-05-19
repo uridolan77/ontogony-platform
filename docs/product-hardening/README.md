@@ -59,7 +59,9 @@ Evidence:
 
 **Platform `RCQ-DOCS-001`:** **DONE** (2026-05-19) — [`RCQ_DOCS_001_ONTOGONY_PLATFORM_EVIDENCE.md`](../evidence/RCQ_DOCS_001_ONTOGONY_PLATFORM_EVIDENCE.md).
 
-**Next step:** **`RCQ-CODE-001`** — per-repo code tightening (see [`sequences/01_REPO_CLEANING_SEQUENCE.md`](repo-cleaning-documentation-manual-qa-prep-v1/sequences/01_REPO_CLEANING_SEQUENCE.md)), then **`RCQ-DOCS-001`** on the five sister repos.
+**RCQ sweeps:** **DONE** (2026-05-19) — six-repo `RCQ-CODE-001` + `RCQ-DOCS-001`; closeout [`RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md`](../evidence/RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md).
+
+**Next step:** **`PRODUCT-MANUAL-QA-001`** — full guided operator acceptance package (see [`sequences/01_REPO_CLEANING_SEQUENCE.md`](repo-cleaning-documentation-manual-qa-prep-v1/sequences/01_REPO_CLEANING_SEQUENCE.md)).
 
 ## Related (not superseded — different scope)
 

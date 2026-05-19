@@ -315,8 +315,9 @@ Current RCQ sequence after this standard:
 ```text
 RCQ-000   package setup                    DONE
 DOCS-STANDARD-001 unified standard         DONE (this document)
-RCQ-CODE-001 per-repo code tightening      NOT STARTED
-RCQ-DOCS-001 per-repo documentation sweep  IN PROGRESS (ontogony-platform DONE)
+RCQ-CODE-001 per-repo code tightening      DONE (six repos; see RCQ closeout evidence)
+RCQ-DOCS-001 per-repo documentation sweep  DONE (six repos; see RCQ closeout evidence)
+RCQ-DOCS-FINAL-001 docs polish + closeout  DONE (route-doc fixes; program status)
 PRODUCT-MANUAL-QA-001 package              NOT STARTED
 PRODUCT-MANUAL-QA-002 execution            NOT STARTED
 ```
@@ -358,3 +359,4 @@ cloud deployment, production identity/TLS/secrets, or unscoped runtime refactors
 | Date | Change |
 | --- | --- |
 | 2026-05-19 | v1 published (`DOCS-STANDARD-001`) |
+| 2026-05-19 | §10 program sequence updated after RCQ sweeps + `RCQ-DOCS-FINAL-001` |
