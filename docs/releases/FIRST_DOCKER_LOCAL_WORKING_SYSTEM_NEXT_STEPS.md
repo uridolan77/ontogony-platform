@@ -11,15 +11,15 @@ Post-closeout work is **explicitly separate** from the closeout criteria. Do not
 
 **Post-Docker-local hardening** — the minimal Docker-local closeout path is closed. The active decision is which hardening PR to run first.
 
-**Active PR:** `CONEXUS-PERSIST-001` (operator-doc slice) — Conexus Docker-local persistence/bootstrap operator visibility.
+**Active PR:** `CONEXUS-PERSIST-002` — Conexus migration/bootstrap validation automation (`validate-conexus-persistence-bootstrap.ps1`).
 
 | Doc | Path |
 | --- | --- |
-| Compose operator guide | `docker/local-working-system/README.md` (section: Conexus persistence & bootstrap) |
-| Acceptance spec | `docs/environments/compose-to-docker-closeout-package-v2/post-closeout-hardening/CONEXUS-PERSIST-001.md` |
-| Conexus service docs | `conexus-dotnet/docs/development/DOCKER_LOCAL.md`, `conexus-dotnet/docs/deployment/STARTUP_AND_READINESS.md` |
+| Validation script | `docker/local-working-system/scripts/validate-conexus-persistence-bootstrap.ps1` |
+| Acceptance spec | `docs/environments/compose-to-docker-closeout-package-v2/post-closeout-hardening/CONEXUS-PERSIST-002.md` |
+| Operator docs (done) | `docker/local-working-system/README.md` — Conexus persistence & bootstrap |
 
-Recent Docker-local blockers were Conexus-centered (provider readiness, fresh-volume dev key alignment, route evidence, bootstrap behavior). This PR documents that surface before Kanon/operator UX or further backend hardening.
+**Completed:** `CONEXUS-PERSIST-001` — operator persistence/bootstrap docs (platform PR #7, conexus PR #13).
 
 ## Post-closeout hardening backlog
 

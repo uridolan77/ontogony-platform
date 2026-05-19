@@ -15,26 +15,26 @@ This closes the first Dockerized local working system. It is not production read
 
 Post-closeout hardening is separate from the closed Docker-local milestone.
 
-**Next decision:** choose first post-closeout hardening PR — recommended: **`CONEXUS-PERSIST-001`**.
+**Active:** **`CONEXUS-PERSIST-002`** — migration/bootstrap validation automation.
 
 Planning detail: `docs/releases/FIRST_DOCKER_LOCAL_WORKING_SYSTEM_NEXT_STEPS.md`
 
 Recommended order:
 
-| Order | PR | Focus |
-|---:|---|---|
-| 1 | `CONEXUS-PERSIST-001` | Conexus persistence/bootstrap/operator visibility |
-| 2 | `KANON-OP-001` | Operator-readable Kanon topology/decision evidence |
-| 3 | `KANON-OP-002` | Kanon operational diagnostics |
-| 4 | `CONEXUS-PERSIST-002` | Conexus migration/bootstrap validation |
-| 5 | `CONEXUS-PERSIST-003` | Conexus restart/durability regression checks |
-| 6 | `TRACE-CONTRACT-001` | Cross-service trace/correlation contract |
-| 7 | `FE-HARDEN-001` | Frontend hardening beyond walkthrough |
-| 8 | `FE-AUDIT-FIXTURES-001` | Fixture/live boundary audit |
-| 9 | `FE-TEST-REPLAY-001` | Replay/test improvements |
-| 10 | `FE-HYGIENE-CONFIG-001` | Frontend config hygiene |
-| 11 | `UI-PACKAGING-STATUS-001` | `@ontogony/ui` packaging status |
-| 12 | `TERMINOLOGY-CLEANUP-001` | Operator/doc terminology cleanup |
+| Order | PR | Status | Focus |
+|---:|---|---|---|
+| 1 | `CONEXUS-PERSIST-001` | DONE | Conexus persistence/bootstrap/operator visibility |
+| 2 | `CONEXUS-PERSIST-002` | **active** | Conexus migration/bootstrap validation |
+| 3 | `KANON-OP-001` | backlog | Operator-readable Kanon topology/decision evidence |
+| 4 | `KANON-OP-002` | backlog | Kanon operational diagnostics |
+| 5 | `CONEXUS-PERSIST-003` | backlog | Conexus restart/durability regression checks |
+| 6 | `TRACE-CONTRACT-001` | backlog | Cross-service trace/correlation contract |
+| 7 | `FE-HARDEN-001` | backlog | Frontend hardening beyond walkthrough |
+| 8 | `FE-AUDIT-FIXTURES-001` | backlog | Fixture/live boundary audit |
+| 9 | `FE-TEST-REPLAY-001` | backlog | Replay/test improvements |
+| 10 | `FE-HYGIENE-CONFIG-001` | backlog | Frontend config hygiene |
+| 11 | `UI-PACKAGING-STATUS-001` | backlog | `@ontogony/ui` packaging status |
+| 12 | `TERMINOLOGY-CLEANUP-001` | backlog | Operator/doc terminology cleanup |
 
 ## Optional later work
 
