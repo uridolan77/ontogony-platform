@@ -2,6 +2,8 @@
 
 **Audit:** `PFH-001` (2026-05-19). Evidence: `docs/evidence/PFH_001_CURRENT_STATE_AUDIT_EVIDENCE.md`.
 
+> **Post-closeout (2026-05-19):** Product hardening v1 is **CLOSED**. This file is the pre-implementation audit baseline. For current posture see [`PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_CLOSEOUT.md`](../../releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_CLOSEOUT.md) and matrices `03`–`08` (refreshed at closeout).
+
 ## Closed prerequisites
 
 ```text
@@ -97,6 +99,6 @@ Deferred to separate programs (not PFH):
 
 Do not mix this product-hardening package with production readiness.
 
-## First implementation PR (confirmed)
+## First implementation PR (historical)
 
-**`EVAL-PRODUCT-001`** — Eval query/list contract and dashboard data model (`02_PRODUCT_HARDENING_SEQUENCE.md`: backend semantics first).
+**`EVAL-PRODUCT-001`** — Eval query/list contract and dashboard data model (completed; see closeout).

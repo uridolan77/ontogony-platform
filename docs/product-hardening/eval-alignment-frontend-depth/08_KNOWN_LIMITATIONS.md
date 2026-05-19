@@ -41,6 +41,17 @@ Document limitations honestly. Do not mask missing capabilities with fake succes
 - Replay trigger remains limitation-only until Allagma OpenAPI documents `POST /allagma/v0/runs/{runId}/replay`.
 - No `?replayFixture=` on the replay route; E2E continues to use service mocks.
 
+## EVAL-PRODUCT-005 outcomes (2026-05-19)
+
+- Per-evaluation evidence export via `GET /evaluations/{id}/evidence` with JSON schema validation and FE export panel on eval detail.
+- Export is operator-facing locators and summaries — not a compliance archive, bulk export, or embedded Kanon/Conexus payloads.
+
+## FE-PRODUCT-CLOSEOUT-001 outcomes (2026-05-19)
+
+- Product hardening v1 package **closed** — see `docs/releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_CLOSEOUT.md`.
+- Scorecard, limitations, and next options published under `docs/releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_*`.
+- Optional `ALIGN-PRODUCT-002`–`004` pr-specs remain registered but were not in the v1 execution sequence.
+
 ## EVAL-POLISH-001 outcomes (2026-05-19)
 
 - Baseline list query semantics are aligned across persistence modes for `promotionRecommendation`.

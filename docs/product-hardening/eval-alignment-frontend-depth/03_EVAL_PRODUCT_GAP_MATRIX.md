@@ -36,5 +36,5 @@
 7. FE-PRODUCT-002    — run detail evidence depth (**done**)
 8. FE-PRODUCT-003    — replay evidence workbench (**done**)
 9. ~~EVAL-PRODUCT-005~~ — eval evidence export bundle (**done**)
-10. FE-PRODUCT-CLOSEOUT-001
+10. ~~FE-PRODUCT-CLOSEOUT-001~~ — package closeout (**done**)
 ```

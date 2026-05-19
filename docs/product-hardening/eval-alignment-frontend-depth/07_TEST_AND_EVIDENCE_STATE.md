@@ -47,6 +47,7 @@
 | `docs/evidence/FE_TEST_REPLAY_001_EVIDENCE.md` | Replay tests |
 | `docs/evidence/FE_HYGIENE_CONFIG_001_EVIDENCE.md` | VITE/config catalog |
 | `docs/evidence/POST_DOCKER_HARDENING_CLOSEOUT_001_EVIDENCE.md` | Hardening closeout |
+| `docs/evidence/FE_PRODUCT_CLOSEOUT_001_EVIDENCE.md` | Product hardening v1 closeout |
 
 ## Allagma evidence (`docs/evidence/*EVAL*` — 20 files)
 
@@ -80,6 +81,7 @@ Closeout: `allagma-dotnet/docs/releases/FIRST_FULL_SANITY_CLOSEOUT.md` (2026-05-
 | `FE-PRODUCT-003` | **Done:** `FE_PRODUCT_003_REPLAY_EVIDENCE_WORKBENCH_EVIDENCE.md`; replay journey + limitation e2e in `allagma-replay-evidence.spec.ts` |
 | `EVAL-PRODUCT-005` | **Done:** schema validator + `GET /evaluations/{id}/evidence` + FE export panel (`EVAL_PRODUCT_005_EVAL_EVIDENCE_EXPORT_BUNDLE_EVIDENCE.md`) |
 | `PFH-001` | `docs/evidence/PFH_001_CURRENT_STATE_AUDIT_EVIDENCE.md` (this audit) |
+| `FE-PRODUCT-CLOSEOUT-001` | **Done:** closeout quartet + `FE_PRODUCT_CLOSEOUT_001_EVIDENCE.md` |
 
 ## Product-hardening test additions (unchanged expectations)
 

@@ -2,7 +2,7 @@
 
 This folder holds **canonical control packages** for post-infrastructure product depth — eval semantics, backend/frontend alignment, and frontend operator UX.
 
-## Active package — Eval / alignment / frontend depth (v1)
+## Closed package — Eval / alignment / frontend depth (v1)
 
 **Planning/control package:**
 
@@ -18,7 +18,7 @@ This folder holds **canonical control packages** for post-infrastructure product
 - Post-Docker-local hardening — [`POST_DOCKER_LOCAL_HARDENING_CLOSEOUT.md`](../releases/POST_DOCKER_LOCAL_HARDENING_CLOSEOUT.md)
 - `CI-COST-001` across six repos
 
-**Current phase:** current-state audit (`PFH-001` **DONE**). Next: `EVAL-PRODUCT-001` eval query/list contract.
+**Status:** **CLOSED / PASS** (`FE-PRODUCT-CLOSEOUT-001`, 2026-05-19). See [closeout](../releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_CLOSEOUT.md).
 
 Start with:
 
@@ -30,6 +30,7 @@ Evidence:
 
 - [`PFH_000_PACKAGE_SETUP_EVIDENCE.md`](../evidence/PFH_000_PACKAGE_SETUP_EVIDENCE.md)
 - [`PFH_001_CURRENT_STATE_AUDIT_EVIDENCE.md`](../evidence/PFH_001_CURRENT_STATE_AUDIT_EVIDENCE.md)
+- [`FE_PRODUCT_CLOSEOUT_001_EVIDENCE.md`](../evidence/FE_PRODUCT_CLOSEOUT_001_EVIDENCE.md)
 
 Release pointer: [`PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH.md`](../releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH.md)
 

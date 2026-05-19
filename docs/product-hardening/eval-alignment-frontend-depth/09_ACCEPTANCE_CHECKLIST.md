@@ -25,3 +25,13 @@
 ## Implementation acceptance
 
 Every product implementation PR must include goal, boundary, contract/OpenAPI impact, frontend impact, fixture/live/degraded state, tests, evidence, known limitations, and a not-production-readiness statement.
+
+## Closeout acceptance (`FE-PRODUCT-CLOSEOUT-001`)
+
+- [x] All package PRs (`PFH-000` … `EVAL-PRODUCT-005`) have evidence on file.
+- [x] Closeout, scorecard, limitations, and next-options docs published under `docs/releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_*`.
+- [x] Evidence file `docs/evidence/FE_PRODUCT_CLOSEOUT_001_EVIDENCE.md` added.
+- [x] Package sequence and gap matrices updated to **done**.
+- [x] No runtime code changes.
+- [x] No secrets.
+- [x] Not production readiness.

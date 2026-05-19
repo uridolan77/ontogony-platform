@@ -12,6 +12,7 @@
 ```text
 First Dockerized local working system      CLOSED / PASS  (ENV-DOCKER-CLOSEOUT-001)
 Post-Docker-local hardening                CLOSED / PASS  (POST-DOCKER-HARDENING-CLOSEOUT-001)
+Product feature hardening v1 (PFH)         CLOSED / PASS  (FE-PRODUCT-CLOSEOUT-001)
 CI-COST-001 (6 repos)                      DONE
 Production readiness                       NOT STARTED
 ```
@@ -50,19 +51,20 @@ Pick based on team priority. None are required to use the closed Docker-local st
 | Out of scope for ENV | Cloud manifests, staging/prod identity, SLOs |
 | Start | New program charter + acceptance matrix — do not relabel ENV closeout as prod |
 
-### Option 3 — Product feature hardening (**active**)
+### Option 3 — Product feature hardening v1 (**closed**)
 
-**When:** Operator UX, eval product depth, or cross-repo alignment is the bottleneck.
+**Status:** **CLOSED / PASS** (`FE-PRODUCT-CLOSEOUT-001`, 2026-05-19).
 
-**Canonical control package (registered 2026-05-19):**
+**Closeout:**
 
-- [`docs/product-hardening/eval-alignment-frontend-depth/`](../product-hardening/eval-alignment-frontend-depth/)
-- Release pointer: [`PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH.md`](./PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH.md)
-- Unpack evidence: [`PFH_000_PACKAGE_SETUP_EVIDENCE.md`](../evidence/PFH_000_PACKAGE_SETUP_EVIDENCE.md)
+- [`PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_CLOSEOUT.md`](./PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_CLOSEOUT.md)
+- [`PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_NEXT_OPTIONS.md`](./PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_NEXT_OPTIONS.md) — v1 follow-ups
+
+**For new product depth work**, start a new charter or pick items from the PFH next-options doc (saved views, bulk export, `ALIGN-PRODUCT-002`–`004`, replay fixture catalog, etc.).
 
 | Track | Example entry points |
 | --- | --- |
-| **Active program** | `docs/product-hardening/eval-alignment-frontend-depth/` (`PFH-001` next) |
+| PFH v1 follow-ups | `PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_NEXT_OPTIONS.md` |
 | Prior eval durability | `docs/planning/eval-durability-to-first-sanity-current/` |
 | Alignment baseline | `docs/alignment/eval-full-sanity-alignment/`, `docs/alignment/backend-frontend-phase-v2-sandbox-evidence-alignment/` |
 | Allagma eval closeout | `allagma-dotnet/docs/releases/FIRST_FULL_SANITY_CLOSEOUT.md` |
@@ -81,7 +83,7 @@ Pick based on team priority. None are required to use the closed Docker-local st
 
 Most teams should **keep using the closed Docker-local stack daily** and choose **one** optional track:
 
-1. **Product velocity** → Option 3 ([product hardening package](../product-hardening/eval-alignment-frontend-depth/))  
+1. **Product polish** → Option 3 follow-ups ([PFH next options](./PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_NEXT_OPTIONS.md))  
 2. **Provider confidence** → Option 1 (`ENV-REAL-PROVIDER-001`)  
 3. **Deploy timeline** → Option 2 (`PROD-READINESS-*`)  
 4. **Hosted environments** → Option 4 (cloud/deployment program)
