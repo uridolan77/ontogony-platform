@@ -98,6 +98,17 @@ Planning packages: [`docs/alignment/`](../alignment/README.md) (historical; PFH 
 
 ---
 
+## Kanon deepening (KANON-DEEPEN)
+
+| Item | File |
+| --- | --- |
+| KANON-DEEPEN-004 facts/plans/bindings | [KANON_DEEPEN_004_FACTS_PLANS_BINDINGS_EXPLORER_EVIDENCE.md](./KANON_DEEPEN_004_FACTS_PLANS_BINDINGS_EXPLORER_EVIDENCE.md) |
+| KANON-DEEPEN-005 cross-service semantic links | [KANON_DEEPEN_005_CROSS_SERVICE_SEMANTIC_LINKS_EVIDENCE.md](./KANON_DEEPEN_005_CROSS_SERVICE_SEMANTIC_LINKS_EVIDENCE.md) |
+
+Audit: `kanon-dotnet/docs/reviews/KANON_DEEPEN_000_CURRENT_STATE_AUDIT.md` (platform copy).
+
+---
+
 ## UI shared foundation hardening (UI-HARDEN)
 
 | Item | File |
@@ -108,6 +119,7 @@ Planning packages: [`docs/alignment/`](../alignment/README.md) (historical; PFH 
 | UI-HARDEN-003 dialog accessibility | [UI_HARDEN_003_DIALOG_ACCESSIBILITY_EVIDENCE.md](./UI_HARDEN_003_DIALOG_ACCESSIBILITY_EVIDENCE.md) |
 | UI-HARDEN-004 route tabs | [UI_HARDEN_004_ROUTE_TABS_EVIDENCE.md](./UI_HARDEN_004_ROUTE_TABS_EVIDENCE.md) |
 | UI-HARDEN-005 empty / limitation | [UI_HARDEN_005_EMPTY_LIMITATION_EVIDENCE.md](./UI_HARDEN_005_EMPTY_LIMITATION_EVIDENCE.md) |
+| UI-HARDEN-006 evidence / action primitives | [UI_HARDEN_006_EVIDENCE_ACTION_PRIMITIVES_EVIDENCE.md](./UI_HARDEN_006_EVIDENCE_ACTION_PRIMITIVES_EVIDENCE.md) |
 
 Primary audit: `ontogony-ui/docs/reviews/UI_HARDEN_000_CURRENT_STATE_AUDIT.md`
 

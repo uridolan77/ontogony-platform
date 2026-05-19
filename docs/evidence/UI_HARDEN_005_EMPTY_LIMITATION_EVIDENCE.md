@@ -13,4 +13,4 @@
 
 ## Next expected item
 
-**UI-HARDEN-006** — evidence export and action panel primitives (`ontogony-ui` primary).
+**UI-HARDEN-007** — density, layout, and responsive pass (`ontogony-ui` primary). See `UI_HARDEN_006_EVIDENCE_ACTION_PRIMITIVES_EVIDENCE.md`.
