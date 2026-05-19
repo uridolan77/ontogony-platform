@@ -316,7 +316,7 @@ Current RCQ sequence after this standard:
 RCQ-000   package setup                    DONE
 DOCS-STANDARD-001 unified standard         DONE (this document)
 RCQ-CODE-001 per-repo code tightening      NOT STARTED
-RCQ-DOCS-001 per-repo documentation sweep  NOT STARTED
+RCQ-DOCS-001 per-repo documentation sweep  IN PROGRESS (ontogony-platform DONE)
 PRODUCT-MANUAL-QA-001 package              NOT STARTED
 PRODUCT-MANUAL-QA-002 execution            NOT STARTED
 ```

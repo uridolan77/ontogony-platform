@@ -57,7 +57,9 @@ Evidence:
 
 **Governance (published):** [`docs/operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md`](../operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md) (`DOCS-STANDARD-001`, 2026-05-19).
 
-**Next step:** **`RCQ-CODE-001`** — per-repo code tightening (see [`sequences/01_REPO_CLEANING_SEQUENCE.md`](repo-cleaning-documentation-manual-qa-prep-v1/sequences/01_REPO_CLEANING_SEQUENCE.md)), then **`RCQ-DOCS-001`** per repo using the unified standard.
+**Platform `RCQ-DOCS-001`:** **DONE** (2026-05-19) — [`RCQ_DOCS_001_ONTOGONY_PLATFORM_EVIDENCE.md`](../evidence/RCQ_DOCS_001_ONTOGONY_PLATFORM_EVIDENCE.md).
+
+**Next step:** **`RCQ-CODE-001`** — per-repo code tightening (see [`sequences/01_REPO_CLEANING_SEQUENCE.md`](repo-cleaning-documentation-manual-qa-prep-v1/sequences/01_REPO_CLEANING_SEQUENCE.md)), then **`RCQ-DOCS-001`** on the five sister repos.
 
 ## Related (not superseded — different scope)
 

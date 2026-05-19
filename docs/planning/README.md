@@ -2,21 +2,20 @@
 
 This folder contains implementation planning packages for Ontogony.Platform and cross-repo programs that originate from platform planning.
 
-## Active product program — Feature hardening (eval / alignment / frontend depth)
+**Documentation map:** [`docs/README.md`](../README.md)  
+**Active preparation program (not production readiness):** [`docs/product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/`](../product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/)
+
+## Closed — Feature hardening v1 (eval / alignment / frontend depth)
+
+> **Historical** — Program **CLOSED / PASS** (2026-05-19). Current operator guidance: closeout and evidence links below; active prep is RCQ (repo cleaning / manual QA).
 
 Path:
 
-- `docs/product-hardening/eval-alignment-frontend-depth/`
+- [`docs/product-hardening/eval-alignment-frontend-depth/`](../product-hardening/eval-alignment-frontend-depth/)
 
-Purpose:
+Closeout: [`docs/releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_CLOSEOUT.md`](../releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_CLOSEOUT.md)
 
-Canonical control package for post-infrastructure product depth: eval query/list semantics, contract matrix refresh, OpenAPI/generated-client discipline, and frontend operator surfaces (dashboard v2, run detail evidence, replay workbench).
-
-Incoming ZIP:
-
-- `docs/_incoming/Ontogony-Product-Feature-Hardening-Eval-Alignment-Frontend-Depth-v1.zip`
-
-Start with `00_MANIFEST.json`, `02_PRODUCT_HARDENING_SEQUENCE.md`, and `pr-specs/`. See `docs/product-hardening/README.md`.
+Incoming ZIP (preserved): `docs/_incoming/Ontogony-Product-Feature-Hardening-Eval-Alignment-Frontend-Depth-v1.zip`
 
 **Not production readiness.**
 

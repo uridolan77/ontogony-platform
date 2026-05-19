@@ -17,6 +17,7 @@
 | Terminology (Allagma, Kanon, Conexus, …) | [`operators/ONTOGONY_TERMINOLOGY_GLOSSARY.md`](operators/ONTOGONY_TERMINOLOGY_GLOSSARY.md) |
 | Trace / correlation contract | [`operators/TRACE_CORRELATION_CONTRACT.md`](operators/TRACE_CORRELATION_CONTRACT.md) |
 | CI cost / branch protection | [`operators/CI_COST_CONTROL.md`](operators/CI_COST_CONTROL.md) |
+| Operator docs index | [`operators/README.md`](operators/README.md) |
 | Docker-local compose stack | `docker/local-working-system/README.md` (repo root) |
 | Environment programs index | [`environments/README.md`](environments/README.md) |
 | Active RCQ prep package | [`product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/`](product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/) |
@@ -49,17 +50,17 @@
 
 ## Evidence
 
-Verification records: [`evidence/`](evidence/).
+Verification records: [`evidence/`](evidence/) — full index: [`evidence/README.md`](evidence/README.md).
 
 Recent / program evidence:
 
 | Item | File |
 | --- | --- |
-| RCQ-000 package setup | [`evidence/RCQ_000_PACKAGE_SETUP_EVIDENCE.md`](evidence/RCQ_000_PACKAGE_SETUP_EVIDENCE.md) |
+| RCQ-DOCS-001 platform docs sweep | [`evidence/RCQ_DOCS_001_ONTOGONY_PLATFORM_EVIDENCE.md`](evidence/RCQ_DOCS_001_ONTOGONY_PLATFORM_EVIDENCE.md) |
 | DOCS-STANDARD-001 | [`evidence/DOCS_STANDARD_001_UNIFIED_DOCUMENTATION_STRUCTURE_EVIDENCE.md`](evidence/DOCS_STANDARD_001_UNIFIED_DOCUMENTATION_STRUCTURE_EVIDENCE.md) |
-| PFH-000 package setup | [`evidence/PFH_000_PACKAGE_SETUP_EVIDENCE.md`](evidence/PFH_000_PACKAGE_SETUP_EVIDENCE.md) |
+| RCQ-000 package setup | [`evidence/RCQ_000_PACKAGE_SETUP_EVIDENCE.md`](evidence/RCQ_000_PACKAGE_SETUP_EVIDENCE.md) |
+| PFH closeout | [`evidence/FE_PRODUCT_CLOSEOUT_001_EVIDENCE.md`](evidence/FE_PRODUCT_CLOSEOUT_001_EVIDENCE.md) |
 | Post-Docker hardening closeout | [`evidence/POST_DOCKER_HARDENING_CLOSEOUT_001_EVIDENCE.md`](evidence/POST_DOCKER_HARDENING_CLOSEOUT_001_EVIDENCE.md) |
-| CI-COST-001 | [`evidence/CI_COST_001_COST_CONTROL_EVIDENCE.md`](evidence/CI_COST_001_COST_CONTROL_EVIDENCE.md) |
 
 Naming: `<ITEM>_EVIDENCE.md` — see the [documentation structure standard](operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md#6-evidence-files).
 
@@ -90,7 +91,7 @@ Cross-repo milestone closeouts: [`releases/`](releases/).
 | Eval / alignment / frontend depth v1 | **CLOSED / PASS** | [`product-hardening/eval-alignment-frontend-depth/`](product-hardening/eval-alignment-frontend-depth/) |
 | Repo cleaning / docs / manual QA prep v1 | **ACTIVE** (prep) | [`product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/`](product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/) |
 
-Index: [`product-hardening/README.md`](product-hardening/README.md).
+Index: [`product-hardening/README.md`](product-hardening/README.md). Platform `RCQ-DOCS-001` documentation sweep: **DONE** (2026-05-19).
 
 ---
 

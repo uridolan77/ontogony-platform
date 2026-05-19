@@ -108,21 +108,24 @@ Scope note: ENV-SEED-001 evidence validates host-local API behavior against runn
 
 This program targets a **first working local environment**, not production readiness. Use fake/local Conexus provider first; optional real-provider mode is a later, explicit PR. Do not treat acceptance here as deploy or hardening sign-off.
 
-## Active program — Product feature hardening (PFH)
+## Closed — Product feature hardening v1 (PFH)
 
-**Canonical control package** (post-Docker-local; not production readiness):
+**Status:** **CLOSED / PASS** (`FE-PRODUCT-CLOSEOUT-001`, 2026-05-19). Not production readiness.
 
-- [`docs/product-hardening/eval-alignment-frontend-depth/`](../product-hardening/eval-alignment-frontend-depth/)
+| Doc | Link |
+| --- | --- |
+| Control package | [`docs/product-hardening/eval-alignment-frontend-depth/`](../product-hardening/eval-alignment-frontend-depth/) |
+| Closeout | [`docs/releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_CLOSEOUT.md`](../releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_CLOSEOUT.md) |
+| Release pointer | [`docs/releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH.md`](../releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH.md) |
+| Evidence index | [`docs/evidence/README.md`](../evidence/README.md) (PFH section) |
 
-Incoming ZIP: `docs/_incoming/Ontogony-Product-Feature-Hardening-Eval-Alignment-Frontend-Depth-v1.zip`
+## Active preparation — Repo cleaning / manual QA (RCQ)
 
-- **PFH-000** — DONE / PASS (package setup)
-- **PFH-001** — DONE / PASS (current-state audit)
-- **EVAL-PRODUCT-001** — NEXT (eval query/list contract)
+**Not production readiness.** Package: [`docs/product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/`](../product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/)
 
-See [`docs/product-hardening/README.md`](../product-hardening/README.md) and [`PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH.md`](../releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH.md).
+Governance: [`docs/operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md`](../operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md)
 
-Evidence: `docs/evidence/PFH_000_PACKAGE_SETUP_EVIDENCE.md`, `docs/evidence/PFH_001_CURRENT_STATE_AUDIT_EVIDENCE.md`
+Platform docs map: [`docs/README.md`](../README.md)
 
 ## Other planning (unchanged)
 

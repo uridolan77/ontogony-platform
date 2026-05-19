@@ -99,7 +99,9 @@ Most teams should **keep using the closed Docker-local stack daily** and choose 
 | Platform docs index | [`docs/README.md`](../README.md) |
 | RCQ / DOCS-STANDARD evidence | [`docs/evidence/RCQ_000_PACKAGE_SETUP_EVIDENCE.md`](../evidence/RCQ_000_PACKAGE_SETUP_EVIDENCE.md), [`docs/evidence/DOCS_STANDARD_001_UNIFIED_DOCUMENTATION_STRUCTURE_EVIDENCE.md`](../evidence/DOCS_STANDARD_001_UNIFIED_DOCUMENTATION_STRUCTURE_EVIDENCE.md) |
 
-**Not started yet:** per-repo code sweeps (`RCQ-CODE-001`), per-repo documentation sweeps (`RCQ-DOCS-001`), manual QA package/execution. **Not production readiness.**
+**Done on platform:** `DOCS-STANDARD-001`, `RCQ-DOCS-001` (documentation index and stale-status cleanup).
+
+**Not started yet:** per-repo code sweeps (`RCQ-CODE-001`), sister-repo documentation sweeps (`RCQ-DOCS-001`), manual QA package/execution. **Not production readiness.**
 
 ## Operator quick reference (unchanged)
 

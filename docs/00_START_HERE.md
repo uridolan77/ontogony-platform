@@ -1,5 +1,7 @@
 # 00 — Start Here
 
+**Documentation map (all programs, closeouts, evidence):** [`docs/README.md`](./README.md)
+
 This repo exists because Allagma, Kanon, and Conexus need a shared infrastructure spine.
 
 Do not begin by moving everything into shared code. Begin with the duplicated or cross-cutting mechanics that must be consistent for the protocol-recorder strategy:

@@ -2,7 +2,9 @@
 
 This folder contains cross-repo alignment planning for Ontogony.
 
-## Active package — Backend/Frontend Phase v2 Sandbox Evidence Alignment
+> **Historical** — Alignment packages here informed PFH v1 and eval-basing. **Product feature hardening v1 is CLOSED / PASS** (2026-05-19). For current contract/eval operator surfaces, see [`docs/releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_CLOSEOUT.md`](../releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_CLOSEOUT.md) and [`docs/alignment/eval-full-sanity-alignment/`](../alignment/eval-full-sanity-alignment/) snapshot. Active prep: [`docs/product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/`](../product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/).
+
+## Historical package — Backend/Frontend Phase v2 Sandbox Evidence Alignment
 
 Path:
 
@@ -10,9 +12,9 @@ Path:
 
 Purpose:
 
-This is the current active alignment package after Allagma P3-SB-005 and P3-SB-006 hygiene. It aligns ontogony-frontend with the Allagma Phase 3 sandbox evidence loop before eval-basing.
+Completed bridge package after Allagma P3-SB-005 and P3-SB-006 hygiene. It aligned ontogony-frontend with the Allagma Phase 3 sandbox evidence loop before eval-basing.
 
-It supersedes the older backend/frontend alignment package as the active execution plan, while preserving the older package as historical/base material.
+Supersedes the older backend/frontend alignment package for that phase; both are **historical** relative to closed PFH v1.
 
 Old package:
 
