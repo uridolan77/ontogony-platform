@@ -50,9 +50,14 @@ Start with:
 - `repo-cleaning-documentation-manual-qa-prep-v1/01_EXECUTIVE_PLAN.md`
 - `repo-cleaning-documentation-manual-qa-prep-v1/sequences/01_REPO_CLEANING_SEQUENCE.md`
 
-Evidence: [`RCQ_000_PACKAGE_SETUP_EVIDENCE.md`](../evidence/RCQ_000_PACKAGE_SETUP_EVIDENCE.md)
+Evidence:
 
-**Next step after `RCQ-000`:** **`DOCS-STANDARD-001`** — unified documentation structure standard (`prompts/00-meta/DOCS-STANDARD-001_UNIFIED_DOCUMENTATION_STANDARD.md`).
+- [`RCQ_000_PACKAGE_SETUP_EVIDENCE.md`](../evidence/RCQ_000_PACKAGE_SETUP_EVIDENCE.md)
+- [`DOCS_STANDARD_001_UNIFIED_DOCUMENTATION_STRUCTURE_EVIDENCE.md`](../evidence/DOCS_STANDARD_001_UNIFIED_DOCUMENTATION_STRUCTURE_EVIDENCE.md)
+
+**Governance (published):** [`docs/operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md`](../operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md) (`DOCS-STANDARD-001`, 2026-05-19).
+
+**Next step:** **`RCQ-CODE-001`** — per-repo code tightening (see [`sequences/01_REPO_CLEANING_SEQUENCE.md`](repo-cleaning-documentation-manual-qa-prep-v1/sequences/01_REPO_CLEANING_SEQUENCE.md)), then **`RCQ-DOCS-001`** per repo using the unified standard.
 
 ## Related (not superseded — different scope)
 

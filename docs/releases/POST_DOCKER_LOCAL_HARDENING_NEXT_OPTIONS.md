@@ -88,6 +88,19 @@ Most teams should **keep using the closed Docker-local stack daily** and choose 
 3. **Deploy timeline** → Option 2 (`PROD-READINESS-*`)  
 4. **Hosted environments** → Option 4 (cloud/deployment program)
 
+## Active preparation — repo cleaning / manual QA (RCQ)
+
+**Status:** Package registered (`RCQ-000`); unified documentation standard published (`DOCS-STANDARD-001`, 2026-05-19).
+
+| Need | Doc |
+| --- | --- |
+| RCQ control package | [`docs/product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/`](../product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/) |
+| Documentation structure (six repos) | [`docs/operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md`](../operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md) |
+| Platform docs index | [`docs/README.md`](../README.md) |
+| RCQ / DOCS-STANDARD evidence | [`docs/evidence/RCQ_000_PACKAGE_SETUP_EVIDENCE.md`](../evidence/RCQ_000_PACKAGE_SETUP_EVIDENCE.md), [`docs/evidence/DOCS_STANDARD_001_UNIFIED_DOCUMENTATION_STRUCTURE_EVIDENCE.md`](../evidence/DOCS_STANDARD_001_UNIFIED_DOCUMENTATION_STRUCTURE_EVIDENCE.md) |
+
+**Not started yet:** per-repo code sweeps (`RCQ-CODE-001`), per-repo documentation sweeps (`RCQ-DOCS-001`), manual QA package/execution. **Not production readiness.**
+
 ## Operator quick reference (unchanged)
 
 | Need | Doc |

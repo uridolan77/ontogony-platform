@@ -19,11 +19,17 @@ Repos:
 
 This is **not production readiness**. It does not include real provider mode, cloud deployment, production auth/TLS/secrets, load testing, SLOs, or broad rewrites.
 
+## Published governance
+
+- **Unified documentation standard:** [`docs/operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md`](../../operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md) (`DOCS-STANDARD-001`, 2026-05-19)
+- **Evidence:** [`docs/evidence/DOCS_STANDARD_001_UNIFIED_DOCUMENTATION_STRUCTURE_EVIDENCE.md`](../../evidence/DOCS_STANDARD_001_UNIFIED_DOCUMENTATION_STRUCTURE_EVIDENCE.md)
+- **Platform docs index:** [`docs/README.md`](../../README.md)
+
 ## Order
 
 ```text
-1. Register this package.
-2. Publish the shared documentation standard.
+1. Register this package.                              DONE (RCQ-000)
+2. Publish the shared documentation standard.          DONE (DOCS-STANDARD-001)
 3. Run one code-cleaning PR per repo.
 4. Run one documentation-cleaning PR per repo.
 5. Create the full manual guided QA package.

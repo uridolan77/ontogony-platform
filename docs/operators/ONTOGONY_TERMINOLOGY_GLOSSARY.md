@@ -7,9 +7,12 @@ Use this glossary when writing or reviewing docs, status boards, runbooks, and e
 
 ## Program boundary
 
+**Documentation layout (six repos):** [ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md](./ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md) (`DOCS-STANDARD-001`).
+
 | Term | Meaning |
 | --- | --- |
 | **First Dockerized local working system** | The closed ENV-DOCKER milestone: compose stack, guided flow, frontend walkthrough, deterministic seed — **not** production readiness. |
+| **Repo cleaning / manual QA prep (RCQ)** | Post-PFH preparation: code/docs tightening and manual guided QA package — **not** production readiness. |
 | **Post-Docker-local hardening** | Work after `ENV-DOCKER-CLOSEOUT-001` (persistence, Kanon ops, trace contract, frontend gates, packaging status, terminology). Still **not** production readiness. |
 | **Production readiness** | Separate future program (`PROD-READINESS-*`). Do not imply the Docker-local program satisfies production gates. |
 

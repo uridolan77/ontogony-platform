@@ -92,4 +92,4 @@ Repos: `ontogony-platform`, `allagma-dotnet`, `kanon-dotnet`, `conexus-dotnet`, 
 
 ## Next step
 
-After `RCQ-000`, run **`DOCS-STANDARD-001`** — unified documentation structure standard (`prompts/00-meta/DOCS-STANDARD-001_UNIFIED_DOCUMENTATION_STANDARD.md`).
+After `RCQ-000`, **`DOCS-STANDARD-001`** was published — see [`DOCS_STANDARD_001_UNIFIED_DOCUMENTATION_STRUCTURE_EVIDENCE.md`](./DOCS_STANDARD_001_UNIFIED_DOCUMENTATION_STRUCTURE_EVIDENCE.md) and [`docs/operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md`](../operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md).

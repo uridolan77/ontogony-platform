@@ -25,6 +25,18 @@ Production readiness                       NOT STARTED
 | `FE-PRODUCT-CLOSEOUT-001` | **DONE** — this closeout |
 | `EVAL-POLISH-001` | **DONE** — cross-repo polish (parity + error semantics) |
 
+## Active preparation — repo cleaning / manual QA (RCQ)
+
+Before full manual guided QA, the six repos follow the **repo cleaning + documentation + manual QA prep** program (not production readiness):
+
+| Need | Doc |
+| --- | --- |
+| RCQ package | [`docs/product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/`](../product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/) |
+| Unified documentation standard | [`docs/operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md`](../operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md) |
+| Platform docs index | [`docs/README.md`](../README.md) |
+
+`DOCS-STANDARD-001` is **published** (2026-05-19). Next: `RCQ-CODE-001` per repo, then `RCQ-DOCS-001`, then `PRODUCT-MANUAL-QA-001` / `002`.
+
 ## Remaining optional tracks
 
 Pick based on team priority. None are required to use the closed Docker-local stack with current eval operator surfaces.
