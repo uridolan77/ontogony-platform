@@ -39,6 +39,6 @@ Scores reflect what was **demonstrated across the Docker ENV program**, not prod
 - Not production deploy readiness, TLS, identity, or DR
 - Not real provider keys or external tool execution by default
 - Not automated live-browser walkthrough in the docker guided runner
-- Not post-closeout hardening (Conexus persist, trace contracts, FE replay, etc.)
+- Not post-closeout hardening (now closed separately — see [POST_DOCKER_HARDENING_SCORECARD.md](./POST_DOCKER_HARDENING_SCORECARD.md))
 
 See [FIRST_DOCKER_LOCAL_WORKING_SYSTEM_KNOWN_LIMITATIONS.md](./FIRST_DOCKER_LOCAL_WORKING_SYSTEM_KNOWN_LIMITATIONS.md).

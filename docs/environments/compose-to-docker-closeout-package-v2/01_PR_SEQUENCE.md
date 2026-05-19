@@ -11,13 +11,17 @@
 
 This closes the first Dockerized local working system. It is not production readiness.
 
-## Current phase — Post-Docker-local hardening
+## Post-Docker-local hardening — CLOSED
 
-Post-closeout hardening is separate from the closed Docker-local milestone.
+| Order | PR | Status | Evidence |
+|---:|---|---|---|
+| 13 | `POST-DOCKER-HARDENING-CLOSEOUT-001` | DONE / PASS | `docs/evidence/POST_DOCKER_HARDENING_CLOSEOUT_001_EVIDENCE.md` |
 
-**Active:** none — post-closeout hardening backlog **complete** (optional package closeout / scorecard next).
+Post-closeout hardening package closed 2026-05-19. Not production readiness.
 
-Planning detail: `docs/releases/FIRST_DOCKER_LOCAL_WORKING_SYSTEM_NEXT_STEPS.md`
+**Active:** none — choose strategic track in `docs/releases/POST_DOCKER_HARDENING_NEXT_STEPS.md`.
+
+## Historical — Post-Docker-local hardening sequence
 
 Recommended order:
 
@@ -35,6 +39,10 @@ Recommended order:
 | 10 | `FE-HYGIENE-CONFIG-001` | DONE | Frontend config hygiene — `ontogony-frontend/docs/evidence/FE_HYGIENE_CONFIG_001_FRONTEND_CONFIG_EVIDENCE.md` |
 | 11 | `UI-PACKAGING-STATUS-001` | DONE | `@ontogony/ui` packaging — `ontogony-ui/docs/development/PACKAGING_STATUS.md` |
 | 12 | `TERMINOLOGY-CLEANUP-001` | DONE | Glossary — `docs/operators/ONTOGONY_TERMINOLOGY_GLOSSARY.md` |
+
+## Strategic next (not part of closed hardening package)
+
+Planning: `docs/releases/POST_DOCKER_HARDENING_NEXT_STEPS.md`
 
 ## Optional later work
 

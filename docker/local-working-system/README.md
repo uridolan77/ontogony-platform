@@ -4,6 +4,8 @@
 
 Terminology: [`docs/operators/ONTOGONY_TERMINOLOGY_GLOSSARY.md`](../../docs/operators/ONTOGONY_TERMINOLOGY_GLOSSARY.md) (liveness vs readiness, decision IDs, fake provider).
 
+Programs: [Docker-local closeout](../../docs/releases/FIRST_DOCKER_LOCAL_WORKING_SYSTEM_CLOSEOUT.md) + [post-hardening closeout](../../docs/releases/POST_DOCKER_HARDENING_CLOSEOUT.md) — both **CLOSED**; not production readiness.
+
 ## Layout
 
 ```text

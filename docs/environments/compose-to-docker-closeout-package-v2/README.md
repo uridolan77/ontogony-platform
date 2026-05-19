@@ -27,6 +27,8 @@ It is **not production readiness**.
 
 Terminology glossary: [`docs/operators/ONTOGONY_TERMINOLOGY_GLOSSARY.md`](../../operators/ONTOGONY_TERMINOLOGY_GLOSSARY.md).
 
+Post-Docker-local hardening closeout: [`docs/releases/POST_DOCKER_HARDENING_CLOSEOUT.md`](../../releases/POST_DOCKER_HARDENING_CLOSEOUT.md) (**CLOSED**).
+
 ## Minimal path to close Docker-local
 
 ```text

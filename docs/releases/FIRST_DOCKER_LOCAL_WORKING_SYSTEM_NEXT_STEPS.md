@@ -9,23 +9,17 @@ Post-closeout work is **explicitly separate** from the closeout criteria. Do not
 
 ## Current phase
 
-**Post-Docker-local hardening** — the minimal Docker-local closeout path is closed. The active decision is which hardening PR to run first.
+**Post-Docker-local hardening — CLOSED** (`POST-DOCKER-HARDENING-CLOSEOUT-001`, 2026-05-19).
 
-**Active PR:** none — post-closeout hardening backlog complete.
+For strategic options after hardening, see **[POST_DOCKER_HARDENING_NEXT_STEPS.md](./POST_DOCKER_HARDENING_NEXT_STEPS.md)**.
 
-**Completed:** `CONEXUS-PERSIST-001`–`003`, `KANON-OP-001`, `KANON-OP-002`, `TRACE-CONTRACT-001`, `FE-HARDEN-001`, `FE-AUDIT-FIXTURES-001`, `FE-TEST-REPLAY-001`, `FE-HYGIENE-CONFIG-001`, `UI-PACKAGING-STATUS-001`, `TERMINOLOGY-CLEANUP-001`.
-
-| Doc | Path |
+| Closeout | Path |
 | --- | --- |
+| Hardening closeout | `docs/releases/POST_DOCKER_HARDENING_CLOSEOUT.md` |
+| Hardening scorecard | `docs/releases/POST_DOCKER_HARDENING_SCORECARD.md` |
 | Terminology glossary | `docs/operators/ONTOGONY_TERMINOLOGY_GLOSSARY.md` |
 
-| Doc | Path |
-| --- | --- |
-| Trace/correlation inspect | `docker/local-working-system/scripts/inspect-trace-correlation-evidence.ps1` |
-| Acceptance spec | `docs/environments/compose-to-docker-closeout-package-v2/post-closeout-hardening/TRACE-CONTRACT-001.md` |
-| Operator contract | `docs/operators/TRACE_CORRELATION_CONTRACT.md` |
-
-## Post-closeout hardening backlog
+## Post-closeout hardening backlog (complete)
 
 Planning package: `docs/environments/compose-to-docker-closeout-package-v2/post-closeout-hardening/`
 

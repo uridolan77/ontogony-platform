@@ -21,24 +21,27 @@
 
 First Dockerized local working system: **CLOSED / PASS**. Not production readiness.
 
-## Current phase — Post-Docker-local hardening
+## Post-Docker-local hardening — CLOSED
 
-| Item | Status | Notes |
+| Item | Status | Evidence / notes |
 |---|---|---|
-| CONEXUS-PERSIST-001 | **DONE** | Operator docs — platform PR #7, conexus PR #13 |
-| CONEXUS-PERSIST-002 | **DONE** | Validation automation — platform PR #8 |
-| CONEXUS-PERSIST-003 | **DONE** | Durability regression — PR #9 merged |
-| KANON-OP-001 | **DONE** | Topology evidence — PR #10 / kanon #2 |
-| **KANON-OP-002** | **DONE** | `diagnose-kanon-topology-ops.ps1` |
-| **TRACE-CONTRACT-001** | **DONE** | `inspect-trace-correlation-evidence.ps1` |
-| **FE-HARDEN-001** | **DONE** | Frontend HTTP inspect + Playwright; `ontogony-frontend/docs/evidence/FE_HARDEN_001_FRONTEND_HARDENING_EVIDENCE.md` |
-| **FE-AUDIT-FIXTURES-001** | **DONE** | Fixture/live catalog + `fixtures:check` + E2E; `ontogony-frontend/docs/evidence/FE_AUDIT_FIXTURES_001_FIXTURE_LIVE_BOUNDARY_EVIDENCE.md` |
-| **FE-TEST-REPLAY-001** | **DONE** | Replay catalog + `replay:check` + E2E; `ontogony-frontend/docs/evidence/FE_TEST_REPLAY_001_REPLAY_TEST_EVIDENCE.md` |
-| **FE-HYGIENE-CONFIG-001** | **DONE** | `VITE_*` catalog + `config:check`; `ontogony-frontend/docs/evidence/FE_HYGIENE_CONFIG_001_FRONTEND_CONFIG_EVIDENCE.md` |
-| **UI-PACKAGING-STATUS-001** | **DONE** | `@ontogony/ui` packaging status — `ontogony-ui/docs/development/PACKAGING_STATUS.md`, `ontogony-ui/docs/evidence/UI_PACKAGING_STATUS_001_EVIDENCE.md` |
-| **TERMINOLOGY-CLEANUP-001** | **DONE** | Glossary + doc cleanup — `docs/operators/ONTOGONY_TERMINOLOGY_GLOSSARY.md`, `docs/evidence/TERMINOLOGY_CLEANUP_001_EVIDENCE.md` |
+| CONEXUS-PERSIST-001 | DONE / PASS | `docs/evidence/CONEXUS_PERSIST_001_OPERATOR_DOCS_EVIDENCE.md` |
+| CONEXUS-PERSIST-002 | DONE / PASS | `docs/evidence/CONEXUS_PERSIST_002_VALIDATION_EVIDENCE.md` |
+| CONEXUS-PERSIST-003 | DONE / PASS | `docs/evidence/CONEXUS_PERSIST_003_DURABILITY_REGRESSION_EVIDENCE.md` |
+| KANON-OP-001 | DONE / PASS | `docs/evidence/KANON_OP_001_OPERATOR_EVIDENCE.md` |
+| KANON-OP-002 | DONE / PASS | `docs/evidence/KANON_OP_002_OPERATIONAL_DIAGNOSTICS_EVIDENCE.md` |
+| TRACE-CONTRACT-001 | DONE / PASS | `docs/evidence/TRACE_CONTRACT_001_EVIDENCE.md` |
+| FE-HARDEN-001 | DONE / PASS | `ontogony-frontend/docs/evidence/FE_HARDEN_001_FRONTEND_HARDENING_EVIDENCE.md` |
+| FE-AUDIT-FIXTURES-001 | DONE / PASS | `ontogony-frontend/docs/evidence/FE_AUDIT_FIXTURES_001_FIXTURE_LIVE_BOUNDARY_EVIDENCE.md` |
+| FE-TEST-REPLAY-001 | DONE / PASS | `ontogony-frontend/docs/evidence/FE_TEST_REPLAY_001_REPLAY_TEST_EVIDENCE.md` |
+| FE-HYGIENE-CONFIG-001 | DONE / PASS | `ontogony-frontend/docs/evidence/FE_HYGIENE_CONFIG_001_FRONTEND_CONFIG_EVIDENCE.md` |
+| UI-PACKAGING-STATUS-001 | DONE / PASS | `ontogony-ui/docs/evidence/UI_PACKAGING_STATUS_001_EVIDENCE.md` |
+| TERMINOLOGY-CLEANUP-001 | DONE / PASS | `docs/evidence/TERMINOLOGY_CLEANUP_001_EVIDENCE.md` |
+| **POST-DOCKER-HARDENING-CLOSEOUT-001** | **DONE / PASS** | `docs/evidence/POST_DOCKER_HARDENING_CLOSEOUT_001_EVIDENCE.md` — package closed 2026-05-19 |
 
-See `docs/releases/FIRST_DOCKER_LOCAL_WORKING_SYSTEM_NEXT_STEPS.md` and `01_PR_SEQUENCE.md`.
+Post-Docker-local hardening: **CLOSED / PASS**. Not production readiness.
+
+See `docs/releases/POST_DOCKER_HARDENING_CLOSEOUT.md` and `POST_DOCKER_HARDENING_NEXT_STEPS.md`.
 
 ## Boundary notes
 
