@@ -16,7 +16,7 @@ Do not let the frontend invent backend product semantics. Do not let backend rou
 | 5 | `EVAL-PRODUCT-002` | allagma + frontend | Baseline comparison workbench depth. |
 | 6 | `EVAL-PRODUCT-003` | allagma + frontend | Scenario dataset management surfaces. |
 | 7 | `EVAL-PRODUCT-004` | allagma + frontend | Quality scoring and judge calibration surfaces. |
-| 8 | `FE-PRODUCT-002` | frontend | Run detail evidence depth. |
+| 8 | `FE-PRODUCT-002` | frontend | Run detail evidence depth (**in progress / PR open**). |
 | 9 | `FE-PRODUCT-003` | frontend + allagma | Replay evidence workbench. |
 | 10 | `EVAL-PRODUCT-005` | allagma + frontend + platform | Eval evidence export bundle. |
 | 11 | `FE-PRODUCT-CLOSEOUT-001` | platform + frontend | Closeout, scorecard, known limitations. |
