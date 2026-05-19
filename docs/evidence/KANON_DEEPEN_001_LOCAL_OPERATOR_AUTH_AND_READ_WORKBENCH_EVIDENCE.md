@@ -78,4 +78,4 @@ Clear roles in settings (`defaultActorRoles` empty) and save — overview should
 
 ## Follow-up
 
-- **KANON-DEEPEN-002** — domain-pack lifecycle timeline and active-state workbench depth.
+- **KANON-DEEPEN-002** — see [KANON_DEEPEN_002_DOMAIN_PACK_LIFECYCLE_WORKBENCH_EVIDENCE.md](KANON_DEEPEN_002_DOMAIN_PACK_LIFECYCLE_WORKBENCH_EVIDENCE.md).
