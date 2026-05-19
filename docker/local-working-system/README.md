@@ -25,6 +25,8 @@ docker/local-working-system/
     validate-kanon-topology-evidence-report.ps1
     diagnose-kanon-topology-ops.ps1
     validate-kanon-topology-diagnostics-report.ps1
+    inspect-trace-correlation-evidence.ps1
+    validate-trace-correlation-evidence-report.ps1
     _docker-local-env.ps1
 ```
 
@@ -272,6 +274,33 @@ Report: `artifacts/kanon-op-002-topology-diagnostics-report.json` (local, redact
 Run after seed/guided flow. Pair with KANON-OP-001 inspect when validating happy path.
 
 More detail: `kanon-dotnet/docs/operators/TOPOLOGY_DIAGNOSTICS.md`, `docs/environments/compose-to-docker-closeout-package-v2/post-closeout-hardening/KANON-OP-002.md`.
+
+## Cross-service trace/correlation (TRACE-CONTRACT-001)
+
+**Boundary:** operator contract proof for Docker-local Allagma → Kanon → Conexus; **not production readiness**.
+
+The inspect script runs a **correlation probe** (`POST /allagma/v0/runs` with distinct `X-Ontogony-Trace-Id` and `X-Ontogony-Correlation-Id`) and verifies:
+
+| Service | Evidence |
+| --- | --- |
+| Allagma | Response echoes trace; `RunCreated` event payloads |
+| Kanon | Planning decision + `GET /decision-records/by-trace/{traceId}` |
+| Conexus | Execution journal metadata `allagma_run_id`, `correlation_id` |
+
+When a guided/seed report exists, the script also replays the **subject run** trace against Kanon by-trace.
+
+```powershell
+cd C:\dev\ontogony-platform
+.\docker\local-working-system\scripts\wait-local-working-system.ps1 -SkipFrontend
+.\docker\local-working-system\scripts\inspect-trace-correlation-evidence.ps1
+.\docker\local-working-system\scripts\validate-trace-correlation-evidence-report.ps1
+```
+
+Report: `artifacts/trace-contract-001-evidence-report.json` (local, redacted).
+
+Env: `ALLAGMA_SERVICE_TOKEN`, `KANON_SERVICE_TOKEN`, `CONEXUS_ADMIN_API_KEY`, host ports **5081** / **5082** / **5083**.
+
+More detail: `docs/operators/TRACE_CORRELATION_CONTRACT.md`, `docs/environments/compose-to-docker-closeout-package-v2/post-closeout-hardening/TRACE-CONTRACT-001.md`.
 
 ## Seed/bootstrap (ENV-SEED-001)
 

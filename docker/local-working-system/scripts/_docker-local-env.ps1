@@ -31,13 +31,16 @@ function Get-DockerLocalComposeConfig {
     param(
         [string]$AllagmaBaseUrl = "",
         [string]$KanonBaseUrl = "",
+        [string]$ConexusBaseUrl = "",
         [string]$AllagmaServiceToken = "",
-        [string]$KanonServiceToken = ""
+        [string]$KanonServiceToken = "",
+        [string]$ConexusAdminApiKey = ""
     )
 
     $envFile = Get-DockerLocalEnvFilePath
     $kanonPort = Get-DotEnvValue -Path $envFile -Key "KANON_HOST_PORT" -DefaultValue "5081"
     $allagmaPort = Get-DotEnvValue -Path $envFile -Key "ALLAGMA_HOST_PORT" -DefaultValue "5083"
+    $conexusPort = Get-DotEnvValue -Path $envFile -Key "CONEXUS_HOST_PORT" -DefaultValue "5082"
 
     if ([string]::IsNullOrWhiteSpace($AllagmaBaseUrl)) {
         $AllagmaBaseUrl = "http://localhost:$allagmaPort"
@@ -45,22 +48,59 @@ function Get-DockerLocalComposeConfig {
     if ([string]::IsNullOrWhiteSpace($KanonBaseUrl)) {
         $KanonBaseUrl = "http://localhost:$kanonPort"
     }
+    if ([string]::IsNullOrWhiteSpace($ConexusBaseUrl)) {
+        $ConexusBaseUrl = "http://localhost:$conexusPort"
+    }
     if ([string]::IsNullOrWhiteSpace($AllagmaServiceToken)) {
         $AllagmaServiceToken = Get-DotEnvValue -Path $envFile -Key "ALLAGMA_SERVICE_TOKEN" -DefaultValue "allagma-dev-service-token-change-in-production"
     }
     if ([string]::IsNullOrWhiteSpace($KanonServiceToken)) {
         $KanonServiceToken = Get-DotEnvValue -Path $envFile -Key "KANON_SERVICE_TOKEN" -DefaultValue "kanon-dev-service-token-change-in-production"
     }
+    if ([string]::IsNullOrWhiteSpace($ConexusAdminApiKey)) {
+        $ConexusAdminApiKey = Get-DotEnvValue -Path $envFile -Key "CONEXUS_ADMIN_API_KEY" -DefaultValue "cx-conexus-admin-dev"
+    }
 
     return [pscustomobject]@{
         EnvFilePath = $envFile
         KanonHostPort = $kanonPort
         AllagmaHostPort = $allagmaPort
+        ConexusHostPort = $conexusPort
         AllagmaBaseUrl = $AllagmaBaseUrl
         KanonBaseUrl = $KanonBaseUrl
+        ConexusBaseUrl = $ConexusBaseUrl
         AllagmaServiceToken = $AllagmaServiceToken
         KanonServiceToken = $KanonServiceToken
+        ConexusAdminApiKey = $ConexusAdminApiKey
     }
+}
+
+function Get-RunEventPayloadObject {
+    param($Payload)
+    if ($null -eq $Payload) { return $null }
+    if ($Payload -is [System.Collections.IDictionary]) { return $Payload }
+    if ($Payload -is [System.Collections.IEnumerable] -and $Payload -isnot [string]) {
+        $items = @($Payload)
+        if ($items.Count -lt 1) { return $null }
+        return $items[-1]
+    }
+    return $Payload
+}
+
+function Get-ResponseHeaderValue {
+    param(
+        [Microsoft.PowerShell.Commands.WebResponseObject]$Response,
+        [string]$HeaderName
+    )
+    if ($null -eq $Response -or $null -eq $Response.Headers) { return $null }
+    foreach ($key in $Response.Headers.Keys) {
+        if ($key -ieq $HeaderName) {
+            $values = $Response.Headers[$key]
+            if ($values -is [string]) { return $values.Trim() }
+            if ($null -ne $values -and $values.Count -gt 0) { return [string]$values[0] }
+        }
+    }
+    return $null
 }
 
 function Get-DockerLocalSecretPatterns {

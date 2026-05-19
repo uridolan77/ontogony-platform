@@ -29,8 +29,8 @@ First Dockerized local working system: **CLOSED / PASS**. Not production readine
 | CONEXUS-PERSIST-002 | **DONE** | Validation automation — platform PR #8 |
 | CONEXUS-PERSIST-003 | **DONE** | Durability regression — PR #9 merged |
 | KANON-OP-001 | **DONE** | Topology evidence — PR #10 / kanon #2 |
-| **KANON-OP-002** | **active** | `diagnose-kanon-topology-ops.ps1` |
-| TRACE-CONTRACT-001 | backlog | Cross-service trace/correlation contract |
+| **KANON-OP-002** | **DONE** | `diagnose-kanon-topology-ops.ps1` |
+| **TRACE-CONTRACT-001** | **DONE** | `inspect-trace-correlation-evidence.ps1` |
 | FE-HARDEN-001 | backlog | Frontend hardening beyond walkthrough |
 | FE-AUDIT-FIXTURES-001 | backlog | Fixture/live boundary audit |
 | FE-TEST-REPLAY-001 | backlog | Replay/test improvements |

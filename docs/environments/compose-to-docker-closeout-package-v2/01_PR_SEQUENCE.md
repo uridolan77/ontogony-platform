@@ -28,7 +28,7 @@ Recommended order:
 | 3 | `CONEXUS-PERSIST-003` | DONE | Conexus restart/durability regression checks |
 | 4 | `KANON-OP-001` | DONE | Operator-readable Kanon topology/decision evidence |
 | 5 | `KANON-OP-002` | **active** | Kanon operational diagnostics |
-| 6 | `TRACE-CONTRACT-001` | backlog | Cross-service trace/correlation contract |
+| 6 | `TRACE-CONTRACT-001` | DONE | Cross-service trace/correlation contract |
 | 7 | `FE-HARDEN-001` | backlog | Frontend hardening beyond walkthrough |
 | 8 | `FE-AUDIT-FIXTURES-001` | backlog | Fixture/live boundary audit |
 | 9 | `FE-TEST-REPLAY-001` | backlog | Replay/test improvements |
