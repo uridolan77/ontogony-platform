@@ -23,6 +23,9 @@ docker/local-working-system/
     validate-conexus-persistence-durability-report.ps1
     inspect-kanon-topology-evidence.ps1
     validate-kanon-topology-evidence-report.ps1
+    diagnose-kanon-topology-ops.ps1
+    validate-kanon-topology-diagnostics-report.ps1
+    _docker-local-env.ps1
 ```
 
 Copy `.env.example` to `.env` to override placeholders locally without committing changes:
@@ -237,7 +240,38 @@ Report: `artifacts/kanon-op-001-topology-evidence-report.json` (local, redacted;
 
 Requires prior seed or guided flow and live Kanon/Allagma on host ports **5081** / **5083**.
 
+Tokens and host ports are read from `.env` or `.env.example` (`ALLAGMA_SERVICE_TOKEN`, `KANON_SERVICE_TOKEN`, `ALLAGMA_HOST_PORT`, `KANON_HOST_PORT`). Parameter overrides remain supported.
+
 More detail: `kanon-dotnet/docs/operators/TOPOLOGY_DECISION_EVIDENCE.md`, `docs/environments/compose-to-docker-closeout-package-v2/post-closeout-hardening/KANON-OP-001.md`.
+
+## Kanon topology operational diagnostics (KANON-OP-002)
+
+**Boundary:** troubleshooting only; **not production readiness**; no new topology policy behavior.
+
+The diagnostics script classifies common failure modes:
+
+| Diagnosis | Meaning |
+| --- | --- |
+| `BASELINE_NULL_BY_DESIGN` | Baseline `requiresKanonAuthorization=false` — null auth ID expected |
+| `ALLAGMA_NO_KANON_CALL` | Subject should require auth but `requiresKanonAuthorization=false` |
+| `SUBJECT_MISSING_AUTH_ID` | Auth required but `topologyAuthorizationDecisionId` missing on Allagma |
+| `KANON_DECISION_NOT_FOUND` | HTTP 404 on decision-record lookup |
+| `KANON_AUTH_FAILURE` | HTTP 401/403 — token or `ProvenanceReader` role |
+| `KANON_UNAVAILABLE` | Kanon health probe failed |
+| `KANON_DENY` / `KANON_HUMAN_GATE` | Policy outcome not allow |
+| `ARTIFACT_MISSING` / `REPORT_STALE` | Guided/seed report missing or IDs out of date |
+
+```powershell
+cd C:\dev\ontogony-platform
+.\docker\local-working-system\scripts\diagnose-kanon-topology-ops.ps1
+.\docker\local-working-system\scripts\validate-kanon-topology-diagnostics-report.ps1
+```
+
+Report: `artifacts/kanon-op-002-topology-diagnostics-report.json` (local, redacted).
+
+Run after seed/guided flow. Pair with KANON-OP-001 inspect when validating happy path.
+
+More detail: `kanon-dotnet/docs/operators/TOPOLOGY_DIAGNOSTICS.md`, `docs/environments/compose-to-docker-closeout-package-v2/post-closeout-hardening/KANON-OP-002.md`.
 
 ## Seed/bootstrap (ENV-SEED-001)
 

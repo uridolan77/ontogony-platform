@@ -5,17 +5,26 @@ param(
     [string]$GuidedReportPath = "",
     [string]$SeedReportPath = "",
     [string]$OutputPath = "",
-    [string]$AllagmaBaseUrl = "http://localhost:5083",
-    [string]$KanonBaseUrl = "http://localhost:5081",
-    [string]$AllagmaServiceToken = "allagma-dev-service-token-change-in-production",
-    [string]$KanonServiceToken = "kanon-dev-service-token-change-in-production",
+    [string]$AllagmaBaseUrl = "",
+    [string]$KanonBaseUrl = "",
+    [string]$AllagmaServiceToken = "",
+    [string]$KanonServiceToken = "",
     [int]$HttpTimeoutSeconds = 15
 )
 
 $ErrorActionPreference = "Stop"
 Set-StrictMode -Version Latest
 
-$composeRoot = Split-Path -Parent $PSScriptRoot
+. "$PSScriptRoot\_docker-local-env.ps1"
+
+$composeRoot = Get-DockerLocalComposeRoot
+$config = Get-DockerLocalComposeConfig `
+    -AllagmaBaseUrl $AllagmaBaseUrl `
+    -KanonBaseUrl $KanonBaseUrl `
+    -AllagmaServiceToken $AllagmaServiceToken `
+    -KanonServiceToken $KanonServiceToken
+$secretPatterns = @(Get-DockerLocalSecretPatterns -ComposeConfig $config)
+
 if ([string]::IsNullOrWhiteSpace($GuidedReportPath)) {
     $GuidedReportPath = Join-Path $composeRoot "artifacts\docker-guided-main-flow-report.json"
 }
@@ -31,102 +40,20 @@ if (-not (Test-Path -LiteralPath $outputDir)) {
     New-Item -ItemType Directory -Path $outputDir -Force | Out-Null
 }
 
-$secretPatterns = @(
-    "allagma-dev-service-token-change-in-production",
-    "kanon-dev-service-token-change-in-production",
-    "cx-dev-key-change-me",
-    "cx-conexus-admin-dev",
-    "allagma_local_pw",
-    "kanon_local_pw",
-    "conexus_local_pw",
-    "ontogony_admin_pw"
-)
-
-function Redact-String {
-    param([string]$Value)
-    if ([string]::IsNullOrWhiteSpace($Value)) { return $null }
-    $redacted = $Value
-    foreach ($pattern in $secretPatterns) {
-        $redacted = $redacted.Replace($pattern, "***")
-    }
-    return $redacted
-}
-
-function Get-OptionalProperty {
-    param(
-        [object]$Object,
-        [string]$Name
-    )
-    if ($null -eq $Object) { return $null }
-    $prop = $Object.PSObject.Properties[$Name]
-    if ($null -eq $prop) { return $null }
-    return $prop.Value
-}
-
-function Redact-Object {
-    param([object]$InputObject)
-    if ($null -eq $InputObject) { return $null }
-    $json = $InputObject | ConvertTo-Json -Depth 12 -Compress
-    foreach ($pattern in $secretPatterns) {
-        $json = $json.Replace($pattern, "***")
-    }
-    return ($json | ConvertFrom-Json)
-}
-
-function Read-ReportIds {
-    param(
-        [string]$GuidedPath,
-        [string]$SeedPath
-    )
-
-    $ids = [ordered]@{
-        source = $null
-        baselineRunId = $null
-        subjectRunId = $null
-        subjectTopologyAuthorizationDecisionId = $null
-        baselineTopologyAuthorizationDecisionId = $null
-        baselineSelectedTopology = $null
-        subjectSelectedTopology = $null
-    }
-
-    if (Test-Path -LiteralPath $GuidedPath) {
-        $guided = Get-Content -Raw -LiteralPath $GuidedPath | ConvertFrom-Json
-        $ids.source = "docker-guided-main-flow-report.json"
-        $ids.baselineRunId = [string]$guided.baselineRunId
-        $ids.subjectRunId = [string]$guided.subjectRunId
-        $ids.subjectTopologyAuthorizationDecisionId = [string]$guided.subjectTopologyAuthorizationDecisionId
-    }
-    elseif (Test-Path -LiteralPath $SeedPath) {
-        $seed = Get-Content -Raw -LiteralPath $SeedPath | ConvertFrom-Json
-        $ids.source = "env-seed-001-report.json"
-        $ids.baselineRunId = [string]$seed.runs.baselineRunId
-        $ids.subjectRunId = [string]$seed.runs.subjectRunId
-        $ids.subjectTopologyAuthorizationDecisionId = [string]$seed.topology.subjectTopologyAuthorizationDecisionId
-        $ids.baselineTopologyAuthorizationDecisionId = $seed.topology.baselineTopologyAuthorizationDecisionId
-        $ids.baselineSelectedTopology = [string]$seed.topology.baselineSelectedTopology
-        $ids.subjectSelectedTopology = [string]$seed.topology.subjectSelectedTopology
-    }
-    else {
-        throw "No guided or seed report found. Run seed-and-verify-local-working-system.ps1 or run-docker-guided-main-flow.ps1 first."
-    }
-
-    return [pscustomobject]$ids
-}
-
 function Invoke-AllagmaTopologySummary {
     param([string]$RunId)
-    $headers = @{ Authorization = "Bearer $AllagmaServiceToken" }
+    $headers = @{ Authorization = "Bearer $($config.AllagmaServiceToken)" }
     return Invoke-RestMethod `
-        -Uri "$AllagmaBaseUrl/allagma/v0/runs/$RunId/events?includeTopologySummary=true" `
+        -Uri "$($config.AllagmaBaseUrl)/allagma/v0/runs/$RunId/events?includeTopologySummary=true" `
         -Headers $headers `
         -TimeoutSec $HttpTimeoutSeconds
 }
 
 function Invoke-AllagmaRunDetail {
     param([string]$RunId)
-    $headers = @{ Authorization = "Bearer $AllagmaServiceToken" }
+    $headers = @{ Authorization = "Bearer $($config.AllagmaServiceToken)" }
     return Invoke-RestMethod `
-        -Uri "$AllagmaBaseUrl/allagma/v0/runs/$RunId" `
+        -Uri "$($config.AllagmaBaseUrl)/allagma/v0/runs/$RunId" `
         -Headers $headers `
         -TimeoutSec $HttpTimeoutSeconds
 }
@@ -134,13 +61,13 @@ function Invoke-AllagmaRunDetail {
 function Invoke-KanonDecisionRecord {
     param([string]$DecisionId)
     $headers = @{
-        Authorization = "Bearer $KanonServiceToken"
+        Authorization = "Bearer $($config.KanonServiceToken)"
         "X-Ontogony-Actor-Id" = "kanon-op-001"
         "X-Ontogony-Actor-Type" = "service"
         "X-Ontogony-Roles" = "ProvenanceReader"
     }
     return Invoke-RestMethod `
-        -Uri "$KanonBaseUrl/ontology/v0/decision-records/$DecisionId" `
+        -Uri "$($config.KanonBaseUrl)/ontology/v0/decision-records/$DecisionId" `
         -Headers $headers `
         -TimeoutSec $HttpTimeoutSeconds
 }
@@ -148,28 +75,32 @@ function Invoke-KanonDecisionRecord {
 function Invoke-KanonProvenance {
     param([string]$DecisionId)
     $headers = @{
-        Authorization = "Bearer $KanonServiceToken"
+        Authorization = "Bearer $($config.KanonServiceToken)"
         "X-Ontogony-Actor-Id" = "kanon-op-001"
         "X-Ontogony-Actor-Type" = "service"
         "X-Ontogony-Roles" = "ProvenanceReader"
     }
     try {
         return Invoke-RestMethod `
-            -Uri "$KanonBaseUrl/ontology/v0/decision-records/$DecisionId/provenance" `
+            -Uri "$($config.KanonBaseUrl)/ontology/v0/decision-records/$DecisionId/provenance" `
             -Headers $headers `
             -TimeoutSec $HttpTimeoutSeconds
     }
     catch {
-        return [ordered]@{ fetchError = (Redact-String $_.Exception.Message) }
+        return [ordered]@{ fetchError = (Redact-StringWithPatterns -Value $_.Exception.Message -SecretPatterns $secretPatterns) }
     }
 }
 
 Write-Host ""
 Write-Host "=== KANON-OP-001 inspect Kanon topology evidence ==="
 Write-Host "Boundary: Docker-local operator visibility, not production readiness."
+Write-Host "Env file: $($config.EnvFilePath)"
 Write-Host ""
 
-$reportIds = Read-ReportIds -GuidedPath $GuidedReportPath -SeedPath $SeedReportPath
+$reportIds = Read-DockerLocalRunReportIds -GuidedPath $GuidedReportPath -SeedPath $SeedReportPath
+if ([string]::IsNullOrWhiteSpace($reportIds.source)) {
+    throw "No guided or seed report found. Run seed-and-verify-local-working-system.ps1 or run-docker-guided-main-flow.ps1 first."
+}
 if ([string]::IsNullOrWhiteSpace($reportIds.baselineRunId) -or [string]::IsNullOrWhiteSpace($reportIds.subjectRunId)) {
     throw "baselineRunId and subjectRunId must be present in input report."
 }
@@ -215,8 +146,8 @@ $report = [ordered]@{
     boundary = "first Dockerized local working system, not production readiness"
     inputReport = [ordered]@{
         source = $reportIds.source
-        guidedReportPath = (Redact-String $GuidedReportPath)
-        seedReportPath = (Redact-String $SeedReportPath)
+        guidedReportPath = (Redact-StringWithPatterns -Value $GuidedReportPath -SecretPatterns $secretPatterns)
+        seedReportPath = (Redact-StringWithPatterns -Value $SeedReportPath -SecretPatterns $secretPatterns)
     }
     linkage = [ordered]@{
         baselineRunId = $reportIds.baselineRunId
@@ -239,8 +170,8 @@ $report = [ordered]@{
         }
     }
     kanon = [ordered]@{
-        decisionRecord = (Redact-Object $kanonDecision)
-        provenance = (Redact-Object $kanonProvenance)
+        decisionRecord = (Redact-ObjectWithPatterns -InputObject $kanonDecision -SecretPatterns $secretPatterns)
+        provenance = (Redact-ObjectWithPatterns -InputObject $kanonProvenance -SecretPatterns $secretPatterns)
         decisionType = $kanonDecision.decisionType
         outcomeStatus = $kanonDecision.outcome.status
     }
@@ -250,23 +181,21 @@ $report = [ordered]@{
         subjectContextKeys = $subjectContextKeys
     }
     services = [ordered]@{
-        allagmaBaseUrl = $AllagmaBaseUrl
-        kanonBaseUrl = $KanonBaseUrl
+        allagmaBaseUrl = $config.AllagmaBaseUrl
+        kanonBaseUrl = $config.KanonBaseUrl
+        envFilePath = (Redact-StringWithPatterns -Value $config.EnvFilePath -SecretPatterns $secretPatterns)
     }
     safety = [ordered]@{
         realProviderKeys = "no"
         realExternalExecution = "disabled"
         productionReadiness = "not_claimed"
         secretsRedacted = $true
+        tokensLoadedFromEnvFile = $true
     }
 }
 
 $json = $report | ConvertTo-Json -Depth 14
-foreach ($pattern in $secretPatterns) {
-    if ($json -match [regex]::Escape($pattern)) {
-        throw "Report still contains raw secret pattern: $pattern"
-    }
-}
+Assert-ReportHasNoSecretPatterns -Json $json -SecretPatterns $secretPatterns
 
 $json | Set-Content -LiteralPath $OutputPath -Encoding UTF8
 Write-Host "Wrote Kanon topology evidence report: $OutputPath"
