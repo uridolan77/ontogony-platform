@@ -320,6 +320,8 @@ More detail: `docs/operators/TRACE_CORRELATION_CONTRACT.md`, `docs/environments/
 
 ## Seed/bootstrap (ENV-SEED-001)
 
+**Allagma schema:** with `ASPNETCORE_ENVIRONMENT=Development` and `Allagma__Persistence__Mode=Postgres`, `allagma-api` applies EF migrations at container startup. A fresh volume does not require running `allagma-dotnet/scripts/apply-allagma-postgres-migration.ps1` before seed.
+
 `seed-and-verify-local-working-system.ps1` performs deterministic API/bootstrap steps:
 
 - Conexus `POST /admin/v0/dev/bootstrap` (dev project + fake provider alias)
