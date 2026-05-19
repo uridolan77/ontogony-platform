@@ -24,10 +24,15 @@ if ($Build) {
     $provenance = Set-FrontendDockerBuildProvenanceEnv
     Write-Host "Expected browser commit: $($provenance.GitSha.Substring(0, [Math]::Min(7, $provenance.GitSha.Length))) ($($provenance.GitSha))"
 
-    $startArgs = @("-Build")
-    if ($NoWait) { $startArgs += "-NoWait" }
-    if ($DisableAutoCaInjection) { $startArgs += "-DisableAutoCaInjection" }
-    & $startScript @startArgs
+    # Must pass [switch] parameters by name — @("-Build") is a positional string and is ignored.
+    $null = Invoke-FrontendDockerImageBuild -DisableAutoCaInjection:$DisableAutoCaInjection
+
+    $startParams = @{
+        Build = $true
+    }
+    if ($NoWait) { $startParams.NoWait = $true }
+    if ($DisableAutoCaInjection) { $startParams.DisableAutoCaInjection = $true }
+    & $startScript @startParams
     if ($LASTEXITCODE -ne 0) {
         throw "start-local-working-system.ps1 -Build failed (exit $LASTEXITCODE)."
     }

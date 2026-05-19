@@ -84,9 +84,10 @@ ontogony-frontend` with your repo `git` SHA, then recreates the container), prob
 `GET /provenance.json` and `index.html` meta tags, checks the main JS bundle is not stale,
 validates the Docker image label, and writes `artifacts/docker-local-verify-001-report.json`.
 
-If verify reports `gitSha: local`, the frontend image was not rebuilt — re-run with `-Build`
-(do not rely on `docker compose up --build` alone). For a full no-cache frontend rebuild after
-TLS fixes: `start-local-working-system.ps1 -Build -ForceFrontendNoCache`.
+If verify reports `gitSha: local`, the frontend image was not rebuilt. The verify script must pass
+`-Build` as a **switch** (`@{ Build = $true }`), not `@("-Build")` (that binds as a positional
+string and skips the frontend build). For a full no-cache frontend rebuild after TLS fixes:
+`start-local-working-system.ps1 -Build -ForceFrontendNoCache`.
 
 Inspect only (stack already running):
 

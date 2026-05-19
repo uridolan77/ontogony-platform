@@ -67,10 +67,56 @@ function Set-FrontendDockerBuildProvenanceEnv {
     }
 }
 
+function Ensure-DockerLocalBuildCaInjection {
+    param([switch]$DisableAutoCaInjection)
+
+    if ($DisableAutoCaInjection) { return }
+    if (-not [string]::IsNullOrWhiteSpace($env:DOCKER_EXTRA_CA_CERT_BASE64)) { return }
+
+    $dotnetSdkImage = "mcr.microsoft.com/dotnet/sdk:9.0-bookworm-slim"
+    $nodeImage = "node:20-bookworm-slim"
+
+    & docker run --rm $dotnetSdkImage bash -lc "curl -fsS https://api.nuget.org/v3/index.json -o /dev/null" | Out-Null
+    $nugetTlsOk = $LASTEXITCODE -eq 0
+    & docker run --rm $nodeImage node -e "fetch('https://registry.npmjs.org').then(()=>process.exit(0)).catch(()=>process.exit(1))" | Out-Null
+    $npmTlsOk = $LASTEXITCODE -eq 0
+
+    if ($nugetTlsOk -and $npmTlsOk) { return }
+
+    $issuer = & docker run --rm $dotnetSdkImage bash -lc "echo | openssl s_client -connect api.nuget.org:443 -servername api.nuget.org 2>/dev/null | sed -n 's/^issuer=//p'"
+    if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($issuer)) {
+        $issuer = & docker run --rm $dotnetSdkImage bash -lc "echo | openssl s_client -connect registry.npmjs.org:443 -servername registry.npmjs.org 2>/dev/null | sed -n 's/^issuer=//p'"
+    }
+    $issuer = ($issuer | Select-Object -First 1).Trim()
+    if ([string]::IsNullOrWhiteSpace($issuer)) {
+        Write-Warning "TLS-intercept issuer could not be detected; Docker frontend build may fail on npm ci."
+        return
+    }
+
+    $issuerCn = $null
+    if ($issuer -match "CN\s*=\s*([^,]+)") { $issuerCn = $Matches[1].Trim() }
+    $cert = Get-ChildItem Cert:\CurrentUser\Root, Cert:\LocalMachine\Root | Where-Object {
+        $_.Subject -eq $issuer -or ($issuerCn -and $_.Subject -like "*CN=$issuerCn*")
+    } | Select-Object -First 1
+    if (-not $cert) {
+        Write-Warning "Issuer '$issuer' is not in Windows trust stores; Docker frontend build may fail."
+        return
+    }
+
+    $certBytes = $cert.Export([System.Security.Cryptography.X509Certificates.X509ContentType]::Cert)
+    $pemBody = [Convert]::ToBase64String($certBytes, [System.Base64FormattingOptions]::InsertLineBreaks)
+    $pem = "-----BEGIN CERTIFICATE-----`n$pemBody`n-----END CERTIFICATE-----`n"
+    $env:DOCKER_EXTRA_CA_CERT_BASE64 = [Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes($pem))
+    Write-Host "Detected TLS-intercept issuer '$($cert.Subject)'. Injecting trusted root CA into Docker build stages."
+}
+
 function Invoke-FrontendDockerImageBuild {
     param(
-        [switch]$NoCache
+        [switch]$NoCache,
+        [switch]$DisableAutoCaInjection
     )
+
+    Ensure-DockerLocalBuildCaInjection -DisableAutoCaInjection:$DisableAutoCaInjection
 
     $composeRoot = Get-DockerLocalComposeRoot
     $composeFile = Join-Path $composeRoot "docker-compose.yml"

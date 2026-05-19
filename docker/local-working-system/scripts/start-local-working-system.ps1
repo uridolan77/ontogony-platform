@@ -115,7 +115,7 @@ if ($Build) {
     }
 
     if (-not $SkipFrontend) {
-        $null = Invoke-FrontendDockerImageBuild -NoCache:$ForceFrontendNoCache
+        $null = Invoke-FrontendDockerImageBuild -NoCache:$ForceFrontendNoCache -DisableAutoCaInjection:$DisableAutoCaInjection
     }
 
     $composeArgs += "--build"
