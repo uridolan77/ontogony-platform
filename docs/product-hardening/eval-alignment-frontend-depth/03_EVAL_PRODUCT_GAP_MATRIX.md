@@ -7,7 +7,7 @@
 | Eval list/query | **Closed (EVAL-PRODUCT-001):** `GET /allagma/v0/evaluations` + summary/page DTOs; per-run list retained | Saved views, export | **P2** | — | Analytics warehouse |
 | Eval dashboard | **Closed (FE-PRODUCT-001):** filters, dimensions, comparison entries, results list | Saved views, richer pagination | **P2** | — | Full BI dashboard |
 | Eval detail | `GET /evaluations/{id}` + FE detail page | Richer verdict/quality/metric presentation; correlation IDs | **P1** | `FE-PRODUCT-002` | — |
-| Baseline comparison | POST create + GET by id; promotion rules in service | History, filters, drilldown, list route or documented deferral | **P1** | `EVAL-PRODUCT-002` | Enterprise reporting |
+| Baseline comparison | **Closed (EVAL-PRODUCT-002):** list/history route + FE workbench + detail drilldown links | Create flow still harness-only; richer diff visualization | **P2** | — | Enterprise reporting |
 | Scenario dataset | `docs/evals/datasets/scenario-dataset-v0/` + harness; 8 cases | HTTP dataset index and/or UI suite labels; fixture/live parity matrix | **P1** | `EVAL-PRODUCT-003` | Full dataset authoring UI (unless scoped) |
 | Quality scoring | `EVAL_QUALITY_001` scaffold; FE quality panel on detail | Score breakdown, confidence, calibration metadata, limitation copy | **P1** | `EVAL-PRODUCT-004` | Training judge models |
 | Eval evidence export | Audit export on run; no eval bundle route | Operator export bundle (run/eval/comparison/dataset/trace) | **P2** | `EVAL-PRODUCT-005` | Compliance archive |
@@ -30,7 +30,7 @@
 1. EVAL-PRODUCT-001  — list/query contract + dashboard data model
 2. ALIGN-PRODUCT-001 — contract matrix refresh (after backend contract lands or limitation locked)
 3. FE-PRODUCT-001    — eval dashboard v2
-4. EVAL-PRODUCT-002  — baseline comparison depth
+4. EVAL-PRODUCT-002  — baseline comparison depth (**done**)
 5. EVAL-PRODUCT-003  — scenario dataset surfaces
 6. EVAL-PRODUCT-004  — quality scoring / judge calibration UI
 7. FE-PRODUCT-002    — run detail evidence depth

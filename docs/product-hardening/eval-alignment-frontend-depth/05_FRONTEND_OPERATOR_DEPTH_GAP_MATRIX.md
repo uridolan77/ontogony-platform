@@ -8,7 +8,7 @@
 | Eval run detail | `EvaluationRunDetailPage` — quality panel, fixture/live banners | Deeper metric/score breakdown, correlation links to run/trace/decision | `FE-PRODUCT-002` |
 | Run detail | `AllagmaRunEvalTopologyEvidenceSection` — eval + topology; link to evaluations | Integrated journey: run → evals → topology → Conexus route → replay | `FE-PRODUCT-002` |
 | Replay evidence | `ReplayEvidencePage` + `AllagmaReplayEvidenceWorkbench` — run/trace/decision modes; `@ontogony/ui` panels | Workbench lookup UX, limitation-aware actions, export, cross-links to eval/comparison | `FE-PRODUCT-003` |
-| Baseline comparison | `BaselineComparisonDetailPage` — GET detail only; fixture baseline | History, drilldown, diff emphasis, create flow or explicit “harness only” | `EVAL-PRODUCT-002` + FE |
+| Baseline comparison | **Closed (EVAL-PRODUCT-002):** `BaselineComparisonWorkbenchPage` list/history filters + detail/workbench cross-links | Richer visual diff/side-by-side outcomes; operator create flow still out of scope | follow-up |
 | Scenario datasets | Dashboard matrix from fixture; CI dataset in repo | Dataset index labels, suite membership visible in live mode | `EVAL-PRODUCT-003` |
 | Quality scoring | `AllagmaEvalQualityScoreDetail` on detail page | Confidence, calibration, judge metadata, limitation wording | `EVAL-PRODUCT-004` |
 | Route catalogs | `release-route-catalog.json` — static `/allagma/evaluations`, `/allagma/replay` only | Add param routes or document intentional omission | `ALIGN-PRODUCT-002` |

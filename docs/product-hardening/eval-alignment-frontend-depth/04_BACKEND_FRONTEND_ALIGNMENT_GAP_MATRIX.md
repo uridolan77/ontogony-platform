@@ -11,7 +11,7 @@
 | Per-run evals (run detail) | `GET /runs/{runId}/evaluations` | aligned | `listAllagmaRunEvaluations` | `useAllagmaRunEvaluations` | `allagmaEvaluationAdapters` | `/allagma/runs/:runId` | `evalFixture` | adapter + `e2e/allagma-eval-topology-evidence.spec.ts` | `EVAL_RUN_004` (FE) |
 | Baseline comparison read | `GET /evaluations/baseline-comparisons/{id}` | aligned | `getAllagmaBaselineComparison` | `useAllagmaBaselineComparison` | `allagmaEvaluationAdapters` | `/allagma/evaluations/baseline-comparisons/:id` | `dashboardFixture=ci-suite` | e2e + unit | `EVAL_RUN_003`, `FE_EVAL_002` |
 | Baseline comparison create | `POST /evaluations/baseline-comparisons` | aligned (no FE form) | not wrapped for UI | — | — | — | harness only | `BaselineComparisonTests` | `EVAL_RUN_003` |
-| Baseline comparison list/history | **missing** | **missing** | **missing** | **missing** | **missing** | — | — | — | gap → `EVAL-PRODUCT-002` |
+| Baseline comparison list/history | `GET /evaluations/baseline-comparisons` | aligned | `listAllagmaBaselineComparisons` | `useAllagmaBaselineComparisons` | `mapBaselineComparisonSummaryDto` | `/allagma/evaluations/baseline-comparisons` | `dashboardFixture=ci-suite` | `BaselineComparisonQuery`, e2e dashboard spec | `EVAL_PRODUCT_002_*` |
 | Scenario dataset index | filesystem/harness only | **missing** HTTP | **missing** | **missing** | **missing** | matrix on dashboard (fixture) | `ci-suite` fixture | `EvaluationScenarioDatasetTests` | `EVAL_DATA_001` |
 | Quality scoring display | DTOs on eval run | aligned on eval GET | via eval GET | via eval hooks | `buildEvalQualityBreakdownViewModel` | eval detail | fixture eval ids | `EvalQualityScoringTests`, adapter tests | `EVAL_QUALITY_001` |
 | Replay evidence | Kanon replay routes + Allagma run GET | partial (Kanon client separate) | kanon + allagma clients | `useKanonReplayBundles`, `useTraceCorrelation`, `useAllagmaRun` | `kanonProvenanceAdapters`, `buildAllagmaReplayEvidence` | `/allagma/replay` | E2E mock only | `e2e/allagma-replay-evidence.spec.ts` | `FE_TEST_REPLAY_001` |
@@ -34,9 +34,9 @@ Operator UI exposes neither POST. Limitations card lists GET routes only.
 
 | Status | Count (major surfaces) |
 | --- | --- |
-| aligned (read paths + FE consume) | 5 |
+| aligned (read paths + FE consume) | 6 |
 | partial (cross-service, POST without UI, filter depth, replay) | 5 |
-| missing (dataset HTTP, export, baseline list) | 3 |
+| missing (dataset HTTP, export) | 2 |
 | deferred (run mutations) | 1 |
 
 A surface is **aligned** only when route, OpenAPI, client, hook, adapter, UI state, fixture/live behavior, tests, and evidence are all mapped and honest.
