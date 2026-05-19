@@ -35,10 +35,10 @@
 
 ## RP-004
 
-- [ ] frontend shows fake vs real-provider validation state
-- [ ] provider errors are visible
-- [ ] no UI secret entry
-- [ ] fixture/live/degraded clarity preserved
+- [x] frontend shows fake vs real-provider validation state
+- [x] provider errors are visible
+- [x] no UI secret entry
+- [x] fixture/live/degraded clarity preserved
 
 ## RP-005
 
