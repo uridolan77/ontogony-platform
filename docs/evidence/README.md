@@ -98,6 +98,16 @@ Planning packages: [`docs/alignment/`](../alignment/README.md) (historical; PFH 
 
 ---
 
+## UI shared foundation hardening (UI-HARDEN)
+
+| Item | File |
+| --- | --- |
+| UI-HARDEN-000 current-state audit | [UI_HARDEN_000_CURRENT_STATE_AUDIT_EVIDENCE.md](./UI_HARDEN_000_CURRENT_STATE_AUDIT_EVIDENCE.md) |
+
+Primary audit: `ontogony-ui/docs/reviews/UI_HARDEN_000_CURRENT_STATE_AUDIT.md`
+
+---
+
 ## Sister repos
 
 Service-specific evidence lives in each repo’s `docs/evidence/` (e.g. `allagma-dotnet/docs/evidence/README.md`). Platform evidence covers cross-repo milestones and governance items only.
