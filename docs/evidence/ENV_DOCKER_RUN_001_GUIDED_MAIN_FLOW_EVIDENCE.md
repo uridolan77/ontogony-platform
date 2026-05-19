@@ -82,4 +82,4 @@ cd ..\..
 
 ## Next step
 
-**ENV-DOCKER-FE-001** — Dockerized frontend walkthrough.
+**ENV-DOCKER-FE-001** — done. **ENV-DOCKER-CLOSEOUT-001** — first Docker local system closeout.

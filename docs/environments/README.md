@@ -8,7 +8,7 @@ This folder holds planning packages and **canonical operator documentation** for
 
 - [`docs/environments/compose-to-docker-closeout-package-v2/`](compose-to-docker-closeout-package-v2/)
 
-This package governs the remaining Docker-local closeout path:
+This package governed the Docker-local closeout path (**closed** 2026-05-19):
 
 - **ENV-COMPOSE-001** — compose orchestration closeout/evidence
 - **ENV-DOCKER-RUN-001** — Dockerized guided main flow
@@ -83,7 +83,7 @@ C:\dev\
 | **ENV-COMPOSE-001** | **Done** — Docker Compose orchestration | `ontogony-platform/docker/local-working-system/` |
 | **ENV-DOCKER-RUN-001** | **Done** — Dockerized guided main flow | `ontogony-platform/docker/local-working-system/` |
 | **ENV-DOCKER-FE-001** | **Done** — Dockerized frontend walkthrough | `ontogony-frontend/scripts/docker/` |
-| ENV-DOCKER-CLOSEOUT-001 | Planned | See `compose-to-docker-closeout-package-v2/01_PR_SEQUENCE.md` |
+| ENV-DOCKER-CLOSEOUT-001 | **Done** — first Docker local system closeout | `docs/releases/FIRST_DOCKER_LOCAL_WORKING_SYSTEM_CLOSEOUT.md` |
 
 Evidence:
 
@@ -96,7 +96,9 @@ Evidence:
 - `docs/evidence/ENV_DOCKER_RUN_001_GUIDED_MAIN_FLOW_EVIDENCE.md`
 - `ontogony-frontend/docs/evidence/ENV_DOCKER_FE_001_OPERATOR_WALKTHROUGH_EVIDENCE.md`
 - `docs/evidence/COMPOSE_TO_DOCKER_CLOSEOUT_PACKAGE_V2_UNPACK_EVIDENCE.md`
+- `docs/evidence/ENV_DOCKER_CLOSEOUT_001_EVIDENCE.md`
 - Closeout (script-based): `docs/releases/FIRST_WORKING_ENVIRONMENT_CLOSEOUT.md`
+- Closeout (Docker): `docs/releases/FIRST_DOCKER_LOCAL_WORKING_SYSTEM_CLOSEOUT.md`
 
 Scope note: ENV-SEED-001 evidence validates host-local API behavior against running services (`localhost:5081`–`5083`). ENV-COMPOSE-001 adds compose orchestration and container DNS wiring. Restart-survival proof remains gated by ENV-DOCKER-RUN-001.
 

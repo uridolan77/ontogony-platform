@@ -5,9 +5,16 @@
 
 **This is first working local environment, not production readiness.**
 
-## Next major phase: ENV-DOCKER-LOCAL
+## Docker local working system — CLOSED
 
-Implement the **first Docker/Postgres local working system** using the comprehensive package in `allagma-dotnet`:
+**ENV-DOCKER-CLOSEOUT-001** closed the first Docker/Postgres local working system on 2026-05-19.
+
+- Closeout: [FIRST_DOCKER_LOCAL_WORKING_SYSTEM_CLOSEOUT.md](./FIRST_DOCKER_LOCAL_WORKING_SYSTEM_CLOSEOUT.md)
+- Post-closeout backlog: [FIRST_DOCKER_LOCAL_WORKING_SYSTEM_NEXT_STEPS.md](./FIRST_DOCKER_LOCAL_WORKING_SYSTEM_NEXT_STEPS.md)
+
+## Historical: ENV-DOCKER-LOCAL sequence (completed)
+
+Implemented using the comprehensive package in `allagma-dotnet`:
 
 ```text
 allagma-dotnet/docs/environments/working-local-environment-complete-package/
@@ -24,7 +31,7 @@ Recommended PR order (from package `07_PR_SEQUENCE.md`):
 | 5 | ENV-COMPOSE-001 | Docker Compose orchestration — **done** |
 | 6 | ENV-DOCKER-RUN-001 | Dockerized guided main flow |
 | 7 | ENV-DOCKER-FE-001 | Frontend Docker/local walkthrough |
-| 8 | ENV-DOCKER-CLOSEOUT-001 | First Docker local system closeout |
+| 8 | ENV-DOCKER-CLOSEOUT-001 | First Docker local system closeout — **done** |
 
 **Do not** redo ENV-PG-001 script-mode work inside Docker PRs unless a spec explicitly requires parity proof.
 

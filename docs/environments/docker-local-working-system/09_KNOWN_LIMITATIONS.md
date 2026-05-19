@@ -25,7 +25,7 @@ Items below are **accepted** for v1. They are not excuses to relax safety gates.
 
 - Script-based stack (closed) used process-per-window on host; Docker uses container lifecycle.
 - ENV-PG-001 used port `55432` and database `allagma_e2e`; Docker program uses host-mapped Postgres (default **55433** in `.env.example`) and three logical DBs inside the container.
-- Live browser walkthrough remains **manual** until ENV-DOCKER-FE-001.
+- Live browser walkthrough remains **manual** (see `ontogony-frontend/docs/development/DOCKER_LOCAL_OPERATOR_WALKTHROUGH.md`).
 
 ## Carried from eval / sanity alignment
 
@@ -43,10 +43,6 @@ Items below are **accepted** for v1. They are not excuses to relax safety gates.
 | Manual eval POST | `ManualWriteEnabled` + non-production only |
 | Secrets / raw prompts in UI or reports | Forbidden |
 
-## Next implementation PRs
+## Program status
 
-| PR | Delivers |
-| --- | --- |
-| ENV-DOCKER-RUN-001 | Dockerized guided main flow |
-| ENV-DOCKER-FE-001 | Frontend Docker walkthrough |
-| ENV-DOCKER-CLOSEOUT-001 | Docker phase closeout |
+Docker local working system **closed** (ENV-DOCKER-CLOSEOUT-001). Post-closeout hardening: `docs/releases/FIRST_DOCKER_LOCAL_WORKING_SYSTEM_NEXT_STEPS.md`.
