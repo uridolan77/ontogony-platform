@@ -8,7 +8,7 @@
 
 - Shared `@ontogony/ui` density scale: `comfortable`, `compact`, `dense`.
 - Allagma evaluations operator dashboard (`/allagma/evaluations`) migrated to `OperatorPageFrame density="compact"`, compact route tabs, and compact metric/result cards via shared helpers (`operatorMetricGridClass`, `Card density="compact"`).
-- Storybook toolbar and `/dev/layout` lab document responsive + density behavior for operator laptops and narrow viewports.
+- Storybook toolbar and dev lab `/dev/layout` (`LayoutLabPage` **Density variants** section) document responsive + density behavior for operator laptops and narrow viewports.
 
 ## Cross-repo validation
 
