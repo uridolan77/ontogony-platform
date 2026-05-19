@@ -15,7 +15,7 @@ This closes the first Dockerized local working system. It is not production read
 
 Post-closeout hardening is separate from the closed Docker-local milestone.
 
-**Active:** **`CONEXUS-PERSIST-003`** — Conexus restart/durability regression.
+**Active:** **`KANON-OP-001`** — operator-readable Kanon topology/decision evidence.
 
 Planning detail: `docs/releases/FIRST_DOCKER_LOCAL_WORKING_SYSTEM_NEXT_STEPS.md`
 
@@ -25,8 +25,8 @@ Recommended order:
 |---:|---|---|---|
 | 1 | `CONEXUS-PERSIST-001` | DONE | Conexus persistence/bootstrap/operator visibility |
 | 2 | `CONEXUS-PERSIST-002` | DONE | Conexus migration/bootstrap validation |
-| 3 | `CONEXUS-PERSIST-003` | **active** | Conexus restart/durability regression checks |
-| 4 | `KANON-OP-001` | backlog | Operator-readable Kanon topology/decision evidence |
+| 3 | `CONEXUS-PERSIST-003` | DONE | Conexus restart/durability regression checks |
+| 4 | `KANON-OP-001` | **active** | Operator-readable Kanon topology/decision evidence |
 | 5 | `KANON-OP-002` | backlog | Kanon operational diagnostics |
 | 6 | `TRACE-CONTRACT-001` | backlog | Cross-service trace/correlation contract |
 | 7 | `FE-HARDEN-001` | backlog | Frontend hardening beyond walkthrough |

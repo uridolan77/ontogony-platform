@@ -21,6 +21,8 @@ docker/local-working-system/
     validate-conexus-persistence-bootstrap.ps1
     run-conexus-persistence-durability-regression.ps1
     validate-conexus-persistence-durability-report.ps1
+    inspect-kanon-topology-evidence.ps1
+    validate-kanon-topology-evidence-report.ps1
 ```
 
 Copy `.env.example` to `.env` to override placeholders locally without committing changes:
@@ -191,6 +193,51 @@ cd C:\dev\ontogony-platform
 Report: `docker/local-working-system/artifacts/conexus-persist-003-durability-report.json` (local only; no raw secrets).
 
 Requires route evidence artifacts from seed or guided flow. Runs `CONEXUS-PERSIST-002` validator before and after restart.
+
+## Kanon topology decision evidence (KANON-OP-001)
+
+**Boundary:** operator visibility for Docker-local topology authorization; **not production readiness**.
+
+### What reports contain
+
+| Report | Topology-related fields |
+| --- | --- |
+| `artifacts/env-seed-001-report.json` | `topology.baselineTopologyAuthorizationDecisionId` (null), `topology.subjectTopologyAuthorizationDecisionId`, selected topologies |
+| `artifacts/docker-guided-main-flow-report.json` | `subjectTopologyAuthorizationDecisionId`, `baselineRunId`, `subjectRunId` |
+
+`planningDecisionId` is on the Allagma run object, not in guided-flow JSON. Use the inspect script or `GET /allagma/v0/runs/{runId}`.
+
+### Why baseline auth ID is null
+
+Baseline uses `single_workflow` without `topologyOverride`. Topology selection sets `requiresKanonAuthorization=false`, so Allagma does **not** call Kanon `POST /ontology/v0/execution-topologies/evaluate`. `topologyAuthorizationDecisionId` stays null **by design**.
+
+### Why subject auth ID is set
+
+Subject run context includes `topologyOverride=centralized_orchestrator`. Selection requires Kanon authorization → Allagma records `TopologyAuthorizationRequested` / `Completed` → `topologyAuthorizationDecisionId` points at Kanon `topology_policy_evaluation` decision record.
+
+### Operator trace
+
+```text
+docker-guided-main-flow-report.json
+  → subjectRunId, subjectTopologyAuthorizationDecisionId
+GET /allagma/v0/runs/{subjectRunId}/events?includeTopologySummary=true
+GET /ontology/v0/decision-records/{subjectTopologyAuthorizationDecisionId}   (Kanon :5081)
+GET /ontology/v0/decision-records/{id}/provenance   (optional, ProvenanceReader)
+```
+
+### Inspect script
+
+```powershell
+cd C:\dev\ontogony-platform
+.\docker\local-working-system\scripts\inspect-kanon-topology-evidence.ps1
+.\docker\local-working-system\scripts\validate-kanon-topology-evidence-report.ps1
+```
+
+Report: `artifacts/kanon-op-001-topology-evidence-report.json` (local, redacted; no raw dev tokens).
+
+Requires prior seed or guided flow and live Kanon/Allagma on host ports **5081** / **5083**.
+
+More detail: `kanon-dotnet/docs/operators/TOPOLOGY_DECISION_EVIDENCE.md`, `docs/environments/compose-to-docker-closeout-package-v2/post-closeout-hardening/KANON-OP-001.md`.
 
 ## Seed/bootstrap (ENV-SEED-001)
 
