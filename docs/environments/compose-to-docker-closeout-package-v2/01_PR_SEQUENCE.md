@@ -1,33 +1,49 @@
 # PR Sequence
 
-## Minimal Docker-local closeout path
+## Docker-local closeout path — CLOSED
 
-| Order | PR | Repo(s) | Purpose |
+| Order | PR | Status | Evidence |
 |---:|---|---|---|
-| 1 | `ENV-COMPOSE-001` | `ontogony-platform` | Compose orchestration and startup/wait/reset scripts |
-| 2 | `ENV-DOCKER-RUN-001` | `ontogony-platform`, optionally `allagma-dotnet` | Dockerized guided main flow with restart persistence proof |
-| 3 | `ENV-DOCKER-FE-001` | `ontogony-frontend`, `ontogony-platform` | Frontend walkthrough against Docker-local APIs |
-| 4 | `ENV-DOCKER-CLOSEOUT-001` | `ontogony-platform` | Close first Docker-local working system |
+| 1 | `ENV-COMPOSE-001` | DONE / PASS | `docs/evidence/ENV_COMPOSE_001_DOCKER_COMPOSE_ORCHESTRATION_EVIDENCE.md` |
+| 2 | `ENV-DOCKER-RUN-001` | DONE / PASS | `docs/evidence/ENV_DOCKER_RUN_001_GUIDED_MAIN_FLOW_EVIDENCE.md` |
+| 3 | `ENV-DOCKER-FE-001` | DONE / PASS | `ontogony-frontend/docs/evidence/ENV_DOCKER_FE_001_OPERATOR_WALKTHROUGH_EVIDENCE.md` |
+| 4 | `ENV-DOCKER-CLOSEOUT-001` | DONE / PASS | `docs/evidence/ENV_DOCKER_CLOSEOUT_001_EVIDENCE.md` |
 
-## Post-closeout hardening backlog
+This closes the first Dockerized local working system. It is not production readiness.
 
-These are useful but must not block the first Docker-local closeout:
+## Current phase — Post-Docker-local hardening
 
-```text
-KANON-OP-001
-KANON-OP-002
-CONEXUS-PERSIST-001
-CONEXUS-PERSIST-002
-CONEXUS-PERSIST-003
-FE-HARDEN-001
-FE-AUDIT-FIXTURES-001
-FE-TEST-REPLAY-001
-FE-HYGIENE-CONFIG-001
-UI-PACKAGING-STATUS-001
-TERMINOLOGY-CLEANUP-001
-TRACE-CONTRACT-001
-```
+Post-closeout hardening is separate from the closed Docker-local milestone.
 
-## Sequence rule
+**Next decision:** choose first post-closeout hardening PR — recommended: **`CONEXUS-PERSIST-001`**.
 
-Do not move broad hardening ahead of `ENV-DOCKER-CLOSEOUT-001` unless a hard blocker prevents the first Dockerized local working system from functioning.
+Planning detail: `docs/releases/FIRST_DOCKER_LOCAL_WORKING_SYSTEM_NEXT_STEPS.md`
+
+Recommended order:
+
+| Order | PR | Focus |
+|---:|---|---|
+| 1 | `CONEXUS-PERSIST-001` | Conexus persistence/bootstrap/operator visibility |
+| 2 | `KANON-OP-001` | Operator-readable Kanon topology/decision evidence |
+| 3 | `KANON-OP-002` | Kanon operational diagnostics |
+| 4 | `CONEXUS-PERSIST-002` | Conexus migration/bootstrap validation |
+| 5 | `CONEXUS-PERSIST-003` | Conexus restart/durability regression checks |
+| 6 | `TRACE-CONTRACT-001` | Cross-service trace/correlation contract |
+| 7 | `FE-HARDEN-001` | Frontend hardening beyond walkthrough |
+| 8 | `FE-AUDIT-FIXTURES-001` | Fixture/live boundary audit |
+| 9 | `FE-TEST-REPLAY-001` | Replay/test improvements |
+| 10 | `FE-HYGIENE-CONFIG-001` | Frontend config hygiene |
+| 11 | `UI-PACKAGING-STATUS-001` | `@ontogony/ui` packaging status |
+| 12 | `TERMINOLOGY-CLEANUP-001` | Operator/doc terminology cleanup |
+
+## Optional later work
+
+| Item | Timing |
+|---|---|
+| `ENV-REAL-PROVIDER-001` | After local Docker hardening; explicit opt-in only |
+| `PROD-READINESS-*` | Separate future program |
+| `CI-COST-001` | Optional; if GitHub Actions cost is painful, run before the hardening backlog |
+
+## Sequence rule (historical)
+
+Do not move broad hardening ahead of `ENV-DOCKER-CLOSEOUT-001` unless a hard blocker prevents the first Dockerized local working system from functioning. **That gate is satisfied; the closeout path is closed.**

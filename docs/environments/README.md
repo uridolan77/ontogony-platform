@@ -2,20 +2,22 @@
 
 This folder holds planning packages and **canonical operator documentation** for local Ontogony environments.
 
-## Active package — compose-to-Docker closeout (v2)
+## Package — compose-to-Docker closeout (v2)
 
 **Planning/control package:**
 
 - [`docs/environments/compose-to-docker-closeout-package-v2/`](compose-to-docker-closeout-package-v2/)
 
-This package governed the Docker-local closeout path (**closed** 2026-05-19):
+**Docker-local closeout path — CLOSED** (2026-05-19, not production readiness):
 
-- **ENV-COMPOSE-001** — compose orchestration closeout/evidence
-- **ENV-DOCKER-RUN-001** — Dockerized guided main flow
-- **ENV-DOCKER-FE-001** — Dockerized frontend walkthrough
-- **ENV-DOCKER-CLOSEOUT-001** — Docker local working system closeout
+- **ENV-COMPOSE-001** — DONE / PASS
+- **ENV-DOCKER-RUN-001** — DONE / PASS
+- **ENV-DOCKER-FE-001** — DONE / PASS
+- **ENV-DOCKER-CLOSEOUT-001** — DONE / PASS
 
-Broader hardening items under `compose-to-docker-closeout-package-v2/post-closeout-hardening/` are **post-closeout** and do not block Docker-local closeout.
+**Current phase:** post-Docker-local hardening. **Recommended next PR:** `CONEXUS-PERSIST-001`. See [`FIRST_DOCKER_LOCAL_WORKING_SYSTEM_NEXT_STEPS.md`](../releases/FIRST_DOCKER_LOCAL_WORKING_SYSTEM_NEXT_STEPS.md) and `compose-to-docker-closeout-package-v2/01_PR_SEQUENCE.md`.
+
+Hardening specs under `compose-to-docker-closeout-package-v2/post-closeout-hardening/` are **post-closeout** and separate from the closed milestone.
 
 Unpack evidence: `docs/evidence/COMPOSE_TO_DOCKER_CLOSEOUT_PACKAGE_V2_UNPACK_EVIDENCE.md`
 

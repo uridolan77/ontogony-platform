@@ -10,14 +10,35 @@
 | ENV-DB-001 | done |
 | ENV-SEED-001 | done for host-local API deterministic seed verification |
 
-## Active
+## Docker-local closeout path — CLOSED
+
+| Item | Status | Evidence / notes |
+|---|---|---|
+| ENV-COMPOSE-001 | DONE / PASS | `docs/evidence/ENV_COMPOSE_001_DOCKER_COMPOSE_ORCHESTRATION_EVIDENCE.md` |
+| ENV-DOCKER-RUN-001 | DONE / PASS | `docs/evidence/ENV_DOCKER_RUN_001_GUIDED_MAIN_FLOW_EVIDENCE.md` |
+| ENV-DOCKER-FE-001 | DONE / PASS | `ontogony-frontend/docs/evidence/ENV_DOCKER_FE_001_OPERATOR_WALKTHROUGH_EVIDENCE.md` |
+| ENV-DOCKER-CLOSEOUT-001 | DONE / PASS | `docs/evidence/ENV_DOCKER_CLOSEOUT_001_EVIDENCE.md` — milestone closed 2026-05-19 |
+
+First Dockerized local working system: **CLOSED / PASS**. Not production readiness.
+
+## Current phase — Post-Docker-local hardening
 
 | Item | Status | Notes |
 |---|---|---|
-| ENV-COMPOSE-001 | done | Evidence reaffirmed 2026-05-19 |
-| ENV-DOCKER-RUN-001 | done | Guided flow + Allagma restart durability |
-| ENV-DOCKER-FE-001 | done | Frontend walkthrough |
-| ENV-DOCKER-CLOSEOUT-001 | done | Milestone closeout — 2026-05-19 |
+| **CONEXUS-PERSIST-001** | **recommended next** | Conexus persistence/bootstrap/operator visibility |
+| KANON-OP-001 | backlog | Operator-readable Kanon topology/decision evidence |
+| KANON-OP-002 | backlog | Kanon operational diagnostics |
+| CONEXUS-PERSIST-002 | backlog | Conexus migration/bootstrap validation |
+| CONEXUS-PERSIST-003 | backlog | Conexus restart/durability regression checks |
+| TRACE-CONTRACT-001 | backlog | Cross-service trace/correlation contract |
+| FE-HARDEN-001 | backlog | Frontend hardening beyond walkthrough |
+| FE-AUDIT-FIXTURES-001 | backlog | Fixture/live boundary audit |
+| FE-TEST-REPLAY-001 | backlog | Replay/test improvements |
+| FE-HYGIENE-CONFIG-001 | backlog | Frontend config hygiene |
+| UI-PACKAGING-STATUS-001 | backlog | `@ontogony/ui` packaging status |
+| TERMINOLOGY-CLEANUP-001 | backlog | Operator/doc terminology cleanup |
+
+See `docs/releases/FIRST_DOCKER_LOCAL_WORKING_SYSTEM_NEXT_STEPS.md` and `01_PR_SEQUENCE.md`.
 
 ## Boundary notes
 
