@@ -1,8 +1,9 @@
 # FE-PRODUCT-002 — Run detail evidence depth (tracking)
 
-**Date:** 2026-05-19
+**Date:** 2026-05-19  
+**Status:** **DONE** (merged ontogony-frontend PR #8, 2026-05-19)
 
-Implementation PR: ontogony-frontend `feature/fe-product-002-run-detail-evidence-depth`.
+Implementation: ontogony-frontend `main` — evidence journey card, run/eval detail cross-links, unit + e2e tests.
 
 ## Delivered
 
