@@ -19,6 +19,8 @@ docker/local-working-system/
     run-docker-guided-main-flow.ps1
     validate-docker-guided-main-flow.ps1
     validate-conexus-persistence-bootstrap.ps1
+    run-conexus-persistence-durability-regression.ps1
+    validate-conexus-persistence-durability-report.ps1
 ```
 
 Copy `.env.example` to `.env` to override placeholders locally without committing changes:
@@ -176,6 +178,19 @@ Options:
 - `-RequireRouteEvidence` — require `baselineRouteDecisionId` / `subjectRouteDecisionId` in guided or seed artifacts
 
 Run after `wait-local-working-system.ps1`. For full route proof, run `run-docker-guided-main-flow.ps1` first (or pass `-RequireRouteEvidence` only when artifacts exist).
+
+### Conexus durability regression (CONEXUS-PERSIST-003)
+
+Proves **conexus-api** restart does not lose Postgres-backed bootstrap/routing state:
+
+```powershell
+cd C:\dev\ontogony-platform
+.\docker\local-working-system\scripts\run-conexus-persistence-durability-regression.ps1 -SkipFrontend
+```
+
+Report: `docker/local-working-system/artifacts/conexus-persist-003-durability-report.json` (local only; no raw secrets).
+
+Requires route evidence artifacts from seed or guided flow. Runs `CONEXUS-PERSIST-002` validator before and after restart.
 
 ## Seed/bootstrap (ENV-SEED-001)
 

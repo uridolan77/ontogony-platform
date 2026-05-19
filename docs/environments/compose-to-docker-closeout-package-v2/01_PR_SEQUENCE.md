@@ -15,7 +15,7 @@ This closes the first Dockerized local working system. It is not production read
 
 Post-closeout hardening is separate from the closed Docker-local milestone.
 
-**Active:** **`CONEXUS-PERSIST-002`** — migration/bootstrap validation automation.
+**Active:** **`CONEXUS-PERSIST-003`** — Conexus restart/durability regression.
 
 Planning detail: `docs/releases/FIRST_DOCKER_LOCAL_WORKING_SYSTEM_NEXT_STEPS.md`
 
@@ -24,10 +24,10 @@ Recommended order:
 | Order | PR | Status | Focus |
 |---:|---|---|---|
 | 1 | `CONEXUS-PERSIST-001` | DONE | Conexus persistence/bootstrap/operator visibility |
-| 2 | `CONEXUS-PERSIST-002` | **active** | Conexus migration/bootstrap validation |
-| 3 | `KANON-OP-001` | backlog | Operator-readable Kanon topology/decision evidence |
-| 4 | `KANON-OP-002` | backlog | Kanon operational diagnostics |
-| 5 | `CONEXUS-PERSIST-003` | backlog | Conexus restart/durability regression checks |
+| 2 | `CONEXUS-PERSIST-002` | DONE | Conexus migration/bootstrap validation |
+| 3 | `CONEXUS-PERSIST-003` | **active** | Conexus restart/durability regression checks |
+| 4 | `KANON-OP-001` | backlog | Operator-readable Kanon topology/decision evidence |
+| 5 | `KANON-OP-002` | backlog | Kanon operational diagnostics |
 | 6 | `TRACE-CONTRACT-001` | backlog | Cross-service trace/correlation contract |
 | 7 | `FE-HARDEN-001` | backlog | Frontend hardening beyond walkthrough |
 | 8 | `FE-AUDIT-FIXTURES-001` | backlog | Fixture/live boundary audit |
