@@ -103,6 +103,23 @@ docker compose --env-file .\docker\local-working-system\.env.example `
 .\docker\local-working-system\scripts\seed-and-verify-local-working-system.ps1
 ```
 
+## Package v2 reaffirmation (2026-05-19)
+
+Active control package: `docs/environments/compose-to-docker-closeout-package-v2/`.
+
+Re-validated after package v2 activation (same compose root; fresh stack after volume reset):
+
+| Check | Result |
+| --- | --- |
+| `docker compose config` | **PASS** |
+| postgres healthy | **PASS** |
+| kanon-api `/health` | **PASS** |
+| conexus-api `/health/live` | **PASS** |
+| allagma-api `/health` | **PASS** |
+| ontogony-frontend `/` | **PASS** |
+| Conexus `/ready` pre-bootstrap (strict) | **PASS** (`503` expected) |
+| `seed-and-verify-local-working-system.ps1` | **PASS** (via ENV-DOCKER-RUN-001 run) |
+
 ## Closeout results (2026-05-19)
 
 | Check | Result |

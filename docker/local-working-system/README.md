@@ -16,6 +16,8 @@ docker/local-working-system/
     reset-local-working-system.ps1
     verify-postgres-bootstrap.ps1
     seed-and-verify-local-working-system.ps1
+    run-docker-guided-main-flow.ps1
+    validate-docker-guided-main-flow.ps1
 ```
 
 Copy `.env.example` to `.env` to override placeholders locally without committing changes:
@@ -84,6 +86,18 @@ cd C:\dev\ontogony-platform
 cd C:\dev\ontogony-platform
 .\docker\local-working-system\scripts\seed-and-verify-local-working-system.ps1
 ```
+
+## Dockerized guided main flow (ENV-DOCKER-RUN-001)
+
+Runs wait → seed/bootstrap → `allagma-api` restart → persistence re-fetch → machine report validation.
+
+```powershell
+cd C:\dev\ontogony-platform
+.\docker\local-working-system\scripts\run-docker-guided-main-flow.ps1
+.\docker\local-working-system\scripts\validate-docker-guided-main-flow.ps1
+```
+
+Report: `docker/local-working-system/artifacts/docker-guided-main-flow-report.json`
 
 ## Troubleshooting
 

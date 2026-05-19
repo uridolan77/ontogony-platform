@@ -46,7 +46,7 @@ Same eval harness as script-based sanity (see `allagma-dotnet/scripts/run-full-s
 
 ## Automation (later)
 
-ENV-DOCKER-RUN-001 adds a Docker-aware guided runner (analogous to `scripts/env/run-guided-main-flow.ps1`). Until then, operators follow this doc and existing sanity scripts adapted for compose.
+ENV-DOCKER-RUN-001 provides `docker/local-working-system/scripts/run-docker-guided-main-flow.ps1` (seed + Allagma restart durability + machine report).
 
 ## Prior art
 

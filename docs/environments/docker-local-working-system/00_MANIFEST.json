@@ -42,14 +42,15 @@
     "ENV-DB-001": "done",
     "ENV-SEED-001": "done (host-local API verification)",
     "ENV-COMPOSE-001": "done",
-    "ENV-DOCKER-RUN-001": "planned",
+    "ENV-DOCKER-RUN-001": "done",
     "ENV-DOCKER-FE-001": "planned",
     "ENV-DOCKER-CLOSEOUT-001": "planned"
   },
   "evidence": {
     "ENV-DB-001": "docs/evidence/ENV_DB_001_POSTGRES_BOOTSTRAP_EVIDENCE.md",
     "ENV-SEED-001": "docs/evidence/ENV_SEED_001_DETERMINISTIC_BOOTSTRAP_EVIDENCE.md",
-    "ENV-COMPOSE-001": "docs/evidence/ENV_COMPOSE_001_DOCKER_COMPOSE_ORCHESTRATION_EVIDENCE.md"
+    "ENV-COMPOSE-001": "docs/evidence/ENV_COMPOSE_001_DOCKER_COMPOSE_ORCHESTRATION_EVIDENCE.md",
+    "ENV-DOCKER-RUN-001": "docs/evidence/ENV_DOCKER_RUN_001_GUIDED_MAIN_FLOW_EVIDENCE.md"
   },
   "safety": [
     "Fake/local Conexus provider first",
