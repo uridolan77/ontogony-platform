@@ -35,6 +35,13 @@
 
 Document limitations honestly. Do not mask missing capabilities with fake success states.
 
+## EVAL-POLISH-001 outcomes (2026-05-19)
+
+- Baseline list query semantics are aligned across persistence modes for `promotionRecommendation`.
+- Baseline list invalid/continuation cursor behavior is explicitly covered in backend API tests.
+- Frontend evaluation/baseline/dataset detail routes now preserve degraded/auth error states instead of collapsing all non-OK responses into null/not-found.
+- Eval quality detail now uses tri-state copy for judge metadata (`true`/`false`/unknown).
+
 ## Separate from PFH (production-readiness)
 
 - Real Conexus provider keys and cost

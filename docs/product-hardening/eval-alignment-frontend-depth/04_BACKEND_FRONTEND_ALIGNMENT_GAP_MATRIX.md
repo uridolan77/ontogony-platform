@@ -51,3 +51,11 @@ A surface is **aligned** only when route, OpenAPI, client, hook, adapter, UI sta
 | FE client | `ontogony-frontend/src/allagma/api/allagmaClient.ts` |
 | Prior matrix | `docs/alignment/eval-full-sanity-alignment/02_FRONTEND_CONSUMPTION_MATRIX.md` |
 | PFH package | `docs/product-hardening/eval-alignment-frontend-depth/` |
+
+## EVAL-POLISH-001 updates (2026-05-19)
+
+- Baseline comparison list filter semantics were tightened so `promotionRecommendation` matching is now consistent between in-memory/harness and Postgres list paths.
+- Frontend detail wrappers for evaluation, baseline comparison, and dataset detail now distinguish:
+  - `404` => not-found/null page semantics
+  - `401/403/500/network` => normalized error state via `OperatorApiError`
+- Dataset page no longer treats `dashboardFixture` query param as a configured live data source.

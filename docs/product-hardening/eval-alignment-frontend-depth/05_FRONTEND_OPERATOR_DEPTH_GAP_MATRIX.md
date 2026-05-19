@@ -14,6 +14,15 @@
 | Route catalogs | `release-route-catalog.json` — static `/allagma/evaluations`, `/allagma/replay` only | Add param routes or document intentional omission | `ALIGN-PRODUCT-002` |
 | Config / fixture ops | `FRONTEND_FIXTURE_LIVE_BOUNDARY.md`, `fixtures:check`, `config:check` | Extend catalogs when new eval query params land | `FE-HYGIENE` follow-ups |
 
+## EVAL-POLISH-001 updates (2026-05-19)
+
+- Eval detail and baseline comparison detail now preserve degraded-state visibility (auth/degraded/network failures no longer collapse into generic missing/null UI).
+- Quality judge wording on eval detail now uses explicit tri-state copy:
+  - advisory when `llmJudgeEnabled=true`
+  - deterministic baseline when `llmJudgeEnabled=false`
+  - metadata unavailable when the flag is missing/sparse
+- Dataset page fixture/live boundary is explicit: `dashboardFixture` does not imply dataset fixture support on that route.
+
 ## UX rules (unchanged)
 
 - Never silently substitute fixture data for live failure.
