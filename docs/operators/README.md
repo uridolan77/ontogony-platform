@@ -9,6 +9,7 @@ Cross-repo governance and operator contracts published from `ontogony-platform`.
 | [TRACE_CORRELATION_CONTRACT.md](./TRACE_CORRELATION_CONTRACT.md) | Trace / correlation headers and propagation |
 | [CI_COST_CONTROL.md](./CI_COST_CONTROL.md) | CI cost controls and branch protection guidance |
 | [REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md](./REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md) | Local real-provider opt-in, budget, kill switch (`RP-001`) |
+| [OPERATOR_V1_DEMO_GUIDE.md](./OPERATOR_V1_DEMO_GUIDE.md) | Ten-minute operator walkthrough (`SYSTEM-DEMO-FLOWS-001`) |
 
 **Documentation map:** [`docs/README.md`](../README.md)  
 **Evidence:** [`docs/evidence/README.md`](../evidence/README.md)
