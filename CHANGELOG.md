@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+Q-006-001 — public API snapshot reconciliation (lock blocker cleanup):
+
+- **`Ontogony.AI.Contracts`** — approved `LlmCostRecord.CostUnknownReason` in the public API snapshot.
+- **`Ontogony.Secrets`** — approved `SecretsServiceCollectionExtensions.AddOntogonyCompositeSecretValueResolver(...)` in the public API snapshot.
+- **Tests:** `Ontogony.PublicApi.Tests` `ShippingAssemblyPublicApiTests` passes with updated approved snapshots.
+
 PLAT-TOPO-001 — neutral topology contracts (`Ontogony.Topology.Contracts`):
 
 - **`Ontogony.Topology.Contracts`** — task classification, topology selection, and constraint DTOs plus standard topology mode and task classification string constants (opaque strings; no planner or policy engine).

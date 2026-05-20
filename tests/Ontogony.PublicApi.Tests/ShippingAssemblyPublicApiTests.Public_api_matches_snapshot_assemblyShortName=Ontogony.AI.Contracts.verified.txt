@@ -4,6 +4,7 @@
     {
         public LlmCostRecord(string? Currency, decimal? EstimatedCost, decimal? ActualCost, string? PriceCatalogVersion, string? CostUnknownReason = null) { }
         public decimal? ActualCost { get; init; }
+        public string? CostUnknownReason { get; init; }
         public string? Currency { get; init; }
         public decimal? EstimatedCost { get; init; }
         public string? PriceCatalogVersion { get; init; }
