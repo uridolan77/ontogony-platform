@@ -153,6 +153,29 @@ function Invoke-EnvSeed001 {
     }
     Write-Host "PASS bootstrap: Conexus dev project + fake provider route."
 
+    foreach ($semanticAlias in @("risk-summary-v0", "risk-summary-stream-v0")) {
+        $semanticBody = @{
+            projectId = "dev-project"
+            displayName = "Development Project"
+            modelAlias = $semanticAlias
+            providerKey = "fake"
+            providerModel = "fake.chat"
+            createProjectKey = $false
+        } | ConvertTo-Json
+
+        $semanticBootstrap = Invoke-RestMethod `
+            -Method Post `
+            -Uri "$ConexusBaseUrl/admin/v0/dev/bootstrap" `
+            -Headers $conexusAdminHeaders `
+            -ContentType "application/json" `
+            -Body $semanticBody
+
+        if ($semanticBootstrap.alias -ne $semanticAlias) {
+            throw "Conexus bootstrap alias mismatch for $semanticAlias."
+        }
+        Write-Host "PASS bootstrap: Conexus alias $semanticAlias (semantic Allagma purposes)."
+    }
+
     $conexusReadinessStatusAfterBootstrap = $null
     try {
         $conexusReadyResponse = Invoke-WebRequest -Uri "$ConexusBaseUrl/ready" -UseBasicParsing -TimeoutSec 5

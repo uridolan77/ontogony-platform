@@ -136,6 +136,23 @@ Primary backend audit: `conexus-dotnet/docs/reviews/CONEXUS_DEEPEN_000_CURRENT_S
 
 ---
 
+## Allagma actionability workbench (ALLAGMA-ACTION)
+
+**Package intake:** `allagma-dotnet/docs/_incoming/Ontogony-Allagma-Actionability-Workbench-Package-v1/`  
+**Roadmap:** `allagma-dotnet/docs/_incoming/.../03_ACTIONABILITY_ROADMAP.md`
+
+| Item | File |
+| --- | --- |
+| ALLAGMA-ACTION-000 audit | [ALLAGMA_ACTION_000_CURRENT_STATE_AUDIT_EVIDENCE.md](./ALLAGMA_ACTION_000_CURRENT_STATE_AUDIT_EVIDENCE.md) |
+| ALLAGMA-ACTION-000 review | [ALLAGMA_ACTION_000_CURRENT_STATE_AUDIT.md](../reviews/ALLAGMA_ACTION_000_CURRENT_STATE_AUDIT.md) |
+| ALLAGMA-ACTION-001 start run | [ALLAGMA_ACTION_001_START_RUN_WORKBENCH_EVIDENCE.md](./ALLAGMA_ACTION_001_START_RUN_WORKBENCH_EVIDENCE.md) |
+| ALLAGMA-ACTION-001A cleanup | [ALLAGMA_ACTION_001A_START_RUN_CLEANUP_EVIDENCE.md](./ALLAGMA_ACTION_001A_START_RUN_CLEANUP_EVIDENCE.md) |
+| ALLAGMA-ACTION-001 closeout review | [ALLAGMA_ACTION_001_CLOSEOUT.md](../reviews/ALLAGMA_ACTION_001_CLOSEOUT.md) |
+
+Frontend detail: `ontogony-frontend/docs/evidence/ALLAGMA_ACTION_001_START_RUN_WORKBENCH_EVIDENCE.md`
+
+---
+
 ## UI shared foundation hardening (UI-HARDEN)
 
 | Item | File |

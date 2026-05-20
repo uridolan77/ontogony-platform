@@ -25,5 +25,10 @@ Primary: `ontogony-frontend/docs/evidence/ALLAGMA_ACTION_001_START_RUN_WORKBENCH
 ```text
 ACTION-000 audit — complete
 ACTION-001 start run — complete
+ACTION-001A cleanup — complete (see ALLAGMA_ACTION_001A_START_RUN_CLEANUP_EVIDENCE.md)
 ACTION-002 human gate resume — next
 ```
+
+## Closeout review
+
+[ALLAGMA_ACTION_001_CLOSEOUT.md](../reviews/ALLAGMA_ACTION_001_CLOSEOUT.md)

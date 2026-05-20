@@ -9,7 +9,7 @@
 
 ## Executive summary
 
-Allagma already exposes **six operator-actionable HTTP contracts** (start run, resume, manual evaluation write, baseline comparison create, run audit export, eval evidence export) plus extensive **read surfaces** for runs, events, capabilities, and evaluation catalogs. The operator UI is **read-heavy and partially actionable**: resume (run detail + human gates) and eval evidence export are wired; start run, baseline compare create, manual evaluation create, and dedicated run-audit copy/download actions are **not operator-grade** despite existing backend routes.
+Allagma already exposes **six operator-actionable HTTP contracts** (start run, resume, manual evaluation write, baseline comparison create, run audit export, eval evidence export) plus extensive **read surfaces** for runs, events, capabilities, and evaluation catalogs. The operator UI is **read-heavy and partially actionable**: resume (run detail + human gates), eval evidence export, and **start run** (`/allagma/runs/start`, ALLAGMA-ACTION-001) are wired; baseline compare create, manual evaluation create, and dedicated run-audit copy/download actions remain **not operator-grade** despite existing backend routes.
 
 **Unsupported as HTTP routes today:** retry run, cancel run, live replay trigger, deny human gate (Kanon-only), bulk export, promote baseline/eval.
 
