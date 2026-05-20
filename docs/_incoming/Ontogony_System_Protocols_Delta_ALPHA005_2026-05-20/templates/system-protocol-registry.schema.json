@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/system-protocol-registry.schema.json",
+  "title": "Ontogony System Protocol Registry",
+  "type": "object",
+  "required": [
+    "schema",
+    "baseline",
+    "generatedAt",
+    "repos",
+    "protocols",
+    "evidence",
+    "quarantines"
+  ],
+  "properties": {
+    "schema": {
+      "const": "ontogony-system-protocol-registry-v1"
+    },
+    "baseline": {
+      "type": "string"
+    },
+    "generatedAt": {
+      "type": "string"
+    },
+    "repos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "role",
+          "ref",
+          "commit"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "ref": {
+            "type": "string"
+          },
+          "commit": {
+            "type": "string"
+          },
+          "packageVersions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "protocols": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "ownerRepo",
+          "kind",
+          "paths"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "ownerRepo": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "route",
+              "auth",
+              "env",
+              "error",
+              "trace",
+              "evidence",
+              "frontend-route",
+              "runtime-lock",
+              "observability"
+            ]
+          },
+          "paths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "validators": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "path",
+          "verdict"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "verdict": {
+            "type": "string"
+          },
+          "recordedAt": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "quarantines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "rationale"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "open",
+              "cleared",
+              "carried-forward"
+            ]
+          },
+          "rationale": {
+            "type": "string"
+          },
+          "followup": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

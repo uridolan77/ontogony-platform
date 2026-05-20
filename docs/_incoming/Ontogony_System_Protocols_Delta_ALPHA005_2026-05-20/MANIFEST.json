@@ -1,0 +1,195 @@
+{
+  "package": "Ontogony System Protocols Delta after SYSTEM-ALPHA-005",
+  "generated": "2026-05-20",
+  "baseline": "SYSTEM-ALPHA-005",
+  "status": "refined-up-to-date-planning-package",
+  "non_claims": [
+    "not production readiness",
+    "does not enable real external tool execution",
+    "does not claim current moving-main has been re-locked unless validation gates pass"
+  ],
+  "repos": [
+    "uridolan77/ontogony-platform",
+    "uridolan77/allagma-dotnet",
+    "uridolan77/kanon-dotnet",
+    "uridolan77/conexus-dotnet",
+    "uridolan77/ontogony-frontend",
+    "uridolan77/ontogony-ui"
+  ],
+  "key_verdict": "Treat SYSTEM-ALPHA-005 as last cut baseline; current main has moved beyond the lock. Build the next package around observability quarantine closure, lock refresh, protocol registry, drift prevention, and evidence-index reconciliation.",
+  "files": [
+    {
+      "path": "00_EXECUTIVE_BRIEF.md",
+      "sha256": "2135770a5d6f187871ab110866f9cebb1a4b30421e0b5efbd99d176f5c8b2e76",
+      "bytes": 1727
+    },
+    {
+      "path": "01_CURRENT_STATE_ASSESSMENT.md",
+      "sha256": "cbe48092f055d218adf9d78b26b0586c20bc1ee0d5685f9a593676b51fa782f0",
+      "bytes": 2700
+    },
+    {
+      "path": "02_MOVING_MAIN_DELTA.md",
+      "sha256": "3bacfc31c454398589eac0a99227d5f2ac1a54fdeef0220e9d2e92623ad7ee0a",
+      "bytes": 1457
+    },
+    {
+      "path": "03_REFINED_BACKLOG.md",
+      "sha256": "1f6b31bf1ca081ac51e65f94091ec22bdfb195afb76588083742a2ac3b0f4b53",
+      "bytes": 12953
+    },
+    {
+      "path": "04_SPRINT_PLAN.md",
+      "sha256": "0897567a7e4391ed9d42e44e763d6889e124ea88b5e2b5a097282ac57d6a3085",
+      "bytes": 1425
+    },
+    {
+      "path": "05_ACCEPTANCE_MATRIX.md",
+      "sha256": "3fbc525c0da8042041a988e33ddea12dd5918ff642c07e6e5cdc6d5e512dae7e",
+      "bytes": 3925
+    },
+    {
+      "path": "06_VERIFICATION_CHECKLIST.md",
+      "sha256": "3650dd10ada405b652aabe1ad5b4a8cda12a7e8bc27060292ad94e08bb903065",
+      "bytes": 2083
+    },
+    {
+      "path": "07_SOURCE_MAP.md",
+      "sha256": "8ee341c4e8a32ef794433792dba67b06f53edd447bc9d5314b56d79f4c7c3774",
+      "bytes": 1871
+    },
+    {
+      "path": "08_SUPERSEDED_ITEMS.md",
+      "sha256": "6ee4175ba7109e6ef47f07c05d76e6349cb399aae82e5f94474c7ea63bc1f125",
+      "bytes": 1375
+    },
+    {
+      "path": "README.md",
+      "sha256": "eba8036c4b5514afd0ff6259c1a0cc6f2941f4b0c4ef71382eab09a6dfcc0b8b",
+      "bytes": 1976
+    },
+    {
+      "path": "data/refined_backlog.csv",
+      "sha256": "635e429c8cc281c4e85fa60ecae65860fc3f5b467db3d7e455e4fdfb7bdc053e",
+      "bytes": 11438
+    },
+    {
+      "path": "data/refined_backlog.json",
+      "sha256": "54647e51332463bf9ca74cb088c1763610070bacb72c92ec06ea6894e26cefd9",
+      "bytes": 13479
+    },
+    {
+      "path": "issue-cards/ALLAGMA-RUNTIME-POSTURE-001.md",
+      "sha256": "572ceaa13b23979ed8078bdccbc34883f48d30366fd3730090edfaf74eb339e3",
+      "bytes": 1330
+    },
+    {
+      "path": "issue-cards/CONEXUS-EVIDENCE-FLOW-001.md",
+      "sha256": "da8c749235e29b97ad8022489d66b8a8b1fe9288b42ffb0396dacd5c995534c2",
+      "bytes": 1289
+    },
+    {
+      "path": "issue-cards/CONEXUS-POSTLOCK-001.md",
+      "sha256": "45f182b9e2bce806f5109840edd0dd6615fb303ab3df42a6d78aa31501667845",
+      "bytes": 1276
+    },
+    {
+      "path": "issue-cards/KANON-CONNECT-LOCK-001.md",
+      "sha256": "91dc4da8202a911988e72fb496849de3143c16337a3f7db19e20e875639dbc66",
+      "bytes": 1269
+    },
+    {
+      "path": "issue-cards/SYS-CONNECT-MATRIX-AUDIT-001.md",
+      "sha256": "19b5eb9372764e3e208e15bc7ee25d21059f56b8d44c5dec40536ed7724c5698",
+      "bytes": 1494
+    },
+    {
+      "path": "issue-cards/SYS-E2E-REVALIDATE-006.md",
+      "sha256": "14a01d0a4a4c41f4d1a66d18571edd5979851167c1596b0b5c08e75d6f072a34",
+      "bytes": 1199
+    },
+    {
+      "path": "issue-cards/SYS-EVIDENCE-INDEX-006.md",
+      "sha256": "50d2042ff7f6bcb37ab49242dc0ad9fd1d66cecd9b80277291f281aa49c0b866",
+      "bytes": 1238
+    },
+    {
+      "path": "issue-cards/SYS-LOCK-006.md",
+      "sha256": "6db92c522a8b312062dc7b7a7fd718a895b037006067a5edd9137f081599a10d",
+      "bytes": 1391
+    },
+    {
+      "path": "issue-cards/SYS-OBS-004A.md",
+      "sha256": "da28cbc388d9074e6c062573a6dc936fcce7fa2efa00c2a2c4939b476a1ab13a",
+      "bytes": 1291
+    },
+    {
+      "path": "issue-cards/SYS-PROTOCOL-REGISTRY-001.md",
+      "sha256": "ec44e9a3f9865284bf8d50b2d31c266e8d22e77019448685f3a019aa441c4df2",
+      "bytes": 1443
+    },
+    {
+      "path": "issue-cards/SYS-REAL-TOOLS-BLOCK-VERIFY-001.md",
+      "sha256": "2bab65de31c97640f100e8dc6cf7f51bcd77a4783832687ee60f03545a90686e",
+      "bytes": 1195
+    },
+    {
+      "path": "issue-cards/SYS-STALE-PACKAGE-GUARD-001.md",
+      "sha256": "a023227f353a757099b4d0f4f6b7d51292c4f2bbdc024268ce73b66fd4a8254e",
+      "bytes": 1365
+    },
+    {
+      "path": "repo-plans/allagma-dotnet.md",
+      "sha256": "5f50bb8f22131debae97ccc9c77f412a2a328e0bc068420fc13d7e8515199ed4",
+      "bytes": 518
+    },
+    {
+      "path": "repo-plans/conexus-dotnet.md",
+      "sha256": "305a8b5a1d95957a0de1ecb1e007e4214ac3ccf2f9db7904b3bacd4c66b57fd9",
+      "bytes": 532
+    },
+    {
+      "path": "repo-plans/kanon-dotnet.md",
+      "sha256": "1d4da445e10c44e86f246aa66d2fb7b28cf541a54b7a62c1559ad2458fc47169",
+      "bytes": 536
+    },
+    {
+      "path": "repo-plans/ontogony-frontend.md",
+      "sha256": "b486d17931527559cda4264bbc0db1fe817eb9b039f92fb205d3a16444de2848",
+      "bytes": 475
+    },
+    {
+      "path": "repo-plans/ontogony-platform.md",
+      "sha256": "bcde77c535fc494b13b8b771650b9519bac7177a8cf466bc0205ea2fc57eb515",
+      "bytes": 658
+    },
+    {
+      "path": "repo-plans/ontogony-ui.md",
+      "sha256": "e56169725839d104ed9ecdbb57dcc01bdfe15474d869b51df6b600b39d91dec6",
+      "bytes": 352
+    },
+    {
+      "path": "scripts/validate-incoming-package.ps1",
+      "sha256": "056fd859a759e4a5809e94f57a7ec08ceab15511d3ca6c1c8fe266af59d7e196",
+      "bytes": 1335
+    },
+    {
+      "path": "source-notes/current-main-observations.md",
+      "sha256": "a1461c517a9b208323e0cf285f98cc3d8ca43254b0f3bcafcaca7db6b9a3494f",
+      "bytes": 797
+    },
+    {
+      "path": "templates/system-protocol-registry.example.json",
+      "sha256": "ef724e8c63e58488da6763411d2e6145f0811abfa142faec8e050634f76bd222",
+      "bytes": 1836
+    },
+    {
+      "path": "templates/system-protocol-registry.schema.json",
+      "sha256": "b5fe4170795230604d2ae66e3a88ae4d4dffdcbfa2b501b6aa45bf4edac51f44",
+      "bytes": 3145
+    }
+  ],
+  "backlog_count": 12,
+  "p0_count": 7,
+  "p1_count": 5
+}
