@@ -57,6 +57,11 @@ ontogony-frontend:
 - “Show requests missing token usage” applies `tokenUsage=missing` via `GET /admin/v0/model-calls` list filter.
 - List rows expose `tokenUsageAvailable`.
 
+## Review polish (004B)
+
+- `tokenUsage` query param must be `present` or `missing` (400 otherwise).
+- `tokenUsageAvailable` means usage was **captured** (any non-null token field), not “tokens &gt; 0”.
+
 ## Next expected item
 
 **CONEXUS-DEEPEN-005** — Cross-service evidence spine (resolver + detail links).

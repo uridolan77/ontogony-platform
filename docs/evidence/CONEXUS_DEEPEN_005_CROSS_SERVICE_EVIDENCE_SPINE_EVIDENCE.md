@@ -55,6 +55,10 @@ ontogony-frontend:
   npx vitest run src/conexus/adapters/conexusUsageAdapters.test.ts
 ```
 
+## Review polish (005A)
+
+- When no Kanon decision id is resolved but trace id is known, spine shows **Kanon decisions (trace)** with a working trace-scoped search link.
+
 ## Known limitations
 
 - Allagma/Kanon ids still require trace correlation (not stored on Conexus telemetry rows).
