@@ -2,7 +2,8 @@
 
 **Date:** 2026-05-20  
 **Scope:** Cross-service evidence, trace/correlation, local operator stack, and platform mechanics used by Conexus observability deepening  
-**Primary backend audit:** [`conexus-dotnet/docs/reviews/CONEXUS_DEEPEN_000_CURRENT_STATE_AUDIT.md`](https://github.com/uridolan77/conexus-dotnet/blob/main/docs/reviews/CONEXUS_DEEPEN_000_CURRENT_STATE_AUDIT.md)  
+**Evidence index:** [`docs/evidence/CONEXUS_DEEPEN_000_CURRENT_STATE_AUDIT_EVIDENCE.md`](../evidence/CONEXUS_DEEPEN_000_CURRENT_STATE_AUDIT_EVIDENCE.md)  
+**Primary backend audit:** `conexus-dotnet/docs/reviews/CONEXUS_DEEPEN_000_CURRENT_STATE_AUDIT.md`  
 **Mode:** Audit only — no product code changes in this step.
 
 ## Executive summary

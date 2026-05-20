@@ -117,6 +117,21 @@ Kanon backend OpenAPI (002): `kanon-dotnet/docs/evidence/KANON_DEEPEN_002_DOMAIN
 
 ---
 
+## Conexus deepening (CONEXUS-DEEPEN)
+
+**Package intake:** `conexus-dotnet/docs/_incoming/Ontogony-Conexus-Deep-Enhancement-Package-v1/`  
+**Roadmap:** `conexus-dotnet/docs/_incoming/.../03_ROADMAP.md`
+
+| Item | File |
+| --- | --- |
+| CONEXUS-DEEPEN-000 audit | [CONEXUS_DEEPEN_000_CURRENT_STATE_AUDIT_EVIDENCE.md](./CONEXUS_DEEPEN_000_CURRENT_STATE_AUDIT_EVIDENCE.md) |
+| CONEXUS-DEEPEN-001 request list | [CONEXUS_DEEPEN_001_REQUEST_LIFECYCLE_LIST_EVIDENCE.md](./CONEXUS_DEEPEN_001_REQUEST_LIFECYCLE_LIST_EVIDENCE.md) |
+| CONEXUS-DEEPEN-000 platform cross-cut | [CONEXUS_DEEPEN_000 audit (reviews)](../reviews/CONEXUS_DEEPEN_000_CURRENT_STATE_AUDIT.md) |
+
+Primary backend audit: `conexus-dotnet/docs/reviews/CONEXUS_DEEPEN_000_CURRENT_STATE_AUDIT.md`
+
+---
+
 ## UI shared foundation hardening (UI-HARDEN)
 
 | Item | File |
