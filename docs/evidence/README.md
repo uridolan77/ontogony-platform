@@ -147,6 +147,18 @@ Kanon backend OpenAPI (002): `kanon-dotnet/docs/evidence/KANON_DEEPEN_002_DOMAIN
 
 ---
 
+## Kanon cross-repo connect (KANON-CONNECT)
+
+Pre–SYSTEM-ALPHA connection inventory and hardening (no new Kanon product features).
+
+| Item | File |
+| --- | --- |
+| KANON-CONNECT-001 cross-repo feature map | [KANON_CONNECT_001_CROSS_REPO_FEATURE_MAP.md](./KANON_CONNECT_001_CROSS_REPO_FEATURE_MAP.md) |
+
+Planned follow-ups: KANON-CONNECT-002 (settings/env), 003 (Allagma link proof), 004 (Conexus assistance observability), 005 (Evidence Spine semantic graph), 006–007 (catalog parity + Docker smoke).
+
+---
+
 ## Conexus deepening (CONEXUS-DEEPEN)
 
 **Package intake:** `conexus-dotnet/docs/_incoming/Ontogony-Conexus-Deep-Enhancement-Package-v1/`  
