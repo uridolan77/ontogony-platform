@@ -17,6 +17,7 @@ Verification records for cross-repo programs hosted on `ontogony-platform`. File
 | **Allagma evidence index** | [allagma-dotnet/docs/evidence/README.md](../../../allagma-dotnet/docs/evidence/README.md) |
 | **Protocol registry (SYS-PROTOCOL-REGISTRY-001)** | [SYSTEM_PROTOCOL_REGISTRY_001_EVIDENCE.md](./SYSTEM_PROTOCOL_REGISTRY_001_EVIDENCE.md) — [`docs/system/system-protocol-registry.json`](../system/system-protocol-registry.json) |
 | **Stale incoming-package guard (SYS-STALE-PACKAGE-GUARD-001)** | [SYS_STALE_PACKAGE_GUARD_001_EVIDENCE.md](./SYS_STALE_PACKAGE_GUARD_001_EVIDENCE.md) — [`scripts/validate-stale-incoming-package.ps1`](../../scripts/validate-stale-incoming-package.ps1) |
+| **Allagma feature connection matrix audit (SYS-CONNECT-MATRIX-AUDIT-001)** | [allagma-dotnet/docs/evidence/SYS_CONNECT_MATRIX_AUDIT_001_EVIDENCE.md](../../../allagma-dotnet/docs/evidence/SYS_CONNECT_MATRIX_AUDIT_001_EVIDENCE.md) |
 
 ### Cleared (Alpha-005 post-cut — do not reopen)
 
