@@ -1,6 +1,6 @@
 # Kanon deepening sequence — status index
 
-**Last updated:** 2026-05-20 (012A reconciliation — sequence index, evidence path, browser posture, OpenAPI catalog)  
+**Last updated:** 2026-05-20 (014 Docker/browser QA — 12/12 Playwright PASS; baseline candidate)  
 **Packages:** `Ontogony-Kanon-Deep-Enhancement-Package-v1` (000–006); `Ontogony-Kanon-Courageous-Enhancement-Package-v2` (007+)  
 **Audit:** [`docs/reviews/KANON_DEEPEN_000_CURRENT_STATE_AUDIT.md`](../reviews/KANON_DEEPEN_000_CURRENT_STATE_AUDIT.md)
 
@@ -19,6 +19,8 @@
 | KANON-DEEPEN-010 | Done (API + unit/frontend-build; Docker browser pending) | [010 evidence](../../../kanon-dotnet/docs/evidence/KANON_DEEPEN_010_DOMAIN_PACK_IMPACT_EVIDENCE.md) (canonical); [010A reconciliation](./KANON_DEEPEN_010A_RECONCILIATION_EVIDENCE.md) | `kanon-dotnet` + `ontogony-frontend` — domain-pack diff/impact panel on `/kanon/domain-packs` |
 | KANON-DEEPEN-011 | Done (API + unit/frontend-build; Docker browser pending) | [011 evidence](../../../kanon-dotnet/docs/evidence/KANON_DEEPEN_011_SEMANTIC_EVIDENCE_GRAPH_EVIDENCE.md) (canonical); [011A reconciliation](./KANON_DEEPEN_011A_RECONCILIATION_EVIDENCE.md) | `kanon-dotnet` + `ontogony-frontend` — semantic evidence graph `GET /ontology/v0/semantic-graph` + decisions panel |
 | KANON-DEEPEN-012 | Done (API + unit/frontend-build; Docker browser pending) | [012 evidence](../../../kanon-dotnet/docs/evidence/KANON_DEEPEN_012_SOURCE_BINDING_QUALITY_LOOP_EVIDENCE.md) (canonical); [012A reconciliation](./KANON_DEEPEN_012A_RECONCILIATION_EVIDENCE.md) | `kanon-dotnet` + `ontogony-frontend` — source-binding quality loop on `/kanon/source-bindings` |
+| KANON-DEEPEN-013 | Done (API + unit/frontend-build; Docker browser via 014) | [013 evidence](../../../kanon-dotnet/docs/evidence/KANON_DEEPEN_013_SEMANTIC_AUTHORITY_HARDENING_EVIDENCE.md) (canonical) | `kanon-dotnet` + `ontogony-frontend` — route inventory, auth matrix, OpenAPI catalog hardening |
+| KANON-DEEPEN-014 | Done (Docker browser QA 12/12; baseline candidate) | [014 evidence](./KANON_DEEPEN_014_BROWSER_QA_BASELINE_CANDIDATE_EVIDENCE.md); [frontend 014](../../../ontogony-frontend/docs/evidence/KANON_DEEPEN_014_BROWSER_MANUAL_QA_EVIDENCE.md) | `ontogony-frontend` Playwright + platform evidence; `kanon-dotnet` CORS fix |
 
 **Closeout bundle (v1):** [`docs/releases/KANON_DEEPENING_CLOSEOUT.md`](../releases/KANON_DEEPENING_CLOSEOUT.md)
 
@@ -26,13 +28,14 @@
 
 | Slice | Source/API/unit/frontend-build | Docker browser |
 |---|---|---|
-| 007 Conexus assistance | Done | Pending |
-| 008 Durable fact/plan history | Done | Pending |
-| 009 Policy/gate explanation | Done | Pending |
-| 010 Domain-pack diff/impact | Done | Pending |
-| 011 Semantic evidence graph | Done | Pending |
-| 012 Source-binding / ontology quality | Done | Pending |
-| **013** Hardening / coherence cleanup | **Next** | — |
+| 007 Conexus assistance | Done | Done (014 suite) |
+| 008 Durable fact/plan history | Done | Done (014 suite) |
+| 009 Policy/gate explanation | Done | Done (014 suite) |
+| 010 Domain-pack diff/impact | Done | Done (014 suite) |
+| 011 Semantic evidence graph | Done | Done (014 suite) |
+| 012 Source-binding / ontology quality | Done | Done (014 suite) |
+| **013** Hardening / coherence cleanup | Done | — |
+| **014** QA / baseline candidate | Done | [014 evidence](./KANON_DEEPEN_014_BROWSER_QA_BASELINE_CANDIDATE_EVIDENCE.md) |
 
 ## Browser verification posture
 
@@ -66,6 +69,5 @@ Some Kanon pages adopted `@ontogony/ui` feedback/navigation primitives during th
 - Index reconciliation after 011 — [011A evidence](./KANON_DEEPEN_011A_RECONCILIATION_EVIDENCE.md) (platform index, next-options, closeout, OpenAPI catalog).
 - Index reconciliation after 012 — [012A evidence](./KANON_DEEPEN_012A_RECONCILIATION_EVIDENCE.md) (platform index, next-options, closeout, OpenAPI catalog, route workflow).
 - **KANON-DEEPEN-007B** — OpenAPI/generated-client alignment for assistance DTOs (optional cleanup).
-- **KANON-DEEPEN-013** — hardening / coherence cleanup (**next architectural slice**).
-- **KANON-DEEPEN-014** — Docker/browser QA before baseline candidate (batch 007–012 browser posture).
+- **KANON-DEEPEN-014** — Done; see [014 evidence](./KANON_DEEPEN_014_BROWSER_QA_BASELINE_CANDIDATE_EVIDENCE.md). Runtime lock promotion remains SYSTEM-ALPHA-owned.
 

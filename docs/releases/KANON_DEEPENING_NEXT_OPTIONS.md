@@ -2,7 +2,7 @@
 
 
 
-After v1 closeout (000–006) and v2 slices **007–012** at source/API/unit/frontend-build level, consider these follow-ups.
+After v1 closeout (000–006) and v2 slices **007–014** (including Docker browser QA), consider these follow-ups.
 
 
 
@@ -10,23 +10,23 @@ After v1 closeout (000–006) and v2 slices **007–012** at source/API/unit/fro
 
 |---|---|---|---|
 
-| **KANON-DEEPEN-007** | Conexus assistance operator UI | **Done** (build); Docker browser pending | `/kanon/assistance` — see 007 evidence |
+| **KANON-DEEPEN-007** | Conexus assistance operator UI | **Done** (build + browser) | `/kanon/assistance` — [014 evidence](../evidence/KANON_DEEPEN_014_BROWSER_QA_BASELINE_CANDIDATE_EVIDENCE.md) |
 
-| **KANON-DEEPEN-008** | Durable fact/plan history | **Done** (build); Docker browser pending | GET history routes + workbench panels — see 008 evidence |
+| **KANON-DEEPEN-008** | Durable fact/plan history | **Done** (build + browser) | GET history routes + workbench panels — 014 evidence |
 
-| **KANON-DEEPEN-009** | Policy/gate explanation | **Done** (build); Docker browser pending | `/kanon/policies` explain/simulate — see 009 evidence |
+| **KANON-DEEPEN-009** | Policy/gate explanation | **Done** (build + browser) | `/kanon/policies` explain/simulate — 014 evidence |
 
-| **KANON-DEEPEN-010** | Domain-pack diff and impact | **Done** (build); Docker browser pending | Diff/impact/migration/simulate on `/kanon/domain-packs` — see 010 evidence |
+| **KANON-DEEPEN-010** | Domain-pack diff and impact | **Done** (build + browser) | Diff/impact/migration/simulate — 014 evidence |
 
-| **KANON-DEEPEN-011** | Semantic evidence graph | **Done** (build); Docker browser pending | `GET /ontology/v0/semantic-graph` + decisions panel — see 011 evidence |
+| **KANON-DEEPEN-011** | Semantic evidence graph | **Done** (build + browser) | Semantic graph + decisions panel — 014 evidence |
 
-| **KANON-DEEPEN-012** | Source-binding / ontology quality | **Done** (build); Docker browser pending | Quality summary, review queue, coverage, contradictions on `/kanon/source-bindings` — see 012 evidence |
+| **KANON-DEEPEN-012** | Source-binding / ontology quality | **Done** (build + browser) | Quality loop on `/kanon/source-bindings` — 014 evidence |
 
-| **KANON-DEEPEN-013** | Hardening / coherence cleanup | **Next** | Route inventory, error envelopes, OpenAPI/auth boundaries |
+| **KANON-DEEPEN-013** | Hardening / coherence cleanup | **Done** (build) | Route inventory, auth matrix, OpenAPI catalog — see [013 evidence](../../../kanon-dotnet/docs/evidence/KANON_DEEPEN_013_SEMANTIC_AUTHORITY_HARDENING_EVIDENCE.md) |
 
 | **EVIDENCE-SPINE-001** | Unified cross-service evidence resolver | Deferred | Supersedes identifier-only links from 005 |
 
-| **KANON-DEEPEN-014** | Docker/browser QA + baseline candidate | Planned | Batch 007–012 browser walkthrough |
+| **KANON-DEEPEN-014** | Docker/browser QA + baseline candidate | **Done** | Playwright 12/12 — see [014 evidence](../evidence/KANON_DEEPEN_014_BROWSER_QA_BASELINE_CANDIDATE_EVIDENCE.md) |
 
 
 
@@ -34,9 +34,9 @@ After v1 closeout (000–006) and v2 slices **007–012** at source/API/unit/fro
 
 
 
-1. Execute **007–012 Docker browser manual QA** (rebuilt `kanon-api` + `ontogony-frontend` images).
+1. **SYSTEM-ALPHA** baseline candidate — pin commit SHAs and update `ontogony-runtime.lock.json` when ready (014 verified Docker-local only).
 
-2. Proceed with **KANON-DEEPEN-013** (hardening / coherence cleanup).
+2. Rebuild `allagma-api` / `conexus-api` compose images after SDK pin alignment (CORS header parity in source).
 
 3. Defer **EVIDENCE-SPINE-001** until the spine package is scheduled — do not expand 005 into a spine implementation ad hoc.
 
