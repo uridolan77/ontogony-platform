@@ -362,6 +362,17 @@ Env: `ALLAGMA_SERVICE_TOKEN`, `KANON_SERVICE_TOKEN`, `CONEXUS_ADMIN_API_KEY`, ho
 
 More detail: `docs/operators/TRACE_CORRELATION_CONTRACT.md`, `docs/environments/compose-to-docker-closeout-package-v2/post-closeout-hardening/TRACE-CONTRACT-001.md`.
 
+## Operator V1 demo prep (SYSTEM-DEMO-FLOWS-001)
+
+After the stack is up and ENV-SEED-001 has passed at least once:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass `
+  -File .\docker\local-working-system\scripts\run-operator-v1-demo-prep.ps1
+```
+
+Writes `artifacts/operator-v1-demo-ids.json` for the walkthrough in `docs/operators/OPERATOR_V1_DEMO_GUIDE.md`.
+
 ## Seed/bootstrap (ENV-SEED-001)
 
 **Allagma schema:** with `ASPNETCORE_ENVIRONMENT=Development` and `Allagma__Persistence__Mode=Postgres`, `allagma-api` applies EF migrations at container startup. A fresh volume does not require running `allagma-dotnet/scripts/apply-allagma-postgres-migration.ps1` before seed.

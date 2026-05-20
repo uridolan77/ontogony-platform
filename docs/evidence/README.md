@@ -24,6 +24,7 @@ Verification records for cross-repo programs hosted on `ontogony-platform`. File
 | **Conexus post-lock deltas (CONEXUS-POSTLOCK-001)** | [CONEXUS_POSTLOCK_001_CLASSIFICATION.md](../../../conexus-dotnet/docs/evidence/CONEXUS_POSTLOCK_001_CLASSIFICATION.md) |
 | **Post-lock delta register (SYS-POSTLOCK-DELTA-REGISTER-001)** | [SYS_POSTLOCK_DELTA_REGISTER_001_EVIDENCE.md](./SYS_POSTLOCK_DELTA_REGISTER_001_EVIDENCE.md) — [`post-lock-delta-register.json`](../system/post-lock-delta-register.json), [`validate-post-lock-delta-register.ps1`](../../scripts/validate-post-lock-delta-register.ps1) |
 | **Operator home (SYS-OPERATOR-HOME-001)** | [ontogony-frontend/docs/evidence/SYS_OPERATOR_HOME_001_EVIDENCE.md](../../../ontogony-frontend/docs/evidence/SYS_OPERATOR_HOME_001_EVIDENCE.md) — `/system` |
+| **Operator V1 demo flows (SYSTEM-DEMO-FLOWS-001)** | [SYSTEM_DEMO_FLOWS_001_EVIDENCE.md](./SYSTEM_DEMO_FLOWS_001_EVIDENCE.md), [OPERATOR_V1_DEMO_GUIDE.md](../operators/OPERATOR_V1_DEMO_GUIDE.md) |
 
 ### Cleared (Alpha-005 post-cut — do not reopen)
 
