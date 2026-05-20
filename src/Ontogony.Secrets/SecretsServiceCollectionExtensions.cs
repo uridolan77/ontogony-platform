@@ -34,4 +34,18 @@ public static class SecretsServiceCollectionExtensions
 
         return services;
     }
+
+    /// <summary>
+    /// Registers a composite <see cref="ISecretValueResolver"/> over all registered resolver implementations (env, vault, etc.).
+    /// Call after individual resolver registrations.
+    /// </summary>
+    public static IServiceCollection AddOntogonyCompositeSecretValueResolver(this IServiceCollection services)
+    {
+        ArgumentNullException.ThrowIfNull(services);
+
+        services.AddSingleton<ISecretValueResolver>(sp =>
+            new CompositeSecretValueResolver(sp.GetServices<ISecretValueResolver>().Where(r => r is not CompositeSecretValueResolver)));
+
+        return services;
+    }
 }
