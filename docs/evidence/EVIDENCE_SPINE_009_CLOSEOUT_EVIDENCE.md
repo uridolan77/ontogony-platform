@@ -1,7 +1,7 @@
 # EVIDENCE-SPINE-009 — Closeout
 
 **Recorded at (UTC):** 2026-05-20  
-**Verdict:** **PASS** — sequence 000–008 complete; automated gates green; Docker-live browser optional  
+**Verdict:** **PASS** — sequence 000–008 complete; automated gates green; Docker-live QA **PARTIAL** — see [009A](./EVIDENCE_SPINE_009A_DOCKER_LIVE_QA_EVIDENCE.md)  
 **Package:** `docs/_incoming/Ontogony-Cross-Service-Evidence-Spine-Package-v1/`
 
 ## Goal
@@ -71,13 +71,22 @@ dotnet test … --filter EvidenceSpineExportBundleSchemaTests → 1 passed
 Schema: `docs/schemas/ontogony-cross-service-evidence-spine-bundle-v1.schema.json`  
 Fixture: `docs/schemas/fixtures/valid/cross-service-evidence-spine-bundle-minimal.json`
 
-### Docker-local (optional operator step)
+### Docker-local (009A)
 
 ```powershell
 .\docker\local-working-system\scripts\run-evidence-spine-docker-local-verification.ps1 -Build
+.\docker\local-working-system\scripts\seed-and-verify-local-working-system.ps1
 ```
 
-**NOT EXECUTED** as a recorded gate on this closeout pass. Script and provenance guidance exist from 008; operators may run 009A when validating a fresh stack.
+**EXECUTED 2026-05-20** — [EVIDENCE_SPINE_009A_DOCKER_LIVE_QA_EVIDENCE.md](./EVIDENCE_SPINE_009A_DOCKER_LIVE_QA_EVIDENCE.md)
+
+| Gate | Result |
+| --- | --- |
+| Frontend provenance rebuild | **PASS** (`cf09a04`) |
+| Workbench route HTTP 200 | **PASS** |
+| Allagma/Kanon/route-decision live GET | **PASS** |
+| Conexus model-call admin GET | **FAIL** (404) |
+| Manual browser paste/export | Not recorded |
 
 ## Unsupported / deferred (honesty)
 
@@ -95,4 +104,5 @@ Documented in [limitations](../releases/CROSS_SERVICE_EVIDENCE_SPINE_KNOWN_LIMIT
 - [x] Closeout / scorecard / limitations / next-options docs
 - [x] Automated frontend + platform schema tests pass on closeout date
 - [x] Acceptance checklist mapped with explicit exceptions
-- [ ] Optional: Docker-live browser walkthrough recorded (009A)
+- [x] Docker-live QA executed (009A) — **PARTIAL** (model-call admin 404)
+- [ ] Manual browser paste/export walkthrough recorded (009B)

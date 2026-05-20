@@ -2,8 +2,9 @@
 
 Consolidated from ACTION-000 through ACTION-007. Not a production readiness statement.
 
-## Run operations v2 (006)
+## Run operations v2 (006 / 006A)
 
+- **Retry**, **cancel**, and **replay** require `X-Ontogony-Idempotency-Key` (006A); fingerprint mismatch returns **409** `allagma.idempotency_conflict`.
 - **Retry** only when run status is `Failed`; creates a new run from immutable inputs.
 - **Cancel** only for non-terminal runs; does not stop in-flight Conexus calls retroactively.
 - **Replay** records a manifest on terminal runs; does not re-execute planning/model work.

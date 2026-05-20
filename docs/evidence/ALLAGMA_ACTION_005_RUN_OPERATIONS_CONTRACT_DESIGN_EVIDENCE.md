@@ -1,7 +1,9 @@
 # ALLAGMA-ACTION-005 — Run operations contract design (platform index)
 
+> **Historical design evidence.** Tables that mark retry/cancel/replay/operations routes as *absent* describe the pre–ACTION-006 audit. Implementation landed in **ACTION-006** per `allagma-dotnet/docs/architecture/RUN_OPERATIONS_CONTRACT_DESIGN.md` (status: Implemented).
+
 **Recorded at (UTC):** 2026-05-20  
-**Verdict:** **PASS** (design + frontend capability truth; no backend mutations)  
+**Verdict:** **PASS** (design + frontend capability truth; no backend mutations at time of slice)  
 **Slice:** ALLAGMA-ACTION-005 from Ontogony-Allagma-Actionability-Workbench-Package-v1
 
 ## Design artifact

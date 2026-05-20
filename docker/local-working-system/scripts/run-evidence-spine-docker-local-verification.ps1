@@ -42,7 +42,7 @@ else {
 }
 
 Write-Host ""
-Write-Host "[2/4] Operator checklist — capture IDs from guided flow or existing runs:" -ForegroundColor Yellow
+Write-Host "[2/4] Operator checklist - capture IDs from guided flow or existing runs:" -ForegroundColor Yellow
 Write-Host "  - Allagma run id       -> /allagma/runs/{runId}"
 Write-Host "  - Evaluation run id    -> /allagma/evaluations/{evaluationRunId}"
 Write-Host "  - Conexus model call   -> /conexus/observability (model call detail)"
@@ -53,7 +53,7 @@ Write-Host "  $FrontendBaseUrl/system/evidence-spine"
 Write-Host "  Paste each ID; confirm graph nodes, source attempts, missing links (if partial), page links."
 Write-Host "  Export bundle: Copy/Download JSON; confirm schema ontogony-cross-service-evidence-spine-bundle-v1."
 Write-Host ""
-Write-Host "[4/4] Confirm shell build label matches ontogony-frontend git HEAD (7-char prefix)."
+Write-Host '[4/4] Confirm shell build label matches ontogony-frontend git HEAD (7-char prefix).'
 Write-Host ""
 
 $checklist = [ordered]@{

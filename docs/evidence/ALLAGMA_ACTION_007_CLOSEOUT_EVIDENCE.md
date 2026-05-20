@@ -97,6 +97,10 @@ UI and capability layer document unavailable/unsupported mutations (no fake butt
 | Manual QA recorded | API partial + checklist written |
 | Unsupported ops not hidden | PASS (capability + panel patterns) |
 
+## Follow-up hardening (post-review)
+
+**ACTION-006A** — [Run operations idempotency + result UX](./ALLAGMA_ACTION_006A_RUN_OPERATIONS_IDEMPOTENCY_HARDENING_EVIDENCE.md): cancel/replay fingerprint conflicts map to **409**; idempotency key required; result cards include navigation links.
+
 ## Sign-off criteria
 
 - [x] ACTION-000–006 evidence indexed

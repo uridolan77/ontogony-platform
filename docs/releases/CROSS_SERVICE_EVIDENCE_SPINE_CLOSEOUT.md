@@ -3,7 +3,7 @@
 **Program:** Ontogony-Cross-Service-Evidence-Spine-Package-v1 (EVIDENCE-SPINE-000 through EVIDENCE-SPINE-009)  
 **Date:** 2026-05-20  
 **Posture:** Docker-local operator console — **not production readiness**  
-**Overall verdict:** **PASS** (mocked e2e + unit/schema gates); Docker-live browser walkthrough operator-optional
+**Overall verdict:** **PASS** (mocked e2e + unit/schema gates); Docker-live QA **PARTIAL** — [009A evidence](../evidence/EVIDENCE_SPINE_009A_DOCKER_LIVE_QA_EVIDENCE.md)
 
 ## Summary
 
@@ -55,4 +55,5 @@ The workbench at `/system/evidence-spine` shows nodes, edges, source attempts, m
 - [x] Operator can paste supported IDs and resolve graph (unit + mocked e2e)
 - [x] Limitations and next gaps documented
 - [x] Export bundle schema validated in platform tests
-- [ ] Optional: Docker-live browser walkthrough recorded against seeded stack
+- [x] Docker-live provenance + API QA (009A) — partial (Conexus model-call admin 404)
+- [ ] Manual browser paste/export walkthrough (009B)

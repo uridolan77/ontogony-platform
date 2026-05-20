@@ -1,7 +1,7 @@
 # Cross-service evidence spine sequence status
 
 **Package:** Ontogony-Cross-Service-Evidence-Spine-Package-v1  
-**Last updated:** 2026-05-20 (EVIDENCE-SPINE-009 closeout)
+**Last updated:** 2026-05-20 (EVIDENCE-SPINE-009A Docker-live QA)
 
 | ID | Theme | Status | Platform evidence |
 | --- | --- | --- | --- |
@@ -15,6 +15,7 @@
 | EVIDENCE-SPINE-007 | Export bundle + diagnostic pack | Done | [007](./EVIDENCE_SPINE_007_EXPORT_BUNDLE_EVIDENCE.md) |
 | EVIDENCE-SPINE-008 | E2E / browser verification | Done | [008](./EVIDENCE_SPINE_008_E2E_BROWSER_VERIFICATION_EVIDENCE.md) |
 | EVIDENCE-SPINE-009 | Closeout | Done | [009](./EVIDENCE_SPINE_009_CLOSEOUT_EVIDENCE.md) |
+| EVIDENCE-SPINE-009A | Docker-live QA | Done (partial) | [009A](./EVIDENCE_SPINE_009A_DOCKER_LIVE_QA_EVIDENCE.md) |
 
 ## Verification matrix
 
@@ -23,8 +24,9 @@
 | 001–002 | Frontend `src/evidence-spine` | Taxonomy doc | — | — |
 | 003–005 | Per-service adapter tests | — | — | — |
 | 006–007 | Workbench + export builder | `EvidenceSpineExportBundleSchemaTests` | — | — |
-| 008 | Included in spine suite | — | **PASS** (mocked) | Checklist scripted; manual optional |
-| 009 | Closeout aggregation | — | Re-run on closeout date | Operator follow-up |
+| 008 | Included in spine suite | — | **PASS** (mocked) | Checklist scripted |
+| 009 | Closeout aggregation | Re-run on closeout date | — | — |
+| 009A | — | — | — | **PARTIAL** — provenance PASS; model-call admin 404 |
 
 ## Operator entry point
 
