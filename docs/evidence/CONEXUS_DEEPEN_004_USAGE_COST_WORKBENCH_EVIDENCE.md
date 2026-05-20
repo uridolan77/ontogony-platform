@@ -49,8 +49,13 @@ ontogony-frontend:
 ## Known limitations
 
 - Usage window is fixed to the last 7 days in the operator hook (same as before); drill-down uses that window only.
-- “Missing token usage” drill-down filters completed rows; per-row token presence is visible in model-call detail, not list columns.
 - Failed-request cost is not estimated in the usage summary.
+
+## Review polish (004A)
+
+- “Show contributing requests” applies `status=completed` to match successful usage totals.
+- “Show requests missing token usage” applies `tokenUsage=missing` via `GET /admin/v0/model-calls` list filter.
+- List rows expose `tokenUsageAvailable`.
 
 ## Next expected item
 
