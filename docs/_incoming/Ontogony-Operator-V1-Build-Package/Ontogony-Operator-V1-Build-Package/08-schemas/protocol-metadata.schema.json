@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Ontogony Runtime Protocol Metadata",
+  "type": "object",
+  "properties": {
+    "protocolId": {
+      "type": "string"
+    },
+    "authorityMode": {
+      "type": "string"
+    },
+    "sideEffectLevel": {
+      "type": "string"
+    },
+    "producerService": {
+      "type": "string"
+    },
+    "consumerService": {
+      "type": "string"
+    },
+    "evidenceRefs": {
+      "type": "array"
+    }
+  }
+}

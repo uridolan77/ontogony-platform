@@ -1,0 +1,13 @@
+{
+  "schema": "ontogony-operator-demo-flow-catalog-v1",
+  "flows": [
+    "system-posture",
+    "simple-governed-run",
+    "human-gate-approve",
+    "human-gate-deny",
+    "conexus-fallback",
+    "kanon-assistance",
+    "sandbox-posture",
+    "evidence-spine-trace"
+  ]
+}
