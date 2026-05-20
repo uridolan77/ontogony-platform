@@ -2,7 +2,7 @@
 
 
 
-After v1 closeout (000–006) and v2 slices **007–011** at source/API/unit/frontend-build level, consider these follow-ups.
+After v1 closeout (000–006) and v2 slices **007–012** at source/API/unit/frontend-build level, consider these follow-ups.
 
 
 
@@ -20,11 +20,13 @@ After v1 closeout (000–006) and v2 slices **007–011** at source/API/unit/fro
 
 | **KANON-DEEPEN-011** | Semantic evidence graph | **Done** (build); Docker browser pending | `GET /ontology/v0/semantic-graph` + decisions panel — see 011 evidence |
 
-| **KANON-DEEPEN-012** | Source-binding / ontology quality | **Next** | Mapping quality, contradictions, review priorities |
+| **KANON-DEEPEN-012** | Source-binding / ontology quality | **Done** (build); Docker browser pending | Quality summary, review queue, coverage, contradictions on `/kanon/source-bindings` — see 012 evidence |
+
+| **KANON-DEEPEN-013** | Hardening / coherence cleanup | **Next** | Route inventory, error envelopes, OpenAPI/auth boundaries |
 
 | **EVIDENCE-SPINE-001** | Unified cross-service evidence resolver | Deferred | Supersedes identifier-only links from 005 |
 
-| **KANON-DEEPEN-014** | Docker/browser QA + baseline candidate | Planned | Batch 007–011 browser walkthrough |
+| **KANON-DEEPEN-014** | Docker/browser QA + baseline candidate | Planned | Batch 007–012 browser walkthrough |
 
 
 
@@ -32,9 +34,9 @@ After v1 closeout (000–006) and v2 slices **007–011** at source/API/unit/fro
 
 
 
-1. Execute **007–011 Docker browser manual QA** (rebuilt `kanon-api` + `ontogony-frontend` images).
+1. Execute **007–012 Docker browser manual QA** (rebuilt `kanon-api` + `ontogony-frontend` images).
 
-2. Proceed with **KANON-DEEPEN-012** (source-binding and ontology quality loop).
+2. Proceed with **KANON-DEEPEN-013** (hardening / coherence cleanup).
 
 3. Defer **EVIDENCE-SPINE-001** until the spine package is scheduled — do not expand 005 into a spine implementation ad hoc.
 
