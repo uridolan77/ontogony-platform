@@ -28,20 +28,25 @@ See canonical doc for full command log, commit SHAs, blockers, and CUT checklist
 | Area | Result |
 | --- | --- |
 | Frontend `test:fe-high-value` | PASS |
-| Frontend `npm run check` | FAIL (contracts:audit) |
-| UI `npm run check` | FAIL (lint) |
+| Frontend `npm run check` | PASS (contracts audit resolved) |
+| UI `npm run check` | PASS (lint blocker resolved) |
 | Kanon Sprint 4 filters | PASS |
-| Kanon full Release | FAIL (1 snapshot test) |
+| Kanon full Release | PARTIAL (baseline had 1 snapshot failure; focused topology blocker now PASS) |
 | Allagma scoped filters | PASS |
-| Allagma full Release | FAIL (vocabulary snapshot ×3) |
+| Allagma full Release | PARTIAL (baseline had vocabulary drift; focused vocabulary blocker now PASS) |
 | Conexus retention persistence | PASS |
 | Conexus scoped-keys integration hang | RESOLVED (`AdminScopedKeysIntegrationTests` now PASS; no hang) |
 | Docker-local system gates | _pending_ |
 
 ## Open blockers
 
-Listed in canonical prep: vocabulary snapshot drift (Allagma), Kanon topology snapshot 409, frontend OpenAPI audit, UI lint, dirty platform/conexus trees at prep time.  
-Conexus admin scoped-keys hang is resolved (kept in canonical blocker table as `Resolved` row for traceability).
+Canonical blocker state is now:
+
+- `B-001` runtime lock unchanged until CUT (intentional).
+- `B-007` dirty platform/conexus trees and SHA refresh-at-cut requirement.
+- Docker-local CUT gates pending (E2E, restart, observability, evidence spine, composition gates).
+
+Resolved for traceability in canonical prep: `B-002` Allagma vocabulary drift, `B-003` Kanon topology snapshot 409, `B-004` frontend `contracts:audit`, `B-005` UI lint, `B-006` Conexus scoped-keys hang.
 
 ## Next step
 
