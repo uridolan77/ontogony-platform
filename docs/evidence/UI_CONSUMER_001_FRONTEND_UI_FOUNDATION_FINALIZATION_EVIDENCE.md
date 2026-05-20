@@ -11,7 +11,8 @@
 
 Full audit, migration table, validation output, and deferred items:
 
-**`ontogony-frontend/docs/evidence/UI_CONSUMER_001_FRONTEND_UI_FOUNDATION_FINALIZATION_EVIDENCE.md`**
+- **`ontogony-frontend/docs/evidence/UI_CONSUMER_001_FRONTEND_UI_FOUNDATION_FINALIZATION_EVIDENCE.md`**
+- Pass A inventory: **`ontogony-frontend/docs/reviews/UI_CONSUMER_001_PASS_A_INVENTORY.md`**
 
 ## Scope
 
@@ -28,7 +29,7 @@ npm run test:run -- src/shared/components/ProductLiveQueryState.test.tsx \
   src/shared/components/EvidenceExportPanel.test.tsx \
   src/kanon/components/KanonOperatorContextCard.test.tsx \
   src/app/route-coverage.test.ts \
-  src/conexus/components/ConexusExecutionRunDetailCard.test.tsx   # 17/17 PASS
+  src/conexus/components/ConexusExecutionRunDetailCard.test.tsx   # 21/21 PASS (incl. deferred cluster)
 ```
 
 ## Known limitations
