@@ -15,6 +15,7 @@ Verification records for cross-repo programs hosted on `ontogony-platform`. File
 | **Q-006-004** | Process restart script vs compose ports — **non-blocking** |
 | **Canonical revalidation evidence** | [allagma-dotnet/docs/evidence/SYS_E2E_REVALIDATE_006_EVIDENCE.md](../../../allagma-dotnet/docs/evidence/SYS_E2E_REVALIDATE_006_EVIDENCE.md) |
 | **Allagma evidence index** | [allagma-dotnet/docs/evidence/README.md](../../../allagma-dotnet/docs/evidence/README.md) |
+| **Protocol registry (SYS-PROTOCOL-REGISTRY-001)** | [SYSTEM_PROTOCOL_REGISTRY_001_EVIDENCE.md](./SYSTEM_PROTOCOL_REGISTRY_001_EVIDENCE.md) — [`docs/system/system-protocol-registry.json`](../system/system-protocol-registry.json) |
 
 ### Cleared (Alpha-005 post-cut — do not reopen)
 

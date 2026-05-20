@@ -1,0 +1,270 @@
+{
+  "schema": "ontogony-system-protocol-registry-v1",
+  "baseline": "SYSTEM-ALPHA-006",
+  "generatedAt": "2026-05-20",
+  "runtimeLock": {
+    "ownerRepo": "allagma-dotnet",
+    "path": "docs/system/ontogony-runtime.lock.json"
+  },
+  "apiPrefixes": {
+    "allagma": "/allagma/v0",
+    "kanon": "/ontology/v0",
+    "conexus": "/v1/chat/completions"
+  },
+  "repos": [
+    {
+      "name": "ontogony-platform",
+      "role": "shared mechanics / protocol registry owner",
+      "ref": "main",
+      "commit": "23ba850431c0aa4936500c48713dde3899f0dbea",
+      "packageVersions": ["Ontogony=0.3.0-alpha.1"]
+    },
+    {
+      "name": "allagma-dotnet",
+      "role": "governed runtime / runtime lock owner",
+      "ref": "main",
+      "commit": "6dbf087dd7a2f375341bc2f3be970d9a09c0a7c7",
+      "packageVersions": [
+        "Kanon.Client=0.1.0-alpha.0",
+        "Kanon.Contracts=0.1.0-alpha.0",
+        "Conexus.Client=0.1.0-alpha.1",
+        "Conexus.Contracts=0.1.0-alpha.1"
+      ]
+    },
+    {
+      "name": "kanon-dotnet",
+      "role": "semantic authority",
+      "ref": "main",
+      "commit": "515c7aadaccd2bc282032bb5434e785a335762ef"
+    },
+    {
+      "name": "conexus-dotnet",
+      "role": "model gateway",
+      "ref": "main",
+      "commit": "100c33d7f00800ad027914829cbe8bf6a2393a14"
+    },
+    {
+      "name": "ontogony-frontend",
+      "role": "operator UI / route-workflow catalog",
+      "ref": "main",
+      "commit": "58b4801dca38357c3df61523cff19653edb3d23f"
+    },
+    {
+      "name": "ontogony-ui",
+      "role": "shared UI foundation",
+      "ref": "main",
+      "commit": "d2fb8705c11cc22f7b964988fc0b187f236a08a7"
+    }
+  ],
+  "protocols": [
+    {
+      "id": "runtime-lock",
+      "ownerRepo": "allagma-dotnet",
+      "kind": "runtime-lock",
+      "paths": [
+        "docs/system/ontogony-runtime.lock.json",
+        "docs/system/ONTOGONY_RUNTIME_LOCK.md"
+      ],
+      "validators": ["scripts/validate-runtime-lock.ps1", "scripts/validate-release-lock-crossref.ps1"]
+    },
+    {
+      "id": "allagma-system-matrices",
+      "ownerRepo": "allagma-dotnet",
+      "kind": "route",
+      "paths": [
+        "docs/system/SYSTEM_COMPATIBILITY_MATRIX.md",
+        "docs/system/SYSTEM_ROUTE_MATRIX.md",
+        "docs/system/SYSTEM_TEST_MATRIX.md",
+        "docs/system/ALLAGMA_FEATURE_CONNECTION_MATRIX.md"
+      ]
+    },
+    {
+      "id": "allagma-auth-env",
+      "ownerRepo": "allagma-dotnet",
+      "kind": "auth",
+      "paths": [
+        "docs/system/SYSTEM_AUTH_MATRIX.md",
+        "docs/system/SYSTEM_ENVIRONMENT_MATRIX.md"
+      ]
+    },
+    {
+      "id": "allagma-routes-openapi",
+      "ownerRepo": "allagma-dotnet",
+      "kind": "route",
+      "paths": [
+        "docs/api/allagma-openapi-v1.snapshot.json",
+        "docs/api/allagma-openapi-v1.provenance.json"
+      ],
+      "validators": ["scripts/update-allagma-openapi-provenance.ps1"]
+    },
+    {
+      "id": "allagma-cross-service-error",
+      "ownerRepo": "allagma-dotnet",
+      "kind": "error",
+      "paths": ["docs/integrations/CROSS_SERVICE_ERROR_CONTRACT.md"]
+    },
+    {
+      "id": "allagma-trace",
+      "ownerRepo": "allagma-dotnet",
+      "kind": "trace",
+      "paths": [
+        "docs/system/SYSTEM_TRACE_CONTEXT_MATRIX.md",
+        "docs/observability/CROSS_REPO_TRACE_LOOP.md"
+      ]
+    },
+    {
+      "id": "allagma-e2e-cohesion",
+      "ownerRepo": "allagma-dotnet",
+      "kind": "evidence",
+      "paths": [
+        "docs/e2e/SYSTEM_COHESION_SMOKE.md",
+        "artifacts/system-e2e/20260520T185847Z/summary.json",
+        "artifacts/restart-e2e/20260520-175700/summary.json"
+      ],
+      "validators": ["scripts/run-system-cohesion-smoke.ps1"]
+    },
+    {
+      "id": "kanon-routes",
+      "ownerRepo": "kanon-dotnet",
+      "kind": "route",
+      "paths": [
+        "docs/generated/ONTOLOGY_V0_ROUTE_INVENTORY.json",
+        "docs/api/kanon-openapi-v1.json",
+        "docs/architecture/ONTOLOGY_V0_ROUTE_AUTH_MATRIX.md"
+      ],
+      "validators": ["scripts/update-kanon-openapi-baseline.ps1"]
+    },
+    {
+      "id": "kanon-error-trace",
+      "ownerRepo": "kanon-dotnet",
+      "kind": "error",
+      "paths": [
+        "docs/integrations/ERROR_CONTRACTS.md",
+        "docs/integrations/IDEMPOTENCY_AND_TRACE_HEADERS.md"
+      ]
+    },
+    {
+      "id": "conexus-gateway",
+      "ownerRepo": "conexus-dotnet",
+      "kind": "route",
+      "paths": [
+        "docs/architecture/BOUNDARIES.md",
+        "docs/contracts/STREAMING_CHAT_COMPLETION_CONTRACT.md",
+        "docs/operators/MODEL_CALL_EVIDENCE_FLOW.md"
+      ]
+    },
+    {
+      "id": "platform-cross-service-error",
+      "ownerRepo": "ontogony-platform",
+      "kind": "error",
+      "paths": [
+        "docs/migrations/20260516-cross-service-error-envelope.md",
+        "src/Ontogony.Errors",
+        "tests/Ontogony.PublicApi.Tests/ShippingAssemblyPublicApiTests.Public_api_matches_snapshot_assemblyShortName=Ontogony.Errors.verified.txt"
+      ]
+    },
+    {
+      "id": "platform-observability",
+      "ownerRepo": "ontogony-platform",
+      "kind": "observability",
+      "paths": [
+        "docker/local-working-system/docker-compose.yml",
+        "docker/local-working-system/scripts/verify-observability-stack.ps1",
+        "docs/evidence/SYS_OBS_004A_DOCKER_GRAFANA_EVIDENCE.md"
+      ]
+    },
+    {
+      "id": "frontend-routes-openapi",
+      "ownerRepo": "ontogony-frontend",
+      "kind": "frontend-route",
+      "paths": [
+        "src/app/route-workflow-catalog.json",
+        "src/app/release-route-catalog.json",
+        "openapi/allagma.v0.json",
+        "openapi/kanon.v0.json",
+        "openapi/conexus.v0.json",
+        "docs/openapi/ALLAGMA_SNAPSHOT_PROVENANCE.json"
+      ],
+      "validators": ["scripts/openapi-check.mjs", "scripts/kanon-route-parity-check (npm run kanon:route-parity:check)"]
+    },
+    {
+      "id": "allagma-observability-artifact",
+      "ownerRepo": "allagma-dotnet",
+      "kind": "observability",
+      "paths": ["artifacts/observability/20260520T185946Z/observability-summary.json"],
+      "validators": ["scripts/verify-system-observability.ps1"]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "SYSTEM-ALPHA-006-CUT",
+      "ownerRepo": "allagma-dotnet",
+      "path": "docs/evidence/SYSTEM_ALPHA_006_CLOSEOUT.md",
+      "verdict": "PASS",
+      "recordedAt": "2026-05-20"
+    },
+    {
+      "id": "SYS-E2E-REVALIDATE-006",
+      "ownerRepo": "allagma-dotnet",
+      "path": "docs/evidence/SYS_E2E_REVALIDATE_006_EVIDENCE.md",
+      "verdict": "SUPERSEDED_BY_ALPHA-006",
+      "recordedAt": "2026-05-20"
+    },
+    {
+      "id": "SYS-EVIDENCE-INDEX-006",
+      "ownerRepo": "allagma-dotnet",
+      "path": "docs/evidence/SYS_EVIDENCE_INDEX_006_EVIDENCE.md",
+      "verdict": "PASS",
+      "recordedAt": "2026-05-20"
+    },
+    {
+      "id": "SYS-OBS-004A",
+      "ownerRepo": "ontogony-platform",
+      "path": "docs/evidence/SYS_OBS_004A_DOCKER_GRAFANA_EVIDENCE.md",
+      "verdict": "PASS",
+      "recordedAt": "2026-05-20"
+    },
+    {
+      "id": "FE-EVIDENCE-SPINE-002",
+      "ownerRepo": "ontogony-frontend",
+      "path": "docs/evidence/FE_EVIDENCE_SPINE_002_EVIDENCE.md",
+      "verdict": "PASS",
+      "recordedAt": "2026-05-20"
+    },
+    {
+      "id": "cohesion-summary-20260520",
+      "ownerRepo": "allagma-dotnet",
+      "path": "artifacts/system-e2e/20260520T185847Z/summary.json",
+      "verdict": "PASS",
+      "recordedAt": "2026-05-20T185847Z"
+    },
+    {
+      "id": "restart-summary-20260520",
+      "ownerRepo": "allagma-dotnet",
+      "path": "artifacts/restart-e2e/20260520-175700/summary.json",
+      "verdict": "PASS",
+      "recordedAt": "2026-05-20"
+    },
+    {
+      "id": "observability-summary-20260520",
+      "ownerRepo": "allagma-dotnet",
+      "path": "artifacts/observability/20260520T185946Z/observability-summary.json",
+      "verdict": "PASS",
+      "recordedAt": "2026-05-20T185946Z"
+    }
+  ],
+  "quarantines": [
+    {
+      "id": "B-012",
+      "status": "cleared",
+      "rationale": "Docker OTLP + Grafana readiness — SYS-OBS-004A",
+      "followup": "SYS_OBS_004A_DOCKER_GRAFANA_EVIDENCE.md"
+    },
+    {
+      "id": "Q-006-004",
+      "status": "open",
+      "rationale": "Process restart-e2e script vs compose ports :5081–5083; Docker restart path is canonical and PASS",
+      "followup": "non-blocking for runtime lock"
+    }
+  ]
+}
