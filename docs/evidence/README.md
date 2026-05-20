@@ -18,6 +18,7 @@ Verification records for cross-repo programs hosted on `ontogony-platform`. File
 | **Protocol registry (SYS-PROTOCOL-REGISTRY-001)** | [SYSTEM_PROTOCOL_REGISTRY_001_EVIDENCE.md](./SYSTEM_PROTOCOL_REGISTRY_001_EVIDENCE.md) — [`docs/system/system-protocol-registry.json`](../system/system-protocol-registry.json) |
 | **Stale incoming-package guard (SYS-STALE-PACKAGE-GUARD-001)** | [SYS_STALE_PACKAGE_GUARD_001_EVIDENCE.md](./SYS_STALE_PACKAGE_GUARD_001_EVIDENCE.md) — [`scripts/validate-stale-incoming-package.ps1`](../../scripts/validate-stale-incoming-package.ps1) |
 | **Allagma feature connection matrix audit (SYS-CONNECT-MATRIX-AUDIT-001)** | [allagma-dotnet/docs/evidence/SYS_CONNECT_MATRIX_AUDIT_001_EVIDENCE.md](../../../allagma-dotnet/docs/evidence/SYS_CONNECT_MATRIX_AUDIT_001_EVIDENCE.md) |
+| **Kanon connect lock (KANON-CONNECT-LOCK-001)** | [KANON_CONNECT_LOCK_001_EVIDENCE.md](./KANON_CONNECT_LOCK_001_EVIDENCE.md) — 001–007 promoted into **SYSTEM-ALPHA-006** baseline |
 
 ### Cleared (Alpha-005 post-cut — do not reopen)
 
@@ -42,7 +43,7 @@ Verification records for cross-repo programs hosted on `ontogony-platform`. File
 | Q-006-002 | `conexus-dotnet` — production Postgres startup test | **Cleared** | `Production_startup_accepts_postgres_connection_string` uses `ProductionPostgresFixture`; test PASS |
 | Q-006-003 | `allagma-dotnet` — SYS-LOCK-005 release/lock cross-ref | **Cleared** | `validate-release-lock-crossref.ps1` READY; **SYSTEM-ALPHA-006** lock cut |
 
-Kanon connect **001–007** evidence remains valid; see [KANON-CONNECT](#kanon-cross-repo-connect-kanon-connect) below.
+Kanon connect **001–007** promoted into runtime baseline — [KANON_CONNECT_LOCK_001_EVIDENCE.md](./KANON_CONNECT_LOCK_001_EVIDENCE.md). Slice detail: [KANON-CONNECT](#kanon-cross-repo-connect-kanon-connect) below.
 
 ---
 
@@ -134,16 +135,18 @@ Closeout addendum: [`docs/_incoming/curated-review-package/ontogony_curated_revi
 
 Service evidence (by repo): `ALLAGMA_EVIDENCE_001`, `ALLAGMA_STREAM_001`, `CONEXUS_RETENTION_001`, `KANON_CONEXUS_ASSIST_001`, `KANON_DOMAINPACK_GOV_001` — see reconciliation evidence for paths.
 
-Runtime baseline: **`SYSTEM-ALPHA-005`** (lock owner: `allagma-dotnet`). Moving-main: **SYS-E2E-REVALIDATE-006 PARTIAL PASS** — see [runtime baseline status](#runtime-baseline-status-sys-evidence-index-006).
+Runtime baseline: **`SYSTEM-ALPHA-006`** (lock owner: `allagma-dotnet`). See [runtime baseline status](#runtime-baseline-status-sys-evidence-index-006).
 
 | Item | File |
 | --- | --- |
 | SYS-E2E-REVALIDATE-006 (moving-main, canonical) | [allagma-dotnet/docs/evidence/SYS_E2E_REVALIDATE_006_EVIDENCE.md](../../../allagma-dotnet/docs/evidence/SYS_E2E_REVALIDATE_006_EVIDENCE.md) |
+| **SYSTEM-ALPHA-006 closeout (canonical)** | [allagma-dotnet/docs/evidence/SYSTEM_ALPHA_006_CLOSEOUT.md](../../../allagma-dotnet/docs/evidence/SYSTEM_ALPHA_006_CLOSEOUT.md) |
 | SYSTEM-ALPHA-005 closeout (platform index) | [SYSTEM_ALPHA_005_CLOSEOUT_EVIDENCE.md](./SYSTEM_ALPHA_005_CLOSEOUT_EVIDENCE.md) |
 | SYSTEM-ALPHA-005 closeout (canonical) | [allagma-dotnet/docs/evidence/SYSTEM_ALPHA_005_CLOSEOUT.md](../../../allagma-dotnet/docs/evidence/SYSTEM_ALPHA_005_CLOSEOUT.md) |
 | 004/005 combined release note | [allagma-dotnet/docs/releases/SYSTEM_ALPHA_004_OR_005_CLOSEOUT.md](../../../allagma-dotnet/docs/releases/SYSTEM_ALPHA_004_OR_005_CLOSEOUT.md) |
 | SYSTEM-ALPHA-004-PREP (historical) | [SYSTEM_ALPHA_004_PREP_EVIDENCE.md](./SYSTEM_ALPHA_004_PREP_EVIDENCE.md) |
-| SYS-LOCK-006 | **BLOCKED** — issue card: `docs/_incoming/Ontogony_System_Protocols_Delta_ALPHA005_2026-05-20/issue-cards/SYS-LOCK-006.md` |
+| SYS-LOCK-006 | **CUT COMPLETE** — ALPHA-006 |
+| KANON-CONNECT-LOCK-001 | [KANON_CONNECT_LOCK_001_EVIDENCE.md](./KANON_CONNECT_LOCK_001_EVIDENCE.md) |
 
 ---
 
@@ -204,8 +207,9 @@ Pre–SYSTEM-ALPHA connection inventory and hardening (no new Kanon product feat
 | KANON-CONNECT-005 Evidence Spine semantic graph | [KANON_CONNECT_005_EVIDENCE_SPINE_SEMANTIC_GRAPH_EVIDENCE.md](./KANON_CONNECT_005_EVIDENCE_SPINE_SEMANTIC_GRAPH_EVIDENCE.md) |
 | KANON-CONNECT-006 route/OpenAPI/catalog parity | [KANON_CONNECT_006_ROUTE_PARITY_EVIDENCE.md](./KANON_CONNECT_006_ROUTE_PARITY_EVIDENCE.md) |
 | KANON-CONNECT-007 Docker cross-service smoke | [KANON_CONNECT_007_DOCKER_CROSS_SERVICE_SMOKE_EVIDENCE.md](./KANON_CONNECT_007_DOCKER_CROSS_SERVICE_SMOKE_EVIDENCE.md) |
+| **KANON-CONNECT-LOCK-001** runtime baseline promotion | [KANON_CONNECT_LOCK_001_EVIDENCE.md](./KANON_CONNECT_LOCK_001_EVIDENCE.md) |
 
-Runtime lock promotion: **done** — `SYSTEM-ALPHA-005` ([SYSTEM_ALPHA_005_CLOSEOUT_EVIDENCE.md](./SYSTEM_ALPHA_005_CLOSEOUT_EVIDENCE.md)).
+Runtime lock promotion: **COMPLETE** — **SYSTEM-ALPHA-006** ([KANON_CONNECT_LOCK_001_EVIDENCE.md](./KANON_CONNECT_LOCK_001_EVIDENCE.md); initial 007 proof at ALPHA-005).
 
 ---
 

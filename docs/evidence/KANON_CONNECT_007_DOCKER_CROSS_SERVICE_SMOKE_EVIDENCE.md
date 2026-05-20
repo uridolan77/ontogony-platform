@@ -2,7 +2,7 @@
 
 **Recorded at (UTC):** 2026-05-20  
 **Verdict:** **PASS** (compose rebuild + ENV-SEED-001 + Playwright 7/7)  
-**Statement:** Docker-local compose rebuild of `kanon-api`, `allagma-api`, `conexus-api`, and `ontogony-frontend`, ENV-SEED-001 bootstrap, and Playwright cross-service browser smoke for Kanon connect acceptance. Runtime lock promoted in **SYSTEM-ALPHA-005** cut (see [SYSTEM_ALPHA_005_CLOSEOUT_EVIDENCE.md](./SYSTEM_ALPHA_005_CLOSEOUT_EVIDENCE.md)).
+**Statement:** Docker-local compose rebuild of `kanon-api`, `allagma-api`, `conexus-api`, and `ontogony-frontend`, ENV-SEED-001 bootstrap, and Playwright cross-service browser smoke for Kanon connect acceptance. Runtime lock promoted in **SYSTEM-ALPHA-005** cut; baseline criteria formalized in **SYSTEM-ALPHA-006** via [KANON_CONNECT_LOCK_001_EVIDENCE.md](./KANON_CONNECT_LOCK_001_EVIDENCE.md).
 
 ## Orchestration
 
