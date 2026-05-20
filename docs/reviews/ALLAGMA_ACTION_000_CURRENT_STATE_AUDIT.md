@@ -17,7 +17,7 @@ Allagma already exposes **six operator-actionable HTTP contracts** (start run, r
 
 ```text
 ALLAGMA-ACTION-001 — Start run workbench
-ALLAGMA-ACTION-002 — Human-gate resume workbench (polish; partial wiring exists)
+ALLAGMA-ACTION-002 — Human-gate resume workbench (complete)
 ALLAGMA-ACTION-003 — Baseline compare actions
 ALLAGMA-ACTION-004 — Run audit and evidence actions
 ```
