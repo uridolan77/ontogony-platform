@@ -154,8 +154,9 @@ Pre–SYSTEM-ALPHA connection inventory and hardening (no new Kanon product feat
 | Item | File |
 | --- | --- |
 | KANON-CONNECT-001 cross-repo feature map | [KANON_CONNECT_001_CROSS_REPO_FEATURE_MAP.md](./KANON_CONNECT_001_CROSS_REPO_FEATURE_MAP.md) |
+| KANON-CONNECT-002 settings/env consistency | [KANON_CONNECT_002_SETTINGS_ENV_CONSISTENCY_EVIDENCE.md](./KANON_CONNECT_002_SETTINGS_ENV_CONSISTENCY_EVIDENCE.md) |
 
-Planned follow-ups: KANON-CONNECT-002 (settings/env), 003 (Allagma link proof), 004 (Conexus assistance observability), 005 (Evidence Spine semantic graph), 006–007 (catalog parity + Docker smoke).
+Planned follow-ups: KANON-CONNECT-003 (Allagma link proof), 004 (Conexus assistance observability), 005 (Evidence Spine semantic graph), 006–007 (catalog parity + Docker smoke).
 
 ---
 

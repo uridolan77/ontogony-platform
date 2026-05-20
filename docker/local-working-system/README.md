@@ -437,6 +437,8 @@ Evidence: `docs/evidence/FE_LOCAL_CORS_001_DOCKER_LOCAL_BROWSER_API_EVIDENCE.md`
 Docker-local frontend build defaults (also in `.env.example`):
 
 ```text
+FRONTEND_VITE_KANON_ONTOLOGY_ID=gaming-core
+FRONTEND_VITE_KANON_ONTOLOGY_VERSION_ID=gaming-core@0.1.0
 FRONTEND_VITE_KANON_DEFAULT_ACTOR_ID=local-operator
 FRONTEND_VITE_KANON_DEFAULT_ACTOR_ROLES=Auditor,ProvenanceReader
 ```
