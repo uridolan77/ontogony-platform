@@ -22,7 +22,7 @@ This package supersedes the older `Ontogony_System_Protocols_Package_2026-05-20.
 - `issue-cards/` — PR-sized issue cards.
 - `data/refined_backlog.json` and `.csv` — machine-readable backlog.
 - `templates/system-protocol-registry.schema.json` — starter schema for SYS-PROTOCOL-REGISTRY-001.
-- `scripts/validate-incoming-package.ps1` — starter stale package detector.
+- `scripts/validate-incoming-package.ps1` — starter stub; canonical validator: `ontogony-platform/scripts/validate-stale-incoming-package.ps1`.
 
 ## Operating rule
 

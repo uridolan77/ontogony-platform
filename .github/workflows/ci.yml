@@ -97,6 +97,9 @@ jobs:
       - name: Validate system protocol registry (structure)
         shell: pwsh
         run: ./scripts/validate-system-protocol-registry.ps1 -SkipSiblingPaths
+      - name: Validate stale incoming packages (SYS-STALE-PACKAGE-GUARD-001)
+        shell: pwsh
+        run: ./scripts/validate-stale-incoming-package.ps1
 
   docker-scripts-parse:
     needs: changes
@@ -205,6 +208,9 @@ jobs:
         env:
           DEV_ROOT: ${{ runner.temp }}/ontogony-dev
         run: ./scripts/validate-system-protocol-registry.ps1 -DevRoot $env:DEV_ROOT
+      - name: Validate stale incoming packages (SYS-STALE-PACKAGE-GUARD-001)
+        shell: pwsh
+        run: ./scripts/validate-stale-incoming-package.ps1
       - name: Validate AI runtime boundaries (AI.Contracts sources)
         shell: pwsh
         run: ./scripts/validate-ai-runtime-boundaries.ps1

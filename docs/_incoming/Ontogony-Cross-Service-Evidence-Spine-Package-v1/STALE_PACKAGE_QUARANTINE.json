@@ -1,0 +1,8 @@
+{
+  "schema": "ontogony-stale-package-quarantine-v1",
+  "packageRoot": "Ontogony-Cross-Service-Evidence-Spine-Package-v1",
+  "quarantinedAt": "2026-05-20",
+  "reason": "Evidence Spine v1 package predates Alpha-006 lock; retained for resolver/E2E reference only.",
+  "staleFindingsExpected": false,
+  "doNotCopyToCanonicalDocs": true
+}
