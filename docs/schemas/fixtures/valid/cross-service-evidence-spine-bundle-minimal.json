@@ -1,0 +1,90 @@
+{
+  "schema": "ontogony-cross-service-evidence-spine-bundle-v1",
+  "schemaVersion": "1",
+  "exportedAt": "2026-05-20T12:00:00.000Z",
+  "rootInput": "run-1",
+  "rootKind": "allagmaRunId",
+  "graph": {
+    "root": {
+      "nodeId": "allagma.run:run-1",
+      "kind": "allagma.run"
+    },
+    "nodes": [
+      {
+        "id": "allagma.run:run-1",
+        "kind": "allagma.run",
+        "service": "allagma",
+        "label": "Allagma run",
+        "identifiers": {
+          "allagmaRunId": "run-1",
+          "traceId": "trace-1"
+        },
+        "links": [
+          {
+            "id": "allagma-run",
+            "label": "Allagma run",
+            "href": "/allagma/runs/run-1",
+            "kind": "allagma-run",
+            "present": true
+          }
+        ],
+        "sourceRefs": ["/allagma/v0/runs/{runId}"]
+      }
+    ],
+    "edges": [],
+    "resolvedIdentifiers": {
+      "allagmaRunId": "run-1",
+      "traceId": "trace-1"
+    }
+  },
+  "pageLinks": [
+    {
+      "id": "allagma-run",
+      "label": "Allagma run",
+      "href": "/allagma/runs/run-1",
+      "kind": "allagma-run",
+      "present": true
+    }
+  ],
+  "sourceAttempts": [
+    {
+      "attemptId": "source-1",
+      "service": "allagma",
+      "endpoint": "/allagma/v0/runs/{runId}",
+      "inputKind": "allagmaRunId",
+      "inputValue": "run-1",
+      "status": "success"
+    }
+  ],
+  "warnings": [],
+  "completeness": {
+    "resolvedNodeCount": 1,
+    "resolvedEdgeCount": 0,
+    "missingEdgeCount": 0,
+    "sourceFailureCount": 0,
+    "isPartial": false,
+    "summary": "1 node(s), 0 edge(s); 0 missing, 0 source failure(s)."
+  },
+  "build": {
+    "console": "ontogony-frontend",
+    "version": "0.1.0-alpha.0",
+    "gitSha": "abc1234",
+    "buildTime": "2026-05-20T12:00:00.000Z"
+  },
+  "redaction": {
+    "policy": "operator-redacted",
+    "rawPreviewsIncluded": false,
+    "fieldsExcluded": [
+      "prompt",
+      "completion",
+      "messages",
+      "authorization",
+      "apiKey",
+      "token",
+      "secret"
+    ],
+    "notes": [
+      "Operator-redacted cross-service evidence spine bundle from ontogony-frontend workbench."
+    ]
+  }
+}

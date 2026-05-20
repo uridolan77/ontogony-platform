@@ -1,0 +1,366 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.dev/schemas/ontogony-cross-service-evidence-spine-bundle-v1.schema.json",
+  "title": "Ontogony cross-service evidence spine export bundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "schemaVersion",
+    "exportedAt",
+    "rootInput",
+    "graph",
+    "pageLinks",
+    "sourceAttempts",
+    "warnings",
+    "completeness",
+    "build",
+    "redaction"
+  ],
+  "properties": {
+    "schema": {
+      "const": "ontogony-cross-service-evidence-spine-bundle-v1"
+    },
+    "schemaVersion": {
+      "const": "1"
+    },
+    "exportedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "rootInput": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rootKind": {
+      "type": "string",
+      "minLength": 1
+    },
+    "graph": {
+      "$ref": "#/$defs/evidenceGraph"
+    },
+    "pageLinks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidencePageLink"
+      }
+    },
+    "sourceAttempts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidenceSourceAttempt"
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidenceWarning"
+      }
+    },
+    "completeness": {
+      "$ref": "#/$defs/evidenceCompleteness"
+    },
+    "build": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["console", "version", "gitSha", "buildTime"],
+      "properties": {
+        "console": {
+          "const": "ontogony-frontend"
+        },
+        "version": {
+          "type": "string"
+        },
+        "gitSha": {
+          "type": "string"
+        },
+        "buildTime": {
+          "type": "string"
+        }
+      }
+    },
+    "redaction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policy",
+        "rawPreviewsIncluded",
+        "fieldsExcluded",
+        "notes"
+      ],
+      "properties": {
+        "policy": {
+          "const": "operator-redacted"
+        },
+        "rawPreviewsIncluded": {
+          "type": "boolean"
+        },
+        "fieldsExcluded": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        }
+      }
+    }
+  },
+  "$defs": {
+    "evidenceGraph": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["root", "nodes", "edges", "resolvedIdentifiers"],
+      "properties": {
+        "root": {
+          "$ref": "#/$defs/evidenceNodeRef"
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidenceNode"
+          }
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidenceEdge"
+          }
+        },
+        "resolvedIdentifiers": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "evidenceNodeRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["nodeId", "kind"],
+      "properties": {
+        "nodeId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "evidenceNode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "service", "label", "identifiers", "links", "sourceRefs"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "service": {
+          "enum": ["allagma", "conexus", "kanon", "platform"]
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "identifiers": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidencePageLink"
+          }
+        },
+        "sourceRefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rawPreview": true
+      }
+    },
+    "evidenceEdge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from", "to", "kind", "confidence"],
+      "properties": {
+        "from": {
+          "type": "string",
+          "minLength": 1
+        },
+        "to": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confidence": {
+          "enum": ["direct", "derived", "weak", "unresolved"]
+        },
+        "sourceRef": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "evidencePageLink": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "href", "kind", "present"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "href": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "present": {
+          "type": "boolean"
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "evidenceSourceAttempt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attemptId",
+        "service",
+        "endpoint",
+        "inputKind",
+        "inputValue",
+        "status"
+      ],
+      "properties": {
+        "attemptId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "service": {
+          "enum": ["allagma", "conexus", "kanon", "platform"]
+        },
+        "endpoint": {
+          "type": "string",
+          "minLength": 1
+        },
+        "inputKind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "inputValue": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": ["success", "not_found", "forbidden", "error", "skipped"]
+        },
+        "reason": {
+          "type": "string"
+        },
+        "durationMs": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "evidenceWarning": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "message"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason": {
+          "type": "string"
+        },
+        "suggestedNextStep": {
+          "type": "string"
+        }
+      }
+    },
+    "evidenceCompleteness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "resolvedNodeCount",
+        "resolvedEdgeCount",
+        "missingEdgeCount",
+        "sourceFailureCount",
+        "isPartial",
+        "summary"
+      ],
+      "properties": {
+        "resolvedNodeCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "resolvedEdgeCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "missingEdgeCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sourceFailureCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "isPartial": {
+          "type": "boolean"
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}
