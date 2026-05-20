@@ -10,9 +10,9 @@ Verification records for cross-repo programs hosted on `ontogony-platform`. File
 
 | Field | Value |
 | --- | --- |
-| **Last runtime cut (lock owner: `allagma-dotnet`)** | **SYSTEM-ALPHA-005** |
-| **Moving-main revalidation** | **SYS-E2E-REVALIDATE-006** → **PARTIAL PASS / LOCK-BLOCKED** — **not** a new lock |
-| **Next lock** | **SYS-LOCK-006** — **BLOCKED** until remaining Q-006-004 process note accepted (lock blockers Q-006-001..003 cleared) |
+| **Last runtime cut (lock owner: `allagma-dotnet`)** | **SYSTEM-ALPHA-006** — [SYSTEM_ALPHA_006_CLOSEOUT.md](../../../allagma-dotnet/docs/evidence/SYSTEM_ALPHA_006_CLOSEOUT.md) |
+| **Moving-main revalidation** | **SYS-E2E-REVALIDATE-006** → superseded by **SYS-LOCK-006** |
+| **Q-006-004** | Process restart script vs compose ports — **non-blocking** |
 | **Canonical revalidation evidence** | [allagma-dotnet/docs/evidence/SYS_E2E_REVALIDATE_006_EVIDENCE.md](../../../allagma-dotnet/docs/evidence/SYS_E2E_REVALIDATE_006_EVIDENCE.md) |
 | **Allagma evidence index** | [allagma-dotnet/docs/evidence/README.md](../../../allagma-dotnet/docs/evidence/README.md) |
 
@@ -37,9 +37,9 @@ Verification records for cross-repo programs hosted on `ontogony-platform`. File
 | --- | --- | --- | --- |
 | Q-006-001 | `ontogony-platform` — public API snapshots (`Ontogony.AI.Contracts`, `Ontogony.Secrets`) | **Cleared** | `dotnet test Ontogony.Platform.sln -c Release --filter "FullyQualifiedName~Public_api_matches_snapshot"` PASS after approved snapshot refresh and changelog entry |
 | Q-006-002 | `conexus-dotnet` — production Postgres startup test | **Cleared** | `Production_startup_accepts_postgres_connection_string` uses `ProductionPostgresFixture`; test PASS |
-| Q-006-003 | `allagma-dotnet` — SYS-LOCK-005 release/lock cross-ref | **Cleared** | `validate-release-lock-crossref.ps1` READY; docs cite **SYSTEM-ALPHA-005** `lockedCommits` |
+| Q-006-003 | `allagma-dotnet` — SYS-LOCK-005 release/lock cross-ref | **Cleared** | `validate-release-lock-crossref.ps1` READY; **SYSTEM-ALPHA-006** lock cut |
 
-Kanon connect **001–007** evidence remains valid at the ALPHA-005 cut; see [KANON-CONNECT](#kanon-cross-repo-connect-kanon-connect) below.
+Kanon connect **001–007** evidence remains valid; see [KANON-CONNECT](#kanon-cross-repo-connect-kanon-connect) below.
 
 ---
 
