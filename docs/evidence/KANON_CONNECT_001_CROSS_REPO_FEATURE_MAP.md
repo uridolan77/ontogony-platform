@@ -127,7 +127,7 @@ Unified workbench: `/system/evidence-spine` — uses spine resolver; Kanon nodes
 | ~~Conexus assistance `modelInvocationId` observability drilldown not fully proven cross-service~~ | — | **KANON-CONNECT-004** ✅ | [004 evidence](./KANON_CONNECT_004_CONEXUS_ASSISTANCE_OBSERVABILITY_EVIDENCE.md) |
 | ~~Evidence Spine does not import Kanon `GET /semantic-graph`~~ | — | **KANON-CONNECT-005** ✅ | [005 evidence](./KANON_CONNECT_005_EVIDENCE_SPINE_SEMANTIC_GRAPH_EVIDENCE.md) |
 | ~~Route/catalog drift gate not enforced in CI for connect phase~~ | — | **KANON-CONNECT-006** ✅ | [006 evidence](./KANON_CONNECT_006_ROUTE_PARITY_EVIDENCE.md) — `kanon:route-parity:check` in `npm run check` |
-| Full cross-service Docker smoke after API image rebuild | Medium | **KANON-CONNECT-007** | 014 noted SDK pin blocked `allagma-api`/`conexus-api` rebuild |
+| ~~Full cross-service Docker smoke after API image rebuild~~ | — | **KANON-CONNECT-007** ✅ | [007 evidence](./KANON_CONNECT_007_DOCKER_CROSS_SERVICE_SMOKE_EVIDENCE.md) — `npm run docker:smoke:kanon-connect-007` |
 | `ontogony-runtime.lock.json` not updated | Process | **SYSTEM-ALPHA-004/005** | Kanon v2 baseline-owned promotion |
 | Conexus OpenAPI catalog drift (non-Kanon) | Low | SYSTEM-ALPHA | Explicitly out of Kanon connect scope |
 | No dedicated Kanon topology POST workbench | By design | — | Topology evaluation is Allagma-orchestrated |

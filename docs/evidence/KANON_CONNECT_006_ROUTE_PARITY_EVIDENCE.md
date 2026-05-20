@@ -61,4 +61,4 @@ Set `KANON_DOTNET_ROOT` when `kanon-dotnet` is not a sibling of `ontogony-fronte
 
 - [KANON-CONNECT-001](./KANON_CONNECT_001_CROSS_REPO_FEATURE_MAP.md)
 - [KANON-CONNECT-005](./KANON_CONNECT_005_EVIDENCE_SPINE_SEMANTIC_GRAPH_EVIDENCE.md)
-- Next: **KANON-CONNECT-007** — full cross-service Docker smoke
+- Next: [KANON-CONNECT-007](./KANON_CONNECT_007_DOCKER_CROSS_SERVICE_SMOKE_EVIDENCE.md) — full cross-service Docker smoke ✅
