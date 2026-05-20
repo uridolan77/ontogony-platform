@@ -20,6 +20,7 @@ Verification records for cross-repo programs hosted on `ontogony-platform`. File
 | **Allagma feature connection matrix audit (SYS-CONNECT-MATRIX-AUDIT-001)** | [allagma-dotnet/docs/evidence/SYS_CONNECT_MATRIX_AUDIT_001_EVIDENCE.md](../../../allagma-dotnet/docs/evidence/SYS_CONNECT_MATRIX_AUDIT_001_EVIDENCE.md) |
 | **Kanon connect lock (KANON-CONNECT-LOCK-001)** | [KANON_CONNECT_LOCK_001_EVIDENCE.md](./KANON_CONNECT_LOCK_001_EVIDENCE.md) — 001–007 promoted into **SYSTEM-ALPHA-006** baseline |
 | **Conexus evidence flow (CONEXUS-EVIDENCE-FLOW-001)** | [CONEXUS_EVIDENCE_FLOW_001_EVIDENCE.md](./CONEXUS_EVIDENCE_FLOW_001_EVIDENCE.md) |
+| **Conexus post-lock deltas (CONEXUS-POSTLOCK-001)** | [CONEXUS_POSTLOCK_001_CLASSIFICATION.md](../../../conexus-dotnet/docs/evidence/CONEXUS_POSTLOCK_001_CLASSIFICATION.md) |
 
 ### Cleared (Alpha-005 post-cut — do not reopen)
 

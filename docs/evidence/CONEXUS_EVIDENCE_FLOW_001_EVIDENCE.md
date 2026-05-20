@@ -82,6 +82,10 @@ npm run docker:smoke:kanon-connect-007
 - [CONEXUS_DEEPEN_006_FRONTEND_OBSERVABILITY_V2_EVIDENCE.md](./CONEXUS_DEEPEN_006_FRONTEND_OBSERVABILITY_V2_EVIDENCE.md)
 - `ontogony-frontend/docs/evidence/EVIDENCE_SPINE_004_CONEXUS_REQUEST_ROUTE_LINKING_EVIDENCE.md`
 
+## Post-lock context
+
+Route preview and quota status APIs landed in the same Conexus window as evidence-flow hardening; classification: [CONEXUS_POSTLOCK_001_CLASSIFICATION.md](../../../conexus-dotnet/docs/evidence/CONEXUS_POSTLOCK_001_CLASSIFICATION.md).
+
 ## Issue card
 
 `docs/_incoming/Ontogony_System_Protocols_Delta_ALPHA005_2026-05-20/issue-cards/CONEXUS-EVIDENCE-FLOW-001.md`
