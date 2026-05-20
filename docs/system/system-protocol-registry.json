@@ -60,6 +60,9 @@
     {
       "id": "runtime-lock",
       "ownerRepo": "allagma-dotnet",
+      "protocolId": "allagma.runtime.lock.sync.v1",
+      "authorityMode": "authoritative",
+      "sideEffectLevel": "run_state_transition",
       "kind": "runtime-lock",
       "paths": [
         "docs/system/ontogony-runtime.lock.json",
@@ -70,6 +73,9 @@
     {
       "id": "allagma-system-matrices",
       "ownerRepo": "allagma-dotnet",
+      "protocolId": "allagma.runtime-posture.v1",
+      "authorityMode": "observational",
+      "sideEffectLevel": "read_only",
       "kind": "route",
       "paths": [
         "docs/system/SYSTEM_COMPATIBILITY_MATRIX.md",
@@ -81,6 +87,9 @@
     {
       "id": "allagma-auth-env",
       "ownerRepo": "allagma-dotnet",
+      "protocolId": "allagma.runtime-auth.posture.v1",
+      "authorityMode": "observational",
+      "sideEffectLevel": "read_only",
       "kind": "auth",
       "paths": [
         "docs/system/SYSTEM_AUTH_MATRIX.md",
@@ -90,6 +99,9 @@
     {
       "id": "allagma-routes-openapi",
       "ownerRepo": "allagma-dotnet",
+      "protocolId": "allagma.route.contract.publish.v1",
+      "authorityMode": "observational",
+      "sideEffectLevel": "read_only",
       "kind": "route",
       "paths": [
         "docs/api/allagma-openapi-v1.snapshot.json",
@@ -100,12 +112,18 @@
     {
       "id": "allagma-cross-service-error",
       "ownerRepo": "allagma-dotnet",
+      "protocolId": "allagma.cross-service.error.contract.v1",
+      "authorityMode": "authoritative",
+      "sideEffectLevel": "none",
       "kind": "error",
       "paths": ["docs/integrations/CROSS_SERVICE_ERROR_CONTRACT.md"]
     },
     {
       "id": "allagma-trace",
       "ownerRepo": "allagma-dotnet",
+      "protocolId": "allagma.trace.propagation.v1",
+      "authorityMode": "observational",
+      "sideEffectLevel": "read_only",
       "kind": "trace",
       "paths": [
         "docs/system/SYSTEM_TRACE_CONTEXT_MATRIX.md",
@@ -115,6 +133,9 @@
     {
       "id": "allagma-e2e-cohesion",
       "ownerRepo": "allagma-dotnet",
+      "protocolId": "allagma.system.cohesion.evidence.v1",
+      "authorityMode": "simulation_only",
+      "sideEffectLevel": "evidence_record",
       "kind": "evidence",
       "paths": [
         "docs/e2e/SYSTEM_COHESION_SMOKE.md",
@@ -126,6 +147,9 @@
     {
       "id": "kanon-routes",
       "ownerRepo": "kanon-dotnet",
+      "protocolId": "kanon.semantic-route.catalog.v1",
+      "authorityMode": "authoritative",
+      "sideEffectLevel": "read_only",
       "kind": "route",
       "paths": [
         "docs/generated/ONTOLOGY_V0_ROUTE_INVENTORY.json",
@@ -137,6 +161,9 @@
     {
       "id": "kanon-error-trace",
       "ownerRepo": "kanon-dotnet",
+      "protocolId": "kanon.action.evaluate.v1",
+      "authorityMode": "authoritative",
+      "sideEffectLevel": "semantic_decision",
       "kind": "error",
       "paths": [
         "docs/integrations/ERROR_CONTRACTS.md",
@@ -146,6 +173,9 @@
     {
       "id": "conexus-gateway",
       "ownerRepo": "conexus-dotnet",
+      "protocolId": "conexus.chat-completion.create.v1",
+      "authorityMode": "gateway",
+      "sideEffectLevel": "model_call",
       "kind": "route",
       "paths": [
         "docs/architecture/BOUNDARIES.md",
@@ -156,6 +186,9 @@
     {
       "id": "platform-cross-service-error",
       "ownerRepo": "ontogony-platform",
+      "protocolId": "ontogony.cross-service.error.envelope.v1",
+      "authorityMode": "observational",
+      "sideEffectLevel": "read_only",
       "kind": "error",
       "paths": [
         "docs/migrations/20260516-cross-service-error-envelope.md",
@@ -166,6 +199,9 @@
     {
       "id": "platform-observability",
       "ownerRepo": "ontogony-platform",
+      "protocolId": "ontogony.observability.stack.verify.v1",
+      "authorityMode": "observational",
+      "sideEffectLevel": "evidence_record",
       "kind": "observability",
       "paths": [
         "docker/local-working-system/docker-compose.yml",
@@ -176,6 +212,9 @@
     {
       "id": "frontend-routes-openapi",
       "ownerRepo": "ontogony-frontend",
+      "protocolId": "ontogony.evidence-spine.resolve.v1",
+      "authorityMode": "observational",
+      "sideEffectLevel": "read_only",
       "kind": "frontend-route",
       "paths": [
         "src/app/route-workflow-catalog.json",
@@ -190,6 +229,9 @@
     {
       "id": "allagma-observability-artifact",
       "ownerRepo": "allagma-dotnet",
+      "protocolId": "allagma.observability.artifact.capture.v1",
+      "authorityMode": "simulation_only",
+      "sideEffectLevel": "evidence_record",
       "kind": "observability",
       "paths": ["artifacts/observability/20260520T185946Z/observability-summary.json"],
       "validators": ["scripts/verify-system-observability.ps1"]

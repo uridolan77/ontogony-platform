@@ -152,10 +152,62 @@ function Resolve-RegistryPath([string]$ownerRepo, [string]$relativePath) {
     return Join-Path $root ($relativePath.Replace('/', [IO.Path]::DirectorySeparatorChar))
 }
 
+function Has-Property([object]$obj, [string]$name) {
+    return $obj.PSObject.Properties.Name -contains $name
+}
+
+$allowedAuthorityModes = @(
+    "authoritative",
+    "draft_only",
+    "simulation_only",
+    "blocked",
+    "local_only",
+    "observational",
+    "gateway",
+    "unknown"
+)
+
+$allowedSideEffectLevels = @(
+    "none",
+    "read_only",
+    "evidence_record",
+    "semantic_decision",
+    "run_state_transition",
+    "model_call",
+    "local_sandbox_effect",
+    "real_external_blocked",
+    "unknown"
+)
+
+foreach ($p in @($registry.protocols)) {
+    Require-NonEmptyString $p.id "protocols[].id"
+    Require-NonEmptyString $p.ownerRepo "protocols[$($p.id)].ownerRepo"
+
+    $hasProtocolId = Has-Property $p "protocolId"
+    $hasAuthorityMode = Has-Property $p "authorityMode"
+    $hasSideEffectLevel = Has-Property $p "sideEffectLevel"
+
+    if ($hasProtocolId -or $hasAuthorityMode -or $hasSideEffectLevel) {
+        if (-not ($hasProtocolId -and $hasAuthorityMode -and $hasSideEffectLevel)) {
+            throw "Registry validation failed: protocols[$($p.id)] runtime metadata must include protocolId, authorityMode, and sideEffectLevel together."
+        }
+
+        Require-NonEmptyString $p.protocolId "protocols[$($p.id)].protocolId"
+        Require-NonEmptyString $p.authorityMode "protocols[$($p.id)].authorityMode"
+        Require-NonEmptyString $p.sideEffectLevel "protocols[$($p.id)].sideEffectLevel"
+
+        if ($allowedAuthorityModes -notcontains [string]$p.authorityMode) {
+            throw "Registry validation failed: protocols[$($p.id)].authorityMode '$($p.authorityMode)' is not allowed."
+        }
+
+        if ($allowedSideEffectLevels -notcontains [string]$p.sideEffectLevel) {
+            throw "Registry validation failed: protocols[$($p.id)].sideEffectLevel '$($p.sideEffectLevel)' is not allowed."
+        }
+    }
+}
+
 if (-not $SkipSiblingPaths) {
     foreach ($p in @($registry.protocols)) {
-        Require-NonEmptyString $p.id "protocols[].id"
-        Require-NonEmptyString $p.ownerRepo "protocols[$($p.id)].ownerRepo"
         if ($null -eq $p.paths -or @($p.paths).Count -lt 1) {
             throw "Registry validation failed: protocols[$($p.id)].paths must have at least one entry."
         }

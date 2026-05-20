@@ -19,11 +19,13 @@ cd C:\dev\ontogony-platform
 
 ## Query protocol surfaces
 
-Each `protocols[]` entry answers: *which repo owns this surface, what kind it is, and which files define it?*
+Each `protocols[]` entry answers: *which repo owns this surface, what kind it is, which files define it, and (where populated) runtime protocol identity (`protocolId`, `authorityMode`, `sideEffectLevel`).*
 
 ```powershell
 $reg = Get-Content docs/system/system-protocol-registry.json | ConvertFrom-Json
-$reg.protocols | Where-Object kind -eq 'error' | Format-Table id, ownerRepo, paths
+$reg.protocols |
+  Where-Object kind -eq 'error' |
+  Format-Table id, protocolId, authorityMode, sideEffectLevel, ownerRepo
 ```
 
 ## CI
