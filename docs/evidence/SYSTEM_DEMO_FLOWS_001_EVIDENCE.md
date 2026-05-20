@@ -19,7 +19,7 @@ Delivered operator V1 demo package: [`OPERATOR_V1_DEMO_GUIDE.md`](../operators/O
 
 | Gate | Command | Result |
 | --- | --- | --- |
-| Playwright demo flows | `cd ontogony-frontend && npm run test:e2e:demo-flows` | See frontend evidence |
+| Playwright demo flows | `cd ontogony-frontend && npm run test:e2e:demo-flows` | **8/8 PASS** (2026-05-21) |
 | Demo prep (optional) | `docker/local-working-system/scripts/run-operator-v1-demo-prep.ps1` | Requires APIs on `:5081`–`:5083` |
 
 ## Operator behavior
