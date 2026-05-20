@@ -113,6 +113,7 @@ namespace Ontogony.Contracts.Events
         [System.Runtime.CompilerServices.CompilerFeatureRequired("RequiredMembers")]
         public OntogonyEnvelope() { }
         public string? ActorId { get; init; }
+        public string? AuthorityMode { get; init; }
         [System.Runtime.CompilerServices.RequiredMember]
         public string EventId { get; init; }
         [System.Runtime.CompilerServices.RequiredMember]
@@ -125,10 +126,12 @@ namespace Ontogony.Contracts.Events
         [System.Runtime.CompilerServices.RequiredMember]
         public TPayload Payload { get; init; }
         public string? ProjectId { get; init; }
+        public string? ProtocolId { get; init; }
         [System.Runtime.CompilerServices.RequiredMember]
         public string Protocol { get; init; }
         public string SchemaVersion { get; init; }
         public string? SessionId { get; init; }
+        public string? SideEffectLevel { get; init; }
         [System.Runtime.CompilerServices.RequiredMember]
         public string Source { get; init; }
         public string? SpanId { get; init; }
@@ -140,6 +143,7 @@ namespace Ontogony.Contracts.Events
     public static class OntogonyEventHeaders
     {
         public const string ActorId = "X-Ontogony-Actor-Id";
+        public const string AuthorityMode = "X-Ontogony-Authority-Mode";
         public const string ConexusRequestId = "X-Conexus-Request-Id";
         public const string CorrelationId = "X-Ontogony-Correlation-Id";
         public const string IdempotencyKey = "Idempotency-Key";
@@ -147,7 +151,9 @@ namespace Ontogony.Contracts.Events
         public const string LegacyAthanorTraceId = "X-Athanor-Trace-Id";
         public const string LegacyCorrelationId = "X-Correlation-ID";
         public const string ProjectId = "X-Ontogony-Project-Id";
+        public const string ProtocolId = "X-Ontogony-Protocol-Id";
         public const string SessionId = "X-Ontogony-Session-Id";
+        public const string SideEffectLevel = "X-Ontogony-Side-Effect-Level";
         public const string TenantId = "X-Ontogony-Tenant-Id";
         public const string TraceId = "X-Ontogony-Trace-Id";
         public const string TraceParent = "traceparent";
@@ -156,10 +162,13 @@ namespace Ontogony.Contracts.Events
     }
     public sealed class OntogonyEventMetadata : System.IEquatable<Ontogony.Contracts.Events.OntogonyEventMetadata>
     {
-        public OntogonyEventMetadata(string? Subject = null, string? DetailLevel = null, string? SchemaVersion = null, System.Collections.Generic.IReadOnlyDictionary<string, string>? CustomProperties = null) { }
+        public OntogonyEventMetadata(string? Subject = null, string? DetailLevel = null, string? SchemaVersion = null, string? ProtocolId = null, string? AuthorityMode = null, string? SideEffectLevel = null, System.Collections.Generic.IReadOnlyDictionary<string, string>? CustomProperties = null) { }
+        public string? AuthorityMode { get; init; }
         public System.Collections.Generic.IReadOnlyDictionary<string, string>? CustomProperties { get; init; }
         public string? DetailLevel { get; init; }
+        public string? ProtocolId { get; init; }
         public string? SchemaVersion { get; init; }
+        public string? SideEffectLevel { get; init; }
         public string? Subject { get; init; }
         public System.Collections.Generic.IReadOnlyDictionary<string, string> ToFlatDictionary() { }
         public static Ontogony.Contracts.Events.OntogonyEventMetadata FromFlatDictionary(System.Collections.Generic.IReadOnlyDictionary<string, string> dict) { }

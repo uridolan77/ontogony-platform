@@ -55,6 +55,9 @@ public sealed class OntogonyEnvelopeDeterminismTests
             ActorId = "actor-001",
             SessionId = "session-001",
             Protocol = ProtocolNames.Agentor,
+            ProtocolId = "allagma.run.start.v1",
+            AuthorityMode = "authoritative",
+            SideEffectLevel = "run_state_transition",
             Payload = new TestPayload("Hello", 42)
         };
 
@@ -66,6 +69,9 @@ public sealed class OntogonyEnvelopeDeterminismTests
         Assert.Equal(original.TraceId, restored.TraceId);
         Assert.Equal(original.TenantId, restored.TenantId);
         Assert.Equal(original.SpanId, restored.SpanId);
+        Assert.Equal(original.ProtocolId, restored.ProtocolId);
+        Assert.Equal(original.AuthorityMode, restored.AuthorityMode);
+        Assert.Equal(original.SideEffectLevel, restored.SideEffectLevel);
         Assert.Equal(original.Payload.Text, restored.Payload.Text);
         Assert.Equal(original.Payload.Count, restored.Payload.Count);
     }
@@ -244,6 +250,9 @@ public sealed class EventMetadataTests
             Subject: "test-subject",
             DetailLevel: "verbose",
             SchemaVersion: "2.0",
+            ProtocolId: "allagma.run.start.v1",
+            AuthorityMode: "authoritative",
+            SideEffectLevel: "run_state_transition",
             CustomProperties: new Dictionary<string, string> { { "custom", "value" } });
 
         var flat = metadata.ToFlatDictionary();
@@ -251,6 +260,9 @@ public sealed class EventMetadataTests
         Assert.Equal("test-subject", flat["subject"]);
         Assert.Equal("verbose", flat["detailLevel"]);
         Assert.Equal("2.0", flat["schemaVersion"]);
+        Assert.Equal("allagma.run.start.v1", flat["protocolId"]);
+        Assert.Equal("authoritative", flat["authorityMode"]);
+        Assert.Equal("run_state_transition", flat["sideEffectLevel"]);
         Assert.Equal("value", flat["custom"]);
     }
 
@@ -261,6 +273,9 @@ public sealed class EventMetadataTests
         {
             { "subject", "test-subject" },
             { "detailLevel", "verbose" },
+            { "protocolId", "allagma.run.start.v1" },
+            { "authorityMode", "authoritative" },
+            { "sideEffectLevel", "run_state_transition" },
             { "custom1", "customValue1" },
             { "custom2", "customValue2" }
         };
@@ -269,6 +284,9 @@ public sealed class EventMetadataTests
 
         Assert.Equal("test-subject", metadata.Subject);
         Assert.Equal("verbose", metadata.DetailLevel);
+        Assert.Equal("allagma.run.start.v1", metadata.ProtocolId);
+        Assert.Equal("authoritative", metadata.AuthorityMode);
+        Assert.Equal("run_state_transition", metadata.SideEffectLevel);
         Assert.NotNull(metadata.CustomProperties);
         Assert.Equal("customValue1", metadata.CustomProperties["custom1"]);
     }
@@ -280,6 +298,9 @@ public sealed class EventMetadataTests
             Subject: "my-subject",
             DetailLevel: "debug",
             SchemaVersion: "1.5",
+            ProtocolId: "kanon.action.evaluate.v1",
+            AuthorityMode: "authoritative",
+            SideEffectLevel: "semantic_decision",
             CustomProperties: new Dictionary<string, string>
             {
                 { "key1", "val1" },
@@ -292,6 +313,9 @@ public sealed class EventMetadataTests
         Assert.Equal(original.Subject, restored.Subject);
         Assert.Equal(original.DetailLevel, restored.DetailLevel);
         Assert.Equal(original.SchemaVersion, restored.SchemaVersion);
+        Assert.Equal(original.ProtocolId, restored.ProtocolId);
+        Assert.Equal(original.AuthorityMode, restored.AuthorityMode);
+        Assert.Equal(original.SideEffectLevel, restored.SideEffectLevel);
         Assert.NotNull(restored.CustomProperties);
         Assert.Equal(original.CustomProperties!["key1"], restored.CustomProperties["key1"]);
     }
@@ -338,6 +362,9 @@ public sealed class CloudEventsConversionTests
             ActorId = "actor-1",
             SessionId = "session-1",
             Protocol = ProtocolNames.Agentor,
+            ProtocolId = "allagma.run.start.v1",
+            AuthorityMode = "authoritative",
+            SideEffectLevel = "run_state_transition",
             PayloadHash = EnvelopeContractSamples.PayloadHash64,
             SchemaVersion = "1.0",
             Payload = new TestData("test")
@@ -354,6 +381,9 @@ public sealed class CloudEventsConversionTests
         Assert.Equal("actor-1", cloudEvent.Extensions!["actorId"]);
         Assert.Equal("session-1", cloudEvent.Extensions!["sessionId"]);
         Assert.Equal(ProtocolNames.Agentor, cloudEvent.Extensions!["protocol"]);
+        Assert.Equal("allagma.run.start.v1", cloudEvent.Extensions!["protocolId"]);
+        Assert.Equal("authoritative", cloudEvent.Extensions!["authorityMode"]);
+        Assert.Equal("run_state_transition", cloudEvent.Extensions!["sideEffectLevel"]);
         Assert.Equal(EnvelopeContractSamples.PayloadHash64, cloudEvent.Extensions!["payloadHash"]);
         Assert.Equal("1.0", cloudEvent.Extensions!["schemaVersion"]);
     }
@@ -372,7 +402,10 @@ public sealed class CloudEventsConversionTests
             {
                 { "traceId", "trace-abc" },
                 { "tenantId", "tenant-1" },
-                { "projectId", "project-1" }
+                { "projectId", "project-1" },
+                { "protocolId", "kanon.action.evaluate.v1" },
+                { "authorityMode", "authoritative" },
+                { "sideEffectLevel", "semantic_decision" }
             }
         };
 
@@ -383,6 +416,9 @@ public sealed class CloudEventsConversionTests
         Assert.Equal("trace-abc", envelope.TraceId);
         Assert.Equal("tenant-1", envelope.TenantId);
         Assert.Equal("project-1", envelope.ProjectId);
+        Assert.Equal("kanon.action.evaluate.v1", envelope.ProtocolId);
+        Assert.Equal("authoritative", envelope.AuthorityMode);
+        Assert.Equal("semantic_decision", envelope.SideEffectLevel);
     }
 
     [Fact]
@@ -519,6 +555,9 @@ public sealed class CloudEventsConversionTests
             OccurredAt = DateTimeOffset.Parse("2026-05-11T11:00:00Z"),
             TraceId = "trace-rt",
             Protocol = ProtocolNames.Mcp,
+            ProtocolId = "mcp.tool.invoked.v1",
+            AuthorityMode = "observational",
+            SideEffectLevel = "read_only",
             SchemaVersion = "3.0",
             PayloadHash = EnvelopeContractSamples.PayloadHash64,
             Metadata = new Dictionary<string, string> { ["k"] = "v" },
@@ -534,6 +573,9 @@ public sealed class CloudEventsConversionTests
         Assert.Equal(original.Source, restored.Source);
         Assert.Equal(original.TraceId, restored.TraceId);
         Assert.Equal(original.Protocol, restored.Protocol);
+        Assert.Equal(original.ProtocolId, restored.ProtocolId);
+        Assert.Equal(original.AuthorityMode, restored.AuthorityMode);
+        Assert.Equal(original.SideEffectLevel, restored.SideEffectLevel);
         Assert.Equal(original.SchemaVersion, restored.SchemaVersion);
         Assert.Equal(original.PayloadHash, restored.PayloadHash);
         Assert.Equal("v", restored.Metadata["k"]);

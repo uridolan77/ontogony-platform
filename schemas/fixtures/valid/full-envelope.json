@@ -12,6 +12,9 @@
   "ActorId": "actor:001",
   "SessionId": "session:001",
   "Protocol": "a2a",
+  "ProtocolId": "allagma.run.start.v1",
+  "AuthorityMode": "authoritative",
+  "SideEffectLevel": "run_state_transition",
   "SchemaVersion": "1.0",
   "Payload": {
     "data": "complete envelope with all optional headers"

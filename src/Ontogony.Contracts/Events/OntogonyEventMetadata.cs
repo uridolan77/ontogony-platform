@@ -7,6 +7,9 @@ public sealed record OntogonyEventMetadata(
     string? Subject = null,
     string? DetailLevel = null,
     string? SchemaVersion = null,
+    string? ProtocolId = null,
+    string? AuthorityMode = null,
+    string? SideEffectLevel = null,
     IReadOnlyDictionary<string, string>? CustomProperties = null)
 {
     /// <summary>
@@ -24,6 +27,15 @@ public sealed record OntogonyEventMetadata(
 
         if (!string.IsNullOrWhiteSpace(SchemaVersion))
             dict["schemaVersion"] = SchemaVersion;
+
+        if (!string.IsNullOrWhiteSpace(ProtocolId))
+            dict["protocolId"] = ProtocolId;
+
+        if (!string.IsNullOrWhiteSpace(AuthorityMode))
+            dict["authorityMode"] = AuthorityMode;
+
+        if (!string.IsNullOrWhiteSpace(SideEffectLevel))
+            dict["sideEffectLevel"] = SideEffectLevel;
 
         if (CustomProperties is not null)
         {
@@ -44,15 +56,21 @@ public sealed record OntogonyEventMetadata(
         var subject = dict.TryGetValue("subject", out var s) ? s : null;
         var detailLevel = dict.TryGetValue("detailLevel", out var d) ? d : null;
         var schemaVersion = dict.TryGetValue("schemaVersion", out var sv) ? sv : null;
+        var protocolId = dict.TryGetValue("protocolId", out var p) ? p : null;
+        var authorityMode = dict.TryGetValue("authorityMode", out var a) ? a : null;
+        var sideEffectLevel = dict.TryGetValue("sideEffectLevel", out var se) ? se : null;
 
         var custom = dict
-            .Where(kvp => kvp.Key is not ("subject" or "detailLevel" or "schemaVersion"))
+            .Where(kvp => kvp.Key is not ("subject" or "detailLevel" or "schemaVersion" or "protocolId" or "authorityMode" or "sideEffectLevel"))
             .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
         return new OntogonyEventMetadata(
             subject,
             detailLevel,
             schemaVersion,
+            protocolId,
+            authorityMode,
+            sideEffectLevel,
             custom.Count > 0 ? custom : null);
     }
 }

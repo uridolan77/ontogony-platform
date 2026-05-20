@@ -26,6 +26,9 @@ public sealed class HeaderConstantsSnapshotTests
         Assert.Equal("X-Ontogony-Workspace-Id", OntogonyEventHeaders.WorkspaceId);
         Assert.Equal("X-Ontogony-Session-Id", OntogonyEventHeaders.SessionId);
         Assert.Equal("Idempotency-Key", OntogonyEventHeaders.IdempotencyKey);
+        Assert.Equal("X-Ontogony-Protocol-Id", OntogonyEventHeaders.ProtocolId);
+        Assert.Equal("X-Ontogony-Authority-Mode", OntogonyEventHeaders.AuthorityMode);
+        Assert.Equal("X-Ontogony-Side-Effect-Level", OntogonyEventHeaders.SideEffectLevel);
         Assert.Equal("X-Ontogony-Correlation-Id", OntogonyEventHeaders.CorrelationId);
         Assert.Equal("X-Correlation-ID", OntogonyEventHeaders.LegacyCorrelationId);
     }

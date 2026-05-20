@@ -46,6 +46,15 @@ public sealed record OntogonyEnvelope<TPayload>
     /// <summary>Opaque protocol discriminator for ingress/recorder routing.</summary>
     public required string Protocol { get; init; }
 
+    /// <summary>Optional protocol act identifier for evidence-producing cross-service operations.</summary>
+    public string? ProtocolId { get; init; }
+
+    /// <summary>Optional authority posture (for example authoritative, draft_only, observational).</summary>
+    public string? AuthorityMode { get; init; }
+
+    /// <summary>Optional side-effect posture (for example read_only, semantic_decision, model_call).</summary>
+    public string? SideEffectLevel { get; init; }
+
     /// <summary>Envelope schema version string.</summary>
     public string SchemaVersion { get; init; } = "1.0";
 

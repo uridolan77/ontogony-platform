@@ -65,6 +65,37 @@
         "langgraph"
       ]
     },
+    "ProtocolId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9:_./-]+$"
+    },
+    "AuthorityMode": {
+      "type": "string",
+      "enum": [
+        "authoritative",
+        "draft_only",
+        "simulation_only",
+        "blocked",
+        "local_only",
+        "observational",
+        "gateway",
+        "unknown"
+      ]
+    },
+    "SideEffectLevel": {
+      "type": "string",
+      "enum": [
+        "none",
+        "read_only",
+        "evidence_record",
+        "semantic_decision",
+        "run_state_transition",
+        "model_call",
+        "local_sandbox_effect",
+        "real_external_blocked",
+        "unknown"
+      ]
+    },
     "SchemaVersion": {
       "type": "string",
       "minLength": 1

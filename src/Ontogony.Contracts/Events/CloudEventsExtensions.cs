@@ -101,6 +101,15 @@ public static class CloudEventsExtensions
         if (!string.IsNullOrWhiteSpace(envelope.Protocol))
             extensions["protocol"] = envelope.Protocol;
 
+        if (!string.IsNullOrWhiteSpace(envelope.ProtocolId))
+            extensions["protocolId"] = envelope.ProtocolId;
+
+        if (!string.IsNullOrWhiteSpace(envelope.AuthorityMode))
+            extensions["authorityMode"] = envelope.AuthorityMode;
+
+        if (!string.IsNullOrWhiteSpace(envelope.SideEffectLevel))
+            extensions["sideEffectLevel"] = envelope.SideEffectLevel;
+
         if (!string.IsNullOrWhiteSpace(envelope.PayloadHash))
             extensions["payloadHash"] = envelope.PayloadHash;
 
@@ -182,6 +191,9 @@ public static class CloudEventsExtensions
         var actorId = ExtractString(extensions, "actorId");
         var sessionId = ExtractString(extensions, "sessionId");
         var protocolFromExtension = ExtractString(extensions, "protocol");
+        var protocolId = ExtractString(extensions, "protocolId");
+        var authorityMode = ExtractString(extensions, "authorityMode");
+        var sideEffectLevel = ExtractString(extensions, "sideEffectLevel");
         var payloadHash = ExtractString(extensions, "payloadHash");
         var schemaVersion = ExtractString(extensions, "schemaVersion");
 
@@ -238,6 +250,9 @@ public static class CloudEventsExtensions
             ActorId = actorId,
             SessionId = sessionId,
             Protocol = protocol,
+            ProtocolId = protocolId,
+            AuthorityMode = authorityMode,
+            SideEffectLevel = sideEffectLevel,
             SchemaVersion = string.IsNullOrWhiteSpace(schemaVersion) ? "1.0" : schemaVersion,
             Payload = payload,
             PayloadHash = payloadHash,

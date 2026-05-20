@@ -16,6 +16,7 @@ Canonical event envelope, header names, and protocol contracts for Ontogony serv
 `Ontogony.Contracts` defines the mechanical DTOs and constants that enable cross-service communication:
 
 - **`OntogonyEnvelope<TPayload>`** — Protocol-neutral event wrapper with trace correlation, tenant context, and payload hash
+- **Runtime protocol metadata** — Optional `ProtocolId`, `AuthorityMode`, `SideEffectLevel` for evidence-producing cross-service acts
 - **`OntogonyEventHeaders`** — Canonical header names for trace ID, actor, tenant, and workspace context
 - **Protocol names and constants** — Enumerated protocol types and standard event type conventions
 
@@ -41,6 +42,7 @@ await publisher.PublishAsync(envelope);
 ## Key Types
 
 - `OntogonyEnvelope<TPayload>` — Required fields: `EventId`, `EventType`, `Source`, `OccurredAt`, `TraceId`, `Protocol`, `Payload`
+- `OntogonyEnvelope<TPayload>` — Optional runtime metadata: `ProtocolId`, `AuthorityMode`, `SideEffectLevel`
 - `OntogonyEventHeaders` — Constants like `TraceId`, `TenantId`, `ActorId`, `WorkspaceId`, `ProjectId`
 - `ProtocolNames` — Well-known protocol identifiers (`internal`, `cloudevents`, etc.)
 

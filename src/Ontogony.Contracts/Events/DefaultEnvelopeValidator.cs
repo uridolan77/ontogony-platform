@@ -10,6 +10,32 @@ public sealed partial class DefaultEnvelopeValidator : IEnvelopeValidator
 {
     private readonly EnvelopeValidatorOptions _options;
     private readonly FrozenSet<string>? _allowedProtocols;
+    private static readonly FrozenSet<string> AllowedAuthorityModes = FrozenSet.ToFrozenSet(
+    [
+        "authoritative",
+        "draft_only",
+        "simulation_only",
+        "blocked",
+        "local_only",
+        "observational",
+        "gateway",
+        "unknown"
+    ],
+    StringComparer.Ordinal);
+
+    private static readonly FrozenSet<string> AllowedSideEffectLevels = FrozenSet.ToFrozenSet(
+    [
+        "none",
+        "read_only",
+        "evidence_record",
+        "semantic_decision",
+        "run_state_transition",
+        "model_call",
+        "local_sandbox_effect",
+        "real_external_blocked",
+        "unknown"
+    ],
+    StringComparer.Ordinal);
 
     /// <summary>Creates a validator with optional protocol allow-list and length limits.</summary>
     /// <param name="options">Options; defaults to <see cref="EnvelopeValidatorOptions"/> defaults.</param>
@@ -77,6 +103,28 @@ public sealed partial class DefaultEnvelopeValidator : IEnvelopeValidator
 
         if (string.IsNullOrWhiteSpace(envelope.SchemaVersion))
             errors.Add(new EnvelopeValidationError(nameof(envelope.SchemaVersion), "SchemaVersion is required.", "required"));
+
+        var hasProtocolId = !string.IsNullOrWhiteSpace(envelope.ProtocolId);
+        var hasAuthorityMode = !string.IsNullOrWhiteSpace(envelope.AuthorityMode);
+        var hasSideEffectLevel = !string.IsNullOrWhiteSpace(envelope.SideEffectLevel);
+        if (hasProtocolId || hasAuthorityMode || hasSideEffectLevel)
+        {
+            if (!(hasProtocolId && hasAuthorityMode && hasSideEffectLevel))
+            {
+                errors.Add(new EnvelopeValidationError(nameof(envelope.ProtocolId), "Protocol runtime metadata must include ProtocolId, AuthorityMode, and SideEffectLevel together.", "required"));
+            }
+            else
+            {
+                if (!SafeTokenRegex().IsMatch(envelope.ProtocolId!.Trim()))
+                    errors.Add(new EnvelopeValidationError(nameof(envelope.ProtocolId), "ProtocolId must be a safe token (alphanumeric, colon, underscore, dot, slash, hyphen).", "format"));
+
+                if (!AllowedAuthorityModes.Contains(envelope.AuthorityMode!.Trim()))
+                    errors.Add(new EnvelopeValidationError(nameof(envelope.AuthorityMode), "AuthorityMode is not an allowed value.", "allowed_values"));
+
+                if (!AllowedSideEffectLevels.Contains(envelope.SideEffectLevel!.Trim()))
+                    errors.Add(new EnvelopeValidationError(nameof(envelope.SideEffectLevel), "SideEffectLevel is not an allowed value.", "allowed_values"));
+            }
+        }
 
         if (typeof(TPayload).IsClass && envelope.Payload is null)
             errors.Add(new EnvelopeValidationError(nameof(envelope.Payload), "Payload must not be null for reference types.", "required"));

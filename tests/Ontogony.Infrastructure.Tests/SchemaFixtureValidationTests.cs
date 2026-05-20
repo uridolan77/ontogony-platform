@@ -83,6 +83,18 @@ public sealed class SchemaFixtureValidationTests
         Assert.True(root.TryGetProperty("Protocol", out var protocol) && protocol.ValueKind != JsonValueKind.Null);
     }
 
+    [Fact]
+    public void FullEnvelopeFixture_Includes_RuntimeProtocolMetadata()
+    {
+        var filePath = Path.Combine(GetProjectRoot(), "schemas/fixtures/valid/full-envelope.json");
+        using var doc = JsonDocument.Parse(File.ReadAllText(filePath));
+        var root = doc.RootElement;
+
+        Assert.Equal("allagma.run.start.v1", root.GetProperty("ProtocolId").GetString());
+        Assert.Equal("authoritative", root.GetProperty("AuthorityMode").GetString());
+        Assert.Equal("run_state_transition", root.GetProperty("SideEffectLevel").GetString());
+    }
+
     private static string GetProjectRoot()
     {
         var dir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);

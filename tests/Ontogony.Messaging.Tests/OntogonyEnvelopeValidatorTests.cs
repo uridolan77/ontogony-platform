@@ -28,6 +28,42 @@ public sealed class OntogonyEnvelopeValidatorTests
     }
 
     [Fact]
+    public void Validate_RuntimeProtocolMetadataTriplet_IsAccepted_WhenComplete()
+    {
+        var e = ValidEnvelope() with
+        {
+            ProtocolId = "allagma.run.start.v1",
+            AuthorityMode = "authoritative",
+            SideEffectLevel = "run_state_transition"
+        };
+        var r = new DefaultEnvelopeValidator().Validate(e);
+        Assert.True(r.IsValid);
+    }
+
+    [Fact]
+    public void Validate_RuntimeProtocolMetadataTriplet_Fails_WhenPartial()
+    {
+        var e = ValidEnvelope() with { ProtocolId = "allagma.run.start.v1" };
+        var r = new DefaultEnvelopeValidator().Validate(e);
+        Assert.False(r.IsValid);
+        Assert.Contains(r.Errors, x => x.Field == nameof(OntogonyEnvelope<TestPayload>.ProtocolId) && x.Code == "required");
+    }
+
+    [Fact]
+    public void Validate_RuntimeProtocolMetadataTriplet_Fails_OnInvalidAuthorityMode()
+    {
+        var e = ValidEnvelope() with
+        {
+            ProtocolId = "allagma.run.start.v1",
+            AuthorityMode = "invalid-mode",
+            SideEffectLevel = "run_state_transition"
+        };
+        var r = new DefaultEnvelopeValidator().Validate(e);
+        Assert.False(r.IsValid);
+        Assert.Contains(r.Errors, x => x.Field == nameof(OntogonyEnvelope<TestPayload>.AuthorityMode) && x.Code == "allowed_values");
+    }
+
+    [Fact]
     public void Validate_InvalidEventType_ReturnsError()
     {
         var e = ValidEnvelope() with { EventType = "only.two" };

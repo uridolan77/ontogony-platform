@@ -46,4 +46,13 @@ public static class OntogonyEventHeaders
 
     /// <summary>Standard idempotency key header.</summary>
     public const string IdempotencyKey = "Idempotency-Key";
+
+    /// <summary>Optional runtime protocol act id header.</summary>
+    public const string ProtocolId = "X-Ontogony-Protocol-Id";
+
+    /// <summary>Optional authority posture header.</summary>
+    public const string AuthorityMode = "X-Ontogony-Authority-Mode";
+
+    /// <summary>Optional side-effect posture header.</summary>
+    public const string SideEffectLevel = "X-Ontogony-Side-Effect-Level";
 }
