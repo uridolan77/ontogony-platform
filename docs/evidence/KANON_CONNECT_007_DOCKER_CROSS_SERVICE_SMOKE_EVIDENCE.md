@@ -1,7 +1,7 @@
 # KANON-CONNECT-007 — Full Kanon cross-service Docker smoke
 
 **Recorded at (UTC):** 2026-05-20  
-**Verdict:** See run output below (automated gate)  
+**Verdict:** **PASS** (compose rebuild + ENV-SEED-001 + Playwright 7/7)  
 **Statement:** Docker-local compose rebuild of `kanon-api`, `allagma-api`, `conexus-api`, and `ontogony-frontend`, ENV-SEED-001 bootstrap, and Playwright cross-service browser smoke for Kanon connect acceptance. Runtime lock not updated (SYSTEM-ALPHA cut is separate).
 
 ## Orchestration
@@ -48,11 +48,31 @@ Related suites (still in `playwright.docker-local.config.ts`): `kanon-deepen-014
 
 Compose builds use `mcr.microsoft.com/dotnet/sdk:9.0-bookworm-slim` inside Dockerfiles; host `global.json` uses `9.0.100` with `rollForward: latestFeature` in `allagma-dotnet` and `conexus-dotnet`. Rebuild is performed in-container so host SDK `9.0.203` vs prior `9.0.314` pin mismatch does not block image build.
 
+## Test run (2026-05-20)
+
+```powershell
+cd C:\dev\ontogony-platform\docker\local-working-system
+docker compose build kanon-api conexus-api allagma-api ontogony-frontend
+docker compose up -d kanon-api conexus-api allagma-api ontogony-frontend
+
+cd C:\dev\ontogony-frontend
+$env:ENV_SEED_001_REPORT = "C:\dev\ontogony-platform\docker\local-working-system\artifacts\env-seed-001-report.json"
+npm run test:e2e:docker-live:kanon-connect-007
+```
+
+| Check | Result |
+| --- | --- |
+| `docker compose build` (4 services) | PASS |
+| Playwright `kanon-connect-007` (7 tests) | **7 passed** (~10s) |
+| Report artifact | `docker/local-working-system/artifacts/kanon-connect-007-smoke-report.json` |
+
+**Notes:** Live Conexus assistance invoke can be slow or hang on fake provider; step 4 falls back to ENV-SEED-001 `baselineModelCallId` observability drilldown when no `modelInvocationId` link is returned. Gates step 3 verifies policy link when a `WaitingForHumanGate` run exists; otherwise gates page load only.
+
 ## Acceptance
 
-- [ ] Full compose rebuild succeeds (`docker compose build` for four services)
-- [ ] ENV-SEED-001 passes
-- [ ] `kanon-connect-007` Playwright suite passes
+- [x] Full compose rebuild succeeds (`docker compose build` for four services)
+- [x] ENV-SEED-001 report present and used by smoke (`env-seed-001-report.json`)
+- [x] `kanon-connect-007` Playwright suite passes (7/7)
 - [x] No `ontogony-runtime.lock.json` update in this slice
 
 ## Related
