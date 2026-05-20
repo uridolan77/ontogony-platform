@@ -63,7 +63,7 @@ Some Kanon pages adopted `@ontogony/ui` feedback/navigation primitives during th
 ## Not in scope / follow-up (v2 package)
 
 - Full **Cross-Service Evidence Spine** graph resolver (`EVIDENCE-SPINE-*` package).
-- **SYSTEM-ALPHA-004/005** — pin commit SHAs, rebuild all compose services (resolve Allagma/Conexus SDK image drift), update `ontogony-runtime.lock.json`.
+- **SYSTEM-ALPHA-005** — Done; see [SYSTEM_ALPHA_005_CLOSEOUT_EVIDENCE.md](./SYSTEM_ALPHA_005_CLOSEOUT_EVIDENCE.md). Runtime lock updated in `allagma-dotnet/docs/system/ontogony-runtime.lock.json`.
 - **KANON-DEEPEN-007B** — OpenAPI/generated-client alignment for assistance DTOs (optional cleanup).
 - **Conexus `openApiSnapshotCatalog` drift** (013 note) — quarantine as non-Kanon until system baseline cut.
 - Index reconciliation: [009A](./KANON_DEEPEN_009A_RECONCILIATION_EVIDENCE.md), [010A](./KANON_DEEPEN_010A_RECONCILIATION_EVIDENCE.md), [011A](./KANON_DEEPEN_011A_RECONCILIATION_EVIDENCE.md), [012A](./KANON_DEEPEN_012A_RECONCILIATION_EVIDENCE.md), [014A](./KANON_DEEPEN_014A_STATUS_WORDING_RECONCILIATION.md).

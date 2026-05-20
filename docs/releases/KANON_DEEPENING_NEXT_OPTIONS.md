@@ -35,7 +35,7 @@ After v1 closeout (000–006) and v2 slices **007–014** (including Docker brow
 
 
 
-1. **SYSTEM-ALPHA** baseline candidate — pin commit SHAs and update `ontogony-runtime.lock.json` when ready (014 verified Docker-local only).
+1. **FE-EVIDENCE-SPINE-002** — fix B-013 Kanon `kanon.decision` node in evidence spine Docker-live graph.
 
 2. Rebuild `allagma-api` / `conexus-api` compose images after SDK pin alignment (CORS header parity in source).
 
