@@ -94,7 +94,12 @@ Closeout addendum: [`docs/_incoming/curated-review-package/ontogony_curated_revi
 
 Service evidence (by repo): `ALLAGMA_EVIDENCE_001`, `ALLAGMA_STREAM_001`, `CONEXUS_RETENTION_001`, `KANON_CONEXUS_ASSIST_001`, `KANON_DOMAINPACK_GOV_001` — see reconciliation evidence for paths.
 
-Runtime baseline promotion: pending `SYSTEM-ALPHA-004` (prep: [SYSTEM_ALPHA_004_PREP_EVIDENCE.md](./SYSTEM_ALPHA_004_PREP_EVIDENCE.md)).
+Runtime baseline promotion: pending `SYSTEM-ALPHA-004`.
+
+| Item | File |
+| --- | --- |
+| SYSTEM-ALPHA-004-PREP (platform index) | [SYSTEM_ALPHA_004_PREP_EVIDENCE.md](./SYSTEM_ALPHA_004_PREP_EVIDENCE.md) |
+| SYSTEM-ALPHA-004-PREP (canonical / lock owner) | [allagma-dotnet/docs/evidence/SYSTEM_ALPHA_004_PREP_EVIDENCE.md](../../../allagma-dotnet/docs/evidence/SYSTEM_ALPHA_004_PREP_EVIDENCE.md) |
 
 ---
 
