@@ -12,7 +12,8 @@
 - System cohesion smoke PASS (`20260520T162945Z`).
 - Docker Allagma restart survival PASS (`20260520-162956`).
 - Kanon deepening 014 Playwright 12/12 + FE live smoke 5/5.
-- Evidence Spine 008a: API preflight PASS; Playwright **B-013** quarantined (Kanon decision node).
+- Evidence Spine 008a: Playwright **5/5 PASS** after [FE-EVIDENCE-SPINE-002](../../../ontogony-frontend/docs/evidence/FE_EVIDENCE_SPINE_002_EVIDENCE.md) (B-013 cleared).
+- **B-012** remains quarantined (`SYS-OBS-004` Grafana readiness).
 
 ## Companion evidence
 
