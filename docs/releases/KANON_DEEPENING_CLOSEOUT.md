@@ -26,11 +26,12 @@ The Kanon deepening sequence made Kanon semantic authority inspectable from the 
 
 [`docs/evidence/KANON_DEEPEN_SEQUENCE_STATUS.md`](../evidence/KANON_DEEPEN_SEQUENCE_STATUS.md)
 
-## Related programs (out of scope)
+## Related programs (out of scope for v1 closeout)
 
 - **UI-HARDEN** — shared UI primitives in `ontogony-ui` (separate evidence).
 - **EVIDENCE-SPINE** — unified cross-service evidence resolver (future).
 - **CONEXUS-DEEPEN** — gateway observability listing contracts (future).
+- **KANON-DEEPEN-007** (v2) — Conexus assistance operator workbench — tracked in [`KANON_DEEPEN_SEQUENCE_STATUS.md`](../evidence/KANON_DEEPEN_SEQUENCE_STATUS.md); canonical evidence in `kanon-dotnet/docs/evidence/KANON_DEEPEN_007_CONEXUS_ASSISTANCE_WORKBENCH_EVIDENCE.md`.
 
 ## Sign-off criteria
 

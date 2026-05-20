@@ -1,7 +1,7 @@
 # Kanon deepening sequence — status index
 
-**Last updated:** 2026-05-20 (traceability polish pass)  
-**Package:** `Ontogony-Kanon-Deep-Enhancement-Package-v1`  
+**Last updated:** 2026-05-20 (007 reconciliation pass)  
+**Packages:** `Ontogony-Kanon-Deep-Enhancement-Package-v1` (000–006); `Ontogony-Kanon-Courageous-Enhancement-Package-v2` (007+)  
 **Audit:** [`docs/reviews/KANON_DEEPEN_000_CURRENT_STATE_AUDIT.md`](../reviews/KANON_DEEPEN_000_CURRENT_STATE_AUDIT.md)
 
 | Item | Status | Primary evidence | Implementation commits (main) |
@@ -13,8 +13,9 @@
 | KANON-DEEPEN-004 | Done (no durable fact/plan history) | [004 evidence](./KANON_DEEPEN_004_FACTS_PLANS_BINDINGS_EXPLORER_EVIDENCE.md) | `ontogony-frontend` `65fe83c` |
 | KANON-DEEPEN-005 | Done | [005 evidence](./KANON_DEEPEN_005_CROSS_SERVICE_SEMANTIC_LINKS_EVIDENCE.md) | `ontogony-frontend` `c5c4bfc`, platform `68f6e90` |
 | KANON-DEEPEN-006 | Done (docs/validation; browser QA checklist) | [006 evidence](./KANON_DEEPEN_006_CLOSEOUT_AND_MANUAL_QA_EVIDENCE.md) | platform closeout docs (this pass) |
+| KANON-DEEPEN-007 | Done (source/unit/frontend-build; Docker browser pending) | [007 evidence](../../../kanon-dotnet/docs/evidence/KANON_DEEPEN_007_CONEXUS_ASSISTANCE_WORKBENCH_EVIDENCE.md) (canonical) | `kanon-dotnet` + `ontogony-frontend` — Conexus assistance workbench `/kanon/assistance` |
 
-**Closeout bundle:** [`docs/releases/KANON_DEEPENING_CLOSEOUT.md`](../releases/KANON_DEEPENING_CLOSEOUT.md)
+**Closeout bundle (v1):** [`docs/releases/KANON_DEEPENING_CLOSEOUT.md`](../releases/KANON_DEEPENING_CLOSEOUT.md)
 
 ## Browser verification posture
 
@@ -22,6 +23,7 @@
 |---|---|---|
 | 002–005 | Unit + mocked E2E (see per-item evidence) | **Pending** — requires `docker compose build ontogony-frontend kanon-api` and operator walkthrough |
 | 006 | Closeout checklist documented | Same — see [006 evidence](./KANON_DEEPEN_006_CLOSEOUT_AND_MANUAL_QA_EVIDENCE.md) |
+| 007 | Unit/API + frontend adapter tests; workbench build | **Pending** — enable `Kanon:ConexusAssistance` + Conexus URL/key; walk `/kanon/assistance` (see 007 evidence) |
 
 Do not claim end-to-end browser verification until a rebuilt frontend image has been exercised against the manual checklist.
 
@@ -32,8 +34,9 @@ Some Kanon pages adopted `@ontogony/ui` feedback/navigation primitives during th
 - **Kanon deepening:** semantic workbenches, Kanon API mapping, cross-service semantic links.
 - **UI-HARDEN:** shared primitive contracts in `ontogony-ui` (documented under UI-HARDEN evidence).
 
-## Not in scope for 002–006
+## Not in scope / follow-up (v2 package)
 
 - Full **Cross-Service Evidence Spine** graph resolver (`EVIDENCE-SPINE-*` package).
-- Conexus assistance operator UI (`KANON-DEEPEN-007` candidate).
-- Durable facts/plans list/history APIs (`KANON-DEEPEN-008` candidate).
+- **KANON-DEEPEN-007A** — Docker-local browser validation for `/kanon/assistance` (operator-owned; not claimed in 007 evidence).
+- **KANON-DEEPEN-007B** — OpenAPI/generated-client alignment for assistance DTOs (optional cleanup).
+- Durable facts/plans list/history APIs (**KANON-DEEPEN-008** — next architectural slice).
