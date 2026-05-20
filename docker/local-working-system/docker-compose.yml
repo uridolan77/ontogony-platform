@@ -37,6 +37,8 @@ services:
       Kanon__ConexusAssistance__BaseUrl: ${KANON_CONEXUS_ASSISTANCE_BASE_URL:-http://conexus-api:8080}
       Kanon__ConexusAssistance__ProjectApiKey: ${CONEXUS_PROJECT_API_KEY:-cx-dev-key-change-me}
       OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-http://host.docker.internal:4317}
+      OTEL_SERVICE_NAME: ${KANON_OTEL_SERVICE_NAME:-kanon-api}
+      OTEL_RESOURCE_ATTRIBUTES: ${OTEL_RESOURCE_ATTRIBUTES:-deployment.environment=development}
     ports:
       - "${KANON_HOST_PORT:-5081}:8080"
     depends_on:
@@ -72,6 +74,8 @@ services:
       Conexus__Cors__AllowedOrigins__0: ${FRONTEND_CORS_ORIGIN_LOCALHOST:-http://localhost:5175}
       Conexus__Cors__AllowedOrigins__1: ${FRONTEND_CORS_ORIGIN_LOOPBACK:-http://127.0.0.1:5175}
       OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-http://host.docker.internal:4317}
+      OTEL_SERVICE_NAME: ${CONEXUS_OTEL_SERVICE_NAME:-conexus-api}
+      OTEL_RESOURCE_ATTRIBUTES: ${OTEL_RESOURCE_ATTRIBUTES:-deployment.environment=development}
     ports:
       - "${CONEXUS_HOST_PORT:-5082}:8080"
     depends_on:
@@ -114,6 +118,8 @@ services:
       Allagma__Cors__AllowedOrigins__0: ${FRONTEND_CORS_ORIGIN_LOCALHOST:-http://localhost:5175}
       Allagma__Cors__AllowedOrigins__1: ${FRONTEND_CORS_ORIGIN_LOOPBACK:-http://127.0.0.1:5175}
       OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-http://host.docker.internal:4317}
+      OTEL_SERVICE_NAME: ${ALLAGMA_OTEL_SERVICE_NAME:-allagma-api}
+      OTEL_RESOURCE_ATTRIBUTES: ${OTEL_RESOURCE_ATTRIBUTES:-deployment.environment=development}
     ports:
       - "${ALLAGMA_HOST_PORT:-5083}:8080"
     depends_on:

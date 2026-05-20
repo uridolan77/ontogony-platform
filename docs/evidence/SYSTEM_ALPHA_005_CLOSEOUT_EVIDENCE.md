@@ -14,7 +14,7 @@
 - Kanon connect 007 Playwright **7/7** — [KANON_CONNECT_007_DOCKER_CROSS_SERVICE_SMOKE_EVIDENCE.md](./KANON_CONNECT_007_DOCKER_CROSS_SERVICE_SMOKE_EVIDENCE.md).
 - FE live smoke **5/5**; Evidence Spine 008a **5/5** (B-013 cleared).
 - Kanon deepening 014 Playwright **12/12** (retained).
-- **B-012** remains quarantined (`SYS-OBS-004` Grafana readiness).
+- **B-012** cleared — [SYS_OBS_004A_DOCKER_GRAFANA_EVIDENCE.md](./SYS_OBS_004A_DOCKER_GRAFANA_EVIDENCE.md) (Docker OTLP + Grafana PASS `20260520T182404Z`).
 
 ## Pinned SHAs
 

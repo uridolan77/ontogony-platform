@@ -29,7 +29,7 @@ This intake does **not** assert:
 
 ## Remaining known quarantine
 
-- **B-012 / SYS-OBS-004A** — Docker OTLP + Grafana readiness (`verify-system-observability.ps1` live gate). Alpha-005 closeout is complete except this item; Grafana readiness on `:3000` failed within 120s in the last live rerun while collector/Prometheus/Jaeger were up.
+- **B-012 / SYS-OBS-004A** — **cleared 2026-05-20** — see `allagma-dotnet/docs/evidence/SYS_OBS_004A_DOCKER_GRAFANA_EVIDENCE.md` (`artifacts/observability/20260520T182404Z/` PASS).
 
 ## Package layout verification
 

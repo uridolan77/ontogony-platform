@@ -22,9 +22,20 @@ if (-not (Test-Path -LiteralPath $composeFile)) {
     throw "Observability compose not found: $composeFile (set -AllagmaRoot or -DevRoot)."
 }
 
-$env:GRAFANA_HOST_PORT = if ($GrafanaHostPort -gt 0) { "$GrafanaHostPort" } else { $env:GRAFANA_HOST_PORT }
-if ([string]::IsNullOrWhiteSpace($env:GRAFANA_HOST_PORT)) {
-    $env:GRAFANA_HOST_PORT = "3000"
+$portPreflightLib = Join-Path $AllagmaRoot "scripts\lib\port-preflight.ps1"
+if (-not (Test-Path -LiteralPath $portPreflightLib)) {
+    throw "Missing port preflight library: $portPreflightLib"
+}
+. $portPreflightLib
+
+if ($GrafanaHostPort -gt 0) {
+    $env:GRAFANA_HOST_PORT = "$GrafanaHostPort"
+}
+elseif ([string]::IsNullOrWhiteSpace($env:GRAFANA_HOST_PORT)) {
+    $env:GRAFANA_HOST_PORT = [string](Get-RecommendedGrafanaHostPort -PreferredPort 3000)
+}
+else {
+    $env:GRAFANA_HOST_PORT = $env:GRAFANA_HOST_PORT.Trim()
 }
 
 $composeArgs = @("compose", "-f", $composeFile)

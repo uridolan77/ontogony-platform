@@ -15,10 +15,25 @@ if ([string]::IsNullOrWhiteSpace($AllagmaRoot)) {
 }
 $AllagmaRoot = (Resolve-Path -LiteralPath $AllagmaRoot).Path
 
-$grafanaPort = if (-not [string]::IsNullOrWhiteSpace($env:GRAFANA_HOST_PORT)) { $env:GRAFANA_HOST_PORT } else { "3000" }
+$portPreflightLib = Join-Path $AllagmaRoot "scripts\lib\port-preflight.ps1"
+if (-not (Test-Path -LiteralPath $portPreflightLib)) {
+    throw "Missing port preflight library: $portPreflightLib"
+}
+. $portPreflightLib
+
 if ([string]::IsNullOrWhiteSpace($GrafanaUrl)) {
+    $grafanaPort = if (-not [string]::IsNullOrWhiteSpace($env:GRAFANA_HOST_PORT)) {
+        $env:GRAFANA_HOST_PORT.Trim()
+    }
+    else {
+        [string](Get-RecommendedGrafanaHostPort -PreferredPort 3000)
+    }
+    $env:GRAFANA_HOST_PORT = $grafanaPort
     $GrafanaUrl = "http://localhost:$grafanaPort"
 }
+
+$GrafanaUrl = Resolve-GrafanaHealthUrl -GrafanaUrl $GrafanaUrl -BoundParameters @{ GrafanaUrl = $GrafanaUrl }
+$env:GRAFANA_HOST_PORT = [string](Get-PortFromUrl -Url $GrafanaUrl)
 
 $verifyScript = Join-Path $AllagmaRoot "scripts\verify-system-observability.ps1"
 if (-not (Test-Path -LiteralPath $verifyScript)) {
