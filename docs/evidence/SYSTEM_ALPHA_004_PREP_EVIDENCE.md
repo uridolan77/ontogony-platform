@@ -28,7 +28,7 @@ See canonical doc for full command log, commit SHAs, blockers, and CUT checklist
 | Area | Result |
 | --- | --- |
 | Frontend `test:fe-high-value` | PASS |
-| Frontend `npm run check` | FAIL (`config:check` resolved; current failure is `format:check` due pre-existing Prettier drift) |
+| Frontend `npm run check` | QUARANTINED (`format:check` only — B-010; contracts/config gates PASS) |
 | UI `npm run check` | PASS (lint blocker resolved) |
 | Kanon Sprint 4 filters | PASS |
 | Kanon full Release | PASS (261/261 on rerun) |
@@ -36,19 +36,16 @@ See canonical doc for full command log, commit SHAs, blockers, and CUT checklist
 | Allagma full Release | PASS (714/714 on rerun) |
 | Conexus retention persistence | PASS |
 | Conexus scoped-keys integration hang | RESOLVED (`AdminScopedKeysIntegrationTests` now PASS; no hang) |
-| Conexus full suite | FAIL (3 production-exposure tests fail on local Postgres `127.0.0.1:59990` connection refused) |
+| Conexus full suite | QUARANTINED (213/216; 3 `ProductionExposure` tests need Postgres `127.0.0.1:59990` — B-011) |
 | Docker-local system gates | _pending_ |
 
 ## Open blockers
 
-Canonical blocker state is now:
+**Active CUT blockers:** `B-001` (lock unchanged), `B-007` (SHA refresh at cut), Docker-local gates (E2E, restart, observability, evidence spine, composition, FE docker-live smokes).
 
-- `B-001` runtime lock unchanged until CUT (intentional).
-- `B-007` dirty platform/conexus trees and SHA refresh-at-cut requirement.
-- `B-010` frontend `format:check` drift (broad pre-existing Prettier mismatches).
-- Docker-local CUT gates pending (E2E, restart, observability, evidence spine, composition gates).
+**Quarantined for Alpha-004 (see canonical prep):** `B-010` frontend `format:check` (~265-file Prettier drift → `FE-FORMAT-CLEAN-001` after cut); `B-011` Conexus `AdminExposureSafetyTests+ProductionExposure` ×3 (Postgres fixture `127.0.0.1:59990`).
 
-Resolved for traceability in canonical prep: `B-002` Allagma vocabulary drift, `B-003` Kanon topology snapshot 409, `B-004` frontend `contracts:audit`, `B-005` UI lint, `B-006` Conexus scoped-keys hang, `B-009` frontend env-catalog drift.
+**Resolved:** `B-002`–`B-006`, `B-009` (vocabulary, topology 409, contracts, UI lint, scoped-keys hang, env catalog).
 
 ## Next step
 
