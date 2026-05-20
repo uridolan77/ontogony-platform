@@ -6,6 +6,38 @@ Verification records for cross-repo programs hosted on `ontogony-platform`. File
 
 ---
 
+## Runtime baseline status (SYS-EVIDENCE-INDEX-006)
+
+| Field | Value |
+| --- | --- |
+| **Last runtime cut (lock owner: `allagma-dotnet`)** | **SYSTEM-ALPHA-005** |
+| **Moving-main revalidation** | **SYS-E2E-REVALIDATE-006** → **PARTIAL PASS / LOCK-BLOCKED** — **not** a new lock |
+| **Next lock** | **SYS-LOCK-006** — **BLOCKED** until Q-006-001..003 cleared |
+| **Canonical revalidation evidence** | [allagma-dotnet/docs/evidence/SYS_E2E_REVALIDATE_006_EVIDENCE.md](../../../allagma-dotnet/docs/evidence/SYS_E2E_REVALIDATE_006_EVIDENCE.md) |
+| **Allagma evidence index** | [allagma-dotnet/docs/evidence/README.md](../../../allagma-dotnet/docs/evidence/README.md) |
+
+### Cleared (Alpha-005 post-cut — do not reopen)
+
+| Id | Notes |
+| --- | --- |
+| B-010 | Frontend format check |
+| B-011 | Conexus production exposure tests |
+| B-012 | Docker OTLP + Grafana — [SYS_OBS_004A_DOCKER_GRAFANA_EVIDENCE.md](./SYS_OBS_004A_DOCKER_GRAFANA_EVIDENCE.md) (Grafana **3001** when **3000** busy; verifier updated) |
+| B-013 | Evidence Spine 008a — `ontogony-frontend/docs/evidence/FE_EVIDENCE_SPINE_002_EVIDENCE.md` |
+
+### Open on moving-main (block SYS-LOCK-006)
+
+| Id | Repo | Lock blocker? |
+| --- | --- | --- |
+| Q-006-001 | `ontogony-platform` — public API snapshots | **Yes** |
+| Q-006-002 | `conexus-dotnet` — production Postgres startup test | **Yes** |
+| Q-006-003 | `allagma-dotnet` — SYS-LOCK-005 release/lock cross-ref tests | **Yes** |
+| Q-006-004 | Process restart E2E vs compose ports | **No** — Docker `allagma-api` restart PASS (canonical path) |
+
+Kanon connect **001–007** evidence remains valid at the ALPHA-005 cut; see [KANON-CONNECT](#kanon-cross-repo-connect-kanon-connect) below.
+
+---
+
 ## RCQ — repo cleaning / documentation / manual QA prep
 
 | Item | File |
@@ -94,14 +126,16 @@ Closeout addendum: [`docs/_incoming/curated-review-package/ontogony_curated_revi
 
 Service evidence (by repo): `ALLAGMA_EVIDENCE_001`, `ALLAGMA_STREAM_001`, `CONEXUS_RETENTION_001`, `KANON_CONEXUS_ASSIST_001`, `KANON_DOMAINPACK_GOV_001` — see reconciliation evidence for paths.
 
-Runtime baseline: **`SYSTEM-ALPHA-005`** (lock owner: `allagma-dotnet`).
+Runtime baseline: **`SYSTEM-ALPHA-005`** (lock owner: `allagma-dotnet`). Moving-main: **SYS-E2E-REVALIDATE-006 PARTIAL PASS** — see [runtime baseline status](#runtime-baseline-status-sys-evidence-index-006).
 
 | Item | File |
 | --- | --- |
+| SYS-E2E-REVALIDATE-006 (moving-main, canonical) | [allagma-dotnet/docs/evidence/SYS_E2E_REVALIDATE_006_EVIDENCE.md](../../../allagma-dotnet/docs/evidence/SYS_E2E_REVALIDATE_006_EVIDENCE.md) |
 | SYSTEM-ALPHA-005 closeout (platform index) | [SYSTEM_ALPHA_005_CLOSEOUT_EVIDENCE.md](./SYSTEM_ALPHA_005_CLOSEOUT_EVIDENCE.md) |
 | SYSTEM-ALPHA-005 closeout (canonical) | [allagma-dotnet/docs/evidence/SYSTEM_ALPHA_005_CLOSEOUT.md](../../../allagma-dotnet/docs/evidence/SYSTEM_ALPHA_005_CLOSEOUT.md) |
 | 004/005 combined release note | [allagma-dotnet/docs/releases/SYSTEM_ALPHA_004_OR_005_CLOSEOUT.md](../../../allagma-dotnet/docs/releases/SYSTEM_ALPHA_004_OR_005_CLOSEOUT.md) |
 | SYSTEM-ALPHA-004-PREP (historical) | [SYSTEM_ALPHA_004_PREP_EVIDENCE.md](./SYSTEM_ALPHA_004_PREP_EVIDENCE.md) |
+| SYS-LOCK-006 | **BLOCKED** — issue card: `docs/_incoming/Ontogony_System_Protocols_Delta_ALPHA005_2026-05-20/issue-cards/SYS-LOCK-006.md` |
 
 ---
 
@@ -263,4 +297,6 @@ Consumer detail: `ontogony-frontend/docs/evidence/UI_CONSUMER_001_FRONTEND_UI_FO
 
 ## Sister repos
 
-Service-specific evidence lives in each repo’s `docs/evidence/` (e.g. `allagma-dotnet/docs/evidence/README.md`). Platform evidence covers cross-repo milestones and governance items only.
+Service-specific evidence lives in each repo’s `docs/evidence/` (e.g. [allagma-dotnet/docs/evidence/README.md](../../../allagma-dotnet/docs/evidence/README.md)). Platform evidence covers cross-repo milestones and governance items only.
+
+**Note:** `SYS_E2E_REVALIDATE_006_EVIDENCE.md` lives under **`allagma-dotnet`** (lock owner), not under `ontogony-platform/main`. Use the link in [runtime baseline status](#runtime-baseline-status-sys-evidence-index-006) or clone `allagma-dotnet` at moving-main `bdaabbb+`.
