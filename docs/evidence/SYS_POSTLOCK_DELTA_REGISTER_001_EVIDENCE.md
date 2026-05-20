@@ -59,7 +59,7 @@ Operators and integrators use the register to see which post-ALPHA-006 deltas ar
 
 ## Next step
 
-`SYS-Q006-004-RESTART-PATH-DECISION` and `SYS-OPERATOR-HOME-001`.
+`ALLAGMA-OPERATOR-RUNS-001` (Sprint B).
 
 ## Related
 

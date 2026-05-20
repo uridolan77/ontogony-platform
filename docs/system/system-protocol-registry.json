@@ -262,9 +262,9 @@
     },
     {
       "id": "Q-006-004",
-      "status": "open",
-      "rationale": "Process restart-e2e script vs compose ports :5081–5083; Docker restart path is canonical and PASS",
-      "followup": "non-blocking for runtime lock"
+      "status": "cleared",
+      "rationale": "SYS-Q006-004-RESTART-PATH-DECISION — canonical Docker restart documented; process script guarded with -ForceProcessStack",
+      "followup": "ontogony-platform/docs/operators/CANONICAL_RESTART_PATH.md"
     }
   ]
 }

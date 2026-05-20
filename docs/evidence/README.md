@@ -12,7 +12,7 @@ Verification records for cross-repo programs hosted on `ontogony-platform`. File
 | --- | --- |
 | **Last runtime cut (lock owner: `allagma-dotnet`)** | **SYSTEM-ALPHA-006** — [SYSTEM_ALPHA_006_CLOSEOUT.md](../../../allagma-dotnet/docs/evidence/SYSTEM_ALPHA_006_CLOSEOUT.md) |
 | **Moving-main revalidation** | **SYS-E2E-REVALIDATE-006** → superseded by **SYS-LOCK-006** |
-| **Q-006-004** | Process restart script vs compose ports — **non-blocking** |
+| **Q-006-004 restart path (SYS-Q006-004-RESTART-PATH-DECISION)** | [SYS_Q006_004_RESTART_PATH_DECISION_EVIDENCE.md](./SYS_Q006_004_RESTART_PATH_DECISION_EVIDENCE.md) — [CANONICAL_RESTART_PATH.md](../operators/CANONICAL_RESTART_PATH.md) |
 | **Canonical revalidation evidence** | [allagma-dotnet/docs/evidence/SYS_E2E_REVALIDATE_006_EVIDENCE.md](../../../allagma-dotnet/docs/evidence/SYS_E2E_REVALIDATE_006_EVIDENCE.md) |
 | **Allagma evidence index** | [allagma-dotnet/docs/evidence/README.md](../../../allagma-dotnet/docs/evidence/README.md) |
 | **Protocol registry (SYS-PROTOCOL-REGISTRY-001)** | [SYSTEM_PROTOCOL_REGISTRY_001_EVIDENCE.md](./SYSTEM_PROTOCOL_REGISTRY_001_EVIDENCE.md) — [`docs/system/system-protocol-registry.json`](../system/system-protocol-registry.json) |
@@ -23,6 +23,7 @@ Verification records for cross-repo programs hosted on `ontogony-platform`. File
 | **Conexus evidence flow (CONEXUS-EVIDENCE-FLOW-001)** | [CONEXUS_EVIDENCE_FLOW_001_EVIDENCE.md](./CONEXUS_EVIDENCE_FLOW_001_EVIDENCE.md) |
 | **Conexus post-lock deltas (CONEXUS-POSTLOCK-001)** | [CONEXUS_POSTLOCK_001_CLASSIFICATION.md](../../../conexus-dotnet/docs/evidence/CONEXUS_POSTLOCK_001_CLASSIFICATION.md) |
 | **Post-lock delta register (SYS-POSTLOCK-DELTA-REGISTER-001)** | [SYS_POSTLOCK_DELTA_REGISTER_001_EVIDENCE.md](./SYS_POSTLOCK_DELTA_REGISTER_001_EVIDENCE.md) — [`post-lock-delta-register.json`](../system/post-lock-delta-register.json), [`validate-post-lock-delta-register.ps1`](../../scripts/validate-post-lock-delta-register.ps1) |
+| **Operator home (SYS-OPERATOR-HOME-001)** | [ontogony-frontend/docs/evidence/SYS_OPERATOR_HOME_001_EVIDENCE.md](../../../ontogony-frontend/docs/evidence/SYS_OPERATOR_HOME_001_EVIDENCE.md) — `/system` |
 
 ### Cleared (Alpha-005 post-cut — do not reopen)
 
