@@ -35,11 +35,13 @@ See canonical doc for full command log, commit SHAs, blockers, and CUT checklist
 | Allagma scoped filters | PASS |
 | Allagma full Release | FAIL (vocabulary snapshot ×3) |
 | Conexus retention persistence | PASS |
+| Conexus scoped-keys integration hang | RESOLVED (`AdminScopedKeysIntegrationTests` now PASS; no hang) |
 | Docker-local system gates | _pending_ |
 
 ## Open blockers
 
-Listed in canonical prep: vocabulary snapshot drift (Allagma), Kanon topology snapshot 409, frontend OpenAPI audit, UI lint, Conexus admin integration test hang, dirty platform/conexus trees at prep time.
+Listed in canonical prep: vocabulary snapshot drift (Allagma), Kanon topology snapshot 409, frontend OpenAPI audit, UI lint, dirty platform/conexus trees at prep time.  
+Conexus admin scoped-keys hang is resolved (kept in canonical blocker table as `Resolved` row for traceability).
 
 ## Next step
 
