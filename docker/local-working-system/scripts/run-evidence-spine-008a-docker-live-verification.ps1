@@ -53,7 +53,7 @@ else {
 }
 
 Write-Host "[3/5] Live API preflight for resolver backing routes ..."
-$seed = Get-Content -Raw -LiteralPath $seedPath | ConvertFrom-Json
+$seedReport = Get-Content -Raw -LiteralPath $seedPath | ConvertFrom-Json
 $allagmaHeaders = @{ Authorization = "Bearer $($config.AllagmaServiceToken)" }
 $kanonHeaders = @{ Authorization = "Bearer $($config.KanonServiceToken)" }
 $conexusAdminHeaders = @{ "X-Conexus-Admin-Key" = $config.ConexusAdminApiKey }
@@ -95,19 +95,21 @@ function Test-ApiRow {
 }
 
 $apiRows = @(
-    (Test-ApiRow -Kind "allagmaRun" -Id $seed.runs.subjectRunId -Url "$($config.AllagmaBaseUrl)/allagma/v0/runs/$($seed.runs.subjectRunId)" -Headers $allagmaHeaders)
-    (Test-ApiRow -Kind "allagmaEvaluation" -Id $seed.evaluations.subjectEvaluationRunId -Url "$($config.AllagmaBaseUrl)/allagma/v0/evaluations/$($seed.evaluations.subjectEvaluationRunId)" -Headers $allagmaHeaders)
-    (Test-ApiRow -Kind "kanonDecision" -Id $seed.topology.subjectTopologyAuthorizationDecisionId -Url "$($config.KanonBaseUrl)/ontology/v0/decision-records/$($seed.topology.subjectTopologyAuthorizationDecisionId)" -Headers $kanonHeaders)
-    (Test-ApiRow -Kind "conexusRouteDecision" -Id $seed.routeEvidence.subjectRouteDecisionId -Url "$($config.ConexusBaseUrl)/admin/v0/route-decisions/$($seed.routeEvidence.subjectRouteDecisionId)" -Headers $conexusAdminHeaders)
-    (Test-ApiRow -Kind "conexusModelCall" -Id $seed.runs.subjectModelCallId -Url "$($config.ConexusBaseUrl)/admin/v0/model-calls/$([uri]::EscapeDataString($seed.runs.subjectModelCallId))" -Headers $conexusAdminHeaders)
+    (Test-ApiRow -Kind "allagmaRun" -Id $seedReport.runs.subjectRunId -Url "$($config.AllagmaBaseUrl)/allagma/v0/runs/$($seedReport.runs.subjectRunId)" -Headers $allagmaHeaders)
+    (Test-ApiRow -Kind "allagmaEvaluation" -Id $seedReport.evaluations.subjectEvaluationRunId -Url "$($config.AllagmaBaseUrl)/allagma/v0/evaluations/$($seedReport.evaluations.subjectEvaluationRunId)" -Headers $allagmaHeaders)
+    (Test-ApiRow -Kind "kanonDecision" -Id $seedReport.topology.subjectTopologyAuthorizationDecisionId -Url "$($config.KanonBaseUrl)/ontology/v0/decision-records/$($seedReport.topology.subjectTopologyAuthorizationDecisionId)" -Headers $kanonHeaders)
+    (Test-ApiRow -Kind "conexusRouteDecision" -Id $seedReport.routeEvidence.subjectRouteDecisionId -Url "$($config.ConexusBaseUrl)/admin/v0/route-decisions/$($seedReport.routeEvidence.subjectRouteDecisionId)" -Headers $conexusAdminHeaders)
+    (Test-ApiRow -Kind "conexusModelCall" -Id $seedReport.runs.subjectModelCallId -Url "$($config.ConexusBaseUrl)/admin/v0/model-calls/$([uri]::EscapeDataString($seedReport.runs.subjectModelCallId))" -Headers $conexusAdminHeaders)
 )
 
+$failedRequiredRows = @($apiRows | Where-Object { $_.ok -ne $true -and $_.kind -ne "conexusModelCall" })
+$apiPreflightVerdict = if ($failedRequiredRows.Count -eq 0) { "PASS" } else { "PARTIAL" }
 $apiReport = [ordered]@{
     schema = "evidence-spine-008a-live-api-preflight-v1"
     recordedAtUtc = (Get-Date).ToUniversalTime().ToString("o")
     seedReportPath = $seedPath
     rows = $apiRows
-    verdict = if (@($apiRows | Where-Object { -not $_.ok -and $_.kind -ne "conexusModelCall" }).Count -eq 0) { "PASS" } else { "PARTIAL" }
+    verdict = $apiPreflightVerdict
 }
 $apiReport | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $apiReportPath -Encoding utf8
 Write-Host "Wrote API preflight: $apiReportPath"
