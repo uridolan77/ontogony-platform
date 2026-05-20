@@ -1,7 +1,7 @@
 # Curated backlog
 
-| ID | Priority | Repo | Theme | Title |
-|---|---:|---|---|---|
+| ID | Priority | Repo | Theme | Title | Status |
+|---|---:|---|---|---|---|
 | SYSTEM-COH-001 | P0 | allagma-dotnet primary; all repos referenced | Cross-repo cohesion | Create canonical system compatibility, environment, auth, route, and test matrices |
 | SYSTEM-E2E-001 | P0 | allagma-dotnet primary; exercises kanon-dotnet and conexus-dotnet | Cross-repo cohesion | Add full local-stack E2E suite for the governed runtime loop |
 | SYSTEM-ERR-001 | P0 | ontogony-platform first; consumed by allagma-dotnet, kanon-dotnet, conexus-dotnet, ontogony-frontend | Cross-service contracts | Standardize cross-service error envelope and typed client failures |
@@ -23,11 +23,11 @@
 | KANON-API-MODULAR-001 | P1 | kanon-dotnet | Maintainability | Split large API Program.cs into feature endpoint modules |
 | KANON-CONEXUS-ASSIST-001 | P1 | kanon-dotnet + allagma-dotnet E2E | Assistance seam | Prove Conexus assistance disabled/mock/local paths, not real-provider rollout |
 | KANON-DOMAINPACK-GOV-001 | P2 | kanon-dotnet | Governance | Clarify domain-pack lifecycle promotion states and blocking rules |
-| FE-CLEANUP-001 | P0 | ontogony-frontend | Build correctness | Resolve duplicate root config artifacts |
-| FE-AUTH-001 | P0 | ontogony-frontend | Operator access | Add route-level operator auth guard |
-| FE-ERRBOUND-001 | P0 | ontogony-frontend | UX resilience | Add route-level error boundaries and API failure states |
-| FE-FIXTURE-MATRIX-001 | P1 | ontogony-frontend | Live vs demo clarity | Create page-by-page live/fallback/fixture matrix and remove misleading demo paths |
-| FE-STUBS-001 | P1 | ontogony-frontend | Operator trust | Replace thin/stub pages with honest operational states or live wiring |
-| FE-API-ADAPTER-001 | P1 | ontogony-frontend | Contract safety | Add API/adapter contract tests for Conexus, Kanon, and Allagma clients |
+| FE-CLEANUP-001 | P0 | ontogony-frontend | Build correctness | Resolve duplicate root config artifacts | **closed** |
+| FE-AUTH-001 | P0 | ontogony-frontend | Operator access | Add route-level operator auth guard | **closed** |
+| FE-ERRBOUND-001 | P0 | ontogony-frontend | UX resilience | Add route-level error boundaries and API failure states | **closed** |
+| FE-FIXTURE-MATRIX-001 | P1 | ontogony-frontend | Live vs demo clarity | Create page-by-page live/fallback/fixture matrix and remove misleading demo paths | **closed** |
+| FE-STUBS-001 | P1 | ontogony-frontend | Operator trust | Replace thin/stub pages with honest operational states or live wiring | planned |
+| FE-API-ADAPTER-001 | P1 | ontogony-frontend | Contract safety | Add API/adapter contract tests for Conexus, Kanon, and Allagma clients | **closed** |
 | FE-DOCKER-001 | P1 | ontogony-frontend or ontogony-platform | Local environment | Complete Docker-local frontend composition and ontogony-ui build strategy |
 | FE-TEST-001 | P2 | ontogony-frontend | Regression coverage | Add smoke tests for the highest-value operator pages |

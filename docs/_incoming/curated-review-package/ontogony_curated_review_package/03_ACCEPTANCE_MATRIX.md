@@ -1,7 +1,7 @@
 # Acceptance matrix
 
-| ID | Acceptance criteria |
-|---|---|
+| ID | Status | Acceptance criteria |
+|---|---|---|
 | SYSTEM-COH-001 | A new developer can start the local stack from the matrix; every cross-service client call in Allagma/Kanon/Conexus maps to one documented route/auth/env row; no obsolete naming appears. |
 | SYSTEM-E2E-001 | A single command produces artifacts/system-e2e/<timestamp>/summary.json with route responses, event timeline, decision IDs, model call IDs, trace IDs, and pass/fail status. |
 | SYSTEM-ERR-001 | Kanon.Client and Conexus.Client expose deterministic typed failures; Allagma translates downstream failures into the shared envelope; frontend adapters can render a single error model. |
@@ -23,11 +23,11 @@
 | KANON-API-MODULAR-001 | No route behavior changes; tests/OpenAPI route inventory remain stable. |
 | KANON-CONEXUS-ASSIST-001 | System E2E verifies one assistance route produces a redacted draft_only decision record and provenance entry. |
 | KANON-DOMAINPACK-GOV-001 | Domain-pack lifecycle docs and tests cover promote, active lookup, deprecate, blocked promotion, hash mismatch, and signature failure. |
-| FE-CLEANUP-001 | Only intended Vite/Vitest/Tailwind configs are present; CI proves Vite and Vitest resolve the canonical files. |
-| FE-AUTH-001 | Without configured local token/session, operator routes render an auth-required state; authenticated local settings allow access. |
-| FE-ERRBOUND-001 | Each domain has a page-level error state for failed backend calls; tests cover at least one failure per domain. |
-| FE-FIXTURE-MATRIX-001 | Every route in route-workflow-catalog has dataSource=live|live_with_fallback|fixture_only|not_implemented and the UI labels non-live content clearly. |
-| FE-STUBS-001 | No released route renders a near-empty page without clear status and next action. |
-| FE-API-ADAPTER-001 | Generated/handwritten client DTO changes fail tests if UI contracts break. |
+| FE-CLEANUP-001 | **closed** | Only intended Vite/Vitest/Tailwind configs are present; CI proves Vite and Vitest resolve the canonical files. |
+| FE-AUTH-001 | **closed** | Without configured local token/session, operator routes render an auth-required state; authenticated local settings allow access. |
+| FE-ERRBOUND-001 | **closed** | Each domain has a page-level error state for failed backend calls; tests cover at least one failure per domain. |
+| FE-FIXTURE-MATRIX-001 | **closed** | Every route in route-workflow-catalog has dataSource=live|live_with_fallback|fixture_only|not_implemented and the UI labels non-live content clearly. |
+| FE-STUBS-001 | planned | No released route renders a near-empty page without clear status and next action. |
+| FE-API-ADAPTER-001 | **closed** | Generated/handwritten client DTO changes fail tests if UI contracts break. |
 | FE-DOCKER-001 | One local command serves the frontend and reaches Conexus/Kanon/Allagma health plus at least one live page per domain. |
 | FE-TEST-001 | Vitest covers render/loading/error/success state for these pages; optional Playwright smoke covers main navigation. |

@@ -9,21 +9,25 @@
 
 ## Sprint 1 — Service hardening
 
-5. `KANON-POSTGRES-LOCAL-001` — prove durable Kanon local path.
-6. `KANON-EVIDENCE-001` — evidence packs for major semantic workflows.
-7. `CONEXUS-TOOLS-001` — tool/function pass-through.
-8. `CONEXUS-GOV-DRILLDOWN-001` — model-call/usage drill-down contracts.
-9. `ALLAGMA-TOOL-TRUST-001` — real-tool trust model, without enabling real execution.
-10. `ALLAGMA-SANDBOX-OBS-001` — explicit simulated/local execution labels.
+**Status (2026-05-20):** Items 5–10 closed in source. Reconciliation addendum: `allagma-dotnet/docs/reviews/SYSTEM_COHESION_SPRINT1_CLOSEOUT_ADDENDUM.md`.
+
+5. `KANON-POSTGRES-LOCAL-001` — prove durable Kanon local path. **Closed**
+6. `KANON-EVIDENCE-001` — evidence packs for major semantic workflows. **Closed**
+7. `CONEXUS-TOOLS-001` — tool/function pass-through. **Closed** (PASS; OpenAI-shaped + fake)
+8. `CONEXUS-GOV-DRILLDOWN-001` — model-call/usage drill-down contracts. **Closed** (PASS source + Docker-local admin list/detail after rebuild)
+9. `ALLAGMA-TOOL-TRUST-001` — real-tool trust model, without enabling real execution. **Closed** (PASS design-only; real execution blocked)
+10. `ALLAGMA-SANDBOX-OBS-001` — explicit simulated/local execution labels. **Closed** (PASS backend/audit; frontend labels follow in Sprint 2)
 
 ## Sprint 2 — Frontend operator truth
 
-11. `FE-CLEANUP-001` — resolve duplicate config artifacts.
-12. `FE-AUTH-001` — route-level operator auth guard.
-13. `FE-ERRBOUND-001` — route-level error boundaries.
-14. `FE-FIXTURE-MATRIX-001` — live/fallback/fixture matrix.
+**Status (2026-05-20):** Items 11–14 closed in `ontogony-frontend` (evidence under `docs/evidence/FE_*_001_*` and `FE_FRONTEND_HARDENING_011_014_CLOSEOUT_EVIDENCE.md`).
+
+11. `FE-CLEANUP-001` — resolve duplicate config artifacts. **Closed**
+12. `FE-AUTH-001` — route-level operator auth guard. **Closed**
+13. `FE-ERRBOUND-001` — route-level error boundaries. **Closed**
+14. `FE-FIXTURE-MATRIX-001` — live/fallback/fixture matrix. **Closed**
 15. `FE-STUBS-001` — honest states or live wiring for thin pages.
-16. `FE-API-ADAPTER-001` — adapter contract tests.
+16. `FE-API-ADAPTER-001` — adapter contract tests. **Closed** (`FE_API_ADAPTER_001_CONTRACT_TESTS_EVIDENCE.md`)
 
 ## Sprint 3 — Operational maturity
 

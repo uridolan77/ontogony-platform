@@ -14,14 +14,11 @@ The frontend should become an honest operator console: live where possible, expl
 
 ## Implement next
 
-1. `FE-CLEANUP-001`
-2. `FE-AUTH-001`
-3. `FE-ERRBOUND-001`
-4. `FE-FIXTURE-MATRIX-001`
-5. `FE-STUBS-001`
-6. `FE-API-ADAPTER-001`
-7. `FE-DOCKER-001`
-8. `FE-TEST-001`
+**Closed (2026-05-20):** `FE-CLEANUP-001`, `FE-AUTH-001`, `FE-ERRBOUND-001`, `FE-FIXTURE-MATRIX-001`, `FE-API-ADAPTER-001` — evidence in `ontogony-frontend/docs/evidence/FE_*_001_*` and `FE_FRONTEND_HARDENING_011_014_CLOSEOUT_EVIDENCE.md`.
+
+1. `FE-STUBS-001`
+2. `FE-DOCKER-001`
+3. `FE-TEST-001`
 
 ## Notes
 

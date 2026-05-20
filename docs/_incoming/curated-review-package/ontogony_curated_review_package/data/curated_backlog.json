@@ -217,7 +217,10 @@
     "title": "Resolve duplicate root config artifacts",
     "why": "The repo contains both TypeScript source configs and generated JavaScript/declaration configs; this creates build ambiguity and Docker context risk.",
     "scope": "Decide canonical config files; remove or regenerate intentionally; update .gitignore and CI to prevent accidental committed build artifacts.",
-    "acceptance": "Only intended Vite/Vitest/Tailwind configs are present; CI proves Vite and Vitest resolve the canonical files."
+    "acceptance": "Only intended Vite/Vitest/Tailwind configs are present; CI proves Vite and Vitest resolve the canonical files.",
+    "status": "closed",
+    "closedAt": "2026-05-20",
+    "evidence": "ontogony-frontend/docs/evidence/FE_CLEANUP_001_ROOT_CONFIG_ARTIFACTS_EVIDENCE.md"
   },
   {
     "id": "FE-AUTH-001",
@@ -227,7 +230,10 @@
     "title": "Add route-level operator auth guard",
     "why": "The route tree mounts all operator pages under OntogonyShell with no explicit guard.",
     "scope": "Add ProtectedRoute or shell-level auth boundary, local credential/token settings, unauthorized state, and tests.",
-    "acceptance": "Without configured local token/session, operator routes render an auth-required state; authenticated local settings allow access."
+    "acceptance": "Without configured local token/session, operator routes render an auth-required state; authenticated local settings allow access.",
+    "status": "closed",
+    "closedAt": "2026-05-20",
+    "evidence": "ontogony-frontend/docs/evidence/FE_AUTH_001_OPERATOR_ROUTE_GUARD_EVIDENCE.md"
   },
   {
     "id": "FE-ERRBOUND-001",
@@ -237,7 +243,10 @@
     "title": "Add route-level error boundaries and API failure states",
     "why": "Live API pages should fail per-page, not crash or silently fall back.",
     "scope": "Shared ErrorBoundary, ProductLiveQueryState usage where missing, retry actions, redaction-safe error rendering.",
-    "acceptance": "Each domain has a page-level error state for failed backend calls; tests cover at least one failure per domain."
+    "acceptance": "Each domain has a page-level error state for failed backend calls; tests cover at least one failure per domain.",
+    "status": "closed",
+    "closedAt": "2026-05-20",
+    "evidence": "ontogony-frontend/docs/evidence/FE_ERRBOUND_001_ROUTE_ERROR_BOUNDARIES_EVIDENCE.md"
   },
   {
     "id": "FE-FIXTURE-MATRIX-001",
@@ -247,7 +256,10 @@
     "title": "Create page-by-page live/fallback/fixture matrix and remove misleading demo paths",
     "why": "System and Allagma fixtures are marked fallback/demo, while Kanon semantic fixtures still supply mock operator content. Operators need to know what is live.",
     "scope": "Audit src/*/api, src/*/adapters, pages, and fixtures. Document primary live API, fallback behavior, and demo-only components per route.",
-    "acceptance": "Every route in route-workflow-catalog has dataSource=live|live_with_fallback|fixture_only|not_implemented and the UI labels non-live content clearly."
+    "acceptance": "Every route in route-workflow-catalog has dataSource=live|live_with_fallback|fixture_only|not_implemented and the UI labels non-live content clearly.",
+    "status": "closed",
+    "closedAt": "2026-05-20",
+    "evidence": "ontogony-frontend/docs/evidence/FE_FIXTURE_MATRIX_001_ROUTE_DATA_SOURCE_EVIDENCE.md"
   },
   {
     "id": "FE-STUBS-001",
@@ -267,7 +279,10 @@
     "title": "Add API/adapter contract tests for Conexus, Kanon, and Allagma clients",
     "why": "The frontend depends on domain adapters hiding backend DTOs; drift should be caught locally.",
     "scope": "Fixture response samples from live smoke/evidence; adapter tests for status mapping, error mapping, pagination, trace IDs, cost/evidence links, and human-gate states.",
-    "acceptance": "Generated/handwritten client DTO changes fail tests if UI contracts break."
+    "acceptance": "Generated/handwritten client DTO changes fail tests if UI contracts break.",
+    "status": "closed",
+    "closedAt": "2026-05-20",
+    "evidence": "ontogony-frontend/docs/evidence/FE_API_ADAPTER_001_CONTRACT_TESTS_EVIDENCE.md"
   },
   {
     "id": "FE-DOCKER-001",
