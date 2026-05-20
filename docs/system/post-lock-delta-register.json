@@ -1,0 +1,177 @@
+{
+  "schema": "ontogony-post-lock-delta-register-v1",
+  "issue": "SYS-POSTLOCK-DELTA-REGISTER-001",
+  "baseline": "SYSTEM-ALPHA-006",
+  "generatedAt": "2026-05-21",
+  "lockOwnerRepo": "allagma-dotnet",
+  "classificationLegend": {
+    "additive_safe_api": "New HTTP or read-only surface; opt-in; no breaking change",
+    "operator_doc_only": "Docs, evidence, or planning; no required runtime change",
+    "test_only": "Tests, fixtures, CI validators; not a product API surface",
+    "runtime_behavior_change": "DI, registration, or default behavior; validate before next lock",
+    "lock_impacting_package": "Published package or semver-relevant contract",
+    "follow_up_needed": "Safe surface exists; operator/FE wiring deferred",
+    "validated_alpha_006": "Absorbed into SYSTEM-ALPHA-006 lock SHAs",
+    "moving_main_delta": "Post-ALPHA-006 movement; not yet in next lock"
+  },
+  "lockDispositionLegend": {
+    "validated_alpha_006": "Included in ALPHA-006 cut evidence",
+    "moving_main_delta": "Tracked on main after lock; non-blocking for Operator V1 RC prep",
+    "no_delta": "HEAD matches lock SHA"
+  },
+  "repos": [
+    {
+      "repo": "allagma-dotnet",
+      "role": "governed_execution_lock_owner",
+      "alpha006LockSha": "6dbf087dd7a2f375341bc2f3be970d9a09c0a7c7",
+      "movingMainHeadSha": "ea2a508b107cf587421b91ce6c8c0445a31c650e",
+      "commitsAfterLock": 7,
+      "lockDisposition": "moving_main_delta",
+      "detailEvidence": "allagma-dotnet/docs/evidence/SYSTEM_ALPHA_006_CLOSEOUT.md",
+      "groups": [
+        {
+          "id": "real_tools_block_verify",
+          "classification": ["operator_doc_only", "test_only"],
+          "summary": "SYS-REAL-TOOLS-BLOCK-VERIFY-001/001A patterns, tests, docs-only CI"
+        },
+        {
+          "id": "runtime_posture_endpoint",
+          "classification": "additive_safe_api",
+          "summary": "Runtime posture contract + endpoint for operator visibility"
+        },
+        {
+          "id": "feature_connection_matrix",
+          "classification": ["operator_doc_only", "test_only"],
+          "summary": "SYS-CONNECT-MATRIX-AUDIT-001 validator and matrix"
+        },
+        {
+          "id": "alpha006_closeout_docs",
+          "classification": "operator_doc_only",
+          "summary": "Lock closeout and evidence index alignment"
+        }
+      ]
+    },
+    {
+      "repo": "ontogony-platform",
+      "role": "shared_mechanics_protocol_registry",
+      "alpha006LockSha": "23ba850431c0aa4936500c48713dde3899f0dbea",
+      "movingMainHeadSha": "2abc8c539c6a0524d09f1df49526107aa07ed532",
+      "commitsAfterLock": 10,
+      "lockDisposition": "moving_main_delta",
+      "detailEvidence": "ontogony-platform/docs/evidence/SYS_POSTLOCK_DELTA_REGISTER_001_EVIDENCE.md",
+      "groups": [
+        {
+          "id": "stale_incoming_package_guard",
+          "classification": ["test_only", "operator_doc_only"],
+          "summary": "SYS-STALE-PACKAGE-GUARD-001 incoming quarantine validator"
+        },
+        {
+          "id": "real_tools_block_platform",
+          "classification": ["test_only", "operator_doc_only"],
+          "summary": "Platform doc scan for real-execution overclaims"
+        },
+        {
+          "id": "kanon_connect_evidence",
+          "classification": "operator_doc_only",
+          "summary": "KANON-CONNECT lock promotion docs for ALPHA-006"
+        },
+        {
+          "id": "operator_v1_build_package",
+          "classification": "operator_doc_only",
+          "summary": "Ontogony-Operator-V1-Build-Package under docs/_incoming; guarded by stale-package patterns",
+          "frontendStatus": "follow_up_needed"
+        }
+      ]
+    },
+    {
+      "repo": "kanon-dotnet",
+      "role": "semantic_authority",
+      "alpha006LockSha": "515c7aadaccd2bc282032bb5434e785a335762ef",
+      "movingMainHeadSha": "3eaebdce7c849c89536b312cb95208e5e8597915",
+      "commitsAfterLock": 1,
+      "lockDisposition": "moving_main_delta",
+      "detailEvidence": "ontogony-platform/docs/evidence/KANON_CONNECT_LOCK_001_EVIDENCE.md",
+      "groups": [
+        {
+          "id": "cross_repo_connection_inventory",
+          "classification": "operator_doc_only",
+          "summary": "Kanon connect cross-repo inventory doc update"
+        }
+      ]
+    },
+    {
+      "repo": "conexus-dotnet",
+      "role": "model_gateway",
+      "alpha006LockSha": "100c33d7f00800ad027914829cbe8bf6a2393a14",
+      "movingMainHeadSha": "8ff3bf86b1ffdf1dd98a32ed76bf3bb92a8e6452",
+      "commitsAfterLock": 2,
+      "lockDisposition": "moving_main_delta",
+      "detailEvidence": "conexus-dotnet/docs/evidence/CONEXUS_POSTLOCK_001_CLASSIFICATION.md",
+      "machineReadableIndex": "conexus-dotnet/docs/system/conexus-postlock-delta-classification.json",
+      "groups": [
+        {
+          "id": "pre_lock_api_batch",
+          "classification": ["additive_safe_api", "runtime_behavior_change", "test_only"],
+          "lockDisposition": "validated_alpha_006",
+          "summary": "Route preview, quota status, streaming contract, evidence flow, store registration — at lock SHA"
+        },
+        {
+          "id": "post_lock_doc_cross_refs",
+          "classification": "operator_doc_only",
+          "summary": "Post-lock API delta and evidence-flow doc cross-refs after lock"
+        }
+      ]
+    },
+    {
+      "repo": "ontogony-frontend",
+      "role": "operator_console_companion",
+      "alpha006LockSha": "58b4801dca38357c3df61523cff19653edb3d23f",
+      "movingMainHeadSha": "608afe1b87f03fd360d2c78c15bf86fea573a319",
+      "commitsAfterLock": 10,
+      "lockDisposition": "moving_main_delta",
+      "detailEvidence": "ontogony-frontend/docs/evidence/FE_EVIDENCE_SPINE_002_EVIDENCE.md",
+      "groups": [
+        {
+          "id": "evidence_spine_deep_links",
+          "classification": ["runtime_behavior_change", "follow_up_needed"],
+          "summary": "Evidence Spine links across Allagma/Conexus/Kanon pages"
+        },
+        {
+          "id": "conexus_model_call_evidence_flow",
+          "classification": ["additive_safe_api", "follow_up_needed"],
+          "summary": "Conexus model-call evidence operator routes and tests"
+        },
+        {
+          "id": "service_health_presentation",
+          "classification": "additive_safe_api",
+          "summary": "Service health probe presentation and route workflow inventory"
+        },
+        {
+          "id": "runtime_posture_ui",
+          "classification": "operator_doc_only",
+          "summary": "Runtime posture matrix doc alignment"
+        }
+      ]
+    },
+    {
+      "repo": "ontogony-ui",
+      "role": "shared_ui_companion",
+      "alpha006LockSha": "d2fb8705c11cc22f7b964988fc0b187f236a08a7",
+      "movingMainHeadSha": "9932f721abdc71325eee32925b7b83ecfccd052a",
+      "commitsAfterLock": 3,
+      "lockDisposition": "moving_main_delta",
+      "groups": [
+        {
+          "id": "query_state_gate",
+          "classification": "additive_safe_api",
+          "summary": "QueryStateGate component for shared loading/error/empty UX"
+        },
+        {
+          "id": "empty_state_and_menu",
+          "classification": "runtime_behavior_change",
+          "summary": "EmptyState and menu refactors; FE adoption in progress"
+        }
+      ]
+    }
+  ]
+}

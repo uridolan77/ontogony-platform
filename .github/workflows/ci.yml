@@ -100,6 +100,9 @@ jobs:
       - name: Validate stale incoming packages (SYS-STALE-PACKAGE-GUARD-001)
         shell: pwsh
         run: ./scripts/validate-stale-incoming-package.ps1
+      - name: Validate post-lock delta register (SYS-POSTLOCK-DELTA-REGISTER-001)
+        shell: pwsh
+        run: ./scripts/validate-post-lock-delta-register.ps1
       - name: Real tools block verify (SYS-REAL-TOOLS-BLOCK-VERIFY-001)
         shell: pwsh
         run: ./scripts/validate-real-tools-block.ps1
@@ -214,6 +217,9 @@ jobs:
       - name: Validate stale incoming packages (SYS-STALE-PACKAGE-GUARD-001)
         shell: pwsh
         run: ./scripts/validate-stale-incoming-package.ps1
+      - name: Validate post-lock delta register (SYS-POSTLOCK-DELTA-REGISTER-001)
+        shell: pwsh
+        run: ./scripts/validate-post-lock-delta-register.ps1
       - name: Real tools block verify (SYS-REAL-TOOLS-BLOCK-VERIFY-001)
         shell: pwsh
         run: ./scripts/validate-real-tools-block.ps1 -AllagmaRepoRoot "${{ runner.temp }}/ontogony-dev/allagma-dotnet"
