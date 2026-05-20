@@ -100,6 +100,9 @@ jobs:
       - name: Validate stale incoming packages (SYS-STALE-PACKAGE-GUARD-001)
         shell: pwsh
         run: ./scripts/validate-stale-incoming-package.ps1
+      - name: Real tools block verify (SYS-REAL-TOOLS-BLOCK-VERIFY-001)
+        shell: pwsh
+        run: ./scripts/validate-real-tools-block.ps1
 
   docker-scripts-parse:
     needs: changes
@@ -211,6 +214,9 @@ jobs:
       - name: Validate stale incoming packages (SYS-STALE-PACKAGE-GUARD-001)
         shell: pwsh
         run: ./scripts/validate-stale-incoming-package.ps1
+      - name: Real tools block verify (SYS-REAL-TOOLS-BLOCK-VERIFY-001)
+        shell: pwsh
+        run: ./scripts/validate-real-tools-block.ps1 -AllagmaRepoRoot "${{ runner.temp }}/ontogony-dev/allagma-dotnet"
       - name: Validate AI runtime boundaries (AI.Contracts sources)
         shell: pwsh
         run: ./scripts/validate-ai-runtime-boundaries.ps1

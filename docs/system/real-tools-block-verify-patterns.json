@@ -1,0 +1,25 @@
+{
+  "schema": "ontogony-real-tools-block-verify-patterns-v1",
+  "issueId": "SYS-REAL-TOOLS-BLOCK-VERIFY-001",
+  "ownerRepo": "ontogony-platform",
+  "canonicalDocGlobs": [
+    "docs/evidence/README.md",
+    "docs/releases/FIRST_WORKING_ENVIRONMENT_CLOSEOUT.md",
+    "docs/releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_KNOWN_LIMITATIONS.md",
+    "docs/alignment/backend-frontend-phase-v2-sandbox-evidence-alignment/07_evidence/FBA2-007_RELEASE_SCORECARD.md"
+  ],
+  "overclaimPatterns": [
+    {
+      "id": "real-external-available-now",
+      "regex": "(?i)real[_ -]?external\\s+(tool\\s+)?execution\\s+is\\s+(now\\s+)?(available|enabled|shipped|ready for production)",
+      "unlessLineRegex": "(?i)(not\\s+available|unavailable|blocked|remains blocked|disabled|no\\b|do not enable)",
+      "description": "Claims real external execution is currently available"
+    },
+    {
+      "id": "real-side-effects-production-ready",
+      "regex": "(?i)(real|external)\\s+(tool\\s+)?(side[- ]?effects?|execution)\\s+(is\\s+)?production[- ]?ready",
+      "unlessLineRegex": "(?i)(not\\s+production|non[- ]?claim|does not claim)",
+      "description": "Overclaims production-ready real side effects"
+    }
+  ]
+}
