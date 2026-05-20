@@ -63,4 +63,4 @@ npm test -- src/kanon/adapters/kanonConexusAssistanceAdapters.test.ts src/kanon/
 - [KANON-CONNECT-001](./KANON_CONNECT_001_CROSS_REPO_FEATURE_MAP.md)
 - [KANON-DEEPEN-007](./KANON_DEEPEN_007_CONEXUS_ASSISTANCE_WORKBENCH_EVIDENCE.md)
 - [KANON-CONNECT-005](./KANON_CONNECT_005_EVIDENCE_SPINE_SEMANTIC_GRAPH_EVIDENCE.md) — Evidence Spine imports Kanon semantic graph
-- Next: **KANON-CONNECT-006** — route/OpenAPI/catalog parity gate
+- Next: [KANON-CONNECT-006](./KANON_CONNECT_006_ROUTE_PARITY_EVIDENCE.md) — route/OpenAPI/catalog parity gate ✅

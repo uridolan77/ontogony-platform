@@ -51,4 +51,4 @@ npm test -- src/kanon/adapters/kanonSemanticGraphEvidenceAdapters.test.ts src/ka
 
 - [KANON-CONNECT-004](./KANON_CONNECT_004_CONEXUS_ASSISTANCE_OBSERVABILITY_EVIDENCE.md)
 - [KANON-DEEPEN-011](../evidence/KANON_DEEPEN_011_SEMANTIC_EVIDENCE_GRAPH_EVIDENCE.md) (if present) / semantic graph API
-- Next: **KANON-CONNECT-006** — route/OpenAPI/catalog parity gate
+- Next: [KANON-CONNECT-006](./KANON_CONNECT_006_ROUTE_PARITY_EVIDENCE.md) — route/OpenAPI/catalog parity gate ✅
