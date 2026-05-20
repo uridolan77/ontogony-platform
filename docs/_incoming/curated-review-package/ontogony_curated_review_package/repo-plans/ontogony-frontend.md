@@ -14,10 +14,11 @@ The frontend should become an honest operator console: live where possible, expl
 
 ## Implement next
 
-**Sprint 2 closeout (2026-05-20):** `FE-CLEANUP-001` through `FE-STUBS-001` and `FE-API-ADAPTER-001` closed. Evidence: `ontogony-frontend/docs/evidence/README.md` (Sprint 2 section).
+**Sprint 2 closeout (2026-05-20):** `FE-CLEANUP-001` through `FE-STUBS-001` and `FE-API-ADAPTER-001` closed.
 
-1. `FE-DOCKER-001`
-2. `FE-TEST-001`
+**Sprint 3 frontend (2026-05-20):** `FE-DOCKER-001`, `FE-TEST-001` closed. Evidence: `docs/evidence/README.md` (Sprint 3 section).
+
+Next platform-wide Sprint 3 items remain in `02_SPRINT_PLAN.md` (SYSTEM-DASH-001, Conexus/Kanon slices).
 
 ## Notes
 

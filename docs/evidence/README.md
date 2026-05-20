@@ -74,6 +74,16 @@ Closeout: [REAL_PROVIDER_VALIDATION_CLOSEOUT.md](../releases/REAL_PROVIDER_VALID
 
 ---
 
+## Operations — dashboard / SLO (Sprint 3.5)
+
+| Item | File |
+| --- | --- |
+| SYSTEM-DASH-002 canonical dashboard/SLO entry | [SYSTEM_DASH_002_EVIDENCE.md](./SYSTEM_DASH_002_EVIDENCE.md) |
+
+Canonical index: [docs/operations/SYSTEM_DASHBOARD_SLO_INDEX.md](../operations/SYSTEM_DASHBOARD_SLO_INDEX.md). Implementation assets remain in `allagma-dotnet`.
+
+---
+
 ## Docker-local environment (ENV)
 
 | Item | File |

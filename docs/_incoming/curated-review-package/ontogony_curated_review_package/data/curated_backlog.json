@@ -47,7 +47,11 @@
     "title": "Create starter dashboard and SLO pack for the three-node runtime",
     "why": "Metrics and evidence are present in pieces, but operators need a single health/readiness/failure view.",
     "scope": "Dashboards for service readiness, request rates, downstream failures, idempotency conflicts, human-gate waiting count, Conexus fallback count, model-call latency/cost, and restart/replay health.",
-    "acceptance": "A local Grafana/importable dashboard or documented panel pack can be loaded against the local stack."
+    "acceptance": "A local Grafana/importable dashboard or documented panel pack can be loaded against the local stack.",
+    "status": "closed",
+    "closedAt": "2026-05-20",
+    "verdict": "closed-alpha-ready",
+    "evidence": "allagma-dotnet/docs/evidence/SYSTEM_DASH_001_EVIDENCE.md"
   },
   {
     "id": "ALLAGMA-TOOL-TRUST-001",
@@ -117,7 +121,11 @@
     "title": "Make implicit idempotency multi-node durable",
     "why": "Explicit non-streaming replay exists, but implicit internal idempotency should not remain in-memory for durable multi-node operation.",
     "scope": "Add Postgres-backed ledger implementation or formally constrain implicit idempotency to single-node/local mode with readiness signal.",
-    "acceptance": "In Postgres mode, duplicate implicit requests are coordinated durably across process restart or multiple service instances."
+    "acceptance": "In Postgres mode, duplicate implicit requests are coordinated durably across process restart or multiple service instances.",
+    "status": "closed",
+    "closedAt": "2026-05-20",
+    "verdict": "closed-with-caveat",
+    "caveat": "Implicit key is per-request lifecycle; cross-request retry dedupe requires client Idempotency-Key"
   },
   {
     "id": "CONEXUS-STREAM-COST-001",
@@ -127,7 +135,10 @@
     "title": "Close streaming usage/cost observability gaps",
     "why": "Streaming token usage may be unavailable depending on provider chunks; this should be visible rather than silently incomplete.",
     "scope": "Log/metric when streaming usage is missing; support final usage chunks where providers emit them; surface cost_unknown reason in model-call telemetry.",
-    "acceptance": "Streaming model calls have either cost values or explicit cost_unknown reason visible in admin/API telemetry."
+    "acceptance": "Streaming model calls have either cost values or explicit cost_unknown reason visible in admin/API telemetry.",
+    "status": "closed",
+    "closedAt": "2026-05-20",
+    "evidence": "conexus-dotnet/docs/evidence/CONEXUS_STREAM_COST_001_EVIDENCE.md"
   },
   {
     "id": "CONEXUS-ADMIN-SAFETY-001",
@@ -137,7 +148,9 @@
     "title": "Add explicit tests and docs for sensitive admin/diagnostic endpoint exposure",
     "why": "Admin middleware exists, but routes such as DbViewer and diagnostics should have clear non-production safety proof.",
     "scope": "Tests proving admin auth/rate limiting covers DbViewer, diagnostics, retention, provider config, and evidence endpoints. Docs explain intended environment exposure.",
-    "acceptance": "Unauthenticated and project-key-only callers cannot reach admin/diagnostic endpoints; production config validation documents expected controls."
+    "acceptance": "Unauthenticated and project-key-only callers cannot reach admin/diagnostic endpoints; production config validation documents expected controls.",
+    "status": "closed",
+    "closedAt": "2026-05-20"
   },
   {
     "id": "CONEXUS-RETENTION-001",
@@ -177,7 +190,10 @@
     "title": "Harden and document local service-token auth path while preserving dev headers",
     "why": "Trusted headers are acceptable for local developer convenience but should not be the only proven path.",
     "scope": "Add local service-token smoke, docs comparing DevelopmentTrustedHeaders vs ServiceToken, and config validation examples.",
-    "acceptance": "Local stack can run Kanon in ServiceToken mode and Allagma/Kanon client tests still pass."
+    "acceptance": "Local stack can run Kanon in ServiceToken mode and Allagma/Kanon client tests still pass.",
+    "status": "closed",
+    "closedAt": "2026-05-20",
+    "implementedAs": "KANON-AUTH-001/001A"
   },
   {
     "id": "KANON-API-MODULAR-001",
@@ -187,7 +203,10 @@
     "title": "Split large API Program.cs into feature endpoint modules",
     "why": "The API surface is broad enough that monolithic endpoint registration is now a review and maintenance risk.",
     "scope": "Extract endpoint registration modules for ontology, source bindings, semantic plans, canonical facts, actions/human gates, provenance/replay, domain packs, and Conexus assistance.",
-    "acceptance": "No route behavior changes; tests/OpenAPI route inventory remain stable."
+    "acceptance": "No route behavior changes; tests/OpenAPI route inventory remain stable.",
+    "status": "closed",
+    "closedAt": "2026-05-20",
+    "verdict": "closed-shallow"
   },
   {
     "id": "KANON-CONEXUS-ASSIST-001",
@@ -295,7 +314,10 @@
     "title": "Complete Docker-local frontend composition and ontogony-ui build strategy",
     "why": "The frontend is meant to operate against the three-node local stack; workspace-linked UI package must be reliable inside containers.",
     "scope": "docker-compose local service, VITE_CONEXUS_API_URL/VITE_KANON_API_URL/VITE_ALLAGMA_API_URL mapping, Nginx config, UI package build/copy strategy.",
-    "acceptance": "One local command serves the frontend and reaches Conexus/Kanon/Allagma health plus at least one live page per domain."
+    "acceptance": "One local command serves the frontend and reaches Conexus/Kanon/Allagma health plus at least one live page per domain.",
+    "status": "closed",
+    "closedAt": "2026-05-20",
+    "evidence": "ontogony-frontend/docs/evidence/FE_DOCKER_001_DOCKER_LOCAL_FRONTEND_COMPOSITION_EVIDENCE.md"
   },
   {
     "id": "FE-TEST-001",
@@ -305,6 +327,10 @@
     "title": "Add smoke tests for the highest-value operator pages",
     "why": "Critical pages need tests beyond route existence.",
     "scope": "ConexusChatPage, StartRunWorkbenchPage, HumanGatesPage, RunDetailPage, OperatorSettingsPage, SystemOverviewPage.",
-    "acceptance": "Vitest covers render/loading/error/success state for these pages; optional Playwright smoke covers main navigation."
+    "acceptance": "Vitest covers render/loading/error/success state for these pages; optional Playwright smoke covers main navigation.",
+    "status": "closed",
+    "closedAt": "2026-05-20",
+    "evidence": "ontogony-frontend/docs/evidence/FE_TEST_001_HIGH_VALUE_PAGE_SMOKE_TESTS_EVIDENCE.md",
+    "caveat": "Playwright smoke uses mocked APIs; not live-backend operator tests"
   }
 ]

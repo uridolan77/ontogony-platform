@@ -94,7 +94,7 @@ cd C:\dev\ontogony-platform\docker\scripts
 | Check | Result | Artifact |
 | --- | --- | --- |
 | Stack rebuild API images | PASS (2026-05-20) | `docker compose build conexus-api kanon-api allagma-api` |
-| Frontend image rebuild | FAIL | `npm run build` fails on pre-existing Vitest/TS errors in unrelated `*.test.tsx` files |
+| Frontend image rebuild | PASS (2026-05-20) | `tsc -b` + `docker compose build ontogony-frontend`; image `53c4f39ba554…` |
 | Conexus/Kanon/Allagma health | PASS | ports 5081–5083 healthy |
 | Conexus model-call admin list/detail 200 | PASS | Bearer `cx-conexus-admin-dev` |
 | Allagma capabilities `toolExecutionModes` | PASS | GET `/allagma/v0/capabilities` returns four modes + `defaultMode` |

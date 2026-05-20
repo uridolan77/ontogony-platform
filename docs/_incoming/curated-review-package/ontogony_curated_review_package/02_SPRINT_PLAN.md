@@ -33,14 +33,28 @@
 
 ## Sprint 3 — Operational maturity
 
-17. `SYSTEM-DASH-001` — dashboard/SLO starter pack.
-18. `CONEXUS-IDEMP-001` — durable implicit idempotency.
-19. `CONEXUS-STREAM-COST-001` — streaming cost/usage observability.
-20. `CONEXUS-ADMIN-SAFETY-001` — admin/diagnostic exposure tests.
-21. `KANON-AUTH-LOCAL-001` — service-token local mode.
-22. `KANON-API-MODULAR-001` — modular endpoint registration.
-23. `FE-DOCKER-001` — Docker-local frontend composition.
-24. `FE-TEST-001` — high-value page smoke tests.
+**Status (2026-05-20):** Items **17–24** closed in source (GitHub review). Reconciliation addendum: [`SYSTEM_SPRINT3_CLOSEOUT_ADDENDUM.md`](SYSTEM_SPRINT3_CLOSEOUT_ADDENDUM.md). Evidence index: `ontogony-frontend/docs/evidence/README.md` (Sprint 3 section).
+
+17. `SYSTEM-DASH-001` — dashboard/SLO starter pack. **Closed** (PASS / alpha-ready; hosted primarily in `allagma-dotnet`)
+18. `CONEXUS-IDEMP-001` — durable implicit idempotency ledger. **Closed** (PASS; not cross-request retry dedupe without `Idempotency-Key`)
+19. `CONEXUS-STREAM-COST-001` — streaming cost/usage observability. **Closed** (PASS)
+20. `CONEXUS-ADMIN-SAFETY-001` — admin/diagnostic exposure tests. **Closed** (PASS)
+21. `KANON-AUTH-LOCAL-001` — service-token local mode. **Closed** (PASS; landed as `KANON-AUTH-001/001A`)
+22. `KANON-API-MODULAR-001` — modular endpoint registration. **Closed** (PASS / shallow modularization)
+23. `FE-DOCKER-001` — Docker-local frontend composition. **Closed** (PASS)
+24. `FE-TEST-001` — high-value page smoke tests. **Closed** (PASS; mocked Playwright smoke)
+
+## Sprint 3.5 — Operational hardening (follow-ups from Sprint 3 review)
+
+Do not reopen Sprint 3; treat these as precision and drift-prevention work.
+
+- `SYSTEM-DASH-002` — mirror/centralize dashboard/SLO entrypoint in `ontogony-platform`. **Closed** (PASS — [`SYSTEM_DASH_002_EVIDENCE.md`](../../../evidence/SYSTEM_DASH_002_EVIDENCE.md))
+- `SYSTEM-OBS-METERS-001` — `/ready` SLI, Kanon plan-compile meters, Conexus cost OTEL counters.
+- `CONEXUS-IDEMP-DOC-001` — status docs: implicit ledger ≠ automatic retry dedupe without client key.
+- `CONEXUS-ADMIN-ROUTE-INVENTORY-001` — generated `/admin/**` route inventory safety test.
+- `KANON-AUTH-NAMING-001` — align sprint labels with `KANON-AUTH-001/001A`.
+- `KANON-ENDPOINT-FILTERS-001` — shared filters/helpers + route-module inventory tests.
+- `FE-LIVE-SMOKE-001` — one safe Docker-live Playwright smoke on `FE-DOCKER-001` stack. **Closed** (`FE_LIVE_SMOKE_001_DOCKER_LIVE_READONLY_EVIDENCE.md`)
 
 ## Sprint 4 — Deferred but important
 

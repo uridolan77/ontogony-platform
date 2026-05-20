@@ -122,6 +122,24 @@ spec:
 
 ## Monitoring & Observability
 
+### Three-node runtime dashboard and SLO pack (canonical)
+
+Cross-service **Allagma + Kanon + Conexus** operator dashboards, SLO starter targets, Grafana provisioning, and local-stack wiring:
+
+**[SYSTEM_DASHBOARD_SLO_INDEX.md](./SYSTEM_DASHBOARD_SLO_INDEX.md)** (`SYSTEM-DASH-002`)
+
+Implementation assets (compose, dashboard JSON, live verifier) remain in **`allagma-dotnet`**; the platform index is the operator entrypoint. Alpha targets only — not production SLO governance.
+
+Quick start from the [Docker local working system](../docker/local-working-system/README.md):
+
+```powershell
+cd C:\dev\ontogony-platform
+.\docker\local-working-system\scripts\start-observability-stack.ps1
+.\docker\local-working-system\scripts\verify-observability-stack.ps1
+```
+
+Per-service OTLP mechanics and metric catalogs: [`docs/observability/operations-pack.md`](../observability/operations-pack.md).
+
 ### Distributed Tracing
 
 All requests automatically propagate the canonical `X-Ontogony-Trace-Id` header. When present, operation-level correlation is carried separately via `X-Ontogony-Correlation-Id` (legacy `X-Correlation-ID` remains accepted inbound for compatibility).

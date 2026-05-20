@@ -4,6 +4,8 @@ This guide makes Ontogony observability operational for local and pre-production
 
 It focuses on mechanics only: trace and metric transport, stable instrument names, and correlation behavior.
 
+**Three-node runtime (Allagma + Kanon + Conexus) dashboards and SLOs:** use the canonical index at [`docs/operations/SYSTEM_DASHBOARD_SLO_INDEX.md`](../operations/SYSTEM_DASHBOARD_SLO_INDEX.md) — not this file alone.
+
 ## 1. Wire OpenTelemetry exporters in a service
 
 Use the Ontogony activity source and meter names as first-class telemetry sources.

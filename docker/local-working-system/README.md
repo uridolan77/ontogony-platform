@@ -34,6 +34,8 @@ docker/local-working-system/
     inspect-frontend-browser-provenance.ps1
     validate-frontend-browser-provenance-report.ps1
     verify-frontend-browser-provenance.ps1
+    start-observability-stack.ps1
+    verify-observability-stack.ps1
     _docker-local-env.ps1
 ```
 
@@ -473,6 +475,30 @@ See [Conexus persistence & bootstrap (operator)](#conexus-persistence--bootstrap
 ### Postgres host port
 
 Default in `.env.example` is **55433** (avoids collision with local Postgres on **5432**). Change `POSTGRES_HOST_PORT` in `.env` if needed.
+
+## Observability stack (SYSTEM-DASH-002)
+
+Grafana, Jaeger, Prometheus, and the OTEL collector for the **three-node runtime** are defined in **`allagma-dotnet`** (`docker-compose.observability.yml`, `dashboards/grafana/ontogony-alpha-runtime.json`).
+
+**Canonical operator entry:** [`docs/operations/SYSTEM_DASHBOARD_SLO_INDEX.md`](../../docs/operations/SYSTEM_DASHBOARD_SLO_INDEX.md).
+
+```powershell
+cd C:\dev\ontogony-platform
+# Runtime APIs (Docker-local)
+.\docker\local-working-system\scripts\start-local-working-system.ps1 -Build
+.\docker\local-working-system\scripts\wait-local-working-system.ps1
+
+# Observability UI (separate compose; assets in allagma-dotnet)
+.\docker\local-working-system\scripts\start-observability-stack.ps1
+.\docker\local-working-system\scripts\verify-observability-stack.ps1
+```
+
+- Grafana: `http://localhost:3000` (override: `$env:GRAFANA_HOST_PORT` or `-GrafanaHostPort` on start script) → **Ontogony → Ontogony Alpha Runtime**
+- Jaeger: `http://localhost:16686` · Prometheus: `http://localhost:9090`
+
+OTLP export on Docker-local API containers is **not** enabled by default. See the index § *Enable OTLP on Docker-local APIs* before expecting live metrics panels.
+
+Evidence: [`docs/evidence/SYSTEM_DASH_002_EVIDENCE.md`](../../docs/evidence/SYSTEM_DASH_002_EVIDENCE.md).
 
 ## Docs
 
