@@ -94,12 +94,14 @@ Closeout addendum: [`docs/_incoming/curated-review-package/ontogony_curated_revi
 
 Service evidence (by repo): `ALLAGMA_EVIDENCE_001`, `ALLAGMA_STREAM_001`, `CONEXUS_RETENTION_001`, `KANON_CONEXUS_ASSIST_001`, `KANON_DOMAINPACK_GOV_001` — see reconciliation evidence for paths.
 
-Runtime baseline promotion: pending `SYSTEM-ALPHA-004`.
+Runtime baseline: **`SYSTEM-ALPHA-005`** (lock owner: `allagma-dotnet`).
 
 | Item | File |
 | --- | --- |
-| SYSTEM-ALPHA-004-PREP (platform index) | [SYSTEM_ALPHA_004_PREP_EVIDENCE.md](./SYSTEM_ALPHA_004_PREP_EVIDENCE.md) |
-| SYSTEM-ALPHA-004-PREP (canonical / lock owner) | [allagma-dotnet/docs/evidence/SYSTEM_ALPHA_004_PREP_EVIDENCE.md](../../../allagma-dotnet/docs/evidence/SYSTEM_ALPHA_004_PREP_EVIDENCE.md) |
+| SYSTEM-ALPHA-005 closeout (platform index) | [SYSTEM_ALPHA_005_CLOSEOUT_EVIDENCE.md](./SYSTEM_ALPHA_005_CLOSEOUT_EVIDENCE.md) |
+| SYSTEM-ALPHA-005 closeout (canonical) | [allagma-dotnet/docs/evidence/SYSTEM_ALPHA_005_CLOSEOUT.md](../../../allagma-dotnet/docs/evidence/SYSTEM_ALPHA_005_CLOSEOUT.md) |
+| 004/005 combined release note | [allagma-dotnet/docs/releases/SYSTEM_ALPHA_004_OR_005_CLOSEOUT.md](../../../allagma-dotnet/docs/releases/SYSTEM_ALPHA_004_OR_005_CLOSEOUT.md) |
+| SYSTEM-ALPHA-004-PREP (historical) | [SYSTEM_ALPHA_004_PREP_EVIDENCE.md](./SYSTEM_ALPHA_004_PREP_EVIDENCE.md) |
 
 ---
 
@@ -161,7 +163,7 @@ Pre–SYSTEM-ALPHA connection inventory and hardening (no new Kanon product feat
 | KANON-CONNECT-006 route/OpenAPI/catalog parity | [KANON_CONNECT_006_ROUTE_PARITY_EVIDENCE.md](./KANON_CONNECT_006_ROUTE_PARITY_EVIDENCE.md) |
 | KANON-CONNECT-007 Docker cross-service smoke | [KANON_CONNECT_007_DOCKER_CROSS_SERVICE_SMOKE_EVIDENCE.md](./KANON_CONNECT_007_DOCKER_CROSS_SERVICE_SMOKE_EVIDENCE.md) |
 
-Planned follow-up: **SYSTEM-ALPHA-004/005-CUT** — runtime lock promotion.
+Runtime lock promotion: **done** — `SYSTEM-ALPHA-005` ([SYSTEM_ALPHA_005_CLOSEOUT_EVIDENCE.md](./SYSTEM_ALPHA_005_CLOSEOUT_EVIDENCE.md)).
 
 ---
 

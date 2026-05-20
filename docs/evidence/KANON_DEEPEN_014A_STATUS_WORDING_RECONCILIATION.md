@@ -33,4 +33,4 @@ None (documentation only).
 
 ## Follow-up
 
-**SYSTEM-ALPHA-004/005-CUT** — pin commits, rebuild all services, resolve Allagma/Conexus SDK image drift, update `ontogony-runtime.lock.json`.
+**SYSTEM-ALPHA-005-CUT** — done 2026-05-20; see [SYSTEM_ALPHA_005_CLOSEOUT_EVIDENCE.md](./SYSTEM_ALPHA_005_CLOSEOUT_EVIDENCE.md).

@@ -2,22 +2,20 @@
 
 **Date:** 2026-05-20  
 **Status:** CUT COMPLETE  
-**Canonical:** [`allagma-dotnet/docs/evidence/SYSTEM_ALPHA_005_CLOSEOUT.md`](../../../allagma-dotnet/docs/evidence/SYSTEM_ALPHA_005_CLOSEOUT.md)
+**Canonical:** [`allagma-dotnet/docs/evidence/SYSTEM_ALPHA_005_CLOSEOUT.md`](../../../allagma-dotnet/docs/evidence/SYSTEM_ALPHA_005_CLOSEOUT.md)  
+**Combined release:** [`allagma-dotnet/docs/releases/SYSTEM_ALPHA_004_OR_005_CLOSEOUT.md`](../../../allagma-dotnet/docs/releases/SYSTEM_ALPHA_004_OR_005_CLOSEOUT.md)
 
 `ontogony-runtime.lock.json` baseline is **`SYSTEM-ALPHA-005`**.
 
-## CUT highlights
+## CUT highlights (2026-05-20, post KANON-CONNECT-007)
 
-- Full Docker compose rebuild (kanon, conexus, allagma, frontend) after Allagma SDK alignment.
-- System cohesion smoke PASS (`20260520T162945Z`).
-- Docker Allagma restart survival PASS (`20260520-162956`).
-- Kanon deepening 014 Playwright 12/12 + FE live smoke 5/5.
-- Evidence Spine 008a: Playwright **5/5 PASS** after [FE-EVIDENCE-SPINE-002](../../../ontogony-frontend/docs/evidence/FE_EVIDENCE_SPINE_002_EVIDENCE.md) (B-013 cleared).
+- System cohesion smoke PASS (`artifacts/system-e2e/20260520T175633Z/summary.json`).
+- Docker Allagma restart survival PASS (`artifacts/restart-e2e/20260520-175700/summary.json`).
+- Kanon connect 007 Playwright **7/7** — [KANON_CONNECT_007_DOCKER_CROSS_SERVICE_SMOKE_EVIDENCE.md](./KANON_CONNECT_007_DOCKER_CROSS_SERVICE_SMOKE_EVIDENCE.md).
+- FE live smoke **5/5**; Evidence Spine 008a **5/5** (B-013 cleared).
+- Kanon deepening 014 Playwright **12/12** (retained).
 - **B-012** remains quarantined (`SYS-OBS-004` Grafana readiness).
 
-## Companion evidence
+## Pinned SHAs
 
-| Item | Path |
-|---|---|
-| Kanon 014 browser QA | [KANON_DEEPEN_014_BROWSER_QA_BASELINE_CANDIDATE_EVIDENCE.md](./KANON_DEEPEN_014_BROWSER_QA_BASELINE_CANDIDATE_EVIDENCE.md) |
-| Kanon sequence status | [KANON_DEEPEN_SEQUENCE_STATUS.md](./KANON_DEEPEN_SEQUENCE_STATUS.md) |
+See canonical closeout table (`allagma-dotnet`, `kanon-dotnet`, `conexus-dotnet`, `ontogony-platform`, companion `ontogony-frontend` / `ontogony-ui`).

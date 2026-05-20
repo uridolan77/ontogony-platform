@@ -2,7 +2,7 @@
 
 **Recorded at (UTC):** 2026-05-20  
 **Verdict:** **PASS** (compose rebuild + ENV-SEED-001 + Playwright 7/7)  
-**Statement:** Docker-local compose rebuild of `kanon-api`, `allagma-api`, `conexus-api`, and `ontogony-frontend`, ENV-SEED-001 bootstrap, and Playwright cross-service browser smoke for Kanon connect acceptance. Runtime lock not updated (SYSTEM-ALPHA cut is separate).
+**Statement:** Docker-local compose rebuild of `kanon-api`, `allagma-api`, `conexus-api`, and `ontogony-frontend`, ENV-SEED-001 bootstrap, and Playwright cross-service browser smoke for Kanon connect acceptance. Runtime lock promoted in **SYSTEM-ALPHA-005** cut (see [SYSTEM_ALPHA_005_CLOSEOUT_EVIDENCE.md](./SYSTEM_ALPHA_005_CLOSEOUT_EVIDENCE.md)).
 
 ## Orchestration
 
@@ -73,10 +73,10 @@ npm run test:e2e:docker-live:kanon-connect-007
 - [x] Full compose rebuild succeeds (`docker compose build` for four services)
 - [x] ENV-SEED-001 report present and used by smoke (`env-seed-001-report.json`)
 - [x] `kanon-connect-007` Playwright suite passes (7/7)
-- [x] No `ontogony-runtime.lock.json` update in this slice
+- [x] `ontogony-runtime.lock.json` updated to **SYSTEM-ALPHA-005** (separate CUT after this slice)
 
 ## Related
 
 - [KANON-CONNECT-006](./KANON_CONNECT_006_ROUTE_PARITY_EVIDENCE.md)
 - [KANON-DEEPEN-014](./KANON_DEEPEN_014_BROWSER_QA_BASELINE_CANDIDATE_EVIDENCE.md)
-- Next: **SYSTEM-ALPHA-004/005-CUT** — runtime lock promotion
+- [SYSTEM-ALPHA-005 closeout](./SYSTEM_ALPHA_005_CLOSEOUT_EVIDENCE.md)

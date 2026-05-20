@@ -128,7 +128,7 @@ Unified workbench: `/system/evidence-spine` — uses spine resolver; Kanon nodes
 | ~~Evidence Spine does not import Kanon `GET /semantic-graph`~~ | — | **KANON-CONNECT-005** ✅ | [005 evidence](./KANON_CONNECT_005_EVIDENCE_SPINE_SEMANTIC_GRAPH_EVIDENCE.md) |
 | ~~Route/catalog drift gate not enforced in CI for connect phase~~ | — | **KANON-CONNECT-006** ✅ | [006 evidence](./KANON_CONNECT_006_ROUTE_PARITY_EVIDENCE.md) — `kanon:route-parity:check` in `npm run check` |
 | ~~Full cross-service Docker smoke after API image rebuild~~ | — | **KANON-CONNECT-007** ✅ | [007 evidence](./KANON_CONNECT_007_DOCKER_CROSS_SERVICE_SMOKE_EVIDENCE.md) — `npm run docker:smoke:kanon-connect-007` |
-| `ontogony-runtime.lock.json` not updated | Process | **SYSTEM-ALPHA-004/005** | Kanon v2 baseline-owned promotion |
+| `ontogony-runtime.lock.json` not updated | Process | **Done — SYSTEM-ALPHA-005** | [SYSTEM_ALPHA_005_CLOSEOUT_EVIDENCE.md](./SYSTEM_ALPHA_005_CLOSEOUT_EVIDENCE.md) |
 | Conexus OpenAPI catalog drift (non-Kanon) | Low | SYSTEM-ALPHA | Explicitly out of Kanon connect scope |
 | No dedicated Kanon topology POST workbench | By design | — | Topology evaluation is Allagma-orchestrated |
 | No `/kanon/gates` page | By design | — | Human gates via Allagma + policy explain |
