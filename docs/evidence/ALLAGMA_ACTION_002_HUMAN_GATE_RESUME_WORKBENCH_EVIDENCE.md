@@ -20,11 +20,15 @@ Primary: `ontogony-frontend/docs/evidence/ALLAGMA_ACTION_002_HUMAN_GATE_RESUME_W
 | Resume route | `POST /allagma/v0/runs/{runId}/resume` — outcomes per `ResumeAgentRunService` |
 | List filter | `GET /allagma/v0/runs?waitingForHumanGate=true` |
 
+## Hardening (002A)
+
+Approve/deny in Human Gates require a confirmed `humanGateId` from pause events or run metadata. The UI no longer falls back to the synthetic queue id (`gate-{runId}`). Resume-only remains when the run is still waiting.
+
 ## Roadmap position
 
 ```text
 ACTION-000 audit — complete
 ACTION-001 start run — complete
-ACTION-002 human gate resume — complete
+ACTION-002 human gate resume — complete (002A gate-id guard)
 ACTION-003 baseline compare — next
 ```
