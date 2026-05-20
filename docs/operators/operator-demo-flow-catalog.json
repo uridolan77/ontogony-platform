@@ -1,0 +1,59 @@
+{
+  "schema": "ontogony-operator-demo-flow-catalog-v1",
+  "issue": "SYSTEM-DEMO-FLOWS-001",
+  "baseline": "SYSTEM-ALPHA-006",
+  "flows": [
+    {
+      "id": "system-posture",
+      "title": "System posture",
+      "route": "/system",
+      "playwright": "e2e/operator-v1-demo-flows.spec.ts",
+      "dockerLive": "optional — same routes after ENV-SEED-001"
+    },
+    {
+      "id": "simple-governed-run",
+      "title": "Simple governed run",
+      "route": "/allagma/runs/start",
+      "playwright": "e2e/operator-v1-demo-flows.spec.ts",
+      "seedField": "runs.subjectRunId"
+    },
+    {
+      "id": "human-gate-approve",
+      "title": "Human gate approve",
+      "route": "/allagma/gates",
+      "playwright": "e2e/operator-v1-demo-flows.spec.ts"
+    },
+    {
+      "id": "human-gate-deny",
+      "title": "Human gate deny",
+      "route": "/allagma/gates",
+      "playwright": "e2e/operator-v1-demo-flows.spec.ts"
+    },
+    {
+      "id": "conexus-fallback",
+      "title": "Conexus fallback",
+      "route": "/conexus/observability",
+      "playwright": "e2e/operator-v1-demo-flows.spec.ts",
+      "seedField": "routeEvidence.subjectRouteDecisionId"
+    },
+    {
+      "id": "kanon-assistance",
+      "title": "Kanon assistance (draft-only)",
+      "route": "/kanon/assistance",
+      "playwright": "e2e/operator-v1-demo-flows.spec.ts"
+    },
+    {
+      "id": "sandbox-posture",
+      "title": "Sandbox / tool-mode posture",
+      "route": "/allagma/runs/{runId}",
+      "playwright": "e2e/operator-v1-demo-flows.spec.ts"
+    },
+    {
+      "id": "evidence-spine-trace",
+      "title": "Evidence Spine trace",
+      "route": "/system/evidence-spine",
+      "playwright": "e2e/operator-v1-demo-flows.spec.ts",
+      "seedField": "runs.baselineRunId"
+    }
+  ]
+}
