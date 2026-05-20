@@ -1,6 +1,6 @@
 # Kanon deepening sequence — status index
 
-**Last updated:** 2026-05-20 (009 closeout index)  
+**Last updated:** 2026-05-20 (009A reconciliation — sequence index, browser posture, v2 follow-up)  
 **Packages:** `Ontogony-Kanon-Deep-Enhancement-Package-v1` (000–006); `Ontogony-Kanon-Courageous-Enhancement-Package-v2` (007+)  
 **Audit:** [`docs/reviews/KANON_DEEPEN_000_CURRENT_STATE_AUDIT.md`](../reviews/KANON_DEEPEN_000_CURRENT_STATE_AUDIT.md)
 
@@ -15,9 +15,18 @@
 | KANON-DEEPEN-006 | Done (docs/validation; browser QA checklist) | [006 evidence](./KANON_DEEPEN_006_CLOSEOUT_AND_MANUAL_QA_EVIDENCE.md) | platform closeout docs (this pass) |
 | KANON-DEEPEN-007 | Done (source/unit/frontend-build; Docker browser pending) | [007 evidence](../../../kanon-dotnet/docs/evidence/KANON_DEEPEN_007_CONEXUS_ASSISTANCE_WORKBENCH_EVIDENCE.md) (canonical) | `kanon-dotnet` + `ontogony-frontend` — Conexus assistance workbench `/kanon/assistance` |
 | KANON-DEEPEN-008 | Done (API + unit/frontend-build; Docker browser pending) | [008 evidence](../../../kanon-dotnet/docs/evidence/KANON_DEEPEN_008_DURABLE_FACT_AND_PLAN_HISTORY_EVIDENCE.md) (canonical); [008A frontend reconciliation](../../../ontogony-frontend/docs/evidence/KANON_DEEPEN_008A_RECONCILIATION_EVIDENCE.md) | `kanon-dotnet` + `ontogony-frontend` — durable fact/plan history GET routes and workbench panels |
-| KANON-DEEPEN-009 | Done (API + unit/frontend-build; Docker browser pending) | [009 evidence](../../../kanon-dotnet/docs/evidence/KANON_DEEPEN_009_POLICY_GATE_EXPLANATION_EVIDENCE.md) (canonical) | `kanon-dotnet` + `ontogony-frontend` — policy/gate explanation workbench `/kanon/policies` |
+| KANON-DEEPEN-009 | Done (API + unit/frontend-build; Docker browser pending) | [009 evidence](../../../kanon-dotnet/docs/evidence/KANON_DEEPEN_009_POLICY_GATE_EXPLANATION_EVIDENCE.md) (canonical); [009A reconciliation](./KANON_DEEPEN_009A_RECONCILIATION_EVIDENCE.md) | `kanon-dotnet` + `ontogony-frontend` — policy/gate explanation workbench `/kanon/policies` |
 
 **Closeout bundle (v1):** [`docs/releases/KANON_DEEPENING_CLOSEOUT.md`](../releases/KANON_DEEPENING_CLOSEOUT.md)
+
+## v2 courageous package — current slice
+
+| Slice | Source/API/unit/frontend-build | Docker browser |
+|---|---|---|
+| 007 Conexus assistance | Done | Pending |
+| 008 Durable fact/plan history | Done | Pending |
+| 009 Policy/gate explanation | Done | Pending |
+| **010** Domain-pack diff/impact | **Next** | — |
 
 ## Browser verification posture
 
@@ -41,7 +50,9 @@ Some Kanon pages adopted `@ontogony/ui` feedback/navigation primitives during th
 ## Not in scope / follow-up (v2 package)
 
 - Full **Cross-Service Evidence Spine** graph resolver (`EVIDENCE-SPINE-*` package).
-- **KANON-DEEPEN-007A** — Docker-local browser validation for `/kanon/assistance` (operator-owned; not claimed in 007 evidence).
+- **KANON-DEEPEN-007A** — Docker-local browser validation for `/kanon/assistance` (operator-owned).
+- Docker-local browser validation for **008** fact/plan history panels (operator-owned; distinct from [008A frontend reconciliation](../../../ontogony-frontend/docs/evidence/KANON_DEEPEN_008A_RECONCILIATION_EVIDENCE.md)).
+- Index reconciliation after 009 — [009A evidence](./KANON_DEEPEN_009A_RECONCILIATION_EVIDENCE.md) (platform index, next-options, route catalog).
 - **KANON-DEEPEN-007B** — OpenAPI/generated-client alignment for assistance DTOs (optional cleanup).
-- **KANON-DEEPEN-010** — domain-pack diff and impact (next slice).
-- **KANON-DEEPEN-014** — Docker/browser QA before baseline candidate.
+- **KANON-DEEPEN-010** — domain-pack diff and impact (**next architectural slice**).
+- **KANON-DEEPEN-014** — Docker/browser QA before baseline candidate (batch 007–009 browser posture).

@@ -26,12 +26,26 @@ The Kanon deepening sequence made Kanon semantic authority inspectable from the 
 
 [`docs/evidence/KANON_DEEPEN_SEQUENCE_STATUS.md`](../evidence/KANON_DEEPEN_SEQUENCE_STATUS.md)
 
+## v2 courageous package (007–009)
+
+**Package:** `Ontogony-Kanon-Courageous-Enhancement-Package-v2`  
+**Posture:** Same as v1 — operator workbench hardening, **not** production readiness or SYSTEM-ALPHA lock.
+
+| ID | Outcome | Browser |
+|---|---|---|
+| 007 | Conexus assistance workbench `/kanon/assistance` (draft-only) | Pending |
+| 008 | Durable canonical fact + semantic plan history (GET browse) | Pending |
+| 009 | Policy/gate explanation `/kanon/policies` (deterministic explain/simulate) | Pending |
+
+Canonical evidence: `kanon-dotnet/docs/evidence/KANON_DEEPEN_007_*`, `008_*`, `009_*`. Index reconciliation: [009A evidence](../evidence/KANON_DEEPEN_009A_RECONCILIATION_EVIDENCE.md).
+
+**Next v2 slice:** **KANON-DEEPEN-010** (domain-pack diff and impact).
+
 ## Related programs (out of scope for v1 closeout)
 
 - **UI-HARDEN** — shared UI primitives in `ontogony-ui` (separate evidence).
 - **EVIDENCE-SPINE** — unified cross-service evidence resolver (future).
 - **CONEXUS-DEEPEN** — gateway observability listing contracts (future).
-- **KANON-DEEPEN-007** (v2) — Conexus assistance operator workbench — tracked in [`KANON_DEEPEN_SEQUENCE_STATUS.md`](../evidence/KANON_DEEPEN_SEQUENCE_STATUS.md); canonical evidence in `kanon-dotnet/docs/evidence/KANON_DEEPEN_007_CONEXUS_ASSISTANCE_WORKBENCH_EVIDENCE.md`.
 
 ## Sign-off criteria
 
