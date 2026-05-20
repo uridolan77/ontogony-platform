@@ -19,6 +19,7 @@ Verification records for cross-repo programs hosted on `ontogony-platform`. File
 | **Stale incoming-package guard (SYS-STALE-PACKAGE-GUARD-001)** | [SYS_STALE_PACKAGE_GUARD_001_EVIDENCE.md](./SYS_STALE_PACKAGE_GUARD_001_EVIDENCE.md) — [`scripts/validate-stale-incoming-package.ps1`](../../scripts/validate-stale-incoming-package.ps1) |
 | **Allagma feature connection matrix audit (SYS-CONNECT-MATRIX-AUDIT-001)** | [allagma-dotnet/docs/evidence/SYS_CONNECT_MATRIX_AUDIT_001_EVIDENCE.md](../../../allagma-dotnet/docs/evidence/SYS_CONNECT_MATRIX_AUDIT_001_EVIDENCE.md) |
 | **Kanon connect lock (KANON-CONNECT-LOCK-001)** | [KANON_CONNECT_LOCK_001_EVIDENCE.md](./KANON_CONNECT_LOCK_001_EVIDENCE.md) — 001–007 promoted into **SYSTEM-ALPHA-006** baseline |
+| **Conexus evidence flow (CONEXUS-EVIDENCE-FLOW-001)** | [CONEXUS_EVIDENCE_FLOW_001_EVIDENCE.md](./CONEXUS_EVIDENCE_FLOW_001_EVIDENCE.md) |
 
 ### Cleared (Alpha-005 post-cut — do not reopen)
 
@@ -231,6 +232,8 @@ Runtime lock promotion: **COMPLETE** — **SYSTEM-ALPHA-006** ([KANON_CONNECT_LO
 | CONEXUS-DEEPEN-000 platform cross-cut | [CONEXUS_DEEPEN_000 audit (reviews)](../reviews/CONEXUS_DEEPEN_000_CURRENT_STATE_AUDIT.md) |
 
 **Closeout:** [CONEXUS_DEEPENING_CLOSEOUT.md](../releases/CONEXUS_DEEPENING_CLOSEOUT.md) · [scorecard](../releases/CONEXUS_DEEPENING_SCORECARD.md) · [limitations](../releases/CONEXUS_DEEPENING_KNOWN_LIMITATIONS.md) · [sequence status](./CONEXUS_DEEPEN_SEQUENCE_STATUS.md)
+
+**Model-call evidence flow (CONEXUS-EVIDENCE-FLOW-001):** [CONEXUS_EVIDENCE_FLOW_001_EVIDENCE.md](./CONEXUS_EVIDENCE_FLOW_001_EVIDENCE.md) — integrates `MODEL_CALL_EVIDENCE_FLOW.md` into observability, route catalog, and Evidence Spine.
 
 Primary backend audit: `conexus-dotnet/docs/reviews/CONEXUS_DEEPEN_000_CURRENT_STATE_AUDIT.md`
 
