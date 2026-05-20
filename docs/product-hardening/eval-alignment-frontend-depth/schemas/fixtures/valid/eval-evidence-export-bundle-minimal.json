@@ -18,12 +18,18 @@
   "artifactRefs": [
     {
       "artifactId": "eval-sample-001",
-      "role": "evaluation_run"
+      "role": "evaluation_run",
+      "protocolId": "allagma.evaluation.run.record.v1",
+      "authorityMode": "observational",
+      "sideEffectLevel": "evidence_record"
     },
     {
       "artifactId": "audit:run-sample-001",
       "role": "run_audit_bundle",
-      "locatorUri": "/allagma/v0/runs/run-sample-001/audit"
+      "locatorUri": "/allagma/v0/runs/run-sample-001/audit",
+      "protocolId": "allagma.audit.bundle.export.v1",
+      "authorityMode": "observational",
+      "sideEffectLevel": "read_only"
     }
   ],
   "baselineComparisons": [],

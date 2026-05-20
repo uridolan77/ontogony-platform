@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Linq;
 using Json.Schema;
 using Xunit;
 
@@ -23,6 +24,14 @@ public sealed class EvalEvidenceExportBundleSchemaTests
         var result = schema.Evaluate(doc.RootElement);
 
         Assert.True(result.IsValid, $"Schema validation failed: {result}");
+        var artifactRefs = doc.RootElement.GetProperty("artifactRefs").EnumerateArray().ToList();
+        Assert.NotEmpty(artifactRefs);
+        Assert.All(artifactRefs, artifact =>
+        {
+            Assert.True(artifact.TryGetProperty("protocolId", out var protocolId) && protocolId.ValueKind == JsonValueKind.String && !string.IsNullOrWhiteSpace(protocolId.GetString()));
+            Assert.True(artifact.TryGetProperty("authorityMode", out var authorityMode) && authorityMode.ValueKind == JsonValueKind.String && !string.IsNullOrWhiteSpace(authorityMode.GetString()));
+            Assert.True(artifact.TryGetProperty("sideEffectLevel", out var sideEffectLevel) && sideEffectLevel.ValueKind == JsonValueKind.String && !string.IsNullOrWhiteSpace(sideEffectLevel.GetString()));
+        });
     }
 
     private static string GetProjectRoot()

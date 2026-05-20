@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Linq;
 using Json.Schema;
 using Xunit;
 
@@ -19,12 +20,37 @@ public sealed class EvidenceSpineExportBundleSchemaTests
     public void Minimal_fixture_passes_cross_service_evidence_spine_bundle_schema()
     {
         AssertFixturePassesSchema(MinimalFixtureRelativePath);
+        AssertFixtureContainsRuntimeProtocolMetadata(MinimalFixtureRelativePath);
     }
 
     [Fact]
     public void Generated_frontend_fixture_passes_cross_service_evidence_spine_bundle_schema()
     {
         AssertFixturePassesSchema(GeneratedFixtureRelativePath);
+        AssertFixtureContainsRuntimeProtocolMetadata(GeneratedFixtureRelativePath);
+    }
+
+    private static void AssertFixtureContainsRuntimeProtocolMetadata(string fixtureRelativePath)
+    {
+        using var doc = JsonDocument.Parse(File.ReadAllText(Path.Combine(GetProjectRoot(), fixtureRelativePath)));
+
+        var nodes = doc.RootElement.GetProperty("graph").GetProperty("nodes").EnumerateArray().ToList();
+        Assert.NotEmpty(nodes);
+        Assert.All(nodes, n =>
+        {
+            Assert.True(n.TryGetProperty("protocolId", out var protocolId) && protocolId.ValueKind == JsonValueKind.String && !string.IsNullOrWhiteSpace(protocolId.GetString()));
+            Assert.True(n.TryGetProperty("authorityMode", out var authorityMode) && authorityMode.ValueKind == JsonValueKind.String && !string.IsNullOrWhiteSpace(authorityMode.GetString()));
+            Assert.True(n.TryGetProperty("sideEffectLevel", out var sideEffectLevel) && sideEffectLevel.ValueKind == JsonValueKind.String && !string.IsNullOrWhiteSpace(sideEffectLevel.GetString()));
+        });
+
+        var attempts = doc.RootElement.GetProperty("sourceAttempts").EnumerateArray().ToList();
+        Assert.NotEmpty(attempts);
+        Assert.All(attempts, a =>
+        {
+            Assert.True(a.TryGetProperty("protocolId", out var protocolId) && protocolId.ValueKind == JsonValueKind.String && !string.IsNullOrWhiteSpace(protocolId.GetString()));
+            Assert.True(a.TryGetProperty("authorityMode", out var authorityMode) && authorityMode.ValueKind == JsonValueKind.String && !string.IsNullOrWhiteSpace(authorityMode.GetString()));
+            Assert.True(a.TryGetProperty("sideEffectLevel", out var sideEffectLevel) && sideEffectLevel.ValueKind == JsonValueKind.String && !string.IsNullOrWhiteSpace(sideEffectLevel.GetString()));
+        });
     }
 
     private static void AssertFixturePassesSchema(string fixtureRelativePath)

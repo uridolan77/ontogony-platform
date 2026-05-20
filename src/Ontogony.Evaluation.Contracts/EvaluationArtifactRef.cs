@@ -7,4 +7,7 @@ public sealed record EvaluationArtifactRef(
     string? MediaType = null,
     string? Role = null,
     string? LocatorUri = null,
-    long? SizeBytes = null);
+    long? SizeBytes = null,
+    string? ProtocolId = null,
+    string? AuthorityMode = null,
+    string? SideEffectLevel = null);

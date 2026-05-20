@@ -17,12 +17,15 @@
     }
     public sealed class EvaluationArtifactRef : System.IEquatable<Ontogony.Evaluation.Contracts.EvaluationArtifactRef>
     {
-        public EvaluationArtifactRef(string ArtifactId, string? ContentHash = null, string? MediaType = null, string? Role = null, string? LocatorUri = null, long? SizeBytes = default) { }
+        public EvaluationArtifactRef(string ArtifactId, string? ContentHash = null, string? MediaType = null, string? Role = null, string? LocatorUri = null, long? SizeBytes = default, string? ProtocolId = null, string? AuthorityMode = null, string? SideEffectLevel = null) { }
         public string ArtifactId { get; init; }
+        public string? AuthorityMode { get; init; }
         public string? ContentHash { get; init; }
         public string? LocatorUri { get; init; }
         public string? MediaType { get; init; }
+        public string? ProtocolId { get; init; }
         public string? Role { get; init; }
+        public string? SideEffectLevel { get; init; }
         public long? SizeBytes { get; init; }
     }
     public sealed class EvaluationCaseRecord : System.IEquatable<Ontogony.Evaluation.Contracts.EvaluationCaseRecord>

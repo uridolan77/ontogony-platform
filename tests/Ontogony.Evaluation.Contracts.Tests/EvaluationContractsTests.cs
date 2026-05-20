@@ -31,6 +31,9 @@ public sealed class EvaluationContractsTests
         Assert.Equal(original.SubjectRunId, restored.SubjectRunId);
         Assert.Equal(original.Verdict?.Verdict, restored.Verdict?.Verdict);
         Assert.Equal(original.Scores?.Count, restored.Scores?.Count);
+        Assert.Equal(original.Artifacts?[0].ProtocolId, restored.Artifacts?[0].ProtocolId);
+        Assert.Equal(original.Artifacts?[0].AuthorityMode, restored.Artifacts?[0].AuthorityMode);
+        Assert.Equal(original.Artifacts?[0].SideEffectLevel, restored.Artifacts?[0].SideEffectLevel);
     }
 
     [Fact]
@@ -84,6 +87,22 @@ public sealed class EvaluationContractsTests
         Assert.True(score.Passed);
     }
 
+    [Fact]
+    public void ArtifactRef_can_carry_runtime_protocol_metadata()
+    {
+        var artifact = new EvaluationArtifactRef(
+            ArtifactId: "artifact-1",
+            Role: "run_audit_bundle",
+            LocatorUri: "/allagma/v0/runs/run-1/audit",
+            ProtocolId: "allagma.run.start.v1",
+            AuthorityMode: "authoritative",
+            SideEffectLevel: "run_state_transition");
+
+        Assert.Equal("allagma.run.start.v1", artifact.ProtocolId);
+        Assert.Equal("authoritative", artifact.AuthorityMode);
+        Assert.Equal("run_state_transition", artifact.SideEffectLevel);
+    }
+
     private static EvaluationRunRecord SampleRun() =>
         new(
             EvaluationRunId: "eval-run-1",
@@ -104,6 +123,15 @@ public sealed class EvaluationContractsTests
                     Threshold: 1m,
                     SourceRef: "decision:kanon-1")
             ],
-            Artifacts: [new EvaluationArtifactRef("artifact-1", ContentHash: "hash-1", Role: "eval-summary")],
+            Artifacts:
+            [
+                new EvaluationArtifactRef(
+                    "artifact-1",
+                    ContentHash: "hash-1",
+                    Role: "eval-summary",
+                    ProtocolId: "allagma.system.cohesion.evidence.v1",
+                    AuthorityMode: "simulation_only",
+                    SideEffectLevel: "evidence_record")
+            ],
             Metadata: new Dictionary<string, string> { ["harness"] = "agm-eval-v0" });
 }

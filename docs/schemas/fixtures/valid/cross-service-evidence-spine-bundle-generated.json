@@ -15,6 +15,9 @@
         "kind": "platform.trace",
         "service": "platform",
         "label": "Trace",
+        "protocolId": "ontogony.trace.resolve.v1",
+        "authorityMode": "observational",
+        "sideEffectLevel": "read_only",
         "identifiers": {
           "traceId": "trace-rich-1",
           "correlationId": "corr-rich-1"
@@ -27,6 +30,9 @@
         "kind": "allagma.run",
         "service": "allagma",
         "label": "Allagma run",
+        "protocolId": "allagma.run.start.v1",
+        "authorityMode": "authoritative",
+        "sideEffectLevel": "run_state_transition",
         "identifiers": {
           "allagmaRunId": "run-rich-1",
           "traceId": "trace-rich-1",
@@ -51,6 +57,9 @@
         "kind": "allagma.auditBundle",
         "service": "allagma",
         "label": "Audit bundle",
+        "protocolId": "allagma.audit.bundle.export.v1",
+        "authorityMode": "observational",
+        "sideEffectLevel": "evidence_record",
         "identifiers": {
           "allagmaRunId": "run-rich-1"
         },
@@ -64,6 +73,9 @@
         "kind": "conexus.modelCall",
         "service": "conexus",
         "label": "Conexus model call",
+        "protocolId": "conexus.chat-completion.create.v1",
+        "authorityMode": "gateway",
+        "sideEffectLevel": "model_call",
         "identifiers": {
           "conexusModelCallId": "chatcmpl-rich-1",
           "traceId": "trace-rich-1",
@@ -87,6 +99,9 @@
         "kind": "conexus.providerAttempt",
         "service": "conexus",
         "label": "Provider attempt 1",
+        "protocolId": "conexus.model-call.evidence.v1",
+        "authorityMode": "gateway",
+        "sideEffectLevel": "evidence_record",
         "identifiers": {
           "conexusModelCallId": "chatcmpl-rich-1"
         },
@@ -100,6 +115,9 @@
         "kind": "kanon.decision",
         "service": "kanon",
         "label": "Kanon decision",
+        "protocolId": "kanon.action.evaluate.v1",
+        "authorityMode": "authoritative",
+        "sideEffectLevel": "semantic_decision",
         "identifiers": {
           "kanonDecisionId": "dec-rich-1",
           "traceId": "trace-rich-1"
@@ -122,6 +140,9 @@
         "kind": "kanon.provenance",
         "service": "kanon",
         "label": "Decision provenance",
+        "protocolId": "kanon.decision.provenance.read.v1",
+        "authorityMode": "observational",
+        "sideEffectLevel": "read_only",
         "identifiers": {
           "kanonDecisionId": "dec-rich-1"
         },
@@ -208,6 +229,9 @@
       "endpoint": "resolveTraceCorrelation",
       "inputKind": "traceId",
       "inputValue": "trace-rich-1",
+      "protocolId": "ontogony.trace.resolve.v1",
+      "authorityMode": "observational",
+      "sideEffectLevel": "read_only",
       "status": "success",
       "reason": "Cross-service trace correlation expansion."
     },
@@ -217,6 +241,9 @@
       "endpoint": "/allagma/v0/runs/{runId}",
       "inputKind": "allagmaRunId",
       "inputValue": "run-rich-1",
+      "protocolId": "allagma.run.start.v1",
+      "authorityMode": "authoritative",
+      "sideEffectLevel": "run_state_transition",
       "status": "success"
     },
     {
@@ -225,6 +252,9 @@
       "endpoint": "/admin/v0/model-calls/{modelCallId}",
       "inputKind": "conexusModelCallId",
       "inputValue": "chatcmpl-rich-1",
+      "protocolId": "conexus.chat-completion.create.v1",
+      "authorityMode": "gateway",
+      "sideEffectLevel": "model_call",
       "status": "success"
     },
     {
@@ -233,6 +263,9 @@
       "endpoint": "/ontology/v0/decision-records/{decisionId}",
       "inputKind": "kanonDecisionId",
       "inputValue": "dec-rich-1",
+      "protocolId": "kanon.action.evaluate.v1",
+      "authorityMode": "authoritative",
+      "sideEffectLevel": "semantic_decision",
       "status": "forbidden",
       "reason": "Provenance denied."
     }

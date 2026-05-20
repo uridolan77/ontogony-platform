@@ -64,7 +64,37 @@
         "properties": {
           "artifactId": { "type": "string", "minLength": 1 },
           "role": { "type": "string", "minLength": 1 },
-          "locatorUri": { "type": ["string", "null"] }
+          "locatorUri": { "type": ["string", "null"] },
+          "protocolId": { "type": ["string", "null"], "minLength": 1 },
+          "authorityMode": {
+            "type": ["string", "null"],
+            "enum": [
+              "authoritative",
+              "draft_only",
+              "simulation_only",
+              "blocked",
+              "local_only",
+              "observational",
+              "gateway",
+              "unknown",
+              null
+            ]
+          },
+          "sideEffectLevel": {
+            "type": ["string", "null"],
+            "enum": [
+              "none",
+              "read_only",
+              "evidence_record",
+              "semantic_decision",
+              "run_state_transition",
+              "model_call",
+              "local_sandbox_effect",
+              "real_external_blocked",
+              "unknown",
+              null
+            ]
+          }
         }
       }
     },

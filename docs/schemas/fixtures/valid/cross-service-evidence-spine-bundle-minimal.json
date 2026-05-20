@@ -15,6 +15,9 @@
         "kind": "allagma.run",
         "service": "allagma",
         "label": "Allagma run",
+        "protocolId": "allagma.run.start.v1",
+        "authorityMode": "authoritative",
+        "sideEffectLevel": "run_state_transition",
         "identifiers": {
           "allagmaRunId": "run-1",
           "traceId": "trace-1"
@@ -53,6 +56,9 @@
       "endpoint": "/allagma/v0/runs/{runId}",
       "inputKind": "allagmaRunId",
       "inputValue": "run-1",
+      "protocolId": "allagma.run.start.v1",
+      "authorityMode": "authoritative",
+      "sideEffectLevel": "run_state_transition",
       "status": "success"
     }
   ],
