@@ -5,7 +5,7 @@
 
 ## Summary
 
-`ontogony-frontend` completed Pass B of UI-CONSUMER-001: migrated remaining high-value duplicate UI patterns to `@ontogony/ui` primitives (`LimitationNotice`, `CapabilityLimitationCard`, `EmptyState`, shared `EvidenceExportPanel`) while keeping product DTO mapping and adapters in the consumer.
+`ontogony-frontend` completed UI-CONSUMER-001 Pass B and the deferred cluster: migrated duplicate UI patterns to `@ontogony/ui` primitives including `ProductLiveQueryState` gates (`EmptyState`), `DiagnosticExportPanel` (`CopyDownloadJsonActions`), and replay limitations (`ActionAvailabilityPanel` / `UnsupportedActionList`), while keeping product DTO mapping and adapters in the consumer.
 
 ## Primary evidence
 
@@ -33,4 +33,4 @@ npm run test:run -- src/shared/components/ProductLiveQueryState.test.tsx \
 
 ## Known limitations
 
-See consumer evidence for deferred items (`ProductLiveQueryState` card shells, `DiagnosticExportPanel`, replay ops limitation block).
+See consumer evidence for remaining optional follow-ups (opportunistic card density, platform diagnostics workbench extraction).
