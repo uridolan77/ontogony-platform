@@ -56,10 +56,27 @@ Do not reopen Sprint 3; treat these as precision and drift-prevention work.
 - `KANON-ENDPOINT-FILTERS-001` — shared filters/helpers + route-module inventory tests.
 - `FE-LIVE-SMOKE-001` — one safe Docker-live Playwright smoke on `FE-DOCKER-001` stack. **Closed** (`FE_LIVE_SMOKE_001_DOCKER_LIVE_READONLY_EVIDENCE.md`)
 
-## Sprint 4 — Deferred but important
+## Sprint 4 — Source/evidence closeout
 
-25. `ALLAGMA-EVIDENCE-001` — audit/eval evidence alignment.
-26. `ALLAGMA-STREAM-001` — Conexus streaming into Allagma progress events.
-27. `CONEXUS-RETENTION-001` — retention evidence and maintenance visibility.
-28. `KANON-CONEXUS-ASSIST-001` — assistance disabled/mock/local E2E.
-29. `KANON-DOMAINPACK-GOV-001` — lifecycle promotion semantics.
+**Status (2026-05-20):** Items **25–29** closed in service repos (source/evidence). Reconciliation addendum: [`SYSTEM_SPRINT4_CLOSEOUT_ADDENDUM.md`](SYSTEM_SPRINT4_CLOSEOUT_ADDENDUM.md). Platform evidence: [`../../../evidence/SYSTEM_SPRINT4_STATUS_RECON_001_EVIDENCE.md`](../../../evidence/SYSTEM_SPRINT4_STATUS_RECON_001_EVIDENCE.md).
+
+```text
+Sprint 4 source/evidence closeout: closed.
+Runtime baseline promotion: pending SYSTEM-ALPHA-004.
+Production readiness: not claimed.
+```
+
+25. `ALLAGMA-EVIDENCE-001` — audit/eval evidence alignment. **Closed** (`allagma-dotnet/docs/evidence/ALLAGMA_EVIDENCE_001_EVIDENCE.md`)
+26. `ALLAGMA-STREAM-001` — Conexus streaming into Allagma progress events. **Closed** (`allagma-dotnet/docs/evidence/ALLAGMA_STREAM_001_EVIDENCE.md`; live stack smoke operator-run)
+27. `CONEXUS-RETENTION-001` — retention evidence and maintenance visibility. **Closed** (`conexus-dotnet/docs/evidence/CONEXUS_RETENTION_001_EVIDENCE.md`; `lastRun` process-local — see follow-up)
+28. `KANON-CONEXUS-ASSIST-001` — assistance disabled/mock/local E2E. **Closed** (`kanon-dotnet/docs/evidence/KANON_CONEXUS_ASSIST_001_EVIDENCE.md`)
+29. `KANON-DOMAINPACK-GOV-001` — lifecycle promotion semantics. **Closed** (`kanon-dotnet/docs/reviews/KANON_DOMAINPACK_GOV_001_VALIDATION_REPORT.md`)
+
+## Sprint 4.5 — Runtime baseline promotion (next phase)
+
+Do not reopen Sprint 4; treat these as governance and alpha baseline hardening from [`ontogony-next-development-phase-package`](../../ontogony-next-development-phase-package/ontogony-next-development-phase-package/README.md).
+
+- `SYSTEM-SPRINT4-STATUS-RECON-001` — platform sprint/acceptance reconciliation. **Closed** (this addendum)
+- `SYSTEM-ALPHA-004-PREP` — validation artifacts; no lock change until gates pass.
+- `SYSTEM-ALPHA-004-CUT` — update `allagma-dotnet/docs/system/ontogony-runtime.lock.json` only after validation.
+- `CONEXUS-RETENTION-002` — durable Postgres-backed maintenance-run history (successor to process-local `lastRun`).

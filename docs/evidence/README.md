@@ -84,6 +84,21 @@ Canonical index: [docs/operations/SYSTEM_DASHBOARD_SLO_INDEX.md](../operations/S
 
 ---
 
+## System cohesion — Sprint 4 reconciliation (2026-05-20)
+
+| Item | File |
+| --- | --- |
+| SYSTEM-SPRINT4-STATUS-RECON-001 | [SYSTEM_SPRINT4_STATUS_RECON_001_EVIDENCE.md](./SYSTEM_SPRINT4_STATUS_RECON_001_EVIDENCE.md) |
+
+Closeout addendum: [`docs/_incoming/curated-review-package/ontogony_curated_review_package/SYSTEM_SPRINT4_CLOSEOUT_ADDENDUM.md`](../_incoming/curated-review-package/ontogony_curated_review_package/SYSTEM_SPRINT4_CLOSEOUT_ADDENDUM.md)
+
+Service evidence (by repo): `ALLAGMA_EVIDENCE_001`, `ALLAGMA_STREAM_001`, `CONEXUS_RETENTION_001`, `KANON_CONEXUS_ASSIST_001`, `KANON_DOMAINPACK_GOV_001` — see reconciliation evidence for paths.
+
+Runtime baseline promotion: pending `SYSTEM-ALPHA-004` (prep: [SYSTEM_ALPHA_004_PREP_EVIDENCE.md](./SYSTEM_ALPHA_004_PREP_EVIDENCE.md)).
+
+---
+
+
 ## Docker-local environment (ENV)
 
 | Item | File |
