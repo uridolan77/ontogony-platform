@@ -269,7 +269,10 @@
     "title": "Replace thin/stub pages with honest operational states or live wiring",
     "why": "Routes such as Kanon plans/facts/provenance and Allagma replay are operator-important and should not appear silently incomplete.",
     "scope": "For each thin page, either wire live data or render a standard NotYetImplemented/ComingSoon panel with route purpose and backend dependency.",
-    "acceptance": "No released route renders a near-empty page without clear status and next action."
+    "acceptance": "No released route renders a near-empty page without clear status and next action.",
+    "status": "closed",
+    "closedAt": "2026-05-20",
+    "evidence": "ontogony-frontend/docs/evidence/FE_STUBS_001_THIN_PAGE_TRUTH_EVIDENCE.md"
   },
   {
     "id": "FE-API-ADAPTER-001",
