@@ -5,7 +5,7 @@
 
 ## Summary
 
-`ontogony-frontend` completed UI-CONSUMER-001 Pass B and the deferred cluster: migrated duplicate UI patterns to `@ontogony/ui` primitives including `ProductLiveQueryState` gates (`EmptyState`), `DiagnosticExportPanel` (`CopyDownloadJsonActions`), and replay limitations (`ActionAvailabilityPanel` / `UnsupportedActionList`), while keeping product DTO mapping and adapters in the consumer.
+`ontogony-frontend` completed UI-CONSUMER-001 (Pass A–C): migrated duplicate UI patterns to `@ontogony/ui` primitives, tightened unused local components and the foundation audit catalog, and closed with focused tests and evidence. Product DTO mapping and adapters remain in the consumer.
 
 ## Primary evidence
 
@@ -25,11 +25,13 @@ Full audit, migration table, validation output, and deferred items:
 ```text
 cd ontogony-frontend
 npm run typecheck   # PASS
+npm run foundation:check   # PASS
 npm run test:run -- src/shared/components/ProductLiveQueryState.test.tsx \
   src/shared/components/EvidenceExportPanel.test.tsx \
+  src/shared/components/DiagnosticExportPanel.test.tsx \
   src/kanon/components/KanonOperatorContextCard.test.tsx \
   src/app/route-coverage.test.ts \
-  src/conexus/components/ConexusExecutionRunDetailCard.test.tsx   # 21/21 PASS (incl. deferred cluster)
+  src/conexus/components/ConexusExecutionRunDetailCard.test.tsx   # 21/21 PASS (Pass C)
 ```
 
 ## Known limitations
