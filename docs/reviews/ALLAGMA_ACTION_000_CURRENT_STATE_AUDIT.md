@@ -22,7 +22,7 @@ ALLAGMA-ACTION-003 — Baseline compare actions
 ALLAGMA-ACTION-004 — Run audit and evidence actions
 ```
 
-Phase C (`ALLAGMA-ACTION-005`) designs retry/cancel/replay before any v2 routes (`ALLAGMA-ACTION-006`).
+Phase C (`ALLAGMA-ACTION-005`) designed retry/cancel/replay — see `allagma-dotnet/docs/architecture/RUN_OPERATIONS_CONTRACT_DESIGN.md`. Phase D (`ALLAGMA-ACTION-006`) implements accepted v2 routes.
 
 ---
 
