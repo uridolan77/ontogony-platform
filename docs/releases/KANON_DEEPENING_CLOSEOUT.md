@@ -26,7 +26,7 @@ The Kanon deepening sequence made Kanon semantic authority inspectable from the 
 
 [`docs/evidence/KANON_DEEPEN_SEQUENCE_STATUS.md`](../evidence/KANON_DEEPEN_SEQUENCE_STATUS.md)
 
-## v2 courageous package (007–009)
+## v2 courageous package (007–011)
 
 **Package:** `Ontogony-Kanon-Courageous-Enhancement-Package-v2`  
 **Posture:** Same as v1 — operator workbench hardening, **not** production readiness or SYSTEM-ALPHA lock.
@@ -36,10 +36,12 @@ The Kanon deepening sequence made Kanon semantic authority inspectable from the 
 | 007 | Conexus assistance workbench `/kanon/assistance` (draft-only) | Pending |
 | 008 | Durable canonical fact + semantic plan history (GET browse) | Pending |
 | 009 | Policy/gate explanation `/kanon/policies` (deterministic explain/simulate) | Pending |
+| 010 | Domain-pack diff/impact/migration/simulate promotion on `/kanon/domain-packs` (simulation-only) | Pending |
+| 011 | Semantic evidence graph `GET /ontology/v0/semantic-graph` + decisions panel | Pending |
 
-Canonical evidence: `kanon-dotnet/docs/evidence/KANON_DEEPEN_007_*`, `008_*`, `009_*`. Index reconciliation: [009A evidence](../evidence/KANON_DEEPEN_009A_RECONCILIATION_EVIDENCE.md).
+Canonical evidence: `kanon-dotnet/docs/evidence/KANON_DEEPEN_007_*` through `011_*`. Index reconciliation: [009A evidence](../evidence/KANON_DEEPEN_009A_RECONCILIATION_EVIDENCE.md), [010A evidence](../evidence/KANON_DEEPEN_010A_RECONCILIATION_EVIDENCE.md), [011A evidence](../evidence/KANON_DEEPEN_011A_RECONCILIATION_EVIDENCE.md).
 
-**Next v2 slice:** **KANON-DEEPEN-010** (domain-pack diff and impact).
+**Next v2 slice:** **KANON-DEEPEN-012** (source-binding and ontology quality loop).
 
 ## Related programs (out of scope for v1 closeout)
 
