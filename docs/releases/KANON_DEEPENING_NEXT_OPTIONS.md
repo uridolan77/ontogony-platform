@@ -22,7 +22,8 @@ After v1 closeout (000–006) and v2 slices **007–014** (including Docker brow
 
 | **KANON-DEEPEN-012** | Source-binding / ontology quality | **Done** (build + browser) | Quality loop on `/kanon/source-bindings` — 014 evidence |
 
-| **KANON-DEEPEN-013** | Hardening / coherence cleanup | **Done** (build) | Route inventory, auth matrix, OpenAPI catalog — see [013 evidence](../../../kanon-dotnet/docs/evidence/KANON_DEEPEN_013_SEMANTIC_AUTHORITY_HARDENING_EVIDENCE.md) |
+| **KANON-DEEPEN-013** | Hardening / coherence cleanup | **Done** (build; browser N/A) | Route inventory, auth matrix, OpenAPI catalog — [013 evidence](../../../kanon-dotnet/docs/evidence/KANON_DEEPEN_013_SEMANTIC_AUTHORITY_HARDENING_EVIDENCE.md) |
+| **KANON-DEEPEN-014A** | Status wording reconciliation | **Done** (docs) | [014A evidence](../evidence/KANON_DEEPEN_014A_STATUS_WORDING_RECONCILIATION.md) |
 
 | **EVIDENCE-SPINE-001** | Unified cross-service evidence resolver | Deferred | Supersedes identifier-only links from 005 |
 

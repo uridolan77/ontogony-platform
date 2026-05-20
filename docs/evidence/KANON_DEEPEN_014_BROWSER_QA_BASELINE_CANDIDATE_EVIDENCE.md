@@ -102,6 +102,7 @@ Browser `fetch` to Kanon routes with `X-Ontogony-Roles` failed CORS preflight be
 
 ## Follow-up
 
+- Status index reconciliation: [014A](./KANON_DEEPEN_014A_STATUS_WORDING_RECONCILIATION.md).
 - Rebuild `allagma-api` and `conexus-api` after SDK pin alignment; re-smoke cross-service browser flows.
 - Optional: `KANON_DEEPEN_V2_*` closeout bundle docs per courageous package `06_BASELINE_AND_RELEASE_PLAN.md`.
 - SYSTEM-ALPHA-004/005 candidate when lock SHAs are chosen.

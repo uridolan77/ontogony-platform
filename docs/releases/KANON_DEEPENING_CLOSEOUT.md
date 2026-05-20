@@ -8,7 +8,7 @@
 
 The Kanon deepening sequence made Kanon semantic authority inspectable from the operator console: local read roles, domain-pack lifecycle, decision provenance, facts/plans/bindings action workbenches, and cross-service links from Allagma/Conexus. Implementation is on `main` in `ontogony-frontend`, `kanon-dotnet` (OpenAPI polish for 002), and `ontogony-platform` (evidence).
 
-**Browser end-to-end verification** remains operator-owned: rebuild the frontend image and run the [006 manual QA checklist](../evidence/KANON_DEEPEN_006_CLOSEOUT_AND_MANUAL_QA_EVIDENCE.md).
+**v1 browser walkthrough** used the [006 manual QA checklist](../evidence/KANON_DEEPEN_006_CLOSEOUT_AND_MANUAL_QA_EVIDENCE.md). **v2 (007–012)** Docker-local browser verification is **done** via [KANON-DEEPEN-014](../evidence/KANON_DEEPEN_014_BROWSER_QA_BASELINE_CANDIDATE_EVIDENCE.md) (12/12 Playwright). This is operator-scope only — not production readiness.
 
 ## Sequence outcomes
 
@@ -26,7 +26,7 @@ The Kanon deepening sequence made Kanon semantic authority inspectable from the 
 
 [`docs/evidence/KANON_DEEPEN_SEQUENCE_STATUS.md`](../evidence/KANON_DEEPEN_SEQUENCE_STATUS.md)
 
-## v2 courageous package (007–013)
+## v2 courageous package (007–014)
 
 **Package:** `Ontogony-Kanon-Courageous-Enhancement-Package-v2`  
 **Posture:** Same as v1 — operator workbench hardening, **not** production readiness or SYSTEM-ALPHA lock.
@@ -66,4 +66,5 @@ Runtime lock is not updated — baseline promotion is SYSTEM-ALPHA-owned.
 - [x] 006 closeout docs and checklist exist
 - [x] Facts/plans history limitation documented
 - [x] 005 documented as semantic-link bridge only
-- [ ] Browser walkthrough executed and recorded (operator)
+- [x] v2 Docker-local browser walkthrough executed and recorded ([014](../evidence/KANON_DEEPEN_014_BROWSER_QA_BASELINE_CANDIDATE_EVIDENCE.md); [014A](../evidence/KANON_DEEPEN_014A_STATUS_WORDING_RECONCILIATION.md))
+- [ ] `ontogony-runtime.lock.json` updated (SYSTEM-ALPHA-owned; 014 is baseline candidate only)
