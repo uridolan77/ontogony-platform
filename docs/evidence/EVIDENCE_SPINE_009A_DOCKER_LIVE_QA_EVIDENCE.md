@@ -76,7 +76,7 @@ Artifact: `docker/local-working-system/artifacts/evidence-spine-009a-live-api-re
 | `GET http://localhost:5175/system/evidence-spine` | **PASS** — 200, SPA shell |
 | `GET http://localhost:5175/provenance.json` | **PASS** — matches `cf09a04` |
 
-**Manual browser walkthrough** (paste each seed ID, export bundle) was **not** recorded step-by-step in this pass; automated API + provenance gates cover mechanical readiness.
+**008A** (`run-evidence-spine-008a-docker-live-verification.ps1`) now automates browser paste/export/schema checks for seeded IDs. This 009A pass predates that script; re-run 008A for full browser sign-off.
 
 ## Recommended operator follow-up
 

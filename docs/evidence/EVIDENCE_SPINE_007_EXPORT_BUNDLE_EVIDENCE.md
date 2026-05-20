@@ -1,16 +1,17 @@
 # EVIDENCE-SPINE-007 — Cross-service evidence spine export bundle (platform index)
 
 **Recorded at (UTC):** 2026-05-20  
-**Verdict:** **PASS**  
-**Statement:** Canonical JSON Schema and minimal fixture for operator export bundles produced by `ontogony-frontend` evidence spine workbench.
+**Verdict:** **PASS** (007A contract hardening)  
+**Statement:** Canonical JSON Schema and fixtures for operator export bundles produced by `ontogony-frontend` evidence spine workbench. **007A** adds a rich **generated** fixture emitted from the frontend export builder and validated in both repos.
 
 ## Delivered
 
 | Artifact | Path |
 | --- | --- |
 | JSON Schema | `docs/schemas/ontogony-cross-service-evidence-spine-bundle-v1.schema.json` |
-| Valid fixture | `docs/schemas/fixtures/valid/cross-service-evidence-spine-bundle-minimal.json` |
-| Schema test | `tests/Ontogony.Infrastructure.Tests/EvidenceSpineExportBundleSchemaTests.cs` |
+| Minimal fixture | `docs/schemas/fixtures/valid/cross-service-evidence-spine-bundle-minimal.json` |
+| Generated fixture (frontend builder) | `docs/schemas/fixtures/valid/cross-service-evidence-spine-bundle-generated.json` |
+| Schema tests | `tests/Ontogony.Infrastructure.Tests/EvidenceSpineExportBundleSchemaTests.cs` |
 | Frontend evidence | `ontogony-frontend/docs/evidence/EVIDENCE_SPINE_007_EXPORT_BUNDLE_EVIDENCE.md` |
 
 ## Schema id

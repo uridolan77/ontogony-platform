@@ -21,5 +21,7 @@
 | --- | --- | --- | --- |
 | 001–004 | Frontend unit + mocked E2E (per-item evidence) | Start/audit/baseline verified 007 | Pending checklist |
 | 005 | Design only | — | — |
-| 006 | Backend unit + frontend unit + mocked E2E | **PASS** — image rebuilt 2026-05-20; `GET …/operations` verified | Pending checklist |
-| 007 | Closeout aggregation | Partial API QA recorded | Pending |
+| 006 | Backend unit + frontend unit + mocked E2E | **PASS** | — |
+| 006A | Idempotency + result UX | **PASS** | — |
+| 007 | Closeout docs | **PASS** | — |
+| 007A | Browser @ :5175 | **PASS** | [browser evidence](../../../ontogony-frontend/docs/evidence/ALLAGMA_ACTION_007_BROWSER_MANUAL_QA_EVIDENCE.md) |

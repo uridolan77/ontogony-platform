@@ -12,6 +12,7 @@
 | Cancel/replay without idempotency key | **Rejected** at API (`400`) and service (`ArgumentException`); no duplicate replay events without a key |
 | Idempotency replay | Same key + same payload returns cached response; same key + different payload → **409** |
 | Result cards | `RunOperationResultCard` links: open new run (retry), events/detail (cancel), audit/events (replay) |
+| Frontend client types | `cancelAllagmaRun` / `replayAllagmaRun` require `idempotencyKey: string` (aligned with retry) |
 
 ## Validation
 

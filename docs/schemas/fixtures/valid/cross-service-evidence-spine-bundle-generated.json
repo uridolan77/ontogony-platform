@@ -1,0 +1,293 @@
+{
+  "schema": "ontogony-cross-service-evidence-spine-bundle-v1",
+  "schemaVersion": "1",
+  "exportedAt": "2026-05-20T12:00:00.000Z",
+  "rootInput": "trace-rich-1",
+  "rootKind": "traceId",
+  "graph": {
+    "root": {
+      "nodeId": "platform.trace:trace-rich-1",
+      "kind": "platform.trace"
+    },
+    "nodes": [
+      {
+        "id": "platform.trace:trace-rich-1",
+        "kind": "platform.trace",
+        "service": "platform",
+        "label": "Trace",
+        "identifiers": {
+          "traceId": "trace-rich-1",
+          "correlationId": "corr-rich-1"
+        },
+        "links": [],
+        "sourceRefs": []
+      },
+      {
+        "id": "allagma.run:run-rich-1",
+        "kind": "allagma.run",
+        "service": "allagma",
+        "label": "Allagma run",
+        "identifiers": {
+          "allagmaRunId": "run-rich-1",
+          "traceId": "trace-rich-1",
+          "conexusModelCallId": "chatcmpl-rich-1",
+          "kanonDecisionId": "dec-rich-1"
+        },
+        "links": [
+          {
+            "id": "allagma-run",
+            "label": "Allagma run",
+            "href": "/allagma/runs/run-rich-1",
+            "kind": "allagma-run",
+            "present": true
+          }
+        ],
+        "sourceRefs": [
+          "/allagma/v0/runs/{runId}"
+        ]
+      },
+      {
+        "id": "allagma.auditBundle:run-rich-1",
+        "kind": "allagma.auditBundle",
+        "service": "allagma",
+        "label": "Audit bundle",
+        "identifiers": {
+          "allagmaRunId": "run-rich-1"
+        },
+        "links": [],
+        "sourceRefs": [
+          "/allagma/v0/runs/{runId}/audit"
+        ]
+      },
+      {
+        "id": "conexus.modelCall:chatcmpl-rich-1",
+        "kind": "conexus.modelCall",
+        "service": "conexus",
+        "label": "Conexus model call",
+        "identifiers": {
+          "conexusModelCallId": "chatcmpl-rich-1",
+          "traceId": "trace-rich-1",
+          "conexusRouteDecisionId": "rd-rich-1"
+        },
+        "links": [
+          {
+            "id": "conexus-observability",
+            "label": "Conexus observability",
+            "href": "/conexus/observability?modelCallId=chatcmpl-rich-1",
+            "kind": "conexus-observability",
+            "present": true
+          }
+        ],
+        "sourceRefs": [
+          "/admin/v0/model-calls/{modelCallId}"
+        ]
+      },
+      {
+        "id": "conexus.providerAttempt:chatcmpl-rich-1:1",
+        "kind": "conexus.providerAttempt",
+        "service": "conexus",
+        "label": "Provider attempt 1",
+        "identifiers": {
+          "conexusModelCallId": "chatcmpl-rich-1"
+        },
+        "links": [],
+        "sourceRefs": [
+          "/admin/v0/model-calls/{modelCallId}"
+        ]
+      },
+      {
+        "id": "kanon.decision:dec-rich-1",
+        "kind": "kanon.decision",
+        "service": "kanon",
+        "label": "Kanon decision",
+        "identifiers": {
+          "kanonDecisionId": "dec-rich-1",
+          "traceId": "trace-rich-1"
+        },
+        "links": [
+          {
+            "id": "kanon-decision",
+            "label": "Kanon decision",
+            "href": "/kanon/decisions/dec-rich-1",
+            "kind": "kanon-decision",
+            "present": true
+          }
+        ],
+        "sourceRefs": [
+          "/ontology/v0/decision-records/{decisionId}"
+        ]
+      },
+      {
+        "id": "kanon.provenance:dec-rich-1",
+        "kind": "kanon.provenance",
+        "service": "kanon",
+        "label": "Decision provenance",
+        "identifiers": {
+          "kanonDecisionId": "dec-rich-1"
+        },
+        "links": [],
+        "sourceRefs": [
+          "/ontology/v0/decision-records/{decisionId}/provenance"
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "from": "allagma.run:run-rich-1",
+        "to": "platform.trace:trace-rich-1",
+        "kind": "has_trace",
+        "confidence": "direct"
+      },
+      {
+        "from": "allagma.run:run-rich-1",
+        "to": "conexus.modelCall:chatcmpl-rich-1",
+        "kind": "used_model_call",
+        "confidence": "direct"
+      },
+      {
+        "from": "allagma.run:run-rich-1",
+        "to": "kanon.decision:dec-rich-1",
+        "kind": "used_kanon_decision",
+        "confidence": "direct"
+      },
+      {
+        "from": "conexus.modelCall:chatcmpl-rich-1",
+        "to": "conexus.providerAttempt:chatcmpl-rich-1:1",
+        "kind": "derived_from",
+        "confidence": "derived"
+      },
+      {
+        "from": "kanon.decision:dec-rich-1",
+        "to": "kanon.provenance:dec-rich-1",
+        "kind": "derived_from",
+        "confidence": "direct"
+      },
+      {
+        "from": "allagma.run:run-rich-1",
+        "to": "allagma.auditBundle:run-rich-1",
+        "kind": "has_audit_bundle",
+        "confidence": "direct"
+      }
+    ],
+    "resolvedIdentifiers": {
+      "traceId": "trace-rich-1",
+      "correlationId": "corr-rich-1",
+      "allagmaRunId": "run-rich-1",
+      "conexusModelCallId": "chatcmpl-rich-1",
+      "conexusRouteDecisionId": "rd-rich-1",
+      "kanonDecisionId": "dec-rich-1"
+    }
+  },
+  "pageLinks": [
+    {
+      "id": "allagma-run",
+      "label": "Allagma run",
+      "href": "/allagma/runs/run-rich-1",
+      "kind": "allagma-run",
+      "present": true
+    },
+    {
+      "id": "conexus-observability",
+      "label": "Conexus observability",
+      "href": "/conexus/observability?modelCallId=chatcmpl-rich-1",
+      "kind": "conexus-observability",
+      "present": true
+    },
+    {
+      "id": "kanon-decision",
+      "label": "Kanon decision",
+      "href": "/kanon/decisions/dec-rich-1",
+      "kind": "kanon-decision",
+      "present": true
+    }
+  ],
+  "sourceAttempts": [
+    {
+      "attemptId": "source-1",
+      "service": "platform",
+      "endpoint": "resolveTraceCorrelation",
+      "inputKind": "traceId",
+      "inputValue": "trace-rich-1",
+      "status": "success",
+      "reason": "Cross-service trace correlation expansion."
+    },
+    {
+      "attemptId": "source-2",
+      "service": "allagma",
+      "endpoint": "/allagma/v0/runs/{runId}",
+      "inputKind": "allagmaRunId",
+      "inputValue": "run-rich-1",
+      "status": "success"
+    },
+    {
+      "attemptId": "source-3",
+      "service": "conexus",
+      "endpoint": "/admin/v0/model-calls/{modelCallId}",
+      "inputKind": "conexusModelCallId",
+      "inputValue": "chatcmpl-rich-1",
+      "status": "success"
+    },
+    {
+      "attemptId": "source-4",
+      "service": "kanon",
+      "endpoint": "/ontology/v0/decision-records/{decisionId}",
+      "inputKind": "kanonDecisionId",
+      "inputValue": "dec-rich-1",
+      "status": "forbidden",
+      "reason": "Provenance denied."
+    }
+  ],
+  "warnings": [
+    {
+      "code": "kanon.provenance_forbidden",
+      "message": "Kanon provenance is not available for the current operator roles (403).",
+      "reason": "actor_forbidden",
+      "suggestedNextStep": "Add ProvenanceReader role and retry."
+    }
+  ],
+  "completeness": {
+    "resolvedNodeCount": 7,
+    "resolvedEdgeCount": 6,
+    "missingEdgeCount": 0,
+    "sourceFailureCount": 0,
+    "isPartial": true,
+    "summary": "7 node(s), 6 edge(s); 0 missing, 0 source failure(s)."
+  },
+  "build": {
+    "console": "ontogony-frontend",
+    "version": "0.1.0-alpha.0",
+    "gitSha": "abc1234",
+    "buildTime": "2026-05-20T12:00:00.000Z"
+  },
+  "redaction": {
+    "policy": "operator-redacted",
+    "rawPreviewsIncluded": false,
+    "fieldsExcluded": [
+      "prompt",
+      "completion",
+      "completions",
+      "messages",
+      "content",
+      "raw",
+      "body",
+      "requestbody",
+      "responsebody",
+      "system",
+      "user",
+      "assistant",
+      "choices",
+      "authorization",
+      "apiKey",
+      "api_key",
+      "token",
+      "secret",
+      "password",
+      "credential"
+    ],
+    "notes": [
+      "Operator-redacted cross-service evidence spine bundle from ontogony-frontend workbench.",
+      "No raw prompts, completions, provider bodies, or credential fields are included.",
+      "Node rawPreview objects are omitted from this export."
+    ]
+  }
+}

@@ -11,4 +11,4 @@
 
 ## Next slice
 
-**ALLAGMA-ACTION-007** — [Closeout and manual QA](./ALLAGMA_ACTION_007_CLOSEOUT_EVIDENCE.md) (PARTIAL PASS — Docker allagma rebuild + browser QA pending).
+**ALLAGMA-ACTION-007** — [Closeout](./ALLAGMA_ACTION_007_CLOSEOUT_EVIDENCE.md) **PASS**; [007A browser QA](../../../ontogony-frontend/docs/evidence/ALLAGMA_ACTION_007_BROWSER_MANUAL_QA_EVIDENCE.md) **VERIFIED**.

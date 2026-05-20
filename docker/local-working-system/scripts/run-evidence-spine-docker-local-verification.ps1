@@ -3,6 +3,8 @@
 
 param(
     [switch]$Build,
+    [switch]$Live,
+    [switch]$Seed,
     [switch]$SkipProvenanceVerify,
     [string]$FrontendBaseUrl = "http://localhost:5175"
 )
@@ -23,6 +25,15 @@ if (-not (Test-Path -LiteralPath $reportDir)) {
 Write-Host ""
 Write-Host "=== EVIDENCE-SPINE-008 Docker-local verification ===" -ForegroundColor Cyan
 Write-Host ""
+
+if ($Live) {
+    $liveScript = Join-Path $PSScriptRoot "run-evidence-spine-008a-docker-live-verification.ps1"
+    & $liveScript -Build:$Build -Seed:$Seed -SkipProvenanceVerify:$SkipProvenanceVerify -FrontendBaseUrl $FrontendBaseUrl
+    if ($LASTEXITCODE -ne 0) {
+        throw "EVIDENCE-SPINE-008A live verification failed."
+    }
+    exit 0
+}
 
 if (-not $SkipProvenanceVerify) {
     if ($Build) {
@@ -68,6 +79,7 @@ $checklist = [ordered]@{
         "export redacted bundle and validate schema id"
     )
     mockE2e = "cd C:\dev\ontogony-frontend; npm run test:e2e -- e2e/evidence-spine-workbench.spec.ts"
+    live008a = ".\run-evidence-spine-008a-docker-live-verification.ps1 -Build [-Seed]"
 }
 
 $checklist | ConvertTo-Json -Depth 6 | Set-Content -Path $reportPath -Encoding utf8

@@ -10,9 +10,9 @@
 | Unsupported-operation honesty | 5 | Capability metadata + panel lists unavailable ops with reasons |
 | Automated test confidence | 4 | Backend 10/10; frontend allagma 173/173 after 007 test fix; mocked E2E pass |
 | Docker integration | 4 | Rebuild succeeded; `GET …/operations` + ENV-SEED-001 pass; bootstrap required on fresh stack |
-| Browser / manual QA confidence | 2 | API partial QA; checklist ready; walkthrough not executed |
+| Browser / manual QA confidence | 4 | 007A Playwright @ :5175 — 11/11; start POST blocked when Kanon unhealthy |
 | Documentation traceability | 5 | Per-slice evidence + sequence index + closeout set |
-| **Overall (package closeout)** | **4** | Implementation credible; deploy + browser proof pending |
+| **Overall (package closeout)** | **4.5** | Docker-local operator scope complete |
 
 ## Strengths
 

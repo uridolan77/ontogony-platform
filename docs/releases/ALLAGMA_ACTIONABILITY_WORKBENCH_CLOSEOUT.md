@@ -3,13 +3,13 @@
 **Program:** Ontogony-Allagma-Actionability-Workbench-Package-v1 (ACTION-000 through ACTION-007)  
 **Date:** 2026-05-20  
 **Posture:** Docker-local operator workbench — **not production readiness**  
-**Overall verdict:** **PARTIAL PASS**
+**Overall verdict:** **PASS** (Docker-local operator scope)
 
 ## Summary
 
 The actionability package wired existing Allagma v0 contracts into the operator console (start run, resume human gate, baseline compare, audit/evidence export), then added **run operations v2** (retry, cancel, replay manifest, per-run operations contract) per `allagma-dotnet/docs/architecture/RUN_OPERATIONS_CONTRACT_DESIGN.md`.
 
-Implementation spans `ontogony-frontend`, `allagma-dotnet`, and platform evidence. **Browser end-to-end verification** and a **fresh Docker `allagma-api` image** remain operator follow-ups (see [007 evidence](../evidence/ALLAGMA_ACTION_007_CLOSEOUT_EVIDENCE.md)).
+Implementation spans `ontogony-frontend`, `allagma-dotnet`, and platform evidence. **Browser QA (007A)** recorded in [browser evidence](../../../ontogony-frontend/docs/evidence/ALLAGMA_ACTION_007_BROWSER_MANUAL_QA_EVIDENCE.md).
 
 ## Sequence outcomes
 
@@ -42,4 +42,4 @@ Implementation spans `ontogony-frontend`, `allagma-dotnet`, and platform evidenc
 - [x] ACTION-007 closeout, scorecard, limitations, next-options
 - [x] Unsupported operations documented and surfaced in UI
 - [x] Docker `allagma-api` rebuilt with ACTION-006 routes (2026-05-20)
-- [ ] Browser walkthrough executed and recorded
+- [x] Browser walkthrough executed and recorded (007A)
