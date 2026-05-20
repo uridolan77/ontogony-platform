@@ -6,7 +6,7 @@ Consolidated from UI-HARDEN-000–009. Not a production readiness statement.
 
 - **Pre-1.0** (`0.1.0-alpha.0`): additive subpaths are normal; breaking changes still require migration notes and consumer coordination.
 - **Root barrel** (`.`) is compatibility-only — new product code must use documented subpaths.
-- **Full release gate** (`npm run check` in `ontogony-ui`) includes Storybook build, knip, size-limit, and e2e — heavier than the 009 closeout validation run.
+- **Full release gate** (`npm run check` in `ontogony-ui`) includes Storybook build, knip, size-limit — passed 2026-05-20 sign-off; `npm run check:full` (e2e) remains optional for platform cuts.
 
 ## Boundary
 
@@ -34,10 +34,10 @@ Consolidated from UI-HARDEN-000–009. Not a production readiness statement.
 ## Consumers
 
 - **ontogony-frontend:** proven for 008 scope; browser E2E not re-run in 009.
-- **conexus-frontend:** file-linked consumer — verify `npm run check` after the next `@ontogony/ui` sync.
-- **Docker:** rebuild `ontogony-frontend` image when cutting a stack that depends on new badge/density behavior.
+- **conexus-frontend:** standalone app not in this workspace; **conexus-like** fixture passed `check:consumers` — re-run after a real Conexus UI bump.
+- **Docker:** frontend image rebuilt 2026-05-20 (`verify-frontend-browser-provenance.ps1 -Build`); repeat after frontend commits that affect browser-visible UI.
 
 ## Test / CI
 
 - `public-api-guard` requires every `package.json` export to appear in consumer-contract or fixture imports — add fixture lines when introducing new subpaths.
-- 009 closeout did not run `npm run check:full` or Playwright visual regression.
+- `npm run check:full` (Playwright e2e) not run in sign-off — use before visual-regression-sensitive releases.

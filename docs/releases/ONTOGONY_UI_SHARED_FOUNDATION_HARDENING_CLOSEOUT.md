@@ -38,9 +38,9 @@ npm run typecheck
 npm run test:run -- src/kanon/components/KanonOperatorContextCard.test.tsx src/shared/components/ProductLiveQueryState.test.tsx src/shared/components/EvidenceExportPanel.test.tsx src/app/route-coverage.test.ts
 ```
 
-**Results (2026-05-20):** `ontogony-ui` build OK; **646/646** unit tests pass after fixture coverage for `./status`, `./navigation`, `./feedback`; export and dist smoke checks OK. `ontogony-frontend` typecheck OK; focused consumer tests **15/15** pass.
+**Results (2026-05-20, 009 baseline):** `ontogony-ui` build OK; **646/646** unit tests pass after fixture coverage for `./status`, `./navigation`, `./feedback`; export and dist smoke checks OK. `ontogony-frontend` typecheck OK; focused consumer tests **15/15** pass.
 
-Full `npm run check` (Storybook static build, knip, size-limit, e2e) remains the release gate for a broader platform cut — not re-run in this closeout pass.
+**Results (2026-05-20, sign-off run):** `npm run check` **PASS** (after removing unused `LimitationNotice` import and listing `@testing-library/user-event` in devDependencies). `npm run check:consumers` **PASS** (conexus-like, kanon-like, allagma-like, ontogony-frontend-like fixtures). Docker `verify-frontend-browser-provenance.ps1 -Build` **PASS** — served commit `c06afff` at `http://localhost:5175/` (report: `docker/local-working-system/artifacts/docker-local-verify-001-report.json`).
 
 ## Consumer adoption
 
@@ -59,5 +59,5 @@ Full `npm run check` (Storybook static build, knip, size-limit, e2e) remains the
 - [x] Consumer migration proven on live operator routes
 - [x] Public export guard covers all `package.json` subpaths (fixture + contract)
 - [x] Scorecard, limitations, and next options published
-- [ ] Full `npm run check` + Docker frontend provenance refresh (operator, on next stack cut)
-- [ ] Conexus-frontend consumer re-smoke after `@ontogony/ui` bump (operator)
+- [x] Full `npm run check` + Docker frontend provenance refresh (2026-05-20)
+- [x] Multi-console consumer fixtures (`npm run check:consumers`) — includes conexus-like smoke

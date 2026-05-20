@@ -13,9 +13,9 @@
 | Density & layout | 4 | `OntogonyDensity`, `operatorMetricGridClass`, compact operator pages |
 | Consumer adoption (`ontogony-frontend`) | 4 | Representative migrations; not every local wrapper removed |
 | Automated test confidence | 4 | 646 UI tests; packaging guards; focused frontend tests pass |
-| Storybook / visual regression | 3 | Storybook exists; not part of 009 validation run |
-| Cross-consumer parity (Conexus app) | 2 | Not re-verified in this closeout |
-| **Overall (program closeout)** | **4** | Foundation credible for continued product work; not a 1.0 freeze |
+| Storybook / visual regression | 4 | `check:storybook` passed in sign-off; Playwright e2e not run |
+| Cross-consumer parity (Conexus app) | 3 | `check:consumers` conexus-like fixture passed; standalone app not in workspace |
+| **Overall (program closeout)** | **4** | Sign-off gates green; foundation credible for continued product work; not a 1.0 freeze |
 
 ## Strengths
 
@@ -28,5 +28,4 @@
 
 - Partial migration: some product-local shells (`ProductLiveQueryState`, thin `EvidenceExportPanel` wrapper) remain by design.
 - Parallel status vocabularies still exist for domain-specific badges (`RunStateBadge`, `SemanticVersionBadge`).
-- Full `npm run check` and Playwright visual suite not executed in 009.
-- Docker frontend image provenance not rebuilt in 009.
+- Playwright `check:full` / visual regression not executed in sign-off.

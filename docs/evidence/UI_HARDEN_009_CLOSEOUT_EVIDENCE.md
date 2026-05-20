@@ -44,10 +44,25 @@ npm run test:run -- src/kanon/components/KanonOperatorContextCard.test.tsx src/s
 
 **009 fix:** Added `./status`, `./navigation`, `./feedback` to `fixtures/pkg-consumer/import-all.mjs`, `require-all.cjs`, and `consumer-contract.imports.test.ts` so `public-api-guard` passes (was 645/646 before fix).
 
-## Docker
+## Sign-off validation (2026-05-20)
 
-Not rebuilt in 009. See `ONTOGONY_UI_SHARED_FOUNDATION_HARDENING_NEXT_OPTIONS.md` → UI-DOCKER-001.
+```powershell
+cd C:\dev\ontogony-ui
+npm run check
+npm run check:consumers
+
+cd C:\dev\ontogony-platform
+.\docker\local-working-system\scripts\verify-frontend-browser-provenance.ps1 -Build
+```
+
+| Gate | Verdict |
+| --- | --- |
+| `npm run check` | PASS |
+| `npm run check:consumers` | PASS |
+| DOCKER-LOCAL-VERIFY-001 (`-Build`) | PASS — `c06afff` at `http://localhost:5175/` |
+
+**Gate fixes applied:** removed unused `OntogonyDensity` import in `LimitationNotice.tsx`; added `@testing-library/user-event` to `package.json` devDependencies for knip.
 
 ## Program status
 
-**ONTOGONY-UI-HARDEN-001 — COMPLETE** (items 000–009).
+**ONTOGONY-UI-HARDEN-001 — COMPLETE** (items 000–009), sign-off gates executed.
