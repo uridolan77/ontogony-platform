@@ -28,14 +28,15 @@ See canonical doc for full command log, commit SHAs, blockers, and CUT checklist
 | Area | Result |
 | --- | --- |
 | Frontend `test:fe-high-value` | PASS |
-| Frontend `npm run check` | PASS (contracts audit resolved) |
+| Frontend `npm run check` | FAIL (`config:check` resolved; current failure is `format:check` due pre-existing Prettier drift) |
 | UI `npm run check` | PASS (lint blocker resolved) |
 | Kanon Sprint 4 filters | PASS |
-| Kanon full Release | PARTIAL (baseline had 1 snapshot failure; focused topology blocker now PASS) |
+| Kanon full Release | PASS (261/261 on rerun) |
 | Allagma scoped filters | PASS |
-| Allagma full Release | PARTIAL (baseline had vocabulary drift; focused vocabulary blocker now PASS) |
+| Allagma full Release | PASS (714/714 on rerun) |
 | Conexus retention persistence | PASS |
 | Conexus scoped-keys integration hang | RESOLVED (`AdminScopedKeysIntegrationTests` now PASS; no hang) |
+| Conexus full suite | FAIL (3 production-exposure tests fail on local Postgres `127.0.0.1:59990` connection refused) |
 | Docker-local system gates | _pending_ |
 
 ## Open blockers
@@ -44,9 +45,10 @@ Canonical blocker state is now:
 
 - `B-001` runtime lock unchanged until CUT (intentional).
 - `B-007` dirty platform/conexus trees and SHA refresh-at-cut requirement.
+- `B-010` frontend `format:check` drift (broad pre-existing Prettier mismatches).
 - Docker-local CUT gates pending (E2E, restart, observability, evidence spine, composition gates).
 
-Resolved for traceability in canonical prep: `B-002` Allagma vocabulary drift, `B-003` Kanon topology snapshot 409, `B-004` frontend `contracts:audit`, `B-005` UI lint, `B-006` Conexus scoped-keys hang.
+Resolved for traceability in canonical prep: `B-002` Allagma vocabulary drift, `B-003` Kanon topology snapshot 409, `B-004` frontend `contracts:audit`, `B-005` UI lint, `B-006` Conexus scoped-keys hang, `B-009` frontend env-catalog drift.
 
 ## Next step
 
