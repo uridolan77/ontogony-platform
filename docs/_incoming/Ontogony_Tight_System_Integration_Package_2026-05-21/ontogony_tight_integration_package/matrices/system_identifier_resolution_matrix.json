@@ -1,0 +1,14 @@
+{
+  "schema": "ontogony-system-identifier-resolution-matrix-v1",
+  "identifiers": [
+    { "kind": "runId", "owner": "allagma", "primaryRoute": "/allagma/v0/runs/{runId}" },
+    { "kind": "runEventId", "owner": "allagma", "primaryRoute": "/allagma/v0/runs/{runId}/events" },
+    { "kind": "decisionId", "owner": "kanon", "primaryRoute": "/ontology/v0/decision-records/{decisionId}" },
+    { "kind": "humanGateId", "owner": "kanon", "primaryRoute": "/ontology/v0/semantic-graph?humanGateId={humanGateId}" },
+    { "kind": "domainPackId", "owner": "kanon", "primaryRoute": "/ontology/v0/semantic-graph?domainPackId={domainPackId}" },
+    { "kind": "modelCallId", "owner": "conexus", "primaryRoute": "/conexus/v0/model-calls/{modelCallId}" },
+    { "kind": "routeDecisionId", "owner": "conexus", "primaryRoute": "/admin/v0/route-decisions/{routeDecisionId}" },
+    { "kind": "traceId", "owner": "platform", "primaryRoute": "service-specific by-trace routes" },
+    { "kind": "correlationId", "owner": "platform", "primaryRoute": "service-specific correlation discovery" }
+  ]
+}
