@@ -1,0 +1,43 @@
+{
+  "schema": "ontogony-operator-v1-lock-v1",
+  "baseline": "OPERATOR-V1-001",
+  "runtimeBaseline": "SYSTEM-ALPHA-006",
+  "generatedAt": "2026-05-21",
+  "lockOwnerRepo": "ontogony-platform",
+  "runtimeLock": {
+    "ownerRepo": "allagma-dotnet",
+    "path": "docs/system/ontogony-runtime.lock.json"
+  },
+  "lockedCommits": {
+    "allagma-dotnet": "7c94c57ae2b008ae0b7b871ea71fd33c5c97c67d",
+    "kanon-dotnet": "ab12715406480f3eaed715c27efe20dc37216816",
+    "conexus-dotnet": "9ec193082439438d2aba36bb3c446242ac03105f",
+    "ontogony-platform": "18717e2e257a14ae6de4128089129ce333173ec6",
+    "ontogony-frontend": "4faf005e31fd7987c5e883203d69af8b366c9da1",
+    "ontogony-ui": "6f357d9caa752c1e4a93ccd2f9d0c49e46ae7cb4"
+  },
+  "requiredOperatorFlows": [
+    "system-posture",
+    "simple-governed-run",
+    "human-gate-approve",
+    "human-gate-deny",
+    "conexus-fallback",
+    "kanon-assistance",
+    "sandbox-posture",
+    "evidence-spine-trace"
+  ],
+  "evidence": {
+    "closeout": "docs/releases/FIRST_VERSION_RC_001_CLOSEOUT.md",
+    "rcEvidence": "docs/evidence/FIRST_VERSION_RC_001_EVIDENCE.md",
+    "demoFlows": "docs/evidence/SYSTEM_DEMO_FLOWS_001_EVIDENCE.md",
+    "demoGuide": "docs/operators/OPERATOR_V1_DEMO_GUIDE.md",
+    "operatorHome": "ontogony-frontend/docs/evidence/SYS_OPERATOR_HOME_001_EVIDENCE.md",
+    "operatorRuns": "ontogony-frontend/docs/evidence/ALLAGMA_OPERATOR_RUNS_001_EVIDENCE.md",
+    "evidenceSpineOperator": "ontogony-frontend/docs/evidence/EVIDENCE_SPINE_OPERATOR_001_EVIDENCE.md",
+    "conexusOperator": "docs/evidence/CONEXUS_OPERATOR_001_EVIDENCE.md",
+    "sandboxWorkbench": "docs/evidence/ALLAGMA_SANDBOX_WORKBENCH_001_EVIDENCE.md",
+    "protocolRuntime": "docs/evidence/SYS_PROTOCOL_RUNTIME_001_EVIDENCE.md",
+    "realToolsBlock": "docs/evidence/SYS_REAL_TOOLS_BLOCK_VERIFY_001_EVIDENCE.md",
+    "postLockRegister": "docs/system/post-lock-delta-register.json"
+  }
+}

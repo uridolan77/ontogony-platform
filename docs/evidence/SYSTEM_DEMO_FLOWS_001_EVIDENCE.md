@@ -39,4 +39,4 @@ Eight catalog flows map to routes and seed fields documented in the demo guide. 
 
 ## Next step
 
-Index in evidence README; proceed to `FIRST-VERSION-RC-001` when remaining Operator V1 cards are done.
+Superseded by [FIRST_VERSION_RC_001_EVIDENCE.md](./FIRST_VERSION_RC_001_EVIDENCE.md) — **OPERATOR-V1-001** cut complete.

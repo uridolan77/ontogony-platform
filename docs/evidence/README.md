@@ -25,6 +25,7 @@ Verification records for cross-repo programs hosted on `ontogony-platform`. File
 | **Post-lock delta register (SYS-POSTLOCK-DELTA-REGISTER-001)** | [SYS_POSTLOCK_DELTA_REGISTER_001_EVIDENCE.md](./SYS_POSTLOCK_DELTA_REGISTER_001_EVIDENCE.md) — [`post-lock-delta-register.json`](../system/post-lock-delta-register.json), [`validate-post-lock-delta-register.ps1`](../../scripts/validate-post-lock-delta-register.ps1) |
 | **Operator home (SYS-OPERATOR-HOME-001)** | [ontogony-frontend/docs/evidence/SYS_OPERATOR_HOME_001_EVIDENCE.md](../../../ontogony-frontend/docs/evidence/SYS_OPERATOR_HOME_001_EVIDENCE.md) — `/system` |
 | **Operator V1 demo flows (SYSTEM-DEMO-FLOWS-001)** | [SYSTEM_DEMO_FLOWS_001_EVIDENCE.md](./SYSTEM_DEMO_FLOWS_001_EVIDENCE.md), [OPERATOR_V1_DEMO_GUIDE.md](../operators/OPERATOR_V1_DEMO_GUIDE.md) |
+| **First-version RC (FIRST-VERSION-RC-001)** | [FIRST_VERSION_RC_001_EVIDENCE.md](./FIRST_VERSION_RC_001_EVIDENCE.md) — [`ontogony-operator-v1.lock.json`](../system/ontogony-operator-v1.lock.json), [closeout](../releases/FIRST_VERSION_RC_001_CLOSEOUT.md) |
 
 ### Cleared (Alpha-005 post-cut — do not reopen)
 

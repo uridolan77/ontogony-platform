@@ -103,6 +103,9 @@ jobs:
       - name: Validate post-lock delta register (SYS-POSTLOCK-DELTA-REGISTER-001)
         shell: pwsh
         run: ./scripts/validate-post-lock-delta-register.ps1
+      - name: Validate operator v1 lock (FIRST-VERSION-RC-001)
+        shell: pwsh
+        run: ./scripts/validate-operator-v1-lock.ps1 -RequireEvidence
       - name: Real tools block verify (SYS-REAL-TOOLS-BLOCK-VERIFY-001)
         shell: pwsh
         run: ./scripts/validate-real-tools-block.ps1

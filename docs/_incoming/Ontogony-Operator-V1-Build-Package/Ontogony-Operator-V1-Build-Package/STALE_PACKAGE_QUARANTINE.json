@@ -1,0 +1,8 @@
+{
+  "schema": "ontogony-stale-package-quarantine-v1",
+  "packageRoot": "Ontogony-Operator-V1-Build-Package/Ontogony-Operator-V1-Build-Package",
+  "quarantinedAt": "2026-05-21",
+  "reason": "Operator V1 build package implemented on moving-main; retained for issue-card and prompt reference only.",
+  "staleFindingsExpected": true,
+  "doNotCopyToCanonicalDocs": true
+}
