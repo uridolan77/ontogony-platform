@@ -14,7 +14,7 @@
 2. **SYS-TIGHT-002 (trimmed)** — Evidence spine contract index + resolution matrix — see [`docs/evidence/SYS_TIGHT_002_SYSTEM_EVIDENCE_SPINE_CONTRACT_EVIDENCE.md`](../../docs/evidence/SYS_TIGHT_002_SYSTEM_EVIDENCE_SPINE_CONTRACT_EVIDENCE.md).
 3. **SYS-TIGHT-003** — Run-centric operator audit journey (Frontend + UI). See `ontogony-frontend/docs/evidence/SYS_TIGHT_003_OPERATOR_AUDIT_JOURNEY_EVIDENCE.md`.
 4. **SYS-TIGHT-004** — Route-preview/quota in audit/spine context (Frontend + Conexus docs).
-5. **SYS-TIGHT-005** — Stream lifecycle operator panel (Allagma + Frontend).
+5. **SYS-TIGHT-005** — Stream lifecycle operator panel (Allagma + Frontend) — see [`ontogony-frontend/docs/evidence/SYS_TIGHT_005_STREAMING_EVIDENCE_INTEGRATION_EVIDENCE.md`](../../ontogony-frontend/docs/evidence/SYS_TIGHT_005_STREAMING_EVIDENCE_INTEGRATION_EVIDENCE.md).
 6. **SYS-TIGHT-006** — Failure taxonomy adapter (Platform + Allagma + Frontend).
 7. **SYS-TIGHT-007** — Release-candidate checklist consolidation (Allagma).
 8. **SYS-TIGHT-008** — Production-readiness separation backlog (planning).
