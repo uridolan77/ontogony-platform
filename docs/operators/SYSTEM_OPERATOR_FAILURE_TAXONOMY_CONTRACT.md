@@ -75,7 +75,7 @@ Public `CrossServiceErrorEnvelope` fields are unchanged.
 - [x] Frontend adapter tests cover matrix rows.
 - [x] Allagma run failure payload includes taxonomy when `CrossService` is present.
 - [x] Operator UI shows consistent failure banners with recommended actions.
-- [ ] No breaking changes to Kanon/Conexus public HTTP error contracts.
+- [x] No breaking changes to Kanon/Conexus/Allagma public HTTP error contracts (adapter layer only; verified by review and matrix parity tests, not a dedicated CI wire-contract gate).
 
 ## Validate locally
 
