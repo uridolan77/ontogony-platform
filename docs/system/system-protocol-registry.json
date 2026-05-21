@@ -210,9 +210,38 @@
       ]
     },
     {
-      "id": "frontend-routes-openapi",
+      "id": "system-evidence-spine-contract",
+      "ownerRepo": "ontogony-platform",
+      "protocolId": "ontogony.evidence-spine.resolve.v1",
+      "authorityMode": "observational",
+      "sideEffectLevel": "read_only",
+      "kind": "evidence",
+      "paths": [
+        "docs/operators/SYSTEM_EVIDENCE_SPINE_CONTRACT.md",
+        "docs/operators/EVIDENCE_SPINE_IDENTIFIER_TAXONOMY.md",
+        "docs/system/system-evidence-spine-resolution.matrix.json",
+        "docs/schemas/ontogony-cross-service-evidence-spine-bundle-v1.schema.json"
+      ],
+      "validators": ["scripts/validate-system-evidence-spine-contract.ps1"]
+    },
+    {
+      "id": "frontend-evidence-spine-resolver",
       "ownerRepo": "ontogony-frontend",
       "protocolId": "ontogony.evidence-spine.resolve.v1",
+      "authorityMode": "observational",
+      "sideEffectLevel": "read_only",
+      "kind": "frontend-route",
+      "paths": [
+        "src/evidence-spine/resolveEvidenceSpine.ts",
+        "src/evidence-spine/resolveEvidenceSpineDeepGraphs.ts",
+        "src/evidence-spine/evidenceSpineContractMatrix.test.ts"
+      ],
+      "validators": ["npm test -- src/evidence-spine/evidenceSpineContractMatrix.test.ts"]
+    },
+    {
+      "id": "frontend-routes-openapi",
+      "ownerRepo": "ontogony-frontend",
+      "protocolId": "ontogony.frontend.route.catalog.v1",
       "authorityMode": "observational",
       "sideEffectLevel": "read_only",
       "kind": "frontend-route",
@@ -224,7 +253,7 @@
         "openapi/conexus.v0.json",
         "docs/openapi/ALLAGMA_SNAPSHOT_PROVENANCE.json"
       ],
-      "validators": ["scripts/openapi-check.mjs", "scripts/kanon-route-parity-check (npm run kanon:route-parity:check)"]
+      "validators": ["scripts/openapi-check.mjs", "npm run kanon:route-parity:check"]
     },
     {
       "id": "allagma-observability-artifact",

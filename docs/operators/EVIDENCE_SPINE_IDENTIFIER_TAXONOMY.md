@@ -1,6 +1,8 @@
 # Evidence spine identifier taxonomy
 
-**Status:** v1 contract (EVIDENCE-SPINE-001)  
+**Status:** v1 contract (EVIDENCE-SPINE-001); system index **SYS-TIGHT-002**  
+**Canonical index:** [`SYSTEM_EVIDENCE_SPINE_CONTRACT.md`](./SYSTEM_EVIDENCE_SPINE_CONTRACT.md)  
+**Machine routes:** [`system-evidence-spine-resolution.matrix.json`](../system/system-evidence-spine-resolution.matrix.json)  
 **Implementation:** `ontogony-frontend/src/evidence-spine/`  
 **Related:** [`TRACE_CORRELATION_CONTRACT.md`](./TRACE_CORRELATION_CONTRACT.md), [`docs/reviews/EVIDENCE_SPINE_000_CURRENT_STATE_AUDIT.md`](../reviews/EVIDENCE_SPINE_000_CURRENT_STATE_AUDIT.md)
 

@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.dev/schemas/system-evidence-spine-resolution-v1.schema.json",
+  "title": "Ontogony system evidence spine resolution matrix",
+  "type": "object",
+  "required": [
+    "schema",
+    "baseline",
+    "contractDocument",
+    "taxonomyDocument",
+    "implementation",
+    "unresolvedEdgePolicy",
+    "requiredIdentifierKinds",
+    "identifiers"
+  ],
+  "properties": {
+    "schema": { "const": "ontogony-system-evidence-spine-resolution-v1" },
+    "baseline": { "type": "string", "pattern": "^SYSTEM-ALPHA-[0-9]{3}$" },
+    "sprint": { "type": "string" },
+    "contractDocument": { "type": "string" },
+    "taxonomyDocument": { "type": "string" },
+    "exportBundleSchema": { "type": "string" },
+    "implementation": {
+      "type": "object",
+      "required": ["ownerRepo", "resolverModule", "operatorRoute", "protocolId"],
+      "properties": {
+        "ownerRepo": { "type": "string" },
+        "resolverModule": { "type": "string" },
+        "deepGraphModule": { "type": "string" },
+        "operatorRoute": { "type": "string" },
+        "protocolId": { "type": "string" }
+      }
+    },
+    "supplements": { "type": "object" },
+    "unresolvedEdgePolicy": { "const": "non_fatal_explicit" },
+    "resolverLimits": {
+      "type": "object",
+      "properties": {
+        "maxDepth": { "type": "integer", "minimum": 1 },
+        "maxNodes": { "type": "integer", "minimum": 1 },
+        "maxApiCalls": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "requiredIdentifierKinds": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "identifiers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["kind", "owner", "resolverRoot", "routes"],
+        "properties": {
+          "kind": { "type": "string" },
+          "aliases": { "type": "array", "items": { "type": "string" } },
+          "owner": { "type": "string" },
+          "resolverRoot": { "type": "boolean" },
+          "routes": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["method", "path", "role"],
+              "properties": {
+                "method": { "type": "string" },
+                "path": { "type": "string" },
+                "role": { "type": "string" },
+                "query": { "type": "string" },
+                "auth": { "type": "string" },
+                "owner": { "type": "string" },
+                "clientHook": { "type": "string" },
+                "note": { "type": "string" }
+              }
+            }
+          },
+          "operatorHref": { "type": "string" },
+          "kanonHandoffId": { "type": "string" },
+          "conexusFlowStep": { "type": "integer" },
+          "clientModule": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,151 @@
+{
+  "schema": "ontogony-system-evidence-spine-resolution-v1",
+  "baseline": "SYSTEM-ALPHA-006",
+  "sprint": "SYS-TIGHT-002",
+  "contractDocument": "docs/operators/SYSTEM_EVIDENCE_SPINE_CONTRACT.md",
+  "taxonomyDocument": "docs/operators/EVIDENCE_SPINE_IDENTIFIER_TAXONOMY.md",
+  "exportBundleSchema": "docs/schemas/ontogony-cross-service-evidence-spine-bundle-v1.schema.json",
+  "implementation": {
+    "ownerRepo": "ontogony-frontend",
+    "resolverModule": "src/evidence-spine/resolveEvidenceSpine.ts",
+    "deepGraphModule": "src/evidence-spine/resolveEvidenceSpineDeepGraphs.ts",
+    "operatorRoute": "/system/evidence-spine",
+    "protocolId": "ontogony.evidence-spine.resolve.v1"
+  },
+  "supplements": {
+    "kanonEntrypoints": "kanon-dotnet/docs/generated/KANON_EVIDENCE_SPINE_ENTRYPOINTS.json",
+    "kanonHandoffDoc": "kanon-dotnet/docs/operators/KANON_EVIDENCE_SPINE_HANDOFF.md",
+    "conexusEvidenceFlow": "conexus-dotnet/docs/operators/MODEL_CALL_EVIDENCE_FLOW.md",
+    "allagmaFeatureMatrix": "allagma-dotnet/docs/system/allagma-feature-connection.matrix.json"
+  },
+  "unresolvedEdgePolicy": "non_fatal_explicit",
+  "resolverLimits": {
+    "maxDepth": 3,
+    "maxNodes": 50,
+    "maxApiCalls": 30
+  },
+  "requiredIdentifierKinds": [
+    "allagmaRunId",
+    "kanonDecisionId",
+    "conexusModelCallId",
+    "conexusRouteDecisionId",
+    "traceId",
+    "correlationId",
+    "humanGateId",
+    "domainPackId"
+  ],
+  "identifiers": [
+    {
+      "kind": "allagmaRunId",
+      "aliases": ["runId"],
+      "owner": "allagma-dotnet",
+      "resolverRoot": true,
+      "routes": [
+        { "method": "GET", "path": "/allagma/v0/runs/{runId}", "role": "primary", "clientHook": "getAllagmaRun" },
+        { "method": "GET", "path": "/allagma/v0/runs/{runId}/events", "role": "expand", "clientHook": "listAllagmaRunEvents" },
+        { "method": "GET", "path": "/allagma/v0/runs/{runId}/audit", "role": "expand", "clientHook": "getAllagmaRunAuditBundle" }
+      ],
+      "operatorHref": "/allagma/runs/{runId}"
+    },
+    {
+      "kind": "allagmaEvaluationRunId",
+      "aliases": ["evaluationRunId"],
+      "owner": "allagma-dotnet",
+      "resolverRoot": true,
+      "routes": [
+        { "method": "GET", "path": "/allagma/v0/evaluations/{evaluationRunId}", "role": "primary", "clientHook": "getAllagmaEvaluationRun" }
+      ],
+      "operatorHref": "/allagma/evaluations/{evaluationRunId}"
+    },
+    {
+      "kind": "baselineComparisonId",
+      "owner": "allagma-dotnet",
+      "resolverRoot": true,
+      "routes": [
+        { "method": "GET", "path": "/allagma/v0/evaluations/baseline-comparisons/{comparisonId}", "role": "primary", "clientHook": "getAllagmaBaselineComparison" }
+      ],
+      "operatorHref": "/allagma/evaluations/baseline-comparisons/{comparisonId}"
+    },
+    {
+      "kind": "kanonDecisionId",
+      "aliases": ["decisionId", "planningDecisionId"],
+      "owner": "kanon-dotnet",
+      "resolverRoot": true,
+      "routes": [
+        { "method": "GET", "path": "/ontology/v0/decision-records/{decisionId}", "role": "primary", "clientHook": "getKanonDecision" },
+        { "method": "GET", "path": "/ontology/v0/decision-records/{decisionId}/provenance", "role": "expand" },
+        { "method": "GET", "path": "/ontology/v0/semantic-graph", "role": "expand", "query": "decisionId={decisionId}" }
+      ],
+      "operatorHref": "/kanon/decisions?decisionId={decisionId}",
+      "kanonHandoffId": "decision_record"
+    },
+    {
+      "kind": "humanGateId",
+      "owner": "kanon-dotnet",
+      "resolverRoot": true,
+      "routes": [
+        { "method": "GET", "path": "/ontology/v0/semantic-graph", "role": "primary", "query": "humanGateId={humanGateId}" },
+        { "method": "GET", "path": "/allagma/v0/runs/{runId}/events", "role": "indirect", "note": "Gate id discovered via Allagma run events when runId known" }
+      ],
+      "operatorHref": "/system/evidence-spine?lookup={humanGateId}",
+      "kanonHandoffId": "human_gate"
+    },
+    {
+      "kind": "domainPackId",
+      "owner": "kanon-dotnet",
+      "resolverRoot": true,
+      "routes": [
+        { "method": "GET", "path": "/ontology/v0/semantic-graph", "role": "primary", "query": "domainPackId={domainPackId}" }
+      ],
+      "operatorHref": "/kanon/domain-packs?packId={domainPackId}",
+      "kanonHandoffId": "domain_pack_evolution"
+    },
+    {
+      "kind": "conexusModelCallId",
+      "aliases": ["modelCallId"],
+      "owner": "conexus-dotnet",
+      "resolverRoot": true,
+      "routes": [
+        { "method": "GET", "path": "/admin/v0/model-calls/{modelCallId}", "role": "primary", "clientHook": "readConexusModelCallDetail", "auth": "admin" },
+        { "method": "GET", "path": "/admin/v0/model-calls/{modelCallId}/evidence-links", "role": "expand", "auth": "admin" },
+        { "method": "GET", "path": "/admin/v0/model-calls/{modelCallId}/evidence-bundle", "role": "expand", "auth": "admin" },
+        { "method": "GET", "path": "/conexus/v0/model-calls/{modelCallId}", "role": "alternate", "auth": "project", "note": "Project-scoped route evidence; operator spine prefers admin surfaces" }
+      ],
+      "operatorHref": "/conexus/observability/model-calls/{modelCallId}",
+      "conexusFlowStep": 3
+    },
+    {
+      "kind": "conexusRouteDecisionId",
+      "aliases": ["routeDecisionId"],
+      "owner": "conexus-dotnet",
+      "resolverRoot": true,
+      "routes": [
+        { "method": "GET", "path": "/admin/v0/route-decisions/{routeDecisionId}", "role": "primary", "clientHook": "readConexusRouteDecisionDetail", "auth": "admin" }
+      ],
+      "operatorHref": "/conexus/observability/route-decisions/{routeDecisionId}",
+      "conexusFlowStep": 6
+    },
+    {
+      "kind": "traceId",
+      "owner": "platform",
+      "resolverRoot": true,
+      "routes": [
+        { "method": "GET", "path": "/ontology/v0/decision-records/by-trace/{traceId}", "role": "kanon_discovery", "owner": "kanon-dotnet" },
+        { "method": "GET", "path": "/admin/v0/model-calls", "role": "conexus_discovery", "owner": "conexus-dotnet", "query": "traceId={traceId}" },
+        { "method": "GET", "path": "/allagma/v0/runs", "role": "allagma_discovery", "owner": "allagma-dotnet", "query": "traceId={traceId}" }
+      ],
+      "operatorHref": "/system/evidence-spine?lookup={traceId}",
+      "clientModule": "resolveTraceCorrelation"
+    },
+    {
+      "kind": "correlationId",
+      "owner": "platform",
+      "resolverRoot": true,
+      "routes": [
+        { "method": "GET", "path": "/allagma/v0/runs", "role": "allagma_discovery", "owner": "allagma-dotnet" },
+        { "method": "GET", "path": "/admin/v0/model-calls", "role": "conexus_discovery", "owner": "conexus-dotnet" }
+      ],
+      "operatorHref": "/system/evidence-spine?lookup={correlationId}"
+    }
+  ]
+}
