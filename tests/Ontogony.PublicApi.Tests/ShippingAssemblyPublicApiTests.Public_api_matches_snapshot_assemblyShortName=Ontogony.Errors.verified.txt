@@ -98,4 +98,39 @@
     {
         public static Microsoft.AspNetCore.Http.IResult ApiError(Microsoft.AspNetCore.Http.HttpContext httpContext, int statusCode, Ontogony.Errors.ApiError error) { }
     }
+    public static class OperatorFailureTaxonomyAdapter
+    {
+        public static Ontogony.Errors.OperatorFailureView FromApiError(Ontogony.Errors.ApiError apiError, string system, string? downstreamSystem = null, bool? retryable = default, string? stage = null, string? correlationId = null) { }
+        public static Ontogony.Errors.OperatorFailureView FromCrossServiceEnvelope(Ontogony.Errors.CrossServiceErrorEnvelope envelope) { }
+    }
+    public static class OperatorFailureTaxonomyKind
+    {
+        public const string AuthFailed = "auth_failed";
+        public const string Conflict = "conflict";
+        public const string DownstreamUnavailable = "downstream_unavailable";
+        public const string Forbidden = "forbidden";
+        public const string IdempotencyConflict = "idempotency_conflict";
+        public const string NotFound = "not_found";
+        public const string ProviderFailedRetryable = "provider_failed_retryable";
+        public const string ProviderFailedTerminal = "provider_failed_terminal";
+        public const string QuotaExceeded = "quota_exceeded";
+        public const string Timeout = "timeout";
+        public const string Unknown = "unknown";
+        public const string ValidationFailed = "validation_failed";
+    }
+    public sealed class OperatorFailureView : System.IEquatable<Ontogony.Errors.OperatorFailureView>
+    {
+        public OperatorFailureView(string Taxonomy, string Title, string Message, string SourceCode, string SourceSystem, bool? Retryable = default, string? Stage = null, string? DownstreamSystem = null, string? TraceId = null, string? CorrelationId = null, System.Collections.Generic.IReadOnlyList<string>? RecommendedActions = null) { }
+        public string? CorrelationId { get; init; }
+        public string? DownstreamSystem { get; init; }
+        public string Message { get; init; }
+        public System.Collections.Generic.IReadOnlyList<string>? RecommendedActions { get; init; }
+        public bool? Retryable { get; init; }
+        public string SourceCode { get; init; }
+        public string SourceSystem { get; init; }
+        public string? Stage { get; init; }
+        public string Taxonomy { get; init; }
+        public string Title { get; init; }
+        public string? TraceId { get; init; }
+    }
 }
