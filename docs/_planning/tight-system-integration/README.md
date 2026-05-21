@@ -16,7 +16,7 @@
 4. **SYS-TIGHT-004** — Route-preview/quota in audit/spine context (Frontend + Conexus docs).
 5. **SYS-TIGHT-005** — Stream lifecycle operator panel (Allagma + Frontend) — see [`ontogony-frontend/docs/evidence/SYS_TIGHT_005_STREAMING_EVIDENCE_INTEGRATION_EVIDENCE.md`](../../ontogony-frontend/docs/evidence/SYS_TIGHT_005_STREAMING_EVIDENCE_INTEGRATION_EVIDENCE.md).
 6. **SYS-TIGHT-006** — Failure taxonomy adapter (Platform + Allagma + Frontend) — see [`docs/evidence/SYS_TIGHT_006_OPERATOR_FAILURE_TAXONOMY_EVIDENCE.md`](../../docs/evidence/SYS_TIGHT_006_OPERATOR_FAILURE_TAXONOMY_EVIDENCE.md).
-7. **SYS-TIGHT-007** — Release-candidate checklist consolidation (Allagma).
+7. **SYS-TIGHT-007** — Release-candidate checklist consolidation (Allagma) — see [`allagma-dotnet/docs/evidence/SYS_TIGHT_007_RELEASE_CANDIDATE_GATE_BUNDLE_EVIDENCE.md`](../../allagma-dotnet/docs/evidence/SYS_TIGHT_007_RELEASE_CANDIDATE_GATE_BUNDLE_EVIDENCE.md).
 8. **SYS-TIGHT-008** — Production-readiness separation backlog (planning).
 
 Lock promotion (`SYSTEM-ALPHA-007` or next id) is a **separate** PR after P0 gates on classified moving-main deltas.
