@@ -1,0 +1,236 @@
+{
+  "schema": "ontogony-operator-failure-taxonomy-v1",
+  "baseline": "SYSTEM-ALPHA-006",
+  "sprint": "SYS-TIGHT-006",
+  "contractDocument": "docs/operators/SYSTEM_OPERATOR_FAILURE_TAXONOMY_CONTRACT.md",
+  "crossServiceEnvelopeContract": "allagma-dotnet/docs/integrations/CROSS_SERVICE_ERROR_CONTRACT.md",
+  "implementation": {
+    "platformAdapter": "src/Ontogony.Errors/OperatorFailureTaxonomyAdapter.cs",
+    "frontendAdapterModule": "ontogony-frontend/src/system/errors/operatorFailureTaxonomy.ts",
+    "frontendBannerModule": "ontogony-frontend/src/system/errors/OperatorFailureBanner.tsx"
+  },
+  "wireShapes": {
+    "allagma": "CrossServiceErrorEnvelope",
+    "kanon": "Ontogony.ApiError",
+    "conexus": "OpenAI.error"
+  },
+  "requiredTaxonomyKinds": [
+    "auth_failed",
+    "forbidden",
+    "validation_failed",
+    "not_found",
+    "conflict",
+    "idempotency_conflict",
+    "downstream_unavailable",
+    "provider_failed_retryable",
+    "provider_failed_terminal",
+    "quota_exceeded",
+    "timeout",
+    "unknown"
+  ],
+  "representativeMappings": [
+    {
+      "id": "kanon-401-auth",
+      "sourceSystem": "kanon",
+      "wireShape": "Ontogony.ApiError",
+      "envelope": {
+        "code": "auth.missing",
+        "message": "Kanon rejected credentials.",
+        "system": "allagma",
+        "downstreamSystem": "kanon",
+        "retryable": false
+      },
+      "expectedTaxonomy": "auth_failed"
+    },
+    {
+      "id": "kanon-403-forbidden",
+      "sourceSystem": "kanon",
+      "wireShape": "Ontogony.ApiError",
+      "envelope": {
+        "code": "auth.forbidden",
+        "message": "Actor lacks permission.",
+        "system": "allagma",
+        "downstreamSystem": "kanon",
+        "retryable": false
+      },
+      "expectedTaxonomy": "forbidden"
+    },
+    {
+      "id": "kanon-400-validation",
+      "sourceSystem": "kanon",
+      "wireShape": "Ontogony.ApiError",
+      "envelope": {
+        "code": "validation.failed",
+        "message": "Invalid field.",
+        "system": "allagma",
+        "downstreamSystem": "kanon",
+        "retryable": false
+      },
+      "expectedTaxonomy": "validation_failed"
+    },
+    {
+      "id": "kanon-404-not-found",
+      "sourceSystem": "kanon",
+      "wireShape": "Ontogony.ApiError",
+      "envelope": {
+        "code": "NotFound",
+        "message": "Record missing.",
+        "system": "allagma",
+        "downstreamSystem": "kanon",
+        "retryable": false
+      },
+      "expectedTaxonomy": "not_found"
+    },
+    {
+      "id": "kanon-409-idempotency",
+      "sourceSystem": "kanon",
+      "wireShape": "Ontogony.ApiError",
+      "envelope": {
+        "code": "allagma.kanon.idempotency_conflict",
+        "message": "Duplicate idempotency key.",
+        "system": "allagma",
+        "stage": "idempotency",
+        "downstreamSystem": "kanon",
+        "retryable": false
+      },
+      "expectedTaxonomy": "idempotency_conflict"
+    },
+    {
+      "id": "kanon-503-unavailable",
+      "sourceSystem": "kanon",
+      "wireShape": "Ontogony.ApiError",
+      "envelope": {
+        "code": "allagma.kanon.plan_unavailable",
+        "message": "Kanon semantic authority is unavailable.",
+        "system": "allagma",
+        "stage": "planning",
+        "downstreamSystem": "kanon",
+        "retryable": true
+      },
+      "expectedTaxonomy": "downstream_unavailable"
+    },
+    {
+      "id": "conexus-401-auth",
+      "sourceSystem": "conexus",
+      "wireShape": "OpenAI.error",
+      "envelope": {
+        "code": "auth.missing",
+        "message": "Conexus rejected credentials.",
+        "system": "allagma",
+        "stage": "model",
+        "downstreamSystem": "conexus",
+        "retryable": false
+      },
+      "expectedTaxonomy": "auth_failed"
+    },
+    {
+      "id": "conexus-503-provider",
+      "sourceSystem": "conexus",
+      "wireShape": "OpenAI.error",
+      "envelope": {
+        "code": "allagma.conexus.provider_unavailable",
+        "message": "Conexus model gateway is unavailable.",
+        "system": "allagma",
+        "stage": "model",
+        "downstreamSystem": "conexus",
+        "retryable": true
+      },
+      "expectedTaxonomy": "downstream_unavailable"
+    },
+    {
+      "id": "conexus-quota",
+      "sourceSystem": "conexus",
+      "wireShape": "OpenAI.error",
+      "envelope": {
+        "code": "allagma.conexus.quota_exceeded",
+        "message": "Quota exceeded.",
+        "system": "allagma",
+        "stage": "model",
+        "downstreamSystem": "conexus",
+        "retryable": false
+      },
+      "expectedTaxonomy": "quota_exceeded"
+    },
+    {
+      "id": "conexus-streaming-idempotency",
+      "sourceSystem": "conexus",
+      "wireShape": "OpenAI.error",
+      "envelope": {
+        "code": "allagma.conexus.streaming_idempotency_not_supported",
+        "message": "Idempotency-Key is not supported for streaming requests.",
+        "system": "allagma",
+        "stage": "model",
+        "downstreamSystem": "conexus",
+        "retryable": false
+      },
+      "expectedTaxonomy": "idempotency_conflict"
+    },
+    {
+      "id": "allagma-run-not-found",
+      "sourceSystem": "allagma",
+      "wireShape": "CrossServiceErrorEnvelope",
+      "envelope": {
+        "code": "allagma.run_not_found",
+        "message": "Run was not found.",
+        "system": "allagma",
+        "stage": "request",
+        "retryable": false
+      },
+      "expectedTaxonomy": "not_found"
+    },
+    {
+      "id": "allagma-idempotency-conflict",
+      "sourceSystem": "allagma",
+      "wireShape": "CrossServiceErrorEnvelope",
+      "envelope": {
+        "code": "allagma.idempotency_conflict",
+        "message": "Idempotency key conflict.",
+        "system": "allagma",
+        "stage": "idempotency",
+        "retryable": false
+      },
+      "expectedTaxonomy": "idempotency_conflict"
+    },
+    {
+      "id": "allagma-timeout",
+      "sourceSystem": "allagma",
+      "wireShape": "CrossServiceErrorEnvelope",
+      "envelope": {
+        "code": "timeout",
+        "message": "The integration call timed out.",
+        "system": "allagma",
+        "stage": "downstream",
+        "retryable": true
+      },
+      "expectedTaxonomy": "timeout"
+    },
+    {
+      "id": "allagma-downstream-retryable",
+      "sourceSystem": "allagma",
+      "wireShape": "CrossServiceErrorEnvelope",
+      "envelope": {
+        "code": "allagma.downstream_failure",
+        "message": "Provider returned a retryable error.",
+        "system": "allagma",
+        "stage": "model",
+        "downstreamSystem": "conexus",
+        "retryable": true
+      },
+      "expectedTaxonomy": "provider_failed_retryable"
+    },
+    {
+      "id": "allagma-downstream-terminal",
+      "sourceSystem": "allagma",
+      "wireShape": "CrossServiceErrorEnvelope",
+      "envelope": {
+        "code": "allagma.downstream_failure",
+        "message": "Provider returned a terminal error.",
+        "system": "allagma",
+        "stage": "model",
+        "downstreamSystem": "conexus",
+        "retryable": false
+      },
+      "expectedTaxonomy": "provider_failed_terminal"
+    }
+  ]
+}

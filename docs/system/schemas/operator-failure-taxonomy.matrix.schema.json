@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.dev/schemas/operator-failure-taxonomy-v1.schema.json",
+  "title": "Ontogony operator failure taxonomy matrix",
+  "type": "object",
+  "required": [
+    "schema",
+    "baseline",
+    "contractDocument",
+    "implementation",
+    "requiredTaxonomyKinds",
+    "representativeMappings"
+  ],
+  "properties": {
+    "schema": { "const": "ontogony-operator-failure-taxonomy-v1" },
+    "baseline": { "type": "string", "pattern": "^SYSTEM-ALPHA-[0-9]{3}$" },
+    "sprint": { "type": "string" },
+    "contractDocument": { "type": "string" },
+    "crossServiceEnvelopeContract": { "type": "string" },
+    "implementation": {
+      "type": "object",
+      "required": ["platformAdapter", "frontendAdapterModule", "frontendBannerModule"],
+      "properties": {
+        "platformAdapter": { "type": "string" },
+        "frontendAdapterModule": { "type": "string" },
+        "frontendBannerModule": { "type": "string" }
+      }
+    },
+    "wireShapes": { "type": "object" },
+    "requiredTaxonomyKinds": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "representativeMappings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "sourceSystem", "wireShape", "envelope", "expectedTaxonomy"],
+        "properties": {
+          "id": { "type": "string" },
+          "sourceSystem": { "type": "string" },
+          "wireShape": { "type": "string" },
+          "envelope": {
+            "type": "object",
+            "required": ["code", "message", "system"],
+            "properties": {
+              "code": { "type": "string" },
+              "message": { "type": "string" },
+              "system": { "type": "string" },
+              "stage": { "type": "string" },
+              "downstreamSystem": { "type": "string" },
+              "traceId": { "type": "string" },
+              "correlationId": { "type": "string" },
+              "retryable": { "type": "boolean" }
+            }
+          },
+          "expectedTaxonomy": { "type": "string" }
+        }
+      }
+    }
+  }
+}

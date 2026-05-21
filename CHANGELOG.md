@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+SYS-TIGHT-006 — operator failure taxonomy adapter:
+
+- **`Ontogony.Errors`** — `OperatorFailureTaxonomyKind`, `OperatorFailureView`, `OperatorFailureTaxonomyAdapter` (maps `CrossServiceErrorEnvelope` to stable operator taxonomy without changing public service error contracts).
+- **Docs** — [`docs/operators/SYSTEM_OPERATOR_FAILURE_TAXONOMY_CONTRACT.md`](docs/operators/SYSTEM_OPERATOR_FAILURE_TAXONOMY_CONTRACT.md), [`docs/system/operator-failure-taxonomy.matrix.json`](docs/system/operator-failure-taxonomy.matrix.json), migration [`docs/migrations/2026-05-22-operator-failure-taxonomy-adapter.md`](docs/migrations/2026-05-22-operator-failure-taxonomy-adapter.md).
+- **Tests / validation** — `OperatorFailureTaxonomyAdapterTests`, `scripts/validate-system-operator-failure-taxonomy.ps1`.
+
 Q-006-001 — public API snapshot reconciliation (lock blocker cleanup):
 
 - **`Ontogony.AI.Contracts`** — approved `LlmCostRecord.CostUnknownReason` in the public API snapshot.

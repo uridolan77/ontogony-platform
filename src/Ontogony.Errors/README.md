@@ -9,6 +9,7 @@ ASP.NET Core **exception-to-HTTP** mapping and a stable **problem details** JSON
 - `OntogonyMappedJsonResults.ApiError` — minimal-API `Results.Json` helper that respects `OntogonyExceptionMappingOptions` JSON keys and merges `OntogonyCorrelationContext.TraceId` when missing.
 - `ApiError` — stable endpoint error DTO (`code`, `message`, `traceId`, optional details/instance), with `ProblemDetails` mapping helpers.
 - `CrossServiceErrorEnvelope` — neutral internal cross-service envelope for downstream client mapping (`code`, `message`, `system`, optional `stage`, `downstreamSystem`, `traceId`, `correlationId`, `retryable`, `detail`).
+- `OperatorFailureTaxonomyAdapter` — maps `CrossServiceErrorEnvelope` to stable operator taxonomy kinds for consoles (SYS-TIGHT-006); does not alter public service error contracts.
 
 ## What this is not
 
