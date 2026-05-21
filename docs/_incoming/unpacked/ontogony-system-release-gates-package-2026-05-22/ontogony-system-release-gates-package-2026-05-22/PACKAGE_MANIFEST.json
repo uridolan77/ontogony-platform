@@ -1,0 +1,17 @@
+{
+  "package": "ontogony-system-release-gates-package-2026-05-22",
+  "createdAtUtc": "2026-05-21T23:00:32Z",
+  "scope": [
+    "SYSTEM-ALPHA-007",
+    "SYSTEM-ALPHA-008",
+    "PLATFORM-REL-001"
+  ],
+  "repos": [
+    "ontogony-platform",
+    "kanon-dotnet",
+    "conexus-dotnet",
+    "allagma-dotnet"
+  ],
+  "primaryUnpackLocation": "ontogony-platform/docs/_incoming/ontogony-system-release-gates-package-2026-05-22/",
+  "fileCount": 74
+}

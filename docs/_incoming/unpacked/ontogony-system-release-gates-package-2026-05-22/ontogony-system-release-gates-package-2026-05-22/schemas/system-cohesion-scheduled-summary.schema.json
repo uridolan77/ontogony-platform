@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/system-cohesion-scheduled-summary.schema.json",
+  "title": "Ontogony scheduled system cohesion summary",
+  "type": "object",
+  "required": [
+    "schema",
+    "mode",
+    "startedAtUtc",
+    "completedAtUtc",
+    "verdict",
+    "scenarios"
+  ],
+  "properties": {
+    "schema": {
+      "const": "ontogony-system-cohesion-scheduled-summary-v1"
+    },
+    "mode": {
+      "enum": [
+        "Locked",
+        "MovingMain",
+        "CurrentWorkspace"
+      ]
+    },
+    "startedAtUtc": {
+      "type": "string"
+    },
+    "completedAtUtc": {
+      "type": "string"
+    },
+    "verdict": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "INCONCLUSIVE",
+        "DRIFT_ONLY"
+      ]
+    },
+    "scenarios": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "verdict"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "verdict": {
+            "enum": [
+              "PASS",
+              "FAIL",
+              "SKIPPED",
+              "INCONCLUSIVE"
+            ]
+          },
+          "durationMs": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "artifacts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "failure": {
+            "type": [
+              "object",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

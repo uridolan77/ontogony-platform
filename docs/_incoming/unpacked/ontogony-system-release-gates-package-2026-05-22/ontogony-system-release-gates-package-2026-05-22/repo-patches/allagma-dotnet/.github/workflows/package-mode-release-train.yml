@@ -1,0 +1,68 @@
+name: Package-mode release train
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PSStyle_OutputRendering: PlainText
+  ARTIFACT_RETENTION_DAYS: "30"
+
+jobs:
+  package-mode-release-train:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Allagma
+        uses: actions/checkout@v4
+        with:
+          path: allagma-dotnet
+          fetch-depth: 0
+
+      - name: Checkout Platform
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/ontogony-platform
+          path: ontogony-platform
+          ref: main
+
+      - name: Checkout Kanon
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/kanon-dotnet
+          path: kanon-dotnet
+          ref: main
+          token: ${{ secrets.ONTOGONY_CROSS_REPO_CHECKOUT_TOKEN }}
+
+      - name: Checkout Conexus
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/conexus-dotnet
+          path: conexus-dotnet
+          ref: main
+          token: ${{ secrets.ONTOGONY_CROSS_REPO_CHECKOUT_TOKEN }}
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: allagma-dotnet/global.json
+
+      - name: Run package-mode release train
+        shell: pwsh
+        working-directory: allagma-dotnet
+        run: |
+          ./scripts/release/run-package-mode-release-train.ps1 `
+            -WorkspaceRoot "${{ github.workspace }}" `
+            -FeedDirectory "${{ github.workspace }}/local-cross-repo-feed" `
+            -RuntimeLockPath "docs/system/ontogony-runtime.lock.json"
+
+      - name: Upload package-mode release evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: package-mode-release-train
+          path: |
+            allagma-dotnet/artifacts/package-mode-release/
+            local-cross-repo-feed/
+          if-no-files-found: ignore
+          retention-days: ${{ env.ARTIFACT_RETENTION_DAYS }}
