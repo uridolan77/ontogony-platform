@@ -10,7 +10,7 @@
 
 ## Active sequence (recommended)
 
-1. **SYS-TIGHT-001** — Post-lock delta register + release-mode validator (Allagma + Platform, docs/CI only).
+1. **SYS-TIGHT-001** — Post-lock delta register + release-mode validator (Allagma + Platform, docs/CI only). **In progress / landed on moving-main** — see [`allagma-dotnet/docs/evidence/SYS_TIGHT_001_POST_LOCK_DELTA_REGISTER_EVIDENCE.md`](../../allagma-dotnet/docs/evidence/SYS_TIGHT_001_POST_LOCK_DELTA_REGISTER_EVIDENCE.md).
 2. **SYS-TIGHT-002 (trimmed)** — Evidence spine contract index doc (alias to existing Evidence Spine program).
 3. **SYS-TIGHT-003** — Run-centric operator audit journey (Frontend + UI).
 4. **SYS-TIGHT-004** — Route-preview/quota in audit/spine context (Frontend + Conexus docs).
