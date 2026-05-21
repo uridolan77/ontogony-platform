@@ -12,7 +12,7 @@
 
 1. **SYS-TIGHT-001** — Post-lock delta register + release-mode validator — see [`allagma-dotnet/docs/evidence/SYS_TIGHT_001_POST_LOCK_DELTA_REGISTER_EVIDENCE.md`](../../allagma-dotnet/docs/evidence/SYS_TIGHT_001_POST_LOCK_DELTA_REGISTER_EVIDENCE.md).
 2. **SYS-TIGHT-002 (trimmed)** — Evidence spine contract index + resolution matrix — see [`docs/evidence/SYS_TIGHT_002_SYSTEM_EVIDENCE_SPINE_CONTRACT_EVIDENCE.md`](../../docs/evidence/SYS_TIGHT_002_SYSTEM_EVIDENCE_SPINE_CONTRACT_EVIDENCE.md).
-3. **SYS-TIGHT-003** — Run-centric operator audit journey (Frontend + UI).
+3. **SYS-TIGHT-003** — Run-centric operator audit journey (Frontend + UI). See `ontogony-frontend/docs/evidence/SYS_TIGHT_003_OPERATOR_AUDIT_JOURNEY_EVIDENCE.md`.
 4. **SYS-TIGHT-004** — Route-preview/quota in audit/spine context (Frontend + Conexus docs).
 5. **SYS-TIGHT-005** — Stream lifecycle operator panel (Allagma + Frontend).
 6. **SYS-TIGHT-006** — Failure taxonomy adapter (Platform + Allagma + Frontend).
