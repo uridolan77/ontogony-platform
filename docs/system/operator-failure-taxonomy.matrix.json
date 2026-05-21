@@ -231,6 +231,31 @@
         "retryable": false
       },
       "expectedTaxonomy": "provider_failed_terminal"
+    },
+    {
+      "id": "allagma-generic-conflict",
+      "sourceSystem": "allagma",
+      "wireShape": "CrossServiceErrorEnvelope",
+      "envelope": {
+        "code": "conflict",
+        "message": "Resource state conflict.",
+        "system": "allagma",
+        "stage": "request",
+        "retryable": false
+      },
+      "expectedTaxonomy": "conflict"
+    },
+    {
+      "id": "unknown-unmapped-code",
+      "sourceSystem": "allagma",
+      "wireShape": "CrossServiceErrorEnvelope",
+      "envelope": {
+        "code": "random.unmapped.operator.code",
+        "message": "Unclassified failure.",
+        "system": "allagma",
+        "retryable": false
+      },
+      "expectedTaxonomy": "unknown"
     }
   ]
 }

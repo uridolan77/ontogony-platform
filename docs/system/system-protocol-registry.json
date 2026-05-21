@@ -197,6 +197,24 @@
       ]
     },
     {
+      "id": "system-operator-failure-taxonomy",
+      "ownerRepo": "ontogony-platform",
+      "protocolId": "ontogony.operator.failure-taxonomy.v1",
+      "authorityMode": "observational",
+      "sideEffectLevel": "read_only",
+      "kind": "error",
+      "paths": [
+        "docs/operators/SYSTEM_OPERATOR_FAILURE_TAXONOMY_CONTRACT.md",
+        "docs/system/operator-failure-taxonomy.matrix.json",
+        "docs/system/schemas/operator-failure-taxonomy.matrix.schema.json",
+        "src/Ontogony.Errors/OperatorFailureTaxonomyAdapter.cs"
+      ],
+      "validators": [
+        "scripts/validate-system-operator-failure-taxonomy.ps1",
+        "dotnet test tests/Ontogony.Infrastructure.Tests/Ontogony.Infrastructure.Tests.csproj --filter FullyQualifiedName~OperatorFailureTaxonomy"
+      ]
+    },
+    {
       "id": "platform-observability",
       "ownerRepo": "ontogony-platform",
       "protocolId": "ontogony.observability.stack.verify.v1",
