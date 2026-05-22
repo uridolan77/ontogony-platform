@@ -78,6 +78,13 @@
         public System.Guid NewGuid() { }
         public string NewId(string prefix) { }
     }
+    public static class HeaderPropagationConformanceAssertions
+    {
+        public static void AssertFrozenHeaderConstantsAlign() { }
+        public static void AssertFrozenHeadersOnRequest(System.Net.Http.HttpRequestMessage request, Ontogony.Testing.PropagationHeaderScenario scenario) { }
+        public static System.Threading.Tasks.Task AssertIntegrationHandlerPropagatesScenarioAsync(Ontogony.Testing.PropagationHeaderScenario scenario, System.Collections.Generic.IEnumerable<Ontogony.Http.IOutboundActorPropagator>? propagators = null) { }
+        public static string? ReadHeader(System.Net.Http.Headers.HttpRequestHeaders headers, string headerName) { }
+    }
     public static class HmacConformanceAssertions
     {
         public static void AssertBodyHashFormat(System.ReadOnlySpan<byte> body) { }
@@ -115,6 +122,18 @@
         public static System.Threading.Tasks.Task AssertMarkFailedIsIdempotentAsync(Ontogony.Persistence.IOutboxWriter writer, Ontogony.Persistence.IOutboxDispatcher dispatcher, Ontogony.Persistence.OutboxMessage message) { }
         public static System.Threading.Tasks.Task AssertWriteThenReadAsync(Ontogony.Persistence.IOutboxWriter writer, Ontogony.Persistence.IOutboxReader reader, Ontogony.Persistence.OutboxMessage message) { }
         public static Ontogony.Persistence.OutboxMessage BuildMessage(string messageId, string eventType = "ontogony.test.event", string source = "ontogony://test/conformance", string traceId = "trace-conformance", System.DateTimeOffset? occurredAt = default, System.DateTimeOffset? availableAt = default, string payloadJson = "{}") { }
+    }
+    public sealed class PropagationHeaderScenario : System.IEquatable<Ontogony.Testing.PropagationHeaderScenario>
+    {
+        public PropagationHeaderScenario(string? TraceParent = null, string? CorrelationId = null, string? ActorId = null, string? ActorType = null, string? ActorRoles = null, string? IdempotencyKey = null, string? AllagmaRunId = null, string? TraceId = null) { }
+        public string? ActorId { get; init; }
+        public string? ActorRoles { get; init; }
+        public string? ActorType { get; init; }
+        public string? AllagmaRunId { get; init; }
+        public string? CorrelationId { get; init; }
+        public string? IdempotencyKey { get; init; }
+        public string? TraceId { get; init; }
+        public string? TraceParent { get; init; }
     }
     public sealed class PublishedEventRecorder : Ontogony.Messaging.IEventPublisher
     {

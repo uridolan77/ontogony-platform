@@ -8,6 +8,7 @@ PLATFORM-9-003 — header propagation contract:
 
 - **`Ontogony.Http`** — `OntogonyPropagationHeaderContract` frozen header list (`traceparent`, correlation, actor, idempotency, `X-Allagma-Run-Id`).
 - **`Ontogony.Testing`** — `PropagationHeaderScenario`, `HeaderPropagationConformanceAssertions` for Conexus/Kanon/Allagma outbound proofs.
+- **Public API snapshots** — `Ontogony.Http` and `Ontogony.Testing` `*.verified.txt` synced to source (additive-only; aligns with migration [`docs/migrations/2026-05-22-header-propagation-contract.md`](docs/migrations/2026-05-22-header-propagation-contract.md)).
 - **`Ontogony.SystemCompatibility`** — `HeaderPropagationConformance` gate checks (matrix, constants, sibling docs, test helpers).
 - **Docs** — [`docs/contracts/HEADER_PROPAGATION_CONTRACT.md`](docs/contracts/HEADER_PROPAGATION_CONTRACT.md), [`docs/system/propagation-header.matrix.json`](docs/system/propagation-header.matrix.json), migration [`docs/migrations/2026-05-22-header-propagation-contract.md`](docs/migrations/2026-05-22-header-propagation-contract.md).
 - **Validation** — [`scripts/validate-header-propagation-contract.ps1`](scripts/validate-header-propagation-contract.ps1); folded into `run-system-compatibility-gate.ps1`.

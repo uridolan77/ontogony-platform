@@ -50,6 +50,17 @@ ontogony-frontend
 
 Frontend reconciliation notes: [`ontogony-frontend/docs/phase-j-frontend-ui-tightening/backend-waiting/`](../../ontogony-frontend/docs/phase-j-frontend-ui-tightening/backend-waiting/).
 
+## Platform public API snapshots (resolved)
+
+Clean rebuild (`git clean -xdf`, Release restore/build/test on `main`) reproduced two `Ontogony.PublicApi.Tests` Verify failures. Inspection showed **intentional additive surface** from PLATFORM-9-003 already documented in `CHANGELOG.md`, not tooling drift:
+
+| Assembly | Delta | Verdict |
+| --- | --- | --- |
+| `Ontogony.Http` | `OntogonyPropagationHeaderContract` (+ frozen header constants) | Accept snapshot |
+| `Ontogony.Testing` | `HeaderPropagationConformanceAssertions`, `PropagationHeaderScenario` | Accept snapshot |
+
+Snapshots were accepted on branch; full `dotnet test Ontogony.Platform.sln -c Release` must be green before RC sign-off. Not a manual-QA blocker for frontend/allagma pushes.
+
 ## Automated gates (order)
 
 ```powershell

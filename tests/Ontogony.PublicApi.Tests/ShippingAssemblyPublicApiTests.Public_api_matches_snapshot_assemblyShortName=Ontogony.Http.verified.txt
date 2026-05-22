@@ -97,6 +97,13 @@
         public const string TenantId = "X-Ontogony-Tenant-Id";
         public const string WorkspaceId = "X-Ontogony-Workspace-Id";
     }
+    public static class OntogonyPropagationHeaderContract
+    {
+        public const string AllagmaRunId = "X-Allagma-Run-Id";
+        public static System.Collections.Generic.IReadOnlyList<string> FrozenRequired { get; }
+        public static System.Collections.Generic.IReadOnlyList<string> FrozenWithCanonicalAliases { get; }
+        public static System.Collections.Generic.IReadOnlyList<string> LegacyInteropAliases { get; }
+    }
     public readonly struct OutboundActorSnapshot : System.IEquatable<Ontogony.Http.OutboundActorSnapshot>
     {
         public OutboundActorSnapshot(string ActorId, string? ActorType, System.Collections.Generic.IReadOnlyList<string> Roles, string? TenantId = null, string? WorkspaceId = null) { }
