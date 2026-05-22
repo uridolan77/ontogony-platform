@@ -189,4 +189,25 @@ namespace Ontogony.Testing.Architecture
         public static string FindRepoRoot(string startDirectory, string markerFileName) { }
         public static System.Collections.Generic.IReadOnlyList<string> ResolveSourceGlobs(string repoRoot, System.Collections.Generic.IReadOnlyList<string> sourceGlobs) { }
     }
+    public static class ProductSemanticBoundaryScanner
+    {
+        public static void AssertNoProductSemanticLeakage(string repoRoot, Ontogony.Testing.Architecture.ProductSemanticBoundaryScanner.Policy policy) { }
+        public static Ontogony.Testing.Architecture.ProductSemanticBoundaryScanner.Policy LoadPolicy(string policyJsonPath) { }
+        public static System.Collections.Generic.IReadOnlyList<Ontogony.Testing.Architecture.ProductSemanticBoundaryScanner.Violation> ScanRepo(string repoRoot, Ontogony.Testing.Architecture.ProductSemanticBoundaryScanner.Policy policy) { }
+        public sealed class Policy : System.IEquatable<Ontogony.Testing.Architecture.ProductSemanticBoundaryScanner.Policy>
+        {
+            public Policy(int Version, System.Collections.Generic.IReadOnlyList<string> ScanGlobs, System.Collections.Generic.IReadOnlyList<string> ForbiddenPhrases, System.Collections.Generic.IReadOnlyList<string>? AllowedPathSuffixes) { }
+            public System.Collections.Generic.IReadOnlyList<string>? AllowedPathSuffixes { get; init; }
+            public System.Collections.Generic.IReadOnlyList<string> ForbiddenPhrases { get; init; }
+            public System.Collections.Generic.IReadOnlyList<string> ScanGlobs { get; init; }
+            public int Version { get; init; }
+        }
+        public sealed class Violation : System.IEquatable<Ontogony.Testing.Architecture.ProductSemanticBoundaryScanner.Violation>
+        {
+            public Violation(string RelativePath, string ForbiddenPhrase, int LineNumber) { }
+            public string ForbiddenPhrase { get; init; }
+            public int LineNumber { get; init; }
+            public string RelativePath { get; init; }
+        }
+    }
 }

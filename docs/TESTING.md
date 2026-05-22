@@ -46,6 +46,7 @@ Path-filtered jobs reduce cost on docs-only PRs. Full CI runs on `main` push, `w
 | Shipping inventory | Full | `validate-shipping-inventory.ps1` (27 packages) |
 | Package levels | Full | `validate-package-levels.ps1` |
 | AI runtime boundaries | Full | `validate-ai-runtime-boundaries.ps1` |
+| Product semantic boundary | Full | `check-no-product-semantics.ps1` |
 | Conexus consumer alignment | Full | `validate-conexus-consumer-baseline-alignment.ps1` |
 | Pack | Full | NuGet pack of shipping projects |
 

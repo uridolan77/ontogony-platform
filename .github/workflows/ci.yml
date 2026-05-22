@@ -247,6 +247,9 @@ jobs:
       - name: Validate AI runtime boundaries (AI.Contracts sources)
         shell: pwsh
         run: ./scripts/validate-ai-runtime-boundaries.ps1
+      - name: Validate platform product-semantic boundary (PLAT-9-006)
+        shell: pwsh
+        run: ./scripts/check-no-product-semantics.ps1
       - name: Validate shipping inventory (src package + README counts)
         shell: pwsh
         run: ./scripts/validate-shipping-inventory.ps1

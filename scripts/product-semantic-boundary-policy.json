@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "scanGlobs": ["src/**/*.cs"],
+  "forbiddenPhrases": [
+    "provider routing policy",
+    "ontology truth",
+    "canonical fact resolution",
+    "agent plan semantics",
+    "business approval rules",
+    "domain pack promotion logic",
+    "operator page behavior",
+    "frontend route behavior",
+    "canonization",
+    "contradiction resolution",
+    "provider ranking",
+    "fallback strategy",
+    "agent planning",
+    "tool selection policy",
+    "epistemic status",
+    "retrieval relevance"
+  ],
+  "allowedPathSuffixes": ["README.md"]
+}
