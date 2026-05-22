@@ -1,0 +1,8 @@
+{
+  "code": "human_gate.not_found",
+  "message": "Human gate was not found.",
+  "traceId": "trace-sample-kanon-001",
+  "detail": {
+    "humanGateId": "hg-sample-001"
+  }
+}

@@ -29,6 +29,12 @@ public static class SystemCompatibilityGate
         checks.Add(CheckConexusCompatibilityManifest(workspace));
         checks.Add(CheckAllagmaFeatureConnectionMatrix(workspace));
         checks.Add(CheckFrontendRouteClientMatrix(workspace));
+        checks.Add(CrossServiceErrorEnvelopeConformance.CheckMatrixArtifacts(workspace));
+        checks.Add(CrossServiceErrorEnvelopeConformance.CheckPlatformSamples(workspace));
+        checks.Add(CrossServiceErrorEnvelopeConformance.CheckTaxonomyAdapterMappings(workspace));
+        checks.Add(CrossServiceErrorEnvelopeConformance.CheckOpenApiEnvelopeSchema(workspace));
+        checks.Add(CrossServiceErrorEnvelopeConformance.CheckSiblingIntegrationDocs(workspace));
+        checks.Add(CrossServiceErrorEnvelopeConformance.CheckFrontendTaxonomyModule(workspace));
 
         return BuildResult(workspace, checks);
     }

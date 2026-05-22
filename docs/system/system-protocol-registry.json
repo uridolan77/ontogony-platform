@@ -255,6 +255,25 @@
       ]
     },
     {
+      "id": "cross-service-error-envelope-gate",
+      "ownerRepo": "ontogony-platform",
+      "protocolId": "ontogony.cross-service.error.envelope.gate.v1",
+      "authorityMode": "observational",
+      "sideEffectLevel": "read_only",
+      "kind": "error",
+      "paths": [
+        "docs/contracts/CROSS_SERVICE_ERROR_ENVELOPE_GATE.md",
+        "docs/system/cross-service-error-envelope.matrix.json",
+        "docs/system/schemas/cross-service-error-envelope-v0.schema.json",
+        "docs/system/error-envelope-samples",
+        "src/Ontogony.SystemCompatibility/CrossServiceErrorEnvelopeConformance.cs"
+      ],
+      "validators": [
+        "scripts/validate-cross-service-error-envelope.ps1",
+        "scripts/run-system-compatibility-gate.ps1"
+      ]
+    },
+    {
       "id": "system-operator-failure-taxonomy",
       "ownerRepo": "ontogony-platform",
       "protocolId": "ontogony.operator.failure-taxonomy.v1",

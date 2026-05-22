@@ -1,0 +1,19 @@
+{
+  "openapi": "3.0.0",
+  "info": { "title": "fixture", "version": "0" },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "CrossServiceErrorEnvelope": {
+        "type": "object",
+        "properties": {
+          "code": { "type": "string" },
+          "message": { "type": "string" },
+          "system": { "type": "string" },
+          "traceId": { "type": "string" },
+          "retryable": { "type": "boolean" }
+        }
+      }
+    }
+  }
+}

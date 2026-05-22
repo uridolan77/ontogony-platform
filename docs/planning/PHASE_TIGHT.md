@@ -76,7 +76,7 @@ artifacts/system-compat/system-compatibility-summary.md
 
 This would move Platform from “shared mechanics” to **shared mechanical enforcement**.
 
-### PLATFORM-9-002 — Cross-service error envelope conformance
+### PLATFORM-9-002 — Cross-service error envelope conformance ✅
 
 Platform already owns error infrastructure. Now enforce it.
 

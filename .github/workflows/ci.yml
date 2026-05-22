@@ -94,6 +94,9 @@ jobs:
       - name: Validate AI runtime docs (banned API strings)
         shell: pwsh
         run: ./scripts/validate-ai-runtime-docs.ps1
+      - name: Validate cross-service error envelope (PLATFORM-9-002)
+        shell: pwsh
+        run: ./scripts/validate-cross-service-error-envelope.ps1 -SkipSiblingPaths
       - name: Validate system protocol registry (structure)
         shell: pwsh
         run: ./scripts/validate-system-protocol-registry.ps1 -SkipSiblingPaths
@@ -212,6 +215,11 @@ jobs:
           DEV_ROOT: ${{ runner.temp }}/ontogony-dev
         run: |
           ./scripts/materialize-registry-siblings.ps1 -DevRoot $env:DEV_ROOT -ShallowClone
+      - name: Validate cross-service error envelope (PLATFORM-9-002)
+        shell: pwsh
+        env:
+          DEV_ROOT: ${{ runner.temp }}/ontogony-dev
+        run: ./scripts/validate-cross-service-error-envelope.ps1 -DevRoot $env:DEV_ROOT
       - name: Validate system protocol registry
         shell: pwsh
         env:

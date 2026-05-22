@@ -82,3 +82,7 @@ See [header-compatibility-matrix.md](./header-compatibility-matrix.md) for a det
 ## System compatibility gate (PLATFORM-9-001)
 
 Cross-repo mechanical drift detection: [SYSTEM_COMPATIBILITY_GATE.md](./SYSTEM_COMPATIBILITY_GATE.md). Run via `scripts/run-system-compatibility-gate.ps1`.
+
+## Error envelope conformance (PLATFORM-9-002)
+
+Cross-service failure shape enforcement: [CROSS_SERVICE_ERROR_ENVELOPE_GATE.md](./CROSS_SERVICE_ERROR_ENVELOPE_GATE.md). Included in the system compatibility gate; standalone: `scripts/validate-cross-service-error-envelope.ps1`.

@@ -1,0 +1,9 @@
+{
+  "code": "allagma.run_not_found",
+  "message": "Run was not found.",
+  "system": "allagma",
+  "stage": "request",
+  "traceId": "trace-sample-001",
+  "correlationId": "corr-sample-001",
+  "retryable": false
+}

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Ontogony.Contracts\Ontogony.Contracts.csproj" />
+    <ProjectReference Include="..\Ontogony.Errors\Ontogony.Errors.csproj" />
     <ProjectReference Include="..\Ontogony.Hashing\Ontogony.Hashing.csproj" />
     <ProjectReference Include="..\Ontogony.Http\Ontogony.Http.csproj" />
   </ItemGroup>

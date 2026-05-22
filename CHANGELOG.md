@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+PLATFORM-9-002 — cross-service error envelope conformance:
+
+- **`Ontogony.SystemCompatibility`** — `CrossServiceErrorEnvelopeConformance` checks (matrix, wire samples, taxonomy adapter vs `operator-failure-taxonomy.matrix.json`, Allagma/frontend OpenAPI, sibling integration docs, frontend taxonomy module).
+- **Docs** — [`docs/contracts/CROSS_SERVICE_ERROR_ENVELOPE_GATE.md`](docs/contracts/CROSS_SERVICE_ERROR_ENVELOPE_GATE.md), [`docs/system/cross-service-error-envelope.matrix.json`](docs/system/cross-service-error-envelope.matrix.json), [`docs/system/schemas/cross-service-error-envelope-v0.schema.json`](docs/system/schemas/cross-service-error-envelope-v0.schema.json), wire samples under `docs/system/error-envelope-samples/`.
+- **Validation** — [`scripts/validate-cross-service-error-envelope.ps1`](scripts/validate-cross-service-error-envelope.ps1); folded into `run-system-compatibility-gate.ps1`.
+
 PLATFORM-9-001 — system compatibility gate package:
 
 - **`Ontogony.SystemCompatibility`** — cross-repo mechanical validator (runtime lock, Kanon/Conexus manifests, Allagma feature matrix, frontend OpenAPI snapshots, platform package version, propagation header contract).

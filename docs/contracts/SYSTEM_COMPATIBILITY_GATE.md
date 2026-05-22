@@ -63,6 +63,12 @@ Requires sibling checkouts: `allagma-dotnet`, `kanon-dotnet`, `conexus-dotnet`, 
 
 Full platform CI materializes registry siblings, then runs this gate with `-DevRoot` pointing at the materialized workspace. Failures block merge when any check status is `Fail` (skipped checks are allowed for optional repos in fixture-only runs).
 
+## Error envelope conformance (PLATFORM-9-002)
+
+Included in the same gate run. See [`CROSS_SERVICE_ERROR_ENVELOPE_GATE.md`](./CROSS_SERVICE_ERROR_ENVELOPE_GATE.md).
+
+Checks: conformance matrix, wire samples, `OperatorFailureTaxonomyAdapter` vs taxonomy matrix, Allagma/frontend OpenAPI `CrossServiceErrorEnvelope`, sibling integration docs, frontend taxonomy module.
+
 ## Non-goals
 
 - No live stack smoke (see Allagma `scripts/run-system-cohesion-smoke.ps1`).
