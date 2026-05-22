@@ -12,6 +12,7 @@
 | FE-EVIDENCE-003 | Domain pack row evidence link test aligned to `evidence-spine-open-link-domainPackId` |
 | Route coverage test | README static route count 29 (`/system/agent-interaction`) |
 | Bundle budget | `maxTotalJsBytes` 1,605,632 (AG-UI + workbench dist ~1,526,267 B) |
+| E2E drift | `operatorUxRoutes`, OpenAPI-capability copy, collapsible capability notes (post-`d473726`) |
 
 ## Validation (local)
 
