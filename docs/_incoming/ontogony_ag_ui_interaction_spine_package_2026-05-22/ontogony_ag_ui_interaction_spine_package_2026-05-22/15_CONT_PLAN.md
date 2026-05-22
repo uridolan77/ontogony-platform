@@ -205,11 +205,11 @@ This makes AG-UI the front door to the evidence spine.
 Do not start all of this at once. I’d do:
 
 ```text
-1. OFE-AGUI-004
+1. OFE-AGUI-004 ✅ (local)
    Live frontend SSE consumer.
 
-2. AGUI-SPINE-CLOSEOUT-001
-   Formal acceptance closeout.
+2. AGUI-SPINE-CLOSEOUT-001 ✅ (local)
+   Formal acceptance closeout — see ontogony-platform/docs/evidence/AGUI_SPINE_CLOSEOUT_001_EVIDENCE.md
 
 3. OFE-AGUI-005
    Better workbench/timeline UX.

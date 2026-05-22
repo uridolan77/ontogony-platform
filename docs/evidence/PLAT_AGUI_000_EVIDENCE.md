@@ -20,7 +20,7 @@
 
 - No Allagma/Kanon/Conexus runtime or HTTP changes.
 - No `ontogony-frontend` workbench or `@ontogony/ui` `./agent` export (downstream PRs).
-- No SSE/WebSocket interaction stream (`ALLAGMA-AGUI-002` deferred).
+- SSE stream shipped in `ALLAGMA-AGUI-002` + frontend `OFE-AGUI-004` (see [`AGUI_SPINE_CLOSEOUT_001_EVIDENCE.md`](./AGUI_SPINE_CLOSEOUT_001_EVIDENCE.md)); no WebSocket.
 - External AG-UI export adapter shipped in `@ontogony/agent-interaction` (`ADAPTER-AGUI-001` — see [`PLAT_AGUI_ADAPTER_001_EVIDENCE.md`](./PLAT_AGUI_ADAPTER_001_EVIDENCE.md)).
 
 ## Fixture deferrals

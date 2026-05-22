@@ -2,7 +2,7 @@
 
 ## Backlog
 
-- Live SSE stream from Allagma.
+- ~~Live SSE stream from Allagma.~~ Shipped (`ALLAGMA-AGUI-002` + `OFE-AGUI-004`); push bus / WebSocket still backlog.
 - WebSocket bidirectional transport if SSE + POST actions become insufficient.
 - External AG-UI client demo.
 - CopilotKit integration proof-of-concept.

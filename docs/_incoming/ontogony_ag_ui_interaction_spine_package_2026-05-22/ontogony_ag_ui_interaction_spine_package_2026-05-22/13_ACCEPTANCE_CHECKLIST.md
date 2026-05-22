@@ -1,5 +1,7 @@
 # 13 — Acceptance Checklist
 
+> **Signed copy (2026-05-22):** [`docs/operators/AG_UI_INTERACTION_SPINE_ACCEPTANCE.md`](../../../../operators/AG_UI_INTERACTION_SPINE_ACCEPTANCE.md) · closeout [`AGUI_SPINE_CLOSEOUT_001_EVIDENCE.md`](../../../../evidence/AGUI_SPINE_CLOSEOUT_001_EVIDENCE.md)
+
 ## Platform
 
 - [ ] `AGENT_INTERACTION_SPINE_CONTRACT.md` published.

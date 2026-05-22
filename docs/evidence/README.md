@@ -316,6 +316,18 @@ Consumer detail: `ontogony-frontend/docs/evidence/UI_CONSUMER_001_FRONTEND_UI_FO
 
 ---
 
+## AG-UI interaction spine (`ONTOGONY-AGUI-000`)
+
+| Item | Status | Evidence |
+| --- | --- | --- |
+| PLAT-AGUI-000 | Closed (local) | [`PLAT_AGUI_000_EVIDENCE.md`](./PLAT_AGUI_000_EVIDENCE.md) |
+| ADAPTER-AGUI-001 | Closed (local) | [`PLAT_AGUI_ADAPTER_001_EVIDENCE.md`](./PLAT_AGUI_ADAPTER_001_EVIDENCE.md) |
+| **AGUI-SPINE-CLOSEOUT-001** | **Accepted (local)** | [`AGUI_SPINE_CLOSEOUT_001_EVIDENCE.md`](./AGUI_SPINE_CLOSEOUT_001_EVIDENCE.md) · [`AG_UI_INTERACTION_SPINE_ACCEPTANCE.md`](../operators/AG_UI_INTERACTION_SPINE_ACCEPTANCE.md) |
+
+10-PR sequence: [`05_REPO_PR_SEQUENCE.md`](../_incoming/ontogony_ag_ui_interaction_spine_package_2026-05-22/ontogony_ag_ui_interaction_spine_package_2026-05-22/05_REPO_PR_SEQUENCE.md). Frontend SSE: [ontogony-frontend `OFE_AGUI_004_SSE_CONSUMER_EVIDENCE.md`](../../../ontogony-frontend/docs/evidence/OFE_AGUI_004_SSE_CONSUMER_EVIDENCE.md). **Merge/CI still open.**
+
+---
+
 ## Sister repos
 
 Service-specific evidence lives in each repo’s `docs/evidence/` (e.g. [allagma-dotnet/docs/evidence/README.md](../../../allagma-dotnet/docs/evidence/README.md)). Platform evidence covers cross-repo milestones and governance items only.

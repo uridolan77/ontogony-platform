@@ -16,7 +16,7 @@
 
 - No CopilotKit / `@ag-ui/*` dependency.
 - No change to `AgUiProtocolAdapter` ingress DTO semantics.
-- No live SSE (`ALLAGMA-AGUI-002` still deferred).
+- Live SSE is backend `ALLAGMA-AGUI-002` + frontend `OFE-AGUI-004` (see [`AGUI_SPINE_CLOSEOUT_001_EVIDENCE.md`](./AGUI_SPINE_CLOSEOUT_001_EVIDENCE.md)).
 
 ## Validation
 

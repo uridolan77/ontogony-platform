@@ -1,7 +1,7 @@
 # Agent interaction spine contract
 
 **Sprint:** PLAT-AGUI-000 — Agent Interaction Spine Baseline  
-**Status:** Canonical cross-repo contract index (schemas and drift gates; no runtime streaming in this slice)  
+**Status:** Canonical cross-repo contract index (schemas and drift gates). Acceptance: [`AG_UI_INTERACTION_SPINE_ACCEPTANCE.md`](./AG_UI_INTERACTION_SPINE_ACCEPTANCE.md) · closeout [`AGUI_SPINE_CLOSEOUT_001_EVIDENCE.md`](../evidence/AGUI_SPINE_CLOSEOUT_001_EVIDENCE.md)  
 **Baseline:** `SYSTEM-ALPHA-006`  
 **Contract id:** `ontogony-agent-interaction-v0`
 
@@ -17,7 +17,7 @@ This layer adds a **temporal interaction timeline** (lifecycle, messages, tool/m
 | --- | --- | --- |
 | Primary view | Static **graph** of nodes/edges across services | **Append-only event log** for live/replay UI |
 | Authority for “what happened” in meaning | Kanon decisions, provenance | Same — events **reference** Kanon/Conexus/Allagma ids |
-| Operator workbench (v1) | [`/system/evidence-spine`](../../../ontogony-frontend/src/evidence-spine/resolveEvidenceSpine.ts) | `/system/agent-interaction` (planned — `OFE-AGUI-001`) |
+| Operator workbench (v1) | [`/system/evidence-spine`](../../../ontogony-frontend/src/evidence-spine/resolveEvidenceSpine.ts) | `/system/agent-interaction` (shipped — live SSE via OFE-AGUI-004) |
 | Export schema | `ontogony-cross-service-evidence-spine-bundle-v1` | `ontogony-agent-interaction-event-v0` (JSONL streams) |
 
 See [`SYSTEM_EVIDENCE_SPINE_CONTRACT.md`](./SYSTEM_EVIDENCE_SPINE_CONTRACT.md). Evidence Spine **000–009** remains closed; do not reopen resolver implementation under AG-UI work.
