@@ -1,9 +1,0 @@
-{
-  "schema": "ontogony-stale-package-quarantine-v1",
-  "packageRoot": "ontogony-next-development-phase-package",
-  "quarantinedAt": "2026-05-20",
-  "supersededBy": "docs/_incoming/Ontogony_System_Protocols_Delta_ALPHA005_2026-05-20/",
-  "reason": "Next-phase overlay still targets SYSTEM-ALPHA-004-PREP/CUT; superseded by Alpha-005/006 runtime lock and SYS-LOCK-006 closeout track.",
-  "staleFindingsExpected": true,
-  "doNotCopyToCanonicalDocs": true
-}

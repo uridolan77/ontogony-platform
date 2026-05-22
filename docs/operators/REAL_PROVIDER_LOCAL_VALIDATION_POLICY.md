@@ -4,7 +4,7 @@
 **Effective:** 2026-05-19  
 **Authority repo:** `uridolan77/ontogony-platform`  
 **Implementation repo (Conexus):** `uridolan77/conexus-dotnet`  
-**Control package:** [`docs/product-hardening/real-provider-validation-package-v1/`](../product-hardening/real-provider-validation-package-v1/)
+**Program:** Real provider validation v1 (closed 2026-05-19). Limitations: [`KNOWN_LIMITATIONS.md`](../KNOWN_LIMITATIONS.md).
 
 **Boundary:** Local-only safety posture for controlled real LLM validation after fake-provider manual QA PASS. **Not production readiness.** No cloud deployment, no CI real-provider calls, no secrets in git.
 
@@ -138,7 +138,7 @@ Evidence **may** include: provider name, model name, HTTP status, route decision
 
 Evidence **must not** include: API keys, bearer tokens, connection strings, raw sensitive prompts, raw sensitive completions, or full provider JSON payloads.
 
-Templates: [`real-provider-validation-package-v1/templates/`](../product-hardening/real-provider-validation-package-v1/templates/).
+Templates: use redacted local JSON under `docker/local-working-system/artifacts/` per operator runbooks in Conexus/Allagma repos.
 
 ---
 

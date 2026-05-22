@@ -189,4 +189,4 @@ dotnet test tests/Ontogony.Infrastructure.Tests/Ontogony.Infrastructure.Tests.cs
 - [`ONTOGONY_AG_UI_INTERACTION_SPINE_PACKAGE_INTAKE_REVIEW.md`](../reviews/ONTOGONY_AG_UI_INTERACTION_SPINE_PACKAGE_INTAKE_REVIEW.md)
 - [`PLAT_AGUI_000_EVIDENCE.md`](../evidence/PLAT_AGUI_000_EVIDENCE.md)
 - [`docs/migrations/2026-05-22-agent-interaction-spine-v0.md`](../migrations/2026-05-22-agent-interaction-spine-v0.md)
-- Intake archive: `docs/_incoming/ontogony_ag_ui_interaction_spine_package_2026-05-22/`
+- Historical intake packages are not stored in this repo; see sister-repo evidence for AG-UI spine closeout.

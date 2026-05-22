@@ -27,7 +27,7 @@ Included in Allagma acceptance at `artifacts/system-cohesion/platform-compat/sys
 
 ## Cross-repo index
 
-[`docs/planning/PHASE_TIGHT_CLOSEOUT_2026-05-22.md`](../planning/PHASE_TIGHT_CLOSEOUT_2026-05-22.md)
+[`docs/CURRENT_STATE.md`](../CURRENT_STATE.md) (Phase Tight platform gates)
 
 ## Commands
 

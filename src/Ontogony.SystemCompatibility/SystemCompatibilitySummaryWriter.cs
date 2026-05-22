@@ -26,6 +26,7 @@ public static class SystemCompatibilitySummaryWriter
             result.DevRoot,
             result.Passed,
             result.PassCount,
+            result.WarnCount,
             result.FailCount,
             result.SkippedCount,
             result.Checks.Select(c => new SystemCompatibilitySummaryCheck(
@@ -50,7 +51,7 @@ public static class SystemCompatibilitySummaryWriter
         sb.AppendLine($"| Evaluated (UTC) | `{result.EvaluatedAtUtc:O}` |");
         sb.AppendLine($"| Dev root | `{result.DevRoot}` |");
         sb.AppendLine($"| Verdict | **{(result.Passed ? "PASS" : "FAIL")}** |");
-        sb.AppendLine($"| Checks | pass={result.PassCount}, fail={result.FailCount}, skipped={result.SkippedCount} |");
+        sb.AppendLine($"| Checks | pass={result.PassCount}, warn={result.WarnCount}, fail={result.FailCount}, skipped={result.SkippedCount} |");
         sb.AppendLine();
         sb.AppendLine("## Checks");
         sb.AppendLine();
@@ -72,6 +73,7 @@ public static class SystemCompatibilitySummaryWriter
         string DevRoot,
         bool Passed,
         int PassCount,
+        int WarnCount,
         int FailCount,
         int SkippedCount,
         IReadOnlyList<SystemCompatibilitySummaryCheck> Checks);

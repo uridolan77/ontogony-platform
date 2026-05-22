@@ -79,6 +79,6 @@
 
 ## Merge / CI (out of checklist scope, required for production closeout)
 
-- [ ] ⏳ PRs opened and merged per [`05_REPO_PR_SEQUENCE.md`](../_incoming/ontogony_ag_ui_interaction_spine_package_2026-05-22/ontogony_ag_ui_interaction_spine_package_2026-05-22/05_REPO_PR_SEQUENCE.md)
+- [ ] PR sequence tracked in owning repos (frontend, Allagma, Kanon, Conexus); see [`CONTRACTS.md`](../CONTRACTS.md).
 - [ ] ⏳ CI green on all affected repos
 - [ ] ⏳ Optional docker-live smoke of agent-interaction workbench

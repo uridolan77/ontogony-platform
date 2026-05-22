@@ -8,7 +8,7 @@
 Ontogony.Platform = shared mechanics
 Conexus.NET       = model gateway
 Kanon.NET         = semantic authority
-Allagma.NET       = governed execution / runtime coordinator
+Allagma.NET       = governed execution
 ```
 
 Historical name **Agentor** is replaced by **Allagma**; platform docs reference Agentor only as legacy header/donor context.

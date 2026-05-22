@@ -44,4 +44,25 @@ internal static class SystemCompatibilityPaths
 
     public static string PlatformVersionProps(SystemCompatibilityWorkspace workspace) =>
         Path.Combine(workspace.PlatformRoot, "Directory.Build.props");
+
+    public static string SixRepoLock(SystemCompatibilityWorkspace workspace) =>
+        Path.Combine(workspace.PlatformRoot, "docs/system/ontogony-six-repo-lock.json");
+
+    public static string SixRepoLockSchema(SystemCompatibilityWorkspace workspace) =>
+        Path.Combine(workspace.PlatformRoot, "schemas/system/ontogony-six-repo-lock.schema.json");
+
+    public static string UiConsumerCompatibilityManifest(SystemCompatibilityWorkspace workspace) =>
+        workspace.FrontendRoot is null
+            ? ""
+            : Path.Combine(workspace.FrontendRoot, "docs/generated/UI_PACK_CONSUMER_COMPATIBILITY_MANIFEST.json");
+
+    public static string FrontendBuildProvenance(SystemCompatibilityWorkspace workspace) =>
+        workspace.FrontendRoot is null
+            ? ""
+            : Path.Combine(workspace.FrontendRoot, "dist/provenance.json");
+
+    public static string UiConsumerProvenance(SystemCompatibilityWorkspace workspace) =>
+        workspace.UiRoot is null
+            ? ""
+            : Path.Combine(workspace.UiRoot, "dist/consumer-provenance.json");
 }

@@ -110,6 +110,6 @@ The matrix matches `validate-package-levels.ps1`. When you add or change a `Proj
 ## Related
 
 - [`../governance/PACKAGE_LEVEL_GOVERNANCE.md`](../governance/PACKAGE_LEVEL_GOVERNANCE.md) — change workflow, forbidden edges, CI evidence
-- [`../00_START_HERE.md`](../00_START_HERE.md)
+- [`../CURRENT_STATE.md`](../CURRENT_STATE.md)
 - [`../../README.md`](../../README.md)
 - [`../../AGENTS.md`](../../AGENTS.md)

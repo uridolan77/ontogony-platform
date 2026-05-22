@@ -1,9 +1,0 @@
-{
-  "schema": "ontogony-stale-package-quarantine-v1",
-  "packageRoot": "ontogony_curated_review_package",
-  "quarantinedAt": "2026-05-20",
-  "supersededBy": "docs/_incoming/Ontogony_System_Protocols_Delta_ALPHA005_2026-05-20/",
-  "reason": "Sprint 3/4 curated review package predates SYSTEM-ALPHA-005/006 closeout; contains pending SYSTEM-ALPHA-004 baseline promotion wording and production-ready overclaims.",
-  "staleFindingsExpected": true,
-  "doNotCopyToCanonicalDocs": true
-}

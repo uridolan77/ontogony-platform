@@ -13,7 +13,7 @@
 
 | Artifact | Path |
 | --- | --- |
-| Substrate RC contract | [`docs/releases/ONTOGONY_PLATFORM_0_4_ALPHA_RC_CONTRACT.md`](../releases/ONTOGONY_PLATFORM_0_4_ALPHA_RC_CONTRACT.md) |
+| Substrate RC contract | [`docs/governance/ONTOGONY_PLATFORM_0_4_ALPHA_RC_CONTRACT.md`](../governance/ONTOGONY_PLATFORM_0_4_ALPHA_RC_CONTRACT.md) |
 | Protocol registry | [`docs/system/system-protocol-registry.json`](../system/system-protocol-registry.json) |
 | Migration note | [`docs/migrations/2026-05-22-platform-rc-001-substrate-contract-freeze.md`](../migrations/2026-05-22-platform-rc-001-substrate-contract-freeze.md) |
 

@@ -100,9 +100,6 @@ jobs:
       - name: Validate system protocol registry (structure)
         shell: pwsh
         run: ./scripts/validate-system-protocol-registry.ps1 -SkipSiblingPaths
-      - name: Validate stale incoming packages (SYS-STALE-PACKAGE-GUARD-001)
-        shell: pwsh
-        run: ./scripts/validate-stale-incoming-package.ps1
       - name: Validate post-lock delta register (SYS-POSTLOCK-DELTA-REGISTER-001)
         shell: pwsh
         run: ./scripts/validate-post-lock-delta-register.ps1
@@ -241,9 +238,6 @@ jobs:
           path: artifacts/system-compat/
           retention-days: 30
           if-no-files-found: warn
-      - name: Validate stale incoming packages (SYS-STALE-PACKAGE-GUARD-001)
-        shell: pwsh
-        run: ./scripts/validate-stale-incoming-package.ps1
       - name: Validate post-lock delta register (SYS-POSTLOCK-DELTA-REGISTER-001)
         shell: pwsh
         run: ./scripts/validate-post-lock-delta-register.ps1

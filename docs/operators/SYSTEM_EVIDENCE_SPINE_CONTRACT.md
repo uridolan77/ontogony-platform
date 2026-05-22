@@ -32,7 +32,7 @@ Operators paste one identifier and expect a **single governed execution graph** 
 
 ## Program history (do not redo)
 
-Cross-service Evidence Spine **000–009** closed 2026-05-20. See [`CROSS_SERVICE_EVIDENCE_SPINE_CLOSEOUT.md`](../releases/CROSS_SERVICE_EVIDENCE_SPINE_CLOSEOUT.md). SYS-TIGHT-002 **indexes and gates** that work; it does not reopen EVIDENCE-SPINE implementation slices.
+Cross-service Evidence Spine **000–009** closed 2026-05-20 (evidence in owning repos). SYS-TIGHT-002 **indexes and gates** that work; it does not reopen EVIDENCE-SPINE implementation slices.
 
 ## Required identifier roots (SYS-TIGHT-002)
 

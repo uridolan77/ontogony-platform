@@ -1,15 +1,33 @@
-# Operator documentation
+# Operator contracts (platform)
 
-Cross-repo governance and operator contracts published from `ontogony-platform`. **Not production readiness.**
+Cross-repo **mechanical** operator standards published from `ontogony-platform`. Service-specific runbooks stay in each product repo.
+
+**Terminology:** [`ONTOGONY_TERMINOLOGY_GLOSSARY.md`](./ONTOGONY_TERMINOLOGY_GLOSSARY.md)
+
+---
+
+## Core contracts
 
 | Document | Purpose |
 | --- | --- |
-| [ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md](./ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md) | Unified `docs/` layout for all six repos (`DOCS-STANDARD-001`) |
-| [ONTOGONY_TERMINOLOGY_GLOSSARY.md](./ONTOGONY_TERMINOLOGY_GLOSSARY.md) | Product names, program boundaries, packaging terms |
-| [TRACE_CORRELATION_CONTRACT.md](./TRACE_CORRELATION_CONTRACT.md) | Trace / correlation headers and propagation |
-| [CI_COST_CONTROL.md](./CI_COST_CONTROL.md) | CI cost controls and branch protection guidance |
-| [REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md](./REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md) | Local real-provider opt-in, budget, kill switch (`RP-001`) |
-| [OPERATOR_V1_DEMO_GUIDE.md](./OPERATOR_V1_DEMO_GUIDE.md) | Ten-minute operator walkthrough (`SYSTEM-DEMO-FLOWS-001`) |
+| [TRACE_CORRELATION_CONTRACT.md](./TRACE_CORRELATION_CONTRACT.md) | Trace/correlation headers and middleware |
+| [ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md](./ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md) | Six-repo documentation layout (DOCS-STANDARD-001) |
+| [CI_COST_CONTROL.md](./CI_COST_CONTROL.md) | CI cost and branch protection guidance |
+| [REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md](./REAL_PROVIDER_LOCAL_VALIDATION_POLICY.md) | Local real-provider policy (not CI) |
+| [CANONICAL_RESTART_PATH.md](./CANONICAL_RESTART_PATH.md) | Docker restart E2E path |
 
-**Documentation map:** [`docs/README.md`](../README.md)  
-**Evidence:** [`docs/evidence/README.md`](../evidence/README.md)
+---
+
+## AG-UI / evidence spine (mechanical)
+
+| Document | Purpose |
+| --- | --- |
+| [AGENT_INTERACTION_SPINE_CONTRACT.md](./AGENT_INTERACTION_SPINE_CONTRACT.md) | Interaction spine |
+| [AG_UI_EVIDENCE_RESOLVER_CONTRACT.md](./AG_UI_EVIDENCE_RESOLVER_CONTRACT.md) | Evidence resolver |
+| [AG_UI_INTERACTION_SPINE_ACCEPTANCE.md](./AG_UI_INTERACTION_SPINE_ACCEPTANCE.md) | Acceptance criteria |
+| [AG_UI_COMPATIBILITY_ADAPTER.md](./AG_UI_COMPATIBILITY_ADAPTER.md) | Compatibility adapter |
+| [SYSTEM_EVIDENCE_SPINE_CONTRACT.md](./SYSTEM_EVIDENCE_SPINE_CONTRACT.md) | Cross-repo spine index |
+| [EVIDENCE_SPINE_IDENTIFIER_TAXONOMY.md](./EVIDENCE_SPINE_IDENTIFIER_TAXONOMY.md) | Identifier taxonomy |
+| [SYSTEM_OPERATOR_FAILURE_TAXONOMY_CONTRACT.md](./SYSTEM_OPERATOR_FAILURE_TAXONOMY_CONTRACT.md) | Failure taxonomy |
+
+Implementations: frontend, Allagma, Kanon, Conexus repos — not Platform runtime code.

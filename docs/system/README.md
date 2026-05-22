@@ -40,12 +40,6 @@ $reg.protocols |
 
 Cross-repo classification of movement after **SYSTEM-ALPHA-006**: [`post-lock-delta-register.json`](./post-lock-delta-register.json). Validator: [`scripts/validate-post-lock-delta-register.ps1`](../../scripts/validate-post-lock-delta-register.ps1). Evidence: [`docs/evidence/SYS_POSTLOCK_DELTA_REGISTER_001_EVIDENCE.md`](../evidence/SYS_POSTLOCK_DELTA_REGISTER_001_EVIDENCE.md). Conexus detail: [`conexus-dotnet/docs/evidence/CONEXUS_POSTLOCK_001_CLASSIFICATION.md`](../../../conexus-dotnet/docs/evidence/CONEXUS_POSTLOCK_001_CLASSIFICATION.md).
 
-## Incoming packages (SYS-STALE-PACKAGE-GUARD-001)
-
-Before adopting ZIPs under `docs/_incoming/`, run [`scripts/validate-stale-incoming-package.ps1`](../../scripts/validate-stale-incoming-package.ps1) and follow [`INCOMING_PACKAGE_RUNBOOK.md`](./INCOMING_PACKAGE_RUNBOOK.md). Patterns: [`stale-incoming-package-patterns.json`](./stale-incoming-package-patterns.json). Evidence: [`docs/evidence/SYS_STALE_PACKAGE_GUARD_001_EVIDENCE.md`](../evidence/SYS_STALE_PACKAGE_GUARD_001_EVIDENCE.md).
-
-| Package (intake) | Intake review |
-| --- | --- |
-| `Ontogony_Backend_System_RC_001_Certification_Package_2026-05-22_v2_AGUI` | [`SYSTEM_RC_001_CERTIFICATION_PACKAGE_INTAKE.md`](../reviews/SYSTEM_RC_001_CERTIFICATION_PACKAGE_INTAKE.md) — backend **certification** (not features); includes **SYSTEM-RC-001F** backend AG-UI spine certification |
-
 **Non-claims:** Registry completeness does not imply production readiness or unlocked real external tool execution.
+
+Planning packages are not stored in this repo; use product-repo docs and [`../CURRENT_STATE.md`](../CURRENT_STATE.md) for active work.

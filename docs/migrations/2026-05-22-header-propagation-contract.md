@@ -13,7 +13,7 @@ Frozen cross-service propagation header names and reusable test helpers for prov
 | `kanon-dotnet` | KANON-PROP-001 — `KanonConexusAssistancePropagationConformanceTests` | **Done** |
 | `conexus-dotnet` | CONEXUS-PROP-001 — `ConexusOutboundPropagationConformanceTests` | **Done** |
 
-Closeout index: [`docs/planning/PHASE_TIGHT_CLOSEOUT_2026-05-22.md`](../planning/PHASE_TIGHT_CLOSEOUT_2026-05-22.md).
+Closeout index: [`docs/CURRENT_STATE.md`](../CURRENT_STATE.md).
 
 ## API
 

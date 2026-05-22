@@ -19,7 +19,7 @@ The six Ontogony repos accumulated planning packages, evidence, closeouts, and o
 3. A **manageable reorganization policy** — indexes and pointers first; mass moves last and only when clearly justified.
 4. **Historical/archive treatment** so old planning trees stay discoverable without being mistaken for current guidance.
 
-Package source (control copy): [`docs/product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/standards/DOCUMENTATION_STRUCTURE_STANDARD.md`](../product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/standards/DOCUMENTATION_STRUCTURE_STANDARD.md).
+This file is the control copy for DOCS-STANDARD-001 (RCQ program, closed 2026-05-19).
 
 Evidence: [`docs/evidence/DOCS_STANDARD_001_UNIFIED_DOCUMENTATION_STRUCTURE_EVIDENCE.md`](../evidence/DOCS_STANDARD_001_UNIFIED_DOCUMENTATION_STRUCTURE_EVIDENCE.md).
 
@@ -32,13 +32,13 @@ Evidence: [`docs/evidence/DOCS_STANDARD_001_UNIFIED_DOCUMENTATION_STRUCTURE_EVID
 | P1 | **Every repo has a docs index** at `docs/README.md` (create or refresh; do not leave newcomers guessing). |
 | P2 | **Evidence is centralized** under `docs/evidence/` with a predictable filename pattern (see §6). |
 | P3 | **Operator-facing guidance** lives under `docs/operators/` (platform may also publish cross-repo operator standards there). |
-| P4 | **Release closeouts and scorecards** live under `docs/releases/` (service repos) or platform `docs/releases/` for cross-repo milestones. |
+| P4 | **Release closeouts** live in the **owning repo** (`docs/releases/`). Platform uses [`CURRENT_STATE.md`](../CURRENT_STATE.md) and [`KNOWN_LIMITATIONS.md`](../KNOWN_LIMITATIONS.md) instead of a closeout museum. |
 | P5 | **Historical docs stay in place** unless a small, obvious misfile is corrected; add banners and index pointers instead of mass-moving archives. |
 | P6 | **Status text must be honest** — distinguish **CLOSED / PASS**, **in progress**, **not started**, and **historical**. |
 | P7 | **Never commit secrets** — no API keys, tokens, passwords, raw provider payloads, or unredacted connection strings in docs or evidence. |
 | P8 | **Closeouts state the boundary** — Docker-local, product hardening, repo cleaning, and manual QA programs are **not production readiness** unless a separate `PROD-READINESS-*` charter explicitly says otherwise. |
 
-Related: [ONTOGONY_TERMINOLOGY_GLOSSARY.md](./ONTOGONY_TERMINOLOGY_GLOSSARY.md), [repo cleaning principles](../product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/standards/REPO_CLEANING_PRINCIPLES.md).
+Related: [ONTOGONY_TERMINOLOGY_GLOSSARY.md](./ONTOGONY_TERMINOLOGY_GLOSSARY.md), [documentation spine](../README.md).
 
 ---
 
@@ -71,7 +71,7 @@ docs/
 | Next options / roadmap after closeout | `docs/releases/*_NEXT_OPTIONS.md` | Must state **not production readiness** |
 | OpenAPI / contract drift | `docs/api/` or `docs/architecture/` | Align with repo convention; link generated client paths in frontend |
 | CI cost / branch protection | `docs/operators/` (platform) | Example: [CI_COST_CONTROL.md](./CI_COST_CONTROL.md) |
-| Product-hardening control package | `docs/product-hardening/<package>/` | **Platform only**; other repos link here |
+| Platform spine docs | `docs/CURRENT_STATE.md`, `ARCHITECTURE.md`, … | **Platform** canonical entry (see [`README.md`](../README.md)) |
 | Environment / compose programs | `docs/environments/` | **Platform** (+ service overlays under each backend repo) |
 | Migrations (breaking changes) | `docs/migrations/` | When present |
 | ADRs | `docs/adr/` or `docs/architecture/` | Either is acceptable if indexed |
@@ -89,9 +89,9 @@ Each repo **must** maintain `docs/README.md` containing at minimum:
 5. **Evidence** — link to `docs/evidence/` and naming hint.
 6. **Releases / closeouts** — active and recently closed programs.
 7. **Known limitations** — or link to consolidated limitations doc.
-8. **Historical / archived docs** — explicit statement that `_planning/`, `_incoming/`, `legacy/`, phase folders, etc. are not current unless cross-linked.
+8. **Historical / archived docs** — do not store planning ZIPs or intake packages in platform repo; sister repos own program history.
 
-Use the package template as a starting outline: [`DOCS_README_TEMPLATE.md`](../product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/templates/DOCS_README_TEMPLATE.md).
+Use [`docs/README.md`](../README.md) as the platform documentation map template.
 
 **Platform canonical index:** [`docs/README.md`](../README.md) (created by `DOCS-STANDARD-001`).
 
@@ -116,9 +116,7 @@ docs/
   troubleshooting/
 ```
 
-**Existing paths (keep; index only):** `planning/`, `alignment/`, `governance/`, `packages/`, `migrations/`, numbered roots (`00_START_HERE.md`, …), `_incoming/`, `_planning/`. Treat `_planning/` and `_incoming/` as **non-canonical intake** — not operator entry points.
-
-**Contributor entry:** [`00_START_HERE.md`](../00_START_HERE.md) remains valid for platform extraction work; `docs/README.md` is the **documentation map**.
+**Platform contributor entry:** [`docs/README.md`](../README.md) and [`CURRENT_STATE.md`](../CURRENT_STATE.md). Do not add planning ZIP trees to this repo.
 
 ### 5.2 `allagma-dotnet` / `kanon-dotnet` / `conexus-dotnet`
 
@@ -208,8 +206,7 @@ Every evidence file **must** include:
 | Known limitations | What was not verified |
 | Safety | No secrets |
 
-Template: [`EVIDENCE_TEMPLATE.md`](../product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/templates/EVIDENCE_TEMPLATE.md).  
-Package standard: [`EVIDENCE_FILE_STANDARD.md`](../product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/standards/EVIDENCE_FILE_STANDARD.md).
+Use the filename pattern `<ITEM>_EVIDENCE.md` with verdict, commands, and boundary statement (see existing files under [`docs/evidence/`](../evidence/)).
 
 ### 6.3 Evidence index
 
@@ -258,7 +255,7 @@ Current examples:
 
 | Prefix / folder | Treatment |
 | --- | --- |
-| `docs/_incoming/` | Staging for ZIPs and unpack review; **not** operator guidance. May contain duplicates; do not link from README as current. |
+| Planning ZIP intake | **Do not store** in platform repo; reconcile in product repos. |
 | `docs/_planning/` | Historical or in-flight planning; mark **historical** when superseded. |
 | `docs/legacy/` | Historical product names (Agentor, Athanor, etc.); index with banner. |
 | `docs/planning/` (no underscore) | May be active or historical — README must say which. |
@@ -302,7 +299,7 @@ Do **not** rewrite body content of old planning packages unless correcting factu
 | --- | --- |
 | Prefer relative links inside a repo | `../evidence/FOO_EVIDENCE.md` |
 | Cross-repo references use repo-root paths in prose | `allagma-dotnet/docs/releases/...` |
-| Platform hosts cross-repo governance | `docs/operators/`, `docs/product-hardening/` |
+| Platform hosts cross-repo governance | `docs/operators/`, spine docs (`CURRENT_STATE.md`, …) |
 | Six-repo layout assumption | Sibling folders under `C:\dev\` (see glossary) |
 | Terminology | [ONTOGONY_TERMINOLOGY_GLOSSARY.md](./ONTOGONY_TERMINOLOGY_GLOSSARY.md) — **Allagma** not Agentor in active docs |
 
@@ -322,7 +319,7 @@ PRODUCT-MANUAL-QA-001 package              DONE (manual-guided-qa package publis
 PRODUCT-MANUAL-QA-002 execution            NOT STARTED
 ```
 
-Control package: [`docs/product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/`](../product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/).
+RCQ program closed 2026-05-19; see [`docs/evidence/RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md`](../evidence/RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md).
 
 ---
 
@@ -339,7 +336,7 @@ Use during `RCQ-DOCS-001-<repo>`:
 - [ ] No mass archive moves
 - [ ] PR is docs-only (no `src/`, `.github/workflows/`, or provider keys)
 
-Repo prompts: [`prompts/<repo>/DOCUMENTATION_CLEANING_PROMPT.md`](../product-hardening/repo-cleaning-documentation-manual-qa-prep-v1/prompts/PROMPT_INDEX.md).
+Sister repos maintain their own `docs/README.md` per this standard.
 
 ---
 

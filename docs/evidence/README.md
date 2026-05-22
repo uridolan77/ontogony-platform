@@ -1,340 +1,37 @@
 # Platform evidence index
 
-Verification records for cross-repo programs hosted on `ontogony-platform`. Filename pattern: `<ITEM>_EVIDENCE.md` (see [documentation structure standard](../operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md#6-evidence-files)).
+Verification records for **platform-owned mechanical gates** only. Filename pattern: `<ITEM>_EVIDENCE.md`.
 
-**Boundary:** Evidence here validates scoped milestones (Docker-local, hardening, product hardening, RCQ prep). It is **not production readiness**.
+**Boundary:** Evidence here validates platform substrate and documentation governance. Cross-repo program evidence (PFH, Kanon deepen, UI harden, etc.) lives in the **owning repos**.
 
----
-
-## Runtime baseline status (SYS-EVIDENCE-INDEX-006)
-
-| Field | Value |
-| --- | --- |
-| **Last runtime cut (lock owner: `allagma-dotnet`)** | **SYSTEM-RC-001A** — [SYSTEM_RC_001A_RUNTIME_LOCK_PROMOTION_EVIDENCE.md](../../../allagma-dotnet/docs/evidence/SYSTEM_RC_001A_RUNTIME_LOCK_PROMOTION_EVIDENCE.md) (prior **SYSTEM-ALPHA-006**: [SYSTEM_ALPHA_006_CLOSEOUT.md](../../../allagma-dotnet/docs/evidence/SYSTEM_ALPHA_006_CLOSEOUT.md)) |
-| **Moving-main revalidation** | **SYS-E2E-REVALIDATE-006** → superseded by **SYS-LOCK-006** |
-| **Q-006-004 restart path (SYS-Q006-004-RESTART-PATH-DECISION)** | [SYS_Q006_004_RESTART_PATH_DECISION_EVIDENCE.md](./SYS_Q006_004_RESTART_PATH_DECISION_EVIDENCE.md) — [CANONICAL_RESTART_PATH.md](../operators/CANONICAL_RESTART_PATH.md) |
-| **Canonical revalidation evidence** | [allagma-dotnet/docs/evidence/SYS_E2E_REVALIDATE_006_EVIDENCE.md](../../../allagma-dotnet/docs/evidence/SYS_E2E_REVALIDATE_006_EVIDENCE.md) |
-| **Allagma evidence index** | [allagma-dotnet/docs/evidence/README.md](../../../allagma-dotnet/docs/evidence/README.md) |
-| **Protocol registry (SYS-PROTOCOL-REGISTRY-001)** | [SYSTEM_PROTOCOL_REGISTRY_001_EVIDENCE.md](./SYSTEM_PROTOCOL_REGISTRY_001_EVIDENCE.md) — [`docs/system/system-protocol-registry.json`](../system/system-protocol-registry.json) |
-| **Stale incoming-package guard (SYS-STALE-PACKAGE-GUARD-001)** | [SYS_STALE_PACKAGE_GUARD_001_EVIDENCE.md](./SYS_STALE_PACKAGE_GUARD_001_EVIDENCE.md) — [`scripts/validate-stale-incoming-package.ps1`](../../scripts/validate-stale-incoming-package.ps1) |
-| **Real tools block verify (SYS-REAL-TOOLS-BLOCK-VERIFY-001)** | [SYS_REAL_TOOLS_BLOCK_VERIFY_001_EVIDENCE.md](./SYS_REAL_TOOLS_BLOCK_VERIFY_001_EVIDENCE.md) — [`scripts/validate-real-tools-block.ps1`](../../scripts/validate-real-tools-block.ps1); Allagma tests in [allagma-dotnet `SysRealToolsBlockVerify001Tests`](../../../allagma-dotnet/tests/Allagma.Tests/SysRealToolsBlockVerify001Tests.cs) |
-| **Allagma feature connection matrix audit (SYS-CONNECT-MATRIX-AUDIT-001)** | [allagma-dotnet/docs/evidence/SYS_CONNECT_MATRIX_AUDIT_001_EVIDENCE.md](../../../allagma-dotnet/docs/evidence/SYS_CONNECT_MATRIX_AUDIT_001_EVIDENCE.md) |
-| **Kanon connect lock (KANON-CONNECT-LOCK-001)** | [KANON_CONNECT_LOCK_001_EVIDENCE.md](./KANON_CONNECT_LOCK_001_EVIDENCE.md) — 001–007 promoted into **SYSTEM-ALPHA-006** baseline |
-| **Conexus evidence flow (CONEXUS-EVIDENCE-FLOW-001)** | [CONEXUS_EVIDENCE_FLOW_001_EVIDENCE.md](./CONEXUS_EVIDENCE_FLOW_001_EVIDENCE.md) |
-| **Conexus post-lock deltas (CONEXUS-POSTLOCK-001)** | [CONEXUS_POSTLOCK_001_CLASSIFICATION.md](../../../conexus-dotnet/docs/evidence/CONEXUS_POSTLOCK_001_CLASSIFICATION.md) |
-| **Post-lock delta register (SYS-POSTLOCK-DELTA-REGISTER-001)** | [SYS_POSTLOCK_DELTA_REGISTER_001_EVIDENCE.md](./SYS_POSTLOCK_DELTA_REGISTER_001_EVIDENCE.md) — [`post-lock-delta-register.json`](../system/post-lock-delta-register.json), [`validate-post-lock-delta-register.ps1`](../../scripts/validate-post-lock-delta-register.ps1) |
-| **Operator home (SYS-OPERATOR-HOME-001)** | [ontogony-frontend/docs/evidence/SYS_OPERATOR_HOME_001_EVIDENCE.md](../../../ontogony-frontend/docs/evidence/SYS_OPERATOR_HOME_001_EVIDENCE.md) — `/system` |
-| **Operator V1 demo flows (SYSTEM-DEMO-FLOWS-001)** | [SYSTEM_DEMO_FLOWS_001_EVIDENCE.md](./SYSTEM_DEMO_FLOWS_001_EVIDENCE.md), [OPERATOR_V1_DEMO_GUIDE.md](../operators/OPERATOR_V1_DEMO_GUIDE.md) |
-| **First-version RC (FIRST-VERSION-RC-001)** | [FIRST_VERSION_RC_001_EVIDENCE.md](./FIRST_VERSION_RC_001_EVIDENCE.md) — [`ontogony-operator-v1.lock.json`](../system/ontogony-operator-v1.lock.json), [closeout](../releases/FIRST_VERSION_RC_001_CLOSEOUT.md) |
-| **Platform substrate RC (PLATFORM-RC-001)** | [PLATFORM_RC_001_SUBSTRATE_CONTRACT_FREEZE_EVIDENCE.md](./PLATFORM_RC_001_SUBSTRATE_CONTRACT_FREEZE_EVIDENCE.md) — [ONTOGONY_PLATFORM_0_4_ALPHA_RC_CONTRACT.md](../releases/ONTOGONY_PLATFORM_0_4_ALPHA_RC_CONTRACT.md) |
-| **Phase Tight gates (2026-05-22)** | [PLATFORM_PHASE_TIGHT_2026_05_22_EVIDENCE.md](./PLATFORM_PHASE_TIGHT_2026_05_22_EVIDENCE.md) — PLATFORM-9-001/002/003 |
-| **Backend SYSTEM-RC-001 certification** | [SYSTEM_RC_001_CERTIFICATION_PACKAGE_INTAKE.md](../reviews/SYSTEM_RC_001_CERTIFICATION_PACKAGE_INTAKE.md) — PRs 001A–001E + CONEXUS/KANON RC + **PLATFORM-RC-001**; **SYSTEM-RC-001F** = backend AG-UI spine certification (pending/follow-up) |
-| **Phase Tight (2026-05-22)** | [PLATFORM_PHASE_TIGHT_2026_05_22_EVIDENCE.md](./PLATFORM_PHASE_TIGHT_2026_05_22_EVIDENCE.md) — [`PHASE_TIGHT_CLOSEOUT_2026-05-22.md`](../planning/PHASE_TIGHT_CLOSEOUT_2026-05-22.md) |
-
-### Cleared (Alpha-005 post-cut — do not reopen)
-
-| Id | Notes |
-| --- | --- |
-| B-010 | Frontend format check |
-| B-011 | Conexus production exposure tests |
-| B-012 | Docker OTLP + Grafana — [SYS_OBS_004A_DOCKER_GRAFANA_EVIDENCE.md](./SYS_OBS_004A_DOCKER_GRAFANA_EVIDENCE.md) (Grafana **3001** when **3000** busy; verifier updated) |
-| B-013 | Evidence Spine 008a — `ontogony-frontend/docs/evidence/FE_EVIDENCE_SPINE_002_EVIDENCE.md` |
-
-### Open on moving-main (non-blocking)
-
-| Id | Repo | Lock blocker? |
-| --- | --- | --- |
-| Q-006-004 | Process restart E2E vs compose ports | **No** — Docker `allagma-api` restart PASS (canonical path) |
-
-### Cleared on moving-main after revalidation
-
-| Id | Repo | Lock blocker? | Evidence |
-| --- | --- | --- | --- |
-| Q-006-001 | `ontogony-platform` — public API snapshots (`Ontogony.AI.Contracts`, `Ontogony.Secrets`) | **Cleared** | `dotnet test Ontogony.Platform.sln -c Release --filter "FullyQualifiedName~Public_api_matches_snapshot"` PASS after approved snapshot refresh and changelog entry |
-| Q-006-002 | `conexus-dotnet` — production Postgres startup test | **Cleared** | `Production_startup_accepts_postgres_connection_string` uses `ProductionPostgresFixture`; test PASS |
-| Q-006-003 | `allagma-dotnet` — SYS-LOCK-005 release/lock cross-ref | **Cleared** | `validate-release-lock-crossref.ps1` READY; **SYSTEM-ALPHA-006** lock cut |
-
-Kanon connect **001–007** promoted into runtime baseline — [KANON_CONNECT_LOCK_001_EVIDENCE.md](./KANON_CONNECT_LOCK_001_EVIDENCE.md). Slice detail: [KANON-CONNECT](#kanon-cross-repo-connect-kanon-connect) below.
+**System runtime baseline:** [`allagma-dotnet/docs/evidence/README.md`](https://github.com/uridolan77/allagma-dotnet/blob/main/docs/evidence/README.md) — Platform does not duplicate runtime lock tables.
 
 ---
 
-## RCQ — repo cleaning / documentation / manual QA prep
+## Platform gates
 
 | Item | File |
 | --- | --- |
+| Phase Tight (PLATFORM-9-001/002/003) | [PLATFORM_PHASE_TIGHT_2026_05_22_EVIDENCE.md](./PLATFORM_PHASE_TIGHT_2026_05_22_EVIDENCE.md) |
+| Substrate RC freeze (PLATFORM-RC-001) | [PLATFORM_RC_001_SUBSTRATE_CONTRACT_FREEZE_EVIDENCE.md](./PLATFORM_RC_001_SUBSTRATE_CONTRACT_FREEZE_EVIDENCE.md) |
+| Protocol registry | [SYSTEM_PROTOCOL_REGISTRY_001_EVIDENCE.md](./SYSTEM_PROTOCOL_REGISTRY_001_EVIDENCE.md) |
+| Trace contract | [TRACE_CONTRACT_001_EVIDENCE.md](./TRACE_CONTRACT_001_EVIDENCE.md) |
+| Post-lock delta register | [SYS_POSTLOCK_DELTA_REGISTER_001_EVIDENCE.md](./SYS_POSTLOCK_DELTA_REGISTER_001_EVIDENCE.md) |
+| Real tools block verify | [SYS_REAL_TOOLS_BLOCK_VERIFY_001_EVIDENCE.md](./SYS_REAL_TOOLS_BLOCK_VERIFY_001_EVIDENCE.md) |
+
+---
+
+## Documentation governance (RCQ)
+
+| Item | File |
+| --- | --- |
+| DOCS-STANDARD-001 | [DOCS_STANDARD_001_UNIFIED_DOCUMENTATION_STRUCTURE_EVIDENCE.md](./DOCS_STANDARD_001_UNIFIED_DOCUMENTATION_STRUCTURE_EVIDENCE.md) |
+| RCQ-DOCS-001 platform sweep | [RCQ_DOCS_001_ONTOGONY_PLATFORM_EVIDENCE.md](./RCQ_DOCS_001_ONTOGONY_PLATFORM_EVIDENCE.md) |
+| RCQ-DOCS-FINAL-001 closeout | [RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md](./RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md) |
+| RCQ-CODE-001 | [RCQ_CODE_001_ONTOGONY_PLATFORM_EVIDENCE.md](./RCQ_CODE_001_ONTOGONY_PLATFORM_EVIDENCE.md) |
 | RCQ-000 package setup | [RCQ_000_PACKAGE_SETUP_EVIDENCE.md](./RCQ_000_PACKAGE_SETUP_EVIDENCE.md) |
-| RCQ-CODE-001 platform code/script hygiene | [RCQ_CODE_001_ONTOGONY_PLATFORM_EVIDENCE.md](./RCQ_CODE_001_ONTOGONY_PLATFORM_EVIDENCE.md) |
-| DOCS-STANDARD-001 unified documentation structure | [DOCS_STANDARD_001_UNIFIED_DOCUMENTATION_STRUCTURE_EVIDENCE.md](./DOCS_STANDARD_001_UNIFIED_DOCUMENTATION_STRUCTURE_EVIDENCE.md) |
-| RCQ-DOCS-001 platform documentation sweep | [RCQ_DOCS_001_ONTOGONY_PLATFORM_EVIDENCE.md](./RCQ_DOCS_001_ONTOGONY_PLATFORM_EVIDENCE.md) |
-| RCQ-DOCS-FINAL-001 repo-cleaning closeout | [RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md](./RCQ_DOCS_FINAL_001_REPO_CLEANING_CLOSEOUT_EVIDENCE.md) |
-| PRODUCT-MANUAL-QA-001 package | [PRODUCT_MANUAL_QA_001_PACKAGE_EVIDENCE.md](./PRODUCT_MANUAL_QA_001_PACKAGE_EVIDENCE.md) |
-
----
-
-## Product feature hardening v1 (PFH)
-
-| Item | File |
-| --- | --- |
-| PFH-000 package setup | [PFH_000_PACKAGE_SETUP_EVIDENCE.md](./PFH_000_PACKAGE_SETUP_EVIDENCE.md) |
-| PFH-001 current-state audit | [PFH_001_CURRENT_STATE_AUDIT_EVIDENCE.md](./PFH_001_CURRENT_STATE_AUDIT_EVIDENCE.md) |
-| EVAL-PRODUCT-001 query/list contract | [EVAL_PRODUCT_001_QUERY_LIST_CONTRACT_EVIDENCE.md](./EVAL_PRODUCT_001_QUERY_LIST_CONTRACT_EVIDENCE.md) |
-| ALIGN-PRODUCT-001 contract matrix | [ALIGN_PRODUCT_001_CONTRACT_MATRIX_REFRESH_EVIDENCE.md](./ALIGN_PRODUCT_001_CONTRACT_MATRIX_REFRESH_EVIDENCE.md) |
-| EVAL-PRODUCT-002 baseline workbench | [EVAL_PRODUCT_002_BASELINE_COMPARISON_WORKBENCH_EVIDENCE.md](./EVAL_PRODUCT_002_BASELINE_COMPARISON_WORKBENCH_EVIDENCE.md) |
-| EVAL-PRODUCT-003 scenario datasets | [EVAL_PRODUCT_003_SCENARIO_DATASET_SURFACES_EVIDENCE.md](./EVAL_PRODUCT_003_SCENARIO_DATASET_SURFACES_EVIDENCE.md) |
-| EVAL-PRODUCT-004 quality scoring | [EVAL_PRODUCT_004_QUALITY_SCORING_AND_JUDGE_CALIBRATION_EVIDENCE.md](./EVAL_PRODUCT_004_QUALITY_SCORING_AND_JUDGE_CALIBRATION_EVIDENCE.md) |
-| EVAL-PRODUCT-005 evidence export bundle | [EVAL_PRODUCT_005_EVAL_EVIDENCE_EXPORT_BUNDLE_EVIDENCE.md](./EVAL_PRODUCT_005_EVAL_EVIDENCE_EXPORT_BUNDLE_EVIDENCE.md) |
-| EVAL-POLISH-001 surface correctness | [EVAL_POLISH_001_EVALUATION_SURFACE_CORRECTNESS_EVIDENCE.md](./EVAL_POLISH_001_EVALUATION_SURFACE_CORRECTNESS_EVIDENCE.md) |
-| FE-PRODUCT-001 dashboard v2 | [FE_PRODUCT_001_EVAL_DASHBOARD_V2_EVIDENCE.md](./FE_PRODUCT_001_EVAL_DASHBOARD_V2_EVIDENCE.md) |
-| FE-PRODUCT-002 run detail depth | [FE_PRODUCT_002_RUN_DETAIL_EVIDENCE_DEPTH_EVIDENCE.md](./FE_PRODUCT_002_RUN_DETAIL_EVIDENCE_DEPTH_EVIDENCE.md) |
-| FE-PRODUCT-003 replay workbench | [FE_PRODUCT_003_REPLAY_EVIDENCE_WORKBENCH_EVIDENCE.md](./FE_PRODUCT_003_REPLAY_EVIDENCE_WORKBENCH_EVIDENCE.md) |
-| FE-PRODUCT-CLOSEOUT-001 | [FE_PRODUCT_CLOSEOUT_001_EVIDENCE.md](./FE_PRODUCT_CLOSEOUT_001_EVIDENCE.md) |
-
-Closeout: [PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_CLOSEOUT.md](../releases/PRODUCT_FEATURE_HARDENING_EVAL_ALIGNMENT_FRONTEND_DEPTH_CLOSEOUT.md)
-
----
-
-## Real provider validation v1 (RP)
-
-| Item | File |
-| --- | --- |
-| RP-000 package setup | [RP_000_PACKAGE_SETUP_EVIDENCE.md](./RP_000_PACKAGE_SETUP_EVIDENCE.md) |
-| RP-001 secret/budget/safety gates | [RP_001_SECRET_BUDGET_SAFETY_GATES_EVIDENCE.md](./RP_001_SECRET_BUDGET_SAFETY_GATES_EVIDENCE.md) |
-| RP-002 Conexus real-provider local mode | [RP_002_CONEXUS_REAL_PROVIDER_LOCAL_MODE_EVIDENCE.md](./RP_002_CONEXUS_REAL_PROVIDER_LOCAL_MODE_EVIDENCE.md) |
-| RP-003 Allagma guided flow | [RP_003_ALLAGMA_REAL_PROVIDER_GUIDED_FLOW_EVIDENCE.md](./RP_003_ALLAGMA_REAL_PROVIDER_GUIDED_FLOW_EVIDENCE.md) |
-| RP-003A live completion (Docker TLS) | [RP_003A_LIVE_REAL_PROVIDER_COMPLETION_EVIDENCE.md](./RP_003A_LIVE_REAL_PROVIDER_COMPLETION_EVIDENCE.md) |
-| RP-004 frontend operator visibility | [RP_004_FRONTEND_REAL_PROVIDER_OPERATOR_VISIBILITY_EVIDENCE.md](./RP_004_FRONTEND_REAL_PROVIDER_OPERATOR_VISIBILITY_EVIDENCE.md) |
-| RP-005 manual QA execution | [RP_005_REAL_PROVIDER_MANUAL_QA_EXECUTION_EVIDENCE.md](./RP_005_REAL_PROVIDER_MANUAL_QA_EXECUTION_EVIDENCE.md) |
-| RP-CLOSEOUT-001 | [RP_CLOSEOUT_001_REAL_PROVIDER_VALIDATION_EVIDENCE.md](./RP_CLOSEOUT_001_REAL_PROVIDER_VALIDATION_EVIDENCE.md) |
-
-Results: [2026-05-19_REAL_PROVIDER_VALIDATION_RESULTS.md](../product-hardening/real-provider-validation-package-v1/results/2026-05-19_REAL_PROVIDER_VALIDATION_RESULTS.md)
-
-Closeout: [REAL_PROVIDER_VALIDATION_CLOSEOUT.md](../releases/REAL_PROVIDER_VALIDATION_CLOSEOUT.md)
-
----
-
-## Post-Docker-local hardening
-
-| Item | File |
-| --- | --- |
-| POST-DOCKER-HARDENING-CLOSEOUT-001 | [POST_DOCKER_HARDENING_CLOSEOUT_001_EVIDENCE.md](./POST_DOCKER_HARDENING_CLOSEOUT_001_EVIDENCE.md) |
-| CI-COST-001 | [CI_COST_001_COST_CONTROL_EVIDENCE.md](./CI_COST_001_COST_CONTROL_EVIDENCE.md) |
-| TRACE-CONTRACT-001 | [TRACE_CONTRACT_001_EVIDENCE.md](./TRACE_CONTRACT_001_EVIDENCE.md) |
-| TERMINOLOGY-CLEANUP-001 | [TERMINOLOGY_CLEANUP_001_EVIDENCE.md](./TERMINOLOGY_CLEANUP_001_EVIDENCE.md) |
-| CONEXUS-PERSIST-001 … 003 | [CONEXUS_PERSIST_001_OPERATOR_DOCS_EVIDENCE.md](./CONEXUS_PERSIST_001_OPERATOR_DOCS_EVIDENCE.md), [CONEXUS_PERSIST_002_VALIDATION_EVIDENCE.md](./CONEXUS_PERSIST_002_VALIDATION_EVIDENCE.md), [CONEXUS_PERSIST_003_DURABILITY_REGRESSION_EVIDENCE.md](./CONEXUS_PERSIST_003_DURABILITY_REGRESSION_EVIDENCE.md) |
-| KANON-OP-001 / 002 | [KANON_OP_001_OPERATOR_EVIDENCE.md](./KANON_OP_001_OPERATOR_EVIDENCE.md), [KANON_OP_002_OPERATIONAL_DIAGNOSTICS_EVIDENCE.md](./KANON_OP_002_OPERATIONAL_DIAGNOSTICS_EVIDENCE.md) |
-| FE-HARDEN-001, FE-HYGIENE-CONFIG-001, FE-TEST-REPLAY-001, FE-AUDIT-FIXTURES-001 | [FE_HARDEN_001_EVIDENCE.md](./FE_HARDEN_001_EVIDENCE.md), [FE_HYGIENE_CONFIG_001_EVIDENCE.md](./FE_HYGIENE_CONFIG_001_EVIDENCE.md), [FE_TEST_REPLAY_001_EVIDENCE.md](./FE_TEST_REPLAY_001_EVIDENCE.md), [FE_AUDIT_FIXTURES_001_EVIDENCE.md](./FE_AUDIT_FIXTURES_001_EVIDENCE.md) |
-
----
-
-## Operations — dashboard / SLO (Sprint 3.5)
-
-| Item | File |
-| --- | --- |
-| SYSTEM-DASH-002 canonical dashboard/SLO entry | [SYSTEM_DASH_002_EVIDENCE.md](./SYSTEM_DASH_002_EVIDENCE.md) |
-
-Canonical index: [docs/operations/SYSTEM_DASHBOARD_SLO_INDEX.md](../operations/SYSTEM_DASHBOARD_SLO_INDEX.md). Implementation assets remain in `allagma-dotnet`.
-
----
-
-## System cohesion — Sprint 4 reconciliation (2026-05-20)
-
-| Item | File |
-| --- | --- |
-| SYSTEM-SPRINT4-STATUS-RECON-001 | [SYSTEM_SPRINT4_STATUS_RECON_001_EVIDENCE.md](./SYSTEM_SPRINT4_STATUS_RECON_001_EVIDENCE.md) |
-
-Closeout addendum: [`docs/_incoming/curated-review-package/ontogony_curated_review_package/SYSTEM_SPRINT4_CLOSEOUT_ADDENDUM.md`](../_incoming/curated-review-package/ontogony_curated_review_package/SYSTEM_SPRINT4_CLOSEOUT_ADDENDUM.md)
-
-Service evidence (by repo): `ALLAGMA_EVIDENCE_001`, `ALLAGMA_STREAM_001`, `CONEXUS_RETENTION_001`, `KANON_CONEXUS_ASSIST_001`, `KANON_DOMAINPACK_GOV_001` — see reconciliation evidence for paths.
-
-Runtime baseline: **`SYSTEM-ALPHA-006`** (lock owner: `allagma-dotnet`). See [runtime baseline status](#runtime-baseline-status-sys-evidence-index-006).
-
-| Item | File |
-| --- | --- |
-| SYS-E2E-REVALIDATE-006 (moving-main, canonical) | [allagma-dotnet/docs/evidence/SYS_E2E_REVALIDATE_006_EVIDENCE.md](../../../allagma-dotnet/docs/evidence/SYS_E2E_REVALIDATE_006_EVIDENCE.md) |
-| **SYSTEM-ALPHA-006 closeout (canonical)** | [allagma-dotnet/docs/evidence/SYSTEM_ALPHA_006_CLOSEOUT.md](../../../allagma-dotnet/docs/evidence/SYSTEM_ALPHA_006_CLOSEOUT.md) |
-| SYSTEM-ALPHA-005 closeout (platform index) | [SYSTEM_ALPHA_005_CLOSEOUT_EVIDENCE.md](./SYSTEM_ALPHA_005_CLOSEOUT_EVIDENCE.md) |
-| SYSTEM-ALPHA-005 closeout (canonical) | [allagma-dotnet/docs/evidence/SYSTEM_ALPHA_005_CLOSEOUT.md](../../../allagma-dotnet/docs/evidence/SYSTEM_ALPHA_005_CLOSEOUT.md) |
-| 004/005 combined release note | [allagma-dotnet/docs/releases/SYSTEM_ALPHA_004_OR_005_CLOSEOUT.md](../../../allagma-dotnet/docs/releases/SYSTEM_ALPHA_004_OR_005_CLOSEOUT.md) |
-| SYSTEM-ALPHA-004-PREP (historical) | [SYSTEM_ALPHA_004_PREP_EVIDENCE.md](./SYSTEM_ALPHA_004_PREP_EVIDENCE.md) |
-| SYS-LOCK-006 | **CUT COMPLETE** — ALPHA-006 |
-| KANON-CONNECT-LOCK-001 | [KANON_CONNECT_LOCK_001_EVIDENCE.md](./KANON_CONNECT_LOCK_001_EVIDENCE.md) |
-
----
-
-
-## Docker-local environment (ENV)
-
-| Item | File |
-| --- | --- |
-| ENV-COMPOSE-001 | [ENV_COMPOSE_001_DOCKER_COMPOSE_ORCHESTRATION_EVIDENCE.md](./ENV_COMPOSE_001_DOCKER_COMPOSE_ORCHESTRATION_EVIDENCE.md) |
-| ENV-DOCKER-RUN-001 | [ENV_DOCKER_RUN_001_GUIDED_MAIN_FLOW_EVIDENCE.md](./ENV_DOCKER_RUN_001_GUIDED_MAIN_FLOW_EVIDENCE.md) |
-| ENV-DOCKER-CLOSEOUT-001 | [ENV_DOCKER_CLOSEOUT_001_EVIDENCE.md](./ENV_DOCKER_CLOSEOUT_001_EVIDENCE.md) |
-| ENV-SETUP-001, ENV-SEED-001, ENV-DB-001 | [ENV_SETUP_001_LOCAL_OPERATOR_SANITY_DOCS.md](./ENV_SETUP_001_LOCAL_OPERATOR_SANITY_DOCS.md), [ENV_SEED_001_DETERMINISTIC_BOOTSTRAP_EVIDENCE.md](./ENV_SEED_001_DETERMINISTIC_BOOTSTRAP_EVIDENCE.md), [ENV_DB_001_POSTGRES_BOOTSTRAP_EVIDENCE.md](./ENV_DB_001_POSTGRES_BOOTSTRAP_EVIDENCE.md) |
-| ENV-DOCKER-001 plan | [ENV_DOCKER_001_PLAN_EVIDENCE.md](./ENV_DOCKER_001_PLAN_EVIDENCE.md) |
-| Compose package v2 unpack | [COMPOSE_TO_DOCKER_CLOSEOUT_PACKAGE_V2_UNPACK_EVIDENCE.md](./COMPOSE_TO_DOCKER_CLOSEOUT_PACKAGE_V2_UNPACK_EVIDENCE.md) |
-| ENV-CLOSEOUT-001 (script-based) | [ENV_CLOSEOUT_001_FIRST_WORKING_ENVIRONMENT.md](./ENV_CLOSEOUT_001_FIRST_WORKING_ENVIRONMENT.md) |
-
----
-
-## Alignment (historical context)
-
-| Item | File |
-| --- | --- |
-| ALIGN-EVAL-001 | [ALIGN_EVAL_001_EVAL_ALIGNMENT_REFRESH_EVIDENCE.md](./ALIGN_EVAL_001_EVAL_ALIGNMENT_REFRESH_EVIDENCE.md) |
-
-Planning packages: [`docs/alignment/`](../alignment/README.md) (historical; PFH v1 closed).
-
----
-
-## Kanon deepening (KANON-DEEPEN)
-
-**Sequence index:** [KANON_DEEPEN_SEQUENCE_STATUS.md](./KANON_DEEPEN_SEQUENCE_STATUS.md)  
-**Closeout:** [KANON_DEEPENING_CLOSEOUT.md](../releases/KANON_DEEPENING_CLOSEOUT.md)
-
-| Item | File |
-| --- | --- |
-| KANON-DEEPEN-000 audit | [KANON_DEEPEN_000 audit](../reviews/KANON_DEEPEN_000_CURRENT_STATE_AUDIT.md) |
-| KANON-DEEPEN-001 local operator auth | [KANON_DEEPEN_001_LOCAL_OPERATOR_AUTH_AND_READ_WORKBENCH_EVIDENCE.md](./KANON_DEEPEN_001_LOCAL_OPERATOR_AUTH_AND_READ_WORKBENCH_EVIDENCE.md) |
-| KANON-DEEPEN-002 domain-pack lifecycle | [KANON_DEEPEN_002_DOMAIN_PACK_LIFECYCLE_WORKBENCH_EVIDENCE.md](./KANON_DEEPEN_002_DOMAIN_PACK_LIFECYCLE_WORKBENCH_EVIDENCE.md) |
-| KANON-DEEPEN-003 decision provenance | [KANON_DEEPEN_003_DECISION_PROVENANCE_EXPLORER_EVIDENCE.md](./KANON_DEEPEN_003_DECISION_PROVENANCE_EXPLORER_EVIDENCE.md) |
-| KANON-DEEPEN-004 facts/plans/bindings | [KANON_DEEPEN_004_FACTS_PLANS_BINDINGS_EXPLORER_EVIDENCE.md](./KANON_DEEPEN_004_FACTS_PLANS_BINDINGS_EXPLORER_EVIDENCE.md) |
-| KANON-DEEPEN-005 cross-service semantic links | [KANON_DEEPEN_005_CROSS_SERVICE_SEMANTIC_LINKS_EVIDENCE.md](./KANON_DEEPEN_005_CROSS_SERVICE_SEMANTIC_LINKS_EVIDENCE.md) |
-| KANON-DEEPEN-006 closeout / manual QA | [KANON_DEEPEN_006_CLOSEOUT_AND_MANUAL_QA_EVIDENCE.md](./KANON_DEEPEN_006_CLOSEOUT_AND_MANUAL_QA_EVIDENCE.md) |
-
-Kanon backend OpenAPI (002): `kanon-dotnet/docs/evidence/KANON_DEEPEN_002_DOMAIN_PACK_OPENAPI_EVIDENCE.md`
-
----
-
-## Kanon cross-repo connect (KANON-CONNECT)
-
-Pre–SYSTEM-ALPHA connection inventory and hardening (no new Kanon product features).
-
-| Item | File |
-| --- | --- |
-| KANON-CONNECT-001 cross-repo feature map | [KANON_CONNECT_001_CROSS_REPO_FEATURE_MAP.md](./KANON_CONNECT_001_CROSS_REPO_FEATURE_MAP.md) |
-| KANON-CONNECT-002 settings/env consistency | [KANON_CONNECT_002_SETTINGS_ENV_CONSISTENCY_EVIDENCE.md](./KANON_CONNECT_002_SETTINGS_ENV_CONSISTENCY_EVIDENCE.md) |
-| KANON-CONNECT-003 Allagma semantic link audit | [KANON_CONNECT_003_ALLAGMA_SEMANTIC_LINK_AUDIT_EVIDENCE.md](./KANON_CONNECT_003_ALLAGMA_SEMANTIC_LINK_AUDIT_EVIDENCE.md) |
-| KANON-CONNECT-004 Conexus assistance observability | [KANON_CONNECT_004_CONEXUS_ASSISTANCE_OBSERVABILITY_EVIDENCE.md](./KANON_CONNECT_004_CONEXUS_ASSISTANCE_OBSERVABILITY_EVIDENCE.md) |
-| KANON-CONNECT-005 Evidence Spine semantic graph | [KANON_CONNECT_005_EVIDENCE_SPINE_SEMANTIC_GRAPH_EVIDENCE.md](./KANON_CONNECT_005_EVIDENCE_SPINE_SEMANTIC_GRAPH_EVIDENCE.md) |
-| KANON-CONNECT-006 route/OpenAPI/catalog parity | [KANON_CONNECT_006_ROUTE_PARITY_EVIDENCE.md](./KANON_CONNECT_006_ROUTE_PARITY_EVIDENCE.md) |
-| KANON-CONNECT-007 Docker cross-service smoke | [KANON_CONNECT_007_DOCKER_CROSS_SERVICE_SMOKE_EVIDENCE.md](./KANON_CONNECT_007_DOCKER_CROSS_SERVICE_SMOKE_EVIDENCE.md) |
-| **KANON-CONNECT-LOCK-001** runtime baseline promotion | [KANON_CONNECT_LOCK_001_EVIDENCE.md](./KANON_CONNECT_LOCK_001_EVIDENCE.md) |
-
-Runtime lock promotion: **COMPLETE** — **SYSTEM-ALPHA-006** ([KANON_CONNECT_LOCK_001_EVIDENCE.md](./KANON_CONNECT_LOCK_001_EVIDENCE.md); initial 007 proof at ALPHA-005).
-
----
-
-## Conexus deepening (CONEXUS-DEEPEN)
-
-**Package intake:** `conexus-dotnet/docs/_incoming/Ontogony-Conexus-Deep-Enhancement-Package-v1/`  
-**Roadmap:** `conexus-dotnet/docs/_incoming/.../03_ROADMAP.md`
-
-| Item | File |
-| --- | --- |
-| CONEXUS-DEEPEN-000 audit | [CONEXUS_DEEPEN_000_CURRENT_STATE_AUDIT_EVIDENCE.md](./CONEXUS_DEEPEN_000_CURRENT_STATE_AUDIT_EVIDENCE.md) |
-| CONEXUS-DEEPEN-001 request list | [CONEXUS_DEEPEN_001_REQUEST_LIFECYCLE_LIST_EVIDENCE.md](./CONEXUS_DEEPEN_001_REQUEST_LIFECYCLE_LIST_EVIDENCE.md) |
-| CONEXUS-DEEPEN-002 model-call detail | [CONEXUS_DEEPEN_002_MODEL_CALL_DETAIL_EVIDENCE.md](./CONEXUS_DEEPEN_002_MODEL_CALL_DETAIL_EVIDENCE.md) |
-| CONEXUS-DEEPEN-003 route decision explorer | [CONEXUS_DEEPEN_003_ROUTE_DECISION_EXPLORER_EVIDENCE.md](./CONEXUS_DEEPEN_003_ROUTE_DECISION_EXPLORER_EVIDENCE.md) |
-| CONEXUS-DEEPEN-004 usage/cost workbench | [CONEXUS_DEEPEN_004_USAGE_COST_WORKBENCH_EVIDENCE.md](./CONEXUS_DEEPEN_004_USAGE_COST_WORKBENCH_EVIDENCE.md) |
-| CONEXUS-DEEPEN-005 cross-service evidence spine | [CONEXUS_DEEPEN_005_CROSS_SERVICE_EVIDENCE_SPINE_EVIDENCE.md](./CONEXUS_DEEPEN_005_CROSS_SERVICE_EVIDENCE_SPINE_EVIDENCE.md) |
-| CONEXUS-DEEPEN-006 frontend observability v2 | [CONEXUS_DEEPEN_006_FRONTEND_OBSERVABILITY_V2_EVIDENCE.md](./CONEXUS_DEEPEN_006_FRONTEND_OBSERVABILITY_V2_EVIDENCE.md) |
-| CONEXUS-DEEPEN-007 closeout / manual QA | [CONEXUS_DEEPENING_CLOSEOUT_EVIDENCE.md](./CONEXUS_DEEPENING_CLOSEOUT_EVIDENCE.md) |
-| CONEXUS-DEEPEN-000 platform cross-cut | [CONEXUS_DEEPEN_000 audit (reviews)](../reviews/CONEXUS_DEEPEN_000_CURRENT_STATE_AUDIT.md) |
-
-**Closeout:** [CONEXUS_DEEPENING_CLOSEOUT.md](../releases/CONEXUS_DEEPENING_CLOSEOUT.md) · [scorecard](../releases/CONEXUS_DEEPENING_SCORECARD.md) · [limitations](../releases/CONEXUS_DEEPENING_KNOWN_LIMITATIONS.md) · [sequence status](./CONEXUS_DEEPEN_SEQUENCE_STATUS.md)
-
-**Model-call evidence flow (CONEXUS-EVIDENCE-FLOW-001):** [CONEXUS_EVIDENCE_FLOW_001_EVIDENCE.md](./CONEXUS_EVIDENCE_FLOW_001_EVIDENCE.md) — integrates `MODEL_CALL_EVIDENCE_FLOW.md` into observability, route catalog, and Evidence Spine.
-
-Primary backend audit: `conexus-dotnet/docs/reviews/CONEXUS_DEEPEN_000_CURRENT_STATE_AUDIT.md`
-
----
-
-## Allagma actionability workbench (ALLAGMA-ACTION)
-
-**Package intake:** `allagma-dotnet/docs/_incoming/Ontogony-Allagma-Actionability-Workbench-Package-v1/`  
-**Roadmap:** `allagma-dotnet/docs/_incoming/.../03_ACTIONABILITY_ROADMAP.md`
-
-| Item | File |
-| --- | --- |
-| ALLAGMA-ACTION-000 audit | [ALLAGMA_ACTION_000_CURRENT_STATE_AUDIT_EVIDENCE.md](./ALLAGMA_ACTION_000_CURRENT_STATE_AUDIT_EVIDENCE.md) |
-| ALLAGMA-ACTION-000 review | [ALLAGMA_ACTION_000_CURRENT_STATE_AUDIT.md](../reviews/ALLAGMA_ACTION_000_CURRENT_STATE_AUDIT.md) |
-| ALLAGMA-ACTION-001 start run | [ALLAGMA_ACTION_001_START_RUN_WORKBENCH_EVIDENCE.md](./ALLAGMA_ACTION_001_START_RUN_WORKBENCH_EVIDENCE.md) |
-| ALLAGMA-ACTION-001A cleanup | [ALLAGMA_ACTION_001A_START_RUN_CLEANUP_EVIDENCE.md](./ALLAGMA_ACTION_001A_START_RUN_CLEANUP_EVIDENCE.md) |
-| ALLAGMA-ACTION-001 closeout review | [ALLAGMA_ACTION_001_CLOSEOUT.md](../reviews/ALLAGMA_ACTION_001_CLOSEOUT.md) |
-| ALLAGMA-ACTION-005 run operations design | [ALLAGMA_ACTION_005_RUN_OPERATIONS_CONTRACT_DESIGN_EVIDENCE.md](./ALLAGMA_ACTION_005_RUN_OPERATIONS_CONTRACT_DESIGN_EVIDENCE.md) |
-| ALLAGMA-ACTION-006 run operations v2 | [ALLAGMA_ACTION_006_RUN_OPERATIONS_V2_EVIDENCE.md](./ALLAGMA_ACTION_006_RUN_OPERATIONS_V2_EVIDENCE.md) |
-| ALLAGMA-ACTION-006A idempotency hardening | [ALLAGMA_ACTION_006A_RUN_OPERATIONS_IDEMPOTENCY_HARDENING_EVIDENCE.md](./ALLAGMA_ACTION_006A_RUN_OPERATIONS_IDEMPOTENCY_HARDENING_EVIDENCE.md) |
-| ALLAGMA-ACTION-007 closeout | [ALLAGMA_ACTION_007_CLOSEOUT_EVIDENCE.md](./ALLAGMA_ACTION_007_CLOSEOUT_EVIDENCE.md) |
-| ALLAGMA-ACTION-007A browser QA | [ontogony-frontend/docs/evidence/ALLAGMA_ACTION_007_BROWSER_MANUAL_QA_EVIDENCE.md](../../../ontogony-frontend/docs/evidence/ALLAGMA_ACTION_007_BROWSER_MANUAL_QA_EVIDENCE.md) |
-| Sequence index | [ALLAGMA_ACTION_SEQUENCE_STATUS.md](./ALLAGMA_ACTION_SEQUENCE_STATUS.md) |
-
-Design: `allagma-dotnet/docs/architecture/RUN_OPERATIONS_CONTRACT_DESIGN.md`  
-Closeout: `docs/releases/ALLAGMA_ACTIONABILITY_WORKBENCH_CLOSEOUT.md`  
-Frontend detail: `ontogony-frontend/docs/evidence/ALLAGMA_ACTION_001_START_RUN_WORKBENCH_EVIDENCE.md`
-
----
-
-## Cross-service evidence spine (EVIDENCE-SPINE)
-
-**Package intake:** `docs/_incoming/Ontogony-Cross-Service-Evidence-Spine-Package-v1/`  
-**Operator taxonomy:** [`docs/operators/EVIDENCE_SPINE_IDENTIFIER_TAXONOMY.md`](../operators/EVIDENCE_SPINE_IDENTIFIER_TAXONOMY.md)
-
-| Item | File |
-| --- | --- |
-| EVIDENCE-SPINE-000 audit | [EVIDENCE_SPINE_000_CURRENT_STATE_AUDIT_EVIDENCE.md](./EVIDENCE_SPINE_000_CURRENT_STATE_AUDIT_EVIDENCE.md), [review](../reviews/EVIDENCE_SPINE_000_CURRENT_STATE_AUDIT.md) |
-| EVIDENCE-SPINE-001 resolver contract | [EVIDENCE_SPINE_001_RESOLVER_CONTRACT_EVIDENCE.md](./EVIDENCE_SPINE_001_RESOLVER_CONTRACT_EVIDENCE.md) |
-| EVIDENCE-SPINE-002 unified resolver | [EVIDENCE_SPINE_002_FRONTEND_UNIFIED_RESOLVER_EVIDENCE.md](./EVIDENCE_SPINE_002_FRONTEND_UNIFIED_RESOLVER_EVIDENCE.md) |
-| EVIDENCE-SPINE-003 Allagma normalization | `ontogony-frontend/docs/evidence/EVIDENCE_SPINE_003_ALLAGMA_EVIDENCE_NORMALIZATION_EVIDENCE.md` |
-| EVIDENCE-SPINE-004 Conexus linking | `ontogony-frontend/docs/evidence/EVIDENCE_SPINE_004_CONEXUS_REQUEST_ROUTE_LINKING_EVIDENCE.md` |
-| EVIDENCE-SPINE-005 Kanon linking | `ontogony-frontend/docs/evidence/EVIDENCE_SPINE_005_KANON_DECISION_PROVENANCE_LINKING_EVIDENCE.md` |
-| EVIDENCE-SPINE-006 graph workbench UI | [EVIDENCE_SPINE_006_GRAPH_WORKBENCH_UI_EVIDENCE.md](./EVIDENCE_SPINE_006_GRAPH_WORKBENCH_UI_EVIDENCE.md) |
-| EVIDENCE-SPINE-007 export bundle | [EVIDENCE_SPINE_007_EXPORT_BUNDLE_EVIDENCE.md](./EVIDENCE_SPINE_007_EXPORT_BUNDLE_EVIDENCE.md) |
-| EVIDENCE-SPINE-008 e2e / browser | [EVIDENCE_SPINE_008_E2E_BROWSER_VERIFICATION_EVIDENCE.md](./EVIDENCE_SPINE_008_E2E_BROWSER_VERIFICATION_EVIDENCE.md) |
-| EVIDENCE-SPINE-009 closeout | [EVIDENCE_SPINE_009_CLOSEOUT_EVIDENCE.md](./EVIDENCE_SPINE_009_CLOSEOUT_EVIDENCE.md) |
-| EVIDENCE-SPINE-009A Docker-live QA | [EVIDENCE_SPINE_009A_DOCKER_LIVE_QA_EVIDENCE.md](./EVIDENCE_SPINE_009A_DOCKER_LIVE_QA_EVIDENCE.md) |
-| Sequence index | [EVIDENCE_SPINE_SEQUENCE_STATUS.md](./EVIDENCE_SPINE_SEQUENCE_STATUS.md) |
-
-Closeout: [CROSS_SERVICE_EVIDENCE_SPINE_CLOSEOUT.md](../releases/CROSS_SERVICE_EVIDENCE_SPINE_CLOSEOUT.md) · [scorecard](../releases/CROSS_SERVICE_EVIDENCE_SPINE_SCORECARD.md) · [limitations](../releases/CROSS_SERVICE_EVIDENCE_SPINE_KNOWN_LIMITATIONS.md) · [next options](../releases/CROSS_SERVICE_EVIDENCE_SPINE_NEXT_OPTIONS.md)
-
-Workbench route: `ontogony-frontend` → `/system/evidence-spine`
-
----
-
-## UI shared foundation hardening (UI-HARDEN)
-
-| Item | File |
-| --- | --- |
-| UI-HARDEN-000 current-state audit | [UI_HARDEN_000_CURRENT_STATE_AUDIT_EVIDENCE.md](./UI_HARDEN_000_CURRENT_STATE_AUDIT_EVIDENCE.md) |
-| UI-HARDEN-001 AppShell contract + tests | [UI_HARDEN_001_APPSHELL_CONTRACT_EVIDENCE.md](./UI_HARDEN_001_APPSHELL_CONTRACT_EVIDENCE.md) |
-| UI-HARDEN-002 status taxonomy | [UI_HARDEN_002_STATUS_TAXONOMY_EVIDENCE.md](./UI_HARDEN_002_STATUS_TAXONOMY_EVIDENCE.md) |
-| UI-HARDEN-003 dialog accessibility | [UI_HARDEN_003_DIALOG_ACCESSIBILITY_EVIDENCE.md](./UI_HARDEN_003_DIALOG_ACCESSIBILITY_EVIDENCE.md) |
-| UI-HARDEN-004 route tabs | [UI_HARDEN_004_ROUTE_TABS_EVIDENCE.md](./UI_HARDEN_004_ROUTE_TABS_EVIDENCE.md) |
-| UI-HARDEN-005 empty / limitation | [UI_HARDEN_005_EMPTY_LIMITATION_EVIDENCE.md](./UI_HARDEN_005_EMPTY_LIMITATION_EVIDENCE.md) |
-| UI-HARDEN-006 evidence / action primitives | [UI_HARDEN_006_EVIDENCE_ACTION_PRIMITIVES_EVIDENCE.md](./UI_HARDEN_006_EVIDENCE_ACTION_PRIMITIVES_EVIDENCE.md) |
-| UI-HARDEN-POLISH-002-006 contract cleanup | [UI_HARDEN_POLISH_002_006_EVIDENCE.md](./UI_HARDEN_POLISH_002_006_EVIDENCE.md) |
-| UI-CONSUMER-001 frontend finalization | [UI_CONSUMER_001_FRONTEND_UI_FOUNDATION_FINALIZATION_EVIDENCE.md](./UI_CONSUMER_001_FRONTEND_UI_FOUNDATION_FINALIZATION_EVIDENCE.md) |
-
-Primary audit: `ontogony-ui/docs/reviews/UI_HARDEN_000_CURRENT_STATE_AUDIT.md`
-
-Consumer detail: `ontogony-frontend/docs/evidence/UI_CONSUMER_001_FRONTEND_UI_FOUNDATION_FINALIZATION_EVIDENCE.md`
-
----
-
-## AG-UI interaction spine (`ONTOGONY-AGUI-000`)
-
-| Item | Status | Evidence |
-| --- | --- | --- |
-| PLAT-AGUI-000 | Closed (local) | [`PLAT_AGUI_000_EVIDENCE.md`](./PLAT_AGUI_000_EVIDENCE.md) |
-| ADAPTER-AGUI-001 | Closed (local) | [`PLAT_AGUI_ADAPTER_001_EVIDENCE.md`](./PLAT_AGUI_ADAPTER_001_EVIDENCE.md) |
-| ADAPTER-AGUI-002 | Closed (local) | [`PLAT_AGUI_RESOLVER_002_EVIDENCE.md`](./PLAT_AGUI_RESOLVER_002_EVIDENCE.md) · [frontend `OFE_AGUI_RESOLVER_002_EVIDENCE.md`](../../../ontogony-frontend/docs/evidence/OFE_AGUI_RESOLVER_002_EVIDENCE.md) |
-| **AGUI-SPINE-CLOSEOUT-001** | **Accepted (local)** | [`AGUI_SPINE_CLOSEOUT_001_EVIDENCE.md`](./AGUI_SPINE_CLOSEOUT_001_EVIDENCE.md) · [`AG_UI_INTERACTION_SPINE_ACCEPTANCE.md`](../operators/AG_UI_INTERACTION_SPINE_ACCEPTANCE.md) |
-
-10-PR sequence: [`05_REPO_PR_SEQUENCE.md`](../_incoming/ontogony_ag_ui_interaction_spine_package_2026-05-22/ontogony_ag_ui_interaction_spine_package_2026-05-22/05_REPO_PR_SEQUENCE.md). Frontend SSE: [ontogony-frontend `OFE_AGUI_004_SSE_CONSUMER_EVIDENCE.md`](../../../ontogony-frontend/docs/evidence/OFE_AGUI_004_SSE_CONSUMER_EVIDENCE.md). **Merge/CI still open.**
-
----
-
-## Sister repos
-
-Service-specific evidence lives in each repo’s `docs/evidence/` (e.g. [allagma-dotnet/docs/evidence/README.md](../../../allagma-dotnet/docs/evidence/README.md)). Platform evidence covers cross-repo milestones and governance items only.
-
-**Note:** `SYS_E2E_REVALIDATE_006_EVIDENCE.md` lives under **`allagma-dotnet`** (lock owner), not under `ontogony-platform/main`. Use the link in [runtime baseline status](#runtime-baseline-status-sys-evidence-index-006) or clone `allagma-dotnet` at moving-main `bdaabbb+`.
+| Documentation cleanup (2026-05) | [DOCUMENTATION_CLEANUP_REPORT.md](../DOCUMENTATION_CLEANUP_REPORT.md) |
+| AG-UI spine contract index (PLAT-AGUI-000) | [PLAT_AGUI_000_EVIDENCE.md](./PLAT_AGUI_000_EVIDENCE.md) |
+| Evidence spine contract (SYS-TIGHT-002) | [SYS_TIGHT_002_SYSTEM_EVIDENCE_SPINE_CONTRACT_EVIDENCE.md](./SYS_TIGHT_002_SYSTEM_EVIDENCE_SPINE_CONTRACT_EVIDENCE.md) |
+| Operator V1 RC (FIRST-VERSION-RC-001) | [FIRST_VERSION_RC_001_EVIDENCE.md](./FIRST_VERSION_RC_001_EVIDENCE.md) |
+| Protocol runtime metadata (SYS-PROTOCOL-RUNTIME-001) | [SYS_PROTOCOL_RUNTIME_001_EVIDENCE.md](./SYS_PROTOCOL_RUNTIME_001_EVIDENCE.md) |

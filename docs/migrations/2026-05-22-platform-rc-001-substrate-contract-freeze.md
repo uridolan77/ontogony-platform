@@ -8,7 +8,7 @@ Documents the **protocol registry baseline promotion** from `SYSTEM-ALPHA-006` t
 
 | Repo | Action |
 | --- | --- |
-| `ontogony-platform` | Use [`ONTOGONY_PLATFORM_0_4_ALPHA_RC_CONTRACT.md`](../releases/ONTOGONY_PLATFORM_0_4_ALPHA_RC_CONTRACT.md) as RC substrate authority |
+| `ontogony-platform` | Use [`ONTOGONY_PLATFORM_0_4_ALPHA_RC_CONTRACT.md`](../governance/ONTOGONY_PLATFORM_0_4_ALPHA_RC_CONTRACT.md) as RC substrate authority |
 | `allagma-dotnet` | Runtime lock already at `SYSTEM-RC-001A`; no lock change in this PR |
 | `kanon-dotnet`, `conexus-dotnet`, `ontogony-frontend` | None for registry refresh; continue RC evidence at lock SHAs |
 | CI / operators | Run `validate-system-protocol-registry.ps1` with `DevRoot` containing siblings at lock commits when validating paths |

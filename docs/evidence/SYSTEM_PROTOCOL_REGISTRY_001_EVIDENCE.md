@@ -46,4 +46,4 @@ cd C:\dev\ontogony-platform
 
 - Runtime lock: [`allagma-dotnet/docs/system/ontogony-runtime.lock.json`](../../../allagma-dotnet/docs/system/ontogony-runtime.lock.json)
 - Closeout: [`allagma-dotnet/docs/evidence/SYSTEM_ALPHA_006_CLOSEOUT.md`](../../../allagma-dotnet/docs/evidence/SYSTEM_ALPHA_006_CLOSEOUT.md)
-- Intake package: [`docs/_incoming/Ontogony_System_Protocols_Delta_ALPHA005_2026-05-20/`](../_incoming/Ontogony_System_Protocols_Delta_ALPHA005_2026-05-20/)
+- Intake package absorbed into registry (2026-05-20); no `_incoming` archive in repo.

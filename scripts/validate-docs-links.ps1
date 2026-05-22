@@ -1,7 +1,7 @@
 #!/usr/bin/env pwsh
 # Validates relative markdown links under docs/ resolve to existing files or directories.
 # Skips: http(s)://, mailto:, bare #anchors, empty targets.
-# Skips files under docs/planning/ and docs/_incoming/ (mirrors and zip drops may contain broken relative links).
+# Scans all markdown under docs/.
 # Limitation: does not verify in-file anchor targets (#section) exist inside the target file.
 $ErrorActionPreference = 'Stop'
 
@@ -15,12 +15,7 @@ if (-not (Test-Path -LiteralPath $docsRoot)) {
 
 $failures = [System.Collections.Generic.List[string]]::new()
 
-Get-ChildItem -LiteralPath $docsRoot -Recurse -File -Filter '*.md' | Where-Object {
-    $rel = $_.FullName.Substring($repoRoot.Length).TrimStart([char[]]@('\', '/')) -replace '\\', '/'
-    if ($rel.StartsWith('docs/planning/', [System.StringComparison]::OrdinalIgnoreCase)) { return $false }
-    if ($rel.StartsWith('docs/_incoming/', [System.StringComparison]::OrdinalIgnoreCase)) { return $false }
-    return $true
-} | ForEach-Object {
+Get-ChildItem -LiteralPath $docsRoot -Recurse -File -Filter '*.md' | ForEach-Object {
     $mdPath = $_.FullName
     $dir = $_.DirectoryName
     $content = Get-Content -LiteralPath $mdPath -Raw

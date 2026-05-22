@@ -1,6 +1,6 @@
 #!/usr/bin/env pwsh
 # Fails if banned (obsolete or misleading) API strings appear in current docs.
-# Excludes: CHANGELOG.md, docs/migrations/**, docs/planning/**, docs/_incoming/**
+# Excludes: CHANGELOG.md, docs/migrations/**
 # Per-line allow: <!-- docs-api-allow: ExactTerm -->
 $ErrorActionPreference = 'Stop'
 
@@ -12,8 +12,6 @@ function Test-ExcludedPath([string]$fullPath) {
     $norm = $rel -replace '\\', '/'
     if ($norm -ieq 'CHANGELOG.md') { return $true }
     if ($norm.StartsWith('docs/migrations/', [System.StringComparison]::OrdinalIgnoreCase)) { return $true }
-    if ($norm.StartsWith('docs/planning/', [System.StringComparison]::OrdinalIgnoreCase)) { return $true }
-    if ($norm.StartsWith('docs/_incoming/', [System.StringComparison]::OrdinalIgnoreCase)) { return $true }
     return $false
 }
 

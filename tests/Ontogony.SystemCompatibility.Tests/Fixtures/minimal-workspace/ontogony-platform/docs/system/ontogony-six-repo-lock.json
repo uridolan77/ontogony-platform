@@ -1,0 +1,36 @@
+{
+  "schema": "ontogony-six-repo-lock-v1",
+  "baseline": "SYSTEM-TEST-001",
+  "generatedAt": "2026-05-22T00:00:00Z",
+  "repos": {
+    "ontogony-platform": {
+      "commit": "0000000000000000000000000000000000000001",
+      "packageVersion": "0.3.0-alpha.1"
+    },
+    "conexus-dotnet": {
+      "commit": "0000000000000000000000000000000000000004",
+      "clientVersion": "0.1.0-alpha.1"
+    },
+    "kanon-dotnet": {
+      "commit": "0000000000000000000000000000000000000003",
+      "clientVersion": "0.1.0-alpha.0"
+    },
+    "allagma-dotnet": {
+      "commit": "0000000000000000000000000000000000000002",
+      "apiPrefix": "/allagma/v0"
+    },
+    "ontogony-ui": {
+      "commit": "0000000000000000000000000000000000000005",
+      "packageVersion": "0.1.0-alpha.0"
+    },
+    "ontogony-frontend": {
+      "commit": "0000000000000000000000000000000000000006"
+    }
+  },
+  "contracts": {
+    "openapiSnapshots": {},
+    "routeInventories": {},
+    "frontendRouteInventory": null,
+    "uiPublicSubpaths": null
+  }
+}

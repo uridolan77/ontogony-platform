@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ontogony-six-repo-lock.schema.json",
+  "title": "Ontogony six-repo compatibility lock",
+  "description": "Pins commit SHAs, package versions, and contract hashes for all six Ontogony repositories. Validates that frontend and UI are included in the same reproducibility unit as the four runtime repos.",
+  "type": "object",
+  "required": ["schema", "baseline", "generatedAt", "repos", "contracts"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "ontogony-six-repo-lock-v1"
+    },
+    "baseline": {
+      "type": "string",
+      "description": "Named baseline identifier, e.g. SYSTEM-RC-001A"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "postLockDeltaRegister": {
+      "type": "string",
+      "description": "Repo-relative path to the post-lock delta register JSON. Commits beyond the pinned SHA must appear there."
+    },
+    "repos": {
+      "type": "object",
+      "required": [
+        "ontogony-platform",
+        "conexus-dotnet",
+        "kanon-dotnet",
+        "allagma-dotnet",
+        "ontogony-ui",
+        "ontogony-frontend"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "ontogony-platform": {
+          "$ref": "#/$defs/platformRepo"
+        },
+        "conexus-dotnet": {
+          "$ref": "#/$defs/dotnetClientRepo"
+        },
+        "kanon-dotnet": {
+          "$ref": "#/$defs/dotnetClientRepo"
+        },
+        "allagma-dotnet": {
+          "$ref": "#/$defs/allagmaRepo"
+        },
+        "ontogony-ui": {
+          "$ref": "#/$defs/uiRepo"
+        },
+        "ontogony-frontend": {
+          "$ref": "#/$defs/frontendRepo"
+        }
+      }
+    },
+    "contracts": {
+      "$ref": "#/$defs/contractHashes"
+    }
+  },
+  "$defs": {
+    "platformRepo": {
+      "type": "object",
+      "required": ["commit", "packageVersion"],
+      "additionalProperties": false,
+      "properties": {
+        "commit": { "$ref": "#/$defs/sha40" },
+        "packageVersion": { "type": "string" }
+      }
+    },
+    "dotnetClientRepo": {
+      "type": "object",
+      "required": ["commit", "clientVersion"],
+      "additionalProperties": false,
+      "properties": {
+        "commit": { "$ref": "#/$defs/sha40" },
+        "clientVersion": { "type": "string" }
+      }
+    },
+    "allagmaRepo": {
+      "type": "object",
+      "required": ["commit", "apiPrefix"],
+      "additionalProperties": false,
+      "properties": {
+        "commit": { "$ref": "#/$defs/sha40" },
+        "apiPrefix": { "type": "string" }
+      }
+    },
+    "uiRepo": {
+      "type": "object",
+      "required": ["commit", "packageVersion"],
+      "additionalProperties": false,
+      "properties": {
+        "commit": { "$ref": "#/$defs/sha40" },
+        "packageVersion": { "type": "string" },
+        "tarballSha256": {
+          "type": "string",
+          "description": "SHA256 of the packed .tgz produced by npm pack at this commit."
+        }
+      }
+    },
+    "frontendRepo": {
+      "type": "object",
+      "required": ["commit"],
+      "additionalProperties": false,
+      "properties": {
+        "commit": { "$ref": "#/$defs/sha40" },
+        "buildProvenanceSha256": {
+          "type": "string",
+          "description": "SHA256 of the frontend build provenance file."
+        }
+      }
+    },
+    "contractHashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "openapiSnapshots": {
+          "type": "object",
+          "description": "SHA256 hashes of OpenAPI snapshot files keyed by service name.",
+          "additionalProperties": { "type": "string" }
+        },
+        "routeInventories": {
+          "type": "object",
+          "description": "SHA256 hashes of backend route inventory artifacts keyed by service name.",
+          "additionalProperties": { "type": "string" }
+        },
+        "frontendRouteInventory": {
+          "type": "string",
+          "description": "SHA256 of the frontend ROUTE_WORKFLOW_INVENTORY.md."
+        },
+        "uiPublicSubpaths": {
+          "type": "string",
+          "description": "SHA256 of the UI consumer compatibility manifest."
+        },
+        "agentInteractionPackage": {
+          "type": "object",
+          "description": "Agent-interaction package commit and tarball hash if applicable.",
+          "additionalProperties": false,
+          "properties": {
+            "commit": { "$ref": "#/$defs/sha40" },
+            "tarballSha256": { "type": "string" }
+          }
+        }
+      }
+    },
+    "sha40": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$",
+      "description": "40-character lowercase hex git SHA."
+    }
+  }
+}

@@ -99,7 +99,7 @@ pwsh ./scripts/validate-header-propagation-contract.ps1 -DevRoot C:\dev
 | `kanon-dotnet` | KANON-PROP-001 | `KanonConexusAssistancePropagationConformanceTests` |
 | `conexus-dotnet` | CONEXUS-PROP-001 | `ConexusOutboundPropagationConformanceTests` |
 
-Index: [`docs/planning/PHASE_TIGHT_CLOSEOUT_2026-05-22.md`](../planning/PHASE_TIGHT_CLOSEOUT_2026-05-22.md).
+Index: [`docs/CURRENT_STATE.md`](../CURRENT_STATE.md).
 
 ## Non-goals
 

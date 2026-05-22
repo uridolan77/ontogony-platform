@@ -7,9 +7,9 @@ This document is the **staged** policy for public API documentation completeness
 1. **XML documentation (`CS1591`)** — Know exactly which shipped assemblies must have complete public XML comments today, which are deferred, and how we expand enforcement later.
 2. **Coverage** — Always produce **human-readable** HTML from CI Cobertura output; keep numeric **thresholds advisory** until baselines stabilize, then introduce a blocking gate in a follow-up change.
 
-## Shipped packages (23)
+## Shipped packages (27)
 
-All `src/Ontogony.*` projects that `scripts/validate-shipping-inventory.ps1` counts are **shipping** NuGet packages. Each ships with `GenerateDocumentationFile=true` (see root `Directory.Build.props`).
+All `src/Ontogony.*` projects that `scripts/validate-shipping-inventory.ps1` counts are **shipping** NuGet packages (27 under `src/`). Each ships with `GenerateDocumentationFile=true` (see root `Directory.Build.props`).
 
 ## Tier A — `CS1591` enforced (complete XML required)
 
