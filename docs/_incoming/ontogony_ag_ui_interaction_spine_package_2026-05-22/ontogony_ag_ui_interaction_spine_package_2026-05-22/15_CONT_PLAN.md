@@ -228,6 +228,13 @@ Do not start all of this at once. I’d do:
 
 6. ADAPTER-AGUI-002 ✅ (local)
    Cross-system evidence graph from AG-UI events.
+
+7. AGUI-RELEASE-CLOSURE-001 / 002 ✅ (local)
+   `npm run check:full` green on `ontogony-frontend` (378 Playwright tests, 2026-05-22).
+   Evidence: `ontogony-platform/docs/evidence/AGUI_RELEASE_CLOSURE_001_EVIDENCE.md`,
+   `AGUI_RELEASE_CLOSURE_002_EVIDENCE.md`,
+   `ontogony-frontend/docs/evidence/AGUI_RELEASE_CLOSURE_E2E_001_EVIDENCE.md`.
+   Next: **KANON-AGUI-WORKBENCH-001** (not a release-closure blocker).
 ```
 
 # Strategic direction

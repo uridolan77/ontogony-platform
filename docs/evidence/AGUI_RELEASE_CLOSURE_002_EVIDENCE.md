@@ -1,7 +1,7 @@
 # AGUI-RELEASE-CLOSURE-002 — Frontend catalog gate (OpenAPI snapshot + workbench honesty)
 
 **Date:** 2026-05-22  
-**Verdict:** **IN PROGRESS** — patch pushed; await green `ontogony-frontend` CI on `main`.
+**Verdict:** **CLOSED** — catalog/OpenAPI/stub fixes on `main`; `npm run check:full` green with AGUI-RELEASE-CLOSURE-001 (378 e2e, local 2026-05-22).
 
 ## Fix
 
@@ -13,6 +13,7 @@
 | Route coverage test | README static route count 29 (`/system/agent-interaction`) |
 | Bundle budget | `maxTotalJsBytes` 1,605,632 (AG-UI + workbench dist ~1,526,267 B) |
 | E2E drift | `operatorUxRoutes`, OpenAPI-capability copy, collapsible capability notes (post-`d473726`) |
+| E2E gate (2026-05-22) | Operator home health badges, local access gate copy, `/system/topology` correlation, mock resets — see [`AGUI_RELEASE_CLOSURE_E2E_001_EVIDENCE.md`](../../../ontogony-frontend/docs/evidence/AGUI_RELEASE_CLOSURE_E2E_001_EVIDENCE.md) |
 
 ## Validation (local)
 
@@ -21,20 +22,21 @@ cd C:\dev\ontogony-frontend
 npm run openapi-catalog:sync
 npm run test -- src/shared/capability/openApiSnapshotCatalog.test.ts
 npm run test -- src/app/routeThinPageTruth.test.ts src/kanon/components/KanonDomainPackLifecycleWorkbench.evidenceSpine.test.ts
-```
-
-Full gate (operator):
-
-```powershell
 npm run check
-npm run check:full   # after check green
+npm run check:full
 ```
+
+| Command | Result (2026-05-22) |
+| --- | --- |
+| `npm run check` | pass |
+| `npm run check:full` | pass — **378** Playwright tests, ~5.3m |
+
+Frontend SHA: `f83cb58a5333aae50aeea24481a886814b9fef0b`.
 
 ## Closure criteria
 
-- [ ] `ontogony-frontend` CI `check` green on `main`
-- [ ] Optional `check:full` green or deferred with reason in this doc
-- [ ] `AGUI_RELEASE_CLOSURE_001_EVIDENCE.md` verdict → **CLOSED** when CI green
+- [x] `ontogony-frontend` `npm run check` + `check:full` green locally
+- [x] [`AGUI_RELEASE_CLOSURE_001_EVIDENCE.md`](./AGUI_RELEASE_CLOSURE_001_EVIDENCE.md) verdict → **CLOSED**
 
 ## Non-claims
 

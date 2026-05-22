@@ -105,16 +105,20 @@ Documented in package [`14_BACKLOG_RISKS_AND_NON_GOALS.md`](../_incoming/ontogon
 - Hidden reasoning / raw prompts excluded by contract and projectors.
 - Additional JSONL fixture categories from package testing doc remain optional backlog.
 
-## Remaining work (merge only)
+## Release closure (2026-05-22)
+
+- [x] `ontogony-frontend` `npm run check:full` green locally — **378** Playwright tests ([`AGUI_RELEASE_CLOSURE_E2E_001_EVIDENCE.md`](../../../ontogony-frontend/docs/evidence/AGUI_RELEASE_CLOSURE_E2E_001_EVIDENCE.md))
+- [x] [`AGUI_RELEASE_CLOSURE_001_EVIDENCE.md`](./AGUI_RELEASE_CLOSURE_001_EVIDENCE.md) → **CLOSED**
+
+## Remaining work
 
 ```text
-- [ ] Open/stack PRs per 05_REPO_PR_SEQUENCE.md (+ OFE-AGUI-004 as separate frontend PR)
-- [ ] CI green on each repo (unit + contract gates)
-- [ ] Merge to moving-main / release branches per team process
+- [ ] GitHub Actions green on release SHA (record in CI evidence template)
 - [ ] Optional: docker-live operator smoke of /system/agent-interaction?runId=…
+- [ ] KANON-AGUI-WORKBENCH-001 — review queue in frontend workbench timeline (next product slice)
 ```
 
-No further spine **architecture** work is required for milestone closure after merge.
+No further spine **architecture** work is required for AG-UI release closure.
 
 ## Related docs
 

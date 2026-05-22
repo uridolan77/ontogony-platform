@@ -1,7 +1,7 @@
 # AGUI-RELEASE-CLOSURE-001 — AG-UI continuation phases 1–6 land
 
 **Date:** 2026-05-22  
-**Verdict:** **IN PROGRESS** — artifacts on `main`; frontend CI fixes pushed (`ontogony-ui` tsconfig, route/inventory sync).
+**Verdict:** **CLOSED** — phases 1–6 on `main`; `ontogony-frontend` `npm run check:full` green (378 Playwright tests, local 2026-05-22).
 
 ## Scope
 
@@ -31,6 +31,7 @@ Land AG-UI continuation plan phases 1–6 without splitting PRs:
 - `AgentInteractionEvidenceGraphAction` / `Drawer`
 - `docs/evidence/OFE_AGUI_RESOLVER_002_EVIDENCE.md`
 - Workbench adapter alignment (same release commit family)
+- E2E alignment for operator home, access gate, topology correlation, Conexus diagnostics errors, Kanon plan/bindings (`f83cb58` family)
 
 ## Validation (local)
 
@@ -42,23 +43,37 @@ dotnet test tests\Ontogony.Infrastructure.Tests --filter FullyQualifiedName~Syst
 cd C:\dev\ontogony-frontend
 npm run typecheck
 npm run test -- src/agent-interaction/
+npm run check:full
 ```
+
+### `check:full` result (2026-05-22, operator machine)
+
+| Step | Result | Notes |
+| --- | --- | --- |
+| `openapi:check` through `performance:check` | pass | 21-step `run-check.mjs --e2e` pipeline |
+| `test:e2e` | pass | **378 passed** (5.3m, 2 workers) |
+| Frontend SHA | `f83cb58a5333aae50aeea24481a886814b9fef0b` | `main`, synced with `origin/main` |
+
+E2E detail: [`ontogony-frontend/docs/evidence/AGUI_RELEASE_CLOSURE_E2E_001_EVIDENCE.md`](../../../ontogony-frontend/docs/evidence/AGUI_RELEASE_CLOSURE_E2E_001_EVIDENCE.md).
 
 ## CI status
 
 | Repo | Branch | Notes |
 | --- | --- | --- |
-| ontogony-platform | `main` | Monitor `ci` + CodeQL after push |
-| ontogony-frontend | `main` | Monitor CI after `df7932f` + inventory catalog commits |
+| ontogony-platform | `main` | Docs/evidence; monitor `ci` after evidence push |
+| ontogony-frontend | `main` | `check:full` green locally; e2e fixes on `main` (`f83cb58`) |
 | ontogony-ui | `main` | `9731c04` — tsconfig paths for `feedback` / `navigation` subpaths |
 
-## Remaining (post-green CI)
+## Closure criteria
 
-- [ ] Frontend `CI` workflow green on `main`
+- [x] Frontend `npm run check:full` green locally (378 Playwright tests)
+- [x] AG-UI continuation phases 1–6 landed on `main`
+- [x] [`AGUI_RELEASE_CLOSURE_002_EVIDENCE.md`](./AGUI_RELEASE_CLOSURE_002_EVIDENCE.md) catalog gate closed
 - [ ] Optional docker-live smoke: `/system/agent-interaction?runId=...`
-- [ ] **KANON-AGUI-WORKBENCH-001** — review queue in frontend timeline (next product slice)
+- [ ] **KANON-AGUI-WORKBENCH-001** — review queue in frontend timeline (**next** product slice; not a release-closure blocker)
 
 ## Non-claims
 
 - Kanon review-queue not in frontend workbench timeline (library projection only).
 - No server-side evidence aggregation API.
+- Local `check:full` ≠ GitHub Actions green until CI run recorded on the same SHA.
