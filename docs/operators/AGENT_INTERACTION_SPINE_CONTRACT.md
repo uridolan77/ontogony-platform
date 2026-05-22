@@ -44,6 +44,7 @@ See [`SYSTEM_EVIDENCE_SPINE_CONTRACT.md`](./SYSTEM_EVIDENCE_SPINE_CONTRACT.md). 
 | [`ontogony-agent-interaction-event-v0.schema.json`](../schemas/ontogony-agent-interaction-event-v0.schema.json) | Platform | Single interaction event JSON Schema |
 | [`ontogony-agent-interaction-session-v0.schema.json`](../schemas/ontogony-agent-interaction-session-v0.schema.json) | Platform | Derived session snapshot (reducer output shape) |
 | [`docs/schemas/fixtures/agent-interaction/*.jsonl`](../schemas/fixtures/agent-interaction/) | Platform | Deterministic replay fixtures |
+| [`@ontogony/agent-interaction`](../../packages/ontogony-agent-interaction/) | Platform | TypeScript types + AG-UI export adapter ([`AG_UI_COMPATIBILITY_ADAPTER.md`](./AG_UI_COMPATIBILITY_ADAPTER.md)) |
 | [`allagma-feature-connection.matrix.json`](../../../allagma-dotnet/docs/system/allagma-feature-connection.matrix.json) | Allagma | Run/events/audit/operations source routes |
 | [`KANON_EVIDENCE_SPINE_HANDOFF.md`](../../../kanon-dotnet/docs/operators/KANON_EVIDENCE_SPINE_HANDOFF.md) | Kanon | Decision / human-gate routes |
 | [`MODEL_CALL_EVIDENCE_FLOW.md`](../../../conexus-dotnet/docs/operators/MODEL_CALL_EVIDENCE_FLOW.md) | Conexus | Model-call evidence sequence |

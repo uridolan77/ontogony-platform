@@ -38,3 +38,7 @@ appsettings.Development.local.json
 # Logs
 *.log
 logs/
+
+# TypeScript packages (build output committed only via dist when published locally)
+packages/**/node_modules/
+packages/**/dist/
