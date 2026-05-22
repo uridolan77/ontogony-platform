@@ -211,8 +211,8 @@ Do not start all of this at once. I’d do:
 2. AGUI-SPINE-CLOSEOUT-001 ✅ (local)
    Formal acceptance closeout — see ontogony-platform/docs/evidence/AGUI_SPINE_CLOSEOUT_001_EVIDENCE.md
 
-3. OFE-AGUI-005
-   Better workbench/timeline UX.
+3. OFE-AGUI-005 ✅ (local)
+   Better workbench/timeline UX — see ontogony-frontend/docs/evidence/OFE_AGUI_005_WORKBENCH_POLISH_EVIDENCE.md
 
 4. KANON-AGUI-REVIEW-001
    Human review / semantic review event projection.
