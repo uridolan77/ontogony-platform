@@ -63,9 +63,11 @@ Requires sibling checkouts: `allagma-dotnet`, `kanon-dotnet`, `conexus-dotnet`, 
 
 Full platform CI materializes registry siblings, then runs this gate with `-DevRoot` pointing at the materialized workspace. Failures block merge when any check status is `Fail` (skipped checks are allowed for optional repos in fixture-only runs).
 
-## Header propagation conformance (PLATFORM-9-003)
+## Header propagation conformance (PLATFORM-9-003) — done
 
 See [`HEADER_PROPAGATION_CONTRACT.md`](./HEADER_PROPAGATION_CONTRACT.md). Checks: matrix, frozen constants, operator docs, sibling integration docs, `Ontogony.Testing` helpers.
+
+**Consumer tests (done):** ALLAGMA-PROP-001, KANON-PROP-001, CONEXUS-PROP-001 — [`PHASE_TIGHT_CLOSEOUT_2026-05-22.md`](../planning/PHASE_TIGHT_CLOSEOUT_2026-05-22.md).
 
 Standalone validation: [`scripts/validate-header-propagation-contract.ps1`](../scripts/validate-header-propagation-contract.ps1).
 
@@ -77,6 +79,6 @@ Checks: conformance matrix, wire samples, `OperatorFailureTaxonomyAdapter` vs ta
 
 ## Non-goals
 
-- No live stack smoke (see Allagma `scripts/run-system-cohesion-smoke.ps1`).
+- No live stack smoke (see Allagma `scripts/system/run-system-cohesion-acceptance.ps1` or `run-system-cohesion-smoke.ps1`).
 - No product semantics — mechanical alignment only.
 - Not a replacement for per-repo contract tests (Kanon route inventory, Conexus DTO snapshots, Allagma OpenAPI snapshots).

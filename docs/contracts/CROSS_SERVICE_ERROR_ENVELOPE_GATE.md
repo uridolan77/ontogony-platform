@@ -1,6 +1,8 @@
-# Cross-service error envelope gate (PLATFORM-9-002)
+# Cross-service error envelope gate (PLATFORM-9-002) — done
 
 Platform-owned **conformance enforcement** for the neutral `CrossServiceErrorEnvelope` shape and cross-service failure normalization paths. This does not replace per-service HTTP contracts; it proves they map consistently when failures cross service boundaries.
+
+Part of Phase Tight closeout (2026-05-22): [`PHASE_TIGHT_CLOSEOUT_2026-05-22.md`](../planning/PHASE_TIGHT_CLOSEOUT_2026-05-22.md).
 
 ## Neutral envelope (Platform)
 

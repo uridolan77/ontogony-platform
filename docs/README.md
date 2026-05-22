@@ -7,6 +7,8 @@
 
 **Boundary:** Closed Docker-local and product-hardening milestones documented here are **not production readiness**.
 
+**Phase Tight (2026-05-22):** PLATFORM-9-001/002/003 complete; consumer PROP tests adopted — [`planning/PHASE_TIGHT_CLOSEOUT_2026-05-22.md`](planning/PHASE_TIGHT_CLOSEOUT_2026-05-22.md) · [`planning/PHASE_TIGHT.md`](planning/PHASE_TIGHT.md).
+
 ---
 
 ## Current operator entry points
@@ -16,6 +18,8 @@
 | Unified docs structure (six repos) | [`operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md`](operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md) |
 | Terminology (Allagma, Kanon, Conexus, …) | [`operators/ONTOGONY_TERMINOLOGY_GLOSSARY.md`](operators/ONTOGONY_TERMINOLOGY_GLOSSARY.md) |
 | Trace / correlation contract | [`operators/TRACE_CORRELATION_CONTRACT.md`](operators/TRACE_CORRELATION_CONTRACT.md) |
+| System compatibility gate | [`contracts/SYSTEM_COMPATIBILITY_GATE.md`](contracts/SYSTEM_COMPATIBILITY_GATE.md) |
+| Header propagation contract | [`contracts/HEADER_PROPAGATION_CONTRACT.md`](contracts/HEADER_PROPAGATION_CONTRACT.md) |
 | CI cost / branch protection | [`operators/CI_COST_CONTROL.md`](operators/CI_COST_CONTROL.md) |
 | Operator docs index | [`operators/README.md`](operators/README.md) |
 | Docker-local compose stack (incl. real-provider scripts) | `docker/local-working-system/README.md` (repo root) |
@@ -65,6 +69,7 @@ Recent / program evidence:
 | RP closeout | [`evidence/RP_CLOSEOUT_001_REAL_PROVIDER_VALIDATION_EVIDENCE.md`](evidence/RP_CLOSEOUT_001_REAL_PROVIDER_VALIDATION_EVIDENCE.md) |
 | RP-005 manual QA | [`evidence/RP_005_REAL_PROVIDER_MANUAL_QA_EXECUTION_EVIDENCE.md`](evidence/RP_005_REAL_PROVIDER_MANUAL_QA_EXECUTION_EVIDENCE.md) |
 | Post-Docker hardening closeout | [`evidence/POST_DOCKER_HARDENING_CLOSEOUT_001_EVIDENCE.md`](evidence/POST_DOCKER_HARDENING_CLOSEOUT_001_EVIDENCE.md) |
+| Phase Tight platform gates | [`evidence/PLATFORM_PHASE_TIGHT_2026_05_22_EVIDENCE.md`](evidence/PLATFORM_PHASE_TIGHT_2026_05_22_EVIDENCE.md) |
 
 Naming: `<ITEM>_EVIDENCE.md` — see the [documentation structure standard](operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md#6-evidence-files).
 

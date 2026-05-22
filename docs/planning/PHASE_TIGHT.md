@@ -1,5 +1,7 @@
 To push these repos **above 9**, the work is not “add more features.” It is **turn strong local-alpha repos into hard-gated, reproducible, operator-grade systems**.
 
+> **Closeout index (done PRs + evidence):** [`PHASE_TIGHT_CLOSEOUT_2026-05-22.md`](./PHASE_TIGHT_CLOSEOUT_2026-05-22.md)
+
 The current scores are high because the architecture is real. They are not above 9 because too much proof is still distributed across docs, local scripts, PR evidence, and manual discipline.
 
 I would set the current scores as:
@@ -36,7 +38,7 @@ A repo goes above 9 only when it has:
 10. Known limitations are explicit and not confused with current state
 ```
 
-Right now you have **1–6 mostly done**. To cross 9, focus on **7–10**.
+Right now you have **1–8 mostly done** on the backend spine (platform gate, envelopes, propagation, Allagma acceptance, sibling PROP tests). Remaining for **9.2+**: **9–10** (operator docs freshness, explicit limitations) plus domain gates (Allagma evidence graph, Conexus alias manifest, Kanon lifecycle/replay matrices).
 
 ---
 

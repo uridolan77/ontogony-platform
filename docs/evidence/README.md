@@ -27,7 +27,9 @@ Verification records for cross-repo programs hosted on `ontogony-platform`. File
 | **Operator V1 demo flows (SYSTEM-DEMO-FLOWS-001)** | [SYSTEM_DEMO_FLOWS_001_EVIDENCE.md](./SYSTEM_DEMO_FLOWS_001_EVIDENCE.md), [OPERATOR_V1_DEMO_GUIDE.md](../operators/OPERATOR_V1_DEMO_GUIDE.md) |
 | **First-version RC (FIRST-VERSION-RC-001)** | [FIRST_VERSION_RC_001_EVIDENCE.md](./FIRST_VERSION_RC_001_EVIDENCE.md) — [`ontogony-operator-v1.lock.json`](../system/ontogony-operator-v1.lock.json), [closeout](../releases/FIRST_VERSION_RC_001_CLOSEOUT.md) |
 | **Platform substrate RC (PLATFORM-RC-001)** | [PLATFORM_RC_001_SUBSTRATE_CONTRACT_FREEZE_EVIDENCE.md](./PLATFORM_RC_001_SUBSTRATE_CONTRACT_FREEZE_EVIDENCE.md) — [ONTOGONY_PLATFORM_0_4_ALPHA_RC_CONTRACT.md](../releases/ONTOGONY_PLATFORM_0_4_ALPHA_RC_CONTRACT.md) |
+| **Phase Tight gates (2026-05-22)** | [PLATFORM_PHASE_TIGHT_2026_05_22_EVIDENCE.md](./PLATFORM_PHASE_TIGHT_2026_05_22_EVIDENCE.md) — PLATFORM-9-001/002/003 |
 | **Backend SYSTEM-RC-001 certification** | [SYSTEM_RC_001_CERTIFICATION_PACKAGE_INTAKE.md](../reviews/SYSTEM_RC_001_CERTIFICATION_PACKAGE_INTAKE.md) — PRs 001A–001E + CONEXUS/KANON RC + **PLATFORM-RC-001**; **SYSTEM-RC-001F** = backend AG-UI spine certification (pending/follow-up) |
+| **Phase Tight (2026-05-22)** | [PLATFORM_PHASE_TIGHT_2026_05_22_EVIDENCE.md](./PLATFORM_PHASE_TIGHT_2026_05_22_EVIDENCE.md) — [`PHASE_TIGHT_CLOSEOUT_2026-05-22.md`](../planning/PHASE_TIGHT_CLOSEOUT_2026-05-22.md) |
 
 ### Cleared (Alpha-005 post-cut — do not reopen)
 
