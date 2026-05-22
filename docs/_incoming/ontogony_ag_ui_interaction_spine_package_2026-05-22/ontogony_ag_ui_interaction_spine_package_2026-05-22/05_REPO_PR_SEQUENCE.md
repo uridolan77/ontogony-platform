@@ -198,7 +198,7 @@ Acceptance:
 
 ---
 
-### 9. `ALLAGMA-AGUI-002` — Live stream transport ⏳
+### 9. `ALLAGMA-AGUI-002` — Live stream transport ✅
 
 **Repo:** `allagma-dotnet`  
 **Purpose:** Add SSE or WebSocket stream for interaction events after schemas and UI are stable.
