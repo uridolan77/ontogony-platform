@@ -35,6 +35,9 @@ public static class SystemCompatibilityGate
         checks.Add(CheckFrontendRouteClientMatrix(workspace));
         checks.Add(RouteClientDriftConformance.CheckFrontendRouteClientDriftScript(workspace));
         checks.Add(RouteClientDriftConformance.CheckAllagmaOpenApiCrossRepoParity(workspace));
+        checks.Add(
+            LiveArtifactEvidenceJourneyConformance.CheckFrontendLiveArtifactEvidenceJourneyGate(
+                workspace));
         checks.Add(CrossServiceErrorEnvelopeConformance.CheckMatrixArtifacts(workspace));
         checks.Add(CrossServiceErrorEnvelopeConformance.CheckPlatformSamples(workspace));
         checks.Add(CrossServiceErrorEnvelopeConformance.CheckTaxonomyAdapterMappings(workspace));

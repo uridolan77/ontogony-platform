@@ -456,7 +456,7 @@ SYSTEM-9B-001 End-to-end evidence graph acceptance          ✅ ALLAGMA-9-002
 SYSTEM-9B-002 Kanon semantic decision replay bundle acceptance ⬜ KANON-9-002
 SYSTEM-9B-003 Conexus streaming evidence acceptance         ⬜ CONEXUS-9-002
 SYSTEM-9B-004 Allagma restart/idempotency/human-gate acceptance ⬜ (partial via cohesion)
-SYSTEM-9B-005 Frontend evidence journey E2E from live artifacts ⬜
+SYSTEM-9B-005 Frontend evidence journey E2E from live artifacts ✅
 ```
 
 Actual (partial Sprint B):
@@ -502,7 +502,7 @@ Do this first:
 4. ✅ Allagma evidence graph acceptance (ALLAGMA-9-002)
 5. ⬜ Conexus model alias manifest (CONEXUS-9-001)
 6. ⬜ Kanon domain-pack lifecycle/replay hardening (KANON-9-001, KANON-9-002)
-7. ⬜ Frontend evidence journey live-artifact E2E
+7. ✅ Frontend evidence journey live-artifact E2E (SYSTEM-9B-005)
 ```
 
 Why this order? Because **Allagma is the integration spine**. If Allagma can prove the full system loop, every other repo’s next hardening target becomes obvious.

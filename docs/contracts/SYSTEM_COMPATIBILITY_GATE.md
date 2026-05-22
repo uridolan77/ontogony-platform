@@ -21,6 +21,7 @@ Platform-owned mechanical gate that proves the Ontogony alpha system has not dri
 | Allagma feature matrix | `allagma-dotnet` | `docs/system/allagma-feature-connection.matrix.json` |
 | Environment matrix | `allagma-dotnet` | `docs/system/SYSTEM_ENVIRONMENT_MATRIX.md` |
 | Frontend route/client matrix | `ontogony-frontend` | `docs/system/ALLAGMA_FRONTEND_COVERAGE_MATRIX.md`, `docs/generated/ROUTE_WORKFLOW_INVENTORY.md`, `openapi/*.json`, `npm run route-client-drift:check` (SYSTEM-9A-005) |
+| Frontend live-artifact evidence journey | `ontogony-frontend` | `e2e/evidence-journey-docker-live.spec.ts`, `npm run live-artifact-evidence-journey:check` (SYSTEM-9B-005) |
 | Platform package version | `ontogony-platform` | `Directory.Build.props` `<Version>` |
 
 ## Outputs

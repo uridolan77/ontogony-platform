@@ -372,6 +372,23 @@
       ]
     },
     {
+      "id": "frontend-live-artifact-evidence-journey",
+      "ownerRepo": "ontogony-frontend",
+      "protocolId": "ontogony.frontend.evidence-journey.live-artifact.v1",
+      "authorityMode": "observational",
+      "sideEffectLevel": "read_only",
+      "kind": "frontend-route",
+      "paths": [
+        "e2e/evidence-journey-docker-live.spec.ts",
+        "scripts/live-artifact-evidence-journey-catalog.json",
+        "scripts/lib/system-live-artifact-evidence-journey.mjs"
+      ],
+      "validators": [
+        "npm run live-artifact-evidence-journey:check",
+        "npm run test:e2e:docker-live:evidence-journey"
+      ]
+    },
+    {
       "id": "allagma-observability-artifact",
       "ownerRepo": "allagma-dotnet",
       "protocolId": "allagma.observability.artifact.capture.v1",
