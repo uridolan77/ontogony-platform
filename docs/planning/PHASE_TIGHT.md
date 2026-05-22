@@ -46,7 +46,7 @@ The gap is that Platform is still partly a **library repo** plus **coordination 
 
 ## Required moves
 
-### PLATFORM-9-001 — System compatibility gate package
+### PLATFORM-9-001 — System compatibility gate package ✅
 
 Add a Platform-owned compatibility validator package:
 

@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>Ontogony.SystemCompatibility</PackageId>
+    <Description>Cross-repo mechanical compatibility gate for the Ontogony alpha system.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ontogony.Contracts\Ontogony.Contracts.csproj" />
+    <ProjectReference Include="..\Ontogony.Hashing\Ontogony.Hashing.csproj" />
+    <ProjectReference Include="..\Ontogony.Http\Ontogony.Http.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>

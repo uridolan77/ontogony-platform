@@ -1,0 +1,15 @@
+{
+  "schema": "ontogony-allagma-feature-connection-matrix-v1",
+  "allagmaEndpoints": [
+    { "id": "list-runs", "method": "GET", "path": "/allagma/v0/runs" }
+  ],
+  "kanonCalls": [
+    { "id": "compile", "method": "POST", "path": "/ontology/v0/semantic-query-plans/compile" }
+  ],
+  "conexusCalls": [
+    { "id": "chat", "method": "POST", "path": "/v1/chat/completions" }
+  ],
+  "frontendLinks": [
+    { "id": "fe-runs", "route": "/allagma/runs", "allagmaEndpointId": "list-runs" }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "schema": "ontogony-system-protocol-registry-v1",
+  "baseline": "SYSTEM-TEST-001",
+  "generatedAt": "2026-05-22",
+  "runtimeLock": {
+    "ownerRepo": "allagma-dotnet",
+    "path": "docs/system/ontogony-runtime.lock.json"
+  },
+  "apiPrefixes": {
+    "allagma": "/allagma/v0",
+    "kanon": "/ontology/v0",
+    "conexus": "/v1/chat/completions"
+  },
+  "repos": [
+    {
+      "name": "ontogony-platform",
+      "role": "shared mechanics",
+      "ref": "main",
+      "commit": "0000000000000000000000000000000000000001"
+    },
+    {
+      "name": "allagma-dotnet",
+      "role": "governed runtime",
+      "ref": "main",
+      "commit": "0000000000000000000000000000000000000002"
+    },
+    {
+      "name": "kanon-dotnet",
+      "role": "semantic authority",
+      "ref": "main",
+      "commit": "0000000000000000000000000000000000000003"
+    },
+    {
+      "name": "conexus-dotnet",
+      "role": "model gateway",
+      "ref": "main",
+      "commit": "0000000000000000000000000000000000000004"
+    }
+  ]
+}

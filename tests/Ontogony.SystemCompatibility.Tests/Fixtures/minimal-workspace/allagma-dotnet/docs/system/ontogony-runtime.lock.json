@@ -1,0 +1,21 @@
+{
+  "baseline": "SYSTEM-TEST-001",
+  "lockedCommits": {
+    "ontogony-platform": "0000000000000000000000000000000000000001",
+    "allagma-dotnet": "0000000000000000000000000000000000000002",
+    "kanon-dotnet": "0000000000000000000000000000000000000003",
+    "conexus-dotnet": "0000000000000000000000000000000000000004"
+  },
+  "packageVersions": {
+    "Ontogony": "0.3.0-alpha.1",
+    "Kanon.Client": "0.1.0-alpha.0",
+    "Kanon.Contracts": "0.1.0-alpha.0",
+    "Conexus.Client": "0.1.0-alpha.1",
+    "Conexus.Contracts": "0.1.0-alpha.1"
+  },
+  "apiPrefixes": {
+    "allagma": "/allagma/v0",
+    "kanon": "/ontology/v0",
+    "conexus": "/v1/chat/completions"
+  }
+}

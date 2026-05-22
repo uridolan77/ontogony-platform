@@ -78,3 +78,7 @@ All PRs modifying `Ontogony.Contracts` or `schemas/` must include:
 ## Compatibility matrix
 
 See [header-compatibility-matrix.md](./header-compatibility-matrix.md) for a detailed table of header stability across service boundaries.
+
+## System compatibility gate (PLATFORM-9-001)
+
+Cross-repo mechanical drift detection: [SYSTEM_COMPATIBILITY_GATE.md](./SYSTEM_COMPATIBILITY_GATE.md). Run via `scripts/run-system-compatibility-gate.ps1`.

@@ -217,6 +217,22 @@ jobs:
         env:
           DEV_ROOT: ${{ runner.temp }}/ontogony-dev
         run: ./scripts/validate-system-protocol-registry.ps1 -DevRoot $env:DEV_ROOT
+      - name: System compatibility gate (PLATFORM-9-001)
+        shell: pwsh
+        env:
+          ONTOGONY_DEV_ROOT: ${{ runner.temp }}/ontogony-dev
+          ONTOGONY_PLATFORM_ROOT: ${{ github.workspace }}
+          ONTOGONY_SYSTEM_COMPAT_ARTIFACT_DIR: ${{ github.workspace }}/artifacts/system-compat
+        run: |
+          dotnet test tests/Ontogony.SystemCompatibility.Tests/Ontogony.SystemCompatibility.Tests.csproj -c Release --no-build --filter "Category=SystemCompatGate"
+      - name: Upload system compatibility summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: system-compatibility-summary
+          path: artifacts/system-compat/
+          retention-days: 30
+          if-no-files-found: warn
       - name: Validate stale incoming packages (SYS-STALE-PACKAGE-GUARD-001)
         shell: pwsh
         run: ./scripts/validate-stale-incoming-package.ps1

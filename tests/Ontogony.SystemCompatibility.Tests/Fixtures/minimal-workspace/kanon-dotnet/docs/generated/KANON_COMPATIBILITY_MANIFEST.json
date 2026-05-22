@@ -1,0 +1,16 @@
+{
+  "schema": "ontogony-kanon-compatibility-manifest-v1.1",
+  "packages": {
+    "kanonClient": "0.1.0-alpha.0",
+    "kanonContracts": "0.1.0-alpha.0",
+    "ontogony": "0.3.0-alpha.1"
+  },
+  "api": {
+    "ontologyPrefix": "/ontology/v0"
+  },
+  "artifacts": {
+    "routeInventory": "docs/generated/ONTOLOGY_V0_ROUTE_INVENTORY.json",
+    "openApiBaseline": "docs/api/kanon-openapi-v1.json",
+    "openApiBaselineSha256": "e3566b3a06430868d71e9287dfd6c6c520a3da027aabea01951d407ee131dc2f"
+  }
+}

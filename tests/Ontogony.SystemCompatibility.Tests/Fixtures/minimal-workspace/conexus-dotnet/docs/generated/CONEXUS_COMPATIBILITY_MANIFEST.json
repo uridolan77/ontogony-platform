@@ -1,0 +1,10 @@
+{
+  "conexus": {
+    "clientVersion": "0.1.0-alpha.1",
+    "contractsVersion": "0.1.0-alpha.1",
+    "openApiSnapshots": {
+      "adminV0": "openapi/conexus-admin-v0.snapshot.json",
+      "gatewayV1": "openapi/conexus-v1.snapshot.json"
+    }
+  }
+}

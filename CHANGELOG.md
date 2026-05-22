@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+PLATFORM-9-001 — system compatibility gate package:
+
+- **`Ontogony.SystemCompatibility`** — cross-repo mechanical validator (runtime lock, Kanon/Conexus manifests, Allagma feature matrix, frontend OpenAPI snapshots, platform package version, propagation header contract).
+- **Docs** — [`docs/contracts/SYSTEM_COMPATIBILITY_GATE.md`](docs/contracts/SYSTEM_COMPATIBILITY_GATE.md); operator script [`scripts/run-system-compatibility-gate.ps1`](scripts/run-system-compatibility-gate.ps1).
+- **CI** — materialized siblings + `Category=SystemCompatGate` test; uploads `artifacts/system-compat/system-compatibility-summary.{json,md}`.
+- **Shipping inventory** — 27 Ontogony packages (`validate-shipping-inventory.ps1`, `pack-all.ps1`).
+
 PLATFORM-RC-001 — substrate contract freeze (docs + registry):
 
 - **Contract** — [`docs/releases/ONTOGONY_PLATFORM_0_4_ALPHA_RC_CONTRACT.md`](docs/releases/ONTOGONY_PLATFORM_0_4_ALPHA_RC_CONTRACT.md) freezes public API discipline, package line `0.3.0-alpha.1`, consumer validation commands, and non-semantic boundary for backend alpha-RC.
