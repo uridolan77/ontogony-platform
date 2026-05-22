@@ -1,7 +1,7 @@
 {
   "schema": "ontogony-system-protocol-registry-v1",
-  "baseline": "SYSTEM-ALPHA-006",
-  "generatedAt": "2026-05-20",
+  "baseline": "SYSTEM-RC-001A",
+  "generatedAt": "2026-05-22",
   "runtimeLock": {
     "ownerRepo": "allagma-dotnet",
     "path": "docs/system/ontogony-runtime.lock.json"
@@ -16,14 +16,14 @@
       "name": "ontogony-platform",
       "role": "shared mechanics / protocol registry owner",
       "ref": "main",
-      "commit": "23ba850431c0aa4936500c48713dde3899f0dbea",
+      "commit": "25703a438c54f93d145ca4a8e1899aa13f3dce2f",
       "packageVersions": ["Ontogony=0.3.0-alpha.1"]
     },
     {
       "name": "allagma-dotnet",
       "role": "governed runtime / runtime lock owner",
       "ref": "main",
-      "commit": "6dbf087dd7a2f375341bc2f3be970d9a09c0a7c7",
+      "commit": "5787e4ab39f6284f9bb8ab2c27ad8458c5bbbc78",
       "packageVersions": [
         "Kanon.Client=0.1.0-alpha.0",
         "Kanon.Contracts=0.1.0-alpha.0",
@@ -35,13 +35,15 @@
       "name": "kanon-dotnet",
       "role": "semantic authority",
       "ref": "main",
-      "commit": "515c7aadaccd2bc282032bb5434e785a335762ef"
+      "commit": "816a09f257b0a77912acbdfabffcc23e90f6caf0",
+      "packageVersions": ["Kanon.Client=0.1.0-alpha.0", "Kanon.Contracts=0.1.0-alpha.0"]
     },
     {
       "name": "conexus-dotnet",
       "role": "model gateway",
       "ref": "main",
-      "commit": "100c33d7f00800ad027914829cbe8bf6a2393a14"
+      "commit": "2ad88c6ea5121bf5c3ad501242065235dfbfd83d",
+      "packageVersions": ["Conexus.Client=0.1.0-alpha.1", "Conexus.Contracts=0.1.0-alpha.1"]
     },
     {
       "name": "ontogony-frontend",
@@ -139,8 +141,9 @@
       "kind": "evidence",
       "paths": [
         "docs/e2e/SYSTEM_COHESION_SMOKE.md",
-        "artifacts/system-e2e/20260520T185847Z/summary.json",
-        "artifacts/restart-e2e/20260520-175700/summary.json"
+        "artifacts/system-e2e/20260522T142637Z/summary.json",
+        "artifacts/restart-e2e/20260520-175700/summary.json",
+        "docs/evidence/SYSTEM_RC_001B_FULL_COHESION_EVIDENCE.md"
       ],
       "validators": ["scripts/run-system-cohesion-smoke.ps1"]
     },
@@ -154,9 +157,16 @@
       "paths": [
         "docs/generated/ONTOLOGY_V0_ROUTE_INVENTORY.json",
         "docs/api/kanon-openapi-v1.json",
-        "docs/architecture/ONTOLOGY_V0_ROUTE_AUTH_MATRIX.md"
+        "docs/architecture/ONTOLOGY_V0_ROUTE_AUTH_MATRIX.md",
+        "docs/system/KANON_SEMANTIC_AUTHORITY_CERTIFICATION_MATRIX.md",
+        "docs/system/kanon-semantic-authority-certification.matrix.json",
+        "docs/evidence/KANON_RC_001_SEMANTIC_AUTHORITY_CERTIFICATION_EVIDENCE.md"
       ],
-      "validators": ["scripts/update-kanon-openapi-baseline.ps1"]
+      "validators": [
+        "scripts/update-kanon-openapi-baseline.ps1",
+        "scripts/validate-semantic-authority-certification-matrix.ps1",
+        "scripts/run-semantic-authority-certification-matrix.ps1"
+      ]
     },
     {
       "id": "kanon-error-trace",
@@ -180,7 +190,35 @@
       "paths": [
         "docs/architecture/BOUNDARIES.md",
         "docs/contracts/STREAMING_CHAT_COMPLETION_CONTRACT.md",
-        "docs/operators/MODEL_CALL_EVIDENCE_FLOW.md"
+        "docs/operators/MODEL_CALL_EVIDENCE_FLOW.md",
+        "docs/system/CONEXUS_GATEWAY_CERTIFICATION_MATRIX.md",
+        "docs/system/conexus-gateway-certification.matrix.json",
+        "docs/evidence/CONEXUS_RC_001_GATEWAY_CERTIFICATION_EVIDENCE.md"
+      ],
+      "validators": [
+        "scripts/validate-gateway-certification-matrix.ps1",
+        "scripts/run-gateway-certification-matrix.ps1"
+      ]
+    },
+    {
+      "id": "platform-substrate-rc-contract",
+      "ownerRepo": "ontogony-platform",
+      "protocolId": "ontogony.platform.substrate-rc-contract.v1",
+      "authorityMode": "observational",
+      "sideEffectLevel": "read_only",
+      "kind": "evidence",
+      "paths": [
+        "docs/releases/ONTOGONY_PLATFORM_0_4_ALPHA_RC_CONTRACT.md",
+        "docs/evidence/PLATFORM_RC_001_SUBSTRATE_CONTRACT_FREEZE_EVIDENCE.md",
+        "docs/migrations/2026-05-22-platform-rc-001-substrate-contract-freeze.md",
+        "docs/architecture/package-levels.md",
+        "docs/governance/PACKAGE_COMPATIBILITY_CHECKLIST_0.3.0-alpha.1.md"
+      ],
+      "validators": [
+        "scripts/validate-package-levels.ps1",
+        "scripts/validate-system-protocol-registry.ps1",
+        "scripts/validate-system-evidence-spine-contract.ps1",
+        "scripts/validate-system-operator-failure-taxonomy.ps1"
       ]
     },
     {
@@ -297,16 +335,103 @@
       "authorityMode": "simulation_only",
       "sideEffectLevel": "evidence_record",
       "kind": "observability",
-      "paths": ["artifacts/observability/20260520T185946Z/observability-summary.json"],
+      "paths": [
+        "artifacts/observability/20260522T145643Z/observability-summary.json",
+        "docs/evidence/SYSTEM_RC_001D_OBSERVABILITY_PASS.md"
+      ],
       "validators": ["scripts/verify-system-observability.ps1"]
     }
   ],
   "evidence": [
     {
+      "id": "PLATFORM-RC-001",
+      "ownerRepo": "ontogony-platform",
+      "path": "docs/evidence/PLATFORM_RC_001_SUBSTRATE_CONTRACT_FREEZE_EVIDENCE.md",
+      "verdict": "PASS",
+      "recordedAt": "2026-05-22"
+    },
+    {
+      "id": "SYSTEM-RC-001A",
+      "ownerRepo": "allagma-dotnet",
+      "path": "docs/evidence/SYSTEM_RC_001A_RUNTIME_LOCK_PROMOTION_EVIDENCE.md",
+      "verdict": "PASS",
+      "recordedAt": "2026-05-22"
+    },
+    {
+      "id": "SYSTEM-RC-001B",
+      "ownerRepo": "allagma-dotnet",
+      "path": "docs/evidence/SYSTEM_RC_001B_FULL_COHESION_EVIDENCE.md",
+      "verdict": "PASS",
+      "recordedAt": "2026-05-22T142637Z"
+    },
+    {
+      "id": "SYSTEM-RC-001C",
+      "ownerRepo": "allagma-dotnet",
+      "path": "docs/evidence/SYSTEM_RC_001C_PACKAGE_MODE_CERTIFICATION.md",
+      "verdict": "PASS",
+      "recordedAt": "2026-05-22"
+    },
+    {
+      "id": "SYSTEM-RC-001D",
+      "ownerRepo": "allagma-dotnet",
+      "path": "docs/evidence/SYSTEM_RC_001D_OBSERVABILITY_PASS.md",
+      "verdict": "PASS",
+      "recordedAt": "2026-05-22T145643Z"
+    },
+    {
+      "id": "SYSTEM-RC-001E",
+      "ownerRepo": "allagma-dotnet",
+      "path": "docs/evidence/SYSTEM_RC_001E_EVIDENCE_SPINE_GOLDEN_RUN.md",
+      "verdict": "PASS",
+      "recordedAt": "2026-05-22T150521Z"
+    },
+    {
+      "id": "CONEXUS-RC-001",
+      "ownerRepo": "conexus-dotnet",
+      "path": "docs/evidence/CONEXUS_RC_001_GATEWAY_CERTIFICATION_EVIDENCE.md",
+      "verdict": "PASS",
+      "recordedAt": "2026-05-22"
+    },
+    {
+      "id": "KANON-RC-001",
+      "ownerRepo": "kanon-dotnet",
+      "path": "docs/evidence/KANON_RC_001_SEMANTIC_AUTHORITY_CERTIFICATION_EVIDENCE.md",
+      "verdict": "PASS",
+      "recordedAt": "2026-05-22"
+    },
+    {
+      "id": "cohesion-summary-20260522",
+      "ownerRepo": "allagma-dotnet",
+      "path": "artifacts/system-e2e/20260522T142637Z/summary.json",
+      "verdict": "PASS",
+      "recordedAt": "2026-05-22T142637Z"
+    },
+    {
+      "id": "observability-summary-20260522",
+      "ownerRepo": "allagma-dotnet",
+      "path": "artifacts/observability/20260522T145643Z/observability-summary.json",
+      "verdict": "PASS",
+      "recordedAt": "2026-05-22T145643Z"
+    },
+    {
+      "id": "evidence-spine-golden-20260522",
+      "ownerRepo": "allagma-dotnet",
+      "path": "artifacts/evidence-spine/20260522T150521Z/golden-run-summary.json",
+      "verdict": "PASS",
+      "recordedAt": "2026-05-22T150521Z"
+    },
+    {
+      "id": "package-mode-summary-20260522",
+      "ownerRepo": "allagma-dotnet",
+      "path": "artifacts/ci-evidence/package-mode/summary.json",
+      "verdict": "PASS",
+      "recordedAt": "2026-05-22"
+    },
+    {
       "id": "SYSTEM-ALPHA-006-CUT",
       "ownerRepo": "allagma-dotnet",
       "path": "docs/evidence/SYSTEM_ALPHA_006_CLOSEOUT.md",
-      "verdict": "PASS",
+      "verdict": "SUPERSEDED_BY_RC-001A",
       "recordedAt": "2026-05-20"
     },
     {
@@ -341,7 +466,7 @@
       "id": "cohesion-summary-20260520",
       "ownerRepo": "allagma-dotnet",
       "path": "artifacts/system-e2e/20260520T185847Z/summary.json",
-      "verdict": "PASS",
+      "verdict": "SUPERSEDED_BY_RC-001B",
       "recordedAt": "2026-05-20T185847Z"
     },
     {
@@ -355,7 +480,7 @@
       "id": "observability-summary-20260520",
       "ownerRepo": "allagma-dotnet",
       "path": "artifacts/observability/20260520T185946Z/observability-summary.json",
-      "verdict": "PASS",
+      "verdict": "SUPERSEDED_BY_RC-001D",
       "recordedAt": "2026-05-20T185946Z"
     }
   ],

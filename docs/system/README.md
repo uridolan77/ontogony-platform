@@ -4,7 +4,7 @@
 
 | Artifact | Purpose |
 | --- | --- |
-| [`system-protocol-registry.json`](./system-protocol-registry.json) | Canonical registry for baseline **SYSTEM-ALPHA-006** |
+| [`system-protocol-registry.json`](./system-protocol-registry.json) | Canonical registry for runtime baseline **SYSTEM-RC-001A** (prior **SYSTEM-ALPHA-006** closeout superseded) |
 | [`SYSTEM_EVIDENCE_SPINE_CONTRACT.md`](../operators/SYSTEM_EVIDENCE_SPINE_CONTRACT.md) | Cross-service evidence spine contract index (SYS-TIGHT-002) |
 | [`system-evidence-spine-resolution.matrix.json`](./system-evidence-spine-resolution.matrix.json) | Identifier → HTTP route map for spine resolver |
 | [`SYSTEM_OPERATOR_FAILURE_TAXONOMY_CONTRACT.md`](../operators/SYSTEM_OPERATOR_FAILURE_TAXONOMY_CONTRACT.md) | Operator failure taxonomy contract index (SYS-TIGHT-006) |

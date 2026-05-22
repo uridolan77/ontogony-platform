@@ -56,8 +56,8 @@ if ($registry.schema -ne "ontogony-system-protocol-registry-v1") {
 }
 
 Require-NonEmptyString $registry.baseline "baseline"
-if ($registry.baseline -notmatch '^SYSTEM-ALPHA-[0-9]{3}$') {
-    throw "Registry validation failed: baseline must match SYSTEM-ALPHA-NNN (found '$($registry.baseline)')."
+if ($registry.baseline -notmatch '^SYSTEM-(ALPHA-[0-9]{3}|RC-001[A-Z])$') {
+    throw "Registry validation failed: baseline must match SYSTEM-ALPHA-NNN or SYSTEM-RC-001X (found '$($registry.baseline)')."
 }
 
 Require-NonEmptyString $registry.generatedAt "generatedAt"

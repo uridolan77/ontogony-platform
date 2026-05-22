@@ -28,9 +28,9 @@ Many higher-level packages depend on one or both of these; that is why they are 
 
 ## Level 1 — Service mechanics
 
-**Packages:** `Ontogony.Hosting`, `Ontogony.Observability`, `Ontogony.Errors`, `Ontogony.Http`, `Ontogony.Security`, `Ontogony.Logging`, `Ontogony.Redaction`, `Ontogony.Secrets`
+**Packages:** `Ontogony.Hosting`, `Ontogony.Observability`, `Ontogony.Errors`, `Ontogony.Http`, `Ontogony.Security`, `Ontogony.Logging`, `Ontogony.Redaction`, `Ontogony.Secrets`, optional `Ontogony.Secrets.AzureKeyVault`
 
-**Purpose:** ASP.NET defaults, trace/correlation, error shape, resilient outbound HTTP, service identity and actor context, structured logging fields and scopes, deterministic redaction, and secret-reference mechanics (no cloud secret store).
+**Purpose:** ASP.NET defaults, trace/correlation, error shape, resilient outbound HTTP, service identity and actor context, structured logging fields and scopes, deterministic redaction, and secret-reference mechanics. Cloud vault resolution is an optional adapter (`Ontogony.Secrets.AzureKeyVault` → `Ontogony.Secrets` only).
 
 `Ontogony.Security` references `Ontogony.Http` for outbound actor/tenant propagation (`CurrentActorOutboundPropagator`, integration header helpers) — not for product routing semantics.
 
@@ -96,6 +96,7 @@ Rows depend on columns. **✓** means the row package may `ProjectReference` the
 | **Ontogony.Redaction** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 | **Ontogony.Replay.Contracts** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 | **Ontogony.Secrets** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |
+| **Ontogony.Secrets.AzureKeyVault** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |
 | **Ontogony.Security** |   |   |   | ✓ |   |   |   |   | ✓ |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   |
 | **Ontogony.Topology.Contracts** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 | **Ontogony.Testing** |   |   |   | ✓ | ✓ |   | ✓ |   | ✓ |   |   | ✓ | ✓ | ✓ |   | ✓ |   |   |   |   |   | ✓ |   |   |

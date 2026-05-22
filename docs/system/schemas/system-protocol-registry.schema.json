@@ -19,7 +19,7 @@
     },
     "baseline": {
       "type": "string",
-      "pattern": "^SYSTEM-ALPHA-[0-9]{3}$"
+      "pattern": "^SYSTEM-(ALPHA-[0-9]{3}|RC-001[A-Z])$"
     },
     "generatedAt": {
       "type": "string"

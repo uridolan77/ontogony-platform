@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+PLATFORM-RC-001 — substrate contract freeze (docs + registry):
+
+- **Contract** — [`docs/releases/ONTOGONY_PLATFORM_0_4_ALPHA_RC_CONTRACT.md`](docs/releases/ONTOGONY_PLATFORM_0_4_ALPHA_RC_CONTRACT.md) freezes public API discipline, package line `0.3.0-alpha.1`, consumer validation commands, and non-semantic boundary for backend alpha-RC.
+- **Registry** — [`docs/system/system-protocol-registry.json`](docs/system/system-protocol-registry.json) promoted to baseline `SYSTEM-RC-001A` (lock-aligned SHAs, RC evidence index, cohesion/observability/evidence-spine artifact paths).
+- **Evidence / migration** — [`docs/evidence/PLATFORM_RC_001_SUBSTRATE_CONTRACT_FREEZE_EVIDENCE.md`](docs/evidence/PLATFORM_RC_001_SUBSTRATE_CONTRACT_FREEZE_EVIDENCE.md), [`docs/migrations/2026-05-22-platform-rc-001-substrate-contract-freeze.md`](docs/migrations/2026-05-22-platform-rc-001-substrate-contract-freeze.md).
+- **Validation** — `validate-system-protocol-registry.ps1` accepts `SYSTEM-RC-001*` registry baselines matching runtime lock.
+- **Package levels** — golden map includes `Ontogony.Secrets.AzureKeyVault` → `Ontogony.Secrets` (RC gate blocker cleanup).
+
 SYS-TIGHT-006 — operator failure taxonomy adapter:
 
 - **`Ontogony.Errors`** — `OperatorFailureTaxonomyKind`, `OperatorFailureView`, `OperatorFailureTaxonomyAdapter` (maps `CrossServiceErrorEnvelope` to stable operator taxonomy without changing public service error contracts).
