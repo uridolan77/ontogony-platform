@@ -10,7 +10,7 @@ Tracks **done** work from [`PHASE_TIGHT.md`](./PHASE_TIGHT.md) and cross-repo pr
 | `kanon-dotnet` | 8.6 | **9.18** | KANON-9-001 lifecycle manifest; KANON-9-002 replay **9/9 PASS** |
 | `conexus-dotnet` | 8.8 | **9.08** | Consumed by Allagma alias validation + streaming cohesion PASS |
 | `ontogony-frontend` | — | **8.78** | SYSTEM-9B-005 + live posture docker E2E |
-| `allagma-dotnet` | 8.7 | **9.25** | Streaming cohesion rerun PASS; canonical Docker restart PASS |
+| `allagma-dotnet` | 8.7 | **9.25** | Streaming + restart cohesion PASS (2026-05-22 operator slice) |
 | `ontogony-ui` | — | **8.05** | Unchanged this slice |
 
 ## Platform (`ontogony-platform`)
@@ -41,8 +41,11 @@ Tracks **done** work from [`PHASE_TIGHT.md`](./PHASE_TIGHT.md) and cross-repo pr
 | `artifacts/system-cohesion/run-20260522T185400Z/summary.json` | PASS (10 scenarios PASS; `restart_survival` DEFERRED) |
 | `artifacts/system-cohesion/run-20260522T185400Z/streaming-summary.json` | PASS |
 | `artifacts/system-cohesion/platform-compat/system-compatibility-summary.json` | PASS (22 checks) |
+| `artifacts/system-cohesion/streaming-acceptance-20260522/` | PASS — streaming cohesion (evening) |
+| `artifacts/system-cohesion/restart-streaming-20260522/` | PASS — post-restart cohesion + streaming |
+| `artifacts/restart-e2e/2026-05-22T19-55-17/summary.json` | PASS — `docker-compose-restart-allagma-api` |
 
-Repo SHAs at run: platform `45c7603`, allagma `ed5ec7c`, kanon `6f369ad`, conexus `76f10c4`. Detail: [`allagma-dotnet/docs/evidence/ALLAGMA_COH_FULL_ACCEPTANCE_2026-05-22_EVIDENCE.md`](../../allagma-dotnet/docs/evidence/ALLAGMA_COH_FULL_ACCEPTANCE_2026-05-22_EVIDENCE.md).
+Repo SHAs at morning run: platform `45c7603`, allagma `ed5ec7c`, kanon `6f369ad`, conexus `76f10c4`. Detail: [`ALLAGMA_COH_FULL_ACCEPTANCE_2026-05-22_EVIDENCE.md`](../../allagma-dotnet/docs/evidence/ALLAGMA_COH_FULL_ACCEPTANCE_2026-05-22_EVIDENCE.md); evening slice: [`ALLAGMA_RESTART_STREAMING_COH_2026-05-22_EVIDENCE.md`](../../allagma-dotnet/docs/evidence/ALLAGMA_RESTART_STREAMING_COH_2026-05-22_EVIDENCE.md).
 
 Prior Quick path: `run-20260522T175112Z`.
 
@@ -62,7 +65,7 @@ Prior Quick path: `run-20260522T175112Z`.
 | --- | --- | --- | --- |
 | CONEXUS-PROP-001 | **Done** | Provider outbound propagation + ingress/outbound split doc | `tests/Conexus.Providers.OpenAI.Tests/ConexusOutboundPropagationConformanceTests.cs`; `BOUNDARIES.md` |
 | CONEXUS-9-001 | **Done** | Model alias manifest + Allagma startup validation | `docs/generated/CONEXUS_MODEL_ALIAS_MANIFEST.json`; `allagma-dotnet/docs/system/conexus-model-alias-manifest.snapshot.json` |
-| CONEXUS-9-002 | **Done** (Conexus) | Streaming evidence acceptance pack | `ConexusStreamingEvidenceAcceptanceTests`; `CONEXUS_9_002_STREAMING_EVIDENCE_ACCEPTANCE_EVIDENCE.md`; Allagma `-IncludeStreamingEvidence` cohesion rerun open |
+| CONEXUS-9-002 | **Done** | Streaming evidence acceptance pack + Allagma cohesion | `ConexusStreamingEvidenceAcceptanceTests`; [`ALLAGMA_RESTART_STREAMING_COH_2026-05-22_EVIDENCE.md`](../../allagma-dotnet/docs/evidence/ALLAGMA_RESTART_STREAMING_COH_2026-05-22_EVIDENCE.md) |
 
 ## Sprint mapping (PHASE_TIGHT roadmap)
 
@@ -74,15 +77,17 @@ Prior Quick path: `run-20260522T175112Z`.
 | SYSTEM-9C-003 | PLATFORM-9-003 | Done |
 | SYSTEM-9A-003 | CONEXUS-9-001 | Done |
 | SYSTEM-9B-002 | KANON-9-002 | Done |
-| SYSTEM-9B-003 | CONEXUS-9-002 | Done (Conexus pack); Allagma cohesion streaming flag open |
+| SYSTEM-9B-003 | CONEXUS-9-002 | Done — Conexus pack + Allagma streaming cohesion + Docker restart |
 | SYSTEM-9B-005 | FE live-artifact E2E | Done |
 | SYSTEM-9A-004 | KANON-9-001 | Done |
 | SYSTEM-9A-005 | FE route-client drift gate | Done — `SYSTEM_9A_005_ROUTE_CLIENT_DRIFT_GATE_EVIDENCE.md`; `ontogony-frontend` `route-client-drift:check` |
 | SYSTEM-9B-001 | ALLAGMA-9-002 | Done |
 
+**Operator slice (2026-05-22 evening):** CONEXUS-9-002 script PASS; Allagma streaming cohesion (`streaming-acceptance-20260522`, `restart-streaming-20260522`); canonical `docker compose restart allagma-api` + `artifacts/restart-e2e/2026-05-22T19-55-17/summary.json`. Record: [`allagma-dotnet/docs/evidence/ALLAGMA_RESTART_STREAMING_COH_2026-05-22_EVIDENCE.md`](../../allagma-dotnet/docs/evidence/ALLAGMA_RESTART_STREAMING_COH_2026-05-22_EVIDENCE.md).
+
 ## Next recommended work
 
 1. **ontogony-ui** — UI-HARDEN-001–004 consolidation  
-2. **Allagma** full `run-system-cohesion-acceptance.ps1` (PS7 `pwsh`) bundling platform gate + streaming + trust  
-3. **Allagma** full `run-system-cohesion-acceptance.ps1` (non-Quick, PS7 `pwsh`) bundling platform gate + streaming + trust in one artifact dir  
-4. Optional: wire `runtime-posture-docker-live.spec.ts` into `live-artifact-evidence-journey:check` catalog
+2. **Allagma** — install **PowerShell 7** (`pwsh`) so `run-system-cohesion-acceptance.ps1` bundles platform gate + streaming + trust in one artifact dir  
+3. Optional: wire `runtime-posture-docker-live.spec.ts` into `live-artifact-evidence-journey:check` catalog  
+4. **AG UI interaction spine** — next cross-repo slice per incoming package (`ontogony_ag_ui_interaction_spine_package_2026-05-22`)

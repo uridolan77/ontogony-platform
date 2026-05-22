@@ -14,7 +14,9 @@ docker compose restart allagma-api
 .\scripts\wait-local-working-system.ps1
 ```
 
-Evidence template: `allagma-dotnet/artifacts/restart-e2e/<timestamp>/summary.json` with `restartMode: docker-compose-restart-allagma-api`.
+Evidence template: `allagma-dotnet/artifacts/restart-e2e/<timestamp>/summary.json` with `mode: docker-compose-restart-allagma-api`.
+
+Latest operator PASS (2026-05-22): `allagma-dotnet/artifacts/restart-e2e/2026-05-22T19-55-17/summary.json` — see [`allagma-dotnet/docs/evidence/ALLAGMA_RESTART_STREAMING_COH_2026-05-22_EVIDENCE.md`](../../allagma-dotnet/docs/evidence/ALLAGMA_RESTART_STREAMING_COH_2026-05-22_EVIDENCE.md).
 
 Related regression scripts:
 

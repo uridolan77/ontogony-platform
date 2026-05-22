@@ -172,7 +172,7 @@ Allagma should validate against this before calling Conexus.
 
 ### CONEXUS-9-002 — Streaming evidence acceptance ✅
 
-Formal acceptance pack in `conexus-dotnet` (`ConexusStreamingEvidenceAcceptanceTests`, `CONEXUS_STREAMING_EVIDENCE_ACCEPTANCE.json`). Remaining lift: wire **Allagma** `-IncludeStreamingEvidence` cohesion path and operator rerun. Proves:
+Formal acceptance pack in `conexus-dotnet` (`ConexusStreamingEvidenceAcceptanceTests`, `CONEXUS_STREAMING_EVIDENCE_ACCEPTANCE.json`). **Allagma** cohesion `-IncludeStreamingEvidence` and canonical Docker restart verified 2026-05-22 — [`allagma-dotnet/docs/evidence/ALLAGMA_RESTART_STREAMING_COH_2026-05-22_EVIDENCE.md`](../../allagma-dotnet/docs/evidence/ALLAGMA_RESTART_STREAMING_COH_2026-05-22_EVIDENCE.md). Proves:
 
 ```text
 stream request accepted
@@ -509,10 +509,11 @@ Do this first:
 5. ✅ Conexus model alias manifest (CONEXUS-9-001)
 6. ⬜ Kanon domain-pack lifecycle hardening (KANON-9-001); ✅ replay acceptance (KANON-9-002)
 7. ✅ Frontend evidence journey live-artifact E2E (SYSTEM-9B-005)
-8. ✅ Allagma cohesion `-IncludeStreamingEvidence` (`artifacts/system-cohesion/streaming-rerun-20260522`)
-9. ✅ Frontend live posture E2E (`runtime-posture-docker-live.spec.ts`)
-10. ✅ KANON-9-001 domain pack lifecycle manifest gate
-11. ⬜ ontogony-ui UI-HARDEN consolidation
+8. ✅ Allagma cohesion `-IncludeStreamingEvidence` (`streaming-acceptance-20260522`, `restart-streaming-20260522`)
+9. ✅ Canonical Docker restart + post-restart cohesion (`artifacts/restart-e2e/2026-05-22T19-55-17`)
+10. ✅ Frontend live posture E2E (`runtime-posture-docker-live.spec.ts`)
+11. ✅ KANON-9-001 domain pack lifecycle manifest gate
+12. ⬜ ontogony-ui UI-HARDEN consolidation
 ```
 
 Why this order? Because **Allagma is the integration spine**. If Allagma can prove the full system loop, every other repo’s next hardening target becomes obvious.
