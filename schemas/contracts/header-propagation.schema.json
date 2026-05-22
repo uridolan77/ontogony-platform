@@ -6,21 +6,15 @@
   "type": "object",
   "properties": {
     "frozenRequired": {
-      "type": "array",
-      "description": "Headers that MUST be propagated when the corresponding context value is present.",
-      "items": { "type": "string" },
-      "minItems": 7,
-      "maxItems": 7,
-      "examples": [
-        [
-          "traceparent",
-          "X-Correlation-ID",
-          "X-Ontogony-Actor-Id",
-          "X-Ontogony-Actor-Type",
-          "X-Ontogony-Actor-Roles",
-          "X-Ontogony-Idempotency-Key",
-          "X-Allagma-Run-Id"
-        ]
+      "description": "Exact frozen set of seven headers that MUST be propagated. Matches OntogonyPropagationHeaderContract.FrozenRequired.",
+      "const": [
+        "traceparent",
+        "X-Correlation-ID",
+        "X-Ontogony-Actor-Id",
+        "X-Ontogony-Actor-Type",
+        "X-Ontogony-Actor-Roles",
+        "X-Ontogony-Idempotency-Key",
+        "X-Allagma-Run-Id"
       ]
     },
     "canonicalAliases": {
