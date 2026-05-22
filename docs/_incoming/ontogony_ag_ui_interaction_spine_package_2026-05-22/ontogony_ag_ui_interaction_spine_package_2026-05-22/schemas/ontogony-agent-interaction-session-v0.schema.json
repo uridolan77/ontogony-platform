@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.dev/schemas/ontogony-agent-interaction-session-v0.schema.json",
+  "title": "Ontogony Agent Interaction Session v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "threadId",
+    "status",
+    "ids",
+    "messages",
+    "openInterrupts",
+    "events"
+  ],
+  "properties": {
+    "schema": {
+      "const": "ontogony-agent-interaction-session-v0"
+    },
+    "threadId": {
+      "type": "string"
+    },
+    "activeRunId": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "idle",
+        "running",
+        "interrupted",
+        "completed",
+        "failed",
+        "cancelled"
+      ]
+    },
+    "ids": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "messages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "openInterrupts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "evidenceGraph": {},
+    "state": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "$ref": "ontogony-agent-interaction-event-v0.schema.json"
+      }
+    }
+  }
+}
