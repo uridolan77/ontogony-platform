@@ -30,3 +30,5 @@ pwsh ./scripts/run-semantic-decision-replay-acceptance.ps1
 - [x] Kanon repo exposes orchestration script + matrix
 - [x] Platform gate verifies artifact presence when `kanon-dotnet` is in DevRoot
 - [x] Operator run: `dotnet test --filter FullyQualifiedName~KanonSemanticDecisionReplayAcceptanceTests` → **6/6 PASS** (2026-05-22)
+- [x] Full suite + artifact gates: `FullyQualifiedName~KanonSemanticDecisionReplayAcceptance` → **9/9 PASS**
+- [x] Summary artifact: `kanon-dotnet/artifacts/kanon-semantic-decision-replay-acceptance/20260522T192918Z/summary.json`

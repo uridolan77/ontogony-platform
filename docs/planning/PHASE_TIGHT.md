@@ -276,7 +276,7 @@ replay bundle
 
 **Implementation:** `tests/Kanon.Tests/KanonSemanticDecisionReplayAcceptanceTests.cs`; `scripts/run-semantic-decision-replay-acceptance.ps1`; `docs/e2e/KANON_SEMANTIC_DECISION_REPLAY_ACCEPTANCE.md`. See [`kanon-dotnet/docs/evidence/KANON_9_002_SEMANTIC_DECISION_REPLAY_ACCEPTANCE_EVIDENCE.md`](../../kanon-dotnet/docs/evidence/KANON_9_002_SEMANTIC_DECISION_REPLAY_ACCEPTANCE_EVIDENCE.md).
 
-**Operator verified (2026-05-22):** `dotnet test tests/Kanon.Tests/Kanon.Tests.csproj --filter "FullyQualifiedName~KanonSemanticDecisionReplayAcceptanceTests"` → **6/6 PASS**.
+**Operator verified (2026-05-22):** category tests **6/6 PASS**; full filter **9/9 PASS**; summary artifact `artifacts/kanon-semantic-decision-replay-acceptance/20260522T192918Z/summary.json`.
 
 ### KANON-9-003 — Error envelope normalization
 
