@@ -26,6 +26,7 @@ Verification records for cross-repo programs hosted on `ontogony-platform`. File
 | **Operator home (SYS-OPERATOR-HOME-001)** | [ontogony-frontend/docs/evidence/SYS_OPERATOR_HOME_001_EVIDENCE.md](../../../ontogony-frontend/docs/evidence/SYS_OPERATOR_HOME_001_EVIDENCE.md) — `/system` |
 | **Operator V1 demo flows (SYSTEM-DEMO-FLOWS-001)** | [SYSTEM_DEMO_FLOWS_001_EVIDENCE.md](./SYSTEM_DEMO_FLOWS_001_EVIDENCE.md), [OPERATOR_V1_DEMO_GUIDE.md](../operators/OPERATOR_V1_DEMO_GUIDE.md) |
 | **First-version RC (FIRST-VERSION-RC-001)** | [FIRST_VERSION_RC_001_EVIDENCE.md](./FIRST_VERSION_RC_001_EVIDENCE.md) — [`ontogony-operator-v1.lock.json`](../system/ontogony-operator-v1.lock.json), [closeout](../releases/FIRST_VERSION_RC_001_CLOSEOUT.md) |
+| **Backend SYSTEM-RC-001 certification (intake only)** | [SYSTEM_RC_001_CERTIFICATION_PACKAGE_INTAKE.md](../reviews/SYSTEM_RC_001_CERTIFICATION_PACKAGE_INTAKE.md) — unpacked [`docs/_incoming/Ontogony_Backend_System_RC_001_Certification_Package_2026-05-22_v2_AGUI/`](../_incoming/Ontogony_Backend_System_RC_001_Certification_Package_2026-05-22_v2_AGUI/); **not executed**; first PR **SYSTEM-RC-001A** (lock) after state review; **SYSTEM-RC-001F** = backend AG-UI spine certification |
 
 ### Cleared (Alpha-005 post-cut — do not reopen)
 

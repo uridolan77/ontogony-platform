@@ -1,0 +1,63 @@
+{
+  "package": "Ontogony_Backend_System_RC_001_Certification_Package_2026-05-22",
+  "created_at": "2026-05-22",
+  "purpose": "Move four backend repos from strong alpha to certified alpha-RC through lock promotion, validation, evidence, observability, and stale-doc cleanup.",
+  "repos": [
+    "uridolan77/ontogony-platform",
+    "uridolan77/conexus-dotnet",
+    "uridolan77/kanon-dotnet",
+    "uridolan77/allagma-dotnet"
+  ],
+  "pr_sequence": [
+    "SYSTEM-RC-001A-runtime-lock-promotion",
+    "SYSTEM-RC-001B-full-cohesion-evidence",
+    "SYSTEM-RC-001C-package-mode-certification",
+    "SYSTEM-RC-001D-observability-pass",
+    "SYSTEM-RC-001E-evidence-spine-golden-run",
+    "CONEXUS-RC-001-gateway-certification-matrix",
+    "KANON-RC-001-semantic-authority-certification",
+    "PLATFORM-RC-001-substrate-contract-freeze"
+  ],
+  "non_goals": [
+    "production readiness",
+    "enterprise IAM runtime",
+    "real external tool execution",
+    "full provider parity",
+    "ontology v1 promotion"
+  ],
+  "version": "v2-agui",
+  "updatedAt": "2026-05-22",
+  "addedFocus": "Explicit AG-UI / Agent Interaction Spine backend certification track",
+  "fileCount": 29,
+  "files": [
+    "00_README_EXECUTION_ORDER.md",
+    "01_CURRENT_STATE_AND_SCORE_TARGETS.md",
+    "02_PR_SEQUENCE.md",
+    "contracts/AGENT_INTERACTION_AGUI_SPINE_CONTRACT.md",
+    "contracts/AGUI_BACKEND_OPERATOR_SURFACE_MATRIX.md",
+    "contracts/CONEXUS_GATEWAY_CERTIFICATION_MATRIX.md",
+    "contracts/EVIDENCE_SPINE_GOLDEN_RUN_CONTRACT.md",
+    "contracts/OBSERVABILITY_PASS_CONTRACT.md",
+    "contracts/PLATFORM_SUBSTRATE_RC_CONTRACT.md",
+    "contracts/RUNTIME_ORCHESTRATION_CORRECTNESS_MATRIX.md",
+    "contracts/SEMANTIC_AUTHORITY_CERTIFICATION_MATRIX.md",
+    "metadata/package-manifest.json",
+    "pr-specs/CONEXUS-RC-001-gateway-certification-matrix.md",
+    "pr-specs/KANON-RC-001-semantic-authority-certification.md",
+    "pr-specs/PLATFORM-RC-001-substrate-contract-freeze.md",
+    "pr-specs/SYSTEM-RC-001A-runtime-lock-promotion.md",
+    "pr-specs/SYSTEM-RC-001B-full-cohesion-evidence.md",
+    "pr-specs/SYSTEM-RC-001C-package-mode-certification.md",
+    "pr-specs/SYSTEM-RC-001D-observability-pass.md",
+    "pr-specs/SYSTEM-RC-001E-evidence-spine-golden-run.md",
+    "pr-specs/SYSTEM-RC-001F-agent-interaction-agui-spine-certification.md",
+    "templates/AGUI_EVIDENCE_CLOSEOUT_TEMPLATE.md",
+    "templates/ARTIFACT_INDEX_TEMPLATE.md",
+    "templates/RELEASE_EVIDENCE_CLOSEOUT_TEMPLATE.md",
+    "templates/STALE_DOC_CLEANUP_TEMPLATE.md",
+    "validation/ACCEPTANCE_CHECKLIST.md",
+    "validation/AGUI_REQUIRED_COMMANDS.md",
+    "validation/NON_GOALS_AND_HARD_BLOCKS.md",
+    "validation/REQUIRED_COMMANDS.md"
+  ]
+}
