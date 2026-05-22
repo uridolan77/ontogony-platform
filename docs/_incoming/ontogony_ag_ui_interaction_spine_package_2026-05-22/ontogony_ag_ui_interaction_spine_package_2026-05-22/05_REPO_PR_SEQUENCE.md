@@ -12,9 +12,16 @@
 - Keep every PR small enough to test independently.
 - Avoid security/prod-hardening scope unless needed for contract correctness.
 
+## Status legend
+
+| Mark | Meaning |
+| --- | --- |
+| ✅ | Done (landed or accepted in workspace) |
+| ⏳ | Not started / deferred |
+
 ## PR sequence
 
-### 1. `PLAT-AGUI-000` — Contract and schemas
+### 1. `PLAT-AGUI-000` — Contract and schemas ✅
 
 **Repo:** `ontogony-platform`  
 **Purpose:** Publish the canonical event/session schema, mapping docs, and drift gates.
@@ -34,7 +41,9 @@ Acceptance:
 - Mapping matrix covers Allagma, Kanon, Conexus, Frontend, UI.
 - Contract explicitly states hidden reasoning / raw secret non-goals.
 
-### 2. `OUI-AGENT-001` — Agent UI primitive subpath
+---
+
+### 2. `OUI-AGENT-001` — Agent UI primitive subpath ✅
 
 **Repo:** `ontogony-ui`  
 **Purpose:** Add a product-neutral `./agent` export with reusable components.
@@ -60,7 +69,9 @@ Acceptance:
 - Empty/error/loading states covered.
 - Keyboard and screen-reader semantics for approvals.
 
-### 3. `OFE-AGUI-001` — Frontend interaction module + fixture replay
+---
+
+### 3. `OFE-AGUI-001` — Frontend interaction module + fixture replay ✅
 
 **Repo:** `ontogony-frontend`  
 **Purpose:** Add the `src/agent-interaction/` module and a replayable workbench using fixtures.
@@ -81,7 +92,9 @@ Acceptance:
 - Reducer is deterministic.
 - Evidence links resolve to existing system pages where available.
 
-### 4. `OFE-AGUI-002` — Client-side adapters over existing APIs
+---
+
+### 4. `OFE-AGUI-002` — Client-side adapters over existing APIs ✅
 
 **Repo:** `ontogony-frontend`  
 **Purpose:** Synthesize interaction events from existing Allagma/Kanon/Conexus APIs.
@@ -100,7 +113,9 @@ Acceptance:
 - Missing downstream data becomes explicit unresolved evidence events.
 - No backend changes required.
 
-### 5. `ALLAGMA-AGUI-001` — Canonical backend event projection
+---
+
+### 5. `ALLAGMA-AGUI-001` — Canonical backend event projection ✅
 
 **Repo:** `allagma-dotnet`  
 **Purpose:** Add an application-layer projection from Allagma run events to Ontogony agent interaction events.
@@ -118,7 +133,9 @@ Acceptance:
 - Existing run-event data can be projected to schema-valid interaction JSONL.
 - Resume/cancel/retry are represented without breaking current endpoints.
 
-### 6. `KANON-HITL-AGUI-001` — Human-gate interrupt contract
+---
+
+### 6. `KANON-HITL-AGUI-001` — Human-gate interrupt contract ⏳
 
 **Repo:** `kanon-dotnet`  
 **Purpose:** Define and expose the mapping from human gates / semantic approval decisions to interaction interrupts.
@@ -136,7 +153,9 @@ Acceptance:
 - approval with edits maps to `RESUME_SUBMITTED` + `HUMAN_GATE_RESOLVED`.
 - idempotency and audit fields are documented.
 
-### 7. `CONEXUS-AGUI-001` — Model-call event projection
+---
+
+### 7. `CONEXUS-AGUI-001` — Model-call event projection ✅
 
 **Repo:** `conexus-dotnet`  
 **Purpose:** Project existing model-call evidence into interaction events.
@@ -154,7 +173,11 @@ Acceptance:
 - Route decision and provider attempts are linked by ids.
 - Raw prompts/completions remain excluded by default.
 
-### 8. `OFE-AGUI-003` — Integrated Agent Interaction Workbench
+**Evidence:** `conexus-dotnet/docs/evidence/CONEXUS_AGUI_001_EVIDENCE.md`
+
+---
+
+### 8. `OFE-AGUI-003` — Integrated Agent Interaction Workbench ✅
 
 **Repo:** `ontogony-frontend`  
 **Purpose:** Turn fixture/client-side adapters into a unified operator surface.
@@ -173,7 +196,9 @@ Acceptance:
 - JSONL export can be replayed locally.
 - Workbench does not crash on missing links.
 
-### 9. `ALLAGMA-AGUI-002` — Live stream transport
+---
+
+### 9. `ALLAGMA-AGUI-002` — Live stream transport ⏳
 
 **Repo:** `allagma-dotnet`  
 **Purpose:** Add SSE or WebSocket stream for interaction events after schemas and UI are stable.
@@ -191,9 +216,11 @@ Acceptance:
 - Same events can be exported as JSONL for tests.
 - Frontend gracefully falls back to polling/current adapters.
 
-### 10. `ADAPTER-AGUI-001` — External AG-UI compatibility adapter
+---
 
-**Repo:** likely `ontogony-frontend` first, optionally platform package later  
+### 10. `ADAPTER-AGUI-001` — External AG-UI compatibility adapter ✅
+
+**Repo:** `ontogony-platform` (`@ontogony/agent-interaction`) + `ontogony-frontend` (re-export / workbench export)  
 **Purpose:** Map Ontogony internal event streams to AG-UI-compatible event streams.
 
 Acceptance:
@@ -201,3 +228,5 @@ Acceptance:
 - Internal events remain canonical.
 - Adapter is pure and tested with fixtures.
 - Unknown custom events are preserved under `ontogony.*` names.
+
+**Evidence:** `ontogony-platform/docs/evidence/PLAT_AGUI_ADAPTER_001_EVIDENCE.md`, `ontogony-frontend/docs/evidence/OFE_ADAPTER_AGUI_001_EVIDENCE.md`
