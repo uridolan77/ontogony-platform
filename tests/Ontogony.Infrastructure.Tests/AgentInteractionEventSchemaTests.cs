@@ -47,6 +47,38 @@ public sealed class AgentInteractionEventSchemaTests
     public static IEnumerable<object[]> JsonlFixturePaths =>
         JsonlFixtureRelativePaths.Select(p => new object[] { p });
 
+    [Fact]
+    public void Optional_golden_run_jsonl_passes_agent_interaction_event_schema()
+    {
+        var path = Environment.GetEnvironmentVariable("AGUI_GOLDEN_JSONL_PATH");
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            return;
+        }
+
+        Assert.True(File.Exists(path), $"Missing golden JSONL: {path}");
+
+        var repoRoot = GetProjectRoot();
+        var schema = JsonSchema.FromText(
+            File.ReadAllText(Path.Combine(repoRoot, EventSchemaRelativePath)));
+
+        var lineNo = 0;
+        foreach (var line in File.ReadLines(path))
+        {
+            lineNo++;
+            if (string.IsNullOrWhiteSpace(line))
+            {
+                continue;
+            }
+
+            using var doc = JsonDocument.Parse(line);
+            var result = schema.Evaluate(doc.RootElement);
+            Assert.True(
+                result.IsValid,
+                $"Schema validation failed for golden run line {lineNo}: {result}");
+        }
+    }
+
     private static string GetProjectRoot()
     {
         var dir = new DirectoryInfo(AppContext.BaseDirectory);
