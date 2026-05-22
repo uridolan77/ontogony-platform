@@ -86,3 +86,9 @@ Cross-repo mechanical drift detection: [SYSTEM_COMPATIBILITY_GATE.md](./SYSTEM_C
 ## Error envelope conformance (PLATFORM-9-002)
 
 Cross-service failure shape enforcement: [CROSS_SERVICE_ERROR_ENVELOPE_GATE.md](./CROSS_SERVICE_ERROR_ENVELOPE_GATE.md). Included in the system compatibility gate; standalone: `scripts/validate-cross-service-error-envelope.ps1`.
+
+## Header propagation contract (PLATFORM-9-003) — done
+
+Frozen outbound header names and reusable conformance helpers: [HEADER_PROPAGATION_CONTRACT.md](./HEADER_PROPAGATION_CONTRACT.md). Matrix: [`docs/system/propagation-header.matrix.json`](../system/propagation-header.matrix.json). Gate checks in `HeaderPropagationConformance`; standalone: `scripts/validate-header-propagation-contract.ps1`.
+
+**Consumer proofs (done):** ALLAGMA-PROP-001, KANON-PROP-001, CONEXUS-PROP-001 — see [PHASE_TIGHT_CLOSEOUT_2026-05-22.md](../planning/PHASE_TIGHT_CLOSEOUT_2026-05-22.md).

@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+**Phase Tight closeout (2026-05-22):** Consumer propagation conformance tests adopted in all three backend repos (ALLAGMA/KANON/CONEXUS-PROP-001). Allagma system cohesion acceptance command (ALLAGMA-9-001) recorded PASS (Quick path). Index: [`docs/planning/PHASE_TIGHT_CLOSEOUT_2026-05-22.md`](docs/planning/PHASE_TIGHT_CLOSEOUT_2026-05-22.md).
+
 PLATFORM-9-003 — header propagation contract:
 
 - **`Ontogony.Http`** — `OntogonyPropagationHeaderContract` frozen header list (`traceparent`, correlation, actor, idempotency, `X-Allagma-Run-Id`).

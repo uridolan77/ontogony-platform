@@ -91,7 +91,17 @@ pwsh ./scripts/validate-header-propagation-contract.ps1 -DevRoot C:\dev
 | `propagation-header-sibling-docs` | Allagma/Kanon/Conexus integration docs reference frozen headers |
 | `propagation-header-testing` | `Ontogony.Testing` conformance helpers exist |
 
+## Consumer conformance tests (done)
+
+| Repo | ID | Test project |
+| --- | --- | --- |
+| `allagma-dotnet` | ALLAGMA-PROP-001 | `AllagmaOutboundPropagationConformanceTests` |
+| `kanon-dotnet` | KANON-PROP-001 | `KanonConexusAssistancePropagationConformanceTests` |
+| `conexus-dotnet` | CONEXUS-PROP-001 | `ConexusOutboundPropagationConformanceTests` |
+
+Index: [`docs/planning/PHASE_TIGHT_CLOSEOUT_2026-05-22.md`](../planning/PHASE_TIGHT_CLOSEOUT_2026-05-22.md).
+
 ## Non-goals
 
-- No live Client→Allagma→Kanon→Conexus smoke (see Allagma `scripts/run-system-cohesion-smoke.ps1` and `TRACE-CONTRACT-001`).
+- No live Client→Allagma→Kanon→Conexus smoke (see Allagma `scripts/system/run-system-cohesion-acceptance.ps1` and `TRACE-CONTRACT-001`).
 - No product idempotency derivation rules (Allagma `AllagmaIdempotencyDerivation`).

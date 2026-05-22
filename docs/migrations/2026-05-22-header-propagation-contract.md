@@ -6,12 +6,14 @@ Frozen cross-service propagation header names and reusable test helpers for prov
 
 ## Consumer impact
 
-| Repo | Action |
-| --- | --- |
-| `ontogony-platform` | Use `OntogonyPropagationHeaderContract`, gate checks, `HeaderPropagationConformanceAssertions` |
-| `allagma-dotnet` | Add propagation conformance test using `Ontogony.Testing` (optional in follow-up PR) |
-| `kanon-dotnet` | Same |
-| `conexus-dotnet` | Same |
+| Repo | Action | Status (2026-05-22) |
+| --- | --- | --- |
+| `ontogony-platform` | Use `OntogonyPropagationHeaderContract`, gate checks, `HeaderPropagationConformanceAssertions` | **Done** (PLATFORM-9-003) |
+| `allagma-dotnet` | ALLAGMA-PROP-001 — `AllagmaOutboundPropagationConformanceTests` | **Done** |
+| `kanon-dotnet` | KANON-PROP-001 — `KanonConexusAssistancePropagationConformanceTests` | **Done** |
+| `conexus-dotnet` | CONEXUS-PROP-001 — `ConexusOutboundPropagationConformanceTests` | **Done** |
+
+Closeout index: [`docs/planning/PHASE_TIGHT_CLOSEOUT_2026-05-22.md`](../planning/PHASE_TIGHT_CLOSEOUT_2026-05-22.md).
 
 ## API
 
