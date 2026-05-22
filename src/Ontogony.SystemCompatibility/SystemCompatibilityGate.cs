@@ -39,6 +39,7 @@ public static class SystemCompatibilityGate
             LiveArtifactEvidenceJourneyConformance.CheckFrontendLiveArtifactEvidenceJourneyGate(
                 workspace));
         checks.Add(KanonSemanticDecisionReplayConformance.CheckKanonReplayAcceptanceArtifacts(workspace));
+        checks.Add(KanonDomainPackLifecycleConformance.CheckKanonDomainPackLifecycleArtifacts(workspace));
         checks.Add(CrossServiceErrorEnvelopeConformance.CheckMatrixArtifacts(workspace));
         checks.Add(CrossServiceErrorEnvelopeConformance.CheckPlatformSamples(workspace));
         checks.Add(CrossServiceErrorEnvelopeConformance.CheckTaxonomyAdapterMappings(workspace));

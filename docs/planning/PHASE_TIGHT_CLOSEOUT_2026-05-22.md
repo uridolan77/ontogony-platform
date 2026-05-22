@@ -7,7 +7,7 @@ Tracks **done** work from [`PHASE_TIGHT.md`](./PHASE_TIGHT.md) and cross-repo pr
 | Repo | Prior (PHASE_TIGHT) | Current | Blockers to 9.2+ |
 | --- | ---: | ---: | --- |
 | `ontogony-platform` | 8.5 | **9.12** | Consumer repos still adding domain gates (aliases, lifecycle, evidence graph) |
-| `kanon-dotnet` | 8.6 | **9.02** | KANON-9-001 lifecycle; KANON-9-002 replay **9/9 PASS** |
+| `kanon-dotnet` | 8.6 | **9.18** | KANON-9-001 lifecycle manifest; KANON-9-002 replay **9/9 PASS** |
 | `conexus-dotnet` | 8.8 | **9.08** | Consumed by Allagma alias validation + streaming cohesion PASS |
 | `ontogony-frontend` | — | **8.78** | SYSTEM-9B-005 + live posture docker E2E |
 | `allagma-dotnet` | 8.7 | **9.25** | Streaming cohesion rerun PASS; canonical Docker restart PASS |
@@ -52,7 +52,7 @@ Prior Quick path: `run-20260522T175112Z`.
 | --- | --- | --- | --- |
 | KANON-PROP-001 | **Done** | Conexus assistance outbound propagation proof | `tests/Kanon.Tests/KanonConexusAssistancePropagationConformanceTests.cs` |
 | KANON-9-004 | **Partial** | Assistance in system cohesion smoke | `kanon_conexus_assistance` scenario in ALLAGMA-9-001 / SYSTEM-COH-003 |
-| KANON-9-001 | Open | Domain pack lifecycle hardening | DPACK-GOV exists; PHASE_TIGHT states still required |
+| KANON-9-001 | **Done** | Domain pack lifecycle manifest + acceptance | `KANON_DOMAIN_PACK_LIFECYCLE_MANIFEST.json`; `DomainPackLifecycleGovernanceTests` |
 | KANON-9-002 | **Done** | Semantic decision replay acceptance | `KanonSemanticDecisionReplayAcceptanceTests`; `run-semantic-decision-replay-acceptance.ps1`; operator **6/6 PASS** (2026-05-22) |
 | KANON-9-003 | **Partial** | Error envelope via platform gate + integration docs | PLATFORM-9-002 sibling doc check |
 
@@ -76,13 +76,13 @@ Prior Quick path: `run-20260522T175112Z`.
 | SYSTEM-9B-002 | KANON-9-002 | Done |
 | SYSTEM-9B-003 | CONEXUS-9-002 | Done (Conexus pack); Allagma cohesion streaming flag open |
 | SYSTEM-9B-005 | FE live-artifact E2E | Done |
-| SYSTEM-9A-004 | KANON-9-001 | Open |
+| SYSTEM-9A-004 | KANON-9-001 | Done |
 | SYSTEM-9A-005 | FE route-client drift gate | Done — `SYSTEM_9A_005_ROUTE_CLIENT_DRIFT_GATE_EVIDENCE.md`; `ontogony-frontend` `route-client-drift:check` |
 | SYSTEM-9B-001 | ALLAGMA-9-002 | Done |
 
 ## Next recommended work
 
-1. **KANON-9-001** — domain pack lifecycle hardening manifest (SYSTEM-9A-004)  
-2. **ontogony-ui** — UI-HARDEN-001–004 consolidation  
+1. **ontogony-ui** — UI-HARDEN-001–004 consolidation  
+2. **Allagma** full `run-system-cohesion-acceptance.ps1` (PS7 `pwsh`) bundling platform gate + streaming + trust  
 3. **Allagma** full `run-system-cohesion-acceptance.ps1` (non-Quick, PS7 `pwsh`) bundling platform gate + streaming + trust in one artifact dir  
 4. Optional: wire `runtime-posture-docker-live.spec.ts` into `live-artifact-evidence-journey:check` catalog

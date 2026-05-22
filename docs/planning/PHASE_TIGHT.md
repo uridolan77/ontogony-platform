@@ -4,7 +4,7 @@ To push these repos **above 9**, the work is not “add more features.” It is 
 
 The current scores are high because the architecture is real. **Four repos are now above 9** (Platform, Allagma, Conexus, Kanon). Remaining gaps are lifecycle (Kanon), cohesion flags (Allagma streaming/restart), live posture E2E (frontend), and UI consolidation — not core boundary design.
 
-**Reconciled verdict (2026-05-22):** compatibility gate ✅ · propagation contract ✅ · posture v2 ✅ · alias manifest ✅ · Kanon replay **9/9** ✅ · frontend live-artifact + live posture E2E ✅ · cohesion streaming **PASS** (`streaming-rerun-20260522`) · Docker restart survival **PASS** · KANON-9-001 lifecycle ⬜.
+**Reconciled verdict (2026-05-22):** compatibility gate ✅ · propagation contract ✅ · posture v2 ✅ · alias manifest ✅ · Kanon replay **9/9** ✅ · Kanon lifecycle manifest ✅ · frontend live-artifact + live posture E2E ✅ · cohesion streaming **PASS** · Docker restart **PASS**.
 
 I would set the current scores as:
 
@@ -13,7 +13,7 @@ I would set the current scores as:
 | `ontogony-platform` |           **9.12** | PLATFORM-9-001/002/003 done; compatibility + propagation spine |
 | `allagma-dotnet`    |           **9.25** | ALLAGMA-9-001–004 + PROP-001; streaming cohesion PASS; Docker restart survival PASS |
 | `conexus-dotnet`    |           **9.08** | CONEXUS-9-001 alias manifest; CONEXUS-PROP-001; formal streaming pack in repo (9-002) |
-| `kanon-dotnet`      |           **9.02** | KANON-9-002 replay acceptance **9/9 PASS**; KANON-PROP-001; KANON-9-001 lifecycle open |
+| `kanon-dotnet`      |           **9.18** | KANON-9-001 lifecycle manifest + KANON-9-002 replay **9/9 PASS**; KANON-PROP-001 |
 | `ontogony-frontend` |           **8.78** | Posture v2 panel; SYSTEM-9B-005 evidence journey; live posture docker E2E |
 | `ontogony-ui`       |           **8.05** | Shared package; UI-HARDEN consolidation open |
 
@@ -218,7 +218,7 @@ Conexus reaches **9.2** when model aliases, streaming evidence, idempotency, and
 
 ---
 
-# 3. `kanon-dotnet`: 9.02 (KANON-9-002 done; KANON-9-001 lifecycle open)
+# 3. `kanon-dotnet`: 9.18 (KANON-9-001 + KANON-9-002 done)
 
 ## Why it is not at 9.2+ yet
 
@@ -232,9 +232,11 @@ Kanon’s boundary is excellent. It owns ontology, canonical facts, semantic pla
 
 `tests/Kanon.Tests/KanonConexusAssistancePropagationConformanceTests.cs` — trace, correlation, actor, idempotency; explicitly **no** `X-Allagma-Run-Id` on Kanon → Conexus.
 
-### KANON-9-001 — Domain pack lifecycle hardening
+### KANON-9-001 — Domain pack lifecycle hardening ✅
 
-Introduce explicit lifecycle states:
+Shipped lifecycle states (manifest + governance acceptance). Planned product states `draft` / `archived` are documented as future; v0 uses validate/reviewed/accepted/active/deprecated plus authoring sessions.
+
+Introduce explicit lifecycle states (planning reference):
 
 ```text
 draft
@@ -248,7 +250,7 @@ archived
 
 And require state transitions to produce decision records.
 
-This is the biggest Kanon move toward 9+ because Kanon is the meaning authority. Meaning must have lifecycle governance.
+**Implementation:** [`KANON_DOMAIN_PACK_LIFECYCLE_MANIFEST.json`](../../kanon-dotnet/docs/generated/KANON_DOMAIN_PACK_LIFECYCLE_MANIFEST.json); `DomainPackLifecycleGovernanceTests`; `scripts/run-domain-pack-lifecycle-acceptance.ps1`. See [`kanon-dotnet/docs/evidence/KANON_9_001_DOMAIN_PACK_LIFECYCLE_ACCEPTANCE_EVIDENCE.md`](../../kanon-dotnet/docs/evidence/KANON_9_001_DOMAIN_PACK_LIFECYCLE_ACCEPTANCE_EVIDENCE.md).
 
 ### KANON-9-002 — Semantic decision replay acceptance ✅
 
@@ -440,7 +442,7 @@ Allagma reaches **9.2** when it becomes the one-command proof that the system is
 SYSTEM-9A-001 Platform compatibility validator          ✅ PLATFORM-9-001
 SYSTEM-9A-002 Allagma system acceptance command         ✅ ALLAGMA-9-001
 SYSTEM-9A-003 Conexus model alias manifest            ✅ CONEXUS-9-001
-SYSTEM-9A-004 Kanon domain pack lifecycle manifest      ⬜ KANON-9-001
+SYSTEM-9A-004 Kanon domain pack lifecycle manifest      ✅ KANON-9-001
 SYSTEM-9A-005 Frontend/backend route-client drift gate ✅
 ```
 
@@ -449,7 +451,7 @@ Actual (2026-05-22 closeout):
 ```text
 Platform: 8.5 → 9.12
 Conexus: 8.8 → 9.08
-Kanon: 8.6 → 9.02
+Kanon: 8.6 → 9.18
 Allagma: 8.7 → 9.25
 ```
 
@@ -468,7 +470,7 @@ Actual (partial Sprint B):
 ```text
 Platform: 9.12
 Conexus: 9.08
-Kanon: 9.02
+Kanon: 9.18
 Allagma: 9.25
 Frontend: 8.78
 ```
@@ -488,7 +490,7 @@ Actual (partial Sprint C):
 ```text
 Platform: 9.12 (9C-002 + 9C-003 done)
 Conexus: 9.08
-Kanon: 9.02
+Kanon: 9.18
 Allagma: 9.25
 Frontend/UI: 8.78 / 8.05
 ```
@@ -509,7 +511,8 @@ Do this first:
 7. ✅ Frontend evidence journey live-artifact E2E (SYSTEM-9B-005)
 8. ✅ Allagma cohesion `-IncludeStreamingEvidence` (`artifacts/system-cohesion/streaming-rerun-20260522`)
 9. ✅ Frontend live posture E2E (`runtime-posture-docker-live.spec.ts`)
-10. ⬜ KANON-9-001 domain pack lifecycle manifest gate
+10. ✅ KANON-9-001 domain pack lifecycle manifest gate
+11. ⬜ ontogony-ui UI-HARDEN consolidation
 ```
 
 Why this order? Because **Allagma is the integration spine**. If Allagma can prove the full system loop, every other repo’s next hardening target becomes obvious.
