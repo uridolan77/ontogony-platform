@@ -1,0 +1,150 @@
+{
+  "schema": "ontogony-agent-interaction-event-matrix-v0",
+  "baseline": "SYSTEM-ALPHA-006",
+  "lastUpdated": "2026-05-22",
+  "contractDocument": "docs/operators/AGENT_INTERACTION_SPINE_CONTRACT.md",
+  "relatedContracts": {
+    "evidenceSpine": "docs/operators/SYSTEM_EVIDENCE_SPINE_CONTRACT.md",
+    "traceCorrelation": "docs/operators/TRACE_CORRELATION_CONTRACT.md"
+  },
+  "implementation": {
+    "protocolId": "ontogony.agent-interaction.v0",
+    "milestone": "ONTOGONY-AGUI-000",
+    "transportV0": ["fixture-jsonl", "client-synthesized", "sse-deferred"]
+  },
+  "requiredEventFamilies": [
+    "RUN",
+    "STEP",
+    "INTERRUPT",
+    "DECISION",
+    "MODEL_CALL",
+    "EVIDENCE"
+  ],
+  "eventFamilies": [
+    {
+      "family": "RUN",
+      "owner": "allagma",
+      "requiredEvents": [
+        "RUN_STARTED",
+        "RUN_FINISHED",
+        "RUN_ERROR"
+      ],
+      "existingSources": [
+        "/allagma/v0/runs/{runId}",
+        "/allagma/v0/runs/{runId}/events"
+      ]
+    },
+    {
+      "family": "STEP",
+      "owner": "allagma",
+      "requiredEvents": [
+        "STEP_STARTED",
+        "STEP_FINISHED"
+      ],
+      "existingSources": [
+        "/allagma/v0/runs/{runId}/operations",
+        "/allagma/v0/runs/{runId}/events"
+      ]
+    },
+    {
+      "family": "MESSAGE",
+      "owner": "allagma",
+      "requiredEvents": [
+        "MESSAGE_STARTED",
+        "MESSAGE_DELTA",
+        "MESSAGE_FINISHED"
+      ],
+      "existingSources": [
+        "/allagma/v0/runs/{runId}/events"
+      ],
+      "baselineOptional": true
+    },
+    {
+      "family": "TOOL_CALL",
+      "owner": "allagma",
+      "requiredEvents": [
+        "TOOL_CALL_STARTED",
+        "TOOL_CALL_READY",
+        "TOOL_CALL_RESULT"
+      ],
+      "existingSources": [
+        "/allagma/v0/runs/{runId}/events"
+      ],
+      "baselineOptional": true
+    },
+    {
+      "family": "INTERRUPT",
+      "owner": "kanon",
+      "requiredEvents": [
+        "INTERRUPT_CREATED",
+        "INTERRUPT_RESOLVED"
+      ],
+      "existingSources": [
+        "/ontology/v0/actions/human-gates/check",
+        "/ontology/v0/actions/human-gates/{humanGateId}/resolve"
+      ]
+    },
+    {
+      "family": "DECISION",
+      "owner": "kanon",
+      "requiredEvents": [
+        "DECISION_RECORDED",
+        "DECISION_PROVENANCE_LINKED"
+      ],
+      "existingSources": [
+        "/ontology/v0/decision-records/{decisionId}",
+        "/ontology/v0/decision-records/{decisionId}/provenance"
+      ]
+    },
+    {
+      "family": "MODEL_CALL",
+      "owner": "conexus",
+      "requiredEvents": [
+        "MODEL_CALL_STARTED",
+        "MODEL_CALL_ROUTE_DECIDED",
+        "MODEL_CALL_COMPLETED"
+      ],
+      "existingSources": [
+        "/v1/chat/completions",
+        "/conexus/v0/model-calls/{modelCallId}",
+        "/admin/v0/model-calls/{modelCallId}",
+        "/admin/v0/route-decisions/{routeDecisionId}"
+      ],
+      "operatorPreferredSources": [
+        "/admin/v0/model-calls/{modelCallId}",
+        "/admin/v0/model-calls/{modelCallId}/evidence-links",
+        "/admin/v0/model-calls/{modelCallId}/evidence-bundle"
+      ]
+    },
+    {
+      "family": "EVIDENCE",
+      "owner": "ontogony-frontend",
+      "requiredEvents": [
+        "EVIDENCE_GRAPH_SNAPSHOT",
+        "EVIDENCE_SOURCE_ATTEMPTED"
+      ],
+      "existingSources": [
+        "resolveEvidenceSpine",
+        "resolveTraceCorrelation"
+      ]
+    },
+    {
+      "family": "UI_INTENT",
+      "owner": "ontogony-ui",
+      "requiredEvents": [
+        "UI_INTENT_PROPOSED",
+        "UI_INTENT_RENDERED"
+      ],
+      "existingSources": [
+        "@ontogony/ui ./agent registry"
+      ],
+      "baselineOptional": true
+    }
+  ],
+  "nonGoals": [
+    "hidden_chain_of_thought",
+    "raw_prompt_completion_by_default",
+    "arbitrary_runtime_ui_execution",
+    "replace_evidence_spine_graph_authority"
+  ]
+}

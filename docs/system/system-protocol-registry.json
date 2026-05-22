@@ -243,6 +243,23 @@
       "validators": ["scripts/validate-system-evidence-spine-contract.ps1"]
     },
     {
+      "id": "agent-interaction-spine-contract",
+      "ownerRepo": "ontogony-platform",
+      "protocolId": "ontogony.agent-interaction.v0",
+      "authorityMode": "observational",
+      "sideEffectLevel": "read_only",
+      "kind": "evidence",
+      "paths": [
+        "docs/operators/AGENT_INTERACTION_SPINE_CONTRACT.md",
+        "docs/system/agent-interaction-event.matrix.json",
+        "docs/schemas/ontogony-agent-interaction-event-v0.schema.json",
+        "docs/schemas/ontogony-agent-interaction-session-v0.schema.json",
+        "docs/schemas/fixtures/agent-interaction/sample-run.jsonl",
+        "docs/schemas/fixtures/agent-interaction/sample-human-gate-interrupt.jsonl"
+      ],
+      "validators": ["scripts/validate-agent-interaction-spine.ps1"]
+    },
+    {
       "id": "frontend-evidence-spine-resolver",
       "ownerRepo": "ontogony-frontend",
       "protocolId": "ontogony.evidence-spine.resolve.v1",

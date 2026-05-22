@@ -93,6 +93,7 @@ npm test -- src/evidence-spine/evidenceSpineContractMatrix.test.ts
 
 ## Related
 
+- [`AGENT_INTERACTION_SPINE_CONTRACT.md`](./AGENT_INTERACTION_SPINE_CONTRACT.md) — temporal interaction event log (PLAT-AGUI-000); complements this graph contract
 - [`TRACE_CORRELATION_CONTRACT.md`](./TRACE_CORRELATION_CONTRACT.md) — legacy trace resolver; subsumed for spine roots
 - [`allagma-dotnet/docs/system/allagma-feature-connection.matrix.json`](../../../allagma-dotnet/docs/system/allagma-feature-connection.matrix.json) — runtime endpoint catalog
 - [`SYS_TIGHT_002_SYSTEM_EVIDENCE_SPINE_CONTRACT_EVIDENCE.md`](../evidence/SYS_TIGHT_002_SYSTEM_EVIDENCE_SPINE_CONTRACT_EVIDENCE.md)
