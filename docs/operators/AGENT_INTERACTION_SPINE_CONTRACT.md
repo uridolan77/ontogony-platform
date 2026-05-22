@@ -19,8 +19,9 @@ This layer adds a **temporal interaction timeline** (lifecycle, messages, tool/m
 | Authority for “what happened” in meaning | Kanon decisions, provenance | Same — events **reference** Kanon/Conexus/Allagma ids |
 | Operator workbench (v1) | [`/system/evidence-spine`](../../../ontogony-frontend/src/evidence-spine/resolveEvidenceSpine.ts) | `/system/agent-interaction` (shipped — live SSE via OFE-AGUI-004) |
 | Export schema | `ontogony-cross-service-evidence-spine-bundle-v1` | `ontogony-agent-interaction-event-v0` (JSONL streams) |
+| Event → graph bridge (v0) | [`resolveEvidenceSpine`](../../../ontogony-frontend/src/evidence-spine/resolveEvidenceSpine.ts) | [`resolveAgentInteractionEvidenceGraph`](../../../ontogony-frontend/src/agent-interaction/evidence/resolveAgentInteractionEvidenceGraph.ts) — see [`AG_UI_EVIDENCE_RESOLVER_CONTRACT.md`](./AG_UI_EVIDENCE_RESOLVER_CONTRACT.md) |
 
-See [`SYSTEM_EVIDENCE_SPINE_CONTRACT.md`](./SYSTEM_EVIDENCE_SPINE_CONTRACT.md). Evidence Spine **000–009** remains closed; do not reopen resolver implementation under AG-UI work.
+See [`SYSTEM_EVIDENCE_SPINE_CONTRACT.md`](./SYSTEM_EVIDENCE_SPINE_CONTRACT.md). Evidence Spine **000–009** remains closed; AG-UI work **wraps** the spine resolver (ADAPTER-AGUI-002), it does not replace it.
 
 ## Authority boundaries
 

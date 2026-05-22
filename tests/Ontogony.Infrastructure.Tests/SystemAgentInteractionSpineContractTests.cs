@@ -31,6 +31,8 @@ public sealed class SystemAgentInteractionSpineContractTests
         Assert.True(File.Exists(Path.Combine(RepoRoot, "docs/evidence/PLAT_AGUI_000_EVIDENCE.md")));
         Assert.True(Directory.Exists(Path.Combine(RepoRoot, "docs/schemas/fixtures/agent-interaction")));
         Assert.True(File.Exists(Path.Combine(RepoRoot, "docs/operators/AG_UI_COMPATIBILITY_ADAPTER.md")));
+        Assert.True(File.Exists(Path.Combine(RepoRoot, "docs/operators/AG_UI_EVIDENCE_RESOLVER_CONTRACT.md")));
+        Assert.True(File.Exists(Path.Combine(RepoRoot, "docs/schemas/ontogony-agent-interaction-evidence-graph-v0.schema.json")));
         Assert.True(File.Exists(Path.Combine(RepoRoot, "packages/ontogony-agent-interaction/package.json")));
         Assert.True(File.Exists(Path.Combine(RepoRoot, "packages/ontogony-agent-interaction/src/agUiAdapter.ts")));
     }

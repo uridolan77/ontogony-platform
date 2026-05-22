@@ -178,9 +178,10 @@ This gives the operator a clear model-call story inside the same AG-UI timeline.
 
 # Phase 6 — Cross-system AG-UI evidence graph
 
-## 6. `ADAPTER-AGUI-002 — Cross-system AG-UI evidence resolver`
+## 6. `ADAPTER-AGUI-002 — Cross-system AG-UI evidence resolver` ✅ (local)
 
-**Repos:** `ontogony-platform`, `ontogony-frontend`, maybe `allagma-dotnet`
+**Repos:** `ontogony-platform`, `ontogony-frontend`  
+**Evidence:** `ontogony-platform/docs/evidence/PLAT_AGUI_RESOLVER_002_EVIDENCE.md`, `ontogony-frontend/docs/evidence/OFE_AGUI_RESOLVER_002_EVIDENCE.md`
 
 Goal: from one AG-UI event, resolve the whole chain:
 
@@ -225,7 +226,7 @@ Do not start all of this at once. I’d do:
 5. CONEXUS-AGUI-002 ✅ (local)
    Model-call timeline projection — see conexus-dotnet/docs/evidence/CONEXUS_AGUI_002_EVIDENCE.md
 
-6. ADAPTER-AGUI-002
+6. ADAPTER-AGUI-002 ✅ (local)
    Cross-system evidence graph from AG-UI events.
 ```
 

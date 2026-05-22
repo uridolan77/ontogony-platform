@@ -31,9 +31,11 @@ $matrixPath = Join-Path $RepoRoot "docs/system/agent-interaction-event.matrix.js
 $eventSchemaPath = Join-Path $RepoRoot "docs/schemas/ontogony-agent-interaction-event-v0.schema.json"
 $sessionSchemaPath = Join-Path $RepoRoot "docs/schemas/ontogony-agent-interaction-session-v0.schema.json"
 $evidenceSpineContractPath = Join-Path $RepoRoot "docs/operators/SYSTEM_EVIDENCE_SPINE_CONTRACT.md"
+$evidenceResolverContractPath = Join-Path $RepoRoot "docs/operators/AG_UI_EVIDENCE_RESOLVER_CONTRACT.md"
+$evidenceGraphSchemaPath = Join-Path $RepoRoot "docs/schemas/ontogony-agent-interaction-evidence-graph-v0.schema.json"
 $fixtureDir = Join-Path $RepoRoot "docs/schemas/fixtures/agent-interaction"
 
-foreach ($p in @($contractPath, $matrixPath, $eventSchemaPath, $sessionSchemaPath, $evidenceSpineContractPath)) {
+foreach ($p in @($contractPath, $matrixPath, $eventSchemaPath, $sessionSchemaPath, $evidenceSpineContractPath, $evidenceResolverContractPath, $evidenceGraphSchemaPath)) {
     if (-not (Test-Path -LiteralPath $p)) {
         throw "Missing required path: $p"
     }
@@ -104,6 +106,14 @@ if ($contract -notmatch "agent-interaction-event\.matrix\.json") {
 }
 if ($contract -notmatch "hidden chain-of-thought|hidden reasoning|chain-of-thought") {
     throw "AGENT_INTERACTION_SPINE_CONTRACT.md must document hidden-reasoning non-goals."
+}
+if ($contract -notmatch "AG_UI_EVIDENCE_RESOLVER_CONTRACT") {
+    throw "AGENT_INTERACTION_SPINE_CONTRACT.md must reference AG_UI_EVIDENCE_RESOLVER_CONTRACT.md."
+}
+
+$evidenceGraphSchema = Get-Content -LiteralPath $evidenceGraphSchemaPath -Raw | ConvertFrom-Json
+if ([string]$evidenceGraphSchema.properties.schema.const -ne "ontogony-agent-interaction-evidence-graph-v0") {
+    throw "Evidence graph schema const mismatch for schema property."
 }
 
 $evidenceContract = Get-Content -LiteralPath $evidenceSpineContractPath -Raw

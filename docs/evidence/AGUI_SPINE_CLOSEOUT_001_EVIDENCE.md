@@ -40,7 +40,7 @@ Formal sign-off of package acceptance criteria ([`13_ACCEPTANCE_CHECKLIST.md`](.
 | --- | --- | --- | --- |
 | 4 | KANON-AGUI-REVIEW-001 | ✅ Complete (local) | [`KANON_AGUI_REVIEW_001_EVIDENCE.md`](../../../kanon-dotnet/docs/evidence/KANON_AGUI_REVIEW_001_EVIDENCE.md) |
 | 5 | CONEXUS-AGUI-002 | ✅ Complete (local) | [`CONEXUS_AGUI_002_EVIDENCE.md`](../../../conexus-dotnet/docs/evidence/CONEXUS_AGUI_002_EVIDENCE.md) |
-| 6 | ADAPTER-AGUI-002 | ⏳ Not started | Cross-system evidence resolver from AG-UI events |
+| 6 | ADAPTER-AGUI-002 | ✅ Complete (local) | [`PLAT_AGUI_RESOLVER_002_EVIDENCE.md`](./PLAT_AGUI_RESOLVER_002_EVIDENCE.md), [`OFE_AGUI_RESOLVER_002_EVIDENCE.md`](../../../ontogony-frontend/docs/evidence/OFE_AGUI_RESOLVER_002_EVIDENCE.md) |
 
 ## Acceptance checklist summary
 
