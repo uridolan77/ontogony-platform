@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ontogony:contracts/trace-context",
+  "title": "OntogonyTraceContext",
+  "description": "Cross-service trace context carried in HTTP headers and propagated on outbound calls.",
+  "type": "object",
+  "properties": {
+    "traceparent": {
+      "type": "string",
+      "description": "W3C Trace Context traceparent.",
+      "pattern": "^00-[0-9a-f]{32}-[0-9a-f]{16}-[0-9a-f]{2}$"
+    },
+    "tracestate": {
+      "type": "string",
+      "description": "W3C Trace Context tracestate."
+    },
+    "traceId": {
+      "type": "string",
+      "description": "Ontogony trace identifier (X-Ontogony-Trace-Id).",
+      "minLength": 1
+    },
+    "correlationId": {
+      "type": "string",
+      "description": "Per-request operation correlation id (X-Ontogony-Correlation-Id)."
+    },
+    "actorId": {
+      "type": "string",
+      "description": "Actor identifier (X-Ontogony-Actor-Id)."
+    },
+    "tenantId": {
+      "type": "string",
+      "description": "Tenant scope identifier (X-Ontogony-Tenant-Id)."
+    },
+    "workspaceId": {
+      "type": "string",
+      "description": "Workspace scope identifier (X-Ontogony-Workspace-Id)."
+    }
+  },
+  "required": ["traceId"]
+}

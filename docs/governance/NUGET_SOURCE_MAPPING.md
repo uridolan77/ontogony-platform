@@ -43,7 +43,7 @@ Consumers typically need **two** logical sources:
 
 ### Recommended consumer pattern
 
-1. Keep **secrets out of git** — use `dotnet nuget add source` in CI or environment variables (see [Package publishing (GitHub Packages)](../planning/robustness/PACKAGE_PUBLISHING_GITHUB_PACKAGES.md)).
+1. Keep **secrets out of git** — use `dotnet nuget add source` in CI or environment variables (see [Package publishing (GitHub Packages)](../adoption/private-nuget-feed.md)).
 2. Use **package source mapping** when multiple feeds are enabled (same NU1507 avoidance as platform).
 3. Example mapping shape (adjust keys/URLs to your feed):
 

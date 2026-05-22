@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ontogony:contracts/header-propagation",
+  "title": "OntogonyHeaderPropagation",
+  "description": "Frozen set of HTTP headers propagated on Ontogony service-to-service integration calls.",
+  "type": "object",
+  "properties": {
+    "frozenRequired": {
+      "type": "array",
+      "description": "Headers that MUST be propagated when the corresponding context value is present.",
+      "items": { "type": "string" },
+      "minItems": 7,
+      "maxItems": 7,
+      "examples": [
+        [
+          "traceparent",
+          "X-Correlation-ID",
+          "X-Ontogony-Actor-Id",
+          "X-Ontogony-Actor-Type",
+          "X-Ontogony-Actor-Roles",
+          "X-Ontogony-Idempotency-Key",
+          "X-Allagma-Run-Id"
+        ]
+      ]
+    },
+    "canonicalAliases": {
+      "type": "array",
+      "description": "Preferred aliases for new integrations (superset of frozenRequired).",
+      "items": { "type": "string" }
+    },
+    "legacyInteropAliases": {
+      "type": "array",
+      "description": "Accepted inbound-only aliases; must not appear on outbound calls.",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["frozenRequired"]
+}

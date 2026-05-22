@@ -6,7 +6,7 @@ This note is a **checkpoint** before work moves out of `ontogony-platform` into 
 
 Treat the following as the **Allagma.NET v0 substrate** unless a deliberate platform release changes it:
 
-- **Version line:** `0.3.0-alpha.1` (see [`docs/FRAMEWORK_BASELINE.md`](../FRAMEWORK_BASELINE.md)).
+- **Version line:** `0.3.0-alpha.1` (see [`CURRENT_STATE.md`](../CURRENT_STATE.md)).
 - **Shipping library count:** **23** `Ontogony.*` packages under `src/` (inventory + pack smoke in CI).
 - **Required direct references** for the first execution-host slice: as listed in [`allagma-dotnet-platform-readiness.md`](allagma-dotnet-platform-readiness.md).
 - **Compile-only reference app in this repo:** [`examples/AllagmaDotNetSkeleton/`](../../examples/AllagmaDotNetSkeleton/) — not a product; mirrors required wiring (tracing → logging scope → exception handling; integration metrics; idempotency; execution journal; architecture-test compile smoke).

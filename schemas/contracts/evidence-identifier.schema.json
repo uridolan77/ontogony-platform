@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ontogony:contracts/evidence-identifier",
+  "title": "OntogonyEvidenceIdentifier",
+  "description": "Composite evidence identifier linking trace, artifact, subject, and actor references.",
+  "type": "object",
+  "$defs": {
+    "TraceRef": {
+      "type": "object",
+      "properties": {
+        "traceId": { "type": "string", "minLength": 1 },
+        "spanId": { "type": ["string", "null"] },
+        "traceparent": { "type": ["string", "null"] }
+      },
+      "required": ["traceId"]
+    },
+    "ArtifactRef": {
+      "type": "object",
+      "properties": {
+        "artifactId": { "type": "string", "minLength": 1 },
+        "artifactType": { "type": "string", "minLength": 1 },
+        "storageKey": { "type": ["string", "null"] }
+      },
+      "required": ["artifactId", "artifactType"]
+    },
+    "SubjectRef": {
+      "type": "object",
+      "properties": {
+        "subjectId": { "type": "string", "minLength": 1 },
+        "subjectType": { "type": "string", "minLength": 1 },
+        "namespace": { "type": ["string", "null"] }
+      },
+      "required": ["subjectId", "subjectType"]
+    },
+    "ActorRef": {
+      "type": "object",
+      "properties": {
+        "actorId": { "type": "string", "minLength": 1 },
+        "actorType": { "type": "string", "minLength": 1 },
+        "roles": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": []
+        }
+      },
+      "required": ["actorId", "actorType"]
+    }
+  },
+  "properties": {
+    "trace": { "$ref": "#/$defs/TraceRef" },
+    "artifact": { "$ref": "#/$defs/ArtifactRef" },
+    "subject": { "$ref": "#/$defs/SubjectRef" },
+    "actor": { "$ref": "#/$defs/ActorRef" },
+    "correlationId": { "type": ["string", "null"] },
+    "allagmaRunId": { "type": ["string", "null"] },
+    "timestamp": { "type": "string", "format": "date-time" }
+  },
+  "required": ["trace", "timestamp"]
+}

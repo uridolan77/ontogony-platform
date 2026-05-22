@@ -2,7 +2,7 @@
 
 This blueprint defines the **minimal Ontogony package set** for a first **Allagma.NET** governed-execution service on .NET, and a **reference integration path** for outbound calls to Kanon and Conexus over HTTP. It is planning and inventory only: **no workflow engine, tool-intent model, human-gate policy, or semantic planning** belongs in Ontogony.Platform.
 
-**Current platform package line:** `0.3.0-alpha.1` (see [`docs/FRAMEWORK_BASELINE.md`](../FRAMEWORK_BASELINE.md)). Pre-starter lock and recorded validation checklist: [`allagma-dotnet-starter-plan.md`](allagma-dotnet-starter-plan.md) (PLAT-ALLAGMA-001).
+**Current platform package line:** `0.3.0-alpha.1` (see [`CURRENT_STATE.md`](../CURRENT_STATE.md)). Pre-starter lock and recorded validation checklist: [`allagma-dotnet-starter-plan.md`](allagma-dotnet-starter-plan.md) (PLAT-ALLAGMA-001).
 
 ## Strategic rule
 
@@ -100,7 +100,7 @@ Ontogony.Platform **must not** include:
 
 ## Related documentation
 
-- [`docs/FRAMEWORK_BASELINE.md`](../FRAMEWORK_BASELINE.md) — SDK, TFM, and central package versions.
+- [`DEVELOPMENT.md`](../DEVELOPMENT.md) — SDK (`global.json`), TFM, and validation scripts.
 - [`docs/architecture/package-levels.md`](../architecture/package-levels.md) — allowed dependencies between packages.
 - [`docs/adoption/architecture-tests-adoption.md`](../adoption/architecture-tests-adoption.md) — forbidden dependency scans with `Ontogony.Testing`.
 - [`docs/adoption/integration-metrics-adoption.md`](../adoption/integration-metrics-adoption.md) — outbound integration metrics.

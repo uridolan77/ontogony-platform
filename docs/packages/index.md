@@ -612,7 +612,7 @@ Do not rely on an informal ASCII tree here: it drifts from the real graph. **Aut
 
 ## Installation
 
-**GitHub Packages:** pushing a **version tag** (for example `v0.3.0`) runs [.github/workflows/release-packages.yml](../../.github/workflows/release-packages.yml), which packs and publishes to `https://nuget.pkg.github.com/<owner>/index.json`. See [Package publishing (GitHub Packages)](../planning/robustness/PACKAGE_PUBLISHING_GITHUB_PACKAGES.md) and [Private NuGet feed](../adoption/private-nuget-feed.md).
+**GitHub Packages:** pushing a **version tag** (for example `v0.3.0`) runs [.github/workflows/release-packages.yml](../../.github/workflows/release-packages.yml), which packs and publishes to `https://nuget.pkg.github.com/<owner>/index.json`. See [Private NuGet feed](../adoption/private-nuget-feed.md).
 
 Packages are also attached to **GitHub Releases** as downloadable `.nupkg` files. You can additionally mirror to Azure Artifacts or another NuGet-compatible registry with `dotnet nuget push` if your org requires it.
 

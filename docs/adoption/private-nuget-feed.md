@@ -6,7 +6,7 @@ For **package source mapping** (avoiding NU1507 with multiple feeds), see [NuGet
 
 For CI and machines that do not clone `ontogony-platform` next to every consumer, publish packages to an **internal NuGet feed** (Azure Artifacts, GitHub Packages, self-hosted BaGet, etc.) and reference them by version.
 
-**This repository:** version tags trigger publish to **GitHub Packages** from CI. See [Package publishing (GitHub Packages)](../planning/robustness/PACKAGE_PUBLISHING_GITHUB_PACKAGES.md) for the feed URL, permissions, and consumer setup.
+**This repository:** version tags trigger publish to **GitHub Packages** from CI via [`.github/workflows/release-packages.yml`](../../.github/workflows/release-packages.yml). Feed URL, permissions, and consumer setup are documented below.
 
 **Platform repo restore:** root [`nuget.config`](../../nuget.config) clears user feeds and maps all packages to nuget.org for deterministic platform builds.
 

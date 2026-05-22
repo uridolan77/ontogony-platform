@@ -34,6 +34,7 @@ $expectedRefs = [ordered]@{
     'Ontogony.Secrets'             = @('Ontogony.Redaction')
     'Ontogony.Secrets.AzureKeyVault' = @('Ontogony.Secrets')
     'Ontogony.Security'            = @('Ontogony.Contracts', 'Ontogony.Http', 'Ontogony.Primitives')
+    'Ontogony.SystemCompatibility' = @('Ontogony.Contracts', 'Ontogony.Errors', 'Ontogony.Hashing', 'Ontogony.Http')
     'Ontogony.Testing'             = @(
         'Ontogony.Contracts',
         'Ontogony.Errors',

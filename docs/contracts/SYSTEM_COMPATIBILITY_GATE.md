@@ -70,7 +70,7 @@ Full platform CI materializes registry siblings, then runs this gate with `-DevR
 
 See [`HEADER_PROPAGATION_CONTRACT.md`](./HEADER_PROPAGATION_CONTRACT.md). Checks: matrix, frozen constants, operator docs, sibling integration docs, `Ontogony.Testing` helpers.
 
-**Consumer tests (done):** ALLAGMA-PROP-001, KANON-PROP-001, CONEXUS-PROP-001 — [`PHASE_TIGHT_CLOSEOUT_2026-05-22.md`](../planning/PHASE_TIGHT_CLOSEOUT_2026-05-22.md).
+**Consumer tests (done):** ALLAGMA-PROP-001, KANON-PROP-001, CONEXUS-PROP-001 — [`PLATFORM_PHASE_TIGHT_2026_05_22_EVIDENCE.md`](../evidence/PLATFORM_PHASE_TIGHT_2026_05_22_EVIDENCE.md).
 
 Standalone validation: [`scripts/validate-header-propagation-contract.ps1`](../scripts/validate-header-propagation-contract.ps1).
 

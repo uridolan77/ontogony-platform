@@ -26,7 +26,7 @@ CI runs `./scripts/validate-package-levels.ps1` in [`.github/workflows/ci.yml`](
    ./scripts/validate-package-levels.ps1
    ```
 
-5. If the change affects shipped public API, follow [`PUBLIC_API_COMPATIBILITY.md`](../planning/robustness/PUBLIC_API_COMPATIBILITY.md) and refresh snapshots as required.
+5. If the change affects shipped public API, follow [`PACKAGE_COMPATIBILITY_CHECKLIST_0.3.0-alpha.1.md`](./PACKAGE_COMPATIBILITY_CHECKLIST_0.3.0-alpha.1.md) and refresh snapshots as required.
 
 ## Forbidden edges (always)
 

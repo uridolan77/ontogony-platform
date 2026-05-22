@@ -1,107 +1,72 @@
-# Header propagation contract (PLATFORM-9-003)
+# Header Propagation Contract
 
-Platform-owned **mechanical enforcement** for cross-service HTTP header propagation. Product semantics (who may call whom, idempotency derivation rules) stay in consumer repos; this contract freezes **names** and proves **outbound wiring**.
+**Owner:** `Ontogony.Http.OntogonyPropagationHeaderContract`
+**Schema:** `schemas/contracts/header-propagation.schema.json`
 
-## Frozen required headers
+This contract defines the complete set of HTTP headers that Ontogony runtime services must
+propagate on outbound integration calls.  Compliance is enforced by
+`Ontogony.Testing.HeaderPropagationConformanceAssertions`.
 
-| Header | Constant / source | Notes |
+---
+
+## Required propagation headers
+
+Every outbound integration call must carry these headers when the corresponding context value is
+present in `OntogonyCorrelationContext`:
+
+| Header | Source class | Required when |
 | --- | --- | --- |
-| `traceparent` | `OntogonyEventHeaders.TraceParent` | W3C trace context when `CorrelationState.TraceParent` is set |
-| `X-Correlation-ID` | `OntogonyIntegrationHeaders.LegacyCorrelationId` | Legacy correlation alias (also emits `X-Ontogony-Correlation-Id`) |
-| `X-Ontogony-Actor-Id` | `OntogonyIntegrationHeaders.ActorId` | Actor identity |
-| `X-Ontogony-Actor-Type` | `OntogonyIntegrationHeaders.ActorType` | Actor classifier |
-| `X-Ontogony-Actor-Roles` | `OntogonyIntegrationHeaders.ActorRoles` | Comma-separated roles |
-| `X-Ontogony-Idempotency-Key` | `OntogonyIntegrationHeaders.IdempotencyKey` | Canonical idempotency for unsafe-method retries |
-| `X-Allagma-Run-Id` | `OntogonyPropagationHeaderContract.AllagmaRunId` | Allagma run spine via `IntegrationOutboundState.AdditionalHeaders` |
+| `traceparent` | `OntogonyEventHeaders.TraceParent` | Always |
+| `X-Correlation-ID` | `OntogonyIntegrationHeaders.LegacyCorrelationId` | Correlation context present |
+| `X-Ontogony-Actor-Id` | `OntogonyIntegrationHeaders.ActorId` | Actor context present |
+| `X-Ontogony-Actor-Type` | `OntogonyIntegrationHeaders.ActorType` | Actor context present |
+| `X-Ontogony-Actor-Roles` | `OntogonyIntegrationHeaders.ActorRoles` | Actor context present |
+| `X-Ontogony-Idempotency-Key` | `OntogonyIntegrationHeaders.IdempotencyKey` | Idempotent unsafe methods |
+| `X-Allagma-Run-Id` | `OntogonyPropagationHeaderContract.AllagmaRunId` | Run spine active |
 
-Matrix: [`docs/system/propagation-header.matrix.json`](../system/propagation-header.matrix.json)
+The `FrozenRequired` list in `OntogonyPropagationHeaderContract` is the machine-readable source of
+truth for these seven headers.
 
-## Canonical aliases (also emitted when context is present)
+---
 
-| Header | When |
+## Canonical aliases (preferred in new integrations)
+
+| Header | Source class |
 | --- | --- |
-| `X-Ontogony-Trace-Id` | `OntogonyCorrelationContext` / inbound trace middleware |
-| `X-Ontogony-Correlation-Id` | Same operation id as legacy `X-Correlation-ID` |
+| `X-Ontogony-Trace-Id` | `OntogonyEventHeaders.TraceId` |
+| `X-Ontogony-Correlation-Id` | `OntogonyIntegrationHeaders.CorrelationId` |
 
-## Legacy interop (inbound + retry detection)
+---
 
-| Header | Notes |
-| --- | --- |
-| `Idempotency-Key` | Accepted on inbound; `IntegrationHeaderPropagation.HasIdempotencyKey` treats canonical + legacy |
-| `X-Ontogony-Roles` | Legacy roles alias when roles are propagated |
+## Legacy interop aliases (inbound only)
 
-## Outbound implementation
+These are accepted on inbound calls for backward compatibility.  Services must not emit them on
+outbound calls.
 
-- Handler: `Ontogony.Http.IntegrationHeadersDelegatingHandler`
-- Apply logic: `IntegrationHeaderPropagation` (internal)
-- Per-call scope: `IntegrationClientCallOptions` / `OntogonyIntegrationContext`
+| Header | Source class | Replaced by |
+| --- | --- | --- |
+| `Idempotency-Key` | `OntogonyIntegrationHeaders.LegacyIdempotencyKey` | `X-Ontogony-Idempotency-Key` |
+| `X-Ontogony-Roles` | `OntogonyIntegrationHeaders.LegacyActorRoles` | `X-Ontogony-Actor-Roles` |
 
-## Proving propagation in service tests
+---
 
-Reference `Ontogony.Testing` and call:
+## Compliance test
 
 ```csharp
-await HeaderPropagationConformanceAssertions.AssertIntegrationHandlerPropagatesScenarioAsync(
-    new PropagationHeaderScenario(
-        TraceParent: "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
-        CorrelationId: "corr-op-42",
-        ActorId: "actor-1",
-        ActorType: "service",
-        ActorRoles: "operator,admin",
-        IdempotencyKey: "idem-42",
-        AllagmaRunId: "run-abc",
-        TraceId: "trace-abc"));
+// In each consumer test suite:
+Ontogony.Testing.HeaderPropagationConformanceAssertions.AssertFrozenRequiredHeadersPresent(
+    capturedHeaders,
+    OntogonyPropagationHeaderContract.FrozenRequired);
 ```
 
-Or assert a captured downstream request:
+---
 
-```csharp
-HeaderPropagationConformanceAssertions.AssertFrozenHeadersOnRequest(capturedRequest, scenario);
-```
+## Scope identifiers (optional, propagated when tenancy context is active)
 
-## Integration docs (sibling repos)
-
-| Service | Doc |
+| Header | Source class |
 | --- | --- |
-| Allagma | `allagma-dotnet/docs/system/SYSTEM_TRACE_CONTEXT_MATRIX.md` |
-| Kanon | `kanon-dotnet/docs/integrations/IDEMPOTENCY_AND_TRACE_HEADERS.md` |
-| Conexus | `conexus-dotnet/docs/architecture/BOUNDARIES.md` |
+| `X-Ontogony-Tenant-Id` | `OntogonyIntegrationHeaders.TenantId` |
+| `X-Ontogony-Workspace-Id` | `OntogonyIntegrationHeaders.WorkspaceId` |
 
-## Run
-
-Included in the system compatibility gate:
-
-```powershell
-pwsh ./scripts/run-system-compatibility-gate.ps1 -DevRoot C:\dev
-```
-
-Standalone structural validation:
-
-```powershell
-pwsh ./scripts/validate-header-propagation-contract.ps1 -DevRoot C:\dev
-```
-
-## Checks (mechanical)
-
-| Check id | What it proves |
-| --- | --- |
-| `propagation-headers` | Gate + operator trace docs list frozen headers |
-| `propagation-header-matrix` | Matrix + contract doc align with `OntogonyPropagationHeaderContract` |
-| `propagation-header-constants` | Gate header list matches frozen contract |
-| `propagation-header-sibling-docs` | Allagma/Kanon/Conexus integration docs reference frozen headers |
-| `propagation-header-testing` | `Ontogony.Testing` conformance helpers exist |
-
-## Consumer conformance tests (done)
-
-| Repo | ID | Test project |
-| --- | --- | --- |
-| `allagma-dotnet` | ALLAGMA-PROP-001 | `AllagmaOutboundPropagationConformanceTests` |
-| `kanon-dotnet` | KANON-PROP-001 | `KanonConexusAssistancePropagationConformanceTests` |
-| `conexus-dotnet` | CONEXUS-PROP-001 | `ConexusOutboundPropagationConformanceTests` |
-
-Index: [`docs/CURRENT_STATE.md`](../CURRENT_STATE.md).
-
-## Non-goals
-
-- No live Client→Allagma→Kanon→Conexus smoke (see Allagma `scripts/system/run-system-cohesion-acceptance.ps1` and `TRACE-CONTRACT-001`).
-- No product idempotency derivation rules (Allagma `AllagmaIdempotencyDerivation`).
+These are not in `FrozenRequired` because many integration endpoints are tenant-neutral.  Services
+that are tenancy-aware must propagate them.

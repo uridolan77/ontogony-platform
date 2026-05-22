@@ -6,7 +6,7 @@ This note is a **checkpoint** before work moves out of `ontogony-platform` into 
 
 Treat the following as the **Conexus.NET v0 substrate** unless a deliberate platform release changes it:
 
-- **Version line:** `0.3.0-alpha.1` (see [`docs/FRAMEWORK_BASELINE.md`](../FRAMEWORK_BASELINE.md)).
+- **Version line:** `0.3.0-alpha.1` (see [`CURRENT_STATE.md`](../CURRENT_STATE.md)).
 - **Shipping library count:** **23** `Ontogony.*` packages under `src/` (inventory + pack smoke in CI).
 - **Required direct references** for the first gateway slice: as listed in [`conexus-dotnet-platform-readiness.md`](conexus-dotnet-platform-readiness.md) (Hosting, Observability, Logging, Redaction, Secrets, Quotas, Errors, Http, Security, Idempotency, Hashing, Contracts, AI.Contracts, Artifacts, Execution).
 - **Optional / later:** `Ontogony.Replay.Contracts` and the other “optional later” rows in that blueprint.

@@ -25,7 +25,7 @@ Use this checklist before merging a Platform PR that changes shipped packages, b
   - [ ] [`scripts/validate-public-api-governance.ps1`](../../scripts/validate-public-api-governance.ps1) passes
 - [ ] Reviewers confirmed no accidental `public` on internal types
 
-See [`PUBLIC_API_COMPATIBILITY.md`](../planning/robustness/PUBLIC_API_COMPATIBILITY.md) and [`public-api-review.md`](../public-api-review.md).
+See [`contracts/compatibility-policy.md`](../contracts/compatibility-policy.md) and [`TESTING.md`](../TESTING.md).
 
 ## D. Docs and boundaries
 

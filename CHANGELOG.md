@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-**Phase Tight closeout (2026-05-22):** Consumer propagation conformance tests adopted in all three backend repos (ALLAGMA/KANON/CONEXUS-PROP-001). Allagma system cohesion acceptance command (ALLAGMA-9-001) recorded PASS (Quick path). Index: [`docs/planning/PHASE_TIGHT_CLOSEOUT_2026-05-22.md`](docs/planning/PHASE_TIGHT_CLOSEOUT_2026-05-22.md).
+**Phase Tight closeout (2026-05-22):** Consumer propagation conformance tests adopted in all three backend repos (ALLAGMA/KANON/CONEXUS-PROP-001). Allagma system cohesion acceptance command (ALLAGMA-9-001) recorded PASS (Quick path). Index: [`docs/evidence/PLATFORM_PHASE_TIGHT_2026_05_22_EVIDENCE.md`](docs/evidence/PLATFORM_PHASE_TIGHT_2026_05_22_EVIDENCE.md).
 
 PLATFORM-9-003 — header propagation contract:
 

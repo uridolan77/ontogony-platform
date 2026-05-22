@@ -91,4 +91,4 @@ Cross-service failure shape enforcement: [CROSS_SERVICE_ERROR_ENVELOPE_GATE.md](
 
 Frozen outbound header names and reusable conformance helpers: [HEADER_PROPAGATION_CONTRACT.md](./HEADER_PROPAGATION_CONTRACT.md). Matrix: [`docs/system/propagation-header.matrix.json`](../system/propagation-header.matrix.json). Gate checks in `HeaderPropagationConformance`; standalone: `scripts/validate-header-propagation-contract.ps1`.
 
-**Consumer proofs (done):** ALLAGMA-PROP-001, KANON-PROP-001, CONEXUS-PROP-001 — see [PHASE_TIGHT_CLOSEOUT_2026-05-22.md](../planning/PHASE_TIGHT_CLOSEOUT_2026-05-22.md).
+**Consumer proofs (done):** ALLAGMA-PROP-001, KANON-PROP-001, CONEXUS-PROP-001 — see [PLATFORM_PHASE_TIGHT_2026_05_22_EVIDENCE.md](../evidence/PLATFORM_PHASE_TIGHT_2026_05_22_EVIDENCE.md).

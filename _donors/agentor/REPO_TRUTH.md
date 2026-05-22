@@ -1,6 +1,16 @@
-# Repository truth — current behavior
+# Repository truth — **historical donor archive (Agentor)**
 
-This document states **what the code and HTTP surface actually do today**, so operators and integrators do not mistake roadmap or internal components for default production behavior.
+> **QUARANTINE:** This file is **not** current Ontogony system behavior. It describes the retired **Agentor** product repo preserved under `_donors/agentor/` for archaeology only. **Governed execution** is **Allagma**; **semantic authority** is **Kanon**; **model access** is **Conexus**; **shared mechanics** are **Ontogony.Platform**. See [`docs/CURRENT_STATE.md`](../../docs/CURRENT_STATE.md) and [`_donors/README.md`](../README.md).
+
+---
+
+# Repository truth — Agentor-era snapshot (do not execute)
+
+The text below is an **archived snapshot** from donor import. Operators and agents must **not** treat routes, auth, persistence, or planning paths here as live contracts.
+
+---
+
+This document stated **what the Agentor code and HTTP surface did at import time**, so operators and integrators did not mistake roadmap or internal components for default production behavior.
 
 ## Public agent runs
 

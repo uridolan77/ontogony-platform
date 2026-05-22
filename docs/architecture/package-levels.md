@@ -52,6 +52,16 @@ Many higher-level packages depend on one or both of these; that is why they are 
 
 ---
 
+## Cross-cutting gates (CI / dev tooling)
+
+**Package:** `Ontogony.SystemCompatibility`
+
+**Purpose:** Cross-repo mechanical compatibility validators (runtime lock, route/client drift, error envelopes, header propagation, six-repo gate). References `Ontogony.Contracts`, `Ontogony.Errors`, `Ontogony.Hashing`, and `Ontogony.Http` only. Consumed by `Ontogony.SystemCompatibility.Tests` and gate scripts — not a shipping runtime dependency for product services.
+
+**Golden `ProjectReference` set:** `Contracts`, `Errors`, `Hashing`, `Http` (see `validate-package-levels.ps1`).
+
+---
+
 ## Aggregate (not a runtime tier)
 
 **Package:** `Ontogony.Testing` — pulls together multiple packages for test fixtures and conformance kits. Shipping libraries must not reference it.
@@ -98,6 +108,7 @@ Rows depend on columns. **✓** means the row package may `ProjectReference` the
 | **Ontogony.Secrets** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |   |
 | **Ontogony.Secrets.AzureKeyVault** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | ✓ |   |   |   |   |
 | **Ontogony.Security** |   |   |   | ✓ |   |   |   |   | ✓ |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   |
+| **Ontogony.SystemCompatibility** |   |   |   | ✓ | ✓ |   |   | ✓ |   | ✓ |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 | **Ontogony.Topology.Contracts** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 | **Ontogony.Testing** |   |   |   | ✓ | ✓ |   | ✓ |   | ✓ |   |   | ✓ | ✓ | ✓ |   | ✓ |   |   |   |   |   | ✓ |   |   |
 

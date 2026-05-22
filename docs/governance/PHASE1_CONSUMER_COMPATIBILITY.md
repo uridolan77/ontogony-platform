@@ -54,7 +54,7 @@ Historical name **Agentor** is replaced by **Allagma**; platform docs reference 
 
 1. Read [`CHANGELOG.md`](../../CHANGELOG.md) and [`docs/migrations/`](../migrations/) before bumping `OntogonyPackageVersion` or syncing sibling platform HEAD.
 2. Run the consumer repo’s full test suite (including package-mode CI equivalent when applicable).
-3. Platform PRs that change public API must follow [`PUBLIC_API_COMPATIBILITY.md`](../planning/robustness/PUBLIC_API_COMPATIBILITY.md) and [`public-api-review.md`](../public-api-review.md).
+3. Platform PRs that change public API must follow [`PACKAGE_COMPATIBILITY_CHECKLIST_0.3.0-alpha.1.md`](./PACKAGE_COMPATIBILITY_CHECKLIST_0.3.0-alpha.1.md) and [`TESTING.md`](../TESTING.md).
 4. Coordinate **cross-repo** lock updates (`ontogony-runtime.lock.json` in Allagma) when Phase 1 baseline heads move — that is a system PR, not a silent package bump.
 
 ## Non-goals

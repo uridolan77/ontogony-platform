@@ -2,7 +2,7 @@
 
 This blueprint defines the **minimal Ontogony package set** for a first **Conexus.NET** service on .NET, and a **reference request path** for an OpenAI-style chat completions endpoint. It is planning and inventory only: **no routing, pricing, or provider policy** belongs in Ontogony.Platform.
 
-**Current platform package line:** `0.3.0-alpha.1` (see [`docs/FRAMEWORK_BASELINE.md`](../FRAMEWORK_BASELINE.md)). Pre-starter lock and recorded validation checklist: [`conexus-dotnet-starter-plan.md`](conexus-dotnet-starter-plan.md) (PR54). **Microsoft.Extensions / test-host pins** and consumer alignment policy: [`docs/planning/robustness/DEPENDENCY_BASELINE.md`](../planning/robustness/DEPENDENCY_BASELINE.md) (PR-PLAT-005).
+**Current platform package line:** `0.3.0-alpha.1` (see [`CURRENT_STATE.md`](../CURRENT_STATE.md)). Pre-starter lock and recorded validation checklist: [`conexus-dotnet-starter-plan.md`](conexus-dotnet-starter-plan.md) (PR54). **Microsoft.Extensions / test-host pins** and consumer alignment policy: [`DEVELOPMENT.md`](../DEVELOPMENT.md) validation scripts and [`governance/PACKAGE_COMPATIBILITY_CHECKLIST_0.3.0-alpha.1.md`](../governance/PACKAGE_COMPATIBILITY_CHECKLIST_0.3.0-alpha.1.md) (PR-PLAT-005).
 
 ## Goals
 
@@ -86,6 +86,6 @@ UseOntogonyExceptionHandling()
 
 ## Related documentation
 
-- [`docs/FRAMEWORK_BASELINE.md`](../FRAMEWORK_BASELINE.md) — SDK, TFM, and central package versions for the same baseline as this repo.
+- [`CURRENT_STATE.md`](../CURRENT_STATE.md) — version line; [`DEVELOPMENT.md`](../DEVELOPMENT.md) — SDK (`global.json`) and build commands.
 - [`docs/architecture/package-levels.md`](../architecture/package-levels.md) — allowed dependencies between packages.
 - [`docs/adoption/conexus-platform-adoption.md`](../adoption/conexus-platform-adoption.md) — broader Conexus adoption notes (polyglot / correlation).

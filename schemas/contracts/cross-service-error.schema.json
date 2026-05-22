@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ontogony:contracts/cross-service-error",
+  "title": "CrossServiceErrorEnvelope",
+  "description": "Neutral cross-service error envelope returned on 4xx/5xx responses from Ontogony runtime services.",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "description": "Machine-readable error code. Format: {system}.{domain}.{kind}",
+      "pattern": "^[a-z][a-z0-9_-]*\\.[a-z][a-z0-9_.]*$",
+      "minLength": 3
+    },
+    "message": {
+      "type": "string",
+      "description": "Human-readable summary safe for clients.",
+      "minLength": 1
+    },
+    "system": {
+      "type": "string",
+      "description": "Originating system identifier.",
+      "enum": ["conexus", "kanon", "allagma", "platform"]
+    },
+    "stage": {
+      "type": ["string", "null"],
+      "description": "Optional processing stage label."
+    },
+    "downstreamSystem": {
+      "type": ["string", "null"],
+      "description": "Downstream system when this error wraps another service failure."
+    },
+    "traceId": {
+      "type": ["string", "null"],
+      "description": "Distributed trace identifier."
+    },
+    "correlationId": {
+      "type": ["string", "null"],
+      "description": "Correlation identifier."
+    },
+    "retryable": {
+      "type": ["boolean", "null"],
+      "description": "Whether the client may safely retry the operation."
+    },
+    "detail": {
+      "description": "Optional structured detail payload (product-defined shape)."
+    }
+  },
+  "required": ["code", "message", "system"]
+}

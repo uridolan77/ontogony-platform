@@ -116,7 +116,7 @@ powershell -File ./scripts/validate-docs-links.ps1          # PASS
 powershell -File ./scripts/validate-docs-api-names.ps1      # PASS
 powershell -File ./scripts/validate-shipping-inventory.ps1  # PASS (27 packages)
 powershell -File ./scripts/validate-ai-runtime-docs.ps1     # PASS (after restoring docs/ai-runtime/)
-powershell -File ./scripts/validate-package-levels.ps1      # FAIL: Ontogony.SystemCompatibility not in golden map (pre-existing)
+powershell -File ./scripts/validate-package-levels.ps1      # PASS after PLATFORM-DOCS-CLEAN-002 (SystemCompatibility in golden map)
 dotnet build Ontogony.Platform.sln -c Release                 # PASS
 dotnet test Ontogony.Platform.sln -c Release --no-build       # Infrastructure 318 PASS; SystemCompatibility 2 FAIL without sibling repos at lock SHAs
 ```
@@ -139,11 +139,23 @@ dotnet test Ontogony.Platform.sln -c Release --no-build       # Infrastructure 3
 
 ## Remaining documentation risks
 
-1. **`validate-package-levels.ps1`** — `Ontogony.SystemCompatibility` missing from golden map (code/doc drift predating this cleanup).
+1. ~~**`validate-package-levels.ps1`**~~ — **Fixed:** `Ontogony.SystemCompatibility` added to golden map and `package-levels.md`.
 2. **Test-gated paths** — `docs/product-hardening/.../schemas/` and four extra evidence files must stay until tests are repointed or schemas move under `docs/schemas/`.
 3. **Sister-repo inbound links** — Other repos may still link to deleted platform evidence URLs; fix in those repos if CI link-check fails.
-4. **`_donors/`** — Historical Agentor/Athanor code; not part of this doc pass.
+4. ~~**`_donors/` agent confusion**~~ — **Fixed 2026-05-23 (PLATFORM-DOCS-CLEAN-002):** `_donors/README.md` + quarantine banner on `_donors/agentor/REPO_TRUTH.md`; `_agent_prompts/` and `_issue_bodies/` deleted.
 5. **Docker README** — Updated to point at `KNOWN_LIMITATIONS.md` instead of deleted release closeouts.
+
+---
+
+## Follow-up — PLATFORM-DOCS-CLEAN-002 (2026-05-23)
+
+| Action | Status |
+| --- | --- |
+| Delete `_agent_prompts/` | **Done** |
+| Delete `_issue_bodies/` | **Done** |
+| Quarantine `_donors/` (README + Agentor `REPO_TRUTH` banner) | **Done** |
+| Fix `validate-package-levels.ps1` for `Ontogony.SystemCompatibility` | **Done** |
+| Re-run doc validators + package-levels | See commands section |
 
 ---
 
@@ -155,5 +167,6 @@ dotnet test Ontogony.Platform.sln -c Release --no-build       # Infrastructure 3
 | One current state doc | Yes — `CURRENT_STATE.md` |
 | No zips / `_incoming` | Yes |
 | No Agentor as active component in operator docs | Yes |
+| No executable root prompts (`_agent_prompts`, `_issue_bodies`) | Yes — removed 2026-05-23 |
 | System compat matrix not duplicated | Yes — link to Allagma / gate doc |
 | Cleanup audit trail | This file |

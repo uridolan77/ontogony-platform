@@ -12,7 +12,8 @@ Mechanical governance for Ontogony.Platform **0.3.0-alpha.1** and Phase 1 system
 
 ## Related governance (outside this folder)
 
-- [`docs/public-api-review.md`](../public-api-review.md) — public API snapshots and review process
-- [`docs/planning/robustness/PUBLIC_API_COMPATIBILITY.md`](../planning/robustness/PUBLIC_API_COMPATIBILITY.md) — breaking-change checklist and snapshot refresh
+- [`TESTING.md`](../TESTING.md) — public API snapshot tests and CI gates
+- [`PACKAGE_COMPATIBILITY_CHECKLIST_0.3.0-alpha.1.md`](./PACKAGE_COMPATIBILITY_CHECKLIST_0.3.0-alpha.1.md) — breaking-change checklist and snapshot refresh
+- [`contracts/compatibility-policy.md`](../contracts/compatibility-policy.md) — wire contract compatibility policy
 - [`docs/VERSION_COMPATIBILITY_MATRIX.md`](../VERSION_COMPATIBILITY_MATRIX.md) — proven baseline across packages and consumers
 - [`docs/consumer-blueprints/README.md`](../consumer-blueprints/README.md) — per-consumer readiness and package-mode contracts

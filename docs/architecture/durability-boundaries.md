@@ -70,7 +70,7 @@ The behavior must be **mechanical and value-agnostic**, not tied to product poli
 Before implementing a durable store:
 
 1. Document which consumers need it and why.
-2. Collect use cases in `docs/planning/robustness/DEFERRED_ITEMS.md` with links to consumer code/issues.
+2. Collect deferred use cases in [`KNOWN_LIMITATIONS.md`](../KNOWN_LIMITATIONS.md) with links to consumer code/issues.
 3. Run a spike or PoC if the design is unclear.
 
 ## Deferred Durable Implementations
@@ -138,6 +138,6 @@ Ontogony will:
 
 ## See Also
 
-- [DEFERRED_ITEMS.md](../../planning/robustness/DEFERRED_ITEMS.md) — detailed status of each deferred item and measurement.
-- [PLAT_ROBUSTNESS_SEQUENCE.md](../../planning/robustness/PLAT_ROBUSTNESS_SEQUENCE.md) — PR roadmap and ownership.
+- [`KNOWN_LIMITATIONS.md`](../KNOWN_LIMITATIONS.md) — honest deferred mechanics and closed-program constraints.
+- [`DOCUMENTATION_CLEANUP_REPORT.md`](../DOCUMENTATION_CLEANUP_REPORT.md) — retired planning archive index (2026-05-23).
 - [AGENTS.md](../../AGENTS.md) — shared infrastructure vs. product semantics.

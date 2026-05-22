@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ontogony:contracts/idempotency",
+  "title": "OntogonyIdempotencyKey",
+  "description": "Idempotency key contract for unsafe Ontogony service operations.",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "Idempotency key value carried in X-Ontogony-Idempotency-Key.",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "scope": {
+      "type": "string",
+      "description": "Logical scope prefix (e.g. 'allagma/run-dispatch')."
+    },
+    "ttlSeconds": {
+      "type": "integer",
+      "description": "TTL in seconds after which the ledger entry expires.",
+      "minimum": 60,
+      "default": 86400
+    }
+  },
+  "required": ["key"]
+}

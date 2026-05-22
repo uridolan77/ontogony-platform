@@ -18,7 +18,7 @@ This document freezes the **shared mechanical substrate** for the backend alpha-
 | Runtime lock packages | Ontogony `0.3.0-alpha.1`; Kanon `0.1.0-alpha.0`; Conexus `0.1.0-alpha.1` |
 | Shipping inventory | **23** libraries ΓÇö [`scripts/validate-shipping-inventory.ps1`](../../scripts/validate-shipping-inventory.ps1) |
 
-A future **`0.4.x`** NuGet line is reserved for event-substrate or breaking packaging moves per [`README.md`](../../README.md) and [`FRAMEWORK_BASELINE.md`](../FRAMEWORK_BASELINE.md). This RC freeze keeps **`0.3.0-alpha.1`** as the consumed line until an explicit platform release PR bumps `<Version>`.
+A future **`0.4.x`** NuGet line is reserved for event-substrate or breaking packaging moves per [`README.md`](../../README.md) and [`CURRENT_STATE.md`](../CURRENT_STATE.md). This RC freeze keeps **`0.3.0-alpha.1`** as the consumed line until an explicit platform release PR bumps `<Version>`.
 
 ---
 
@@ -37,7 +37,7 @@ A future **`0.4.x`** NuGet line is reserved for event-substrate or breaking pack
 - OpenAPI document names and ontology `/ontology/v0` semantics (Kanon).
 - Gateway routing, quota policy, provider adapters (Conexus).
 
-**RC rule:** No new **product** semantics in Platform for this baseline. Additive **mechanical** APIs require public API snapshot review and changelog entry per [`PUBLIC_API_COMPATIBILITY.md`](../planning/robustness/PUBLIC_API_COMPATIBILITY.md).
+**RC rule:** No new **product** semantics in Platform for this baseline. Additive **mechanical** APIs require public API snapshot review and changelog entry per [`PACKAGE_COMPATIBILITY_CHECKLIST_0.3.0-alpha.1.md`](./PACKAGE_COMPATIBILITY_CHECKLIST_0.3.0-alpha.1.md).
 
 ---
 
