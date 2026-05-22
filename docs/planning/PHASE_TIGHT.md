@@ -526,3 +526,13 @@ idempotent, replayable, policy-mediated system.
 ```
 
 That is what gets the repos above 9.
+
+---
+
+# RC closure — manual QA entry (current stage)
+
+Architecture and integration gates are largely green. **Do not start another backend feature sprint** until the operator console is validated end-to-end.
+
+**Active closure charter:** [`SYSTEM-RC-FINALIZE-001.md`](./SYSTEM-RC-FINALIZE-001.md) — doc reconciliation, automated gate order, backend + frontend manual QA tables, signoff.
+
+**Remaining honest backend gaps for the console:** `GET /admin/v0/projects` (Conexus); rich `/ready` capability metadata (all services). Everything else in stale backend-waiting docs should be treated as **activated** unless manual QA proves otherwise.

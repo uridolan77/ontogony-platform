@@ -120,7 +120,7 @@ Level 3 — AI runtime mechanics
 
 ```text
 .
-├── src/                          # 23 shipping library packages (see tree below)
+├── src/                          # 27 shipping library packages (see tree below)
 ├── tests/
 ├── docs/
 │   └── architecture/             # package levels and dependency rules
@@ -130,7 +130,7 @@ Level 3 — AI runtime mechanics
 └── .github/workflows/
 ```
 
-### `src/` packages (23)
+### `src/` packages (27)
 
 ```text
 src/
@@ -146,6 +146,7 @@ src/
 ├── Ontogony.Security/
 ├── Ontogony.Redaction/
 ├── Ontogony.Secrets/
+├── Ontogony.Secrets.AzureKeyVault/
 ├── Ontogony.Idempotency/
 ├── Ontogony.Messaging/
 ├── Ontogony.Persistence/
@@ -155,9 +156,14 @@ src/
 ├── Ontogony.AI.Contracts/
 ├── Ontogony.Artifacts/
 ├── Ontogony.Execution/
+├── Ontogony.Evaluation.Contracts/
 ├── Ontogony.Replay.Contracts/
+├── Ontogony.Topology.Contracts/
+├── Ontogony.SystemCompatibility/
 └── Ontogony.Testing/
 ```
+
+Inventory gate: `scripts/validate-shipping-inventory.ps1` (expects 27 `Ontogony.*` projects under `src/`).
 
 ## Examples
 
@@ -223,7 +229,7 @@ Use SemVer syntax for NuGet; treat **0.x** and **pre-release** tags as “evolvi
 
 ## Current status
 
-**Shared infrastructure (0.3.0-alpha.1)** — contracts, reference implementations, docs, and automated tests (see `CHANGELOG.md`). CI restores, builds, tests, uploads Cobertura/TRX coverage artifacts and a **ReportGenerator HTML** bundle (`coverage-report-html`; see [`docs/quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md`](docs/quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md)), validates docs, **shipping inventory**, **AI runtime docs**, **package dependency levels**, and packs **23** libraries on **.NET 9** (see `.github/workflows/`). Numeric coverage **thresholds** remain advisory until baselines stabilize (same doc). A non-shipping [`examples/ConexusDotNetSkeleton/`](examples/ConexusDotNetSkeleton/) project compiles against the Conexus v1 package slice as a compile-only smoke; **Conexus.NET** in `conexus-dotnet` is the live alpha consumer exercising the same stack in product code.
+**Shared infrastructure (0.3.0-alpha.1)** — contracts, reference implementations, docs, and automated tests (see `CHANGELOG.md`). CI restores, builds, tests, uploads Cobertura/TRX coverage artifacts and a **ReportGenerator HTML** bundle (`coverage-report-html`; see [`docs/quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md`](docs/quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md)), validates docs, **shipping inventory** (27 packages), **AI runtime docs**, **package dependency levels**, and packs those libraries on **.NET 9** (see `.github/workflows/`). Numeric coverage **thresholds** remain advisory until baselines stabilize (same doc). A non-shipping [`examples/ConexusDotNetSkeleton/`](examples/ConexusDotNetSkeleton/) project compiles against the Conexus v1 package slice as a compile-only smoke; **Conexus.NET** in `conexus-dotnet` is the live alpha consumer exercising the same stack in product code.
 
 **Still evolving (check `docs/migrations/` before upgrading):**
 

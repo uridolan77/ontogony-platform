@@ -7,7 +7,7 @@ This matrix captures the currently proven baseline for the Ontogony alpha packag
 | Area | Current proof / version | Evidence |
 | --- | --- | --- |
 | Ontogony package line | `0.3.0-alpha.1` | `CHANGELOG.md`, `PACKAGE_MANIFEST.json`, release pack flow |
-| Shipping package count | 23 packages | `scripts/validate-shipping-inventory.ps1` |
+| Shipping package count | 27 packages | `scripts/validate-shipping-inventory.ps1` |
 | .NET SDK baseline | `9.0.100` | `global.json` |
 | .NET runtime target | `net9.0` | package project files under `src/` |
 | Release proof | `v0.3.0-alpha.1` tag publish | `docs/releases/PR-PLAT-NP-001-release-parity-evidence.md` |
