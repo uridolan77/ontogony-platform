@@ -7,10 +7,10 @@ Tracks **done** work from [`PHASE_TIGHT.md`](./PHASE_TIGHT.md) and cross-repo pr
 | Repo | Prior (PHASE_TIGHT) | Current | Blockers to 9.2+ |
 | --- | ---: | ---: | --- |
 | `ontogony-platform` | 8.5 | **9.12** | Consumer repos still adding domain gates (aliases, lifecycle, evidence graph) |
-| `allagma-dotnet` | 8.7 | **9.22** | `-IncludeStreamingEvidence` / `-IncludeRestart` cohesion paths still deferred |
 | `kanon-dotnet` | 8.6 | **9.02** | KANON-9-001 lifecycle; KANON-9-002 replay **9/9 PASS** |
-| `conexus-dotnet` | 8.8 | **9.08** | CONEXUS-9-001 manifest; CONEXUS-9-002 pack in repo; Allagma streaming cohesion rerun |
-| `ontogony-frontend` | — | **8.68** | SYSTEM-9B-005 live-artifact E2E; live posture E2E still open |
+| `conexus-dotnet` | 8.8 | **9.08** | Consumed by Allagma alias validation + streaming cohesion PASS |
+| `ontogony-frontend` | — | **8.78** | SYSTEM-9B-005 + live posture docker E2E |
+| `allagma-dotnet` | 8.7 | **9.25** | Streaming cohesion rerun PASS; canonical Docker restart PASS |
 | `ontogony-ui` | — | **8.05** | Unchanged this slice |
 
 ## Platform (`ontogony-platform`)
@@ -82,8 +82,7 @@ Prior Quick path: `run-20260522T175112Z`.
 
 ## Next recommended work
 
-1. **Allagma** `run-system-cohesion-acceptance.ps1 -IncludeStreamingEvidence` (CONEXUS-9-002 already packaged in Conexus)  
-2. **Allagma** `-IncludeRestart` (restart survival / idempotency sibling gate)  
-3. **KANON-9-001** — domain pack lifecycle hardening manifest  
-4. **Frontend** — live runtime posture E2E against Docker stack (SYSTEM-9B-005 evidence journey done)  
-5. **ontogony-ui** — UI-HARDEN-001–004 consolidation
+1. **KANON-9-001** — domain pack lifecycle hardening manifest (SYSTEM-9A-004)  
+2. **ontogony-ui** — UI-HARDEN-001–004 consolidation  
+3. **Allagma** full `run-system-cohesion-acceptance.ps1` (non-Quick, PS7 `pwsh`) bundling platform gate + streaming + trust in one artifact dir  
+4. Optional: wire `runtime-posture-docker-live.spec.ts` into `live-artifact-evidence-journey:check` catalog

@@ -4,17 +4,17 @@ To push these repos **above 9**, the work is not “add more features.” It is 
 
 The current scores are high because the architecture is real. **Four repos are now above 9** (Platform, Allagma, Conexus, Kanon). Remaining gaps are lifecycle (Kanon), cohesion flags (Allagma streaming/restart), live posture E2E (frontend), and UI consolidation — not core boundary design.
 
-**Reconciled verdict (2026-05-22):** compatibility gate ✅ · propagation contract ✅ · posture v2 ✅ · alias manifest ✅ · Kanon replay acceptance **9/9** ✅ · frontend live-artifact E2E ✅ · Conexus streaming pack ✅ (Allagma `-IncludeStreamingEvidence` rerun ⬜) · restart survival ⬜ · KANON-9-001 lifecycle ⬜.
+**Reconciled verdict (2026-05-22):** compatibility gate ✅ · propagation contract ✅ · posture v2 ✅ · alias manifest ✅ · Kanon replay **9/9** ✅ · frontend live-artifact + live posture E2E ✅ · cohesion streaming **PASS** (`streaming-rerun-20260522`) · Docker restart survival **PASS** · KANON-9-001 lifecycle ⬜.
 
 I would set the current scores as:
 
 | Repo                | Score (2026-05-22) | Notes |
 | ------------------- | -----------------: | --- |
 | `ontogony-platform` |           **9.12** | PLATFORM-9-001/002/003 done; compatibility + propagation spine |
-| `allagma-dotnet`    |           **9.22** | ALLAGMA-9-001–004 + PROP-001; posture v2; alias validation; cohesion quick path PASS |
+| `allagma-dotnet`    |           **9.25** | ALLAGMA-9-001–004 + PROP-001; streaming cohesion PASS; Docker restart survival PASS |
 | `conexus-dotnet`    |           **9.08** | CONEXUS-9-001 alias manifest; CONEXUS-PROP-001; formal streaming pack in repo (9-002) |
 | `kanon-dotnet`      |           **9.02** | KANON-9-002 replay acceptance **9/9 PASS**; KANON-PROP-001; KANON-9-001 lifecycle open |
-| `ontogony-frontend` |           **8.68** | Posture v2 panel; SYSTEM-9B-005 live-artifact evidence E2E |
+| `ontogony-frontend` |           **8.78** | Posture v2 panel; SYSTEM-9B-005 evidence journey; live posture docker E2E |
 | `ontogony-ui`       |           **8.05** | Shared package; UI-HARDEN consolidation open |
 
 **Completed PR index:** [`PHASE_TIGHT_CLOSEOUT_2026-05-22.md`](./PHASE_TIGHT_CLOSEOUT_2026-05-22.md).
@@ -450,7 +450,7 @@ Actual (2026-05-22 closeout):
 Platform: 8.5 → 9.12
 Conexus: 8.8 → 9.08
 Kanon: 8.6 → 9.02
-Allagma: 8.7 → 9.22
+Allagma: 8.7 → 9.25
 ```
 
 ## Sprint B — Evidence and replay
@@ -458,8 +458,8 @@ Allagma: 8.7 → 9.22
 ```text
 SYSTEM-9B-001 End-to-end evidence graph acceptance          ✅ ALLAGMA-9-002
 SYSTEM-9B-002 Kanon semantic decision replay bundle acceptance ✅ KANON-9-002
-SYSTEM-9B-003 Conexus streaming evidence acceptance         ✅ CONEXUS-9-002 (Conexus pack); ⬜ Allagma `-IncludeStreamingEvidence` cohesion rerun
-SYSTEM-9B-004 Allagma restart/idempotency/human-gate acceptance ⬜ (human-gate + streaming PASS; restart DEFERRED in cohesion / compose sibling gate)
+SYSTEM-9B-003 Conexus streaming evidence acceptance         ✅ CONEXUS-9-002 + Allagma cohesion streaming PASS (20260522T193450Z)
+SYSTEM-9B-004 Allagma restart/idempotency/human-gate acceptance ✅ canonical Docker restart + seeded run readable (20260522); process `-IncludeRestart` still conflicts with compose ports
 SYSTEM-9B-005 Frontend evidence journey E2E from live artifacts ✅
 ```
 
@@ -469,8 +469,8 @@ Actual (partial Sprint B):
 Platform: 9.12
 Conexus: 9.08
 Kanon: 9.02
-Allagma: 9.22
-Frontend: 8.68
+Allagma: 9.25
+Frontend: 8.78
 ```
 
 ## Sprint C — Operator-grade polish
@@ -489,8 +489,8 @@ Actual (partial Sprint C):
 Platform: 9.12 (9C-002 + 9C-003 done)
 Conexus: 9.08
 Kanon: 9.02
-Allagma: 9.22
-Frontend/UI: 8.68 / 8.05
+Allagma: 9.25
+Frontend/UI: 8.78 / 8.05
 ```
 
 ---
@@ -507,8 +507,9 @@ Do this first:
 5. ✅ Conexus model alias manifest (CONEXUS-9-001)
 6. ⬜ Kanon domain-pack lifecycle hardening (KANON-9-001); ✅ replay acceptance (KANON-9-002)
 7. ✅ Frontend evidence journey live-artifact E2E (SYSTEM-9B-005)
-8. ⬜ Allagma cohesion `-IncludeStreamingEvidence` then `-IncludeRestart`
-9. ⬜ Frontend live posture E2E against Docker stack (posture panel already unit-tested for v2)
+8. ✅ Allagma cohesion `-IncludeStreamingEvidence` (`artifacts/system-cohesion/streaming-rerun-20260522`)
+9. ✅ Frontend live posture E2E (`runtime-posture-docker-live.spec.ts`)
+10. ⬜ KANON-9-001 domain pack lifecycle manifest gate
 ```
 
 Why this order? Because **Allagma is the integration spine**. If Allagma can prove the full system loop, every other repo’s next hardening target becomes obvious.
