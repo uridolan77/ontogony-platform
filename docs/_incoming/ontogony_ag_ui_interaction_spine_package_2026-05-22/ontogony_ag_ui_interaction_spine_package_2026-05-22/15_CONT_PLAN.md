@@ -234,7 +234,7 @@ Do not start all of this at once. I’d do:
    Evidence: `ontogony-platform/docs/evidence/AGUI_RELEASE_CLOSURE_001_EVIDENCE.md`,
    `AGUI_RELEASE_CLOSURE_002_EVIDENCE.md`,
    `ontogony-frontend/docs/evidence/AGUI_RELEASE_CLOSURE_E2E_001_EVIDENCE.md`.
-   Next: **KANON-AGUI-WORKBENCH-001** (not a release-closure blocker).
+   **KANON-AGUI-WORKBENCH-001** ✅ (local) — review queue in frontend timeline; see `ontogony-frontend/docs/evidence/OFE_KANON_AGUI_WORKBENCH_001_EVIDENCE.md`.
 ```
 
 # Strategic direction
