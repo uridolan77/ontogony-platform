@@ -1,7 +1,7 @@
 # AGUI-RELEASE-CLOSURE-001 — AG-UI continuation phases 1–6 land
 
 **Date:** 2026-05-22  
-**Verdict:** **IN PROGRESS** — artifacts on `main`; CI green pending frontend `@ontogony/ui` build gate.
+**Verdict:** **IN PROGRESS** — artifacts on `main`; frontend CI fixes pushed (`ontogony-ui` tsconfig, route/inventory sync).
 
 ## Scope
 
@@ -49,7 +49,8 @@ npm run test -- src/agent-interaction/
 | Repo | Branch | Notes |
 | --- | --- | --- |
 | ontogony-platform | `main` | Monitor `ci` + CodeQL after push |
-| ontogony-frontend | `main` | Blocked on `ontogony-ui` build: missing `@ontogony/ui/feedback` / `navigation` in CI checkout |
+| ontogony-frontend | `main` | Monitor CI after `df7932f` + inventory catalog commits |
+| ontogony-ui | `main` | `9731c04` — tsconfig paths for `feedback` / `navigation` subpaths |
 
 ## Remaining (post-green CI)
 
