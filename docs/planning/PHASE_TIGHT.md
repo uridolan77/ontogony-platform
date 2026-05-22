@@ -9,7 +9,7 @@ I would set the current scores as:
 | Repo                | Score (2026-05-22) | Notes |
 | ------------------- | -----------------: | --- |
 | `ontogony-platform` |           **9.12** | PLATFORM-9-001/002/003 done; consumers adopt PROP tests |
-| `allagma-dotnet`    |           **9.05** | ALLAGMA-9-001 + PROP-001 done; 9-002 graph acceptance open |
+| `allagma-dotnet`    |           **9.12** | ALLAGMA-9-001/002 + PROP-001 done; 9-003 real-tool trust model open |
 | `conexus-dotnet`    |           **8.92** | CONEXUS-PROP-001 done; alias manifest open |
 | `kanon-dotnet`      |           **8.85** | KANON-PROP-001 done; lifecycle/replay gates open |
 | `ontogony-frontend` |           **8.35** | Unchanged this slice |
@@ -303,7 +303,7 @@ Kanon reaches **9.1–9.2** when semantic lifecycle, replay, policy decision pro
 
 ---
 
-# 4. `allagma-dotnet`: 9.05 (ALLAGMA-9-001 + PROP-001 done; 9-002 open)
+# 4. `allagma-dotnet`: 9.12 (ALLAGMA-9-001/002 + PROP-001 done; 9-003 open)
 
 ## Why it is close
 
@@ -364,9 +364,9 @@ artifacts/system-cohesion/summary.md
 
 `tests/Allagma.Tests/AllagmaOutboundPropagationConformanceTests.cs` — proves Allagma → Kanon (full frozen set) and Allagma → Conexus (trace/correlation/idempotency/run-id; no actor per privacy rule) via `Ontogony.Testing.HeaderPropagationConformanceAssertions`.
 
-### ALLAGMA-9-002 — Evidence graph acceptance
+### ALLAGMA-9-002 — Evidence graph acceptance ✅
 
-Allagma should prove a run can be traversed as a graph:
+Allagma proves a run can be traversed as a graph (executable):
 
 ```text
 Allagma run
@@ -379,7 +379,7 @@ Allagma run
 → frontend evidence links
 ```
 
-This is exactly what your system is about. Make it executable.
+**Implementation:** `scripts/lib/evidence-graph-acceptance.ps1`; cohesion scenario `evidence_graph_acceptance`; `scripts/system/run-evidence-graph-acceptance.ps1`; artifact schema `allagma-evidence-graph-acceptance-v1`. See [`allagma-dotnet/docs/e2e/EVIDENCE_GRAPH_ACCEPTANCE.md`](../../allagma-dotnet/docs/e2e/EVIDENCE_GRAPH_ACCEPTANCE.md).
 
 ### ALLAGMA-9-003 — Real execution trust model, no real execution yet
 
@@ -442,27 +442,27 @@ Actual (2026-05-22 closeout):
 Platform: 8.5 → 9.12
 Conexus: 8.8 → 8.92
 Kanon: 8.6 → 8.85
-Allagma: 8.7 → 9.05
+Allagma: 8.7 → 9.12
 ```
 
 ## Sprint B — Evidence and replay
 
 ```text
-SYSTEM-9B-001 End-to-end evidence graph acceptance
-SYSTEM-9B-002 Kanon semantic decision replay bundle acceptance
-SYSTEM-9B-003 Conexus streaming evidence acceptance
-SYSTEM-9B-004 Allagma restart/idempotency/human-gate acceptance
-SYSTEM-9B-005 Frontend evidence journey E2E from live artifacts
+SYSTEM-9B-001 End-to-end evidence graph acceptance          ✅ ALLAGMA-9-002
+SYSTEM-9B-002 Kanon semantic decision replay bundle acceptance ⬜ KANON-9-002
+SYSTEM-9B-003 Conexus streaming evidence acceptance         ⬜ CONEXUS-9-002
+SYSTEM-9B-004 Allagma restart/idempotency/human-gate acceptance ⬜ (partial via cohesion)
+SYSTEM-9B-005 Frontend evidence journey E2E from live artifacts ⬜
 ```
 
-Expected result:
+Actual (partial Sprint B):
 
 ```text
-Platform: 9.0
-Conexus: 9.1
-Kanon: 9.1
-Allagma: 9.2
-Frontend: 8.7–8.9
+Platform: 9.12
+Conexus: 8.92
+Kanon: 8.85
+Allagma: 9.12
+Frontend: 8.35
 ```
 
 ## Sprint C — Operator-grade polish
@@ -495,7 +495,7 @@ Do this first:
 1. ✅ Allagma one-command system cohesion acceptance (ALLAGMA-9-001)
 2. ✅ Platform compatibility validator (PLATFORM-9-001)
 3. ✅ Header propagation contract + consumer tests (PLATFORM-9-003, *-PROP-001)
-4. ⬜ Allagma evidence graph acceptance (ALLAGMA-9-002)
+4. ✅ Allagma evidence graph acceptance (ALLAGMA-9-002)
 5. ⬜ Conexus model alias manifest (CONEXUS-9-001)
 6. ⬜ Kanon domain-pack lifecycle/replay hardening (KANON-9-001, KANON-9-002)
 7. ⬜ Frontend evidence journey live-artifact E2E

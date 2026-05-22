@@ -7,7 +7,7 @@ Tracks **done** work from [`PHASE_TIGHT.md`](./PHASE_TIGHT.md) and cross-repo pr
 | Repo | Prior (PHASE_TIGHT) | Current | Blockers to 9.2+ |
 | --- | ---: | ---: | --- |
 | `ontogony-platform` | 8.5 | **9.12** | Consumer repos still adding domain gates (aliases, lifecycle, evidence graph) |
-| `allagma-dotnet` | 8.7 | **9.05** | ALLAGMA-9-002 evidence graph; full acceptance with streaming+restart on demand |
+| `allagma-dotnet` | 8.7 | **9.12** | ALLAGMA-9-003 real-tool trust model; full acceptance with streaming+restart on demand |
 | `kanon-dotnet` | 8.6 | **8.85** | KANON-9-001 lifecycle, KANON-9-002 replay acceptance |
 | `conexus-dotnet` | 8.8 | **8.92** | CONEXUS-9-001 alias manifest, CONEXUS-9-002 streaming acceptance |
 | `ontogony-frontend` | — | **8.35** | Unchanged this slice |
@@ -29,7 +29,7 @@ Tracks **done** work from [`PHASE_TIGHT.md`](./PHASE_TIGHT.md) and cross-repo pr
 | --- | --- | --- | --- |
 | ALLAGMA-9-001 | **Done** | `scripts/system/run-system-cohesion-acceptance.ps1` | `docs/e2e/SYSTEM_COHESION_ACCEPTANCE.md`; `artifacts/system-cohesion/summary.{json,md}` |
 | ALLAGMA-PROP-001 | **Done** | Outbound propagation conformance tests | `tests/Allagma.Tests/AllagmaOutboundPropagationConformanceTests.cs` |
-| ALLAGMA-9-002 | Open | Executable evidence graph acceptance | — |
+| ALLAGMA-9-002 | **Done** | Executable evidence graph acceptance | `docs/e2e/EVIDENCE_GRAPH_ACCEPTANCE.md`; scenario `evidence_graph_acceptance` |
 | ALLAGMA-9-003 | Open | Real execution trust model (still disabled) | `docs/security/REAL_TOOL_EXECUTION_TRUST_MODEL.md` (design exists) |
 
 **Acceptance run (2026-05-22, Quick + existing services):**
@@ -70,11 +70,11 @@ Repo SHAs at run: platform `4b601fd`, allagma `891126c`, kanon `d985087`, conexu
 | SYSTEM-9C-003 | PLATFORM-9-003 | Done |
 | SYSTEM-9A-003 | CONEXUS-9-001 | Open |
 | SYSTEM-9A-004 | KANON-9-001 | Open |
-| SYSTEM-9B-001 | ALLAGMA-9-002 | Open |
+| SYSTEM-9B-001 | ALLAGMA-9-002 | Done |
 
 ## Next recommended work
 
-1. ALLAGMA-9-002 — executable evidence graph acceptance  
-2. CONEXUS-9-001 — model alias manifest consumed by Allagma  
-3. KANON-9-001 / KANON-9-002 — lifecycle + replay acceptance matrices  
+1. CONEXUS-9-001 — model alias manifest consumed by Allagma  
+2. KANON-9-001 / KANON-9-002 — lifecycle + replay acceptance matrices  
+3. ALLAGMA-9-003 — real tool trust model tests (still disabled)  
 4. Full ALLAGMA-9-001 with `-IncludeStreamingEvidence` and `-IncludeRestart` (PowerShell 7+)
