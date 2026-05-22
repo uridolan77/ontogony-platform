@@ -13,18 +13,23 @@ public static class SystemCompatibilitySummaryWriter
         WriteIndented = true
     };
 
-    public static void WriteArtifacts(SystemCompatibilityGateResult result, string artifactDirectory)
+    public static void WriteArtifacts(
+        SystemCompatibilityGateResult result,
+        string artifactDirectory,
+        string fileBaseName = "system-compatibility-summary")
     {
         Directory.CreateDirectory(artifactDirectory);
-        var jsonPath = Path.Combine(artifactDirectory, "system-compatibility-summary.json");
-        var mdPath = Path.Combine(artifactDirectory, "system-compatibility-summary.md");
+        var jsonPath = Path.Combine(artifactDirectory, $"{fileBaseName}.json");
+        var mdPath = Path.Combine(artifactDirectory, $"{fileBaseName}.md");
 
         var document = new SystemCompatibilitySummaryDocument(
             result.Schema,
             result.Baseline,
             result.EvaluatedAtUtc,
             result.DevRoot,
+            result.Verdict,
             result.Passed,
+            result.StrictMode,
             result.PassCount,
             result.WarnCount,
             result.FailCount,
@@ -50,7 +55,8 @@ public static class SystemCompatibilitySummaryWriter
         sb.AppendLine($"| Baseline | `{result.Baseline}` |");
         sb.AppendLine($"| Evaluated (UTC) | `{result.EvaluatedAtUtc:O}` |");
         sb.AppendLine($"| Dev root | `{result.DevRoot}` |");
-        sb.AppendLine($"| Verdict | **{(result.Passed ? "PASS" : "FAIL")}** |");
+        sb.AppendLine($"| Mode | {(result.StrictMode ? "**release/strict**" : "development")} |");
+        sb.AppendLine($"| Verdict | **{result.Verdict.ToUpperInvariant()}** |");
         sb.AppendLine($"| Checks | pass={result.PassCount}, warn={result.WarnCount}, fail={result.FailCount}, skipped={result.SkippedCount} |");
         sb.AppendLine();
         sb.AppendLine("## Checks");
@@ -71,7 +77,9 @@ public static class SystemCompatibilitySummaryWriter
         string Baseline,
         DateTimeOffset EvaluatedAtUtc,
         string DevRoot,
+        string Verdict,
         bool Passed,
+        bool StrictMode,
         int PassCount,
         int WarnCount,
         int FailCount,

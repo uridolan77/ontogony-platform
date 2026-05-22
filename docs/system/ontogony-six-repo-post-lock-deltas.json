@@ -1,0 +1,6 @@
+{
+  "schema": "ontogony-six-repo-post-lock-deltas-v1",
+  "baseline": "SYSTEM-RC-001A",
+  "description": "Classifies commits added to any of the six repos after the six-repo lock was promoted. Each entry must be present before a repo's HEAD advances past the locked commit. Entries without a classification block the six-repo gate in strict/release mode.",
+  "deltas": []
+}

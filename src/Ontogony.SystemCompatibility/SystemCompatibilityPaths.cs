@@ -48,6 +48,9 @@ internal static class SystemCompatibilityPaths
     public static string SixRepoLock(SystemCompatibilityWorkspace workspace) =>
         Path.Combine(workspace.PlatformRoot, "docs/system/ontogony-six-repo-lock.json");
 
+    public static string SixRepoPostLockDeltas(SystemCompatibilityWorkspace workspace) =>
+        Path.Combine(workspace.PlatformRoot, "docs/system/ontogony-six-repo-post-lock-deltas.json");
+
     public static string SixRepoLockSchema(SystemCompatibilityWorkspace workspace) =>
         Path.Combine(workspace.PlatformRoot, "schemas/system/ontogony-six-repo-lock.schema.json");
 

@@ -21,7 +21,7 @@ public static class SixRepoCompatibilityGate
         if (!File.Exists(lockPath))
         {
             checks.Add(Fail("six-repo-lock", "Six-repo lock present", $"Missing {lockPath}"));
-            return BuildResult(workspace, checks, "unknown");
+            return BuildResult(workspace, checks, "unknown", options.StrictMode);
         }
 
         using var lockDoc = JsonDocument.Parse(File.ReadAllText(lockPath));
@@ -31,27 +31,30 @@ public static class SixRepoCompatibilityGate
         var baseline = root.TryGetProperty("baseline", out var b) ? b.GetString() ?? "unknown" : "unknown";
 
         checks.Add(CheckAllReposPresent(root));
-        checks.Add(CheckBackendAlignmentWithRuntimeLock(root, workspace));
+        checks.Add(CheckBackendAlignmentWithRuntimeLock(root, workspace, options.StrictMode));
+        checks.Add(CheckPostLockDeltaRegister(workspace, options.StrictMode));
         checks.Add(CheckUiPackageVersion(root, workspace));
         checks.Add(CheckFrontendProvenance(root, workspace));
         checks.Add(CheckUiConsumerManifest(root, workspace));
         checks.Add(CheckOpenApiSnapshotHashes(root, workspace));
         checks.Add(CheckFrontendRouteInventoryHash(root, workspace));
 
-        return BuildResult(workspace, checks, baseline);
+        return BuildResult(workspace, checks, baseline, options.StrictMode);
     }
 
     private static SystemCompatibilityGateResult BuildResult(
         SystemCompatibilityWorkspace workspace,
         List<SystemCompatibilityCheck> checks,
-        string baseline)
+        string baseline,
+        bool strictMode)
     {
         return new SystemCompatibilityGateResult(
             "ontogony-six-repo-lock-v1",
             baseline,
             DateTimeOffset.UtcNow,
             workspace.DevRoot,
-            checks);
+            checks,
+            strictMode);
     }
 
     private static SystemCompatibilityCheck CheckSchema(JsonElement root, string lockPath)
@@ -102,7 +105,8 @@ public static class SixRepoCompatibilityGate
 
     private static SystemCompatibilityCheck CheckBackendAlignmentWithRuntimeLock(
         JsonElement sixRepoRoot,
-        SystemCompatibilityWorkspace workspace)
+        SystemCompatibilityWorkspace workspace,
+        bool strictMode)
     {
         var runtimeLockPath = SystemCompatibilityPaths.RuntimeLock(workspace);
         if (!File.Exists(runtimeLockPath))
@@ -148,11 +152,16 @@ public static class SixRepoCompatibilityGate
         var apiIssues = CheckApiPrefixAlignment(sixRepos, runtimeLock.RootElement);
         issues.AddRange(apiIssues);
 
-        return issues.Count == 0
-            ? Pass("six-repo-backend-align", "Six-repo vs runtime lock alignment",
-                "Backend repo commits and API prefixes align with runtime lock.")
-            : Warn("six-repo-backend-align", "Six-repo vs runtime lock alignment",
-                $"Post-lock delta or drift: {string.Join("; ", issues)}");
+        if (issues.Count == 0)
+        {
+            return Pass("six-repo-backend-align", "Six-repo vs runtime lock alignment",
+                "Backend repo commits and API prefixes align with runtime lock.");
+        }
+
+        var detail = $"Post-lock delta or drift: {string.Join("; ", issues)}";
+        return strictMode
+            ? Fail("six-repo-backend-align", "Six-repo vs runtime lock alignment", detail)
+            : Warn("six-repo-backend-align", "Six-repo vs runtime lock alignment", detail);
     }
 
     private static IEnumerable<string> CheckApiPrefixAlignment(JsonElement sixRepos, JsonElement runtimeRoot)
@@ -171,6 +180,55 @@ public static class SixRepoCompatibilityGate
                 yield return $"allagma apiPrefix: six-repo={sixPrefix.GetString()} runtime={runtimePrefix.GetString()}";
             }
         }
+    }
+
+    private static SystemCompatibilityCheck CheckPostLockDeltaRegister(
+        SystemCompatibilityWorkspace workspace,
+        bool strictMode)
+    {
+        var deltaPath = SystemCompatibilityPaths.SixRepoPostLockDeltas(workspace);
+        if (!File.Exists(deltaPath))
+        {
+            return Warn("six-repo-delta-register", "Post-lock delta register",
+                $"Register not found at {deltaPath} — create it to classify post-lock commits.");
+        }
+
+        using var doc = JsonDocument.Parse(File.ReadAllText(deltaPath));
+        var root = doc.RootElement;
+
+        if (!string.Equals(
+            root.TryGetProperty("schema", out var schema) ? schema.GetString() : null,
+            "ontogony-six-repo-post-lock-deltas-v1",
+            StringComparison.Ordinal))
+        {
+            return Fail("six-repo-delta-register", "Post-lock delta register",
+                "Unexpected schema in post-lock delta register.");
+        }
+
+        if (!root.TryGetProperty("deltas", out var deltas))
+        {
+            return Fail("six-repo-delta-register", "Post-lock delta register",
+                "Delta register missing 'deltas' array.");
+        }
+
+        var unclassified = deltas.EnumerateArray()
+            .Where(d => !d.TryGetProperty("classification", out _))
+            .Select(d => d.TryGetProperty("commit", out var c) ? c.GetString()?[..8] ?? "?" : "?")
+            .ToList();
+
+        if (unclassified.Count == 0)
+        {
+            var count = deltas.GetArrayLength();
+            return Pass("six-repo-delta-register", "Post-lock delta register",
+                count == 0
+                    ? "No post-lock deltas registered."
+                    : $"{count} post-lock delta(s) classified.");
+        }
+
+        var detail = $"Unclassified post-lock commits: {string.Join(", ", unclassified)}";
+        return strictMode
+            ? Fail("six-repo-delta-register", "Post-lock delta register", detail)
+            : Warn("six-repo-delta-register", "Post-lock delta register", detail);
     }
 
     private static SystemCompatibilityCheck CheckUiPackageVersion(
