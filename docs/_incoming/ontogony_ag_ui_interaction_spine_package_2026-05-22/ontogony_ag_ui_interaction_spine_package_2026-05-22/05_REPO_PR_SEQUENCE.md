@@ -135,7 +135,7 @@ Acceptance:
 
 ---
 
-### 6. `KANON-HITL-AGUI-001` — Human-gate interrupt contract ⏳
+### 6. `KANON-HITL-AGUI-001` — Human-gate interrupt contract ✅
 
 **Repo:** `kanon-dotnet`  
 **Purpose:** Define and expose the mapping from human gates / semantic approval decisions to interaction interrupts.
