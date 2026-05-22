@@ -1,0 +1,54 @@
+{
+  "schema": "ontogony-cross-service-error-envelope-v1",
+  "baseline": "SYSTEM-RC-001A",
+  "sprint": "PLATFORM-9-002",
+  "contractDocument": "docs/contracts/CROSS_SERVICE_ERROR_ENVELOPE_GATE.md",
+  "neutralEnvelopeType": "Ontogony.Errors.CrossServiceErrorEnvelope",
+  "jsonSchema": "docs/system/schemas/cross-service-error-envelope-v0.schema.json",
+  "operatorTaxonomyMatrix": "docs/system/operator-failure-taxonomy.matrix.json",
+  "integrationContracts": {
+    "allagma": "allagma-dotnet/docs/integrations/CROSS_SERVICE_ERROR_CONTRACT.md",
+    "kanon": "kanon-dotnet/docs/integrations/ERROR_CONTRACTS.md",
+    "conexus": "conexus-dotnet/docs/architecture/BOUNDARIES.md"
+  },
+  "requiredEnvelopeFields": ["code", "message", "system"],
+  "optionalEnvelopeFields": ["stage", "downstreamSystem", "traceId", "correlationId", "retryable", "detail"],
+  "wireShapes": {
+    "allagma": {
+      "publicHttpShape": "CrossServiceErrorEnvelope",
+      "openApiComponent": "CrossServiceErrorEnvelope",
+      "openApiSnapshot": "allagma-dotnet/docs/api/allagma-openapi-v1.snapshot.json"
+    },
+    "kanon": {
+      "publicHttpShape": "Ontogony.ApiError",
+      "normalization": "Consumers set system=kanon when mapping to CrossServiceErrorEnvelope",
+      "requiredWireFields": ["code", "message"]
+    },
+    "conexus": {
+      "publicHttpShape": "OpenAI.error",
+      "normalization": "Allagma maps ConexusApiException via AllagmaDownstreamCrossServiceErrorMapper",
+      "requiredWireFields": ["error.message"]
+    },
+    "frontend": {
+      "consumerModule": "ontogony-frontend/src/system/errors/operatorFailureTaxonomy.ts",
+      "openApiSnapshot": "ontogony-frontend/openapi/allagma.v0.json"
+    }
+  },
+  "platformSamples": [
+    {
+      "id": "allagma-wire",
+      "wireShape": "CrossServiceErrorEnvelope",
+      "path": "docs/system/error-envelope-samples/allagma-cross-service-error.sample.json"
+    },
+    {
+      "id": "kanon-wire",
+      "wireShape": "Ontogony.ApiError",
+      "path": "docs/system/error-envelope-samples/kanon-api-error.sample.json"
+    },
+    {
+      "id": "conexus-wire",
+      "wireShape": "OpenAI.error",
+      "path": "docs/system/error-envelope-samples/conexus-openai-error.sample.json"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/cross-service-error-envelope-v0.json",
+  "title": "CrossServiceErrorEnvelope",
+  "type": "object",
+  "required": ["code", "message", "system"],
+  "properties": {
+    "code": { "type": "string" },
+    "message": { "type": "string" },
+    "system": { "type": "string" },
+    "stage": { "type": ["string", "null"] },
+    "downstreamSystem": { "type": ["string", "null"] },
+    "traceId": { "type": ["string", "null"] },
+    "correlationId": { "type": ["string", "null"] },
+    "retryable": { "type": ["boolean", "null"] },
+    "detail": {
+      "type": ["object", "array", "string", "number", "boolean", "null"]
+    }
+  },
+  "additionalProperties": true
+}
