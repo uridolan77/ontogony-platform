@@ -270,7 +270,10 @@ jobs:
         run: ./scripts/validate-kanon-ontogony-package-union.ps1
       - name: Validate public API governance
         shell: pwsh
-        run: ./scripts/validate-public-api-governance.ps1
+        run: ./scripts/validate-public-api-baseline.ps1
+      - name: Consumer conformance suite (PLAT-9-003, fixture)
+        shell: pwsh
+        run: ./scripts/run-consumer-conformance.ps1 -SkipPackageSmoke
       - name: Pack (version gate + 23-package smoke)
         env:
           PACKAGE_VERSION: 0.3.0-alpha.1
