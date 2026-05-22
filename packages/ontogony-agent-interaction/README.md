@@ -12,7 +12,9 @@ Protocol-neutral TypeScript mechanics for the Ontogony **agent interaction spine
 "@ontogony/agent-interaction": "file:../ontogony-platform/packages/ontogony-agent-interaction"
 ```
 
-Run `npm install` in the consumer repo (triggers `prepare` → `build`).
+Run `npm install` in the consumer repo (triggers `prepare` → `build` when installing **this** package).
+
+**ontogony-frontend:** `npm install` in the frontend repo does **not** rebuild this package. After platform changes, run `npm run build` here, then `npm run agent-interaction:check` in the frontend repo. See [`ontogony-frontend/docs/development/ONTOGONY_AGENT_INTERACTION_INTEGRATION.md`](../../../ontogony-frontend/docs/development/ONTOGONY_AGENT_INTERACTION_INTEGRATION.md).
 
 ## Usage
 

@@ -33,7 +33,7 @@ ontogony-frontend
 4. Platform package inventory docs match `scripts/validate-shipping-inventory.ps1` (27 shipping packages).
 5. All six repos pass their automated gates.
 6. Allagma system cohesion smoke passes.
-7. Frontend `npm run check:full` passes against pinned `ONTOGONY_UI_REF`.
+7. Frontend `npm run check:full` passes (sibling `ontogony-ui` + `packages/ontogony-agent-interaction` built; pinned `ONTOGONY_UI_REF` for release).
 8. Manual QA sheet below is executed with recorded results.
 9. Outcome is one of: green signoff, blocker list, or deferred limitation list.
 
@@ -67,7 +67,12 @@ Snapshots were accepted on branch; full `dotnet test Ontogony.Platform.sln -c Re
 # ontogony-ui
 npm run check:full
 
-# ontogony-frontend
+# @ontogony/agent-interaction (before frontend typecheck — see ontogony-frontend integration doc)
+cd ontogony-platform/packages/ontogony-agent-interaction
+npm ci
+npm run build
+
+# ontogony-frontend (requires ontogony-ui + agent-interaction dist/)
 npm run check:full
 
 # ontogony-platform
