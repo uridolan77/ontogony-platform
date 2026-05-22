@@ -299,7 +299,7 @@ The main thing holding it below 9 is that it is still **integration-rich but not
 
 ## Required moves
 
-### ALLAGMA-9-001 — Single system acceptance command
+### ALLAGMA-9-001 — Single system acceptance command ✅
 
 Add one canonical command:
 
