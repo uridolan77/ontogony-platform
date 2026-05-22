@@ -23,7 +23,11 @@ public static class SystemCompatibilityGate
 
         checks.Add(CheckRegistryAndRuntimeLock(workspace));
         checks.Add(CheckPlatformPackageVersion(workspace));
-        checks.Add(CheckPropagationHeadersContract(workspace));
+        checks.Add(HeaderPropagationConformance.CheckOperatorContracts(workspace));
+        checks.Add(HeaderPropagationConformance.CheckMatrixArtifacts(workspace));
+        checks.Add(HeaderPropagationConformance.CheckFrozenConstants(workspace));
+        checks.Add(HeaderPropagationConformance.CheckSiblingIntegrationDocs(workspace));
+        checks.Add(HeaderPropagationConformance.CheckTestingHelpers(workspace));
         checks.Add(CheckEnvironmentMatrix(workspace));
         checks.Add(CheckKanonCompatibilityManifest(workspace));
         checks.Add(CheckConexusCompatibilityManifest(workspace));
@@ -239,36 +243,6 @@ public static class SystemCompatibilityGate
         return string.Equals(platformVersion, lockOntogony, StringComparison.Ordinal)
             ? Pass("platform-version", "Platform package version", $"Ontogony {platformVersion} matches runtime lock.")
             : Fail("platform-version", "Platform package version", $"Directory.Build.props Version={platformVersion} lock Ontogony={lockOntogony}");
-    }
-
-    private static SystemCompatibilityCheck CheckPropagationHeadersContract(SystemCompatibilityWorkspace workspace)
-    {
-        var contractPath = Path.Combine(workspace.PlatformRoot, "docs/contracts/SYSTEM_COMPATIBILITY_GATE.md");
-        var traceContractPath = Path.Combine(workspace.PlatformRoot, "docs/operators/TRACE_CORRELATION_CONTRACT.md");
-        var headerMatrixPath = Path.Combine(workspace.PlatformRoot, "docs/contracts/header-compatibility-matrix.md");
-
-        if (!File.Exists(contractPath) || !File.Exists(traceContractPath) || !File.Exists(headerMatrixPath))
-        {
-            return Fail("propagation-headers", "Propagation header contract", "Missing SYSTEM_COMPATIBILITY_GATE, TRACE_CORRELATION_CONTRACT, or header-compatibility-matrix.");
-        }
-
-        var contractText = File.ReadAllText(contractPath);
-        var missingInDocs = SystemCompatibilityPropagationHeaders.Required
-            .Where(h => !contractText.Contains(h, StringComparison.Ordinal))
-            .ToList();
-
-        if (missingInDocs.Count > 0)
-        {
-            return Fail(
-                "propagation-headers",
-                "Propagation header contract",
-                $"Gate doc missing headers: {string.Join(", ", missingInDocs)}");
-        }
-
-        return Pass(
-            "propagation-headers",
-            "Propagation header contract",
-            $"Frozen header set documented ({SystemCompatibilityPropagationHeaders.Required.Count} headers).");
     }
 
     private static SystemCompatibilityCheck CheckEnvironmentMatrix(SystemCompatibilityWorkspace workspace)

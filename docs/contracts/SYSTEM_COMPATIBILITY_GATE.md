@@ -32,23 +32,23 @@ artifacts/system-compat/system-compatibility-summary.md
 
 Schema: `ontogony-system-compatibility-summary-v1`.
 
-## Frozen propagation headers
+## Frozen propagation headers (PLATFORM-9-003)
 
-The gate documents and validates presence of these headers in operator contracts (implementation propagation is PLATFORM-9-003):
+The gate validates the frozen header set via [`HEADER_PROPAGATION_CONTRACT.md`](./HEADER_PROPAGATION_CONTRACT.md) and [`propagation-header.matrix.json`](../system/propagation-header.matrix.json).
 
 | Header | Notes |
 | --- | --- |
 | `traceparent` | W3C trace context |
-| `X-Correlation-ID` | Legacy correlation alias (inbound interop) |
-| `X-Ontogony-Correlation-Id` | Canonical correlation |
+| `X-Correlation-ID` | Legacy correlation alias (also emits `X-Ontogony-Correlation-Id`) |
 | `X-Ontogony-Actor-Id` | Actor identity |
 | `X-Ontogony-Actor-Type` | Actor classifier |
 | `X-Ontogony-Actor-Roles` | Comma-separated roles |
-| `Idempotency-Key` | Legacy idempotency alias |
 | `X-Ontogony-Idempotency-Key` | Canonical idempotency |
-| `X-Allagma-Run-Id` | Allagma run spine (Conexus ingress) |
+| `X-Allagma-Run-Id` | Allagma run spine (via `AdditionalHeaders`) |
 
-See also [`header-compatibility-matrix.md`](./header-compatibility-matrix.md) and [`TRACE_CORRELATION_CONTRACT.md`](../operators/TRACE_CORRELATION_CONTRACT.md).
+Legacy inbound: `Idempotency-Key`, `X-Ontogony-Roles`. See [`header-compatibility-matrix.md`](./header-compatibility-matrix.md) and [`TRACE_CORRELATION_CONTRACT.md`](../operators/TRACE_CORRELATION_CONTRACT.md).
+
+Reusable proofs: `Ontogony.Testing.HeaderPropagationConformanceAssertions`.
 
 ## Run locally
 
@@ -62,6 +62,12 @@ Requires sibling checkouts: `allagma-dotnet`, `kanon-dotnet`, `conexus-dotnet`, 
 ## CI
 
 Full platform CI materializes registry siblings, then runs this gate with `-DevRoot` pointing at the materialized workspace. Failures block merge when any check status is `Fail` (skipped checks are allowed for optional repos in fixture-only runs).
+
+## Header propagation conformance (PLATFORM-9-003)
+
+See [`HEADER_PROPAGATION_CONTRACT.md`](./HEADER_PROPAGATION_CONTRACT.md). Checks: matrix, frozen constants, operator docs, sibling integration docs, `Ontogony.Testing` helpers.
+
+Standalone validation: [`scripts/validate-header-propagation-contract.ps1`](../scripts/validate-header-propagation-contract.ps1).
 
 ## Error envelope conformance (PLATFORM-9-002)
 

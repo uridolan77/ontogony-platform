@@ -5,6 +5,7 @@
 ## Guarantees
 
 - `OntogonyIntegrationHeaders` canonical names for cross-service HTTP calls.
+- `OntogonyPropagationHeaderContract` frozen PLATFORM-9-003 propagation header set (see [`HEADER_PROPAGATION_CONTRACT.md`](../contracts/HEADER_PROPAGATION_CONTRACT.md)).
 - Named and typed `AddOntogonyIntegrationHttpClient` registration with correlation, actor, and idempotency propagation.
 - **Mechanical** error surfaces (`IntegrationHttpError`) for adapters without domain exception types.
 - Correlation propagation includes W3C trace context headers (`traceparent`, `tracestate`) and Ontogony correlation headers when present.

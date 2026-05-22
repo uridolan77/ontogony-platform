@@ -68,6 +68,8 @@ See [../docs/adoption/architecture-tests-adoption.md](../docs/adoption/architect
 
 ### Conformance Kits
 - `TracingConformanceAssertions` — Trace header echo and propagation
+- `HeaderPropagationConformanceAssertions` — Frozen PLATFORM-9-003 outbound header propagation proofs
+- `PropagationHeaderScenario` — Expected values for propagation conformance tests
 - `ErrorShapeConformanceAssertions` — Exception handling and error JSON shape
 - `EnvelopeConformanceAssertions` — Event envelope conventions and payload hash
 - `HmacConformanceAssertions` — HMAC signature format and round-trips

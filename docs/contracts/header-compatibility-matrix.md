@@ -2,6 +2,20 @@
 
 This matrix documents the use, scope, and compatibility guarantees for Ontogony headers across service boundaries.
 
+## Frozen propagation set (PLATFORM-9-003)
+
+These headers are mechanically enforced across Ontogony backends. See [`HEADER_PROPAGATION_CONTRACT.md`](./HEADER_PROPAGATION_CONTRACT.md).
+
+| Header | Purpose | Breaking |
+|--------|---------|----------|
+| `traceparent` | W3C trace context on outbound integration calls | Stable |
+| `X-Correlation-ID` | Legacy correlation alias (canonical: `X-Ontogony-Correlation-Id`) | Stable (legacy) |
+| `X-Ontogony-Actor-Id` | Actor identity | Stable |
+| `X-Ontogony-Actor-Type` | Actor classifier | Stable |
+| `X-Ontogony-Actor-Roles` | Comma-separated roles | Stable |
+| `X-Ontogony-Idempotency-Key` | Canonical idempotency | Stable |
+| `X-Allagma-Run-Id` | Allagma run spine (AdditionalHeaders) | Stable |
+
 ## HTTP Headers
 
 | Header | Purpose | Kanon | Allagma | Conexus | Other Services | Breaking |

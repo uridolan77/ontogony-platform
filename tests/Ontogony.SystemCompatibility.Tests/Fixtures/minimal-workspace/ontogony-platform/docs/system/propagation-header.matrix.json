@@ -1,0 +1,20 @@
+{
+  "schema": "ontogony-propagation-header-v1",
+  "baseline": "SYSTEM-TEST-001",
+  "sprint": "PLATFORM-9-003",
+  "contractDocument": "docs/contracts/HEADER_PROPAGATION_CONTRACT.md",
+  "frozenRequiredHeaders": [
+    "traceparent",
+    "X-Correlation-ID",
+    "X-Ontogony-Actor-Id",
+    "X-Ontogony-Actor-Type",
+    "X-Ontogony-Actor-Roles",
+    "X-Ontogony-Idempotency-Key",
+    "X-Allagma-Run-Id"
+  ],
+  "integrationContracts": {
+    "allagma": "allagma-dotnet/docs/system/SYSTEM_TRACE_CONTEXT_MATRIX.md",
+    "kanon": "kanon-dotnet/docs/integrations/IDEMPOTENCY_AND_TRACE_HEADERS.md",
+    "conexus": "conexus-dotnet/docs/architecture/BOUNDARIES.md"
+  }
+}

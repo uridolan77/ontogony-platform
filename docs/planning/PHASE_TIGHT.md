@@ -97,7 +97,7 @@ Create tests or analyzers that verify each backend uses the same envelope shape:
 
 Score impact: high. This removes the current mixed v0 error-shape weakness.
 
-### PLATFORM-9-003 — Header propagation contract
+### PLATFORM-9-003 — Header propagation contract ✅
 
 Freeze and validate the headers:
 
