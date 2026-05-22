@@ -7,10 +7,10 @@ Tracks **done** work from [`PHASE_TIGHT.md`](./PHASE_TIGHT.md) and cross-repo pr
 | Repo | Prior (PHASE_TIGHT) | Current | Blockers to 9.2+ |
 | --- | ---: | ---: | --- |
 | `ontogony-platform` | 8.5 | **9.12** | Consumer repos still adding domain gates (aliases, lifecycle, evidence graph) |
-| `allagma-dotnet` | 8.7 | **9.15** | full cohesion PASS on Docker stack; restart sibling gate (not `-IncludeRestart` with compose) |
-| `kanon-dotnet` | 8.6 | **8.85** | KANON-9-001 lifecycle, KANON-9-002 replay acceptance |
-| `conexus-dotnet` | 8.8 | **8.92** | CONEXUS-9-001 alias manifest, CONEXUS-9-002 streaming acceptance |
-| `ontogony-frontend` | — | **8.35** | Unchanged this slice |
+| `allagma-dotnet` | 8.7 | **9.22** | `-IncludeStreamingEvidence` / `-IncludeRestart` cohesion paths still deferred |
+| `kanon-dotnet` | 8.6 | **9.02** | KANON-9-001 lifecycle; KANON-9-002 replay **9/9 PASS** |
+| `conexus-dotnet` | 8.8 | **9.08** | CONEXUS-9-001 manifest; CONEXUS-9-002 pack in repo; Allagma streaming cohesion rerun |
+| `ontogony-frontend` | — | **8.68** | SYSTEM-9B-005 live-artifact E2E; live posture E2E still open |
 | `ontogony-ui` | — | **8.05** | Unchanged this slice |
 
 ## Platform (`ontogony-platform`)
@@ -61,8 +61,8 @@ Prior Quick path: `run-20260522T175112Z`.
 | ID | Status | Deliverables | Evidence |
 | --- | --- | --- | --- |
 | CONEXUS-PROP-001 | **Done** | Provider outbound propagation + ingress/outbound split doc | `tests/Conexus.Providers.OpenAI.Tests/ConexusOutboundPropagationConformanceTests.cs`; `BOUNDARIES.md` |
-| CONEXUS-9-001 | Open | Model alias manifest | — |
-| CONEXUS-9-002 | Open | Streaming evidence acceptance pack | Streaming exists; formal acceptance gate open |
+| CONEXUS-9-001 | **Done** | Model alias manifest + Allagma startup validation | `docs/generated/CONEXUS_MODEL_ALIAS_MANIFEST.json`; `allagma-dotnet/docs/system/conexus-model-alias-manifest.snapshot.json` |
+| CONEXUS-9-002 | **Done** (Conexus) | Streaming evidence acceptance pack | `ConexusStreamingEvidenceAcceptanceTests`; `CONEXUS_9_002_STREAMING_EVIDENCE_ACCEPTANCE_EVIDENCE.md`; Allagma `-IncludeStreamingEvidence` cohesion rerun open |
 
 ## Sprint mapping (PHASE_TIGHT roadmap)
 
@@ -72,14 +72,18 @@ Prior Quick path: `run-20260522T175112Z`.
 | SYSTEM-9A-002 | ALLAGMA-9-001 | Done |
 | SYSTEM-9C-002 | PLATFORM-9-002 | Done |
 | SYSTEM-9C-003 | PLATFORM-9-003 | Done |
-| SYSTEM-9A-003 | CONEXUS-9-001 | Open |
+| SYSTEM-9A-003 | CONEXUS-9-001 | Done |
+| SYSTEM-9B-002 | KANON-9-002 | Done |
+| SYSTEM-9B-003 | CONEXUS-9-002 | Done (Conexus pack); Allagma cohesion streaming flag open |
+| SYSTEM-9B-005 | FE live-artifact E2E | Done |
 | SYSTEM-9A-004 | KANON-9-001 | Open |
 | SYSTEM-9A-005 | FE route-client drift gate | Done — `SYSTEM_9A_005_ROUTE_CLIENT_DRIFT_GATE_EVIDENCE.md`; `ontogony-frontend` `route-client-drift:check` |
 | SYSTEM-9B-001 | ALLAGMA-9-002 | Done |
 
 ## Next recommended work
 
-1. CONEXUS-9-001 — model alias manifest consumed by Allagma  
-2. KANON-9-001 / KANON-9-002 — lifecycle + replay acceptance matrices  
-3. Refresh lock-linked restart evidence or document compose `docker compose restart allagma-api` in cohesion summary  
-4. CONEXUS-9-001 / KANON-9-001 / KANON-9-002 domain gates
+1. **Allagma** `run-system-cohesion-acceptance.ps1 -IncludeStreamingEvidence` (CONEXUS-9-002 already packaged in Conexus)  
+2. **Allagma** `-IncludeRestart` (restart survival / idempotency sibling gate)  
+3. **KANON-9-001** — domain pack lifecycle hardening manifest  
+4. **Frontend** — live runtime posture E2E against Docker stack (SYSTEM-9B-005 evidence journey done)  
+5. **ontogony-ui** — UI-HARDEN-001–004 consolidation

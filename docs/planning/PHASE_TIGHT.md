@@ -2,18 +2,20 @@ To push these repos **above 9**, the work is not “add more features.” It is 
 
 > **Closeout index (done PRs + evidence):** [`PHASE_TIGHT_CLOSEOUT_2026-05-22.md`](./PHASE_TIGHT_CLOSEOUT_2026-05-22.md)
 
-The current scores are high because the architecture is real. They are not above 9 because too much proof is still distributed across docs, local scripts, PR evidence, and manual discipline.
+The current scores are high because the architecture is real. **Four repos are now above 9** (Platform, Allagma, Conexus, Kanon). Remaining gaps are lifecycle (Kanon), cohesion flags (Allagma streaming/restart), live posture E2E (frontend), and UI consolidation — not core boundary design.
+
+**Reconciled verdict (2026-05-22):** compatibility gate ✅ · propagation contract ✅ · posture v2 ✅ · alias manifest ✅ · Kanon replay acceptance **9/9** ✅ · frontend live-artifact E2E ✅ · Conexus streaming pack ✅ (Allagma `-IncludeStreamingEvidence` rerun ⬜) · restart survival ⬜ · KANON-9-001 lifecycle ⬜.
 
 I would set the current scores as:
 
 | Repo                | Score (2026-05-22) | Notes |
 | ------------------- | -----------------: | --- |
-| `ontogony-platform` |           **9.12** | PLATFORM-9-001/002/003 done; consumers adopt PROP tests |
-| `allagma-dotnet`    |           **9.15** | ALLAGMA-9-001–004 + PROP-001 done; full cohesion PASS on Docker stack (streaming); restart sibling gate |
-| `conexus-dotnet`    |           **8.95** | CONEXUS-PROP-001 done; alias manifest open |
-| `kanon-dotnet`      |           **8.85** | KANON-PROP-001 done; lifecycle/replay gates open |
-| `ontogony-frontend` |           **8.50** | Runtime posture panel v2 |
-| `ontogony-ui`       |           **8.05** | Unchanged this slice |
+| `ontogony-platform` |           **9.12** | PLATFORM-9-001/002/003 done; compatibility + propagation spine |
+| `allagma-dotnet`    |           **9.22** | ALLAGMA-9-001–004 + PROP-001; posture v2; alias validation; cohesion quick path PASS |
+| `conexus-dotnet`    |           **9.08** | CONEXUS-9-001 alias manifest; CONEXUS-PROP-001; formal streaming pack in repo (9-002) |
+| `kanon-dotnet`      |           **9.02** | KANON-9-002 replay acceptance **9/9 PASS**; KANON-PROP-001; KANON-9-001 lifecycle open |
+| `ontogony-frontend` |           **8.68** | Posture v2 panel; SYSTEM-9B-005 live-artifact evidence E2E |
+| `ontogony-ui`       |           **8.05** | Shared package; UI-HARDEN consolidation open |
 
 **Completed PR index:** [`PHASE_TIGHT_CLOSEOUT_2026-05-22.md`](./PHASE_TIGHT_CLOSEOUT_2026-05-22.md).
 
@@ -143,9 +145,9 @@ The remaining gap is production-adjacent proof and cross-repo hardening.
 
 `tests/Conexus.Providers.OpenAI.Tests/ConexusOutboundPropagationConformanceTests.cs` — provider `AddOntogonyIntegrationHttpClient` path; documents ingress vs outbound split in `docs/architecture/BOUNDARIES.md`.
 
-### CONEXUS-9-001 — Make model aliases system-contract objects
+### CONEXUS-9-001 — Make model aliases system-contract objects ✅
 
-Conexus should publish a machine-readable alias contract:
+Conexus publishes a machine-readable alias contract; Allagma validates at startup (`conexus-model-alias-manifest.snapshot.json`).
 
 ```text
 docs/generated/CONEXUS_MODEL_ALIAS_MANIFEST.json
@@ -168,9 +170,9 @@ For each alias:
 
 Allagma should validate against this before calling Conexus.
 
-### CONEXUS-9-002 — Streaming evidence acceptance
+### CONEXUS-9-002 — Streaming evidence acceptance ✅
 
-Conexus already has streaming and streaming evidence docs. To go above 9, create an acceptance suite that proves:
+Formal acceptance pack in `conexus-dotnet` (`ConexusStreamingEvidenceAcceptanceTests`, `CONEXUS_STREAMING_EVIDENCE_ACCEPTANCE.json`). Remaining lift: wire **Allagma** `-IncludeStreamingEvidence` cohesion path and operator rerun. Proves:
 
 ```text
 stream request accepted
@@ -216,13 +218,13 @@ Conexus reaches **9.2** when model aliases, streaming evidence, idempotency, and
 
 ---
 
-# 3. `kanon-dotnet`: 8.85 (KANON-PROP-001 done; 9-001/002 open)
+# 3. `kanon-dotnet`: 9.02 (KANON-9-002 done; KANON-9-001 lifecycle open)
 
-## Why it is not above 9 yet
+## Why it is not at 9.2+ yet
 
-Kanon’s boundary is excellent. It owns ontology, canonical facts, semantic plans, action policies, human gates, decision provenance, and domain packs; it explicitly does not own LLM routing, workflow orchestration, or provider execution. 
+Kanon’s boundary is excellent. It owns ontology, canonical facts, semantic plans, action policies, human gates, decision provenance, and domain packs; it explicitly does not own LLM routing, workflow orchestration, or provider execution.
 
-The gap is not conceptual. It is **semantic lifecycle enforcement**.
+**KANON-9-002** closes semantic replay bundle acceptance (six categories, **9/9 PASS**, summary artifact). The remaining gap is **domain pack lifecycle hardening** (KANON-9-001), not replay proof.
 
 ## Required moves
 
@@ -437,7 +439,7 @@ Allagma reaches **9.2** when it becomes the one-command proof that the system is
 ```text
 SYSTEM-9A-001 Platform compatibility validator          ✅ PLATFORM-9-001
 SYSTEM-9A-002 Allagma system acceptance command         ✅ ALLAGMA-9-001
-SYSTEM-9A-003 Conexus model alias manifest            ⬜ CONEXUS-9-001
+SYSTEM-9A-003 Conexus model alias manifest            ✅ CONEXUS-9-001
 SYSTEM-9A-004 Kanon domain pack lifecycle manifest      ⬜ KANON-9-001
 SYSTEM-9A-005 Frontend/backend route-client drift gate ✅
 ```
@@ -446,9 +448,9 @@ Actual (2026-05-22 closeout):
 
 ```text
 Platform: 8.5 → 9.12
-Conexus: 8.8 → 8.92
-Kanon: 8.6 → 8.85
-Allagma: 8.7 → 9.15
+Conexus: 8.8 → 9.08
+Kanon: 8.6 → 9.02
+Allagma: 8.7 → 9.22
 ```
 
 ## Sprint B — Evidence and replay
@@ -456,7 +458,7 @@ Allagma: 8.7 → 9.15
 ```text
 SYSTEM-9B-001 End-to-end evidence graph acceptance          ✅ ALLAGMA-9-002
 SYSTEM-9B-002 Kanon semantic decision replay bundle acceptance ✅ KANON-9-002
-SYSTEM-9B-003 Conexus streaming evidence acceptance         ⬜ CONEXUS-9-002 (streaming PASS in ALLAGMA cohesion; formal Conexus pack open)
+SYSTEM-9B-003 Conexus streaming evidence acceptance         ✅ CONEXUS-9-002 (Conexus pack); ⬜ Allagma `-IncludeStreamingEvidence` cohesion rerun
 SYSTEM-9B-004 Allagma restart/idempotency/human-gate acceptance ⬜ (human-gate + streaming PASS; restart DEFERRED in cohesion / compose sibling gate)
 SYSTEM-9B-005 Frontend evidence journey E2E from live artifacts ✅
 ```
@@ -465,10 +467,10 @@ Actual (partial Sprint B):
 
 ```text
 Platform: 9.12
-Conexus: 8.92
-Kanon: 8.85
-Allagma: 9.15
-Frontend: 8.50
+Conexus: 9.08
+Kanon: 9.02
+Allagma: 9.22
+Frontend: 8.68
 ```
 
 ## Sprint C — Operator-grade polish
@@ -485,10 +487,10 @@ Actual (partial Sprint C):
 
 ```text
 Platform: 9.12 (9C-002 + 9C-003 done)
-Conexus: 8.92
-Kanon: 8.85
-Allagma: 9.15
-Frontend/UI: 8.50 / 8.05
+Conexus: 9.08
+Kanon: 9.02
+Allagma: 9.22
+Frontend/UI: 8.68 / 8.05
 ```
 
 ---
@@ -502,9 +504,11 @@ Do this first:
 2. ✅ Platform compatibility validator (PLATFORM-9-001)
 3. ✅ Header propagation contract + consumer tests (PLATFORM-9-003, *-PROP-001)
 4. ✅ Allagma evidence graph acceptance (ALLAGMA-9-002)
-5. ⬜ Conexus model alias manifest (CONEXUS-9-001)
+5. ✅ Conexus model alias manifest (CONEXUS-9-001)
 6. ⬜ Kanon domain-pack lifecycle hardening (KANON-9-001); ✅ replay acceptance (KANON-9-002)
 7. ✅ Frontend evidence journey live-artifact E2E (SYSTEM-9B-005)
+8. ⬜ Allagma cohesion `-IncludeStreamingEvidence` then `-IncludeRestart`
+9. ⬜ Frontend live posture E2E against Docker stack (posture panel already unit-tested for v2)
 ```
 
 Why this order? Because **Allagma is the integration spine**. If Allagma can prove the full system loop, every other repo’s next hardening target becomes obvious.
