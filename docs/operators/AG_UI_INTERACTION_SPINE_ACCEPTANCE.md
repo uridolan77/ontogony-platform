@@ -40,6 +40,7 @@
 - [x] ✅ JSONL import/export works. — workbench + AG-UI JSONL export
 - [x] ✅ Live SSE consumer (OFE-AGUI-004). — [`OFE_AGUI_004_SSE_CONSUMER_EVIDENCE.md`](../../../ontogony-frontend/docs/evidence/OFE_AGUI_004_SSE_CONSUMER_EVIDENCE.md)
 - [x] ✅ Workbench polish (OFE-AGUI-005). — [`OFE_AGUI_005_WORKBENCH_POLISH_EVIDENCE.md`](../../../ontogony-frontend/docs/evidence/OFE_AGUI_005_WORKBENCH_POLISH_EVIDENCE.md)
+- [x] ✅ Cross-system evidence resolver (ADAPTER-AGUI-002). — [`PLAT_AGUI_RESOLVER_002_EVIDENCE.md`](../evidence/PLAT_AGUI_RESOLVER_002_EVIDENCE.md), [`OFE_AGUI_RESOLVER_002_EVIDENCE.md`](../../../ontogony-frontend/docs/evidence/OFE_AGUI_RESOLVER_002_EVIDENCE.md); [`AG_UI_EVIDENCE_RESOLVER_CONTRACT.md`](./AG_UI_EVIDENCE_RESOLVER_CONTRACT.md)
 
 ## Allagma
 
