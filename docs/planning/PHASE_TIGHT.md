@@ -276,6 +276,8 @@ replay bundle
 
 **Implementation:** `tests/Kanon.Tests/KanonSemanticDecisionReplayAcceptanceTests.cs`; `scripts/run-semantic-decision-replay-acceptance.ps1`; `docs/e2e/KANON_SEMANTIC_DECISION_REPLAY_ACCEPTANCE.md`. See [`kanon-dotnet/docs/evidence/KANON_9_002_SEMANTIC_DECISION_REPLAY_ACCEPTANCE_EVIDENCE.md`](../../kanon-dotnet/docs/evidence/KANON_9_002_SEMANTIC_DECISION_REPLAY_ACCEPTANCE_EVIDENCE.md).
 
+**Operator verified (2026-05-22):** `dotnet test tests/Kanon.Tests/Kanon.Tests.csproj --filter "FullyQualifiedName~KanonSemanticDecisionReplayAcceptanceTests"` → **6/6 PASS**.
+
 ### KANON-9-003 — Error envelope normalization
 
 If any v0 routes still return local `{ error = ... }`, bare `NotFound`, or endpoint-specific shapes, normalize them or explicitly freeze them as transitional.
