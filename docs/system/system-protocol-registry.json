@@ -148,6 +148,26 @@
       "validators": ["scripts/run-system-cohesion-smoke.ps1"]
     },
     {
+      "id": "allagma-agui-spine-certification",
+      "ownerRepo": "allagma-dotnet",
+      "protocolId": "allagma.agent-interaction.agui-spine.v1",
+      "authorityMode": "simulation_only",
+      "sideEffectLevel": "evidence_record",
+      "kind": "evidence",
+      "paths": [
+        "docs/contracts/AGENT_INTERACTION_AGUI_SPINE_CONTRACT.md",
+        "docs/contracts/AGUI_BACKEND_OPERATOR_SURFACE_MATRIX.md",
+        "docs/evidence/SYSTEM_RC_001F_AGUI_SPINE_CERTIFICATION_EVIDENCE.md",
+        "scripts/run-agui-spine-golden-run.ps1",
+        "scripts/export-agui-golden-run-evidence.ps1",
+        "artifacts/agui/20260522T152330Z/golden-run-interaction-events.jsonl",
+        "artifacts/agui/20260522T152330Z/golden-run-interaction-stream-transcript.txt",
+        "artifacts/agui/20260522T152330Z/golden-run-interaction-stream-resume.json",
+        "artifacts/agui/20260522T152330Z/agui-redaction-report.json"
+      ],
+      "validators": ["scripts/run-agui-spine-golden-run.ps1"]
+    },
+    {
       "id": "kanon-routes",
       "ownerRepo": "kanon-dotnet",
       "protocolId": "kanon.semantic-route.catalog.v1",
@@ -343,6 +363,20 @@
     }
   ],
   "evidence": [
+    {
+      "id": "SYSTEM-RC-001F",
+      "ownerRepo": "allagma-dotnet",
+      "path": "docs/evidence/SYSTEM_RC_001F_AGUI_SPINE_CERTIFICATION_EVIDENCE.md",
+      "verdict": "PASS",
+      "recordedAt": "2026-05-22T152330Z"
+    },
+    {
+      "id": "agui-golden-20260522",
+      "ownerRepo": "allagma-dotnet",
+      "path": "artifacts/agui/20260522T152330Z/golden-run-summary.json",
+      "verdict": "PASS",
+      "recordedAt": "2026-05-22T152330Z"
+    },
     {
       "id": "PLATFORM-RC-001",
       "ownerRepo": "ontogony-platform",
