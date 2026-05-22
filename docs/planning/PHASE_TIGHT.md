@@ -381,7 +381,7 @@ Allagma run
 
 **Implementation:** `scripts/lib/evidence-graph-acceptance.ps1`; cohesion scenario `evidence_graph_acceptance`; `scripts/system/run-evidence-graph-acceptance.ps1`; artifact schema `allagma-evidence-graph-acceptance-v1`. See [`allagma-dotnet/docs/e2e/EVIDENCE_GRAPH_ACCEPTANCE.md`](../../allagma-dotnet/docs/e2e/EVIDENCE_GRAPH_ACCEPTANCE.md).
 
-### ALLAGMA-9-003 — Real execution trust model, no real execution yet
+### ALLAGMA-9-003 — Real execution trust model, no real execution yet ✅
 
 Allagma currently keeps real execution disabled, which is correct.  To go above 9, do not enable it yet. Instead, formalize the trust model:
 
@@ -401,7 +401,9 @@ audit export
 
 Then add tests proving real execution cannot be enabled accidentally.
 
-### ALLAGMA-9-004 — Runtime posture must become operator-grade
+**Implementation:** `tests/Allagma.Tests/Allagma9003RealExecutionTrustModelTests.cs`; `scripts/system/run-real-execution-trust-acceptance.ps1`; phase `real_execution_trust_acceptance` in ALLAGMA-9-001. See [`allagma-dotnet/docs/e2e/REAL_EXECUTION_TRUST_ACCEPTANCE.md`](../../allagma-dotnet/docs/e2e/REAL_EXECUTION_TRUST_ACCEPTANCE.md).
+
+### ALLAGMA-9-004 — Runtime posture must become operator-grade ✅
 
 The runtime posture endpoint exists.  Expand it into an operator-grade system posture:
 
@@ -417,6 +419,8 @@ manual evaluation enabled/disabled
 known degraded dependencies
 last compatibility check result
 ```
+
+**Implementation:** `GetAllagmaRuntimePostureService.GetAsync` (schema v2); downstream `/health` probes; migration reporter; compatibility snapshot reader. See [`allagma-dotnet/docs/e2e/RUNTIME_POSTURE_ACCEPTANCE.md`](../../allagma-dotnet/docs/e2e/RUNTIME_POSTURE_ACCEPTANCE.md).
 
 ## Above-9 condition
 
@@ -471,7 +475,7 @@ Frontend: 8.35
 SYSTEM-9C-001 Runtime posture dashboard                    ⬜
 SYSTEM-9C-002 Shared error envelope conformance          ✅ PLATFORM-9-002
 SYSTEM-9C-003 Header propagation contract                ✅ PLATFORM-9-003
-SYSTEM-9C-004 Real execution trust model, still disabled   ⬜ ALLAGMA-9-003
+SYSTEM-9C-004 Real execution trust model, still disabled   ✅ ALLAGMA-9-003
 SYSTEM-9C-005 UI status taxonomy + EvidenceExportPanel     ⬜
 ```
 
