@@ -2,7 +2,7 @@
   "schema": "ontogony-six-repo-lock-v1",
   "baseline": "SYSTEM-RC-001A",
   "generatedAt": "2026-05-22T00:00:00Z",
-  "postLockDeltaRegister": "allagma-dotnet/docs/system/post-lock-deltas.json",
+  "postLockDeltaRegister": "docs/system/ontogony-six-repo-post-lock-deltas.json",
   "repos": {
     "ontogony-platform": {
       "commit": "78a3f71511a2797f87cf81ed2e37277c51464ded",
@@ -21,13 +21,13 @@
       "apiPrefix": "/allagma/v0"
     },
     "ontogony-ui": {
-      "commit": "9731c04a221b2104e6e9f5b331fb90692da91849",
+      "commit": "b42fc1bbdaf51aa320464b6b2ef90d20b8864f46",
       "packageVersion": "0.1.0-alpha.0",
       "tarballSha256": "916189323bc75741c0352db63ac2264a39185e8ca6368670b2e5a5bd6e137b2c"
     },
     "ontogony-frontend": {
-      "commit": "291fcbf5087b5ffe4f756e2debec710d4f5ba227",
-      "buildProvenanceSha256": "0f2160734a551668f21247dcaeddaf1fa0869d268665eb94c401910e5eeab8da"
+      "commit": "623414ab6a32f18c39be6501d4bb003fbb7a835d",
+      "buildProvenanceSha256": "fd2e6e7c20f24247dacc4428fee5db0a85360869e96bdc861e73730e36175d07"
     }
   },
   "contracts": {
@@ -37,7 +37,7 @@
       "kanon": "e84845d440d986c40f70e3df3043e19dbdb3a583de9083a92e10a2b829911805"
     },
     "routeInventories": {},
-    "frontendRouteInventory": "ecc055e17c7a3a445627335fe69f9483b09c393955688119d3fc38657d98d51e",
+    "frontendRouteInventory": "324086da0a57e3859881603f1867252fd58bef12bff35f7b41f7eb1cbbd825a1",
     "uiPublicSubpaths": "171b26a50e552f6f9146129b9a6485182c2eaf732bf76bd778ef261368c37ec9"
   }
 }
