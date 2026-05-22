@@ -437,7 +437,7 @@ SYSTEM-9A-001 Platform compatibility validator          ✅ PLATFORM-9-001
 SYSTEM-9A-002 Allagma system acceptance command         ✅ ALLAGMA-9-001
 SYSTEM-9A-003 Conexus model alias manifest            ⬜ CONEXUS-9-001
 SYSTEM-9A-004 Kanon domain pack lifecycle manifest      ⬜ KANON-9-001
-SYSTEM-9A-005 Frontend/backend route-client drift gate ⬜
+SYSTEM-9A-005 Frontend/backend route-client drift gate ✅
 ```
 
 Actual (2026-05-22 closeout):

@@ -71,6 +71,7 @@ Repo SHAs at run: platform `4b601fd`, allagma `891126c`, kanon `d985087`, conexu
 | SYSTEM-9C-003 | PLATFORM-9-003 | Done |
 | SYSTEM-9A-003 | CONEXUS-9-001 | Open |
 | SYSTEM-9A-004 | KANON-9-001 | Open |
+| SYSTEM-9A-005 | FE route-client drift gate | Done — `SYSTEM_9A_005_ROUTE_CLIENT_DRIFT_GATE_EVIDENCE.md`; `ontogony-frontend` `route-client-drift:check` |
 | SYSTEM-9B-001 | ALLAGMA-9-002 | Done |
 
 ## Next recommended work

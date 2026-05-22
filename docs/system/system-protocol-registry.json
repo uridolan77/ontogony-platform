@@ -365,7 +365,11 @@
         "openapi/conexus.v0.json",
         "docs/openapi/ALLAGMA_SNAPSHOT_PROVENANCE.json"
       ],
-      "validators": ["scripts/openapi-check.mjs", "npm run kanon:route-parity:check"]
+      "validators": [
+        "scripts/openapi-check.mjs",
+        "npm run route-client-drift:check",
+        "npm run kanon:route-parity:check"
+      ]
     },
     {
       "id": "allagma-observability-artifact",
