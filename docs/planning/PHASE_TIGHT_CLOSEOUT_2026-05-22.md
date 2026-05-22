@@ -7,7 +7,7 @@ Tracks **done** work from [`PHASE_TIGHT.md`](./PHASE_TIGHT.md) and cross-repo pr
 | Repo | Prior (PHASE_TIGHT) | Current | Blockers to 9.2+ |
 | --- | ---: | ---: | --- |
 | `ontogony-platform` | 8.5 | **9.12** | Consumer repos still adding domain gates (aliases, lifecycle, evidence graph) |
-| `allagma-dotnet` | 8.7 | **9.2** | full acceptance with streaming+restart on demand (optional flags) |
+| `allagma-dotnet` | 8.7 | **9.15** | full cohesion PASS on Docker stack; restart sibling gate (not `-IncludeRestart` with compose) |
 | `kanon-dotnet` | 8.6 | **8.85** | KANON-9-001 lifecycle, KANON-9-002 replay acceptance |
 | `conexus-dotnet` | 8.8 | **8.92** | CONEXUS-9-001 alias manifest, CONEXUS-9-002 streaming acceptance |
 | `ontogony-frontend` | — | **8.35** | Unchanged this slice |
@@ -33,15 +33,18 @@ Tracks **done** work from [`PHASE_TIGHT.md`](./PHASE_TIGHT.md) and cross-repo pr
 | ALLAGMA-9-003 | **Done** | Real execution trust acceptance (still disabled) | [`allagma-dotnet/docs/e2e/REAL_EXECUTION_TRUST_ACCEPTANCE.md`](../../allagma-dotnet/docs/e2e/REAL_EXECUTION_TRUST_ACCEPTANCE.md); `Allagma9003RealExecutionTrustModelTests` |
 | ALLAGMA-9-004 | **Done** | Operator-grade runtime posture v2 | [`allagma-dotnet/docs/e2e/RUNTIME_POSTURE_ACCEPTANCE.md`](../../allagma-dotnet/docs/e2e/RUNTIME_POSTURE_ACCEPTANCE.md) |
 
-**Acceptance run (2026-05-22, Quick + existing services):**
+**Acceptance run (2026-05-22, Docker `local-working-system` + `-UseExistingServices`):**
 
 | Artifact | Verdict |
 | --- | --- |
 | `artifacts/system-cohesion/summary.json` | PASS |
-| `artifacts/system-cohesion/run-20260522T175112Z/summary.json` | PASS (8 scenarios; streaming/restart deferred) |
-| `artifacts/system-cohesion/platform-compat/system-compatibility-summary.json` | PASS |
+| `artifacts/system-cohesion/run-20260522T185400Z/summary.json` | PASS (10 scenarios PASS; `restart_survival` DEFERRED) |
+| `artifacts/system-cohesion/run-20260522T185400Z/streaming-summary.json` | PASS |
+| `artifacts/system-cohesion/platform-compat/system-compatibility-summary.json` | PASS (22 checks) |
 
-Repo SHAs at run: platform `4b601fd`, allagma `891126c`, kanon `d985087`, conexus `c2e5813`.
+Repo SHAs at run: platform `45c7603`, allagma `ed5ec7c`, kanon `6f369ad`, conexus `76f10c4`. Detail: [`allagma-dotnet/docs/evidence/ALLAGMA_COH_FULL_ACCEPTANCE_2026-05-22_EVIDENCE.md`](../../allagma-dotnet/docs/evidence/ALLAGMA_COH_FULL_ACCEPTANCE_2026-05-22_EVIDENCE.md).
+
+Prior Quick path: `run-20260522T175112Z`.
 
 ## Kanon (`kanon-dotnet`)
 
@@ -78,5 +81,5 @@ Repo SHAs at run: platform `4b601fd`, allagma `891126c`, kanon `d985087`, conexu
 
 1. CONEXUS-9-001 — model alias manifest consumed by Allagma  
 2. KANON-9-001 / KANON-9-002 — lifecycle + replay acceptance matrices  
-3. Full ALLAGMA-9-001 with `-IncludeStreamingEvidence` and `-IncludeRestart` (PowerShell 7+)  
-4. Full ALLAGMA-9-001 with streaming + restart when PowerShell 7+ stack is available
+3. Refresh lock-linked restart evidence or document compose `docker compose restart allagma-api` in cohesion summary  
+4. CONEXUS-9-001 / KANON-9-001 / KANON-9-002 domain gates

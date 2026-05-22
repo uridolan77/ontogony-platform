@@ -9,10 +9,10 @@ I would set the current scores as:
 | Repo                | Score (2026-05-22) | Notes |
 | ------------------- | -----------------: | --- |
 | `ontogony-platform` |           **9.12** | PLATFORM-9-001/002/003 done; consumers adopt PROP tests |
-| `allagma-dotnet`    |           **9.12** | ALLAGMA-9-001/002 + PROP-001 done; 9-003 real-tool trust model open |
-| `conexus-dotnet`    |           **8.92** | CONEXUS-PROP-001 done; alias manifest open |
+| `allagma-dotnet`    |           **9.15** | ALLAGMA-9-001–004 + PROP-001 done; full cohesion PASS on Docker stack (streaming); restart sibling gate |
+| `conexus-dotnet`    |           **8.95** | CONEXUS-PROP-001 done; alias manifest open |
 | `kanon-dotnet`      |           **8.85** | KANON-PROP-001 done; lifecycle/replay gates open |
-| `ontogony-frontend` |           **8.35** | Unchanged this slice |
+| `ontogony-frontend` |           **8.50** | Runtime posture panel v2 |
 | `ontogony-ui`       |           **8.05** | Unchanged this slice |
 
 **Completed PR index:** [`PHASE_TIGHT_CLOSEOUT_2026-05-22.md`](./PHASE_TIGHT_CLOSEOUT_2026-05-22.md).
@@ -303,15 +303,13 @@ Kanon reaches **9.1–9.2** when semantic lifecycle, replay, policy decision pro
 
 ---
 
-# 4. `allagma-dotnet`: 9.12 (ALLAGMA-9-001/002 + PROP-001 done; 9-003 open)
+# 4. `allagma-dotnet`: 9.15 (ALLAGMA-9-001–004 + PROP-001 done)
 
 ## Why it is close
 
-Allagma is now the integration center. Its feature matrix maps run lifecycle, resume/retry/cancel/replay, evaluations, baseline comparisons, runtime posture, Kanon/Conexus dependencies, Platform packages, smoke tests, and frontend routes. 
+Allagma is the integration center: run lifecycle, resume/retry/cancel/replay, evaluations, operator runtime posture v2, Kanon/Conexus dependencies, Platform packages, and canonical acceptance. Model purpose routing (`Allagma:ModelPurposes:[purpose]:ConexusModelAlias`), streaming, and trust gates are exercised by `run-system-cohesion-acceptance.ps1` on the Docker `local-working-system` stack.
 
-It also documents model purpose routing, including `Allagma:ModelPurposes:[purpose]:ConexusModelAlias`, streaming flags, and persisted-stream-output flags. 
-
-The main thing holding it below 9 is that it is still **integration-rich but not yet hard-gated enough**.
+Remaining lift to **9.2+**: cohesion `restart_survival` PASS in-summary (or lock-linked compose restart artifact refresh) without port conflicts.
 
 ## Required moves
 
@@ -358,7 +356,7 @@ artifacts/system-cohesion/summary.json
 artifacts/system-cohesion/summary.md
 ```
 
-**Evidence (2026-05-22):** local acceptance PASS — `artifacts/system-cohesion/summary.json`; cohesion run `run-20260522T175112Z` (Quick path; streaming/restart deferred). See [`PHASE_TIGHT_CLOSEOUT_2026-05-22.md`](./PHASE_TIGHT_CLOSEOUT_2026-05-22.md).
+**Evidence (2026-05-22):** local acceptance PASS — `artifacts/system-cohesion/summary.json`; full cohesion `run-20260522T185400Z` on Docker compose (`-UseExistingServices`; streaming PASS; `restart_survival` DEFERRED). See [`PHASE_TIGHT_CLOSEOUT_2026-05-22.md`](./PHASE_TIGHT_CLOSEOUT_2026-05-22.md) and [`allagma-dotnet/docs/evidence/ALLAGMA_COH_FULL_ACCEPTANCE_2026-05-22_EVIDENCE.md`](../../allagma-dotnet/docs/evidence/ALLAGMA_COH_FULL_ACCEPTANCE_2026-05-22_EVIDENCE.md).
 
 ### ALLAGMA-PROP-001 — Outbound propagation conformance ✅
 
@@ -446,7 +444,7 @@ Actual (2026-05-22 closeout):
 Platform: 8.5 → 9.12
 Conexus: 8.8 → 8.92
 Kanon: 8.6 → 8.85
-Allagma: 8.7 → 9.12
+Allagma: 8.7 → 9.15
 ```
 
 ## Sprint B — Evidence and replay
@@ -454,8 +452,8 @@ Allagma: 8.7 → 9.12
 ```text
 SYSTEM-9B-001 End-to-end evidence graph acceptance          ✅ ALLAGMA-9-002
 SYSTEM-9B-002 Kanon semantic decision replay bundle acceptance ⬜ KANON-9-002
-SYSTEM-9B-003 Conexus streaming evidence acceptance         ⬜ CONEXUS-9-002
-SYSTEM-9B-004 Allagma restart/idempotency/human-gate acceptance ⬜ (partial via cohesion)
+SYSTEM-9B-003 Conexus streaming evidence acceptance         ⬜ CONEXUS-9-002 (streaming PASS in ALLAGMA cohesion; formal Conexus pack open)
+SYSTEM-9B-004 Allagma restart/idempotency/human-gate acceptance ⬜ (human-gate + streaming PASS; restart DEFERRED in cohesion / compose sibling gate)
 SYSTEM-9B-005 Frontend evidence journey E2E from live artifacts ✅
 ```
 
@@ -465,8 +463,8 @@ Actual (partial Sprint B):
 Platform: 9.12
 Conexus: 8.92
 Kanon: 8.85
-Allagma: 9.12
-Frontend: 8.35
+Allagma: 9.15
+Frontend: 8.50
 ```
 
 ## Sprint C — Operator-grade polish
@@ -485,8 +483,8 @@ Actual (partial Sprint C):
 Platform: 9.12 (9C-002 + 9C-003 done)
 Conexus: 8.92
 Kanon: 8.85
-Allagma: 9.05
-Frontend/UI: 8.35 / 8.05
+Allagma: 9.15
+Frontend/UI: 8.50 / 8.05
 ```
 
 ---
