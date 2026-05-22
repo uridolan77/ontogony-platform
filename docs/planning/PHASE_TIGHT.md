@@ -248,7 +248,7 @@ And require state transitions to produce decision records.
 
 This is the biggest Kanon move toward 9+ because Kanon is the meaning authority. Meaning must have lifecycle governance.
 
-### KANON-9-002 — Semantic decision replay acceptance
+### KANON-9-002 — Semantic decision replay acceptance ✅
 
 Prove that every important decision can be replayed:
 
@@ -273,6 +273,8 @@ decision ID
 provenance
 replay bundle
 ```
+
+**Implementation:** `tests/Kanon.Tests/KanonSemanticDecisionReplayAcceptanceTests.cs`; `scripts/run-semantic-decision-replay-acceptance.ps1`; `docs/e2e/KANON_SEMANTIC_DECISION_REPLAY_ACCEPTANCE.md`. See [`kanon-dotnet/docs/evidence/KANON_9_002_SEMANTIC_DECISION_REPLAY_ACCEPTANCE_EVIDENCE.md`](../../kanon-dotnet/docs/evidence/KANON_9_002_SEMANTIC_DECISION_REPLAY_ACCEPTANCE_EVIDENCE.md).
 
 ### KANON-9-003 — Error envelope normalization
 
@@ -451,7 +453,7 @@ Allagma: 8.7 → 9.15
 
 ```text
 SYSTEM-9B-001 End-to-end evidence graph acceptance          ✅ ALLAGMA-9-002
-SYSTEM-9B-002 Kanon semantic decision replay bundle acceptance ⬜ KANON-9-002
+SYSTEM-9B-002 Kanon semantic decision replay bundle acceptance ✅ KANON-9-002
 SYSTEM-9B-003 Conexus streaming evidence acceptance         ⬜ CONEXUS-9-002 (streaming PASS in ALLAGMA cohesion; formal Conexus pack open)
 SYSTEM-9B-004 Allagma restart/idempotency/human-gate acceptance ⬜ (human-gate + streaming PASS; restart DEFERRED in cohesion / compose sibling gate)
 SYSTEM-9B-005 Frontend evidence journey E2E from live artifacts ✅
@@ -499,7 +501,7 @@ Do this first:
 3. ✅ Header propagation contract + consumer tests (PLATFORM-9-003, *-PROP-001)
 4. ✅ Allagma evidence graph acceptance (ALLAGMA-9-002)
 5. ⬜ Conexus model alias manifest (CONEXUS-9-001)
-6. ⬜ Kanon domain-pack lifecycle/replay hardening (KANON-9-001, KANON-9-002)
+6. ⬜ Kanon domain-pack lifecycle hardening (KANON-9-001); ✅ replay acceptance (KANON-9-002)
 7. ✅ Frontend evidence journey live-artifact E2E (SYSTEM-9B-005)
 ```
 

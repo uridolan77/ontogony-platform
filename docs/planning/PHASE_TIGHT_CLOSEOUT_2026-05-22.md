@@ -53,7 +53,7 @@ Prior Quick path: `run-20260522T175112Z`.
 | KANON-PROP-001 | **Done** | Conexus assistance outbound propagation proof | `tests/Kanon.Tests/KanonConexusAssistancePropagationConformanceTests.cs` |
 | KANON-9-004 | **Partial** | Assistance in system cohesion smoke | `kanon_conexus_assistance` scenario in ALLAGMA-9-001 / SYSTEM-COH-003 |
 | KANON-9-001 | Open | Domain pack lifecycle hardening | DPACK-GOV exists; PHASE_TIGHT states still required |
-| KANON-9-002 | Open | Semantic decision replay acceptance | REPLAY-001/002 done; full acceptance matrix open |
+| KANON-9-002 | **Done** | Semantic decision replay acceptance | `KanonSemanticDecisionReplayAcceptanceTests`; `run-semantic-decision-replay-acceptance.ps1` |
 | KANON-9-003 | **Partial** | Error envelope via platform gate + integration docs | PLATFORM-9-002 sibling doc check |
 
 ## Conexus (`conexus-dotnet`)
