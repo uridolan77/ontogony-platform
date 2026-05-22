@@ -4,9 +4,10 @@ I would continue in this order.
 
 # Phase 1 — Make AG-UI live in the frontend
 
-## 1. `OFE-AGUI-004 — Allagma interaction-events SSE consumer`
+## 1. `OFE-AGUI-004 — Allagma interaction-events SSE consumer` ✅ (local)
 
-**Repo:** `ontogony-frontend`
+**Repo:** `ontogony-frontend`  
+**Evidence:** `ontogony-frontend/docs/evidence/OFE_AGUI_004_SSE_CONSUMER_EVIDENCE.md`
 
 This is the immediate next PR.
 
@@ -41,9 +42,10 @@ This turns AG-UI from “adapter-ready” into **live operator UX**.
 
 # Phase 2 — Close the AG-UI milestone properly
 
-## 2. `AGUI-SPINE-CLOSEOUT-001 — Interaction spine acceptance closeout`
+## 2. `AGUI-SPINE-CLOSEOUT-001 — Interaction spine acceptance closeout` ✅ (local)
 
-**Repos:** mostly `ontogony-platform`, possibly `ontogony-frontend`
+**Repos:** mostly `ontogony-platform`, possibly `ontogony-frontend`  
+**Evidence:** `ontogony-platform/docs/evidence/AGUI_SPINE_CLOSEOUT_001_EVIDENCE.md`
 
 Goal: formally close the 10-PR AG-UI spine sequence.
 
@@ -73,9 +75,10 @@ This gives you a clean milestone story.
 
 # Phase 3 — Make the AG-UI workbench useful, not only connected
 
-## 3. `OFE-AGUI-005 — Run interaction workbench polish`
+## 3. `OFE-AGUI-005 — Run interaction workbench polish` ✅ (local)
 
-**Repo:** `ontogony-frontend`
+**Repo:** `ontogony-frontend`  
+**Evidence:** `ontogony-frontend/docs/evidence/OFE_AGUI_005_WORKBENCH_POLISH_EVIDENCE.md`
 
 Goal: make the run detail/workbench experience operator-friendly.
 
@@ -109,9 +112,10 @@ This is where AG-UI becomes the **interaction spine UI**, not just a protocol la
 
 # Phase 4 — Kanon human-in-the-loop integration
 
-## 4. `KANON-AGUI-REVIEW-001 — Review queue AG-UI projection`
+## 4. `KANON-AGUI-REVIEW-001 — Review queue AG-UI projection` ✅ (local)
 
-**Repo:** `kanon-dotnet`, maybe frontend later
+**Repo:** `kanon-dotnet`, maybe frontend later  
+**Evidence:** `kanon-dotnet/docs/evidence/KANON_AGUI_REVIEW_001_EVIDENCE.md`
 
 Goal: expose Kanon review workflows as AG-UI interaction events.
 
@@ -144,9 +148,10 @@ This connects directly with the **Kanon semantic product-deepening track**.
 
 # Phase 5 — Conexus model-call interaction visibility
 
-## 5. `CONEXUS-AGUI-002 — Model-call AG-UI evidence projection`
+## 5. `CONEXUS-AGUI-002 — Model-call AG-UI evidence projection` ✅ (local)
 
-**Repo:** `conexus-dotnet`
+**Repo:** `conexus-dotnet`  
+**Evidence:** `conexus-dotnet/docs/evidence/CONEXUS_AGUI_002_EVIDENCE.md`
 
 Goal: make model calls visible in the operator interaction timeline.
 
@@ -214,11 +219,11 @@ Do not start all of this at once. I’d do:
 3. OFE-AGUI-005 ✅ (local)
    Better workbench/timeline UX — see ontogony-frontend/docs/evidence/OFE_AGUI_005_WORKBENCH_POLISH_EVIDENCE.md
 
-4. KANON-AGUI-REVIEW-001
-   Human review / semantic review event projection.
+4. KANON-AGUI-REVIEW-001 ✅ (local)
+   Human review / semantic review event projection — see kanon-dotnet/docs/evidence/KANON_AGUI_REVIEW_001_EVIDENCE.md
 
-5. CONEXUS-AGUI-002
-   Model-call timeline projection.
+5. CONEXUS-AGUI-002 ✅ (local)
+   Model-call timeline projection — see conexus-dotnet/docs/evidence/CONEXUS_AGUI_002_EVIDENCE.md
 
 6. ADAPTER-AGUI-002
    Cross-system evidence graph from AG-UI events.

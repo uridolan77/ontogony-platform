@@ -38,7 +38,8 @@
 - [x] ✅ Allagma/Kanon/Conexus client-side adapters added.
 - [x] ✅ Lookup by run/model-call/decision/trace/humanGate works. — `agentInteractionLinks.ts`
 - [x] ✅ JSONL import/export works. — workbench + AG-UI JSONL export
-- [x] 🔶 Live SSE consumer (OFE-AGUI-004). — [`OFE_AGUI_004_SSE_CONSUMER_EVIDENCE.md`](../../../ontogony-frontend/docs/evidence/OFE_AGUI_004_SSE_CONSUMER_EVIDENCE.md)
+- [x] ✅ Live SSE consumer (OFE-AGUI-004). — [`OFE_AGUI_004_SSE_CONSUMER_EVIDENCE.md`](../../../ontogony-frontend/docs/evidence/OFE_AGUI_004_SSE_CONSUMER_EVIDENCE.md)
+- [x] ✅ Workbench polish (OFE-AGUI-005). — [`OFE_AGUI_005_WORKBENCH_POLISH_EVIDENCE.md`](../../../ontogony-frontend/docs/evidence/OFE_AGUI_005_WORKBENCH_POLISH_EVIDENCE.md)
 
 ## Allagma
 
@@ -55,6 +56,7 @@
 - [x] ✅ Response-schema conventions documented.
 - [x] ✅ Approval/reject/edit payloads covered by tests.
 - [x] ✅ Decision/provenance links emitted as evidence events.
+- [x] ✅ Review queue AG-UI projection (KANON-AGUI-REVIEW-001). — [`KANON_AGUI_REVIEW_001_EVIDENCE.md`](../../../kanon-dotnet/docs/evidence/KANON_AGUI_REVIEW_001_EVIDENCE.md)
 
 ## Conexus
 
@@ -63,6 +65,7 @@
 - [x] ✅ Route decision and provider attempts mapped.
 - [x] ✅ Usage/cost event redacts raw content.
 - [x] ✅ Evidence links and bundle mapping covered.
+- [x] ✅ Model-call lifecycle timeline (CONEXUS-AGUI-002). — [`CONEXUS_AGUI_002_EVIDENCE.md`](../../../conexus-dotnet/docs/evidence/CONEXUS_AGUI_002_EVIDENCE.md)
 
 ## System-level acceptance
 
@@ -71,7 +74,7 @@
 - [x] ✅ Missing links are displayed as unresolved, not blank. — `missingReasonCode` paths
 - [x] ✅ Exported JSONL can be replayed offline.
 - [x] ✅ AG-UI adapter tests pass against sample fixtures.
-- [x] 🔶 Live stream on run detail when `runId` present and run non-terminal (OFE-AGUI-004).
+- [x] ✅ Live stream on run detail when `runId` present and run non-terminal (OFE-AGUI-004).
 
 ## Merge / CI (out of checklist scope, required for production closeout)
 

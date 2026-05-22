@@ -32,6 +32,15 @@ Formal sign-off of package acceptance criteria ([`13_ACCEPTANCE_CHECKLIST.md`](.
 | 9 | ALLAGMA-AGUI-002 | allagma-dotnet | [`ALLAGMA_AGUI_002_EVIDENCE.md`](../../../allagma-dotnet/docs/evidence/ALLAGMA_AGUI_002_EVIDENCE.md) |
 | 10 | ADAPTER-AGUI-001 | platform + frontend | [`PLAT_AGUI_ADAPTER_001_EVIDENCE.md`](./PLAT_AGUI_ADAPTER_001_EVIDENCE.md), [`OFE_ADAPTER_AGUI_001_EVIDENCE.md`](../../../ontogony-frontend/docs/evidence/OFE_ADAPTER_AGUI_001_EVIDENCE.md) |
 | — | **OFE-AGUI-004** (follow-up) | ontogony-frontend | [`OFE_AGUI_004_SSE_CONSUMER_EVIDENCE.md`](../../../ontogony-frontend/docs/evidence/OFE_AGUI_004_SSE_CONSUMER_EVIDENCE.md) |
+| — | **OFE-AGUI-005** (follow-up) | ontogony-frontend | [`OFE_AGUI_005_WORKBENCH_POLISH_EVIDENCE.md`](../../../ontogony-frontend/docs/evidence/OFE_AGUI_005_WORKBENCH_POLISH_EVIDENCE.md) |
+
+## Continuation plan (`15_CONT_PLAN.md`)
+
+| # | ID | Status | Evidence |
+| --- | --- | --- | --- |
+| 4 | KANON-AGUI-REVIEW-001 | ✅ Complete (local) | [`KANON_AGUI_REVIEW_001_EVIDENCE.md`](../../../kanon-dotnet/docs/evidence/KANON_AGUI_REVIEW_001_EVIDENCE.md) |
+| 5 | CONEXUS-AGUI-002 | ✅ Complete (local) | [`CONEXUS_AGUI_002_EVIDENCE.md`](../../../conexus-dotnet/docs/evidence/CONEXUS_AGUI_002_EVIDENCE.md) |
+| 6 | ADAPTER-AGUI-002 | ⏳ Not started | Cross-system evidence resolver from AG-UI events |
 
 ## Acceptance checklist summary
 
@@ -54,13 +63,14 @@ npm run test
 cd C:\dev\allagma-dotnet
 dotnet test tests\Allagma.Tests --filter FullyQualifiedName~AgentRunInteraction
 
-# Kanon HITL mapping
+# Kanon HITL + review queue projection
 cd C:\dev\kanon-dotnet
-dotnet test tests\Kanon.Tests --filter FullyQualifiedName~HumanGateInteraction
+dotnet test tests\Kanon.Tests --filter "FullyQualifiedName~HumanGateInteraction|FullyQualifiedName~OperatorReviewQueueInteraction"
 
-# Conexus model-call projection
+# Conexus model-call lifecycle projection
 cd C:\dev\conexus-dotnet
 dotnet test tests\Conexus.Application.Tests --filter FullyQualifiedName~ModelCallInteractionEventProjector
+dotnet test tests\Conexus.Api.Tests --filter FullyQualifiedName~ModelCallInteractionEventExport
 
 # Frontend module + SSE consumer
 cd C:\dev\ontogony-frontend
