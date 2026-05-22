@@ -32,6 +32,12 @@ Release/strict mode (Warn proofs fail):
 ./scripts/run-consumer-conformance.ps1 -ReleaseMode
 ```
 
+Full six-repo workspace integration (fails until sibling propagation/error docs are green):
+
+```powershell
+./scripts/run-consumer-conformance.ps1 -DevRoot C:\dev -FullWorkspace
+```
+
 Faster iteration (skip package smoke builds):
 
 ```powershell

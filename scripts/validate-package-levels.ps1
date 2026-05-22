@@ -67,9 +67,11 @@ function Get-OntogonyProjectReferences {
     $dir = Split-Path -Parent $CsprojPath
     $xml = [xml](Get-Content -LiteralPath $CsprojPath -Raw)
     $refs = [System.Collections.Generic.List[string]]::new()
-    foreach ($ig in $xml.Project.ItemGroup) {
-        if (-not $ig.ProjectReference) { continue }
-        foreach ($pr in $ig.ProjectReference) {
+    $itemGroups = @($xml.Project.ItemGroup)
+    foreach ($ig in $itemGroups) {
+        $projectRefNodes = $ig.SelectNodes('ProjectReference')
+        if ($null -eq $projectRefNodes -or @($projectRefNodes).Count -eq 0) { continue }
+        foreach ($pr in $projectRefNodes) {
             $inc = $pr.Include
             if ([string]::IsNullOrWhiteSpace($inc)) { continue }
             $resolved = [System.IO.Path]::GetFullPath((Join-Path $dir $inc))
@@ -102,13 +104,13 @@ $orphanExpected = $expectedIds | Where-Object { $_ -notin $discoveredIds }
 
 $fail = $false
 
-if ($missingInExpected.Count -gt 0) {
+if (@($missingInExpected).Count -gt 0) {
     $fail = $true
     Write-Host 'Package-level validation failed: src/ contains PackageId(s) not in the golden map. Add them to validate-package-levels.ps1 and docs/architecture/package-levels.md:' -ForegroundColor Red
     $missingInExpected | ForEach-Object { Write-Host "  $_" }
 }
 
-if ($orphanExpected.Count -gt 0) {
+if (@($orphanExpected).Count -gt 0) {
     $fail = $true
     Write-Host 'Package-level validation failed: golden map contains PackageId(s) with no src/*.csproj:' -ForegroundColor Red
     $orphanExpected | ForEach-Object { Write-Host "  $_" }

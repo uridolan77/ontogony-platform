@@ -941,3 +941,432 @@ ontogony-frontend
 ```
 
 That is the correct way to push all three above 9 without violating the core Ontogony boundary rule: **shared mechanics, not shared meaning.**
+
+
+
+
+
+After Wave 5 is fully clean, the next move should **not** be more repo-internal tightening. The three repos will already be above 9. The next phase should shift from **repo quality** to **system release posture**.
+
+I would do this in three layers.
+
+---
+
+# First: close Wave 5 completely
+
+Before starting the next phase, finish the three remaining RC blockers:
+
+```text
+1. ontogony-ui
+   Push/merge UI-9-007 so rc:check is visible on main.
+
+2. ontogony-platform
+   Fix validate-package-levels.ps1 / ProjectReference strict-mode so:
+   run-consumer-conformance.ps1 -DevRoot C:\dev
+   passes end-to-end.
+
+3. ontogony-frontend
+   Remove or justify the one readiness gap in /system/release-readiness.
+```
+
+Right now, platform has the consumer conformance gate and CI fixture wiring, but your own note says the full runner is blocked by `validate-package-levels.ps1`; that means the full RC chain is not yet green. The runner itself calls public API baseline, package levels, shipping inventory, package smoke, and consumer conformance tests. 
+
+Frontend has the RC gate and readiness scorecard, but the generated scorecard still shows 1 route gap. 
+
+UI’s RC gate was not visible on `main` in my last check, so that must be pushed/merged.
+
+---
+
+# Then: move to Phase 2 — System RC
+
+## Goal
+
+Turn the six repos from:
+
+```text
+high-quality integrated alpha repos
+```
+
+into:
+
+```text
+one reproducible local system release candidate
+```
+
+The key artifact should be:
+
+```text
+ONTOGONY-SYSTEM-RC-002
+```
+
+or similar.
+
+---
+
+# Wave 6 — Six-repo RC promotion
+
+## Objective
+
+Create one promotion workflow that proves all six repos are locked, compatible, built, and operator-usable.
+
+## Deliverables
+
+### 1. System RC lock promotion
+
+Create or promote:
+
+```text
+ontogony-platform/docs/system/ontogony-system-rc-002.lock.json
+```
+
+It should include:
+
+```text
+- all six repo SHAs
+- backend OpenAPI hashes
+- frontend generated-client hashes
+- @ontogony/ui tarball SHA
+- @ontogony/agent-interaction package hash
+- frontend build provenance hash
+- UI RC tarball hash
+- frontend RC artifact hash
+- platform consumer-conformance artifact hash
+```
+
+### 2. System RC promotion script
+
+In `ontogony-platform`:
+
+```powershell
+scripts/promote-system-rc.ps1 -DevRoot C:\dev -RcId ONTOGONY-SYSTEM-RC-002
+```
+
+It should run:
+
+```text
+platform:
+  run-consumer-conformance.ps1 -DevRoot C:\dev -ReleaseMode
+
+ui:
+  npm run rc:check
+
+frontend:
+  npm run rc:check
+
+runtime repos:
+  existing system cohesion / Docker-local smoke
+```
+
+### 3. One RC evidence folder
+
+Create:
+
+```text
+ontogony-platform/docs/evidence/ONTOGONY_SYSTEM_RC_002/
+```
+
+With:
+
+```text
+system-rc-summary.json
+system-rc-summary.md
+platform-consumer-conformance-summary.json
+ui-rc-summary.json
+ui-tarball-sha256.txt
+frontend-rc-summary.json
+frontend-provenance.json
+six-repo-lock.json
+post-lock-deltas.json
+```
+
+## Acceptance
+
+```text
+One command promotes the release candidate.
+One evidence folder proves it.
+One lock file records it.
+```
+
+This is the natural continuation of Wave 5.
+
+---
+
+# Wave 7 — Real local operator system
+
+## Objective
+
+Make the local Docker/dev system behave like a small real product, not just a set of passing checks.
+
+## Deliverables
+
+### 1. Canonical local launch
+
+One command from `ontogony-platform`:
+
+```powershell
+scripts/start-local-ontogony-system.ps1
+```
+
+Should start:
+
+```text
+Conexus
+Kanon
+Allagma
+ontogony-frontend
+Postgres / infra dependencies
+```
+
+### 2. Canonical local validation
+
+```powershell
+scripts/validate-local-ontogony-system.ps1
+```
+
+Should prove:
+
+```text
+- all health endpoints live
+- frontend can reach all services
+- operator settings valid
+- evidence spine resolves known fixture/live run
+- Conexus model call appears
+- Kanon decision/provenance appears
+- Allagma run/audit appears
+- trace/correlation IDs are visible
+```
+
+### 3. Operator “golden journey”
+
+Define one canonical journey:
+
+```text
+Start Allagma run
+→ Kanon plan/decision
+→ Conexus model call
+→ human gate if needed
+→ run audit
+→ evidence spine graph
+→ replay/export bundle
+```
+
+This should become the system’s primary alpha demo.
+
+## Acceptance
+
+```text
+A developer can clone all repos, run one command, and see the governed loop in the frontend.
+```
+
+---
+
+# Wave 8 — Replace mock confidence with live confidence
+
+Wave 3 and Wave 5 added many mocked/operator journeys. That is good. The next maturity step is to distinguish:
+
+```text
+mocked E2E
+Docker-local E2E
+live-provider optional E2E
+```
+
+## Deliverables
+
+### 1. E2E tier matrix
+
+In `ontogony-frontend`:
+
+```text
+docs/testing/E2E_TIER_MATRIX.md
+```
+
+With:
+
+```text
+Tier 1 — fixture/mock, always required
+Tier 2 — Docker-local, required for RC
+Tier 3 — live provider, manual/secret-gated
+```
+
+### 2. Promote key journeys to Docker-local
+
+The operator journey suite already covers system health, Conexus, Kanon, Allagma, human gates, streaming evidence, and six-repo posture. Those should now be split into:
+
+```text
+mocked baseline
+docker-local acceptance
+```
+
+The frontend already has several Docker-local scripts; the next step is to make the RC decide which ones are mandatory.
+
+### 3. Real-provider optional smoke
+
+For Conexus only:
+
+```text
+CONEXUS_RUN_LIVE_PROVIDER_SMOKE=true
+```
+
+Then prove:
+
+```text
+- provider route decision
+- model call
+- cost/usage telemetry
+- no leaked secret
+- evidence link visible
+```
+
+## Acceptance
+
+```text
+The system knows the difference between “UI mocked journey works” and “local real service journey works.”
+```
+
+---
+
+# Wave 9 — Operational alpha readiness
+
+After system RC works, start making it operable.
+
+## Deliverables
+
+### 1. Operator runbook
+
+In `ontogony-platform`:
+
+```text
+docs/operator/ALPHA_OPERATOR_RUNBOOK.md
+```
+
+Cover:
+
+```text
+- how to start system
+- how to validate health
+- how to inspect evidence spine
+- how to debug failed Conexus model calls
+- how to debug Kanon decision gaps
+- how to debug Allagma run stalls
+- how to refresh locks
+- how to promote RC
+```
+
+### 2. Failure-mode catalog
+
+```text
+docs/operator/FAILURE_MODE_CATALOG.md
+```
+
+Classify:
+
+```text
+backend unavailable
+auth failure
+OpenAPI drift
+route inventory drift
+UI package hash drift
+frontend build provenance drift
+Kanon route mismatch
+Allagma audit missing
+Conexus model-call missing
+evidence partial
+fixture/live leakage
+```
+
+### 3. Troubleshooting links in frontend
+
+The frontend already has readiness and evidence pages. Next, each degraded state should link to a fix path:
+
+```text
+Open Settings
+Open route readiness
+Open evidence spine
+Open run audit
+Open model-call observability
+Open compatibility panel
+```
+
+## Acceptance
+
+```text
+A failure in the operator console tells the developer what to fix next.
+```
+
+---
+
+# Wave 10 — Product surface expansion
+
+Only after Waves 6–9, start expanding functionality.
+
+Good candidates:
+
+## A. Allagma deeper operator execution
+
+```text
+- better run resume
+- better human-gate resolution
+- replay bundle UI
+- evaluation/baseline comparison
+- audit export
+```
+
+## B. Kanon semantic operations
+
+```text
+- decision inspector
+- canonical fact conflict workflow
+- provenance/replay workbench
+- domain pack lifecycle
+- source binding test UI
+```
+
+## C. Conexus gateway operations
+
+```text
+- model-call list/detail
+- route decision explorer
+- provider fallback chain
+- streaming transcript evidence
+- usage/cost drilldown
+```
+
+## D. System evidence spine
+
+```text
+- evidence graph visualization
+- missing evidence explanation
+- direct deep-link resolver
+- exported evidence bundle
+```
+
+This should be product work, not more infrastructure hardening.
+
+---
+
+# My recommended sequence
+
+Do this:
+
+```text
+0. Finish Wave 5 blockers.
+1. Wave 6 — Six-repo RC promotion.
+2. Wave 7 — Real local operator system.
+3. Wave 8 — Docker-local/live confidence tiers.
+4. Wave 9 — Operator runbook + failure-mode catalog.
+5. Wave 10 — Product-surface expansion.
+```
+
+The most important next step is **Wave 6**.
+
+Not another isolated repo plan. Not more component cleanup. The next real milestone should be:
+
+```text
+One command.
+Six repos.
+One lock.
+One evidence folder.
+One local operator system.
+```
+
+That is how Ontogony moves from “very well integrated alpha repos” to a credible **system release candidate**.

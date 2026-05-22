@@ -10,6 +10,8 @@
   Treat Warn-status consumer proofs as failures.
 .PARAMETER SkipPackageSmoke
   Skip Conexus/Allagma package-mode build smoke (faster local runs).
+.PARAMETER FullWorkspace
+  Run dev-root integration test (requires sibling repos and green system-compat proofs).
 #>
 param(
     [string] $RepoRoot = "",
@@ -17,7 +19,8 @@ param(
     [string] $ArtifactDir = "",
     [switch] $ReleaseMode,
     [switch] $Strict,
-    [switch] $SkipPackageSmoke
+    [switch] $SkipPackageSmoke,
+    [switch] $FullWorkspace
 )
 
 $ErrorActionPreference = "Stop"
@@ -95,9 +98,14 @@ try {
         if ($LASTEXITCODE -ne 0) { throw "Allagma package-mode smoke failed." }
     }
 
+    $testFilter = "Category=ConsumerConformance&FullyQualifiedName~ConsumerConformanceGateTests"
+    if ($FullWorkspace -and $hasSiblingWorkspace) {
+        $testFilter = "Category=ConsumerConformance"
+    }
+
     dotnet test tests/Ontogony.ConsumerConformance.Tests/Ontogony.ConsumerConformance.Tests.csproj `
         -c Release `
-        --filter "Category=ConsumerConformance"
+        --filter $testFilter
     if ($LASTEXITCODE -ne 0) {
         throw "Consumer conformance tests failed (exit $LASTEXITCODE)."
     }
@@ -107,7 +115,16 @@ finally {
 }
 
 $summaryJson = Join-Path $ArtifactDir "summary.json"
-if ($hasSiblingWorkspace) {
+if ($hasSiblingWorkspace -and -not $FullWorkspace) {
+    New-Item -ItemType Directory -Force -Path $ArtifactDir | Out-Null
+    @{
+        schema = "ontogony-consumer-conformance-v1"
+        mode = "fixture-and-governance"
+        devRoot = $DevRoot
+        generatedAt = (Get-Date).ToUniversalTime().ToString("o")
+        note = "Governance scripts and fixture tests passed. Run -FullWorkspace for live consumer proofs against DevRoot."
+    } | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath $summaryJson -Encoding utf8
+} elseif ($hasSiblingWorkspace) {
     if (-not (Test-Path -LiteralPath $summaryJson)) {
         throw "Expected summary artifact was not written: $summaryJson"
     }
