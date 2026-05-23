@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ontogony-system-rc-lock.schema.json",
+  "title": "Ontogony system release candidate lock",
+  "description": "Pins the six-repo system release candidate: repo SHAs, contract hashes, RC artifact fingerprints, and evidence folder.",
+  "type": "object",
+  "required": ["schema", "baseline", "runtimeBaseline", "generatedAt", "sixRepoLock", "repos", "contracts", "rcArtifacts", "evidence"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "ontogony-system-rc-lock-v1"
+    },
+    "baseline": {
+      "type": "string",
+      "description": "Named system RC identifier, e.g. ONTOGONY-SYSTEM-RC-002"
+    },
+    "runtimeBaseline": {
+      "type": "string",
+      "description": "Four-repo runtime baseline from ontogony-runtime.lock.json"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sixRepoLock": {
+      "type": "string",
+      "description": "Repo-relative path to the companion six-repo lock file"
+    },
+    "repos": {
+      "$ref": "ontogony-six-repo-lock.schema.json#/properties/repos"
+    },
+    "contracts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "openapiSnapshots": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "generatedClientHashes": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "frontendRouteInventory": { "type": "string" },
+        "uiPublicSubpaths": { "type": "string" },
+        "agentInteractionPackage": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+            "version": { "type": "string" },
+            "tarballSha256": { "type": "string" }
+          }
+        }
+      }
+    },
+    "rcArtifacts": {
+      "type": "object",
+      "required": [
+        "platformConsumerConformanceSummarySha256",
+        "uiRcTarballSha256",
+        "frontendBuildProvenanceSha256",
+        "frontendRcSummarySha256",
+        "sixRepoLockSha256"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "platformConsumerConformanceSummarySha256": { "type": "string" },
+        "uiRcTarballSha256": { "type": "string" },
+        "frontendBuildProvenanceSha256": { "type": "string" },
+        "frontendRcSummarySha256": { "type": "string" },
+        "sixRepoLockSha256": { "type": "string" }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["folder"],
+      "additionalProperties": false,
+      "properties": {
+        "folder": { "type": "string" },
+        "summaryJson": { "type": "string" },
+        "summaryMd": { "type": "string" }
+      }
+    }
+  }
+}
