@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/agent-interaction-source-attempt.schema.json",
+  "title": "AgentInteractionSourceAttempt",
+  "type": "object",
+  "required": [
+    "id",
+    "system",
+    "endpoint",
+    "status"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "system": {
+      "enum": [
+        "allagma",
+        "kanon",
+        "conexus",
+        "platform",
+        "frontend",
+        "import"
+      ]
+    },
+    "endpoint": {
+      "type": "string"
+    },
+    "method": {
+      "type": "string"
+    },
+    "identifierKind": {
+      "type": "string"
+    },
+    "identifierValue": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "success",
+        "partial",
+        "error",
+        "skipped"
+      ]
+    },
+    "httpStatus": {
+      "type": "integer"
+    },
+    "latencyMs": {
+      "type": "number"
+    },
+    "errorCode": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

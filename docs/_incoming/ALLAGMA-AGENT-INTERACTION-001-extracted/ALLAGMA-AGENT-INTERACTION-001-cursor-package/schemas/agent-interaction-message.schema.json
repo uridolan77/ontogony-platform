@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/agent-interaction-message.schema.json",
+  "title": "AgentInteractionMessage",
+  "type": "object",
+  "required": [
+    "id",
+    "sourceSystem",
+    "role",
+    "content",
+    "contentState"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "sourceSystem": {
+      "enum": [
+        "allagma",
+        "kanon",
+        "conexus",
+        "operator",
+        "provider"
+      ]
+    },
+    "role": {
+      "enum": [
+        "operator",
+        "system",
+        "user",
+        "assistant",
+        "tool",
+        "provider",
+        "internal"
+      ]
+    },
+    "timestamp": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "contentState": {
+      "enum": [
+        "visible",
+        "redacted",
+        "withheld",
+        "not_recorded",
+        "not_available"
+      ]
+    },
+    "redactionReason": {
+      "type": "string"
+    },
+    "relatedEventId": {
+      "type": "string"
+    },
+    "relatedIdentifiers": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false
+}

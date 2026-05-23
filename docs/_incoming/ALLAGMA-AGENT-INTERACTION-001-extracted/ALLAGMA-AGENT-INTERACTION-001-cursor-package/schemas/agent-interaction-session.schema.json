@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/agent-interaction-session.schema.json",
+  "title": "AgentInteractionSession",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "sessionId",
+    "mode",
+    "dataSource",
+    "isLiveEvidence",
+    "title",
+    "status",
+    "summary",
+    "linkedIdentifiers",
+    "timeline",
+    "messages",
+    "sourceAttempts",
+    "missing",
+    "links"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "agent-interaction-session-v1"
+    },
+    "sessionId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mode": {
+      "enum": [
+        "live_lookup",
+        "fixture_replay",
+        "imported_jsonl"
+      ]
+    },
+    "dataSource": {
+      "enum": [
+        "live",
+        "fixture",
+        "imported",
+        "mixed",
+        "unknown"
+      ]
+    },
+    "isLiveEvidence": {
+      "type": "boolean"
+    },
+    "title": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "completed",
+        "running",
+        "waiting",
+        "failed",
+        "blocked",
+        "cancelled",
+        "unknown"
+      ]
+    },
+    "statusLabel": {
+      "type": "string"
+    },
+    "startedAt": {
+      "type": "string"
+    },
+    "completedAt": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "object"
+    },
+    "linkedIdentifiers": {
+      "type": "object"
+    },
+    "timeline": {
+      "type": "array",
+      "items": {
+        "$ref": "agent-interaction-event.schema.json"
+      }
+    },
+    "messages": {
+      "type": "array",
+      "items": {
+        "$ref": "agent-interaction-message.schema.json"
+      }
+    },
+    "sourceAttempts": {
+      "type": "array",
+      "items": {
+        "$ref": "agent-interaction-source-attempt.schema.json"
+      }
+    },
+    "missing": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "exportWarnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

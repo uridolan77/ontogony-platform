@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/agent-interaction-event.schema.json",
+  "title": "AgentInteractionTimelineEvent",
+  "type": "object",
+  "required": [
+    "id",
+    "sourceSystem",
+    "phase",
+    "title",
+    "status",
+    "summary",
+    "rawAvailable",
+    "rawRedacted"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "string"
+    },
+    "sequence": {
+      "type": "integer"
+    },
+    "sourceSystem": {
+      "enum": [
+        "allagma",
+        "kanon",
+        "conexus",
+        "platform",
+        "operator",
+        "import"
+      ]
+    },
+    "rawEventType": {
+      "type": "string"
+    },
+    "phase": {
+      "enum": [
+        "run_lifecycle",
+        "classification",
+        "topology",
+        "planning",
+        "workflow_checkpoint",
+        "tool_intent",
+        "action_evaluation",
+        "human_gate",
+        "model_call",
+        "evaluation",
+        "replay",
+        "unresolved"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "details": {
+      "type": "object"
+    },
+    "relatedIdentifiers": {
+      "type": "object"
+    },
+    "evidenceLinks": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "missing": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "rawAvailable": {
+      "type": "boolean"
+    },
+    "rawRedacted": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": true
+}
