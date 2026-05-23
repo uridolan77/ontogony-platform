@@ -15,10 +15,38 @@ $services = @(
 function Invoke-JsonProbe($uri) {
   try {
     $response = Invoke-WebRequest -Uri $uri -UseBasicParsing -TimeoutSec 5
-    $json = $response.Content | ConvertFrom-Json
-    return @{ ok = $true; statusCode = $response.StatusCode; json = $json; error = $null }
+    $json = $null
+    if ($response.Content) {
+      $json = $response.Content | ConvertFrom-Json
+    }
+    return @{
+      ok = $response.StatusCode -ge 200 -and $response.StatusCode -lt 300
+      statusCode = $response.StatusCode
+      json = $json
+      error = $null
+    }
   } catch {
-    return @{ ok = $false; statusCode = $null; json = $null; error = $_.Exception.Message }
+    $statusCode = $null
+    $json = $null
+  $body = $null
+    if ($_.Exception.Response) {
+      $statusCode = [int]$_.Exception.Response.StatusCode
+      try {
+        $reader = New-Object System.IO.StreamReader($_.Exception.Response.GetResponseStream())
+        $body = $reader.ReadToEnd()
+        if ($body) {
+          $json = $body | ConvertFrom-Json
+        }
+      } catch {
+        # keep json null when body is not JSON
+      }
+    }
+    return @{
+      ok = $false
+      statusCode = $statusCode
+      json = $json
+      error = if ($json) { $null } else { $_.Exception.Message }
+    }
   }
 }
 
@@ -32,16 +60,19 @@ foreach ($svc in $services) {
   elseif ($health.ok) { $healthContract = "warning" }
 
   $readyContract = "invalid"
-  if ($ready.ok -and $ready.json.schemaVersion -eq "ready.v1") { $readyContract = "valid" }
-  elseif ($ready.ok) { $readyContract = "warning" }
+  if ($ready.json -and $ready.json.schemaVersion -eq "ready.v1") { $readyContract = "valid" }
+  elseif ($ready.json) { $readyContract = "warning" }
 
+  $readiness = "unknown"
+  if ($ready.json -and $ready.json.status) { $readiness = $ready.json.status }
+  elseif ($ready.ok) { $readiness = "ready" }
   $summary += [pscustomobject]@{
     service = $svc.name
     baseUrl = $svc.url
     connectivity = if ($health.ok) { "live" } else { "offline" }
     healthStatus = if ($health.ok) { $health.json.status } else { "unknown" }
     healthContract = $healthContract
-    readiness = if ($ready.ok) { $ready.json.status } else { "unknown" }
+    readiness = $readiness
     readyContract = $readyContract
     version = if ($health.ok) { $health.json.version } else { $null }
     healthError = $health.error
