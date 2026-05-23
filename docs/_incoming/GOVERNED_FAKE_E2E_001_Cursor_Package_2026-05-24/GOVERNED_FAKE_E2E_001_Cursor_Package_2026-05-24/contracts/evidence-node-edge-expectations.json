@@ -1,0 +1,35 @@
+{
+  "scenario": "GOVERNED-FAKE-E2E-001",
+  "requiredNodes": [
+    "allagma.run",
+    "platform.trace",
+    "platform.correlation",
+    "kanon.decision",
+    "conexus.modelCall",
+    "conexus.routeDecision",
+    "conexus.providerAttempt"
+  ],
+  "requiredEdges": [
+    "has_trace",
+    "has_correlation",
+    "used_kanon_decision",
+    "used_model_call",
+    "used_route_decision",
+    "has_provider_attempt",
+    "derived_from"
+  ],
+  "forbiddenLiveIdPrefixes": [
+    "demo-",
+    "thread-demo",
+    "run-demo",
+    "trace-demo",
+    "corr-demo",
+    "chatcmpl-demo",
+    "route-demo"
+  ],
+  "allowedMissingForGovernedFake": [
+    "human_gate:not_applicable",
+    "tool_call:not_applicable",
+    "action_decision:not_applicable_if_no_action_evaluation"
+  ]
+}

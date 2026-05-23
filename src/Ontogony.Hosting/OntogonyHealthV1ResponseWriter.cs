@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
@@ -13,6 +14,7 @@ public static class OntogonyHealthV1ResponseWriter
 {
     private static readonly JsonSerializerOptions SerializerOptions = new(JsonSerializerDefaults.Web);
 
+    /// <summary>Health check options for liveness endpoints returning health.v1.</summary>
     public static HealthCheckOptions CreateLivenessOptions() =>
         new()
         {
@@ -20,6 +22,7 @@ public static class OntogonyHealthV1ResponseWriter
             ResponseWriter = WriteHealthV1Async,
         };
 
+    /// <summary>Health check options for readiness endpoints returning ready.v1.</summary>
     public static HealthCheckOptions CreateReadinessOptions() =>
         new()
         {
@@ -27,6 +30,7 @@ public static class OntogonyHealthV1ResponseWriter
             ResponseWriter = WriteReadyV1Async,
         };
 
+    /// <summary>Writes a health.v1 JSON body for liveness probes.</summary>
     public static async Task WriteHealthV1Async(HttpContext context, HealthReport report)
     {
         var options = context.RequestServices.GetRequiredService<IOptions<OntogonyServiceDefaultsOptions>>().Value;
@@ -36,6 +40,7 @@ public static class OntogonyHealthV1ResponseWriter
         await context.Response.WriteAsync(JsonSerializer.Serialize(payload, SerializerOptions));
     }
 
+    /// <summary>Writes a ready.v1 JSON body for readiness probes.</summary>
     public static async Task WriteReadyV1Async(HttpContext context, HealthReport report)
     {
         var options = context.RequestServices.GetRequiredService<IOptions<OntogonyServiceDefaultsOptions>>().Value;
@@ -158,7 +163,7 @@ public static class OntogonyHealthV1ResponseWriter
             }
         }
 
-        return registrationName.Replace('_', '.', StringComparison.Ordinal);
+        return registrationName.Replace("_", ".");
     }
 
     private static string ResolveSeverity(IReadOnlyList<string> tags)
@@ -277,6 +282,6 @@ public static class OntogonyHealthV1ResponseWriter
     private static string HumanizeCheckLabel(string id)
     {
         var lastSegment = id.Contains('.') ? id[(id.LastIndexOf('.') + 1)..] : id;
-        return lastSegment.Replace('_', ' ', StringComparison.Ordinal);
+        return lastSegment.Replace("_", " ");
     }
 }

@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/health.v1.schema.json",
+  "title": "Ontogony Health V1",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "status",
+    "service",
+    "serviceDisplayName",
+    "version",
+    "environment",
+    "checkedAtUtc"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "health.v1"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "healthy",
+        "degraded",
+        "unhealthy",
+        "unknown"
+      ]
+    },
+    "service": {
+      "type": "string",
+      "enum": [
+        "conexus",
+        "kanon",
+        "allagma",
+        "ontogony-frontend",
+        "ontogony-ui",
+        "ontogony-platform"
+      ]
+    },
+    "serviceDisplayName": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "baseline": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "gitSha": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "buildTimeUtc": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "environment": {
+      "type": "string"
+    },
+    "instanceId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "checkedAtUtc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "links": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

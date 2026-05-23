@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/evidence-missing-reason-code.schema.json",
+  "title": "Evidence Missing Reason Code",
+  "type": "string",
+  "enum": [
+    "not_applicable",
+    "not_recorded",
+    "not_resolved",
+    "backend_missing",
+    "authorization_failed",
+    "fixture_only",
+    "not_implemented",
+    "contract_mismatch",
+    "route_mismatch",
+    "lookup_failed",
+    "upstream_unavailable",
+    "timeout",
+    "redacted"
+  ]
+}

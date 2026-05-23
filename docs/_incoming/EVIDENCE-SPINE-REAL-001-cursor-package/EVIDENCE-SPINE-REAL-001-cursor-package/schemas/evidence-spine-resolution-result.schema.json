@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/evidence-spine-resolution-result.schema.json",
+  "title": "Evidence Spine Resolution Result",
+  "type": "object",
+  "required": [
+    "schema",
+    "schemaVersion",
+    "root",
+    "completeness",
+    "graph",
+    "sourceAttempts",
+    "missing",
+    "warnings",
+    "dataSource"
+  ],
+  "properties": {
+    "schema": {
+      "const": "ontogony-evidence-resolution-result-v1"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "root": {
+      "type": "object"
+    },
+    "identifiers": {
+      "type": "object"
+    },
+    "completeness": {
+      "type": "object",
+      "required": [
+        "state",
+        "resolvedNodeCount",
+        "resolvedEdgeCount",
+        "requiredMissingCount",
+        "sourceFailureCount",
+        "summary"
+      ],
+      "properties": {
+        "state": {
+          "enum": [
+            "resolved",
+            "partial",
+            "unresolved",
+            "not_applicable"
+          ]
+        },
+        "resolvedNodeCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "resolvedEdgeCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "requiredMissingCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "optionalMissingCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "notApplicableCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sourceFailureCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "summary": {
+          "type": "string"
+        }
+      }
+    },
+    "graph": {
+      "type": "object",
+      "required": [
+        "nodes",
+        "edges"
+      ],
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "sourceAttempts": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "missing": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "pageLinks": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "dataSource": {
+      "enum": [
+        "live",
+        "live_with_fallback",
+        "fixture_only",
+        "generated",
+        "imported",
+        "unknown"
+      ]
+    },
+    "exportedAt": {
+      "type": "string"
+    },
+    "build": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

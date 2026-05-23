@@ -1,0 +1,13 @@
+{
+  "ontologyVersionId": "gaming-core@0.1.0",
+  "actorId": "local-operator",
+  "actorType": "human",
+  "actorRoles": [
+    "Admin"
+  ],
+  "objective": "GOVERNED-FAKE-E2E-001: summarize player risk using local fake provider.",
+  "context": {
+    "playerId": "123"
+  },
+  "modelPurpose": "summarize-player-risk"
+}

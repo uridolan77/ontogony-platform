@@ -1,0 +1,40 @@
+{
+  "package": "GOVERNED-FAKE-E2E-001",
+  "date": "2026-05-24",
+  "objective": "Prove one live governed fake-provider run end-to-end across Allagma, Kanon, Conexus, trace/correlation, and Evidence Spine.",
+  "repos": [
+    "allagma-dotnet",
+    "kanon-dotnet",
+    "conexus-dotnet",
+    "ontogony-frontend",
+    "ontogony-ui",
+    "ontogony-platform"
+  ],
+  "workstreams": [
+    "Allagma identifier propagation",
+    "Kanon decision by trace",
+    "Conexus route decision resolution",
+    "Evidence Spine governed resolver",
+    "Agent Interaction live mode",
+    "Start Run shortcuts",
+    "Frontend ID labeling",
+    "Regression tests",
+    "Export bundle validation",
+    "Docs/runbook"
+  ],
+  "requiredNodes": [
+    "allagma.run",
+    "platform.trace",
+    "platform.correlation",
+    "kanon.decision",
+    "conexus.modelCall",
+    "conexus.routeDecision",
+    "conexus.providerAttempt"
+  ],
+  "nonGoals": [
+    "real external execution",
+    "real OpenAI calls",
+    "production security/IAM",
+    "complete all historical evidence"
+  ]
+}

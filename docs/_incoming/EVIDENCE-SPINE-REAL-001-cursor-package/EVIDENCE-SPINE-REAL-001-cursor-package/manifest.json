@@ -1,0 +1,22 @@
+{
+  "package": "EVIDENCE-SPINE-REAL-001-cursor-package",
+  "version": "1.0.0",
+  "createdFor": "Ontogony evidence spine real-system hardening",
+  "primaryWorkItem": "EVIDENCE-SPINE-REAL-001",
+  "focus": [
+    "route decision evidence resolution",
+    "Kanon applicability semantics",
+    "graph node canonicalization and placeholder merge",
+    "stable missing reason codes",
+    "source attempt clarity",
+    "Allagma route normalization",
+    "governed fake-provider E2E proof"
+  ],
+  "reposLikelyInvolved": [
+    "ontogony-frontend",
+    "conexus-dotnet",
+    "kanon-dotnet",
+    "allagma-dotnet",
+    "ontogony-ui optional"
+  ]
+}

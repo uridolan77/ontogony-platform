@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Evidence Spine Source Attempt Envelope",
+  "type": "object",
+  "required": [
+    "system",
+    "endpoint",
+    "status"
+  ],
+  "properties": {
+    "system": {
+      "type": "string",
+      "enum": [
+        "allagma",
+        "kanon",
+        "conexus",
+        "platform",
+        "frontend"
+      ]
+    },
+    "endpoint": {
+      "type": "string"
+    },
+    "identifierKind": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "identifierValue": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "success",
+        "not_found",
+        "error",
+        "skipped"
+      ]
+    },
+    "latencyMs": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "reasonCode": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        null,
+        "not_applicable",
+        "not_recorded",
+        "not_resolved",
+        "not_found",
+        "backend_missing",
+        "authorization_failed",
+        "source_failure",
+        "fixture_only",
+        "not_implemented",
+        "id_mismatch",
+        "store_mismatch"
+      ]
+    },
+    "message": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

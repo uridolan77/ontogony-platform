@@ -1,0 +1,13 @@
+{
+  "scenario": "GOVERNED-FAKE-E2E-001",
+  "rootKind": "allagma.run",
+  "completeness": "resolved",
+  "requiredNodesResolved": true,
+  "requiredEdgesResolved": true,
+  "unexpectedSourceFailures": 0,
+  "fixtureIdsDetected": false,
+  "provider": {
+    "providerKey": "fake",
+    "providerModel": "fake.chat"
+  }
+}
