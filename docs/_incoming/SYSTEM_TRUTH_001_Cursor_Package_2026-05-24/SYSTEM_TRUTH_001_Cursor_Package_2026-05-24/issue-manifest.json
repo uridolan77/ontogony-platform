@@ -1,0 +1,31 @@
+{
+  "workstream": "SYSTEM-TRUTH-001",
+  "title": "Health/readiness/version/compatibility truth-hardening",
+  "priority": "P0",
+  "repos": [
+    "ontogony-platform",
+    "conexus-dotnet",
+    "kanon-dotnet",
+    "allagma-dotnet",
+    "ontogony-ui",
+    "ontogony-frontend"
+  ],
+  "tasks": [
+    "backend-health-v1",
+    "backend-ready-v1",
+    "conexus-readiness-detail",
+    "frontend-health-ready-parser",
+    "home-truth-model",
+    "compatibility-artifact",
+    "release-readiness-downgrade",
+    "status-taxonomy-ui"
+  ],
+  "acceptanceSummary": [
+    "No generic health payload format warnings for compliant services",
+    "No all-services-healthy claim when a required service is not ready",
+    "Conexus readiness mismatch has explicit check-level reason",
+    "Compatibility artifact exists or missing state is actionable",
+    "Fixture-only/generated data cannot imply release-ready",
+    "Status vocabulary is consistent across Home, Settings, Topology, Release Readiness"
+  ]
+}

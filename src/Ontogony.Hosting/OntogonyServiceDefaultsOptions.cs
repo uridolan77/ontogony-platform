@@ -14,6 +14,24 @@ public sealed class OntogonyServiceDefaultsOptions
     /// <summary>Service version string for telemetry.</summary>
     public string ServiceVersion { get; set; } = "0.1.0";
 
+    /// <summary>Short service id for health.v1/ready.v1 payloads (e.g. <c>conexus</c>). Defaults from <see cref="ServiceName"/>.</summary>
+    public string? ServiceHealthId { get; set; }
+
+    /// <summary>Operator-facing display name in health.v1.</summary>
+    public string? ServiceDisplayName { get; set; }
+
+    /// <summary>Locked system baseline label (e.g. SYSTEM-ALPHA-006).</summary>
+    public string? SystemBaseline { get; set; }
+
+    /// <summary>Build git SHA when available.</summary>
+    public string? GitSha { get; set; }
+
+    /// <summary>Build timestamp when available.</summary>
+    public DateTimeOffset? BuildTimeUtc { get; set; }
+
+    /// <summary>Instance id for multi-instance diagnostics.</summary>
+    public string? InstanceId { get; set; }
+
     /// <summary>When true, registers Ontogony observability services.</summary>
     public bool AddObservability { get; set; } = true;
 

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "health.v1",
+  "status": "healthy",
+  "service": "conexus",
+  "serviceDisplayName": "Conexus",
+  "version": "0.1.0-alpha.local",
+  "baseline": "SYSTEM-ALPHA-006",
+  "gitSha": "local",
+  "buildTimeUtc": "2026-05-24T00:00:00Z",
+  "environment": "Development",
+  "checkedAtUtc": "2026-05-24T00:00:00Z",
+  "warnings": []
+}

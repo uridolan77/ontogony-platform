@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "ontogony.systemCompatibility.summary.v1",
+  "generatedAtUtc": "2026-05-24T00:00:00Z",
+  "baseline": "SYSTEM-ALPHA-006",
+  "overallStatus": "warning",
+  "services": [
+    {
+      "service": "conexus",
+      "baseUrl": "http://localhost:5082",
+      "connectivity": "live",
+      "readiness": "degraded",
+      "healthContract": "valid",
+      "version": "0.1.0-alpha.local",
+      "dataSource": "live",
+      "warnings": [
+        "OpenAI optional provider credentials missing"
+      ],
+      "failures": []
+    },
+    {
+      "service": "kanon",
+      "baseUrl": "http://localhost:5081",
+      "connectivity": "live",
+      "readiness": "ready",
+      "healthContract": "valid",
+      "version": "0.1.0-alpha.local",
+      "dataSource": "live",
+      "warnings": [],
+      "failures": []
+    },
+    {
+      "service": "allagma",
+      "baseUrl": "http://localhost:5083",
+      "connectivity": "live",
+      "readiness": "ready",
+      "healthContract": "valid",
+      "version": "0.1.0-alpha.local",
+      "dataSource": "live",
+      "warnings": [
+        "Kill switch not configured for local alpha"
+      ],
+      "failures": []
+    }
+  ],
+  "compatibilityChecks": [
+    {
+      "id": "health.schema",
+      "status": "passed",
+      "expected": "Every service exposes health.v1",
+      "actual": "All services returned health.v1"
+    },
+    {
+      "id": "readiness.schema",
+      "status": "passed",
+      "expected": "Every service exposes ready.v1",
+      "actual": "All services returned ready.v1"
+    },
+    {
+      "id": "conexus.ready",
+      "status": "warning",
+      "expected": "Conexus local fake path usable",
+      "actual": "Usable with optional OpenAI warning"
+    }
+  ],
+  "warnings": [
+    "Conexus degraded due to optional provider configuration."
+  ],
+  "failures": []
+}

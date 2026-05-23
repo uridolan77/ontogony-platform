@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "ontogony.systemCompatibility.manifest.v1",
+  "baseline": "SYSTEM-ALPHA-006",
+  "services": {
+    "conexus": {
+      "baseUrl": "http://localhost:5082",
+      "requiredHealthSchema": "health.v1",
+      "requiredReadySchema": "ready.v1",
+      "required": true,
+      "expectedBaseline": "SYSTEM-ALPHA-006"
+    },
+    "kanon": {
+      "baseUrl": "http://localhost:5081",
+      "requiredHealthSchema": "health.v1",
+      "requiredReadySchema": "ready.v1",
+      "required": true,
+      "expectedBaseline": "SYSTEM-ALPHA-006"
+    },
+    "allagma": {
+      "baseUrl": "http://localhost:5083",
+      "requiredHealthSchema": "health.v1",
+      "requiredReadySchema": "ready.v1",
+      "required": true,
+      "expectedBaseline": "SYSTEM-ALPHA-006"
+    }
+  },
+  "requiredCorrelation": [
+    "traceId",
+    "correlationId",
+    "allagmaRunId",
+    "kanonDecisionId",
+    "conexusModelCallId"
+  ]
+}

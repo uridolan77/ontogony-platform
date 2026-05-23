@@ -99,10 +99,10 @@ public static class OntogonyHostingExtensions
             return endpoints;
         }
 
-        endpoints.MapHealthChecks(options.HealthPath);
+        endpoints.MapHealthChecks(options.HealthPath, OntogonyHealthV1ResponseWriter.CreateLivenessOptions());
         endpoints.MapHealthChecks(
             options.ReadinessPath,
-            new HealthCheckOptions { Predicate = static registration => registration.Tags.Contains("ready") });
+            OntogonyHealthV1ResponseWriter.CreateReadinessOptions());
 
         return endpoints;
     }
@@ -119,5 +119,11 @@ public static class OntogonyHostingExtensions
         destination.MapHealthEndpoints = source.MapHealthEndpoints;
         destination.HealthPath = source.HealthPath;
         destination.ReadinessPath = source.ReadinessPath;
+        destination.ServiceHealthId = source.ServiceHealthId;
+        destination.ServiceDisplayName = source.ServiceDisplayName;
+        destination.SystemBaseline = source.SystemBaseline;
+        destination.GitSha = source.GitSha;
+        destination.BuildTimeUtc = source.BuildTimeUtc;
+        destination.InstanceId = source.InstanceId;
     }
 }

@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/ready.v1.schema.json",
+  "title": "Ontogony Ready V1",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "status",
+    "service",
+    "checkedAtUtc",
+    "checks"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "ready.v1"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ready",
+        "not_ready",
+        "degraded",
+        "unknown"
+      ]
+    },
+    "service": {
+      "type": "string"
+    },
+    "checkedAtUtc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "summary": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "status",
+          "severity"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ready",
+              "warning",
+              "failed",
+              "skipped",
+              "unknown",
+              "not_applicable"
+            ]
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "required",
+              "optional",
+              "informational"
+            ]
+          },
+          "detail": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "system": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "dataSource": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "live",
+              "live_with_fallback",
+              "generated",
+              "fixture",
+              "imported",
+              "unknown",
+              null
+            ]
+          },
+          "links": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "lastCheckedAtUtc": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "failures": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

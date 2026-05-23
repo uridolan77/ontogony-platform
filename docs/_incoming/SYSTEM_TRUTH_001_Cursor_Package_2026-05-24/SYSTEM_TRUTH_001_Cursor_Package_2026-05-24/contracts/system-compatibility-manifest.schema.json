@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/system-compatibility-manifest.v1.schema.json",
+  "title": "Ontogony System Compatibility Manifest V1",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "baseline",
+    "services"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "ontogony.systemCompatibility.manifest.v1"
+    },
+    "baseline": {
+      "type": "string"
+    },
+    "services": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "baseUrl",
+          "requiredHealthSchema",
+          "requiredReadySchema"
+        ],
+        "properties": {
+          "baseUrl": {
+            "type": "string"
+          },
+          "requiredHealthSchema": {
+            "const": "health.v1"
+          },
+          "requiredReadySchema": {
+            "const": "ready.v1"
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "expectedVersion": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "expectedBaseline": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "requiredCorrelation": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

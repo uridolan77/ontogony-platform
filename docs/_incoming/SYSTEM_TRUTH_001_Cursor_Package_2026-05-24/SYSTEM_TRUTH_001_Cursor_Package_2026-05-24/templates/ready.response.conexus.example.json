@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "ready.v1",
+  "status": "degraded",
+  "service": "conexus",
+  "checkedAtUtc": "2026-05-24T00:00:00Z",
+  "summary": "Local fake-provider path is usable; OpenAI optional provider credentials are missing.",
+  "checks": [
+    {
+      "id": "conexus.postgres.connection",
+      "label": "Postgres connection",
+      "status": "ready",
+      "severity": "required",
+      "detail": "Connected to local Postgres."
+    },
+    {
+      "id": "conexus.provider.fake.runtime",
+      "label": "Fake provider runtime",
+      "status": "ready",
+      "severity": "required",
+      "detail": "Fake provider registered."
+    },
+    {
+      "id": "conexus.provider.openai.credentials",
+      "label": "OpenAI credentials",
+      "status": "warning",
+      "severity": "optional",
+      "detail": "CONEXUS_PROVIDER_OPENAI_API_KEY is not configured."
+    },
+    {
+      "id": "conexus.routing.alias.risk-summary-v0",
+      "label": "risk-summary-v0 alias",
+      "status": "ready",
+      "severity": "required",
+      "detail": "Alias resolves to fake/fake.chat."
+    },
+    {
+      "id": "conexus.route_decision.store",
+      "label": "Route decision store",
+      "status": "ready",
+      "severity": "required",
+      "detail": "Route decision query/recording store is available."
+    }
+  ],
+  "warnings": [
+    "OpenAI optional provider credentials missing."
+  ],
+  "failures": []
+}

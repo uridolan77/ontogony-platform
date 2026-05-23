@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/system-compatibility-summary.v1.schema.json",
+  "title": "Ontogony System Compatibility Summary V1",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "generatedAtUtc",
+    "baseline",
+    "overallStatus",
+    "services"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "ontogony.systemCompatibility.summary.v1"
+    },
+    "generatedAtUtc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "baseline": {
+      "type": "string"
+    },
+    "overallStatus": {
+      "type": "string",
+      "enum": [
+        "passed",
+        "warning",
+        "failed",
+        "unknown"
+      ]
+    },
+    "services": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "compatibilityChecks": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "failures": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -75,6 +75,42 @@ public sealed class OntogonyHostingDefaultsTests
     }
 
     [Fact]
+    public async Task MapOntogonyHealthEndpoints_Returns_HealthV1_And_ReadyV1_Payloads()
+    {
+        await using var app = await BuildAndStartAppAsync(services =>
+        {
+            services.AddOntogonyServiceDefaults(new ConfigurationBuilder().Build(), options =>
+            {
+                options.ServiceName = "conexus-api";
+                options.ServiceVersion = "0.1.0-alpha.local";
+                options.SystemBaseline = "SYSTEM-ALPHA-006";
+            });
+            services.AddHealthChecks()
+                .AddCheck("sample_ready", () => Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckResult.Healthy("ok"),
+                    tags: ["ready", "check-id:sample.ready"]);
+        }, app =>
+        {
+            app.UseOntogonyServiceDefaults();
+            app.MapOntogonyHealthEndpoints();
+        });
+
+        var client = app.GetTestClient();
+
+        var healthJson = await client.GetStringAsync("/health");
+        using var healthDoc = System.Text.Json.JsonDocument.Parse(healthJson);
+        Assert.Equal("health.v1", healthDoc.RootElement.GetProperty("schemaVersion").GetString());
+        Assert.Equal("conexus", healthDoc.RootElement.GetProperty("service").GetString());
+        Assert.Equal("0.1.0-alpha.local", healthDoc.RootElement.GetProperty("version").GetString());
+
+        var ready = await client.GetAsync("/ready");
+        var readyJson = await ready.Content.ReadAsStringAsync();
+        using var readyDoc = System.Text.Json.JsonDocument.Parse(readyJson);
+        Assert.Equal("ready.v1", readyDoc.RootElement.GetProperty("schemaVersion").GetString());
+        Assert.Equal("ready", readyDoc.RootElement.GetProperty("status").GetString());
+        Assert.True(readyDoc.RootElement.GetProperty("checks").GetArrayLength() >= 1);
+    }
+
+    [Fact]
     public async Task MapOntogonyHealthEndpoints_Maps_Health_And_Readiness_By_Default()
     {
         await using var app = await BuildAndStartAppAsync(services =>
