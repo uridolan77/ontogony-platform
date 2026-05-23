@@ -141,6 +141,7 @@ services:
       context: ../../../ontogony-frontend
       additional_contexts:
         ontogony_ui: ../../../ontogony-ui
+        ontogony_agent_interaction: ../../../ontogony-platform/packages/ontogony-agent-interaction
       args:
         EXTRA_CA_CERT_BASE64: ${DOCKER_EXTRA_CA_CERT_BASE64:-}
         VITE_KANON_BASE_URL: ${FRONTEND_VITE_KANON_BASE_URL:-http://localhost:5081}
