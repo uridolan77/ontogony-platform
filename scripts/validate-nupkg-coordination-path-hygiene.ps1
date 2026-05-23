@@ -1,7 +1,7 @@
 #!/usr/bin/env pwsh
 # Fails if any shipping .nupkg under artifacts/packages contains zip entries whose paths
 # look like coordination/donor/incoming overlay material (PLAT-NP-004).
-# Run after pack-all.ps1. See docs/planning/next-phase/pr-specs/PR-PLAT-NP-004-donor-incoming-package-hygiene.md
+# Run after pack-all.ps1. See docs/governance/NUGET_SOURCE_MAPPING.md and _donors/README.md (PLAT-NP-004 hygiene).
 #
 # Matching is substring-based on normalized paths (forward slashes) so we catch odd zip layouts
 # without requiring a specific leading slash on every entry.
@@ -56,7 +56,7 @@ Forbidden coordination path inside '$($pkg.Name)':
   matched fragment (case-insensitive): $frag
 
 Fix: ensure packed projects do not glob planning/donor/temp trees (check None/Content items and nuspec file includes).
-See docs/planning/next-phase/pr-specs/PR-PLAT-NP-004-donor-incoming-package-hygiene.md
+See docs/governance/NUGET_SOURCE_MAPPING.md and _donors/README.md
 "@
                 }
             }

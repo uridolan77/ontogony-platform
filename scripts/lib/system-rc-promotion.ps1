@@ -43,8 +43,8 @@ function Get-LatestArtifactDirectory {
     if (-not (Test-Path -LiteralPath $parent)) {
         return $null
     }
-    $dirs = Get-ChildItem -LiteralPath $parent -Directory -ErrorAction SilentlyContinue |
-        Sort-Object LastWriteTimeUtc -Descending
+    $dirs = @(Get-ChildItem -LiteralPath $parent -Directory -ErrorAction SilentlyContinue |
+        Sort-Object LastWriteTimeUtc -Descending)
     if ($dirs.Count -eq 0) {
         return $null
     }

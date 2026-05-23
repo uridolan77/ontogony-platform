@@ -93,6 +93,23 @@ else {
 if (-not $SkipFrontendRc) {
     Write-Host "`n=== Frontend rc:check ==="
     try {
+        $agentPkgDir = Join-Path $RepoRoot "packages/ontogony-agent-interaction"
+        $agentDist = Join-Path $agentPkgDir "dist/index.js"
+        if (-not (Test-Path -LiteralPath $agentDist)) {
+            Write-Host "  Building @ontogony/agent-interaction (dist missing) ..."
+            Push-Location $agentPkgDir
+            try {
+                if (-not (Test-Path -LiteralPath (Join-Path $agentPkgDir "node_modules"))) {
+                    npm ci
+                    if ($LASTEXITCODE -ne 0) { throw "agent-interaction npm ci failed" }
+                }
+                npm run build
+                if ($LASTEXITCODE -ne 0) { throw "agent-interaction build failed" }
+            }
+            finally {
+                Pop-Location
+            }
+        }
         Invoke-NpmScript $frontendRoot "rc:check"
         Push-Location $frontendRoot
         try {

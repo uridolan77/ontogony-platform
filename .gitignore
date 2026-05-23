@@ -39,6 +39,11 @@ appsettings.Development.local.json
 *.log
 logs/
 
+# Python donor artifacts (quarantine reference only)
+__pycache__/
+*.pyc
+*.pyo
+
 # TypeScript packages (build output committed only via dist when published locally)
 packages/**/node_modules/
 packages/**/dist/

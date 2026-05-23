@@ -1,6 +1,6 @@
 #!/usr/bin/env pwsh
 # Enforces a single Microsoft.Extensions.* / Microsoft.AspNetCore.TestHost version line in Directory.Packages.props
-# and basic sanity on global.json SDK. See docs/planning/robustness/DEPENDENCY_BASELINE.md.
+# and basic sanity on global.json SDK. See docs/governance/PACKAGE_LEVEL_GOVERNANCE.md and Directory.Packages.props.
 $ErrorActionPreference = 'Stop'
 
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
