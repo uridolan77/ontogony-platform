@@ -9,14 +9,22 @@
   writes docs/system/ontogony-system-rc-002.lock.json, and copies evidence to
   docs/evidence/ONTOGONY_SYSTEM_RC_002/.
 
+  Without -Promote, runs all gates and writes the evidence bundle using the current
+  six-repo lock (dry run). Add -FullWorkspace once sibling docs are green for live
+  consumer proofs against DevRoot.
+
 .EXAMPLE
-  ./scripts/promote-system-rc.ps1 -DevRoot C:\dev -RcId ONTOGONY-SYSTEM-RC-002 -Promote
+  ./scripts/promote-system-rc.ps1 -DevRoot C:\dev -RcId ONTOGONY-SYSTEM-RC-002
+
+.EXAMPLE
+  ./scripts/promote-system-rc.ps1 -DevRoot C:\dev -RcId ONTOGONY-SYSTEM-RC-002 -Promote -FullWorkspace
 #>
 param(
     [string] $RepoRoot = "",
     [string] $DevRoot = "",
     [string] $RcId = "ONTOGONY-SYSTEM-RC-002",
     [switch] $Promote,
+    [switch] $FullWorkspace,
     [switch] $SkipRuntimeCohesion,
     [switch] $SkipUiRc,
     [switch] $SkipFrontendRc
@@ -68,7 +76,8 @@ function Add-GateResult {
 Write-Host "Ontogony system RC promotion - $RcId"
 Write-Host "  DevRoot:   $DevRoot"
 Write-Host "  Platform:  $RepoRoot"
-Write-Host "  Promote:   $($Promote.IsPresent)"
+Write-Host "  Promote:       $($Promote.IsPresent)"
+Write-Host "  FullWorkspace: $($FullWorkspace.IsPresent)"
 Write-Host ""
 
 # ── Phase 1: UI / frontend RC gates (produce tarball + provenance) ────────────
@@ -157,12 +166,16 @@ if ($Promote) {
 
 Write-Host "`n=== Platform consumer conformance (release) ==="
 $consumerArtifactDir = Join-Path $RepoRoot "artifacts/consumer-conformance/system-rc-$((Get-Date).ToUniversalTime().ToString('yyyyMMdd-HHmmss'))"
-& (Join-Path $PSScriptRoot "run-consumer-conformance.ps1") `
-    -DevRoot $DevRoot `
-    -RepoRoot $RepoRoot `
-    -ArtifactDir $consumerArtifactDir `
-    -ReleaseMode `
-    -FullWorkspace
+$consumerArgs = @{
+    DevRoot     = $DevRoot
+    RepoRoot    = $RepoRoot
+    ArtifactDir = $consumerArtifactDir
+    ReleaseMode = $true
+}
+if ($FullWorkspace) {
+    $consumerArgs.FullWorkspace = $true
+}
+& (Join-Path $PSScriptRoot "run-consumer-conformance.ps1") @consumerArgs
 if ($LASTEXITCODE -ne 0) {
     Add-GateResult "platform-consumer-conformance" "fail" "exit $LASTEXITCODE"
     throw "Consumer conformance failed."
