@@ -88,7 +88,16 @@ Conexus Development uses the **fake** provider by default — no external model 
 
 ## Docker local working system
 
-Canonical compose stack and operator scripts:
+**Wave 7 — canonical operator entry:**
+
+```powershell
+./scripts/start-local-ontogony-system.ps1 -Build -OpenBrowser
+./scripts/validate-local-ontogony-system.ps1
+```
+
+Golden journey: [`operators/OPERATOR_V1_DEMO_GUIDE.md`](./operators/OPERATOR_V1_DEMO_GUIDE.md)
+
+Compose stack and lower-level scripts:
 
 - [`docker/local-working-system/README.md`](../docker/local-working-system/README.md)
 - Planning reference: [`environments/docker-local-working-system/`](./environments/docker-local-working-system/)

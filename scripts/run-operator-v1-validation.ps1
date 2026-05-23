@@ -100,9 +100,14 @@ Step "UI check" {
 }
 
 if (-not $SkipDocker) {
-    Step "Docker gates (manual)" {
-        Write-Host "Use existing SYSTEM-ALPHA-006 cohesion/restart/observability artifacts when stack is up."
-        Write-Host "See docs/operators/OPERATOR_V1_DEMO_GUIDE.md and docker/local-working-system/README.md"
+    Step "Docker-local operator system (Wave 7)" {
+        Push-Location (Join-Path $DevRoot "ontogony-platform")
+        try {
+            ./scripts/validate-local-ontogony-system.ps1 -DevRoot $DevRoot
+        }
+        finally {
+            Pop-Location
+        }
     }
 }
 

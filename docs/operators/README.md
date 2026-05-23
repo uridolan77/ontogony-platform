@@ -10,6 +10,7 @@ Cross-repo **mechanical** operator standards published from `ontogony-platform`.
 
 | Document | Purpose |
 | --- | --- |
+| [OPERATOR_V1_DEMO_GUIDE.md](./OPERATOR_V1_DEMO_GUIDE.md) | Wave 7 golden journey — one-command local operator system |
 | [TRACE_CORRELATION_CONTRACT.md](./TRACE_CORRELATION_CONTRACT.md) | Trace/correlation headers and middleware |
 | [ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md](./ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md) | Six-repo documentation layout (DOCS-STANDARD-001) |
 | [CI_COST_CONTROL.md](./CI_COST_CONTROL.md) | CI cost and branch protection guidance |

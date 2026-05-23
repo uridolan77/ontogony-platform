@@ -10,6 +10,14 @@ Platform-hosted notes for **local operator environments**. Product-specific envi
 | --- | --- |
 | [`docker-local-working-system/`](./docker-local-working-system/) | Manifest, architecture, exact settings, compose plan |
 | [`../docker/local-working-system/README.md`](../docker/local-working-system/README.md) | Compose tree, scripts, operator commands |
+| [`../operators/OPERATOR_V1_DEMO_GUIDE.md`](../operators/OPERATOR_V1_DEMO_GUIDE.md) | Wave 7 golden journey — canonical start/validate |
+
+**Canonical commands** (from `ontogony-platform` repo root):
+
+```powershell
+./scripts/start-local-ontogony-system.ps1 -Build
+./scripts/validate-local-ontogony-system.ps1
+```
 
 **Boundary:** Development credentials only. **Not production readiness.**
 

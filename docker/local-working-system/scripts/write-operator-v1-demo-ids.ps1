@@ -20,29 +20,29 @@ $demo = [ordered]@{
     frontendBaseUrl = "http://localhost:5175"
     services        = $seed.services
     flows           = [ordered]@{
-        system-posture       = [ordered]@{ route = "/system" }
-        simple-governed-run  = [ordered]@{
+        "system-posture"      = [ordered]@{ route = "/system" }
+        "simple-governed-run" = [ordered]@{
             route  = "/allagma/runs/start"
             runId  = $seed.runs.subjectRunId
             detail = "/allagma/runs/$($seed.runs.subjectRunId)"
         }
-        human-gate-approve = [ordered]@{ route = "/allagma/gates" }
-        human-gate-deny    = [ordered]@{ route = "/allagma/gates" }
-        conexus-fallback   = [ordered]@{
+        "human-gate-approve" = [ordered]@{ route = "/allagma/gates" }
+        "human-gate-deny"    = [ordered]@{ route = "/allagma/gates" }
+        "conexus-fallback"   = [ordered]@{
             route            = "/conexus/observability"
             routeDecisionId  = $seed.routeEvidence.subjectRouteDecisionId
             modelCallId      = $seed.runs.subjectModelCallId
             observabilityUrl = "/conexus/observability?modelCallId=$([uri]::EscapeDataString($seed.runs.subjectModelCallId))"
         }
-        kanon-assistance = [ordered]@{
+        "kanon-assistance" = [ordered]@{
             route      = "/kanon/assistance"
             decisionId = $seed.topology.subjectTopologyAuthorizationDecisionId
         }
-        sandbox-posture = [ordered]@{
+        "sandbox-posture" = [ordered]@{
             route  = "/allagma/runs/$($seed.runs.baselineRunId)"
             runId  = $seed.runs.baselineRunId
         }
-        evidence-spine-trace = [ordered]@{
+        "evidence-spine-trace" = [ordered]@{
             route           = "/system/evidence-spine"
             lookupRunId     = $seed.runs.baselineRunId
             modelCallId     = $seed.runs.baselineModelCallId

@@ -2,6 +2,15 @@
 
 **Boundary:** first Dockerized local working system. Development credentials only — not for staging or production.
 
+**Wave 7 canonical entry** (from `ontogony-platform` repo root):
+
+```powershell
+./scripts/start-local-ontogony-system.ps1 -Build -OpenBrowser
+./scripts/validate-local-ontogony-system.ps1
+```
+
+Golden journey: [`docs/operators/OPERATOR_V1_DEMO_GUIDE.md`](../../docs/operators/OPERATOR_V1_DEMO_GUIDE.md)
+
 Terminology: [`docs/operators/ONTOGONY_TERMINOLOGY_GLOSSARY.md`](../../docs/operators/ONTOGONY_TERMINOLOGY_GLOSSARY.md) (liveness vs readiness, decision IDs, fake provider).
 
 Programs: Docker-local and post-hardening operator milestones are **CLOSED**; see [`docs/KNOWN_LIMITATIONS.md`](../../docs/KNOWN_LIMITATIONS.md) — not production readiness.
