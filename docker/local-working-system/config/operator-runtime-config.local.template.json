@@ -1,0 +1,43 @@
+{
+  "configSchema": "ontogony.operator-runtime-config.v1",
+  "version": 1,
+  "environmentName": "Local",
+  "profileName": "docker-local",
+  "generatedAt": "2026-05-24T00:00:00.000Z",
+  "build": {
+    "source": "ontogony-platform/docker/local-working-system",
+    "gitSha": "local",
+    "description": "Docker local working system runtime defaults"
+  },
+  "services": {
+    "conexus": { "baseUrl": "http://localhost:5082" },
+    "kanon": { "baseUrl": "http://localhost:5081" },
+    "allagma": { "baseUrl": "http://localhost:5083" }
+  },
+  "frontend": {
+    "defaultRoute": "/",
+    "enableFixtureRoutes": false,
+    "enableExpertModeDefault": false,
+    "routeSearchEnabled": true
+  },
+  "evidence": {
+    "enableRawPreviewDefault": false,
+    "exportRedactionMode": "safe"
+  },
+  "localAlpha": {
+    "allowBrowserCredentialStorage": true,
+    "showLocalCredentialWarnings": true
+  },
+  "diagnostics": {
+    "enableDiagnosticExport": true
+  },
+  "kanon": {
+    "ontologyId": "gaming-core",
+    "ontologyVersionId": "gaming-core@0.1.0"
+  },
+  "conexus": {
+    "projectId": "dev-project",
+    "modelAlias": "risk-summary-v0",
+    "streamingEnabled": false
+  }
+}

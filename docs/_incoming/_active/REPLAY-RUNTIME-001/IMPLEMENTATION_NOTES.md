@@ -115,12 +115,22 @@
 5. `run-governed-fake-replay-e2e.ps1` smoke + runtime-lock optional gate.
 6. Kanon route inventory regeneration for `/ontology/v0/replay/eligibility`.
 
+## Follow-up fixes (post-review, same branch)
+
+| Issue | Fix |
+| --- | --- |
+| Conexus ID misclassification (`chatcmpl-` / `rd-` before hyphen heuristic) | `ReplayTargetResolver` check order fixed; `ReplayTargetResolverTests` added |
+| Kanon eligibility overstates available source data | `KanonReplayEligibilityService` now uses `IDecisionRecordRepository` + `IReplayBundleRepository` |
+| Bundle/delta GET loses execution evidence | `ReplayExecutionSnapshot` JSON persisted on `ReplayRecord`; GET routes rehydrate |
+| Safety policies ignored on create | `ReplaySafetyPolicyValidator` validates and stores policies on record + snapshot |
+| Kanon route inventory stale | `OntologyV0RouteCatalog` + regenerate via `KANON_UPDATE_ROUTE_INVENTORY=1` |
+
 ## Known caveats
 
-- `GET /replay/requests/{id}/bundle` rebuilds from stored record without re-attaching legacy `ReplayAgentRunResponse` to delta comparisons.
-- Target resolver heuristics may mis-classify opaque IDs as `platform.trace`.
-- Replay evidence bundle JSON schema is intentionally loose for `request`/`result` nested objects until OpenAPI generation lands.
+- Replay evidence bundle JSON schema is intentionally loose for nested `request`/`result` until OpenAPI generation lands.
+- Frontend still uses legacy `POST /runs/{runId}/replay` only; new replay runtime routes not in generated client yet.
+- Conexus replay eligibility/dry-run still absent.
 
 ## Package closure
 
-**Partially closed** — Stages 1–2 and minimal Stage 3 eligibility are implemented with tests; Stages 4–6 and full acceptance headline remain open.
+**Partially closed** — Stages 1–2 and evidence-backed minimal Stage 3; correctness fixes applied for resolver, Kanon truthfulness, and Allagma rehydration. Stages 4–6 and full acceptance headline remain open.
