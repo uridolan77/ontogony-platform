@@ -17,7 +17,7 @@ RUNTIME-CONFIG-001 — Ontogony Operator Runtime Configuration
 - **Frontend flags** (`enableFixtureRoutes`, etc.) not in `OperatorSettings` — kept in runtime JSON + Settings disclosure only.
 - **New environment page** — skipped; Settings remains the workflow surface.
 - **Backend route changes** — none (out of scope).
-- **Playwright docker-live runtime spec** — deferred (requires live docker-local stack).
+- **Playwright docker-live runtime spec** — implemented in 001A; requires live docker-local stack to execute.
 - **governed-fake-e2e:docker-live** — not run (requires live stack).
 
 ## Implementation decisions
@@ -60,7 +60,8 @@ RUNTIME-CONFIG-001 — Ontogony Operator Runtime Configuration
 | `npm run root-config:check` | pass |
 | `npm run contracts:discipline` | **partial fail** — `allagma:route-parity` pre-existing replay route drift (6 routes in inventory, not in OpenAPI snapshot) |
 | `write-operator-runtime-config.ps1` | pass |
-| docker-live / governed-fake E2E | not run (stack not verified running) |
+| `assert-operator-runtime-config.ps1 -BaseUrl http://localhost:5175` | pass (2026-05-24) |
+| `npm run test:e2e:docker-live:runtime-config` | pass — 3/3 (2026-05-24) |
 
 ## Acceptance status
 - Runtime config contract + loader: **done**
@@ -69,19 +70,28 @@ RUNTIME-CONFIG-001 — Ontogony Operator Runtime Configuration
 - Docker/nginx/platform generation: **done**
 - Env catalog discipline: **done**
 - Unit tests: **done**
-- Docker-live Playwright matrix: **deferred**
-- Full acceptance checklist: **partially closed**
+- Docker-live Playwright matrix: **done** (nginx JSON + Settings provenance + override reset)
+- Local-stack smoke evidence: **done**
+- Full acceptance checklist: **closed** (except unrelated Allagma route parity)
+
+## Status (2026-05-24)
+```text
+RUNTIME-CONFIG-001A: implemented and review-passed.
+RUNTIME-CONFIG-001: closed on docker-local evidence (smoke + e2e pass).
+```
 
 ## Deferred / follow-up
-1. Run `npm run test:e2e:docker-live:runtime-config` when docker-local stack is up (spec added in 001A).
-2. Resolve pre-existing `allagma:route-parity` replay route drift (unrelated to this package).
-3. Add `LOCAL_PROFILE.md`, `DOCKER_LOCAL_PROFILE.md`, `CUSTOM_STACK_PROFILE.md` if fuller docs are wanted.
-4. Provider persist-on-mount may promote `legacy-local` to `local-override` after boot — follow-up if undesired.
+1. Resolve pre-existing `allagma:route-parity` replay route drift (unrelated to this package).
+2. Add `LOCAL_PROFILE.md`, `DOCKER_LOCAL_PROFILE.md`, `CUSTOM_STACK_PROFILE.md` if fuller docs are wanted.
+3. Provider persist-on-mount may promote `legacy-local` to `local-override` after boot — follow-up if undesired.
 
 ## RUNTIME-CONFIG-001A (closure hardening)
 - Fixed `assert-operator-runtime-config.ps1` false positive: recursive key validation with allowlist (matches frontend validator).
 - Added `e2e/runtime-config-docker-live.spec.ts` and `npm run test:e2e:docker-live:runtime-config`.
 - Fixed `serviceBaseUrlProvenanceModel` UI type mapping for `configSource`.
+- Fixed UTF-8 BOM in generated JSON (`write-operator-runtime-config.ps1` + loader/e2e BOM strip).
+- Fixed e2e test 3 false failure: `seedOperatorSettings({ force: true })` used `addInitScript`, which re-seeded localStorage on every reload; added `oneShot` evaluate path for override persistence tests.
+- Added unit test for runtime-default override persist/reload in `operatorSettingsStorage.test.ts`.
 
 
 ## Known caveats
@@ -89,4 +99,4 @@ RUNTIME-CONFIG-001 — Ontogony Operator Runtime Configuration
 - `OperatorSettingsProvider` re-persists settings on mount via `useEffect` (existing pattern preserved).
 
 ## Suggested next step
-Run docker-local stack, execute `write-operator-runtime-config.ps1`, smoke `assert-operator-runtime-config.ps1`, then docker-live Playwright specs.
+None for RUNTIME-CONFIG-001 closure. Optional: address Allagma route parity drift and provider persist-on-mount follow-up.
