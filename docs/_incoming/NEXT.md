@@ -1,6 +1,6 @@
 Below is the **dev plan from the current point forward**.
 
-**2026-05-24 update:** `SETTINGS-SECURITY-UX-001` implemented. **`EVAL-EVIDENCE-QUALITY-001` implemented**. **`RELEASE-READINESS-TRUTH-001` implemented**. **`RUNTIME-LOCK-CI-GOVERNED-E2E-001` implemented** (Stage 2–3: canonical governed-fake-e2e artifacts, one-command local proof, lock pointer, `-RequireGovernedFakeE2eEvidence`, manual GH workflow). **`001A`:** committed baseline under `docs/evidence/artifacts/` (`.gitignore` scoped to `/artifacts/` only). **`DOMAIN-SWITCHER-001` implemented** in `ontogony-frontend` (operator shell domain switcher, Kanon-only settings patch, Start Run / Source Bindings / Evidence Spine sync; Conexus alias boundary preserved). **Next:** pick from post-domain-switcher backlog or new incoming packages.
+**2026-05-24 update:** `SETTINGS-SECURITY-UX-001` implemented. **`EVAL-EVIDENCE-QUALITY-001` implemented**. **`RELEASE-READINESS-TRUTH-001` implemented**. **`RUNTIME-LOCK-CI-GOVERNED-E2E-001` implemented** (Stage 2–3: canonical governed-fake-e2e artifacts, one-command local proof, lock pointer, `-RequireGovernedFakeE2eEvidence`, manual GH workflow). **`001A`:** committed baseline under `docs/evidence/artifacts/` (`.gitignore` scoped to `/artifacts/` only). **`DOMAIN-SWITCHER-001` implemented** in `ontogony-frontend` (operator shell domain switcher, Kanon-only settings patch, Start Run / Source Bindings / Evidence Spine sync; Conexus alias boundary preserved). **Next:** **`KANON-UI-API-PARITY-001`** — contract-layer hardening after domain switcher (route taxonomy, OpenAPI snapshot resync, DTO shim removal, Domain Switcher Docker smoke).
 
 The current foundation is good: Agent Interaction has already shifted from “API synthesis” to **Live lookup**, fixture/imported/live source labels are now explicit, and the Docker-live E2E checks were strengthened around tool intents, message stream, and interaction panels.  The provider side is also now much richer: the test expects the live provider panel to show `fake` / `fake.chat`, and the live summary to show `summarize-player-risk` and `gaming-core@0.1.0`.  Platform docs were also updated to match the new “live lookup” terminology. 
 
@@ -823,6 +823,183 @@ E2E: e2e/domain-switcher.spec.ts
 
 ---
 
+# Phase 10 — `KANON-UI-API-PARITY-001`
+
+## Goal
+
+Tighten Kanon UI ↔ Kanon API contract hygiene after `DOMAIN-SWITCHER-001`. Route-level parity is already guarded (KANON-CONNECT-006); this phase closes remaining DTO/shape drift and clarifies route taxonomy so “ServerOnly” is not read as “UI must not call.”
+
+## Current verdict (2026-05-24)
+
+```text
+Kanon UI ↔ Kanon API match:
+  Route/path level:          strong (8/10 overall)
+  OpenAPI snapshot parity:   guarded but incomplete for some response schemas
+  Runtime behavior:          likely good
+  DTO/schema strictness:     partial — handwritten shims remain in kanonClient.ts
+```
+
+**What already matches well**
+
+```text
+- Major Kanon pages use real /ontology/v0 endpoints (not fantasy UI routes).
+- kanonRouteParity (KANON-CONNECT-006) cross-checks:
+    Kanon route inventory ↔ backend OpenAPI ↔ frontend snapshot ↔ workflow catalog
+- Domain Switcher calls GET /domain-packs + GET /domain-packs/active and patches
+    kanon.ontologyVersionId / ontologyId only (Conexus alias unchanged).
+- Important routes covered: domain-packs, lifecycle, active, review-queue,
+    semantic-graph, source-binding quality/review, decisions, provenance, replay.
+```
+
+**Remaining gaps**
+
+```text
+1. Handwritten DTO shims in ontogony-frontend/src/kanon/api/kanonClient.ts:
+     KanonSourceBindingDto — generated schema.ts already has SourceBindingContract;
+       shim is a slimmer legacy subset; migrate adapters to generated types.
+     DecisionProvenanceEnvelopeDto — backend OpenAPI defines
+       DecisionProvenanceEnvelopeContract; frontend snapshot omits the 200 schema
+       (stale sync, not a backend gap).
+
+2. ServerOnly taxonomy is ambiguous:
+     In kanon-dotnet, ServerOnly = not on typed Kanon.Client (.NET integrator surface).
+     Operator UI and BFF may still call those routes via direct HTTP.
+     Source-binding list/mutations are ServerOnly on Kanon.Client but used by the UI.
+
+3. Route parity ≠ semantic contract parity:
+     Parity gate proves route presence, not response-shape fidelity, nullable
+     handling, error codes, or 403 role states.
+```
+
+## Repo scope
+
+Primary:
+
+```text
+ontogony-frontend
+```
+
+Secondary (taxonomy docs only):
+
+```text
+kanon-dotnet — clarify ServerOnly vs operator-UI-used in coverage fragments
+```
+
+## Work items
+
+### 10.1 Route usage taxonomy
+
+Classify every `/ontology/v0` route on four axes (not two):
+
+```text
+backend route exists
+generated .NET client exposes it (Kanon.Client)
+operator frontend uses it (kanonClient.ts / hooks)
+server-internal / unsafe for SPA direct
+```
+
+Deliverable: extend or companion doc to
+`kanon-dotnet/docs/generated/fragments/ontology-v0-route-client-coverage.md`
+with an **operator UI used** column sourced from frontend route inventory.
+
+Reference policy: `kanon-dotnet/docs/operators/ONTOLOGY_V0_SERVER_ONLY_POLICY.md`.
+
+### 10.2 Resync frontend OpenAPI snapshot
+
+Copy fresh schemas from `kanon-dotnet/docs/api/kanon-openapi-v1.json` into
+`ontogony-frontend/openapi/kanon.v0.json`.
+
+Priority fixes (known drift):
+
+```text
+GET /ontology/v0/decision-records/{decisionId}/provenance
+  → wire 200 to DecisionProvenanceEnvelopeContract
+
+GET /ontology/v0/decision-records/{decisionId}/replay-bundles
+  → ensure typed 200 response (same class of empty-OK drift)
+```
+
+Regenerate `ontogony-frontend/src/kanon/api/generated/schema.ts`.
+
+### 10.3 Remove or reduce handwritten DTO shims
+
+Order:
+
+```text
+1. DecisionProvenanceEnvelopeDto → components["schemas"]["DecisionProvenanceEnvelopeContract"]
+2. KanonSourceBindingDto → SourceBindingContract / ListSourceBindingsResponse
+3. Audit remaining Record<string, unknown> escape hatches in kanonClient.ts
+```
+
+Update adapters (`kanonSemanticAdapters`, workbench adapters) for stricter
+required fields (`confidence`, `provenance`, `transform` on bindings).
+
+### 10.4 Snapshot schema coverage test
+
+Extend parity gate (or add sibling test) so every path **called from kanonClient.ts**
+has a typed `200` response schema in `openapi/kanon.v0.json`.
+
+This catches provenance-style drift that route-only parity misses.
+
+Existing baseline: `src/kanon/contracts/kanonRouteParity.test.ts` (KANON-CONNECT-006).
+
+### 10.5 Domain Switcher Docker smoke
+
+One live Docker smoke proving end-to-end domain context:
+
+```text
+GET  /ontology/v0/domain-packs
+GET  /ontology/v0/domain-packs/active
+PATCH operator settings (kanon ontologyVersionId / ontologyId only)
+Start Run uses switched ontologyVersionId
+Source Bindings / Evidence Spine reflect switched domain
+Conexus alias unchanged after switch
+```
+
+May extend `e2e/domain-switcher.spec.ts` or add `governed-fake-e2e` companion step.
+
+## Execution order within phase
+
+```text
+1. 10.2 Resync snapshot + regenerate schema.ts        (highest signal, lowest risk) ✅ 2026-05-24
+2. 10.3 Drop provenance shim, then source-binding shim ✅ provenance/replay (2026-05-24); source-binding pending
+3. 10.4 Schema coverage test                          ✅ kanonClientSchemaCoverage.test.ts (2026-05-24)
+4. 10.1 Route taxonomy doc/column
+5. 10.5 Domain Switcher Docker smoke
+```
+
+## Slice 001 closure (2026-05-24)
+
+```text
+Repo: ontogony-frontend
+Expanded openapi:expand:kanon paths (provenance, replay, decisions, semantic-graph, ontology versions)
+Regenerated openapi/kanon.v0.json + src/kanon/api/generated/schema.ts
+Removed DecisionProvenanceEnvelopeDto / KanonReplayBundleEntryDto shims; use generated contracts
+Added scripts/lib/kanon-client-schema-coverage.mjs + kanonClientSchemaCoverage.test.ts
+Checks: typecheck, openapi:check, kanon:route-parity, schema coverage test
+```
+
+## Acceptance
+
+```text
+- No handwritten KanonSourceBindingDto / DecisionProvenanceEnvelopeDto in kanonClient.ts
+  (or explicit comment + ticket only if backend schema genuinely absent).
+- Frontend OpenAPI snapshot includes DecisionProvenanceEnvelopeContract on provenance GET.
+- Test fails if kanonClient-used route lacks typed 200 in openapi/kanon.v0.json.
+- ServerOnly docs distinguish Kanon.Client coverage from operator-UI HTTP usage.
+- Domain Switcher Docker smoke passes on local stack.
+```
+
+## Non-goals
+
+```text
+- Full nullable/error-code UI matrix for every /ontology/v0 route.
+- Promoting ServerOnly routes onto Kanon.Client (separate kanon-dotnet hygiene).
+- Rewiring Kanon pages to different endpoints (routes already correct).
+```
+
+---
+
 # Execution order
 
 Use this order:
@@ -841,6 +1018,9 @@ THEN
 
 LATER
   5. DOMAIN-SWITCHER-001 — closed (see Phase 9).
+
+NOW (post domain switcher)
+  6. KANON-UI-API-PARITY-001 — contract-layer hardening (see Phase 10).
 ```
 
 ## Parallelization
@@ -859,6 +1039,10 @@ Lane C:
 
 Lane D:
   EVAL and RELEASE should wait until Agent Interaction and evidence artifacts stabilize
+
+Lane E:
+  KANON-UI-API-PARITY-001 (OpenAPI snapshot + kanonClient.ts) after DOMAIN-SWITCHER-001;
+  safe parallel with KANON-CONSOLE-POLISH if different files (avoid kanonClient + same adapters)
 ```
 
 Avoid doing these in parallel:
@@ -882,3 +1066,5 @@ If red:
 ```
 
 The next dev move depends on that one result.
+
+**Post domain switcher:** start **`KANON-UI-API-PARITY-001`** (Phase 10) — begin with OpenAPI snapshot resync and provenance DTO migration.
