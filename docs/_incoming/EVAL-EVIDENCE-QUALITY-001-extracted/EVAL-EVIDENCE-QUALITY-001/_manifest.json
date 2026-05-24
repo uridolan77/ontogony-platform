@@ -1,0 +1,43 @@
+{
+  "package": "EVAL-EVIDENCE-QUALITY-001",
+  "createdAt": "2026-05-23T22:12:42Z",
+  "type": "cursor-implementation-package",
+  "scope": "Ontogony frontend / Allagma evaluation evidence quality",
+  "primaryRepos": [
+    "ontogony-frontend",
+    "ontogony-ui (only if shared neutral UI components require small additions)"
+  ],
+  "secondaryRepos": [
+    "allagma-dotnet (backend follow-ups only unless current contracts already support fields)"
+  ],
+  "nonGoals": [
+    "Do not invent new backend routes in the frontend.",
+    "Do not rewrite the evaluation system.",
+    "Do not change scoring semantics unless the current repo already supports the change.",
+    "Do not make fixture/demo data appear production-authoritative.",
+    "Do not broaden scope into Kanon domain-pack polish or System topology polish."
+  ],
+  "files": [
+    "CURSOR_MASTER_PROMPT.md",
+    "SOURCE_FINDINGS.md",
+    "IMPLEMENTATION_PLAN.md",
+    "ACCEPTANCE_CHECKLIST.md",
+    "QA_CHECKLIST.md",
+    "tickets/001-evaluation-source-and-metadata-honesty.md",
+    "tickets/002-evidence-drilldown-and-resolution-quality.md",
+    "tickets/003-baseline-comparison-readiness.md",
+    "tickets/004-quality-trend-and-summary-integrity.md",
+    "tickets/005-filter-state-empty-state-and-pagination-polish.md",
+    "tickets/006-tests-and-fixtures.md",
+    "docs/EVAL_EVIDENCE_PAGE_SPEC.md",
+    "docs/EVAL_EVIDENCE_STATUS_TAXONOMY.md",
+    "docs/EVAL_COPY_GUIDE.md",
+    "docs/BACKEND_FOLLOWUPS.md",
+    "prompts/00-cursor-unpack-and-inspect.md",
+    "prompts/01-implementation-prompt.md",
+    "prompts/02-review-prompt.md",
+    "examples/evaluation-row-view-model.example.json",
+    "examples/evidence-quality-summary.example.json",
+    "examples/copy-before-after.md"
+  ]
+}

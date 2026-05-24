@@ -1,0 +1,44 @@
+{
+  "evaluationId": "eval_79f41d7cc7ef4c849675a86ce3f73ce6",
+  "scenarioId": "scenario-risk-summary-v0",
+  "suiteId": "eval-profile-v0",
+  "dataset": {
+    "status": "missing",
+    "label": "No dataset metadata"
+  },
+  "provider": {
+    "status": "unknown",
+    "label": "Unknown provider"
+  },
+  "tokens": {
+    "status": "not_recorded",
+    "label": "Tokens not recorded"
+  },
+  "baselineComparison": {
+    "status": "missing",
+    "label": "No baseline comparison"
+  },
+  "evidence": {
+    "status": "partial",
+    "bestIdentifierKind": "run",
+    "bestIdentifierValue": "run_fcde6bdd7fe541a99dfcb6cc40e16069",
+    "missing": [
+      "traceId",
+      "modelCallId",
+      "kanonDecisionId",
+      "comparisonId"
+    ],
+    "links": [
+      {
+        "kind": "evidence-spine",
+        "enabled": true,
+        "label": "Open Evidence Spine"
+      }
+    ]
+  },
+  "rowWarnings": [
+    "Provider metadata is missing.",
+    "Dataset metadata is missing.",
+    "No baseline comparison is linked."
+  ]
+}

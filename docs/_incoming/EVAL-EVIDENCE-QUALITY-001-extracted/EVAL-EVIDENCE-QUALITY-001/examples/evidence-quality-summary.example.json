@@ -1,0 +1,41 @@
+{
+  "basis": "current_page",
+  "rowCount": 25,
+  "scenarioCount": 1,
+  "suiteCount": 1,
+  "verdicts": {
+    "pass": 25,
+    "fail": 0,
+    "inconclusive": 0
+  },
+  "averageQualityScore": 0.93,
+  "coverage": {
+    "providerKnown": {
+      "count": 0,
+      "total": 25
+    },
+    "datasetKnown": {
+      "count": 0,
+      "total": 25
+    },
+    "comparisonLinked": {
+      "count": 0,
+      "total": 25
+    },
+    "runLinked": {
+      "count": 25,
+      "total": 25
+    },
+    "traceLinked": {
+      "count": 0,
+      "total": 25
+    }
+  },
+  "warnings": [
+    "Current-page summary only.",
+    "Only one scenario represented.",
+    "No provider metadata on visible rows.",
+    "No dataset metadata on visible rows.",
+    "No baseline comparison metadata on visible rows."
+  ]
+}
