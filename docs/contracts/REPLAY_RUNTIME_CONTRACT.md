@@ -46,6 +46,18 @@ All operator replay flows default to:
 
 Real provider or tool execution requires an explicit future trust model; it is **out of scope** for REPLAY-RUNTIME-001.
 
+## REPLAY-RUNTIME-002 (cross-service wiring)
+
+| Route | Owner | Purpose |
+| --- | --- | --- |
+| `POST /ontology/v0/replay/eligibility` | Kanon | Semantic replay eligibility |
+| `POST /admin/v0/replay/eligibility` | Conexus | Model-call / route-decision eligibility |
+| `POST /admin/v0/replay/model-calls/{id}/dry-run` | Conexus | Evidence-only model-call replay |
+| `POST /admin/v0/replay/route-decisions/{id}/dry-run` | Conexus | Route snapshot reconstruction |
+| `GET /admin/v0/replay/model-calls/{id}/evidence` | Conexus | Evidence links for bundles |
+
+Allagma orchestration (`POST /allagma/v0/replay/requests`) appends Kanon/Conexus `ReplayServiceAttempt` rows when replaying terminal runs. See `docs/_incoming/_active/REPLAY-RUNTIME-002/IMPLEMENTATION_NOTES.md`.
+
 ## Evidence Spine links
 
 Replay artifacts use stable reference kinds:

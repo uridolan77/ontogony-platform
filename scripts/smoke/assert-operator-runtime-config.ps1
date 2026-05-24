@@ -64,9 +64,14 @@ if ($cacheControl -notmatch "no-store|no-cache") {
   throw "Expected no-cache Cache-Control header, got '$cacheControl'"
 }
 
-$config = $response.Content | ConvertFrom-Json -ErrorAction SilentlyContinue
+$rawContent = $response.Content
+if ($rawContent.Length -gt 0 -and [int][char]$rawContent[0] -eq 0xFEFF) {
+  $rawContent = $rawContent.Substring(1)
+}
+
+$config = $rawContent | ConvertFrom-Json -ErrorAction SilentlyContinue
 if (-not $config) {
-  if ($response.Content -match '(?i)<!doctype html|<html') {
+  if ($rawContent -match '(?i)<!doctype html|<html') {
     throw "Runtime config URL returned HTML (SPA fallback). Rebuild/restart ontogony-frontend with nginx runtime-config route and mounted operator-runtime-config.json."
   }
   throw "Runtime config response is not valid JSON."

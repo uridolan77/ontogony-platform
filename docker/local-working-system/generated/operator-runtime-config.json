@@ -1,9 +1,9 @@
-﻿{
+{
     "configSchema":  "ontogony.operator-runtime-config.v1",
     "version":  1,
     "environmentName":  "Local",
     "profileName":  "docker-local",
-    "generatedAt":  "2026-05-24T21:03:57.3881104Z",
+    "generatedAt":  "2026-05-24T21:42:07.7282840Z",
     "build":  {
                   "source":  "ontogony-platform/docker/local-working-system",
                   "gitSha":  "local",
