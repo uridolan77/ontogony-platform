@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/data-source-status.schema.json",
+  "title": "DataSourceStatus",
+  "type": "object",
+  "required": [
+    "state",
+    "label",
+    "canCountAsLiveReadiness"
+  ],
+  "properties": {
+    "state": {
+      "enum": [
+        "live",
+        "live_with_fallback",
+        "fixture",
+        "generated",
+        "imported",
+        "mock",
+        "unknown"
+      ]
+    },
+    "label": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "canCountAsLiveReadiness": {
+      "type": "boolean"
+    },
+    "fieldsCoveredByLiveData": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "fieldsCoveredByFallback": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

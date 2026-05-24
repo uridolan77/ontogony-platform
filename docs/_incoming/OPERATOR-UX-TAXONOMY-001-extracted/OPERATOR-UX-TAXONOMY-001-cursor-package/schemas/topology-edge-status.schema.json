@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/topology-edge-status.schema.json",
+  "title": "TopologyEdgeStatus",
+  "type": "object",
+  "required": [
+    "from",
+    "to",
+    "state",
+    "label"
+  ],
+  "properties": {
+    "from": {
+      "type": "string"
+    },
+    "to": {
+      "type": "string"
+    },
+    "state": {
+      "enum": [
+        "validated",
+        "degraded",
+        "missing",
+        "planned",
+        "blocked",
+        "unknown"
+      ]
+    },
+    "label": {
+      "type": "string"
+    },
+    "expectedRoutes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "lastAttempt": {
+      "type": "object",
+      "properties": {
+        "endpoint": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "success",
+            "error",
+            "skipped",
+            "unknown"
+          ]
+        },
+        "checkedAt": {
+          "type": "string"
+        },
+        "latencyMs": {
+          "type": "number"
+        },
+        "reasonCode": {
+          "type": "string"
+        }
+      }
+    },
+    "lastSuccessAt": {
+      "type": "string"
+    },
+    "traceId": {
+      "type": "string"
+    },
+    "correlationId": {
+      "type": "string"
+    },
+    "evidenceIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reason": {
+      "type": "string"
+    },
+    "nextAction": {
+      "type": "string"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "unknown"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "reason"
+        ]
+      }
+    }
+  ]
+}

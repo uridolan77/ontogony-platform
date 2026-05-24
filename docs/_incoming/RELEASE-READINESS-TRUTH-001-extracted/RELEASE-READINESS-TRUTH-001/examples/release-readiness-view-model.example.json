@@ -1,0 +1,49 @@
+{
+  "pageMode": "generated_artifact",
+  "artifact": {
+    "path": "docs/generated/operator-release-readiness.json",
+    "generatedAt": "2026-05-23T17:18:00.362Z",
+    "freshness": "fresh",
+    "regenerateCommand": "npm run readiness:sync"
+  },
+  "liveValidation": {
+    "status": "not_attached",
+    "message": "No live backend or semantic validation is attached to this scorecard."
+  },
+  "releaseCandidatePosture": {
+    "status": "not_assessed",
+    "basis": "generated_artifact_only",
+    "reason": "Generated route coverage cannot certify release readiness without live validation."
+  },
+  "summary": {
+    "totalRoutes": 32,
+    "artifactReady": 24,
+    "artifactPartial": 8,
+    "artifactGap": 0,
+    "fixtureOnly": 1,
+    "unknownSource": 1,
+    "releaseCandidateEligible": 0
+  },
+  "routes": [
+    {
+      "route": "/system/release-readiness",
+      "area": "system",
+      "dataSource": "fixture_only",
+      "artifactStatus": "ready",
+      "releaseImpact": "demo_only",
+      "isBlocking": false,
+      "reason": "This route renders the generated scorecard artifact and has no live release validation.",
+      "nextAction": "Keep excluded from RC posture or add live validation."
+    },
+    {
+      "route": "/allagma/runs/:runId/audit",
+      "area": "allagma",
+      "dataSource": "unknown",
+      "artifactStatus": "partial",
+      "releaseImpact": "unresolved",
+      "isBlocking": true,
+      "reason": "The route's data source is not classified.",
+      "nextAction": "Classify as live, live_with_fallback, fixture_only, generated_only, or unsupported."
+    }
+  ]
+}

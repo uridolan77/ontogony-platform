@@ -1,0 +1,34 @@
+[
+  {
+    "input": { "route": "/system/release-readiness", "dataSource": "fixture_only", "readiness": "ready" },
+    "output": {
+      "releaseImpact": "demo_only",
+      "reason": "Generated/fixture-backed route; not live release evidence.",
+      "nextAction": "Exclude from RC posture or attach live validation."
+    }
+  },
+  {
+    "input": { "route": "/system", "dataSource": "live_with_fallback", "readiness": "partial" },
+    "output": {
+      "releaseImpact": "needs_review",
+      "reason": "Live page includes fallback values; inspect fallback reason before release planning.",
+      "nextAction": "Replace fallback with live data or document it as non-critical."
+    }
+  },
+  {
+    "input": { "route": "/allagma/runs/:runId/audit", "dataSource": "unknown", "readiness": "partial" },
+    "output": {
+      "releaseImpact": "unresolved",
+      "reason": "Data source is not classified.",
+      "nextAction": "Classify the route data source and add route-level evidence."
+    }
+  },
+  {
+    "input": { "route": "/conexus", "dataSource": "live", "readiness": "ready" },
+    "output": {
+      "releaseImpact": "needs_live_validation",
+      "reason": "The route is artifact-ready and live-backed, but this page has no live validation gate attached.",
+      "nextAction": "Attach live validation before counting toward RC posture."
+    }
+  }
+]

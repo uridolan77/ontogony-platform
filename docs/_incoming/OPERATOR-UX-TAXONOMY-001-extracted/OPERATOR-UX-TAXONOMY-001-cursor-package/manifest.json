@@ -1,0 +1,36 @@
+{
+  "packageId": "OPERATOR-UX-TAXONOMY-001",
+  "title": "Shared operator status, data-source, readiness, evidence, and authority taxonomy",
+  "createdUtc": "2026-05-23T22:14:33.725118+00:00",
+  "scope": [
+    "@ontogony/ui shared status vocabulary and rendering primitives",
+    "ontogony-frontend adoption across Home, System, Kanon, Conexus, Allagma, Evidence Spine, Agent Interaction, topology, settings, and evaluation surfaces",
+    "copy rules that prevent generic unknown, misleading healthy/ready language, fixture-as-live claims, and debug/API language in normal operator views",
+    "route-level reasons for partial/degraded/unknown states",
+    "current vs planned topology distinction"
+  ],
+  "primaryRepos": [
+    "ontogony-ui",
+    "ontogony-frontend"
+  ],
+  "adjacentRepos": [
+    "conexus-dotnet",
+    "kanon-dotnet",
+    "allagma-dotnet",
+    "ontogony-platform"
+  ],
+  "nonGoals": [
+    "Do not change service behavior except where minimal DTO fields are already available and only need adapter mapping.",
+    "Do not hide real failures behind softer wording.",
+    "Do not introduce production-security claims beyond the actual local/alpha posture.",
+    "Do not make fixture/generated/demo evidence count as live readiness."
+  ],
+  "acceptanceSummary": [
+    "No operator page displays bare 'unknown' without a label and reason.",
+    "Connectivity, readiness, contract health, operator usability, evidence completeness, data source, and authority are represented as separate dimensions.",
+    "Shared taxonomy is implemented in @ontogony/ui and consumed by ontogony-frontend pages.",
+    "Fixture/demo/generated/imported/live states are consistently badged and never used as page headlines.",
+    "Topology separates current, validated, degraded, missing, and planned edges.",
+    "Regression checks catch forbidden misleading copy."
+  ]
+}

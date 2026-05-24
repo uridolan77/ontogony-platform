@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/operator-service-status-card.schema.json",
+  "title": "OperatorServiceStatusCard",
+  "type": "object",
+  "required": [
+    "service",
+    "connectivity",
+    "readiness",
+    "contractHealth",
+    "operatorUsability",
+    "dataSource"
+  ],
+  "properties": {
+    "service": {
+      "type": "string"
+    },
+    "baseUrl": {
+      "type": "string"
+    },
+    "connectivity": {
+      "$ref": "operator-status-view-model.schema.json"
+    },
+    "readiness": {
+      "$ref": "operator-status-view-model.schema.json"
+    },
+    "contractHealth": {
+      "$ref": "operator-status-view-model.schema.json"
+    },
+    "operatorUsability": {
+      "$ref": "operator-status-view-model.schema.json"
+    },
+    "dataSource": {
+      "$ref": "operator-status-view-model.schema.json"
+    },
+    "checkedAt": {
+      "type": "string"
+    },
+    "reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "nextActions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/operator-status-view-model.schema.json",
+  "title": "OperatorStatusViewModel",
+  "type": "object",
+  "required": [
+    "dimension",
+    "state",
+    "label",
+    "severity"
+  ],
+  "properties": {
+    "dimension": {
+      "enum": [
+        "connectivity",
+        "readiness",
+        "contract_health",
+        "operator_usability",
+        "evidence_completeness",
+        "data_source",
+        "authority",
+        "topology_edge",
+        "credential_source",
+        "compatibility"
+      ]
+    },
+    "state": {
+      "type": "string",
+      "minLength": 1
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1
+    },
+    "severity": {
+      "enum": [
+        "positive",
+        "neutral",
+        "info",
+        "warning",
+        "critical"
+      ]
+    },
+    "reason": {
+      "type": "string"
+    },
+    "details": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "source": {
+      "type": "string"
+    },
+    "checkedAt": {
+      "type": "string"
+    },
+    "nextAction": {
+      "type": "string"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "unknown"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "reason"
+        ]
+      }
+    }
+  ]
+}

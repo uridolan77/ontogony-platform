@@ -1,0 +1,46 @@
+{
+  "package": "RELEASE-READINESS-TRUTH-001",
+  "version": "1.0.0",
+  "createdAt": "2026-05-24T00:00:00+03:00",
+  "scope": "Ontogony console System / Release Readiness truth-hardening package",
+  "primaryRoutes": [
+    "/system/release-readiness"
+  ],
+  "primaryArtifacts": [
+    "docs/generated/operator-release-readiness.json",
+    "npm run readiness:sync"
+  ],
+  "nonGoals": [
+    "No new backend release gate",
+    "No fake live validation data",
+    "No broad System page rewrite",
+    "No Kanon/Evaluation/Agent Interaction scope creep"
+  ],
+  "files": [
+    "ACCEPTANCE_CHECKLIST.md",
+    "CURSOR_MASTER_PROMPT.md",
+    "IMPLEMENTATION_PLAN.md",
+    "QA_CHECKLIST.md",
+    "README.md",
+    "SOURCE_FINDINGS.md",
+    "docs/LIVE_RELEASE_VALIDATION_FOLLOWUPS.md",
+    "docs/RELEASE_READINESS_COPY_GUIDE.md",
+    "docs/RELEASE_READINESS_PAGE_SPEC.md",
+    "docs/RELEASE_READINESS_STATUS_TAXONOMY.md",
+    "docs/TEST_STRATEGY.md",
+    "examples/classification-helper.sketch.ts",
+    "examples/copy-before-after.md",
+    "examples/release-readiness-view-model.example.json",
+    "examples/route-row-reasons.example.json",
+    "prompts/00-cursor-unpack-and-inspect.md",
+    "prompts/01-implementation-prompt.md",
+    "prompts/02-review-prompt.md",
+    "prompts/03-test-and-final-report-prompt.md",
+    "tickets/001-reframe-page-and-summary-cards.md",
+    "tickets/002-readiness-view-model-and-status-classification.md",
+    "tickets/003-artifact-freshness-and-source-disclosure.md",
+    "tickets/004-route-row-reasons-and-next-actions.md",
+    "tickets/005-live-validation-placeholder-without-faking-live-data.md",
+    "tickets/006-tests-docs-and-regression-hardening.md"
+  ]
+}

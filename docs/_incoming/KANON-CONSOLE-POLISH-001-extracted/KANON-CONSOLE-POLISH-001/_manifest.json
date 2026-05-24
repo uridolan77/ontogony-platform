@@ -1,0 +1,49 @@
+{
+  "package": "KANON-CONSOLE-POLISH-001",
+  "preparedAt": "2026-05-24",
+  "primaryRepo": "ontogony-frontend",
+  "optionalRepo": "ontogony-ui",
+  "avoidUnlessDocumented": "kanon-dotnet",
+  "files": [
+    "ACCEPTANCE_CHECKLIST.md",
+    "CURSOR_MASTER_PROMPT.md",
+    "IMPLEMENTATION_PLAN.md",
+    "QA_CHECKLIST.md",
+    "README.md",
+    "SOURCE_FINDINGS.md",
+    "docs/BACKEND_FOLLOWUPS_IF_DISCOVERED.md",
+    "docs/EVIDENCE_LINKING_SPEC.md",
+    "docs/KANON_PAGE_SPEC.md",
+    "docs/STATUS_TAXONOMY.md",
+    "docs/UI_COPY_REWRITE_GUIDE.md",
+    "examples/copy_examples.md",
+    "examples/route_readiness_examples.json",
+    "examples/sample_state_contracts.json",
+    "prompts/00_cursor_intake_prompt.md",
+    "prompts/01_frontend_inspection_prompt.md",
+    "prompts/02_implementation_prompt.md",
+    "prompts/03_test_prompt.md",
+    "prompts/04_review_prompt.md",
+    "tickets/KCP-001-assistance-safety-polish.md",
+    "tickets/KCP-002-domain-pack-lifecycle-polish.md",
+    "tickets/KCP-003-kanon-settings-semantic-health-polish.md",
+    "tickets/KCP-004-review-queue-policies-partial-states.md",
+    "tickets/KCP-005-kanon-evidence-link-consistency.md",
+    "tickets/KCP-006-tests-docs-regression-guard.md"
+  ],
+  "tickets": [
+    "KCP-001 assistance safety and trust-boundary polish",
+    "KCP-002 domain-pack lifecycle and inventory polish",
+    "KCP-003 Kanon settings semantic health polish",
+    "KCP-004 review queue and policies partial-state reasons",
+    "KCP-005 Kanon evidence-link consistency",
+    "KCP-006 tests docs regression guard"
+  ],
+  "nonGoals": [
+    "backend feature expansion",
+    "production IAM",
+    "real tool execution",
+    "hiding warnings",
+    "turning fixture/generated data into release-ready evidence"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "/kanon/assistance": {
+    "dataSource": "live",
+    "readiness": "partial",
+    "reasonCode": "draft_only_requires_review_flow",
+    "operatorMessage": "Assistance is live and draft-only. Acceptance workflow links are shown when decision IDs are returned."
+  },
+  "/kanon/review-queue": {
+    "dataSource": "live",
+    "readiness": "partial",
+    "reasonCode": "no_items_or_workflow_not_configured",
+    "operatorMessage": "Review queue route is reachable. No review items were returned for the current actor and ontology version."
+  },
+  "/kanon/policies": {
+    "dataSource": "live",
+    "readiness": "partial",
+    "reasonCode": "action_surface_incomplete",
+    "operatorMessage": "Policy list is live, but one or more policy actions are unavailable in the current client snapshot."
+  }
+}

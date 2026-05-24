@@ -1,0 +1,24 @@
+{
+  "assistanceRedactionPreview": {
+    "includedFields": ["summary", "sourceType", "changeIntent"],
+    "redactedFields": [],
+    "omittedFields": [],
+    "warnings": []
+  },
+  "domainPackActionAvailability": {
+    "validate": { "enabled": true, "reasonCode": null, "reason": null },
+    "load": { "enabled": false, "reasonCode": "already_active", "reason": "This version is already active." },
+    "promote": { "enabled": false, "reasonCode": "already_accepted_or_active", "reason": "Version is already accepted or active." },
+    "deprecate": { "enabled": false, "reasonCode": "cannot_deprecate_active_version", "reason": "Cannot deprecate the currently active pack version." }
+  },
+  "partialState": {
+    "status": "partial",
+    "reasonCode": "generated_client_missing",
+    "message": "Live page shell is available, but this operation is not exposed by the current generated client snapshot."
+  },
+  "evidenceLink": {
+    "label": "Open load decision",
+    "identifierKind": "kanonDecisionId",
+    "identifier": "decision_..."
+  }
+}
