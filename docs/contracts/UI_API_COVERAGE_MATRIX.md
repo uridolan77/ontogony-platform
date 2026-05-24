@@ -61,13 +61,20 @@ Gate wrapper: `ontogony-platform/scripts/check/check-contract-discipline.ps1`.
 
 ---
 
-## Known display caveat (001F follow-up)
+## Coverage contract state labels (001F)
 
-Some coverage rows show **Operator UI: Yes** alongside **contract state: `backend_only`**. That
-combination is mechanically correct when the route is called via manual/operator HTTP but not
-represented in generated frontend schema. Before the gate becomes a required PR check, consider
-renaming disposition labels to reduce confusion (`no_generated_frontend_schema`,
-`operator_http_manual`, etc.).
+Generated coverage docs use these **contract state** column values (distinct from route
+disposition `backend_only` in the standard):
+
+| Label | Meaning |
+| --- | --- |
+| `generated_schema` | Inventoried client function without manual DTO |
+| `transitional_shim/manual` | Inventoried client with registered manual DTO |
+| `operator_http_manual` | Operator UI calls route; no inventoried client (SPA direct / operator HTTP) |
+| `backend_owned_contract` | No operator UI and no inventoried client |
+
+Source-binding routes may show `operator_http_manual` with Kanon.Client `ServerOnly` — that is
+expected and documented in Kanon coverage.
 
 ---
 

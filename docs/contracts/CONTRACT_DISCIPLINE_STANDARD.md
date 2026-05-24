@@ -143,6 +143,16 @@ Classifies **typing and snapshot authority** for a route or client call.
 | `stale_snapshot` | OpenAPI snapshot lags backend; UI types may be wrong | No — fix in OpenAPI sync slice |
 | `intentionally_backend_only` | Route deliberately excluded from frontend OpenAPI | Yes — must match `routeClass` |
 
+**Coverage report labels (001F):** Generated `*_UI_API_COVERAGE.md` files use a separate column
+vocabulary that must not be confused with route disposition `backend_only`:
+
+| Coverage label | Meaning |
+| --- | --- |
+| `generated_schema` | Client route appears in `API_CLIENT_ROUTE_USAGE.json` without manual DTO |
+| `transitional_shim/manual` | Client route uses a registered manual DTO |
+| `operator_http_manual` | Operator UI calls the route but no inventoried client function (SPA direct / operator HTTP) |
+| `backend_owned_contract` | No operator UI reference and no inventoried client function |
+
 **Markers that require registration** (001B `manual-dto-shims:check`):
 
 ```text

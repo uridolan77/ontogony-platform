@@ -91,7 +91,7 @@ if ($strictModes -contains $Mode) {
 
 Push-Location $FrontendRoot
 try {
-    npm run contracts:discipline -- --mode=$Mode
+    npm run contracts:discipline
     if ($LASTEXITCODE -ne 0) {
         throw "contracts:discipline failed (exit $LASTEXITCODE)."
     }
