@@ -319,13 +319,27 @@ This slice is complete when:
 
 ---
 
+## Acceptance (CONTRACT-DISCIPLINE-001C)
+
+This slice is complete when:
+
+- [x] `allagma-dotnet/docs/generated/ALLAGMA_V0_ROUTE_INVENTORY.json` exists (25 routes)
+- [x] `openapi/allagma.v0.json` synced from backend snapshot (includes `/runtime/posture`)
+- [x] `allagma:route-parity` and `allagma:operator-ui-coverage:sync/check` pass
+- [x] Route-workflow catalog uses `GET /allagma/v0/runtime/posture` (not `/runtime-posture`)
+- [x] Model purposes policy documented: UI uses `/runtime/posture`; `/model-purposes` is backend-only pending OpenAPI
+- [x] Runtime posture and evaluation dataset DTOs use generated schema (2 transitional start-run shims remain registered)
+- [x] `docs/generated/ALLAGMA_UI_API_COVERAGE.md` emitted
+
+---
+
 ## Program slices (forward reference)
 
 | Slice | Scope |
 | --- | --- |
 | **001A** | Standard + taxonomy (this document) |
 | **001B** | Client route usage extractor + manual DTO shim register (`ontogony-frontend`: `API_CLIENT_ROUTE_USAGE.json`, `MANUAL_DTO_SHIMS.md`, `client-routes:*`, `manual-dto-shims:*`) |
-| **001C** | Allagma route parity (`ALLAGMA-UI-API-PARITY-001`) |
+| **001C** | Allagma route parity (`ALLAGMA-UI-API-PARITY-001`: `ALLAGMA_V0_ROUTE_INVENTORY.json`, `allagma:route-parity`, `ALLAGMA_UI_API_COVERAGE.md`) |
 | **001D** | Conexus route parity (`CONEXUS-UI-API-PARITY-001`) |
 | **001E** | Kanon hardening (`KANON-UI-API-PARITY-001A`) |
 | **001F** | Cross-system gate + companion docs (`API_CONTRACT_SOURCE_OF_TRUTH.md`, coverage matrix, shim policy) |
