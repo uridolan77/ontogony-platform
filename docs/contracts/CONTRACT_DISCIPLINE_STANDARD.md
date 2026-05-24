@@ -347,6 +347,19 @@ This slice is complete when:
 
 ---
 
+## Acceptance (CONTRACT-DISCIPLINE-001E)
+
+This slice is complete when:
+
+- [x] Domain Switcher routes (`GET /ontology/v0/domain-packs`, `GET /ontology/v0/domain-packs/active`) appear in operator UI coverage and route-workflow catalog
+- [x] Source-binding routes classified: `ServerOnly` on `Kanon.Client` but `operator-http` from SPA (not “UI must not call”)
+- [x] Four-layer Kanon reference taxonomy documented (backend route · Kanon.Client · operator frontend route · internal-only)
+- [x] `docs/generated/KANON_UI_API_COVERAGE.md` emitted with taxonomy, Domain Switcher list, and source-binding table
+- [x] `kanon:parity-hardening:check` bundles route parity + operator UI coverage + Domain Switcher smoke artifacts
+- [x] Docker-live Domain Switcher smoke remains documented (`npm run docker:smoke:domain-switcher`)
+
+---
+
 ## Program slices (forward reference)
 
 | Slice | Scope |
