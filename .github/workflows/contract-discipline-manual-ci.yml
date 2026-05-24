@@ -1,0 +1,102 @@
+# CONTRACT-DISCIPLINE-001F — Stage 2 manual CI for cross-system contract discipline.
+# Not a required PR gate (Stage 4 deferred). Use workflow_dispatch or PR label run-contract-discipline.
+
+name: Contract discipline (manual CI)
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Gate mode passed to contracts:discipline
+        type: choice
+        options:
+          - manual-ci
+          - local-advisory
+        default: manual-ci
+  pull_request:
+    types: [opened, synchronize, reopened, labeled]
+  push:
+    branches: [main]
+    paths:
+      - "scripts/check/check-contract-discipline.ps1"
+      - "docs/contracts/**"
+      - ".github/workflows/contract-discipline-manual-ci.yml"
+
+concurrency:
+  group: contract-discipline-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      run_gate: ${{ steps.decide.outputs.run_gate }}
+      mode: ${{ steps.decide.outputs.mode }}
+    steps:
+      - name: Decide gate scope
+        id: decide
+        env:
+          EVENT: ${{ github.event_name }}
+          LABELS: ${{ join(github.event.pull_request.labels.*.name, ' ') }}
+          INPUT_MODE: ${{ github.event.inputs.mode }}
+        run: |
+          RUN=false
+          MODE="${INPUT_MODE:-manual-ci}"
+          if [ "$EVENT" = "workflow_dispatch" ]; then RUN=true; fi
+          if [ "$EVENT" = "push" ]; then RUN=true; fi
+          if [ "$EVENT" = "pull_request" ]; then
+            case " $LABELS " in
+              *" run-contract-discipline "*) RUN=true ;;
+              *" run-full-ci "*) RUN=true ;;
+            esac
+          fi
+          echo "run_gate=$RUN" >> "$GITHUB_OUTPUT"
+          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
+
+  contract-discipline:
+    needs: changes
+    if: needs.changes.outputs.run_gate == 'true'
+    runs-on: ubuntu-latest
+    env:
+      DEV_ROOT: ${{ runner.temp }}/ontogony-dev
+      GATE_MODE: ${{ needs.changes.outputs.mode }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Materialize registry sibling repos
+        shell: pwsh
+        run: ./scripts/materialize-registry-siblings.ps1 -DevRoot $env:DEV_ROOT -ShallowClone
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: ${{ env.DEV_ROOT }}/ontogony-frontend/package-lock.json
+
+      - name: Install ontogony-frontend dependencies
+        working-directory: ${{ env.DEV_ROOT }}/ontogony-frontend
+        run: npm ci
+
+      - name: Contract discipline gate
+        shell: pwsh
+        run: |
+          ./scripts/check/check-contract-discipline.ps1 `
+            -Mode $env:GATE_MODE `
+            -DevRoot $env:DEV_ROOT `
+            -RepoRoot "${{ github.workspace }}" `
+            -ArtifactDir "${{ github.workspace }}/artifacts/contract-discipline"
+
+      - name: Upload contract discipline summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: contract-discipline-summary-${{ github.run_id }}
+          path: artifacts/contract-discipline/
+          retention-days: 30
+          if-no-files-found: warn
