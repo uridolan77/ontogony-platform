@@ -94,7 +94,7 @@ docker compose up -d ontogony-frontend
 
 - Local fake-provider mode only; not production IAM.
 - Conexus may show `not_ready` in SYSTEM-TRUTH while fake path works.
-- Runtime-lock / CI promotion remains a separate staged gate (`RUNTIME-LOCK-CI-GOVERNED-E2E-001`).
+- **RUNTIME-LOCK-CI-GOVERNED-E2E-001** (Stage 2–3): see [`docs/operators/RUNTIME_LOCK_GOVERNED_FAKE_E2E.md`](../operators/RUNTIME_LOCK_GOVERNED_FAKE_E2E.md) — one-command local proof, canonical `governed-fake-e2e-summary.json`, optional `-RequireGovernedFakeE2eEvidence`.
 
 ---
 

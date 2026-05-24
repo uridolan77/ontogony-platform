@@ -1,0 +1,138 @@
+# RUNTIME-LOCK-CI-GOVERNED-E2E-001 — Stage 2 manual dispatch (backend smoke only).
+# Docker-local Playwright remains a local proof step (see scripts/smoke/run-runtime-lock-governed-fake-e2e.ps1).
+# Not a required PR gate (Stage 4 deferred).
+
+name: Governed fake E2E (runtime lock)
+
+on:
+  workflow_dispatch:
+    inputs:
+      baseline_mode:
+        description: "moving-main or locked-baseline (same as system-cohesion)."
+        type: choice
+        options:
+          - moving-main
+          - locked-baseline
+        default: moving-main
+
+concurrency:
+  group: governed-fake-e2e-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  COHESION_ROOT: ${{ github.workspace }}/cohesion
+  LOCKED_DISPATCH: ${{ github.event_name == 'workflow_dispatch' && inputs.baseline_mode == 'locked-baseline' }}
+  ARTIFACT_RETENTION_DAYS: "14"
+
+jobs:
+  governed-fake-e2e-smoke:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: pwsh
+        working-directory: cohesion/allagma-dotnet
+
+    steps:
+      - name: Checkout Allagma
+        uses: actions/checkout@v4
+        with:
+          path: cohesion/allagma-dotnet
+          fetch-depth: 0
+
+      - name: Resolve checkout refs from runtime lock
+        id: refs
+        working-directory: ${{ github.workspace }}
+        shell: pwsh
+        run: |
+          $lockPath = "cohesion/allagma-dotnet/docs/system/ontogony-runtime.lock.json"
+          $j = Get-Content -LiteralPath $lockPath -Raw | ConvertFrom-Json
+          $locked = $env:LOCKED_DISPATCH -eq 'true'
+          if ($locked) {
+            Add-Content -Path $env:GITHUB_OUTPUT -Value "ontogony_ref=$($j.lockedCommits.'ontogony-platform')" -Encoding utf8NoBOM
+            Add-Content -Path $env:GITHUB_OUTPUT -Value "kanon_ref=$($j.lockedCommits.'kanon-dotnet')" -Encoding utf8NoBOM
+            Add-Content -Path $env:GITHUB_OUTPUT -Value "conexus_ref=$($j.lockedCommits.'conexus-dotnet')" -Encoding utf8NoBOM
+            Add-Content -Path $env:GITHUB_OUTPUT -Value "allagma_locked_sha=$($j.lockedCommits.'allagma-dotnet')" -Encoding utf8NoBOM
+          } else {
+            Add-Content -Path $env:GITHUB_OUTPUT -Value "ontogony_ref=main" -Encoding utf8NoBOM
+            Add-Content -Path $env:GITHUB_OUTPUT -Value "kanon_ref=main" -Encoding utf8NoBOM
+            Add-Content -Path $env:GITHUB_OUTPUT -Value "conexus_ref=main" -Encoding utf8NoBOM
+            Add-Content -Path $env:GITHUB_OUTPUT -Value "allagma_locked_sha=" -Encoding utf8NoBOM
+          }
+
+      - name: Checkout Ontogony.Platform
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/ontogony-platform
+          path: cohesion/ontogony-platform
+          ref: ${{ steps.refs.outputs.ontogony_ref }}
+
+      - name: Checkout Kanon
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/kanon-dotnet
+          path: cohesion/kanon-dotnet
+          ref: ${{ steps.refs.outputs.kanon_ref }}
+          token: ${{ secrets.ONTOGONY_CROSS_REPO_CHECKOUT_TOKEN }}
+
+      - name: Checkout Conexus
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/conexus-dotnet
+          path: cohesion/conexus-dotnet
+          ref: ${{ steps.refs.outputs.conexus_ref }}
+          token: ${{ secrets.ONTOGONY_CROSS_REPO_CHECKOUT_TOKEN }}
+
+      - name: Align Allagma to locked commit
+        if: env.LOCKED_DISPATCH == 'true'
+        working-directory: cohesion/allagma-dotnet
+        run: |
+          $sha = "${{ steps.refs.outputs.allagma_locked_sha }}"
+          git fetch origin --prune
+          git checkout --detach $sha
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: cohesion/allagma-dotnet/global.json
+
+      - name: Validate runtime lock
+        run: ./scripts/validate-runtime-lock.ps1
+
+      - name: Bootstrap and build API hosts
+        run: |
+          ./scripts/bootstrap-solution.ps1
+          dotnet build "${{ env.COHESION_ROOT }}/kanon-dotnet/src/Kanon.Api/Kanon.Api.csproj" -c Release
+          dotnet build "${{ env.COHESION_ROOT }}/conexus-dotnet/src/Conexus.Api/Conexus.Api.csproj" -c Release
+          dotnet build "${{ env.COHESION_ROOT }}/allagma-dotnet/src/Allagma.Api/Allagma.Api.csproj" -c Release
+
+      - name: Start local stack (headless, cohesion smoke mode)
+        run: ./scripts/run-local-stack-headless.ps1 -CohesionSmokeMode
+
+      - name: Governed fake E2E smoke
+        id: governed
+        run: |
+          $outDir = ./scripts/smoke/run-governed-fake-e2e.ps1
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $summary = Get-ChildItem -LiteralPath artifacts/governed-fake-e2e -Directory |
+            Sort-Object Name -Descending | Select-Object -First 1
+          if ($null -eq $summary) { throw "No governed-fake-e2e output directory." }
+          $rel = "artifacts/governed-fake-e2e/$($summary.Name)/governed-fake-e2e-summary.json"
+          ./scripts/check-governed-fake-e2e-summary.ps1 -SummaryPath $rel
+          Add-Content -Path $env:GITHUB_OUTPUT -Value "summary_relative=$rel" -Encoding utf8NoBOM
+
+      - name: Stop headless stack
+        if: always()
+        run: ./scripts/stop-local-stack-headless.ps1
+
+      - name: Upload governed-fake-e2e artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: governed-fake-e2e-${{ inputs.baseline_mode }}
+          path: |
+            cohesion/allagma-dotnet/artifacts/governed-fake-e2e/**/*
+          if-no-files-found: warn
+          retention-days: ${{ env.ARTIFACT_RETENTION_DAYS }}
