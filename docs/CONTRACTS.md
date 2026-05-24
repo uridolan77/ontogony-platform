@@ -37,6 +37,16 @@ Test helpers: `Ontogony.Testing.HeaderPropagationConformanceAssertions`.
 
 ---
 
+## API / UI contract discipline
+
+| Document | Purpose |
+| --- | --- |
+| [`contracts/CONTRACT_DISCIPLINE_STANDARD.md`](./contracts/CONTRACT_DISCIPLINE_STANDARD.md) | Canonical route, frontend usage, data-source, and OpenAPI taxonomy (CONTRACT-DISCIPLINE-001A) |
+
+Program plan: [`_incoming/NEXT_2_CONTRACT.md`](./_incoming/NEXT_2_CONTRACT.md). Kanon is the reference implementation; Allagma and Conexus parity slices follow in frontend/backend repos.
+
+---
+
 ## System compatibility
 
 | Document | Purpose |
