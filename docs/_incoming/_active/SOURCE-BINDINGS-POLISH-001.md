@@ -1,6 +1,6 @@
 # SOURCE-BINDINGS-POLISH-001 — active workstream
 
-**Status:** implemented (2026-05-24)  
+**Status:** implemented (2026-05-24); **001A closeout** (inline action reasons, acceptance alignment) same date  
 **Primary repo:** `ontogony-frontend`, `ontogony-ui` (SourceBindingCard / SourceBindingTestResult)
 
 ## Delivered
@@ -10,8 +10,8 @@
 - Normalized source system / schema / object / field labels; explicit target kind (property vs relationship) (SBP-003)
 - Confidence validation 0.00–1.00 (SBP-004)
 - Separate review, lifecycle, and test status on binding cards; no inferred test status from review (SBP-005)
-- Hide Approve/Reject on approved rows; unavailable actions explained inline (SBP-006)
-- Test warning details from Kanon `errors[]`; copyable binding IDs (SBP-007)
+- Hide Approve/Reject on approved rows; inline unavailable-action reasons (domain-pack pattern) (SBP-006)
+- Kanon test `errors[]` mapped to `metadata.warnings` in lifecycle adapter; copyable binding IDs on cards (SBP-007)
 - Unit + component tests + e2e create-flow update (SBP-008)
 
 ## Verify
