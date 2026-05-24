@@ -1,6 +1,6 @@
 Below is the **dev plan from the current point forward**.
 
-**2026-05-24 update:** `AGENT-INTERACTION-LIVE-001` + **001A** closed. **`KANON-CONSOLE-POLISH-001` implemented** (Kanon console polish: assistance safety, domain-pack inventory, partial states, evidence links, credential source labels). **Next:** `SOURCE-BINDINGS-POLISH-001`. Workstreams: [`_active/KANON-CONSOLE-POLISH-001.md`](./_active/KANON-CONSOLE-POLISH-001.md), [`_active/AGENT-INTERACTION-LIVE-001.md`](./_active/AGENT-INTERACTION-LIVE-001.md).
+**2026-05-24 update:** `AGENT-INTERACTION-LIVE-001` + **001A** closed. **`KANON-CONSOLE-POLISH-001` implemented** (Kanon console polish: assistance safety, domain-pack inventory, partial states, evidence links, credential source labels). **`SOURCE-BINDINGS-POLISH-001` implemented** (source bindings: safe create defaults, status separation, action gating, test warnings, copyable IDs). **Next:** `SETTINGS-SECURITY-UX-001`. Workstreams: [`_active/SOURCE-BINDINGS-POLISH-001.md`](./_active/SOURCE-BINDINGS-POLISH-001.md), [`_active/KANON-CONSOLE-POLISH-001.md`](./_active/KANON-CONSOLE-POLISH-001.md), [`_active/AGENT-INTERACTION-LIVE-001.md`](./_active/AGENT-INTERACTION-LIVE-001.md).
 
 The current foundation is good: Agent Interaction has already shifted from “API synthesis” to **Live lookup**, fixture/imported/live source labels are now explicit, and the Docker-live E2E checks were strengthened around tool intents, message stream, and interaction panels.  The provider side is also now much richer: the test expects the live provider panel to show `fake` / `fake.chat`, and the live summary to show `summarize-player-risk` and `gaming-core@0.1.0`.  Platform docs were also updated to match the new “live lookup” terminology. 
 
@@ -551,7 +551,7 @@ Kanon pages no longer feel like backend debug pages; they read like semantic-aut
 
 ---
 
-# Phase 4 — `SOURCE-BINDINGS-POLISH-001`
+# Phase 4 — `SOURCE-BINDINGS-POLISH-001` ✅ implemented (2026-05-24)
 
 ## Goal
 
@@ -826,18 +826,15 @@ NOW
   2. Archive consumed docs/_incoming packages.
 
 NEXT
-  3. SOURCE-BINDINGS-POLISH-001.
+  3. SETTINGS-SECURITY-UX-001.
 
 THEN
-  4. SETTINGS-SECURITY-UX-001.
-
-AFTER
-  5. EVAL-EVIDENCE-QUALITY-001.
-  6. RELEASE-READINESS-TRUTH-001.
-  7. RUNTIME-LOCK-CI-GOVERNED-E2E-001.
+  4. EVAL-EVIDENCE-QUALITY-001.
+  5. RELEASE-READINESS-TRUTH-001.
+  6. RUNTIME-LOCK-CI-GOVERNED-E2E-001.
 
 LATER
-  8. DOMAIN-SWITCHER-001.
+  7. DOMAIN-SWITCHER-001.
 ```
 
 ## Parallelization
