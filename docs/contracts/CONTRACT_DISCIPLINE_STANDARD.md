@@ -333,6 +333,20 @@ This slice is complete when:
 
 ---
 
+## Acceptance (CONTRACT-DISCIPLINE-001D)
+
+This slice is complete when:
+
+- [x] `conexus-dotnet/docs/generated/CONEXUS_ROUTE_INVENTORY.json` exists (41 routes)
+- [x] `openapi/conexus.v0.json` includes operator routes (quota, route-preview, evidence-bundle, usage-cost, project model-call evidence)
+- [x] `conexus:route-parity` and `conexus:operator-ui-coverage:sync/check` pass
+- [x] Quota/route-preview DTOs alias generated OpenAPI schemas (wire snake_case normalization shims remain internal)
+- [x] Manual DTO registry no longer lists Conexus quota/route-preview shims
+- [x] Route families and explicit parity list in `docs/generated/CONEXUS_UI_API_COVERAGE.md`
+- [x] `docs/generated/CONEXUS_UI_API_COVERAGE.md` emitted
+
+---
+
 ## Program slices (forward reference)
 
 | Slice | Scope |
