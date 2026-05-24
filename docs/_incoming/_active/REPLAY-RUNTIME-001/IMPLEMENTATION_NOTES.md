@@ -115,6 +115,17 @@
 5. `run-governed-fake-replay-e2e.ps1` smoke + runtime-lock optional gate.
 6. Kanon route inventory regeneration for `/ontology/v0/replay/eligibility`.
 
+## REPLAY-RUNTIME-001B (post second review)
+
+| Issue | Fix |
+| --- | --- |
+| Delta false-divergence when snapshot built before `ManifestFingerprint` set | Pass `legacyResponse.EventFingerprint` into `ReplayDeltaBuilder` at snapshot build time |
+| Bundle builder hardcoded redaction metadata | `CrossServiceReplayBundleBuilder` reads policies from `ReplayRecord` |
+| Custom redaction allowed but bundle said `operator_default` | Validator now only allows `operator_default` |
+| Kanon inventory `GeneratedAt` stale (`2026-05-20`) | Test pinned to `2026-05-24`; inventory regenerated |
+
+Tests: `Get_bundle_after_create` asserts `manifest_fingerprint` comparison is `matched`.
+
 ## Follow-up fixes (post-review, same branch)
 
 | Issue | Fix |
