@@ -36,7 +36,7 @@ Current state:
 
 - Allagma already has run replay as a terminal-run, idempotent **replay manifest** path: `POST /allagma/v0/runs/{runId}/replay` delegates to `ReplayAgentRunService`, emits `RunReplayRequested`, links Kanon replay bundle IDs, and returns a manifest fingerprint.
 - Kanon already has decision provenance and replay bundle infrastructure, including replay bundle persistence, signed/export verification docs, and semantic decision replay acceptance scripts.
-- Conexus already has chat completion idempotency/replay storage and model-call/route-decision evidence surfaces, but not a cross-service replay API.
+- Conexus already has chat completion idempotency/replay storage and model-call/route-decision evidence surfaces. **REPLAY-RUNTIME-002** added `/admin/v0/replay/*`; Allagma orchestration uses model-call dry-run only (route-decision dry-run is direct Conexus admin).
 - Platform already owns Evidence Spine contracts, identifier taxonomy, cross-service evidence bundle schemas, runtime-lock governed fake evidence, and contract discipline.
 - Frontend already has Evidence Spine and Agent Interaction workbenches, Allagma run/audit pages, Human Gates, and Evidence Spine export. It does not need a new crowded console surface.
 - UI already has the canonical layout, signal, disclosure, dialog, and table primitives needed for replay without local one-off wrappers.

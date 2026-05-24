@@ -76,7 +76,7 @@ Allagma creates a replay record and performs the orchestration:
 
 - Allagma local attempt: run/audit/interaction reconstruction.
 - Kanon attempt: decision/provenance replay bundle and optional semantic simulation.
-- Conexus attempt: model-call evidence, route-decision dry-run, fake-provider simulation if allowed.
+- Conexus attempt: model-call evidence and model-call dry-run when orchestrated from Allagma; route-decision dry-run via Conexus admin when the UI or operator calls it directly (**not** auto-appended by Allagma in REPLAY-RUNTIME-002 — see `docs/_incoming/_active/REPLAY-RUNTIME-002/IMPLEMENTATION_NOTES.md`).
 - Platform contract: normalize evidence references and graph links.
 
 ### 8. Produce result bundle

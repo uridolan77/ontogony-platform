@@ -1,5 +1,7 @@
 # REPLAY-RUNTIME-001 — Implementation notes
 
+> **Follow-up:** Cross-service wiring and Conexus admin replay are documented in [REPLAY-RUNTIME-002](../REPLAY-RUNTIME-002/IMPLEMENTATION_NOTES.md). Platform contract: `docs/contracts/REPLAY_RUNTIME_CONTRACT.md`. Allagma orchestration scope: `allagma-dotnet/docs/contracts/CROSS_SERVICE_REPLAY.md`.
+
 ## Package
 
 - **Name:** REPLAY-RUNTIME-001
@@ -25,9 +27,9 @@
 | Allagma replay record + `/allagma/v0/replay/*` routes (Stage 2) | **current_and_actionable** — implemented (in-memory records) |
 | Preserve `POST /runs/{runId}/replay` | **already_done** — preserved; orchestration wraps it |
 | `manifest_only` → `evidence_only` mapping | **current_and_actionable** — implemented with `legacyMode` |
-| Kanon replay bundle integration from Allagma (Stage 3) | **needs_adjustment** — eligibility endpoint only; no Allagma→Kanon orchestration call yet |
-| Conexus dry-run replay routes (Stage 4) | **deferred** — not implemented |
-| Cross-service replay bundle with Kanon/Conexus attempts (Stage 5) | **partial** — Allagma-only bundle/delta; service attempts list stubbed for non-run targets |
+| Kanon replay bundle integration from Allagma (Stage 3) | **superseded by REPLAY-RUNTIME-002** — coordinator calls eligibility + bundle list/prepare |
+| Conexus dry-run replay routes (Stage 4) | **superseded by REPLAY-RUNTIME-002** — four `/admin/v0/replay/*` routes in conexus-dotnet |
+| Cross-service replay bundle with Kanon/Conexus attempts (Stage 5) | **partial (002)** — Kanon + Conexus model-call attempts; route-decision dry-run not from Allagma |
 | Governed fake replay smoke (Stage 6) | **deferred** — script not added |
 | Frontend Replay Workbench `/system/replay` (Stage 6 plan) | **stale_skip** as new dense page — `allagma/replay` + Evidence Spine already exist; added shared mode labels only |
 | OpenAPI/generated TS client for new routes | **deferred** — route inventory updated for Allagma; frontend OpenAPI generation not run |
@@ -101,7 +103,7 @@
 | Eligibility explains unavailable modes | **Done** (Allagma + Kanon decision) |
 | No silent real providers/tools | **Done** (default policies + classifier messages) |
 | Existing run replay compatible | **Done** |
-| Cross-service orchestration with Kanon/Conexus attempts | **Partial** |
+| Cross-service orchestration with Kanon/Conexus attempts | **Partial** — Kanon bundles + Conexus model-call dry-run; route-decision dry-run not from Allagma (see REPLAY-RUNTIME-002) |
 | Governed fake E2E replay smoke | **Deferred** |
 | Evidence Spine replay links in UI | **Partial** (taxonomy/docs; UI uses existing workbench) |
 | Contract discipline full matrix | **Deferred** |

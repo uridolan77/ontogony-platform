@@ -58,6 +58,20 @@ Real provider or tool execution requires an explicit future trust model; it is *
 
 Allagma orchestration (`POST /allagma/v0/replay/requests`) appends Kanon/Conexus `ReplayServiceAttempt` rows when replaying terminal runs. See `docs/_incoming/_active/REPLAY-RUNTIME-002/IMPLEMENTATION_NOTES.md`.
 
+### Allagma orchestration scope (REPLAY-RUNTIME-002)
+
+What Allagma **calls automatically** when replaying a terminal run:
+
+| Downstream call | Status |
+| --- | --- |
+| Kanon `POST /ontology/v0/replay/eligibility` + replay bundle list/prepare | **Wired** |
+| Conexus `POST /admin/v0/replay/model-calls/{id}/dry-run` | **Wired** (optional; requires Allagma Conexus admin API key) |
+| Conexus `POST /admin/v0/replay/route-decisions/{id}/dry-run` | **Not wired** — Conexus route exists; use admin/frontend direct call |
+| Conexus `POST /admin/v0/replay/eligibility` | **Not merged** into Allagma eligibility yet |
+| Merged cross-service eligibility on `POST /allagma/v0/replay/eligibility` | **Deferred** |
+
+Repo-specific detail: `allagma-dotnet/docs/contracts/CROSS_SERVICE_REPLAY.md`.
+
 ## Evidence Spine links
 
 Replay artifacts use stable reference kinds:

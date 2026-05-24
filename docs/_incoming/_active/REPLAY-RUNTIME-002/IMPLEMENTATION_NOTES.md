@@ -68,8 +68,7 @@ Falls back to `Conexus:Admin:ApiKey`. When unset, Conexus attempts are skipped (
 - Frontend OpenAPI codegen for new Allagma/Conexus replay routes
 - Postgres `ReplayRecord` persistence
 - Merged cross-service eligibility on `POST /allagma/v0/replay/eligibility`
-- Route-decision dry-run invoked from Allagma orchestration (model-call dry-run only today)
-- Conexus route inventory regeneration (manual when promoting)
+- **Route-decision dry-run from Allagma orchestration** — Conexus endpoint shipped; `CrossServiceReplayCoordinator` calls **model-call dry-run only** (documented in `docs/contracts/REPLAY_RUNTIME_CONTRACT.md` and `allagma-dotnet/docs/contracts/CROSS_SERVICE_REPLAY.md`)
 
 ## REPLAY-RUNTIME-002A (contract and safety hardening)
 
@@ -86,4 +85,15 @@ Tests: Conexus replay/inventory/OpenAPI; Allagma `Replay*` + `CrossServiceReplay
 
 ## Package closure
 
-**Ready for frontend client generation (backend contract slice)** — route inventory and admin OpenAPI snapshots include `/admin/v0/replay/*`. Full REPLAY-RUNTIME-001 acceptance headline still requires smoke + frontend wiring. Conexus route-decision dry-run from Allagma orchestration remains deferred.
+**Ready for frontend client generation (backend contract slice)** — route inventory and admin OpenAPI snapshots include `/admin/v0/replay/*`. Full REPLAY-RUNTIME-001 acceptance headline still requires smoke + frontend wiring.
+
+**Orchestration caveat (do not miss for UI):** wire Conexus **route-decision** dry-run via Conexus admin OpenAPI if the panel needs it; Allagma replay results will not include that attempt until REPLAY-RUNTIME-003+.
+
+## Documentation alignment
+
+| Document | Orchestration scope |
+| --- | --- |
+| `docs/contracts/REPLAY_RUNTIME_CONTRACT.md` | Platform contract + orchestration table |
+| `allagma-dotnet/docs/contracts/CROSS_SERVICE_REPLAY.md` | Allagma coordinator behavior |
+| `docs/_incoming/packages/REPLAY-RUNTIME-001/04_CROSS_SERVICE_REPLAY_FLOW.md` | Target flow (step 7 notes partial Conexus wiring) |
+| `docs/_incoming/packages/REPLAY-RUNTIME-001/05_BACKEND_IMPLEMENTATION_PLAN.md` | Stage 4–5 status callouts |

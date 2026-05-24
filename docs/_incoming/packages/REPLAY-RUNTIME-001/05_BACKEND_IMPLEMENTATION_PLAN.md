@@ -126,6 +126,8 @@ Add:
 
 ## Stage 3 — Kanon decision/provenance replay bundle integration
 
+> **Implementation status (REPLAY-RUNTIME-002):** Wired via `CrossServiceReplayCoordinator` (eligibility gate + bundle list/prepare).
+
 ### Goal
 
 Use Kanon’s existing replay bundle/provenance infrastructure from Allagma replay orchestration.
@@ -175,6 +177,8 @@ Add Kanon replay client call in Allagma orchestration:
 
 ## Stage 4 — Conexus model-call/route-decision dry-run replay integration
 
+> **Implementation status (REPLAY-RUNTIME-002):** Conexus ships all four `/admin/v0/replay/*` routes. Allagma orchestration calls **model-call dry-run only**; route-decision dry-run remains a direct Conexus admin concern until REPLAY-RUNTIME-003+. See `docs/contracts/REPLAY_RUNTIME_CONTRACT.md` and `allagma-dotnet/docs/contracts/CROSS_SERVICE_REPLAY.md`.
+
 ### Goal
 
 Let replay reason about Conexus evidence without silently calling real providers.
@@ -216,6 +220,8 @@ Let replay reason about Conexus evidence without silently calling real providers
 - route inventory/OpenAPI/client coverage updated.
 
 ## Stage 5 — Cross-service replay bundle
+
+> **Implementation status (REPLAY-RUNTIME-002):** `CrossServiceReplayBundleBuilder`, `ReplayDeltaBuilder`, and coordinator wiring are in allagma-dotnet; Conexus route-decision attempts are not collected by the coordinator yet.
 
 ### Goal
 
