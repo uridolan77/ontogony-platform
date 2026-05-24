@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ontogony:contracts/replay-result-v1",
+  "title": "OntogonyReplayResultV1",
+  "$ref": "./replay-runtime-v1.schema.json#/$defs/replayResult"
+}

@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ontogony:contracts/replay-eligibility-v1",
+  "title": "OntogonyReplayEligibilityV1",
+  "type": "object",
+  "properties": {
+    "target": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "allagma.run",
+            "allagma.audit_bundle",
+            "allagma.interaction_stream",
+            "kanon.decision",
+            "kanon.semantic_plan",
+            "kanon.provenance",
+            "conexus.model_call",
+            "conexus.route_decision",
+            "conexus.provider_attempt",
+            "platform.trace",
+            "platform.correlation",
+            "evidence_spine_bundle"
+          ]
+        },
+        "identifier": { "type": "string", "minLength": 1 },
+        "displayIdentifier": { "type": ["string", "null"] },
+        "ownerService": { "type": "string", "minLength": 1 },
+        "root": { "type": "boolean", "default": true }
+      },
+      "required": ["kind", "identifier", "ownerService"]
+    },
+    "eligibleModes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "exact_replay",
+          "deterministic_simulation",
+          "dry_run",
+          "reconstructed",
+          "evidence_only",
+          "unavailable"
+        ]
+      },
+      "minItems": 1
+    },
+    "recommendedMode": {
+      "type": "string",
+      "enum": [
+        "exact_replay",
+        "deterministic_simulation",
+        "dry_run",
+        "reconstructed",
+        "evidence_only",
+        "unavailable"
+      ]
+    },
+    "unavailableModes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "exact_replay",
+              "deterministic_simulation",
+              "dry_run",
+              "reconstructed",
+              "evidence_only",
+              "unavailable"
+            ]
+          },
+          "reasonCode": { "type": "string", "minLength": 1 },
+          "message": { "type": "string", "minLength": 1 }
+        },
+        "required": ["mode", "reasonCode", "message"]
+      },
+      "default": []
+    },
+    "requiredSourceData": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "availableSourceData": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "missingSourceData": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "safetyPosture": {
+      "type": "object",
+      "properties": {
+        "providerExecutionPolicy": { "type": "string", "minLength": 1 },
+        "toolExecutionPolicy": { "type": "string", "minLength": 1 },
+        "redactionPolicy": { "type": "string", "minLength": 1 },
+        "realProvidersBlocked": { "type": "boolean" },
+        "realToolsBlocked": { "type": "boolean" }
+      },
+      "required": [
+        "providerExecutionPolicy",
+        "toolExecutionPolicy",
+        "redactionPolicy",
+        "realProvidersBlocked",
+        "realToolsBlocked"
+      ]
+    },
+    "confidence": { "type": "string", "enum": ["low", "medium", "high"] }
+  },
+  "required": [
+    "target",
+    "eligibleModes",
+    "recommendedMode",
+    "unavailableModes",
+    "safetyPosture",
+    "confidence"
+  ]
+}

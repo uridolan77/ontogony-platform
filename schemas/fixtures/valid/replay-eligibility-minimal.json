@@ -1,0 +1,29 @@
+{
+  "target": {
+    "kind": "allagma.run",
+    "identifier": "run-demo-001",
+    "displayIdentifier": "allagma.run:run-demo-001",
+    "ownerService": "allagma",
+    "root": true
+  },
+  "eligibleModes": ["evidence_only", "reconstructed"],
+  "recommendedMode": "evidence_only",
+  "unavailableModes": [
+    {
+      "mode": "exact_replay",
+      "reasonCode": "exact_replay_not_proven",
+      "message": "Exact replay is unavailable until source data proves reproducibility."
+    }
+  ],
+  "requiredSourceData": ["run_record"],
+  "availableSourceData": ["run_record", "audit_bundle"],
+  "missingSourceData": [],
+  "safetyPosture": {
+    "providerExecutionPolicy": "forbid_real_providers",
+    "toolExecutionPolicy": "forbid_real_tools",
+    "redactionPolicy": "operator_default",
+    "realProvidersBlocked": true,
+    "realToolsBlocked": true
+  },
+  "confidence": "medium"
+}

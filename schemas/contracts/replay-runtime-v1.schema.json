@@ -1,0 +1,283 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ontogony:contracts/replay-runtime-v1",
+  "title": "OntogonyReplayRuntimeV1",
+  "description": "Shared replay runtime definitions (REPLAY-RUNTIME-001).",
+  "$defs": {
+    "replayMode": {
+      "type": "string",
+      "enum": [
+        "exact_replay",
+        "deterministic_simulation",
+        "dry_run",
+        "reconstructed",
+        "evidence_only",
+        "unavailable"
+      ]
+    },
+    "replayTargetKind": {
+      "type": "string",
+      "enum": [
+        "allagma.run",
+        "allagma.audit_bundle",
+        "allagma.interaction_stream",
+        "kanon.decision",
+        "kanon.semantic_plan",
+        "kanon.provenance",
+        "conexus.model_call",
+        "conexus.route_decision",
+        "conexus.provider_attempt",
+        "platform.trace",
+        "platform.correlation",
+        "evidence_spine_bundle"
+      ]
+    },
+    "replayTarget": {
+      "type": "object",
+      "properties": {
+        "kind": { "$ref": "#/$defs/replayTargetKind" },
+        "identifier": { "type": "string", "minLength": 1 },
+        "displayIdentifier": { "type": ["string", "null"] },
+        "ownerService": { "type": "string", "minLength": 1 },
+        "root": { "type": "boolean", "default": true }
+      },
+      "required": ["kind", "identifier", "ownerService"]
+    },
+    "replayUnavailableMode": {
+      "type": "object",
+      "properties": {
+        "mode": { "$ref": "#/$defs/replayMode" },
+        "reasonCode": { "type": "string", "minLength": 1 },
+        "message": { "type": "string", "minLength": 1 }
+      },
+      "required": ["mode", "reasonCode", "message"]
+    },
+    "replaySafetyPosture": {
+      "type": "object",
+      "properties": {
+        "providerExecutionPolicy": { "type": "string", "minLength": 1 },
+        "toolExecutionPolicy": { "type": "string", "minLength": 1 },
+        "redactionPolicy": { "type": "string", "minLength": 1 },
+        "realProvidersBlocked": { "type": "boolean" },
+        "realToolsBlocked": { "type": "boolean" }
+      },
+      "required": [
+        "providerExecutionPolicy",
+        "toolExecutionPolicy",
+        "redactionPolicy",
+        "realProvidersBlocked",
+        "realToolsBlocked"
+      ]
+    },
+    "replayEligibility": {
+      "type": "object",
+      "properties": {
+        "target": { "$ref": "#/$defs/replayTarget" },
+        "eligibleModes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/replayMode" },
+          "minItems": 1
+        },
+        "recommendedMode": { "$ref": "#/$defs/replayMode" },
+        "unavailableModes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/replayUnavailableMode" },
+          "default": []
+        },
+        "requiredSourceData": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": []
+        },
+        "availableSourceData": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": []
+        },
+        "missingSourceData": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": []
+        },
+        "safetyPosture": { "$ref": "#/$defs/replaySafetyPosture" },
+        "confidence": { "type": "string", "enum": ["low", "medium", "high"] }
+      },
+      "required": [
+        "target",
+        "eligibleModes",
+        "recommendedMode",
+        "unavailableModes",
+        "safetyPosture",
+        "confidence"
+      ]
+    },
+    "replayRequestedBy": {
+      "type": "object",
+      "properties": {
+        "actorId": { "type": "string", "minLength": 1 },
+        "roles": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": []
+        }
+      },
+      "required": ["actorId"]
+    },
+    "replayRequest": {
+      "type": "object",
+      "properties": {
+        "replayId": { "type": "string", "minLength": 1 },
+        "rootIdentifier": { "type": "string", "minLength": 1 },
+        "rootKind": { "$ref": "#/$defs/replayTargetKind" },
+        "requestedMode": { "$ref": "#/$defs/replayMode" },
+        "requestedBy": { "$ref": "#/$defs/replayRequestedBy" },
+        "providerExecutionPolicy": { "type": "string", "minLength": 1 },
+        "toolExecutionPolicy": { "type": "string", "minLength": 1 },
+        "redactionPolicy": { "type": "string", "minLength": 1 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "replayId",
+        "rootIdentifier",
+        "rootKind",
+        "requestedMode",
+        "providerExecutionPolicy",
+        "toolExecutionPolicy",
+        "redactionPolicy",
+        "createdAt"
+      ]
+    },
+    "replayEvidenceReference": {
+      "type": "object",
+      "properties": {
+        "kind": { "type": "string", "minLength": 1 },
+        "identifier": { "type": "string", "minLength": 1 },
+        "uri": { "type": ["string", "null"] },
+        "fingerprint": { "type": ["string", "null"] }
+      },
+      "required": ["kind", "identifier"]
+    },
+    "replayServiceAttempt": {
+      "type": "object",
+      "properties": {
+        "service": { "type": "string", "minLength": 1 },
+        "operation": { "type": "string", "minLength": 1 },
+        "target": { "type": "string", "minLength": 1 },
+        "status": { "type": "string", "minLength": 1 },
+        "mode": { "$ref": "#/$defs/replayMode" },
+        "route": { "type": ["string", "null"] },
+        "durationMs": { "type": ["integer", "null"], "minimum": 0 },
+        "evidenceRefs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/replayEvidenceReference" },
+          "default": []
+        },
+        "skippedReason": { "type": ["string", "null"] }
+      },
+      "required": ["service", "operation", "target", "status", "mode"]
+    },
+    "replayResult": {
+      "type": "object",
+      "properties": {
+        "replayId": { "type": "string", "minLength": 1 },
+        "rootIdentifier": { "type": "string", "minLength": 1 },
+        "target": { "$ref": "#/$defs/replayTarget" },
+        "mode": { "$ref": "#/$defs/replayMode" },
+        "legacyMode": { "type": ["string", "null"] },
+        "status": { "type": "string", "minLength": 1 },
+        "verdict": { "type": "string", "minLength": 1 },
+        "serviceAttempts": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/replayServiceAttempt" },
+          "default": []
+        },
+        "originalEvidenceRefs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/replayEvidenceReference" },
+          "default": []
+        },
+        "replayEvidenceRefs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/replayEvidenceReference" },
+          "default": []
+        },
+        "deltaRef": { "type": ["string", "null"] },
+        "bundleRef": { "type": ["string", "null"] },
+        "safetyPosture": { "$ref": "#/$defs/replaySafetyPosture" },
+        "startedAt": { "type": "string", "format": "date-time" },
+        "completedAt": { "type": ["string", "null"], "format": "date-time" }
+      },
+      "required": [
+        "replayId",
+        "rootIdentifier",
+        "target",
+        "mode",
+        "status",
+        "verdict",
+        "safetyPosture",
+        "startedAt"
+      ]
+    },
+    "replayComparison": {
+      "type": "object",
+      "properties": {
+        "field": { "type": "string", "minLength": 1 },
+        "status": { "type": "string", "minLength": 1 },
+        "original": { "type": ["string", "null"] },
+        "replay": { "type": ["string", "null"] }
+      },
+      "required": ["field", "status"]
+    },
+    "replayDelta": {
+      "type": "object",
+      "properties": {
+        "replayId": { "type": "string", "minLength": 1 },
+        "originalRootIdentifier": { "type": "string", "minLength": 1 },
+        "mode": { "$ref": "#/$defs/replayMode" },
+        "verdict": { "type": "string", "minLength": 1 },
+        "comparisons": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/replayComparison" },
+          "default": []
+        },
+        "uncompared": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": []
+        },
+        "notes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": []
+        }
+      },
+      "required": ["replayId", "originalRootIdentifier", "mode", "verdict", "comparisons"]
+    },
+    "replayEvidenceBundle": {
+      "type": "object",
+      "properties": {
+        "schema": { "type": "string", "const": "ontogony-replay-runtime-v1" },
+        "request": { "$ref": "#/$defs/replayRequest" },
+        "rootTarget": { "$ref": "#/$defs/replayTarget" },
+        "result": { "$ref": "#/$defs/replayResult" },
+        "delta": { "$ref": "#/$defs/replayDelta" },
+        "serviceAttempts": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/replayServiceAttempt" },
+          "default": []
+        },
+        "runtimeMetadata": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "default": {}
+        },
+        "redactionMetadata": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "default": {}
+        }
+      },
+      "required": ["schema", "request", "rootTarget", "result"]
+    }
+  }
+}

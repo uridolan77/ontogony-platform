@@ -11,6 +11,14 @@ Replay manifest DTOs for deterministic debugging and incident reconstruction:
 - determinism hints
 - step records
 
+Cross-service replay runtime vocabulary (REPLAY-RUNTIME-001):
+
+- replay modes and target kinds
+- eligibility, request, result, delta, and evidence bundle records
+- service attempt and evidence reference shapes
+
+See `docs/contracts/REPLAY_RUNTIME_CONTRACT.md`.
+
 ## What this is not
 
 - not a replay engine

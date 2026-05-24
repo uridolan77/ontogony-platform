@@ -26,6 +26,19 @@ Operators paste one identifier and expect the console to resolve the governed ex
 | `humanGateId` | `gate_…`, `pause_…` | Allagma / Kanon | Allagma run events (no direct GET by gate id today) |
 | `datasetId` | `scenario-dataset-v0` | Allagma eval | `GET /allagma/v0/evaluation-datasets/{datasetId}` |
 | `scenarioId` | `scenario-risk-summary-v0` | Allagma eval | Eval list filters |
+| `allagmaReplayId` | `replay_…` | Allagma | `GET /allagma/v0/replay/requests/{replayId}` |
+| `replayBundleId` | Kanon replay bundle id | Kanon | `GET /ontology/v0/decision-records/{decisionId}/replay-bundles/{bundleId}` |
+
+## Replay artifact reference kinds
+
+Stable kinds for cross-service replay export (REPLAY-RUNTIME-001):
+
+| Kind | Role |
+| --- | --- |
+| `replay.request` | Orchestration request record |
+| `replay.result` | Completed replay result |
+| `replay.delta` | Original vs replay comparison |
+| `replay.evidence_bundle` | Redacted export bundle |
 
 ## Classification rules
 

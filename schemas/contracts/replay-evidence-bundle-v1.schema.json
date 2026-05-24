@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ontogony:contracts/replay-evidence-bundle-v1",
+  "title": "OntogonyReplayEvidenceBundleV1",
+  "type": "object",
+  "properties": {
+    "schema": { "type": "string", "const": "ontogony-replay-runtime-v1" },
+    "request": { "type": "object" },
+    "rootTarget": { "type": "object" },
+    "result": { "type": "object" },
+    "delta": { "type": "object" },
+    "serviceAttempts": {
+      "type": "array",
+      "items": { "type": "object" },
+      "default": []
+    },
+    "runtimeMetadata": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "default": {}
+    },
+    "redactionMetadata": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "default": {}
+    }
+  },
+  "required": ["schema", "request", "rootTarget", "result"]
+}

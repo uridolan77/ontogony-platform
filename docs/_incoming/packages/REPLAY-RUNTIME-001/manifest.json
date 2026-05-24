@@ -1,0 +1,79 @@
+{
+  "package": "REPLAY-RUNTIME-001",
+  "created_at": "2026-05-24",
+  "purpose": "Cross-service replay/simulation runtime Cursor package for Ontogony system.",
+  "review_basis": {
+    "generated_at": "2026-05-24",
+    "review_method": "GitHub current main refs via ChatGPT GitHub connector; local C:\\dev working tree and builds were not directly executed in this environment.",
+    "repos": {
+      "ontogony-platform": {
+        "repo": "uridolan77/ontogony-platform",
+        "ref": "c019af3a9d9c0ed8ed99d3b8cdf402279d232bf0"
+      },
+      "allagma-dotnet": {
+        "repo": "uridolan77/allagma-dotnet",
+        "ref": "13d6280465fd1f85f10b798552e5c4f7659b68ba"
+      },
+      "kanon-dotnet": {
+        "repo": "uridolan77/kanon-dotnet",
+        "ref": "1772f3850488a2bc9ae7395935fa809a81f901c1"
+      },
+      "conexus-dotnet": {
+        "repo": "uridolan77/conexus-dotnet",
+        "ref": "0115d1c7409272a24b1827a7800b91e3669ea759"
+      },
+      "ontogony-frontend": {
+        "repo": "uridolan77/ontogony-frontend",
+        "ref": "33339020d2f95b1ee697a3435418db1505c3062e"
+      },
+      "ontogony-ui": {
+        "repo": "uridolan77/ontogony-ui",
+        "ref": "7ca0bb4ad569b23b2ed43ad09077253372a04b5a"
+      }
+    }
+  },
+  "files": [
+    "README.md",
+    "00_UNPACK_PROMPT.md",
+    "REPLAY-RUNTIME-001.md",
+    "01_CURRENT_STATE_AUDIT.md",
+    "02_REPLAY_VOCABULARY_AND_MODES.md",
+    "03_REPLAY_CONTRACT_MODEL.md",
+    "04_CROSS_SERVICE_REPLAY_FLOW.md",
+    "05_BACKEND_IMPLEMENTATION_PLAN.md",
+    "06_FRONTEND_REPLAY_WORKBENCH_PLAN.md",
+    "07_EVIDENCE_SPINE_AND_EXPORT_PLAN.md",
+    "08_RUNTIME_LOCK_AND_SMOKE_PLAN.md",
+    "09_CONTRACT_DISCIPLINE_PLAN.md",
+    "10_UI_CANONICALIZATION_REQUIREMENTS.md",
+    "11_TEST_AND_ACCEPTANCE_PLAN.md",
+    "12_RISK_REGISTER.md",
+    "13_REVIEW_PROMPT.md",
+    "manifest.json"
+  ],
+  "core_modes": [
+    "exact_replay",
+    "deterministic_simulation",
+    "dry_run",
+    "reconstructed",
+    "evidence_only",
+    "unavailable"
+  ],
+  "primary_owner_decision": {
+    "orchestration_records": "allagma-dotnet",
+    "shared_contracts": "ontogony-platform",
+    "semantic_replay_claims": "kanon-dotnet",
+    "model_call_route_provider_replay_claims": "conexus-dotnet",
+    "operator_workflow": "ontogony-frontend",
+    "canonical_ui_primitives": "ontogony-ui"
+  },
+  "non_goals": [
+    "production security/IAM",
+    "uncontrolled real provider execution",
+    "uncontrolled external tool execution",
+    "moving semantic authority out of Kanon",
+    "moving provider routing out of Conexus",
+    "second Evidence Spine",
+    "crowded replay dashboard"
+  ]
+}

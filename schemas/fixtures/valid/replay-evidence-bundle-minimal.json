@@ -1,0 +1,56 @@
+{
+  "schema": "ontogony-replay-runtime-v1",
+  "request": {
+    "replayId": "replay_demo_001",
+    "rootIdentifier": "run-demo-001",
+    "rootKind": "allagma.run",
+    "requestedMode": "evidence_only",
+    "requestedBy": { "actorId": "local-operator", "roles": ["Admin"] },
+    "providerExecutionPolicy": "forbid_real_providers",
+    "toolExecutionPolicy": "forbid_real_tools",
+    "redactionPolicy": "operator_default",
+    "createdAt": "2026-05-24T12:00:00Z"
+  },
+  "rootTarget": {
+    "kind": "allagma.run",
+    "identifier": "run-demo-001",
+    "ownerService": "allagma",
+    "root": true
+  },
+  "result": {
+    "replayId": "replay_demo_001",
+    "rootIdentifier": "run-demo-001",
+    "target": {
+      "kind": "allagma.run",
+      "identifier": "run-demo-001",
+      "ownerService": "allagma",
+      "root": true
+    },
+    "mode": "evidence_only",
+    "legacyMode": "manifest_only",
+    "status": "completed",
+    "verdict": "inconclusive",
+    "serviceAttempts": [],
+    "originalEvidenceRefs": [],
+    "replayEvidenceRefs": [
+      {
+        "kind": "replay.result",
+        "identifier": "replay_demo_001"
+      }
+    ],
+    "deltaRef": "replay-delta.json",
+    "bundleRef": "replay-evidence-bundle.json",
+    "safetyPosture": {
+      "providerExecutionPolicy": "forbid_real_providers",
+      "toolExecutionPolicy": "forbid_real_tools",
+      "redactionPolicy": "operator_default",
+      "realProvidersBlocked": true,
+      "realToolsBlocked": true
+    },
+    "startedAt": "2026-05-24T12:00:00Z",
+    "completedAt": "2026-05-24T12:00:01Z"
+  },
+  "serviceAttempts": [],
+  "runtimeMetadata": { "owner": "allagma" },
+  "redactionMetadata": { "policy": "operator_default" }
+}

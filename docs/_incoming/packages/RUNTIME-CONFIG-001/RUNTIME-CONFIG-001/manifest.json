@@ -1,0 +1,60 @@
+{
+  "package": "RUNTIME-CONFIG-001",
+  "createdAt": "2026-05-24T20:19:16Z",
+  "purpose": "Make Ontogony operator frontend runtime-configurable and clarify local/dev/docker environment profiles.",
+  "reposReviewed": [
+    "uridolan77/ontogony-frontend",
+    "uridolan77/ontogony-platform",
+    "uridolan77/ontogony-ui",
+    "uridolan77/conexus-dotnet",
+    "uridolan77/kanon-dotnet",
+    "uridolan77/allagma-dotnet"
+  ],
+  "chosenRuntimeConfigPath": "/operator-runtime-config.json",
+  "nonGoals": [
+    "OIDC/IAM",
+    "production credential redesign",
+    "secret storage in runtime config",
+    "backend route contract changes",
+    "Evidence Spine semantic changes",
+    "operator settings replacement",
+    "automatic live-to-fixture fallback"
+  ],
+  "files": [
+    "README.md",
+    "00_UNPACK_PROMPT.md",
+    "RUNTIME-CONFIG-001.md",
+    "01_CURRENT_STATE_AUDIT.md",
+    "02_RUNTIME_CONFIG_CONTRACT.md",
+    "03_CONFIG_PRECEDENCE_AND_PROVENANCE.md",
+    "04_FRONTEND_BOOTSTRAP_PLAN.md",
+    "05_DOCKER_NGINX_AND_LOCAL_WORKING_SYSTEM_PLAN.md",
+    "06_OPERATOR_SETTINGS_MIGRATION_PLAN.md",
+    "07_TEST_SMOKE_AND_PLAYWRIGHT_PLAN.md",
+    "08_DOCS_AND_PROFILE_GUIDE.md",
+    "09_CONTRACT_DISCIPLINE_AND_COMPATIBILITY_PLAN.md",
+    "10_ACCEPTANCE_CHECKLIST.md",
+    "11_RISK_REGISTER.md",
+    "12_REVIEW_PROMPT.md",
+    "manifest.json"
+  ],
+  "verificationCommands": {
+    "ontogony-frontend": [
+      "npm run typecheck",
+      "npm run test -- src/app/runtime-config",
+      "npm run test -- src/app/settings src/system/pages/OperatorSettingsPage.test.tsx",
+      "npm run config:check",
+      "npm run root-config:check",
+      "npm run contracts:discipline",
+      "npm run test:e2e:docker-live:fe-live-smoke",
+      "npm run test:e2e:docker-live:domain-switcher",
+      "npm run test:e2e:docker-live:evidence-spine",
+      "npm run governed-fake-e2e:docker-live"
+    ],
+    "ontogony-platform": [
+      "pwsh .\\scripts\\local-working-system\\write-operator-runtime-config.ps1",
+      "pwsh .\\scripts\\smoke\\assert-operator-runtime-config.ps1 -BaseUrl http://localhost:5175",
+      "pwsh .\\scripts\\smoke\\run-runtime-lock-governed-fake-e2e.ps1"
+    ]
+  }
+}
