@@ -71,6 +71,19 @@ Falls back to `Conexus:Admin:ApiKey`. When unset, Conexus attempts are skipped (
 - Route-decision dry-run invoked from Allagma orchestration (model-call dry-run only today)
 - Conexus route inventory regeneration (manual when promoting)
 
+## REPLAY-RUNTIME-002A (contract and safety hardening)
+
+| Fix | Status |
+| --- | --- |
+| Regenerate `CONEXUS_ROUTE_INVENTORY.json` + `ConexusRouteCatalog` | **Done** |
+| Admin OpenAPI snapshot (`UPDATE_CONTRACT_SNAPSHOTS=true`) | **Done** |
+| `ConexusReplaySafetyPolicyValidator` + 400 on bad policy/mode | **Done** |
+| Route-decision dry-run defaults to `reconstructed`; blocks real providers with explicit reasons | **Done** |
+| Allagma respects Kanon eligibility before bundle prepare | **Done** |
+| Coordinator + orchestration bundle tests | **Done** |
+
+Tests: Conexus replay/inventory/OpenAPI; Allagma `Replay*` + `CrossServiceReplay*`.
+
 ## Package closure
 
-**Partially closed** — cross-service service attempts on Allagma run replay; Conexus admin replay API live. Full REPLAY-RUNTIME-001 acceptance headline still requires smoke + frontend wiring.
+**Ready for frontend client generation (backend contract slice)** — route inventory and admin OpenAPI snapshots include `/admin/v0/replay/*`. Full REPLAY-RUNTIME-001 acceptance headline still requires smoke + frontend wiring. Conexus route-decision dry-run from Allagma orchestration remains deferred.
