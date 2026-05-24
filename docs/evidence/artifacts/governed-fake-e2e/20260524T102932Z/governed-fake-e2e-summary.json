@@ -1,0 +1,36 @@
+{
+  "schema": "ontogony-governed-fake-e2e-summary-v1",
+  "generatedAtUtc": "2026-05-24T10:29:32.000Z",
+  "verdict": "PASS",
+  "scenario": "GOVERNED-FAKE-E2E-001",
+  "identifiers": {
+    "runId": "run_4d40eaae95964b43af0f64cd97ef7eaf",
+    "traceId": "gov-fake-trace-c69ecdeae15047ca844d3096b7e4ea8d",
+    "correlationId": "gov-fake-corr-0310ce97d3a0413e8553df1a9ad82f95",
+    "planningDecisionId": "decision_0013aeb7946a428c9f64d05b040cbcd1",
+    "modelCallId": "chatcmpl-0HNLP48JDQU7O-00000001",
+    "routeDecisionId": "rd-0HNLP48JDQU7O-00000001"
+  },
+  "provider": {
+    "providerKey": "fake",
+    "providerModel": "fake.chat"
+  },
+  "evidence": {
+    "evidenceGraphVerdict": "PASS",
+    "evidenceGraphNodeCount": 6,
+    "evidenceGraphEdgeCount": 8,
+    "evidenceSpineBundle": "evidence-spine-bundle.json",
+    "legacyResultArtifact": "governed-fake-e2e-result.json"
+  },
+  "systemTruth": {
+    "status": "WARNING"
+  },
+  "playwright": {
+    "status": "PASS",
+    "reportRelative": "ontogony-frontend/playwright-report"
+  },
+  "runtimeLock": {
+    "stage": "local_proof",
+    "note": "Recorded at GOVERNED-FAKE-E2E-001 closure; baseline for RUNTIME-LOCK-CI-GOVERNED-E2E-001."
+  }
+}

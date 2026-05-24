@@ -1,0 +1,12 @@
+﻿{
+    "schema":  "evidence-spine-008a-live-api-preflight-v1",
+    "recordedAtUtc":  "2026-05-23T06:41:33.3446102Z",
+    "seedReportPath":  "C:\\dev\\ontogony-platform\\docker\\local-working-system\\artifacts\\env-seed-001-report.json",
+    "frontendBaseUrl":  "http://localhost:5175",
+    "verdict":  "PASS",
+    "kinds":  [
+                  "allagmaRun",
+                  "kanonDecision",
+                  "conexusRouteDecision"
+              ]
+}

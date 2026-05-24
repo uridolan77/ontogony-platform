@@ -1,0 +1,15 @@
+﻿{
+    "evidenceGraphVerdict":  "PASS",
+    "routeDecisionId":  "rd-0HNLP48JDQU7O-00000001",
+    "modelCallId":  "chatcmpl-0HNLP48JDQU7O-00000001",
+    "planningDecisionId":  "decision_0013aeb7946a428c9f64d05b040cbcd1",
+    "traceId":  "gov-fake-trace-c69ecdeae15047ca844d3096b7e4ea8d",
+    "providerModel":  "fake.chat",
+    "runId":  "run_4d40eaae95964b43af0f64cd97ef7eaf",
+    "scenario":  "GOVERNED-FAKE-E2E-001",
+    "evidenceGraphEdgeCount":  8,
+    "correlationId":  "gov-fake-corr-0310ce97d3a0413e8553df1a9ad82f95",
+    "providerKey":  "fake",
+    "evidenceGraphNodeCount":  6,
+    "evidenceGraphArtifact":  "C:/dev/allagma-dotnet/artifacts/governed-fake-e2e/20260524T102932Z/evidence-graph.json"
+}

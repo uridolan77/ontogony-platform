@@ -1,0 +1,68 @@
+﻿{
+    "schema":  "fe-harden-001-frontend-evidence-report-v1",
+    "recordedAtUtc":  "2026-05-23T06:41:33.2159594Z",
+    "verdict":  "PASS",
+    "frontendBaseUrl":  "http://localhost:5175",
+    "fixtureOnly":  false,
+    "guidedReportPath":  "C:\\dev\\ontogony-platform\\docker\\local-working-system\\artifacts\\docker-guided-main-flow-report.json",
+    "checks":  [
+                   {
+                       "url":  "http://localhost:5175/",
+                       "httpStatus":  200,
+                       "spaShell":  true,
+                       "secretPatternHits":  [
+
+                                             ],
+                       "passed":  true
+                   },
+                   {
+                       "url":  "http://localhost:5175/allagma/evaluations?dashboardFixture=ci-suite",
+                       "httpStatus":  200,
+                       "spaShell":  true,
+                       "secretPatternHits":  [
+
+                                             ],
+                       "passed":  true
+                   },
+                   {
+                       "url":  "http://localhost:5175/allagma/evaluations",
+                       "httpStatus":  200,
+                       "spaShell":  true,
+                       "secretPatternHits":  [
+
+                                             ],
+                       "passed":  true
+                   },
+                   {
+                       "url":  "http://localhost:5175/allagma/runs/run_fcde6bdd7fe541a99dfcb6cc40e16069",
+                       "httpStatus":  200,
+                       "spaShell":  true,
+                       "secretPatternHits":  [
+
+                                             ],
+                       "passed":  true
+                   },
+                   {
+                       "url":  "http://localhost:5175/allagma/evaluations/eval_79f41d7cc7ef4c849675a86ce3f73ce6",
+                       "httpStatus":  200,
+                       "spaShell":  true,
+                       "secretPatternHits":  [
+
+                                             ],
+                       "passed":  true
+                   },
+                   {
+                       "url":  "http://localhost:5175/allagma/evaluations/baseline-comparisons/cmp_2201a1cc17644c1ea43aa1f5550bb772",
+                       "httpStatus":  200,
+                       "spaShell":  true,
+                       "secretPatternHits":  [
+
+                                             ],
+                       "passed":  true
+                   }
+               ],
+    "safety":  {
+                   "realExternalExecution":  "disabled",
+                   "productionReadiness":  "not_claimed"
+               }
+}

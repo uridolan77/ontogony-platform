@@ -1,0 +1,49 @@
+﻿{
+    "schema":  "ontogony-operator-v1-demo-ids-v1",
+    "generatedAtUtc":  "2026-05-23T06:41:33.0119825Z",
+    "sourceReport":  "C:\\dev\\ontogony-platform\\docker\\local-working-system\\artifacts\\env-seed-001-report.json",
+    "boundary":  "Docker-local operator demo; not production readiness",
+    "frontendBaseUrl":  "http://localhost:5175",
+    "services":  {
+                     "allagmaBaseUrl":  "http://localhost:5083",
+                     "kanonBaseUrl":  "http://localhost:5081",
+                     "conexusBaseUrl":  "http://localhost:5082"
+                 },
+    "flows":  {
+                  "system-posture":  {
+                                         "route":  "/system"
+                                     },
+                  "simple-governed-run":  {
+                                              "route":  "/allagma/runs/start",
+                                              "runId":  "run_fcde6bdd7fe541a99dfcb6cc40e16069",
+                                              "detail":  "/allagma/runs/run_fcde6bdd7fe541a99dfcb6cc40e16069"
+                                          },
+                  "human-gate-approve":  {
+                                             "route":  "/allagma/gates"
+                                         },
+                  "human-gate-deny":  {
+                                          "route":  "/allagma/gates"
+                                      },
+                  "conexus-fallback":  {
+                                           "route":  "/conexus/observability",
+                                           "routeDecisionId":  "rd-0HNLMJJQFVG3N-00000003",
+                                           "modelCallId":  "chatcmpl-0HNLMJJQFVG3N-00000003",
+                                           "observabilityUrl":  "/conexus/observability?modelCallId=chatcmpl-0HNLMJJQFVG3N-00000003"
+                                       },
+                  "kanon-assistance":  {
+                                           "route":  "/kanon/assistance",
+                                           "decisionId":  "decision_6be7b20061584580bf9b6ab8e0fe3e15"
+                                       },
+                  "sandbox-posture":  {
+                                          "route":  "/allagma/runs/run_af237b28cf55444dab2f271d7bddea30",
+                                          "runId":  "run_af237b28cf55444dab2f271d7bddea30"
+                                      },
+                  "evidence-spine-trace":  {
+                                               "route":  "/system/evidence-spine",
+                                               "lookupRunId":  "run_af237b28cf55444dab2f271d7bddea30",
+                                               "modelCallId":  "chatcmpl-0HNLMJJQFVG3N-00000002",
+                                               "routeDecisionId":  "rd-0HNLMJJQFVG3N-00000002",
+                                               "decisionId":  "decision_6be7b20061584580bf9b6ab8e0fe3e15"
+                                           }
+              }
+}

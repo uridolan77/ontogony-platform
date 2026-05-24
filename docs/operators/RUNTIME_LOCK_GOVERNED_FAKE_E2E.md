@@ -45,7 +45,7 @@ Written under `artifacts/governed-fake-e2e/<timestamp>/` (Allagma) and mirrored 
 | `governed-fake-e2e-result.json` | Legacy detailed result (compat) |
 | `playwright-report/` | Optional Docker-live UI proof |
 
-## Runtime lock pointer
+## Runtime lock pointer (committed baseline)
 
 `allagma-dotnet/docs/system/ontogony-runtime.lock.json`:
 
@@ -54,6 +54,8 @@ Written under `artifacts/governed-fake-e2e/<timestamp>/` (Allagma) and mirrored 
   "governedFakeE2eSummary": "ontogony-platform/docs/evidence/artifacts/governed-fake-e2e/20260524T102932Z/governed-fake-e2e-summary.json"
 }
 ```
+
+**Policy:** The summary and `evidence-spine-bundle.json` for that timestamp live under `docs/evidence/artifacts/` and are **committed** (small, no secrets). Repo-root `/artifacts/` remains gitignored for ephemeral local runs. See [`docs/evidence/artifacts/governed-fake-e2e/README.md`](../evidence/artifacts/governed-fake-e2e/README.md).
 
 Validate (optional gate):
 

@@ -15,7 +15,7 @@ Verification records for **platform-owned mechanical gates** only. Filename patt
 | GOVERNED-FAKE-E2E-001 (2026-05-24 closure) | [GOVERNED_FAKE_E2E_001_PASS_20260524T102932Z.md](./GOVERNED_FAKE_E2E_001_PASS_20260524T102932Z.md) |
 | GOVERNED-FAKE-E2E-001 (2026-05-23 smoke) | [GOVERNED_FAKE_E2E_001_PASS_20260523T232255Z.md](./GOVERNED_FAKE_E2E_001_PASS_20260523T232255Z.md) |
 
-Artifacts: [`artifacts/governed-fake-e2e/`](./artifacts/governed-fake-e2e/)
+Artifacts: [`artifacts/governed-fake-e2e/`](./artifacts/governed-fake-e2e/) — **committed baselines** for runtime-lock `-RequireGovernedFakeE2eEvidence` (see [`artifacts/governed-fake-e2e/README.md`](./artifacts/governed-fake-e2e/README.md)). Ephemeral runs use repo-root `/artifacts/`.
 
 ---
 

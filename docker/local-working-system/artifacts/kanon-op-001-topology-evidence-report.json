@@ -1,0 +1,130 @@
+﻿{
+    "schema":  "kanon-op-001-topology-evidence-report-v1",
+    "generatedAtUtc":  "2026-05-23T06:41:32.1662421Z",
+    "verdict":  "PASS",
+    "boundary":  "first Dockerized local working system, not production readiness",
+    "inputReport":  {
+                        "source":  "docker-guided-main-flow-report.json",
+                        "guidedReportPath":  "C:\\dev\\ontogony-platform\\docker\\local-working-system\\artifacts\\docker-guided-main-flow-report.json",
+                        "seedReportPath":  "C:\\dev\\ontogony-platform\\docker\\local-working-system\\artifacts\\env-seed-001-report.json"
+                    },
+    "linkage":  {
+                    "baselineRunId":  "run_af237b28cf55444dab2f271d7bddea30",
+                    "subjectRunId":  "run_fcde6bdd7fe541a99dfcb6cc40e16069",
+                    "baselinePlanningDecisionId":  "decision_539862c5f5a7427984b3243a4d46b270",
+                    "subjectPlanningDecisionId":  "decision_f1c60ae581bc4f5496188e05ce9b1cc7",
+                    "subjectTopologyAuthorizationDecisionId":  "decision_6be7b20061584580bf9b6ab8e0fe3e15",
+                    "baselineTopologyAuthorizationDecisionId":  null
+                },
+    "topologySummary":  {
+                            "baseline":  {
+                                             "selectedTopology":  "single_workflow",
+                                             "requiresKanonAuthorization":  false,
+                                             "topologyAuthorizationDecisionId":  null
+                                         },
+                            "subject":  {
+                                            "selectedTopology":  "centralized_orchestrator",
+                                            "requiresKanonAuthorization":  true,
+                                            "topologyAuthorizationDecisionId":  "decision_6be7b20061584580bf9b6ab8e0fe3e15"
+                                        }
+                        },
+    "kanon":  {
+                  "decisionRecord":  {
+                                         "decisionId":  "decision_6be7b20061584580bf9b6ab8e0fe3e15",
+                                         "decisionType":  "topology_policy_evaluation",
+                                         "ontologyVersionId":  "gaming-core@0.1.0",
+                                         "actor":  {
+                                                       "actorId":  "env-seed-001-agent",
+                                                       "actorType":  "service",
+                                                       "roles":  [
+                                                                     "AgentExecutor",
+                                                                     "RiskAnalyst"
+                                                                 ]
+                                                   },
+                                         "inputRefs":  {
+                                                           "requestId":  null,
+                                                           "planId":  null,
+                                                           "factIds":  [
+
+                                                                       ],
+                                                           "sourceBindingIds":  [
+
+                                                                                ],
+                                                           "policyIds":  [
+                                                                             "topology-policy-v0"
+                                                                         ]
+                                                       },
+                                         "rulesApplied":  [
+                                                              "topology-policy-v0"
+                                                          ],
+                                         "contradictions":  [
+
+                                                            ],
+                                         "humanApprovals":  [
+
+                                                            ],
+                                         "outcome":  {
+                                                         "status":  "allow",
+                                                         "reason":  "Topology allowed by ontology policy.",
+                                                         "outputRef":  "centralized_orchestrator"
+                                                     },
+                                         "decidedAt":  "2026-05-23T06:41:19.237922+00:00",
+                                         "inputFingerprint":  "e6063677ee59d9d8bf0f2a153916fe8ddb7b236dc08a77ec79f5bf0a06f936d6",
+                                         "outcomeFingerprint":  "518ca29163222ccdb26e5ad098238a6cd435facf31c4d5851f57ba59f3b178c1",
+                                         "traceId":  "52ee25d4f7a25c2562d3ef6264175ef8",
+                                         "correlationId":  "1e6590f246af4c6497d6c3e73b8c908b",
+                                         "allagmaRunId":  "run_fcde6bdd7fe541a99dfcb6cc40e16069",
+                                         "executionRunId":  "run_33ec289cda484826b50e284136bd3323",
+                                         "inputArtifactId":  null,
+                                         "outcomeArtifactId":  null,
+                                         "integrityStatus":  "verified",
+                                         "schemaVersion":  "1",
+                                         "traceStatus":  "present"
+                                     },
+                  "provenance":  {
+                                     "decisionId":  "decision_6be7b20061584580bf9b6ab8e0fe3e15",
+                                     "decisionType":  "topology_policy_evaluation",
+                                     "ontologyVersionId":  "gaming-core@0.1.0",
+                                     "actorId":  "env-seed-001-agent",
+                                     "inputFingerprint":  "e6063677ee59d9d8bf0f2a153916fe8ddb7b236dc08a77ec79f5bf0a06f936d6",
+                                     "outcomeFingerprint":  "518ca29163222ccdb26e5ad098238a6cd435facf31c4d5851f57ba59f3b178c1",
+                                     "traceId":  "52ee25d4f7a25c2562d3ef6264175ef8",
+                                     "executionRunId":  "run_33ec289cda484826b50e284136bd3323",
+                                     "inputArtifactId":  null,
+                                     "outcomeArtifactId":  null,
+                                     "sourceBindingIds":  [
+
+                                                          ],
+                                     "factIds":  [
+
+                                                 ],
+                                     "policyIds":  [
+                                                       "topology-policy-v0"
+                                                   ],
+                                     "integrityStatus":  "verified",
+                                     "traceStatus":  "present",
+                                     "schemaVersion":  "1"
+                                 },
+                  "decisionType":  "topology_policy_evaluation",
+                  "outcomeStatus":  "allow"
+              },
+    "allagma":  {
+                    "baselineRunStatus":  "Completed",
+                    "subjectRunStatus":  "Completed",
+                    "subjectContextKeys":  {
+
+                                           }
+                },
+    "services":  {
+                     "allagmaBaseUrl":  "http://localhost:5083",
+                     "kanonBaseUrl":  "http://localhost:5081",
+                     "envFilePath":  "C:\\dev\\ontogony-platform\\docker\\local-working-system\\.env.example"
+                 },
+    "safety":  {
+                   "realProviderKeys":  "no",
+                   "realExternalExecution":  "disabled",
+                   "productionReadiness":  "not_claimed",
+                   "secretsRedacted":  true,
+                   "tokensLoadedFromEnvFile":  true
+               }
+}

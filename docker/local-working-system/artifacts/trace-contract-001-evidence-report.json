@@ -1,0 +1,68 @@
+﻿{
+    "schema":  "trace-contract-001-evidence-report-v1",
+    "generatedAtUtc":  "2026-05-23T06:41:32.9430222Z",
+    "verdict":  "PASS",
+    "boundary":  "first Dockerized local working system, not production readiness",
+    "probe":  {
+                  "traceId":  "trace-contract-2e0877214a254dd5b3d3b31869e8875c",
+                  "correlationId":  "corr-contract-9bd2c1e306a44733a9e0bb0e279db076",
+                  "runId":  "run_407969d4677747b38e0e9b454875d80c",
+                  "planningDecisionId":  "decision_118e80bd830d40c8be18d4a144726793",
+                  "modelCallId":  "chatcmpl-0HNLMJJQFVG43-00000001",
+                  "responseTraceHeader":  "trace-contract-2e0877214a254dd5b3d3b31869e8875c",
+                  "runStatus":  "Completed"
+              },
+    "allagma":  {
+                    "runCreatedEventCount":  1,
+                    "eventTypeSample":  [
+                                            "Allagma.RunCreated",
+                                            "Allagma.TaskClassified",
+                                            "Allagma.TopologySelected",
+                                            "Allagma.KanonPlanRequested",
+                                            "Allagma.KanonPlanCompiled",
+                                            "Allagma.WorkflowCheckpointRecorded",
+                                            "Allagma.WorkflowCheckpointRecorded",
+                                            "Allagma.WorkflowCheckpointRecorded"
+                                        ]
+                },
+    "kanon":  {
+                  "planningDecisionType":  "semantic_plan",
+                  "planningTraceId":  "trace-contract-2e0877214a254dd5b3d3b31869e8875c",
+                  "planningCorrelationId":  "corr-contract-9bd2c1e306a44733a9e0bb0e279db076",
+                  "planningAllagmaRunId":  "run_407969d4677747b38e0e9b454875d80c",
+                  "byTraceDecisionCount":  2,
+                  "planningListedByTrace":  true
+              },
+    "conexus":  {
+                    "journalRunId":  "chat-0HNLMJJQFVG43-00000001",
+                    "metadataAllagmaRunId":  "run_407969d4677747b38e0e9b454875d80c",
+                    "metadataCorrelationId":  "corr-contract-9bd2c1e306a44733a9e0bb0e279db076"
+                },
+    "guidedReplay":  {
+                         "attempted":  true,
+                         "status":  "PASS",
+                         "sourceReport":  "docker-guided-main-flow-report.json",
+                         "subjectRunId":  "run_fcde6bdd7fe541a99dfcb6cc40e16069",
+                         "subjectTraceId":  "52ee25d4f7a25c2562d3ef6264175ef8",
+                         "kanonDecisionCount":  3,
+                         "detail":  "Subject run trace is indexed on Kanon by-trace."
+                     },
+    "services":  {
+                     "allagmaBaseUrl":  "http://localhost:5083",
+                     "kanonBaseUrl":  "http://localhost:5081",
+                     "conexusBaseUrl":  "http://localhost:5082",
+                     "envFilePath":  "C:\\dev\\ontogony-platform\\docker\\local-working-system\\.env.example"
+                 },
+    "references":  {
+                       "traceStandard":  "docs/03_TRACE_CORRELATION_STANDARD.md",
+                       "systemMatrix":  "allagma-dotnet/docs/system/SYSTEM_TRACE_CONTEXT_MATRIX.md",
+                       "kanonHeaders":  "kanon-dotnet/docs/integrations/IDEMPOTENCY_AND_TRACE_HEADERS.md"
+                   },
+    "safety":  {
+                   "realProviderKeys":  "no",
+                   "realExternalExecution":  "disabled",
+                   "productionReadiness":  "not_claimed",
+                   "secretsRedacted":  true,
+                   "tokensLoadedFromEnvFile":  true
+               }
+}

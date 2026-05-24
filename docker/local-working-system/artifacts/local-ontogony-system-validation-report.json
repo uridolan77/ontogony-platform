@@ -1,0 +1,84 @@
+﻿{
+    "schema":  "local-ontogony-system-validation-report-v1",
+    "generatedAtUtc":  "2026-05-23T06:41:33.3501255Z",
+    "verdict":  "PASS",
+    "boundary":  "Docker-local operator system; not production readiness",
+    "devRoot":  "C:\\dev",
+    "platformRoot":  "C:\\dev\\ontogony-platform",
+    "guidedReportPath":  "C:\\dev\\ontogony-platform\\docker\\local-working-system\\artifacts\\docker-guided-main-flow-report.json",
+    "demoIdsPath":  "C:\\dev\\ontogony-platform\\docker\\local-working-system\\artifacts\\operator-v1-demo-ids.json",
+    "includeEvidenceSpineLive":  false,
+    "gates":  [
+                  {
+                      "name":  "six-repo-workspace",
+                      "verdict":  "pass",
+                      "detail":  "",
+                      "artifactPath":  ""
+                  },
+                  {
+                      "name":  "runtime-health",
+                      "verdict":  "pass",
+                      "detail":  "",
+                      "artifactPath":  ""
+                  },
+                  {
+                      "name":  "governed-demo-flow-report",
+                      "verdict":  "pass",
+                      "detail":  "",
+                      "artifactPath":  "C:\\dev\\ontogony-platform\\docker\\local-working-system\\artifacts\\docker-guided-main-flow-report.json"
+                  },
+                  {
+                      "name":  "allagma-run-audit-evidence",
+                      "verdict":  "pass",
+                      "detail":  "",
+                      "artifactPath":  "C:\\dev\\ontogony-platform\\docker\\local-working-system\\artifacts\\docker-guided-main-flow-report.json"
+                  },
+                  {
+                      "name":  "kanon-decision-provenance",
+                      "verdict":  "pass",
+                      "detail":  "",
+                      "artifactPath":  "C:\\dev\\ontogony-platform\\docker\\local-working-system\\artifacts\\docker-guided-main-flow-report.json"
+                  },
+                  {
+                      "name":  "conexus-model-call-evidence",
+                      "verdict":  "pass",
+                      "detail":  "",
+                      "artifactPath":  "C:\\dev\\ontogony-platform\\docker\\local-working-system\\artifacts\\docker-guided-main-flow-report.json"
+                  },
+                  {
+                      "name":  "trace-correlation-visibility",
+                      "verdict":  "pass",
+                      "detail":  "",
+                      "artifactPath":  "C:\\dev\\ontogony-platform\\docker\\local-working-system\\artifacts\\trace-contract-001-evidence-report.json"
+                  },
+                  {
+                      "name":  "operator-demo-ids",
+                      "verdict":  "pass",
+                      "detail":  "",
+                      "artifactPath":  "C:\\dev\\ontogony-platform\\docker\\local-working-system\\artifacts\\operator-v1-demo-ids.json"
+                  },
+                  {
+                      "name":  "operator-settings-route",
+                      "verdict":  "pass",
+                      "detail":  "",
+                      "artifactPath":  ""
+                  },
+                  {
+                      "name":  "frontend-service-reachability",
+                      "verdict":  "pass",
+                      "detail":  "",
+                      "artifactPath":  "C:\\dev\\ontogony-platform\\docker\\local-working-system\\artifacts\\fe-harden-001-frontend-evidence-report.json"
+                  },
+                  {
+                      "name":  "evidence-spine-backing-data",
+                      "verdict":  "pass",
+                      "detail":  "",
+                      "artifactPath":  "C:\\dev\\ontogony-platform\\docker\\local-working-system\\artifacts\\evidence-spine-008a-live-api-preflight.json"
+                  }
+              ],
+    "safety":  {
+                   "realProviderKeys":  "no",
+                   "realExternalExecution":  "disabled",
+                   "productionReadiness":  "not_claimed"
+               }
+}

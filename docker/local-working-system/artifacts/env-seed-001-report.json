@@ -1,0 +1,50 @@
+﻿{
+    "schema":  "env-seed-001-report-v1",
+    "generatedAtUtc":  "2026-05-23T06:41:20.6894884Z",
+    "verdict":  "PASS",
+    "boundary":  "first Dockerized local working system, not production readiness",
+    "verificationMode":  "host-local-api",
+    "dockerComposeNetworkingVerified":  false,
+    "services":  {
+                     "allagmaBaseUrl":  "http://localhost:5083",
+                     "kanonBaseUrl":  "http://localhost:5081",
+                     "conexusBaseUrl":  "http://localhost:5082"
+                 },
+    "bootstrap":  {
+                      "projectId":  "dev-project",
+                      "alias":  "gpt-4o-mini",
+                      "providerKey":  "fake",
+                      "warnings":  [
+                                       "Project already existed; skipped duplicate create.",
+                                       "Project already had API keys; skipped issuing a new key."
+                                   ],
+                      "conexusReadinessStatusAfterBootstrap":  503
+                  },
+    "runs":  {
+                 "baselineRunId":  "run_af237b28cf55444dab2f271d7bddea30",
+                 "subjectRunId":  "run_fcde6bdd7fe541a99dfcb6cc40e16069",
+                 "baselineModelCallId":  "chatcmpl-0HNLMJJQFVG3N-00000002",
+                 "subjectModelCallId":  "chatcmpl-0HNLMJJQFVG3N-00000003"
+             },
+    "topology":  {
+                     "baselineSelectedTopology":  "single_workflow",
+                     "baselineTopologyAuthorizationDecisionId":  null,
+                     "subjectSelectedTopology":  "centralized_orchestrator",
+                     "subjectTopologyAuthorizationDecisionId":  "decision_6be7b20061584580bf9b6ab8e0fe3e15"
+                 },
+    "routeEvidence":  {
+                          "baselineRouteDecisionId":  "rd-0HNLMJJQFVG3N-00000002",
+                          "subjectRouteDecisionId":  "rd-0HNLMJJQFVG3N-00000003",
+                          "baselineRouteDecisionFound":  true,
+                          "subjectRouteDecisionFound":  true
+                      },
+    "evaluations":  {
+                        "scenarioId":  "scenario-risk-summary-v0",
+                        "evaluationProfileId":  "eval-profile-v0",
+                        "baselineEvaluationRunId":  "eval_67336b0dce5a4aaa8fd4ed6eeb409557",
+                        "subjectEvaluationRunId":  "eval_79f41d7cc7ef4c849675a86ce3f73ce6",
+                        "baselineEvaluationCount":  1,
+                        "subjectEvaluationCount":  1,
+                        "baselineComparisonId":  "cmp_2201a1cc17644c1ea43aa1f5550bb772"
+                    }
+}

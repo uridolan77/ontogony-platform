@@ -1,0 +1,31 @@
+﻿{
+    "schema":  "docker-guided-main-flow-report-v1",
+    "generatedAtUtc":  "2026-05-23T06:41:26.4253024Z",
+    "verdict":  "PASS",
+    "boundary":  "first Dockerized local working system, not production readiness",
+    "verificationMode":  "docker-compose-host-local-api",
+    "services":  {
+                     "kanonBaseUrl":  "http://localhost:5081",
+                     "conexusBaseUrl":  "http://localhost:5082",
+                     "allagmaBaseUrl":  "http://localhost:5083"
+                 },
+    "baselineRunId":  "run_af237b28cf55444dab2f271d7bddea30",
+    "subjectRunId":  "run_fcde6bdd7fe541a99dfcb6cc40e16069",
+    "subjectTopologyAuthorizationDecisionId":  "decision_6be7b20061584580bf9b6ab8e0fe3e15",
+    "baselineRouteDecisionId":  "rd-0HNLMJJQFVG3N-00000002",
+    "subjectRouteDecisionId":  "rd-0HNLMJJQFVG3N-00000003",
+    "baselineEvaluationRunId":  "eval_67336b0dce5a4aaa8fd4ed6eeb409557",
+    "subjectEvaluationRunId":  "eval_79f41d7cc7ef4c849675a86ce3f73ce6",
+    "baselineComparisonId":  "cmp_2201a1cc17644c1ea43aa1f5550bb772",
+    "restart":  {
+                    "service":  "allagma-api",
+                    "restarted":  true,
+                    "restartPersistencePassed":  true
+                },
+    "seedReportPath":  "C:\\dev\\ontogony-platform\\docker\\local-working-system\\artifacts\\env-seed-001-report.json",
+    "safety":  {
+                   "realProviderKeys":  "no",
+                   "realExternalExecution":  "disabled",
+                   "productionReadiness":  "not_claimed"
+               }
+}
