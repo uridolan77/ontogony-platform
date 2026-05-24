@@ -73,7 +73,7 @@ Opened via `/system/agent-interaction?runId={runId}`.
 
 - Workbench rendered (`agent-interaction-workbench` visible)
 - No "fixture replay" text in status header
-- Status header shows "live stream" or "API-synthesized replay"
+- Status header shows "live stream" or "live lookup"
 - No `run-demo-001` text on page
 - Live `runId` visible in status header
 - `agent-interaction-live-summary` visible and contains `summarize-player-risk`, `gaming-core@0.1.0`

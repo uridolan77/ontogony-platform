@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "operator-diagnostics.v1",
+  "generatedAtUtc": "2026-05-24T00:00:00Z",
+  "privacy": {
+    "containsClientDiagnostics": true,
+    "containsRawSecrets": false,
+    "redactionApplied": true,
+    "clientFields": [
+      "userAgent",
+      "viewport",
+      "timezone"
+    ],
+    "secretHandling": "raw secrets omitted"
+  },
+  "settings": {
+    "credentials": [
+      {
+        "name": "conexusProjectApiKey",
+        "configured": true,
+        "source": "local_browser",
+        "rawValueIncluded": false
+      }
+    ],
+    "actor": {
+      "currentActorId": "local-operator",
+      "currentRoles": [
+        "Admin"
+      ],
+      "selectedPreset": "local_admin"
+    }
+  }
+}

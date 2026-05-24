@@ -1,0 +1,41 @@
+{
+  "package": "SETTINGS-SECURITY-UX-001",
+  "createdAt": "2026-05-24T00:00:00Z",
+  "purpose": "Operator settings, credential, actor-role, redaction, diagnostics, and local-security UX hardening.",
+  "workstreams": [
+    "Credential-source taxonomy",
+    "Warning consolidation",
+    "Actor role presets",
+    "Kanon actor wording cleanup",
+    "Capability summary",
+    "Conexus Assistance redaction preview",
+    "Safe sample context",
+    "Diagnostics privacy metadata",
+    "Actor provenance labels",
+    "Execution posture and kill-switch display",
+    "Model purpose / alias naming precision"
+  ],
+  "priority": "P1",
+  "nonGoals": [
+    "Production IAM",
+    "Real external execution",
+    "Secret vault implementation",
+    "OIDC/RBAC redesign"
+  ],
+  "acceptanceSummary": [
+    "No bare unknown source",
+    "No repeated credential warnings",
+    "No secret-looking assistance sample",
+    "Redaction preview before assistance",
+    "Diagnostics export has privacy metadata and no raw secrets",
+    "Actor presets available and clear",
+    "Kanon pages avoid Allagma defaults/trusts headers wording",
+    "Current and historical actors labeled distinctly"
+  ],
+  "forbiddenLiveUiPhrases": [
+    "unknown source",
+    "Allagma defaults",
+    "Kanon trusts headers",
+    "secret-live-key"
+  ]
+}
