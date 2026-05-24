@@ -24,6 +24,12 @@ Operators paste one identifier and expect the console to resolve the governed ex
 | `kanonDecisionId` | decision record id | Kanon | `GET /ontology/v0/decision-records/{decisionId}` |
 | `planningDecisionId` | planning decision id | Kanon / Allagma | Same store as decision records |
 | `humanGateId` | `gate_…`, `pause_…` | Allagma / Kanon | Allagma run events (no direct GET by gate id today) |
+| `sourceBindingId` | `binding_…` | Kanon | `GET /ontology/v0/source-bindings` (match `bindingId`) |
+| `ontologyVersionId` | `gaming-core@0.1.0` | Kanon | `GET /ontology/v0/semantic-graph?ontologyVersionId=…` |
+| `canonicalFactId` | `fact-…` | Kanon | `GET /ontology/v0/canonical-facts/{factId}` |
+| `semanticPlanId` | `sqp-…`, `plan-…` | Kanon | `GET /ontology/v0/semantic-query-plans/{planId}` |
+| `semanticQualitySnapshotId` | `snap-…`, `squal-…` | Kanon | `GET /ontology/v0/semantic-quality/snapshots/{snapshotId}` |
+| `operatorReviewItemId` | `rev-…`, `review-…` | Kanon | `GET /ontology/v0/review-queue/{reviewItemId}` |
 | `datasetId` | `scenario-dataset-v0` | Allagma eval | `GET /allagma/v0/evaluation-datasets/{datasetId}` |
 | `scenarioId` | `scenario-risk-summary-v0` | Allagma eval | Eval list filters |
 | `allagmaReplayId` | `replay_…` | Allagma | `GET /allagma/v0/replay/requests/{replayId}` |

@@ -49,7 +49,7 @@ These kinds must resolve without throwing; missing downstream data becomes **exp
 | `humanGateId` | Kanon / Allagma | Run events + semantic graph |
 | `domainPackId` | Kanon | Semantic graph + pack evolution decisions |
 
-Additional supported roots (Evidence Spine v1): `allagmaEvaluationRunId`, `baselineComparisonId`, `planningDecisionId`, `sourceBindingId`, `datasetId`, `scenarioId`.
+Additional supported roots (Evidence Spine v1): `allagmaEvaluationRunId`, `baselineComparisonId`, `planningDecisionId`, `sourceBindingId`, `ontologyVersionId`, `canonicalFactId`, `semanticPlanId`, `semanticQualitySnapshotId`, `operatorReviewItemId`, `datasetId`, `scenarioId`.
 
 ## Resolution algorithm (summary)
 

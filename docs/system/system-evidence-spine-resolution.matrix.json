@@ -101,6 +101,68 @@
       "kanonHandoffId": "domain_pack_evolution"
     },
     {
+      "kind": "sourceBindingId",
+      "owner": "kanon-dotnet",
+      "resolverRoot": true,
+      "routes": [
+        { "method": "GET", "path": "/ontology/v0/source-bindings", "role": "primary", "note": "List filter; detail by bindingId match" }
+      ],
+      "operatorHref": "/kanon/source-bindings?bindingId={sourceBindingId}",
+      "kanonHandoffId": "source_binding"
+    },
+    {
+      "kind": "ontologyVersionId",
+      "owner": "kanon-dotnet",
+      "resolverRoot": true,
+      "routes": [
+        { "method": "GET", "path": "/ontology/v0/semantic-graph", "role": "primary", "query": "ontologyVersionId={ontologyVersionId}" }
+      ],
+      "operatorHref": "/kanon/ontologies?versionId={ontologyVersionId}",
+      "kanonHandoffId": "ontology_version_graph"
+    },
+    {
+      "kind": "canonicalFactId",
+      "owner": "kanon-dotnet",
+      "resolverRoot": true,
+      "routes": [
+        { "method": "GET", "path": "/ontology/v0/canonical-facts/{factId}", "role": "primary", "clientHook": "getKanonCanonicalFactHistoryItem" },
+        { "method": "GET", "path": "/ontology/v0/semantic-graph", "role": "expand", "query": "entityRef from fact detail" }
+      ],
+      "operatorHref": "/kanon/facts?factId={canonicalFactId}",
+      "kanonHandoffId": "canonical_fact"
+    },
+    {
+      "kind": "semanticPlanId",
+      "owner": "kanon-dotnet",
+      "resolverRoot": true,
+      "routes": [
+        { "method": "GET", "path": "/ontology/v0/semantic-query-plans/{planId}", "role": "primary", "clientHook": "getKanonSemanticPlanHistoryItem" }
+      ],
+      "operatorHref": "/kanon/plans?planId={semanticPlanId}",
+      "kanonHandoffId": "semantic_plan"
+    },
+    {
+      "kind": "semanticQualitySnapshotId",
+      "owner": "kanon-dotnet",
+      "resolverRoot": true,
+      "routes": [
+        { "method": "GET", "path": "/ontology/v0/semantic-quality/snapshots/{snapshotId}", "role": "primary", "clientHook": "getKanonSemanticQualitySnapshot" },
+        { "method": "GET", "path": "/ontology/v0/decision-records/{decisionId}", "role": "expand", "note": "snapshot.decisionRecordId" }
+      ],
+      "operatorHref": "/kanon/decisions?decisionId={decisionRecordId}",
+      "kanonHandoffId": "semantic_quality_snapshot"
+    },
+    {
+      "kind": "operatorReviewItemId",
+      "owner": "kanon-dotnet",
+      "resolverRoot": true,
+      "routes": [
+        { "method": "GET", "path": "/ontology/v0/review-queue/{reviewItemId}", "role": "primary", "clientHook": "getKanonOperatorReviewQueueItem" }
+      ],
+      "operatorHref": "/kanon/review-queue?reviewItemId={operatorReviewItemId}",
+      "kanonHandoffId": "operator_review_item"
+    },
+    {
       "kind": "conexusModelCallId",
       "aliases": ["modelCallId"],
       "owner": "conexus-dotnet",
