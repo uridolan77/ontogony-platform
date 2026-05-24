@@ -1,8 +1,8 @@
-# GOVERNED-FAKE-E2E-001 — Evidence Closure
+# GOVERNED-FAKE-E2E-001 — Evidence Closure (initial)
 
-**Status:** PASS  
+**Status:** PASS (superseded for closure index by [GOVERNED_FAKE_E2E_001_PASS_20260524T102932Z.md](./GOVERNED_FAKE_E2E_001_PASS_20260524T102932Z.md))  
 **Timestamp:** 2026-05-23T23:22:55Z  
-**Package:** `GOVERNED_FAKE_E2E_001_Cursor_Package_2026-05-24`
+**Package:** `GOVERNED_FAKE_E2E_001_Cursor_Package_2026-05-24` (consumed under `docs/_incoming/_consumed/`)
 
 ---
 

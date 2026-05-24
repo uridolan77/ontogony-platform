@@ -51,6 +51,8 @@
 
 Platform gate verification only: [`evidence/README.md`](./evidence/README.md).
 
+**GOVERNED-FAKE-E2E-001** — passed locally (smoke + Docker-live Playwright); see [`evidence/GOVERNED_FAKE_E2E_001_PASS_20260524T102932Z.md`](./evidence/GOVERNED_FAKE_E2E_001_PASS_20260524T102932Z.md).
+
 System runtime baseline: [`allagma-dotnet/docs/evidence/README.md`](https://github.com/uridolan77/allagma-dotnet/blob/main/docs/evidence/README.md).
 
 ---
