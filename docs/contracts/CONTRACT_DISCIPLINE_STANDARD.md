@@ -253,6 +253,14 @@ npm run contracts:service-parity
 npm run contracts:discipline
 ```
 
+Platform wrapper:
+
+```text
+ontogony-platform/scripts/check/check-contract-discipline.ps1 -Mode local-advisory
+```
+
+Modes: `local-advisory` (default), `manual-ci`, `runtime-lock`, `pr-gate`. Strict modes require sibling backend inventories and treat advisory skips as failures.
+
 A route is **flagged** when any of these hold:
 
 ```text
@@ -315,7 +323,7 @@ This slice is complete when:
 - [x] `docs/contracts/CONTRACT_DISCIPLINE_STANDARD.md` exists with all canonical classifications
 - [x] A developer can classify any endpoint using the four dimensions and derived disposition
 - [x] Classifications map to known artifacts (inventory, OpenAPI, catalog, client usage, manual DTO register)
-- [ ] Later slices 001B–001F reference this doc as the vocabulary source
+- [x] Later slices 001B–001F reference this doc as the vocabulary source
 
 ---
 
@@ -360,6 +368,21 @@ This slice is complete when:
 
 ---
 
+## Acceptance (CONTRACT-DISCIPLINE-001F)
+
+This slice is complete when:
+
+- [x] `npm run contracts:service-parity` bundles Allagma, Conexus, and Kanon route + operator UI parity checks
+- [x] `npm run contracts:discipline` runs OpenAPI, client routes, manual DTO shims, service parity, route-client drift, inventory, and readiness checks
+- [x] `ontogony-platform/scripts/check/check-contract-discipline.ps1` exposes explicit modes (`local-advisory`, `manual-ci`, `runtime-lock`, `pr-gate`)
+- [x] Strict modes fail when sibling backend inventories are missing or parity steps skip
+- [x] `docs/contracts/API_CONTRACT_SOURCE_OF_TRUTH.md` documents artifact precedence
+- [x] `docs/contracts/UI_API_COVERAGE_MATRIX.md` indexes generated service coverage docs
+- [x] `docs/contracts/MANUAL_DTO_SHIM_POLICY.md` documents shim registration policy
+- [x] `docs/generated/contract-discipline.summary.json` emitted on gate runs
+
+---
+
 ## Program slices (forward reference)
 
 | Slice | Scope |
@@ -381,6 +404,9 @@ This slice is complete when:
 | [`MECHANICAL_PROTOCOL_REGISTRY.md`](./MECHANICAL_PROTOCOL_REGISTRY.md) | Trace, headers, errors — not API route taxonomy |
 | [`ONTOGONY_SIX_REPO_COMPATIBILITY_LOCK.md`](./ONTOGONY_SIX_REPO_COMPATIBILITY_LOCK.md) | Version lock across repos |
 | `ontogony-frontend/docs/generated/ROUTE_WORKFLOW_INVENTORY.md` | Generated UI ↔ backend map |
+| [`API_CONTRACT_SOURCE_OF_TRUTH.md`](./API_CONTRACT_SOURCE_OF_TRUTH.md) | Artifact precedence ladder |
+| [`UI_API_COVERAGE_MATRIX.md`](./UI_API_COVERAGE_MATRIX.md) | Generated service coverage index |
+| [`MANUAL_DTO_SHIM_POLICY.md`](./MANUAL_DTO_SHIM_POLICY.md) | Handwritten DTO registration policy |
 | Kanon [`ONTOLOGY_V0_ROUTE_AUTH_MATRIX.md`](https://github.com/uridolan77/kanon-dotnet/blob/main/docs/architecture/ONTOLOGY_V0_ROUTE_AUTH_MATRIX.md) | Reference inventory discipline |
 
 ---
