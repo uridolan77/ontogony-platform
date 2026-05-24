@@ -1,6 +1,6 @@
 Below is the **dev plan from the current point forward**.
 
-**2026-05-24 update:** `SETTINGS-SECURITY-UX-001` implemented. **`EVAL-EVIDENCE-QUALITY-001` implemented**. **`RELEASE-READINESS-TRUTH-001` implemented**. **`RUNTIME-LOCK-CI-GOVERNED-E2E-001` implemented** (Stage 2–3: canonical governed-fake-e2e artifacts, one-command local proof, lock pointer, `-RequireGovernedFakeE2eEvidence`, manual GH workflow). **`001A`:** committed baseline under `docs/evidence/artifacts/` (`.gitignore` scoped to `/artifacts/` only). **`DOMAIN-SWITCHER-001` implemented** in `ontogony-frontend`. **`KANON-UI-API-PARITY-001` closed** (Phase 10 — OpenAPI resync, DTO shim removal, schema coverage test, route usage taxonomy, Domain Switcher Docker smoke PASS).
+**2026-05-24 update:** `SETTINGS-SECURITY-UX-001` implemented. **`EVAL-EVIDENCE-QUALITY-001` implemented**. **`RELEASE-READINESS-TRUTH-001` implemented**. **`RUNTIME-LOCK-CI-GOVERNED-E2E-001` implemented** (Stage 2–3: canonical governed-fake-e2e artifacts, one-command local proof, lock pointer, `-RequireGovernedFakeE2eEvidence`, manual GH workflow). **`001A`:** committed baseline under `docs/evidence/artifacts/` (`.gitignore` scoped to `/artifacts/` only). **`DOMAIN-SWITCHER-001` implemented** in `ontogony-frontend`. **`KANON-UI-API-PARITY-001` closed** (Phase 10 — evidence [`docs/evidence/KANON_UI_API_PARITY_001_PASS_20260524T162641Z.md`](../evidence/KANON_UI_API_PARITY_001_PASS_20260524T162641Z.md)).
 
 The current foundation is good: Agent Interaction has already shifted from “API synthesis” to **Live lookup**, fixture/imported/live source labels are now explicit, and the Docker-live E2E checks were strengthened around tool intents, message stream, and interaction panels.  The provider side is also now much richer: the test expects the live provider panel to show `fake` / `fake.chat`, and the live summary to show `summarize-player-risk` and `gaming-core@0.1.0`.  Platform docs were also updated to match the new “live lookup” terminology. 
 
@@ -1023,7 +1023,9 @@ Proves on live stack:
   Start Run / Evidence Spine domain sync; Source Bindings context card sync
   (select only when target is a published ontology version)
   Report: docker/local-working-system/artifacts/domain-switcher-docker-live-smoke-report.json
-  Verdict: PASS (2026-05-24)
+  Evidence: docs/evidence/KANON_UI_API_PARITY_001_PASS_20260524T162641Z.md
+  Artifact: docs/evidence/artifacts/kanon-ui-api-parity-001/20260524T162641Z/
+  Verdict: PASS (2026-05-24T16:26:41Z — operator docker:smoke:domain-switcher)
 ```
 
 ## Acceptance
