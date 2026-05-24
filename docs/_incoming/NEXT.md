@@ -964,7 +964,7 @@ May extend `e2e/domain-switcher.spec.ts` or add `governed-fake-e2e` companion st
 1. 10.2 Resync snapshot + regenerate schema.ts        (highest signal, lowest risk) ✅ 2026-05-24
 2. 10.3 Drop provenance shim, then source-binding shim ✅ (2026-05-24)
 3. 10.4 Schema coverage test                          ✅ kanonClientSchemaCoverage.test.ts (2026-05-24)
-4. 10.1 Route taxonomy doc/column
+4. 10.1 Route taxonomy doc/column                     ✅ (2026-05-24)
 5. 10.5 Domain Switcher Docker smoke
 ```
 
@@ -987,6 +987,22 @@ KanonSourceBindingDto → components["schemas"]["SourceBindingContract"]
 SourceBindingListResponseDto → ListSourceBindingsResponse
 buildKanonSourceBindingContract helper for plan/summary synthesis (adapters/)
 Updated workbench + semantic plan adapters + tests
+```
+
+## Slice 003 closure (2026-05-24) — route usage taxonomy
+
+```text
+ontogony-frontend:
+  scripts/lib/kanon-operator-ui-routes.mjs — extract kanonClient METHOD + path signatures
+  npm run kanon:operator-ui-coverage:sync|check
+  docs/generated/KANON_OPERATOR_UI_ROUTE_COVERAGE.json
+  kanonOperatorUiRouteCoverage.test.ts
+
+kanon-dotnet:
+  docs/generated/ONTOLOGY_V0_OPERATOR_UI_COVERAGE.json (synced from frontend)
+  docs/generated/fragments/ontology-v0-route-usage-taxonomy.md — 4-axis table
+  OntologyV0RouteUsageTaxonomy.cs — SPA direct policy resolver
+  ONTOLOGY_V0_SERVER_ONLY_POLICY.md — ServerOnly ≠ operator UI forbidden
 ```
 
 ## Acceptance
