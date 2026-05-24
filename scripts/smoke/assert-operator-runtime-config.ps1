@@ -8,6 +8,50 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+
+$SecretKeyPattern = '(?i)secret|token|apikey|api_key|password|credential|bearer|authorization|openai|anthropic|gemini'
+$AllowedSecretLikeKeys = @(
+  'allowBrowserCredentialStorage',
+  'showLocalCredentialWarnings'
+)
+
+function Get-ForbiddenSecretKeyViolations {
+  param(
+    [Parameter(Mandatory = $true)]
+    $Value,
+    [string]$Path = ""
+  )
+
+  $violations = New-Object System.Collections.Generic.List[string]
+
+  function Visit($node, [string]$currentPath) {
+    if ($null -eq $node) { return }
+
+    if ($node -is [System.Collections.IEnumerable] -and $node -isnot [string]) {
+      $index = 0
+      foreach ($item in $node) {
+        Visit $item "$currentPath[$index]"
+        $index++
+      }
+      return
+    }
+
+    if ($node -is [System.Management.Automation.PSCustomObject]) {
+      foreach ($prop in $node.PSObject.Properties) {
+        $key = [string]$prop.Name
+        $nextPath = if ($currentPath) { "$currentPath.$key" } else { $key }
+        if ($key -match $SecretKeyPattern -and $AllowedSecretLikeKeys -notcontains $key) {
+          [void]$violations.Add("Forbidden secret-like key: $nextPath")
+        }
+        Visit $prop.Value $nextPath
+      }
+    }
+  }
+
+  Visit $Value $Path
+  return ,$violations
+}
+
 $url = "$($BaseUrl.TrimEnd('/'))/operator-runtime-config.json"
 Write-Host "Fetching $url"
 $response = Invoke-WebRequest -Uri $url -UseBasicParsing
@@ -20,7 +64,13 @@ if ($cacheControl -notmatch "no-store|no-cache") {
   throw "Expected no-cache Cache-Control header, got '$cacheControl'"
 }
 
-$config = $response.Content | ConvertFrom-Json
+$config = $response.Content | ConvertFrom-Json -ErrorAction SilentlyContinue
+if (-not $config) {
+  if ($response.Content -match '(?i)<!doctype html|<html') {
+    throw "Runtime config URL returned HTML (SPA fallback). Rebuild/restart ontogony-frontend with nginx runtime-config route and mounted operator-runtime-config.json."
+  }
+  throw "Runtime config response is not valid JSON."
+}
 if ($config.configSchema -ne "ontogony.operator-runtime-config.v1") {
   throw "Unexpected configSchema: $($config.configSchema)"
 }
@@ -40,9 +90,9 @@ if ($config.services.allagma.baseUrl -ne $ExpectedAllagmaBaseUrl) {
   throw "Expected Allagma URL '$ExpectedAllagmaBaseUrl', got '$($config.services.allagma.baseUrl)'"
 }
 
-$raw = $response.Content
-if ($raw -match '(?i)(apiKey|api_key|secret|token|password|credential|openai|anthropic)') {
-  throw "Runtime config appears to contain forbidden secret-like keys"
+$secretViolations = Get-ForbiddenSecretKeyViolations -Value $config
+if ($secretViolations.Count -gt 0) {
+  throw ("Runtime config contains forbidden secret-like keys:`n  - " + ($secretViolations -join "`n  - "))
 }
 
 Write-Host "Runtime config smoke passed for $url"

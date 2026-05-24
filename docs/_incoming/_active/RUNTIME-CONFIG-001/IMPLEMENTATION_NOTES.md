@@ -73,10 +73,16 @@ RUNTIME-CONFIG-001 — Ontogony Operator Runtime Configuration
 - Full acceptance checklist: **partially closed**
 
 ## Deferred / follow-up
-1. Add `e2e/runtime-config-docker-live.spec.ts` and run docker-live matrix when stack is up.
-2. Run `assert-operator-runtime-config.ps1` against live frontend on `:5175`.
-3. Resolve pre-existing `allagma:route-parity` replay route drift (unrelated to this package).
-4. Add `LOCAL_PROFILE.md`, `DOCKER_LOCAL_PROFILE.md`, `CUSTOM_STACK_PROFILE.md` if fuller docs are wanted.
+1. Run `npm run test:e2e:docker-live:runtime-config` when docker-local stack is up (spec added in 001A).
+2. Resolve pre-existing `allagma:route-parity` replay route drift (unrelated to this package).
+3. Add `LOCAL_PROFILE.md`, `DOCKER_LOCAL_PROFILE.md`, `CUSTOM_STACK_PROFILE.md` if fuller docs are wanted.
+4. Provider persist-on-mount may promote `legacy-local` to `local-override` after boot — follow-up if undesired.
+
+## RUNTIME-CONFIG-001A (closure hardening)
+- Fixed `assert-operator-runtime-config.ps1` false positive: recursive key validation with allowlist (matches frontend validator).
+- Added `e2e/runtime-config-docker-live.spec.ts` and `npm run test:e2e:docker-live:runtime-config`.
+- Fixed `serviceBaseUrlProvenanceModel` UI type mapping for `configSource`.
+
 
 ## Known caveats
 - Windows bind-mount refresh may require frontend container restart (not image rebuild).
