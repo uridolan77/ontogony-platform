@@ -1,0 +1,125 @@
+{
+  "schema": "domain-switcher-docker-live-smoke-report-v1",
+  "recordedAtUtc": "2026-05-24T15:54:29.268Z",
+  "baselineOntologyVersionId": "gaming-core@0.1.0",
+  "alternateOntologyVersionId": "gaming-core@0.2.0",
+  "liveDomainContext": {
+    "packs": [
+      {
+        "packId": "gaming-core",
+        "name": "Gaming Core",
+        "version": "0.1.0",
+        "ontologyVersionId": "gaming-core@0.1.0",
+        "lastLoadStatus": "loaded",
+        "lastDecisionId": "decision_71a46f5f6d59427188adfbaa37f21273",
+        "contentHash": "2a183b3ef4ea5b42a52f510fb5ee1c46bdaf454859e74719587e40c82861d088",
+        "lastLoadedAt": "2026-05-20T07:12:04.220467+00:00",
+        "lifecycleStatus": "active",
+        "isActivePackVersion": true
+      },
+      {
+        "packId": "gaming-core-bump",
+        "name": "Gaming Core Bump",
+        "version": "0.2.0",
+        "ontologyVersionId": "gaming-core@0.2.0",
+        "lastLoadStatus": "never_loaded",
+        "lastDecisionId": null,
+        "contentHash": null,
+        "lastLoadedAt": null,
+        "lifecycleStatus": null,
+        "isActivePackVersion": null
+      }
+    ],
+    "active": [
+      {
+        "packId": "gaming-core",
+        "packSemanticVersion": "0.1.0",
+        "ontologyVersionId": "gaming-core@0.1.0",
+        "packHash": "2a183b3ef4ea5b42a52f510fb5ee1c46bdaf454859e74719587e40c82861d088",
+        "lastValidateDecisionId": "decision_9c9895901d1b49b6a67aac0679c4cdd9",
+        "lastPromotionDecisionId": null,
+        "lastLoadDecisionId": "decision_71a46f5f6d59427188adfbaa37f21273",
+        "activatedAt": "2026-05-20T07:12:04.234561+00:00"
+      },
+      {
+        "packId": "pg-lifecycle-f401556665c244afaacafc87d77108f8",
+        "packSemanticVersion": "1.0.0",
+        "ontologyVersionId": "ontology-pg-lifecycle-f401556665c244afaacafc87d77108f8",
+        "packHash": "abc123hash",
+        "lastValidateDecisionId": "validate-decision-1",
+        "lastPromotionDecisionId": "promo-accepted",
+        "lastLoadDecisionId": "load-decision-1",
+        "activatedAt": "2026-05-20T02:15:38.991195+00:00"
+      },
+      {
+        "packId": "pg-rehydrate-d321babcc17247918669d3528d58919c",
+        "packSemanticVersion": "3.0.0",
+        "ontologyVersionId": "ontology-pg-rehydrate-d321babcc17247918669d3528d58919c",
+        "packHash": "rehydrate-hash",
+        "lastValidateDecisionId": "validate-rehydrate",
+        "lastPromotionDecisionId": null,
+        "lastLoadDecisionId": "load-rehydrate",
+        "activatedAt": "2026-05-20T02:15:38.901248+00:00"
+      },
+      {
+        "packId": "pg-switch-fbb43c96cd0b4d1c9a6cbda469dc09e1",
+        "packSemanticVersion": "2.0.0",
+        "ontologyVersionId": "ontology-pg-switch-fbb43c96cd0b4d1c9a6cbda469dc09e1",
+        "packHash": "hash-v2",
+        "lastValidateDecisionId": null,
+        "lastPromotionDecisionId": null,
+        "lastLoadDecisionId": null,
+        "activatedAt": "2026-05-20T02:15:38.855593+00:00"
+      },
+      {
+        "packId": "pg-unique-a723479c9b414e6a87509f5007f77441",
+        "packSemanticVersion": "1.0.0",
+        "ontologyVersionId": "ontology-pg-unique-a723479c9b414e6a87509f5007f77441",
+        "packHash": "hash-a",
+        "lastValidateDecisionId": null,
+        "lastPromotionDecisionId": null,
+        "lastLoadDecisionId": null,
+        "activatedAt": "2026-05-20T02:15:38.933182+00:00"
+      }
+    ],
+    "ontologyVersionIds": [
+      "gaming-core@0.1.0",
+      "gaming-core@0.2.0",
+      "ontology-pg-lifecycle-f401556665c244afaacafc87d77108f8",
+      "ontology-pg-rehydrate-d321babcc17247918669d3528d58919c",
+      "ontology-pg-switch-fbb43c96cd0b4d1c9a6cbda469dc09e1",
+      "ontology-pg-unique-a723479c9b414e6a87509f5007f77441"
+    ]
+  },
+  "frontendBaseUrl": "http://localhost:5175",
+  "kanonBaseUrl": "http://localhost:5081",
+  "steps": [
+    {
+      "step": "kanon-domain-pack-api-preflight",
+      "passed": true,
+      "notes": [
+        "packs=2",
+        "active=5",
+        "ontologyVersions=gaming-core@0.1.0, gaming-core@0.2.0, ontology-pg-lifecycle-f401556665c244afaacafc87d77108f8, ontology-pg-rehydrate-d321babcc17247918669d3528d58919c, ontology-pg-switch-fbb43c96cd0b4d1c9a6cbda469dc09e1, ontology-pg-unique-a723479c9b414e6a87509f5007f77441"
+      ]
+    },
+    {
+      "step": "domain-switch-ui",
+      "passed": true,
+      "notes": [
+        "switched to gaming-core@0.2.0",
+        "conexus alias gpt-4o-mini"
+      ]
+    },
+    {
+      "step": "downstream-domain-sync",
+      "passed": true,
+      "notes": [
+        "start-run=gaming-core@0.2.0",
+        "source-bindings-context=gaming-core@0.2.0",
+        "evidence-spine=gaming-core@0.2.0"
+      ]
+    }
+  ],
+  "verdict": "PASS"
+}

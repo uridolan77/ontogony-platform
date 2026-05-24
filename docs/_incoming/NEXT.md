@@ -1,6 +1,6 @@
 Below is the **dev plan from the current point forward**.
 
-**2026-05-24 update:** `SETTINGS-SECURITY-UX-001` implemented. **`EVAL-EVIDENCE-QUALITY-001` implemented**. **`RELEASE-READINESS-TRUTH-001` implemented**. **`RUNTIME-LOCK-CI-GOVERNED-E2E-001` implemented** (Stage 2–3: canonical governed-fake-e2e artifacts, one-command local proof, lock pointer, `-RequireGovernedFakeE2eEvidence`, manual GH workflow). **`001A`:** committed baseline under `docs/evidence/artifacts/` (`.gitignore` scoped to `/artifacts/` only). **`DOMAIN-SWITCHER-001` implemented** in `ontogony-frontend` (operator shell domain switcher, Kanon-only settings patch, Start Run / Source Bindings / Evidence Spine sync; Conexus alias boundary preserved). **Next:** **`KANON-UI-API-PARITY-001`** — contract-layer hardening after domain switcher (route taxonomy, OpenAPI snapshot resync, DTO shim removal, Domain Switcher Docker smoke).
+**2026-05-24 update:** `SETTINGS-SECURITY-UX-001` implemented. **`EVAL-EVIDENCE-QUALITY-001` implemented**. **`RELEASE-READINESS-TRUTH-001` implemented**. **`RUNTIME-LOCK-CI-GOVERNED-E2E-001` implemented** (Stage 2–3: canonical governed-fake-e2e artifacts, one-command local proof, lock pointer, `-RequireGovernedFakeE2eEvidence`, manual GH workflow). **`001A`:** committed baseline under `docs/evidence/artifacts/` (`.gitignore` scoped to `/artifacts/` only). **`DOMAIN-SWITCHER-001` implemented** in `ontogony-frontend`. **`KANON-UI-API-PARITY-001` closed** (Phase 10 — OpenAPI resync, DTO shim removal, schema coverage test, route usage taxonomy, Domain Switcher Docker smoke PASS).
 
 The current foundation is good: Agent Interaction has already shifted from “API synthesis” to **Live lookup**, fixture/imported/live source labels are now explicit, and the Docker-live E2E checks were strengthened around tool intents, message stream, and interaction panels.  The provider side is also now much richer: the test expects the live provider panel to show `fake` / `fake.chat`, and the live summary to show `summarize-player-risk` and `gaming-core@0.1.0`.  Platform docs were also updated to match the new “live lookup” terminology. 
 
@@ -823,7 +823,7 @@ E2E: e2e/domain-switcher.spec.ts
 
 ---
 
-# Phase 10 — `KANON-UI-API-PARITY-001`
+# Phase 10 — `KANON-UI-API-PARITY-001` ✅ closed 2026-05-24
 
 ## Goal
 
@@ -965,7 +965,7 @@ May extend `e2e/domain-switcher.spec.ts` or add `governed-fake-e2e` companion st
 2. 10.3 Drop provenance shim, then source-binding shim ✅ (2026-05-24)
 3. 10.4 Schema coverage test                          ✅ kanonClientSchemaCoverage.test.ts (2026-05-24)
 4. 10.1 Route taxonomy doc/column                     ✅ (2026-05-24)
-5. 10.5 Domain Switcher Docker smoke
+5. 10.5 Domain Switcher Docker smoke                  ✅ (2026-05-24)
 ```
 
 ## Slice 001 closure (2026-05-24)
@@ -1003,6 +1003,27 @@ kanon-dotnet:
   docs/generated/fragments/ontology-v0-route-usage-taxonomy.md — 4-axis table
   OntologyV0RouteUsageTaxonomy.cs — SPA direct policy resolver
   ONTOLOGY_V0_SERVER_ONLY_POLICY.md — ServerOnly ≠ operator UI forbidden
+```
+
+## Slice 004 closure (2026-05-24) — Domain Switcher Docker smoke
+
+```text
+ontogony-frontend:
+  e2e/domain-switcher-docker-live.spec.ts
+  e2e/helpers/domainSwitcherDockerLive.ts
+  e2e/helpers/mockServices.ts — seedOperatorSettings { once: true } for cross-nav persistence
+  npm run test:e2e:docker-live:domain-switcher
+  npm run docker:smoke:domain-switcher (powershell, not pwsh)
+  playwright.docker-local.config.ts (testMatch)
+
+Proves on live stack:
+  GET /ontology/v0/domain-packs + /active (API preflight)
+  Domain switcher inventory + optional ontology switch (e.g. gaming-core@0.2.0 disk pack)
+  Kanon-only settings patch; Conexus alias unchanged
+  Start Run / Evidence Spine domain sync; Source Bindings context card sync
+  (select only when target is a published ontology version)
+  Report: docker/local-working-system/artifacts/domain-switcher-docker-live-smoke-report.json
+  Verdict: PASS (2026-05-24)
 ```
 
 ## Acceptance
@@ -1046,7 +1067,7 @@ LATER
   5. DOMAIN-SWITCHER-001 — closed (see Phase 9).
 
 NOW (post domain switcher)
-  6. KANON-UI-API-PARITY-001 — contract-layer hardening (see Phase 10).
+  6. KANON-UI-API-PARITY-001 — closed (Phase 10, 2026-05-24).
 ```
 
 ## Parallelization
@@ -1067,8 +1088,7 @@ Lane D:
   EVAL and RELEASE should wait until Agent Interaction and evidence artifacts stabilize
 
 Lane E:
-  KANON-UI-API-PARITY-001 (OpenAPI snapshot + kanonClient.ts) after DOMAIN-SWITCHER-001;
-  safe parallel with KANON-CONSOLE-POLISH if different files (avoid kanonClient + same adapters)
+  KANON-UI-API-PARITY-001 — closed 2026-05-24 (Phase 10).
 ```
 
 Avoid doing these in parallel:
@@ -1093,4 +1113,4 @@ If red:
 
 The next dev move depends on that one result.
 
-**Post domain switcher:** start **`KANON-UI-API-PARITY-001`** (Phase 10) — begin with OpenAPI snapshot resync and provenance DTO migration.
+**Post domain switcher:** **`KANON-UI-API-PARITY-001`** closed (Phase 10, 2026-05-24). Pick next package from `_CURRENT_PLAN.md` or incoming backlog.
