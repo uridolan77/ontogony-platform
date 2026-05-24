@@ -1,6 +1,6 @@
 ﻿{
     "schema":  "env-seed-001-report-v1",
-    "generatedAtUtc":  "2026-05-23T06:41:20.6894884Z",
+    "generatedAtUtc":  "2026-05-24T20:10:11.6211648Z",
     "verdict":  "PASS",
     "boundary":  "first Dockerized local working system, not production readiness",
     "verificationMode":  "host-local-api",
@@ -21,30 +21,30 @@
                       "conexusReadinessStatusAfterBootstrap":  503
                   },
     "runs":  {
-                 "baselineRunId":  "run_af237b28cf55444dab2f271d7bddea30",
-                 "subjectRunId":  "run_fcde6bdd7fe541a99dfcb6cc40e16069",
-                 "baselineModelCallId":  "chatcmpl-0HNLMJJQFVG3N-00000002",
-                 "subjectModelCallId":  "chatcmpl-0HNLMJJQFVG3N-00000003"
+                 "baselineRunId":  "run_be99f4a78211450fa83a8d293515e82f",
+                 "subjectRunId":  "run_ca185315fe084053bc494d63f230f529",
+                 "baselineModelCallId":  "chatcmpl-0HNLPLEUIFD34-00000001",
+                 "subjectModelCallId":  "chatcmpl-0HNLPLEUIFD34-00000002"
              },
     "topology":  {
                      "baselineSelectedTopology":  "single_workflow",
                      "baselineTopologyAuthorizationDecisionId":  null,
                      "subjectSelectedTopology":  "centralized_orchestrator",
-                     "subjectTopologyAuthorizationDecisionId":  "decision_6be7b20061584580bf9b6ab8e0fe3e15"
+                     "subjectTopologyAuthorizationDecisionId":  "decision_88b01e9d89424545a45149bf79ba6749"
                  },
     "routeEvidence":  {
-                          "baselineRouteDecisionId":  "rd-0HNLMJJQFVG3N-00000002",
-                          "subjectRouteDecisionId":  "rd-0HNLMJJQFVG3N-00000003",
+                          "baselineRouteDecisionId":  "rd-0HNLPLEUIFD34-00000001",
+                          "subjectRouteDecisionId":  "rd-0HNLPLEUIFD34-00000002",
                           "baselineRouteDecisionFound":  true,
                           "subjectRouteDecisionFound":  true
                       },
     "evaluations":  {
                         "scenarioId":  "scenario-risk-summary-v0",
                         "evaluationProfileId":  "eval-profile-v0",
-                        "baselineEvaluationRunId":  "eval_67336b0dce5a4aaa8fd4ed6eeb409557",
-                        "subjectEvaluationRunId":  "eval_79f41d7cc7ef4c849675a86ce3f73ce6",
+                        "baselineEvaluationRunId":  "eval_f6bbad0dbb14466dbbd17ce41fd69428",
+                        "subjectEvaluationRunId":  "eval_3b91433d47cb43aa98c66a9237c23bdd",
                         "baselineEvaluationCount":  1,
                         "subjectEvaluationCount":  1,
-                        "baselineComparisonId":  "cmp_2201a1cc17644c1ea43aa1f5550bb772"
+                        "baselineComparisonId":  "cmp_00c080600568454f92bc226720afb49c"
                     }
 }
