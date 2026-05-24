@@ -313,9 +313,9 @@ flowchart TD
 This slice is complete when:
 
 - [x] `docs/contracts/CONTRACT_DISCIPLINE_STANDARD.md` exists with all canonical classifications
-- [ ] A developer can classify any endpoint using the four dimensions and derived disposition
-- [ ] Classifications map to known artifacts (inventory, OpenAPI, catalog, client usage, manual DTO register)
-- [ ] Later slices (001B–001F) reference this doc as the vocabulary source
+- [x] A developer can classify any endpoint using the four dimensions and derived disposition
+- [x] Classifications map to known artifacts (inventory, OpenAPI, catalog, client usage, manual DTO register)
+- [ ] Later slices 001B–001F reference this doc as the vocabulary source
 
 ---
 
@@ -324,7 +324,7 @@ This slice is complete when:
 | Slice | Scope |
 | --- | --- |
 | **001A** | Standard + taxonomy (this document) |
-| **001B** | Client route usage extractor + manual DTO shim register |
+| **001B** | Client route usage extractor + manual DTO shim register (`ontogony-frontend`: `API_CLIENT_ROUTE_USAGE.json`, `MANUAL_DTO_SHIMS.md`, `client-routes:*`, `manual-dto-shims:*`) |
 | **001C** | Allagma route parity (`ALLAGMA-UI-API-PARITY-001`) |
 | **001D** | Conexus route parity (`CONEXUS-UI-API-PARITY-001`) |
 | **001E** | Kanon hardening (`KANON-UI-API-PARITY-001A`) |
