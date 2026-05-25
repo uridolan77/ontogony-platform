@@ -1,0 +1,55 @@
+﻿{
+    "schema":  "ontogony-governed-maf-e2e-summary-v1",
+    "generatedAtUtc":  "2026-05-25T17:47:25.5376441Z",
+    "verdict":  "PASS",
+    "scenario":  "GOVERNED-MAF-E2E-001",
+    "identifiers":  {
+                        "runId":  "run_26e7ced98e804bad9c3c44a3562c23c8",
+                        "traceId":  "cohesion-approve-6596dbaee99548e395921cc63ee4f7ee",
+                        "humanGateId":  "gate_c06e877220f546b6a85d1db9a47dbeff",
+                        "planningDecisionId":  "decision_ad41eb2935204d0c9dd1f874505a0da9",
+                        "modelCallId":  "chatcmpl-0HNLQBVR0ACLL-00000002",
+                        "replayId":  "replay_cf111b650cfa48b999540a64932cb7c6"
+                    },
+    "workflow":  {
+                     "workflowId":  "allagma.governed-spine-v1:run_26e7ced98e804bad9c3c44a3562c23c8",
+                     "workflowVersion":  "governed-spine-v1",
+                     "workflowCheckpointCount":  3,
+                     "workflowNodeCount":  10,
+                     "toolIntentBindingCount":  2,
+                     "governanceBindingCount":  3
+                 },
+    "replay":  {
+                   "replayId":  "replay_cf111b650cfa48b999540a64932cb7c6",
+                   "replayMode":  "evidence_only"
+               },
+    "evidence":  {
+                     "evidenceGraphVerdict":  "PASS",
+                     "evidenceGraphNodeCount":  7,
+                     "evidenceGraphEdgeCount":  10,
+                     "evidenceSpineBundle":  "evidence-spine-bundle.json",
+                     "legacyResultArtifact":  "governed-maf-e2e-result.json",
+                     "workflowNodeKinds":  [
+                                               "allagma.workflow",
+                                               "allagma.workflow_step",
+                                               "allagma.workflow_checkpoint"
+                                           ]
+                 },
+    "strict":  {
+                   "enabled":  true,
+                   "checkpointRunId":  "run_b6a4f4dfee0a47ec96f465f895163a64",
+                   "checkpointResumeOutcome":  "replay_recorded",
+                   "workflowResumeIdempotencyVerified":  true
+               },
+    "systemTruth":  {
+                        "status":  "not_run"
+                    },
+    "playwright":  {
+                       "status":  "not_run",
+                       "reportRelative":  ""
+                   },
+    "runtimeLock":  {
+                        "stage":  "local_proof",
+                        "note":  "Produced by ontogony-platform/scripts/smoke/run-runtime-lock-governed-maf-e2e.ps1 (MAF-LIVE-GOVERNED-E2E-001)"
+                    }
+}
