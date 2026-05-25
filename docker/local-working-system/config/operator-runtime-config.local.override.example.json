@@ -1,0 +1,10 @@
+{
+  "$comment": "Copy to operator-runtime-config.local.override.json (gitignored) to override host-visible API URLs without rebuilding the frontend image. Re-run write-operator-runtime-config.ps1 after edits.",
+  "environmentName": "Local Docker (custom ports)",
+  "profileName": "docker-local",
+  "services": {
+    "conexus": { "baseUrl": "http://localhost:6092" },
+    "kanon": { "baseUrl": "http://localhost:6091" },
+    "allagma": { "baseUrl": "http://localhost:6093" }
+  }
+}

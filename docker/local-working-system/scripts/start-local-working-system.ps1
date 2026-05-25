@@ -93,6 +93,11 @@ if (-not (Test-Path -LiteralPath $envFileToUse)) {
     Write-Warning "'.env' was not found. Using '.env.example' development placeholders."
 }
 
+if (-not $SkipFrontend) {
+    Write-Host "Generating operator runtime config for Docker nginx mount ..."
+    Write-DockerLocalOperatorRuntimeConfig -EnvFilePath $envFileToUse
+}
+
 $composeArgs = @(
     "compose",
     "--env-file", $envFileToUse,

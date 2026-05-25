@@ -449,3 +449,113 @@ function Read-DockerLocalRunReportIds {
 
     return [pscustomobject]$ids
 }
+
+function Write-DockerLocalOperatorRuntimeConfig {
+    param(
+        [string]$OutputPath = "",
+        [string]$EnvFilePath = "",
+        [string]$ProfileId = $(if ($env:FRONTEND_RUNTIME_PROFILE_ID) { $env:FRONTEND_RUNTIME_PROFILE_ID } else { "docker-local-nginx" }),
+        [string]$EnvironmentName = $(if ($env:FRONTEND_RUNTIME_ENVIRONMENT_NAME) { $env:FRONTEND_RUNTIME_ENVIRONMENT_NAME } else { "" }),
+        [string]$ConexusBaseUrl = $(if ($env:FRONTEND_RUNTIME_CONEXUS_BASE_URL) { $env:FRONTEND_RUNTIME_CONEXUS_BASE_URL } else { "" }),
+        [string]$KanonBaseUrl = $(if ($env:FRONTEND_RUNTIME_KANON_BASE_URL) { $env:FRONTEND_RUNTIME_KANON_BASE_URL } else { "" }),
+        [string]$AllagmaBaseUrl = $(if ($env:FRONTEND_RUNTIME_ALLAGMA_BASE_URL) { $env:FRONTEND_RUNTIME_ALLAGMA_BASE_URL } else { "" }),
+        [string]$KanonOntologyVersionId = $(if ($env:FRONTEND_RUNTIME_KANON_ONTOLOGY_VERSION_ID) { $env:FRONTEND_RUNTIME_KANON_ONTOLOGY_VERSION_ID } else { "" }),
+        [string]$ConexusProjectId = $(if ($env:FRONTEND_RUNTIME_CONEXUS_PROJECT_ID) { $env:FRONTEND_RUNTIME_CONEXUS_PROJECT_ID } else { "" }),
+        [string]$ConexusModelAlias = $(if ($env:FRONTEND_RUNTIME_CONEXUS_MODEL_ALIAS) { $env:FRONTEND_RUNTIME_CONEXUS_MODEL_ALIAS } else { "" })
+    )
+
+    $composeRoot = Get-DockerLocalComposeRoot
+    if ([string]::IsNullOrWhiteSpace($EnvFilePath)) {
+        $EnvFilePath = Get-DockerLocalEnvFilePath
+    }
+    if ([string]::IsNullOrWhiteSpace($OutputPath)) {
+        $OutputPath = Join-Path $composeRoot "generated\operator-runtime-config.json"
+    }
+
+    $kanonPort = Get-DotEnvValue -Path $EnvFilePath -Key "KANON_HOST_PORT" -DefaultValue "5081"
+    $conexusPort = Get-DotEnvValue -Path $EnvFilePath -Key "CONEXUS_HOST_PORT" -DefaultValue "5082"
+    $allagmaPort = Get-DotEnvValue -Path $EnvFilePath -Key "ALLAGMA_HOST_PORT" -DefaultValue "5083"
+
+    if ([string]::IsNullOrWhiteSpace($ConexusBaseUrl)) {
+        $ConexusBaseUrl = "http://localhost:$conexusPort"
+    }
+    if ([string]::IsNullOrWhiteSpace($KanonBaseUrl)) {
+        $KanonBaseUrl = "http://localhost:$kanonPort"
+    }
+    if ([string]::IsNullOrWhiteSpace($AllagmaBaseUrl)) {
+        $AllagmaBaseUrl = "http://localhost:$allagmaPort"
+    }
+    if ([string]::IsNullOrWhiteSpace($EnvironmentName)) {
+        $EnvironmentName = "Local Docker"
+    }
+    if ([string]::IsNullOrWhiteSpace($KanonOntologyVersionId)) {
+        $KanonOntologyVersionId = Get-DotEnvValue -Path $EnvFilePath -Key "FRONTEND_RUNTIME_KANON_ONTOLOGY_VERSION_ID" -DefaultValue ""
+        if ([string]::IsNullOrWhiteSpace($KanonOntologyVersionId)) {
+            $KanonOntologyVersionId = Get-DotEnvValue -Path $EnvFilePath -Key "FRONTEND_VITE_KANON_ONTOLOGY_VERSION_ID" -DefaultValue "gaming-core@0.1.0"
+        }
+    }
+    if ([string]::IsNullOrWhiteSpace($ConexusProjectId)) {
+        $ConexusProjectId = Get-DotEnvValue -Path $EnvFilePath -Key "FRONTEND_RUNTIME_CONEXUS_PROJECT_ID" -DefaultValue "dev-project"
+    }
+    if ([string]::IsNullOrWhiteSpace($ConexusModelAlias)) {
+        $ConexusModelAlias = Get-DotEnvValue -Path $EnvFilePath -Key "FRONTEND_RUNTIME_CONEXUS_MODEL_ALIAS" -DefaultValue "risk-summary-v0"
+    }
+
+    $profileNameOverride = $null
+    $overridePath = Join-Path $composeRoot "config\operator-runtime-config.local.override.json"
+    if (Test-Path -LiteralPath $overridePath) {
+        $override = Get-Content -Raw -LiteralPath $overridePath | ConvertFrom-Json
+        if ($override.environmentName) { $EnvironmentName = [string]$override.environmentName }
+        if ($override.profileName) { $profileNameOverride = [string]$override.profileName }
+        if ($override.services.conexus.baseUrl) { $ConexusBaseUrl = [string]$override.services.conexus.baseUrl }
+        if ($override.services.kanon.baseUrl) { $KanonBaseUrl = [string]$override.services.kanon.baseUrl }
+        if ($override.services.allagma.baseUrl) { $AllagmaBaseUrl = [string]$override.services.allagma.baseUrl }
+        if ($override.kanon.ontologyVersionId) { $KanonOntologyVersionId = [string]$override.kanon.ontologyVersionId }
+        if ($override.conexus.projectId) { $ConexusProjectId = [string]$override.conexus.projectId }
+        if ($override.conexus.modelAlias) { $ConexusModelAlias = [string]$override.conexus.modelAlias }
+    }
+
+    $frontendRoot = Get-FrontendRepoRoot
+    $generator = Join-Path $frontendRoot "scripts\runtime-config\generate-operator-runtime-config.mjs"
+    if (-not (Test-Path -LiteralPath $generator)) {
+        throw "Runtime config generator not found: $generator"
+    }
+
+    $resolvedOutput = [System.IO.Path]::GetFullPath($OutputPath)
+    $outDir = Split-Path -Parent $resolvedOutput
+    if (-not (Test-Path -LiteralPath $outDir)) {
+        New-Item -ItemType Directory -Path $outDir -Force | Out-Null
+    }
+
+    $gitSha = Get-DotEnvValue -Path $EnvFilePath -Key "FRONTEND_VITE_GIT_SHA" -DefaultValue "local"
+
+    $nodeArgs = @(
+        $generator,
+        "--profile", $ProfileId,
+        "--out", $resolvedOutput,
+        "--environment-name", $EnvironmentName,
+        "--conexus-url", $ConexusBaseUrl,
+        "--kanon-url", $KanonBaseUrl,
+        "--allagma-url", $AllagmaBaseUrl,
+        "--ontology", $KanonOntologyVersionId,
+        "--conexus-project-id", $ConexusProjectId,
+        "--model-alias", $ConexusModelAlias,
+        "--build-git-sha", $gitSha,
+        "--build-source", "ontogony-platform/docker/local-working-system",
+        "--build-description", "Docker local working system runtime defaults"
+    )
+    if (-not [string]::IsNullOrWhiteSpace($profileNameOverride)) {
+        $nodeArgs += @("--profile-name", $profileNameOverride)
+    }
+    elseif (-not [string]::IsNullOrWhiteSpace($env:FRONTEND_RUNTIME_PROFILE_NAME)) {
+        $nodeArgs += @("--profile-name", $env:FRONTEND_RUNTIME_PROFILE_NAME)
+    }
+
+    & node @nodeArgs
+    if ($LASTEXITCODE -ne 0) {
+        throw "generate-operator-runtime-config.mjs failed (exit $LASTEXITCODE)."
+    }
+
+    Write-Host "Wrote operator runtime config to $resolvedOutput (profile=$ProfileId)"
+    return $resolvedOutput
+}

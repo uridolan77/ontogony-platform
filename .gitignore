@@ -34,6 +34,7 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+docker/local-working-system/config/operator-runtime-config.local.override.json
 appsettings.Development.local.json
 
 # Logs

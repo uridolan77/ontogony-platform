@@ -12,7 +12,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-. (Join-Path $PSScriptRoot "..\..\docker\local-working-system\scripts\_docker-local-env.ps1")
+. "$PSScriptRoot\_docker-local-env.ps1"
 
 $params = @{}
 if (-not [string]::IsNullOrWhiteSpace($OutputPath)) { $params.OutputPath = $OutputPath }

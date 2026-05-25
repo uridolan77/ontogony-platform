@@ -437,6 +437,24 @@ cd C:\dev\ontogony-frontend
 Contract: `ontogony-frontend/docs/operators/FRONTEND_DOCKER_LOCAL_CONTRACT.md`  
 Evidence: `ontogony-frontend/docs/evidence/FE_HARDEN_001_FRONTEND_HARDENING_EVIDENCE.md`
 
+## Operator runtime config (RUNTIME-CONFIG-DEV-001B)
+
+Service base URLs for the browser are served at **`/operator-runtime-config.json`** (nginx no-cache route). The file is generated before compose up and bind-mounted — **no frontend image rebuild** when changing host ports.
+
+```powershell
+# Regenerate after editing .env host ports or override file
+powershell -File .\scripts\write-operator-runtime-config.ps1
+
+# Smoke (frontend must be up on FRONTEND_HOST_PORT, default 5175)
+powershell -File ..\..\scripts\smoke\assert-operator-runtime-config.ps1 -BaseUrl http://localhost:5175
+```
+
+- Generator: `ontogony-frontend/scripts/runtime-config/generate-operator-runtime-config.mjs` (profile `docker-local-nginx`).
+- Output: `generated/operator-runtime-config.json` → mounted into `ontogony-frontend` nginx.
+- Optional overrides: copy `config/operator-runtime-config.local.override.example.json` → `operator-runtime-config.local.override.json` (gitignored).
+
+Docs: `ontogony-frontend/docs/development/DOCKER_RUNTIME_CONFIG.md`
+
 ## Browser API access (FE-LOCAL-CORS-001)
 
 The operator frontend at **http://localhost:5175** calls Kanon, Conexus, and Allagma **directly from the browser** (no IIS/proxy shim). Service tokens and API keys stay in **browser localStorage** only.
