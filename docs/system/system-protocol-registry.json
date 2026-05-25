@@ -16,14 +16,14 @@
       "name": "ontogony-platform",
       "role": "shared mechanics / protocol registry owner",
       "ref": "main",
-      "commit": "e6b7fa52eeb94128c3fea2d3806b8b9c9b82bb7b",
+      "commit": "d4a71dae99b5e81461d906d3c3f7cd1ecd48a01a",
       "packageVersions": ["Ontogony=0.3.0-alpha.1"]
     },
     {
       "name": "allagma-dotnet",
       "role": "governed runtime / runtime lock owner",
       "ref": "main",
-      "commit": "f39beef2a1f8915b8979805451b9cbc14b22dea4",
+      "commit": "e599f5a7f94b065818f34170fb783cee09da5cfd",
       "packageVersions": [
         "Kanon.Client=0.1.0-alpha.0",
         "Kanon.Contracts=0.1.0-alpha.0",
