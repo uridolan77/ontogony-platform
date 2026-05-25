@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-  ALLAGMA-MAF-INTEGRATION-DEPTH-001E / MAF-LIVE-GOVERNED-E2E-001 — platform wrapper for governed MAF workflow smoke + Playwright.
+  ALLAGMA-MAF-INTEGRATION-DEPTH-001E / MAF-LIVE-GOVERNED-E2E-001 - platform wrapper for governed MAF workflow smoke + Playwright.
 
 .DESCRIPTION
   Runs Allagma run-governed-maf-e2e.ps1 (optional -Strict), mirrors artifacts under
@@ -48,7 +48,7 @@ $logPath = Join-Path $platformEvidenceDir "governed-maf-e2e-platform.log"
 $playwrightStatus = "not_run"
 $playwrightReportRelative = ""
 
-Write-Host "MAF-LIVE-GOVERNED-E2E-001 — governed MAF workflow proof"
+Write-Host "MAF-LIVE-GOVERNED-E2E-001 - governed MAF workflow proof"
 Write-Host "  evidence: $platformEvidenceDir"
 if ($Strict) { Write-Host "  strict: replay_from_checkpoint enabled" }
 
@@ -61,10 +61,14 @@ $mafArgs = @(
 )
 if ($Strict) { $mafArgs += "-Strict" }
 
-$mafOutDir = & powershell @mafArgs
+$mafOutRaw = & powershell @mafArgs 2>&1
+if ($LASTEXITCODE -ne 0) {
+    throw "run-governed-maf-e2e.ps1 failed with exit $LASTEXITCODE"
+}
+$mafOutDir = @($mafOutRaw | Where-Object { $_ -is [string] -and $_.Trim() })[-1]
 $mafOutDir = [string]$mafOutDir.Trim()
 if (-not $mafOutDir -or -not (Test-Path -LiteralPath $mafOutDir)) {
-    throw "run-governed-maf-e2e.ps1 did not return a valid output directory."
+    throw "run-governed-maf-e2e.ps1 did not return a valid output directory (got '$mafOutDir')."
 }
 
 $summaryPath = Join-Path $platformEvidenceDir "governed-maf-e2e-summary.json"
@@ -126,5 +130,5 @@ if ($ValidateRuntimeLock) {
     & $validate -RequireGovernedMafE2eEvidence
 }
 
-Write-Host "PASS: governed-maf-e2e platform evidence at $platformEvidenceDir"
+Write-Host ('PASS: governed-maf-e2e platform evidence at ' + $platformEvidenceDir)
 Write-Output $platformEvidenceDir
