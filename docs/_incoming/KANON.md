@@ -473,51 +473,27 @@ Evidence: `allagma-dotnet/docs/evidence/AGM_TOOL_INTENT_LIFECYCLE_STRICT_001.md`
 KANON-SEMANTIC-PROOF-LOCK-001
 ```
 
-## Goal
+## Status
 
-Like MAF and Replay, Kanon should have a canonical smoke artifact proving the semantic value loop.
+**Closed (2026-05-25)** — in-process proof test + HTTP smoke scripts + committed PASS artifacts.
 
-## Smoke flow
+| Surface | Path |
+| --- | --- |
+| API proof test | `kanon-dotnet/tests/Kanon.Tests/KanonSemanticLoopProofLockApiTests.cs` |
+| HTTP smoke | `kanon-dotnet/scripts/smoke/run-kanon-semantic-loop-e2e.ps1` |
+| PASS artifacts | `kanon-dotnet/docs/evidence/artifacts/kanon-semantic-loop-e2e/20260525T211655Z/` |
+| Evidence doc | `kanon-dotnet/docs/evidence/KANON_SEMANTIC_PROOF_LOCK_001.md` |
+| Manual CI | `kanon-dotnet/.github/workflows/kanon-semantic-loop-proof-lock.yml` |
 
-```text
-1. Load baseline ontology/domain pack.
-2. Create authoring session.
-3. Validate session.
-4. Persist impact report.
-5. Submit review item.
-6. Resolve review item.
-7. Transition lifecycle.
-8. Promote/load domain pack.
-9. Compute quality snapshot.
-10. Resolve Evidence Spine from:
-    ontologyVersionId
-    sourceBindingId
-    operatorReviewItemId
-    semanticQualitySnapshotId
-11. Verify semantic value loop status endpoint.
-```
-
-Artifact:
-
-```text
-kanon-semantic-loop-summary.json
-kanon-semantic-loop-evidence-bundle.json
-kanon-semantic-loop-summary.md
-```
-
-Schema:
-
-```text
-ontogony-kanon-semantic-loop-summary-v1
-```
+Schema: `ontogony-kanon-semantic-loop-summary-v1`
 
 ## Acceptance
 
 ```text
-- PASS artifact committed under docs/evidence/artifacts.
-- Optional runtime-lock entry.
-- Manual CI workflow exists.
-- Evidence Spine graph confirms semantic loop.
+- [x] PASS artifact committed under docs/evidence/artifacts.
+- [x] Manual CI workflow exists.
+- [x] Evidence Spine graph confirms semantic loop (API test).
+- [ ] Optional runtime-lock entry (deferred; Allagma owns lock file).
 ```
 
 ---
