@@ -157,7 +157,8 @@
       "owner": "kanon-dotnet",
       "resolverRoot": true,
       "routes": [
-        { "method": "GET", "path": "/ontology/v0/source-bindings", "role": "primary", "note": "List filter; detail by bindingId match" }
+        { "method": "GET", "path": "/ontology/v0/source-bindings", "role": "primary", "note": "List filter; detail by bindingId match" },
+        { "method": "GET", "path": "/ontology/v0/semantic-graph", "role": "expand", "query": "ontologyVersionId from binding row" }
       ],
       "operatorHref": "/kanon/source-bindings?bindingId={sourceBindingId}",
       "kanonHandoffId": "source_binding"
@@ -178,7 +179,9 @@
       "resolverRoot": true,
       "routes": [
         { "method": "GET", "path": "/ontology/v0/canonical-facts/{factId}", "role": "primary", "clientHook": "getKanonCanonicalFactHistoryItem" },
-        { "method": "GET", "path": "/ontology/v0/semantic-graph", "role": "expand", "query": "entityRef from fact detail" }
+        { "method": "GET", "path": "/ontology/v0/canonical-facts/{factId}/audit", "role": "expand" },
+        { "method": "GET", "path": "/ontology/v0/semantic-graph", "role": "expand", "query": "entityRef from fact detail" },
+        { "method": "GET", "path": "/ontology/v0/decision-records/{decisionId}", "role": "expand", "note": "fact.decisionId" }
       ],
       "operatorHref": "/kanon/facts?factId={canonicalFactId}",
       "kanonHandoffId": "canonical_fact"
@@ -188,7 +191,9 @@
       "owner": "kanon-dotnet",
       "resolverRoot": true,
       "routes": [
-        { "method": "GET", "path": "/ontology/v0/semantic-query-plans/{planId}", "role": "primary", "clientHook": "getKanonSemanticPlanHistoryItem" }
+        { "method": "GET", "path": "/ontology/v0/semantic-query-plans/{planId}", "role": "primary", "clientHook": "getKanonSemanticPlanHistoryItem" },
+        { "method": "GET", "path": "/ontology/v0/semantic-graph", "role": "expand", "query": "entityRef from plan.entityRefs[0] or decisionId" },
+        { "method": "GET", "path": "/ontology/v0/decision-records/{decisionId}", "role": "expand", "note": "plan.decisionId" }
       ],
       "operatorHref": "/kanon/plans?planId={semanticPlanId}",
       "kanonHandoffId": "semantic_plan"
@@ -199,7 +204,9 @@
       "resolverRoot": true,
       "routes": [
         { "method": "GET", "path": "/ontology/v0/semantic-quality/snapshots/{snapshotId}", "role": "primary", "clientHook": "getKanonSemanticQualitySnapshot" },
-        { "method": "GET", "path": "/ontology/v0/decision-records/{decisionId}", "role": "expand", "note": "snapshot.decisionRecordId" }
+        { "method": "GET", "path": "/ontology/v0/decision-records/{decisionId}", "role": "expand", "note": "snapshot.decisionRecordId" },
+        { "method": "GET", "path": "/ontology/v0/semantic-graph", "role": "expand", "query": "ontologyVersionId from snapshot" },
+        { "method": "POST", "path": "/ontology/v0/semantic-quality/compare", "role": "expand", "note": "baseline comparison when operator compares snapshots" }
       ],
       "operatorHref": "/kanon/decisions?decisionId={decisionRecordId}",
       "kanonHandoffId": "semantic_quality_snapshot"
@@ -209,7 +216,9 @@
       "owner": "kanon-dotnet",
       "resolverRoot": true,
       "routes": [
-        { "method": "GET", "path": "/ontology/v0/review-queue/{reviewItemId}", "role": "primary", "clientHook": "getKanonOperatorReviewQueueItem" }
+        { "method": "GET", "path": "/ontology/v0/review-queue/{reviewItemId}/detail", "role": "primary", "clientHook": "getKanonOperatorReviewQueueItemDetail" },
+        { "method": "GET", "path": "/ontology/v0/decision-records/{decisionId}", "role": "expand", "note": "source and resolution decisions" },
+        { "method": "GET", "path": "/ontology/v0/semantic-graph", "role": "expand", "query": "decisionId from review detail links" }
       ],
       "operatorHref": "/kanon/review-queue?reviewItemId={operatorReviewItemId}",
       "kanonHandoffId": "operator_review_item"
