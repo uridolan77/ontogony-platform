@@ -1,0 +1,26 @@
+{
+  "id": "ONTOGONY-CONTRACT-DISCIPLINE-OVER9-001",
+  "targetMetric": "Contract Discipline",
+  "targetScore": 9.1,
+  "repos": [
+    "ontogony-platform",
+    "conexus-dotnet",
+    "kanon-dotnet",
+    "allagma-dotnet"
+  ],
+  "primaryRisks": [
+    "route count drift",
+    "runtime lock drift",
+    "OpenAPI drift",
+    "package version drift",
+    "error contract ambiguity",
+    "header propagation drift"
+  ],
+  "recommendedMergeOrder": [
+    "kanon-dotnet truth normalization",
+    "ontogony-platform gates",
+    "conexus contract parity",
+    "allagma runtime lock promotion",
+    "cross-repo closeout"
+  ]
+}

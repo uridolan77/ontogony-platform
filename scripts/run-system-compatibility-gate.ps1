@@ -55,4 +55,4 @@ if (-not (Test-Path -LiteralPath $summaryJson)) {
     throw "Expected summary artifact was not written: $summaryJson"
 }
 
-Write-Host "PASS — summary written to $ArtifactDir"
+Write-Host "PASS - summary written to $ArtifactDir"
