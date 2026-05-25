@@ -1,0 +1,52 @@
+﻿{
+    "schema":  "ontogony-governed-fake-replay-summary-v1",
+    "generatedAtUtc":  "2026-05-25T18:10:07.3146953Z",
+    "verdict":  "PASS",
+    "scenario":  "REPLAY-RUNTIME-PROOF-LOCK-001",
+    "sourceRun":  {
+                      "runId":  "run_1a7ea4b8ef604dee9b1203f326d20a4d",
+                      "traceId":  "gov-fake-trace-45a5ba55798e4500aab49bdc80fdd738",
+                      "correlationId":  "gov-fake-corr-c9ba1131036a4940b5408ea9dd819057",
+                      "planningDecisionId":  "decision_0c22cedcaee746f682170d00e6070c73",
+                      "modelCallId":  "chatcmpl-0HNLQBVR0ACU4-00000003",
+                      "routeDecisionId":  "rd-0HNLQBVR0ACU4-00000003",
+                      "evidenceGraphVerdict":  "PASS"
+                  },
+    "replay":  {
+                   "replayId":  "replay_2257de523c1d4bb192495fbeedd47ec0",
+                   "mode":  "evidence_only",
+                   "legacyMode":  "",
+                   "status":  "completed",
+                   "verdict":  "inconclusive",
+                   "idempotencyKey":  "gov-fake-replay-e2e:run_1a7ea4b8ef604dee9b1203f326d20a4d",
+                   "manifestFingerprintStatus":  "matched",
+                   "serviceAttemptStatuses":  {
+                                                  "conexus":  "skipped",
+                                                  "kanon":  "succeeded",
+                                                  "allagma":  "succeeded"
+                                              }
+               },
+    "safety":  {
+                   "providerExecutionPolicy":  "forbid_real_providers",
+                   "toolExecutionPolicy":  "forbid_real_tools",
+                   "redactionPolicy":  "operator_default",
+                   "realProvidersBlocked":  true,
+                   "realToolsBlocked":  true
+               },
+    "proof":  {
+                  "replayRunEventIdempotencyVerified":  true
+              },
+    "artifacts":  {
+                      "replayRequest":  "replay-request.json",
+                      "replayResult":  "replay-result.json",
+                      "replayEvidenceBundle":  "replay-evidence-bundle.json",
+                      "replayDelta":  "replay-delta.json",
+                      "replaySummary":  "replay-summary.json",
+                      "replaySummaryMarkdown":  "replay-summary.md",
+                      "governedFakeResult":  "governed-fake-e2e-result.json"
+                  },
+    "runtimeLock":  {
+                        "stage":  "local_proof",
+                        "note":  "REPLAY-RUNTIME-PROOF-LOCK-001: governed-fake-replay smoke + replay request idempotency retry proof."
+                    }
+}

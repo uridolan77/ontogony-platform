@@ -1,0 +1,179 @@
+﻿{
+    "replayId":  "replay_2257de523c1d4bb192495fbeedd47ec0",
+    "rootIdentifier":  "run_1a7ea4b8ef604dee9b1203f326d20a4d",
+    "target":  {
+                   "kind":  "allagma.run",
+                   "identifier":  "run_1a7ea4b8ef604dee9b1203f326d20a4d",
+                   "ownerService":  "allagma",
+                   "root":  true,
+                   "displayIdentifier":  "allagma.run:run_1a7ea4b8ef604dee9b1203f326d20a4d"
+               },
+    "mode":  "evidence_only",
+    "status":  "completed",
+    "verdict":  "inconclusive",
+    "safetyPosture":  {
+                          "providerExecutionPolicy":  "forbid_real_providers",
+                          "toolExecutionPolicy":  "forbid_real_tools",
+                          "redactionPolicy":  "operator_default",
+                          "realProvidersBlocked":  true,
+                          "realToolsBlocked":  true
+                      },
+    "startedAt":  "2026-05-25T18:10:07.0849188+00:00",
+    "completedAt":  "2026-05-25T18:10:07.1353331+00:00",
+    "legacyMode":  null,
+    "serviceAttempts":  [
+                            {
+                                "service":  "allagma",
+                                "operation":  "run_replay_manifest",
+                                "target":  "allagma.run:run_1a7ea4b8ef604dee9b1203f326d20a4d",
+                                "status":  "succeeded",
+                                "mode":  "evidence_only",
+                                "route":  "POST /allagma/v0/runs/run_1a7ea4b8ef604dee9b1203f326d20a4d/replay",
+                                "durationMs":  null,
+                                "evidenceRefs":  [
+                                                     {
+                                                         "kind":  "allagma.audit_bundle",
+                                                         "identifier":  "run_1a7ea4b8ef604dee9b1203f326d20a4d",
+                                                         "uri":  "/allagma/v0/runs/run_1a7ea4b8ef604dee9b1203f326d20a4d/audit",
+                                                         "fingerprint":  null
+                                                     },
+                                                     {
+                                                         "kind":  "replay.manifest_fingerprint",
+                                                         "identifier":  "sha256:fd0a51b2916426a689dc7290a12becfcaa2e7961cb77f937e2a9092ced1e5a6f",
+                                                         "uri":  null,
+                                                         "fingerprint":  "sha256:fd0a51b2916426a689dc7290a12becfcaa2e7961cb77f937e2a9092ced1e5a6f"
+                                                     }
+                                                 ],
+                                "skippedReason":  null
+                            },
+                            {
+                                "service":  "kanon",
+                                "operation":  "decision_replay_eligibility",
+                                "target":  "kanon.decision:chatcmpl-0HNLQBVR0ACU4-00000003",
+                                "status":  "skipped",
+                                "mode":  "evidence_only",
+                                "route":  "POST /ontology/v0/replay/eligibility",
+                                "durationMs":  null,
+                                "evidenceRefs":  null,
+                                "skippedReason":  "exact_replay_not_proven"
+                            },
+                            {
+                                "service":  "kanon",
+                                "operation":  "decision_replay_bundle",
+                                "target":  "kanon.decision:decision_0c22cedcaee746f682170d00e6070c73",
+                                "status":  "succeeded",
+                                "mode":  "evidence_only",
+                                "route":  "POST /ontology/v0/decision-records/decision_0c22cedcaee746f682170d00e6070c73/prepare-replay",
+                                "durationMs":  null,
+                                "evidenceRefs":  [
+                                                     {
+                                                         "kind":  "kanon.decision",
+                                                         "identifier":  "decision_0c22cedcaee746f682170d00e6070c73",
+                                                         "uri":  "/ontology/v0/decision-records/decision_0c22cedcaee746f682170d00e6070c73",
+                                                         "fingerprint":  null
+                                                     },
+                                                     {
+                                                         "kind":  "kanon.replay_bundle",
+                                                         "identifier":  "replay_9c6b47d168d044a3992ac5c3a2a83794",
+                                                         "uri":  "/ontology/v0/decision-records/decision_0c22cedcaee746f682170d00e6070c73/replay-bundles/replay_9c6b47d168d044a3992ac5c3a2a83794",
+                                                         "fingerprint":  null
+                                                     },
+                                                     {
+                                                         "kind":  "kanon.replay_eligibility",
+                                                         "identifier":  "decision_0c22cedcaee746f682170d00e6070c73",
+                                                         "uri":  "POST /ontology/v0/replay/eligibility",
+                                                         "fingerprint":  "evidence_only"
+                                                     }
+                                                 ],
+                                "skippedReason":  null
+                            },
+                            {
+                                "service":  "kanon",
+                                "operation":  "decision_replay_bundle",
+                                "target":  "kanon.decision:decision_543fba690f0142b5b777bf17140e1406",
+                                "status":  "succeeded",
+                                "mode":  "evidence_only",
+                                "route":  "POST /ontology/v0/decision-records/decision_543fba690f0142b5b777bf17140e1406/prepare-replay",
+                                "durationMs":  null,
+                                "evidenceRefs":  [
+                                                     {
+                                                         "kind":  "kanon.decision",
+                                                         "identifier":  "decision_543fba690f0142b5b777bf17140e1406",
+                                                         "uri":  "/ontology/v0/decision-records/decision_543fba690f0142b5b777bf17140e1406",
+                                                         "fingerprint":  null
+                                                     },
+                                                     {
+                                                         "kind":  "kanon.replay_bundle",
+                                                         "identifier":  "replay_74317da69af94f3cb0b7ab7171b95417",
+                                                         "uri":  "/ontology/v0/decision-records/decision_543fba690f0142b5b777bf17140e1406/replay-bundles/replay_74317da69af94f3cb0b7ab7171b95417",
+                                                         "fingerprint":  null
+                                                     },
+                                                     {
+                                                         "kind":  "kanon.replay_eligibility",
+                                                         "identifier":  "decision_543fba690f0142b5b777bf17140e1406",
+                                                         "uri":  "POST /ontology/v0/replay/eligibility",
+                                                         "fingerprint":  "evidence_only"
+                                                     }
+                                                 ],
+                                "skippedReason":  null
+                            },
+                            {
+                                "service":  "conexus",
+                                "operation":  "model_call_dry_run",
+                                "target":  "conexus.model_call:chatcmpl-0HNLQBVR0ACU4-00000003",
+                                "status":  "skipped",
+                                "mode":  "evidence_only",
+                                "route":  null,
+                                "durationMs":  null,
+                                "evidenceRefs":  null,
+                                "skippedReason":  "conexus_not_configured_or_not_found"
+                            },
+                            {
+                                "service":  "conexus",
+                                "operation":  "route_decision_dry_run",
+                                "target":  "conexus.route_decision:rd-0HNLQBVR0ACU4-00000003",
+                                "status":  "skipped",
+                                "mode":  "evidence_only",
+                                "route":  null,
+                                "durationMs":  null,
+                                "evidenceRefs":  null,
+                                "skippedReason":  "conexus_not_configured_or_not_found"
+                            }
+                        ],
+    "originalEvidenceRefs":  [
+                                 {
+                                     "kind":  "allagma.run",
+                                     "identifier":  "run_1a7ea4b8ef604dee9b1203f326d20a4d",
+                                     "uri":  null,
+                                     "fingerprint":  null
+                                 },
+                                 {
+                                     "kind":  "allagma.audit_bundle",
+                                     "identifier":  "run_1a7ea4b8ef604dee9b1203f326d20a4d",
+                                     "uri":  "/allagma/v0/runs/run_1a7ea4b8ef604dee9b1203f326d20a4d/audit",
+                                     "fingerprint":  null
+                                 }
+                             ],
+    "replayEvidenceRefs":  [
+                               {
+                                   "kind":  "replay.request",
+                                   "identifier":  "replay_2257de523c1d4bb192495fbeedd47ec0",
+                                   "uri":  "/allagma/v0/replay/requests/replay_2257de523c1d4bb192495fbeedd47ec0",
+                                   "fingerprint":  null
+                               },
+                               {
+                                   "kind":  "replay.result",
+                                   "identifier":  "replay_2257de523c1d4bb192495fbeedd47ec0",
+                                   "uri":  null,
+                                   "fingerprint":  null
+                               },
+                               {
+                                   "kind":  "replay.evidence_bundle",
+                                   "identifier":  "replay_2257de523c1d4bb192495fbeedd47ec0",
+                                   "uri":  "/allagma/v0/replay/requests/replay_2257de523c1d4bb192495fbeedd47ec0/bundle",
+                                   "fingerprint":  null
+                               }
+                           ],
+    "deltaRef":  "replay-delta:replay_2257de523c1d4bb192495fbeedd47ec0",
+    "bundleRef":  "replay-evidence-bundle:replay_2257de523c1d4bb192495fbeedd47ec0"
+}
