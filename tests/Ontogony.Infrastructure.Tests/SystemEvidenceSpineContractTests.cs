@@ -85,6 +85,7 @@ public sealed class SystemEvidenceSpineContractTests
             .ToHashSet(StringComparer.Ordinal);
         Assert.Contains("allagmaReplayId", matrixKinds);
         Assert.Contains("replayBundleId", matrixKinds);
+        Assert.Contains("replayDeltaId", matrixKinds);
 
         Assert.Equal(
             "docs/system/EVIDENCE_SPINE_GRAPH_TAXONOMY.md",

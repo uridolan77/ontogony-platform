@@ -37,7 +37,8 @@
   ],
   "supplementalRequiredIdentifierKinds": [
     "allagmaReplayId",
-    "replayBundleId"
+    "replayBundleId",
+    "replayDeltaId"
   ],
   "identifiers": [
     {
@@ -73,12 +74,23 @@
     },
     {
       "kind": "allagmaReplayId",
-      "aliases": ["allagmaReplayRequestId", "replayId", "replayRequestId", "replayDeltaId"],
+      "aliases": ["allagmaReplayRequestId", "replayId", "replayRequestId"],
       "owner": "allagma-dotnet",
       "resolverRoot": true,
       "routes": [
         { "method": "GET", "path": "/allagma/v0/replay/requests/{replayId}", "role": "primary", "clientHook": "getAllagmaReplayRequest" },
         { "method": "GET", "path": "/allagma/v0/replay/requests/{replayId}/bundle", "role": "expand", "clientHook": "getAllagmaReplayBundle" },
+        { "method": "GET", "path": "/allagma/v0/replay/requests/{replayId}/delta", "role": "expand", "clientHook": "getAllagmaReplayDelta" }
+      ],
+      "operatorHref": "/allagma/replay?replayId={replayId}"
+    },
+    {
+      "kind": "replayDeltaId",
+      "aliases": ["replayDelta"],
+      "owner": "allagma-dotnet",
+      "resolverRoot": true,
+      "routes": [
+        { "method": "GET", "path": "/allagma/v0/replay/requests/{replayId}", "role": "primary", "clientHook": "getAllagmaReplayRequest", "note": "Delta is keyed by orchestration replayId; parse replay-delta:{replayId} refs" },
         { "method": "GET", "path": "/allagma/v0/replay/requests/{replayId}/delta", "role": "expand", "clientHook": "getAllagmaReplayDelta" }
       ],
       "operatorHref": "/allagma/replay?replayId={replayId}"

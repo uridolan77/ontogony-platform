@@ -86,7 +86,7 @@ $supplementalKinds = @()
 if ($null -ne $matrix.supplementalRequiredIdentifierKinds) {
     $supplementalKinds = @($matrix.supplementalRequiredIdentifierKinds | ForEach-Object { [string]$_ })
 }
-$expectedSupplemental = @("allagmaReplayId", "replayBundleId")
+$expectedSupplemental = @("allagmaReplayId", "replayBundleId", "replayDeltaId")
 foreach ($kind in $expectedSupplemental) {
     if ($supplementalKinds -notcontains $kind) {
         throw "supplementalRequiredIdentifierKinds must include '$kind'."

@@ -34,7 +34,8 @@ Operators paste one identifier and expect the console to resolve the governed ex
 | `datasetId` | `scenario-dataset-v0` | Allagma eval | `GET /allagma/v0/evaluation-datasets/{datasetId}` |
 | `scenarioId` | `scenario-risk-summary-v0` | Allagma eval | Eval list filters |
 | `allagmaReplayId` | `replay_…` | Allagma | `GET /allagma/v0/replay/requests/{replayId}` |
-| `replayBundleId` | Kanon replay bundle id | Kanon | `GET /ontology/v0/decision-records/{decisionId}/replay-bundles/{bundleId}` |
+| `replayDeltaId` | `replay-delta:…`, `replay_delta_…` | Allagma | Same as `allagmaReplayId` (delta keyed by orchestration replay id) |
+| `replayBundleId` | Kanon replay bundle id; `decisionId\|bundleId` composite | Kanon | `GET /ontology/v0/decision-records/{decisionId}/replay-bundles/{bundleId}` |
 
 ## Replay artifact reference kinds
 

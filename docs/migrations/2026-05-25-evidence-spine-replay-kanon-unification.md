@@ -29,6 +29,12 @@ Unifies the cross-service Evidence Spine investigative graph for:
 - `src/evidence-spine/*` — parser aliases, replay graph edges, lifecycle on decisions, workbench sections
 - `src/agent-interaction/*` — `replayId` lookup and cross-links
 
+## Follow-up (001A — graph semantic polish)
+
+- Request → result edge uses `replay_recorded_result` (not `replay_produced_bundle`).
+- `evidenceSpineRootRef()` aligns `graph.root` for `replay-delta:` / `replay-evidence-bundle:` inputs.
+- `replayDeltaId` added to platform supplemental required identifier kinds.
+
 ## Verification
 
 ```powershell

@@ -35,6 +35,7 @@
 | --- | --- |
 | `replay_requested_for` | replay request → replay target (run, bundle, etc.) |
 | `replay_resolved_to` | replay request → resolved target node |
+| `replay_recorded_result` | replay request → replay result |
 | `replay_attempted_service` | replay result → service attempt |
 | `replay_produced_bundle` | replay result → evidence bundle |
 | `replay_produced_delta` | replay result → delta |
