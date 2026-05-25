@@ -64,8 +64,7 @@ Falls back to `Conexus:Admin:ApiKey`. When unset, Conexus attempts are skipped (
 
 ## Still deferred (REPLAY-RUNTIME-003+)
 
-- Governed fake replay E2E smoke (`run-governed-fake-replay-e2e.ps1`)
-- Frontend OpenAPI codegen for new Allagma/Conexus replay routes
+- Live governed-fake replay E2E on docker-local stack (`run-governed-fake-replay-e2e.ps1` exists; optional lock gate)
 - Postgres `ReplayRecord` persistence
 - Merged cross-service eligibility on `POST /allagma/v0/replay/eligibility`
 - **Route-decision dry-run from Allagma orchestration** — Conexus endpoint shipped; `CrossServiceReplayCoordinator` calls **model-call dry-run only** (documented in `docs/contracts/REPLAY_RUNTIME_CONTRACT.md` and `allagma-dotnet/docs/contracts/CROSS_SERVICE_REPLAY.md`)

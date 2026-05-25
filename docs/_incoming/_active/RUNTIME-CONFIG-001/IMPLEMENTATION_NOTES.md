@@ -58,7 +58,7 @@ RUNTIME-CONFIG-001 — Ontogony Operator Runtime Configuration
 | `npm run config:audit` | pass |
 | `npm run config:check` | pass |
 | `npm run root-config:check` | pass |
-| `npm run contracts:discipline` | **partial fail** — `allagma:route-parity` pre-existing replay route drift (6 routes in inventory, not in OpenAPI snapshot) |
+| `npm run contracts:discipline` | **Pass** (2026-05-25; Allagma replay-runtime OpenAPI + route parity aligned) |
 | `write-operator-runtime-config.ps1` | pass |
 | `assert-operator-runtime-config.ps1 -BaseUrl http://localhost:5175` | pass (2026-05-24) |
 | `npm run test:e2e:docker-live:runtime-config` | pass — 3/3 (2026-05-24) |
@@ -81,9 +81,8 @@ RUNTIME-CONFIG-001: closed on docker-local evidence (smoke + e2e pass).
 ```
 
 ## Deferred / follow-up
-1. Resolve pre-existing `allagma:route-parity` replay route drift (unrelated to this package).
-2. Add `LOCAL_PROFILE.md`, `DOCKER_LOCAL_PROFILE.md`, `CUSTOM_STACK_PROFILE.md` if fuller docs are wanted.
-3. Provider persist-on-mount may promote `legacy-local` to `local-override` after boot — follow-up if undesired.
+1. Add `LOCAL_PROFILE.md`, `DOCKER_LOCAL_PROFILE.md`, `CUSTOM_STACK_PROFILE.md` if fuller docs are wanted.
+2. Provider persist-on-mount may promote `legacy-local` to `local-override` after boot — follow-up if undesired.
 
 ## RUNTIME-CONFIG-001A (closure hardening)
 - Fixed `assert-operator-runtime-config.ps1` false positive: recursive key validation with allowlist (matches frontend validator).

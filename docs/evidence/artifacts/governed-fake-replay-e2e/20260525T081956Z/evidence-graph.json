@@ -1,0 +1,115 @@
+﻿{
+    "schema":  "ontogony-allagma-evidence-graph-acceptance-v1",
+    "timestampUtc":  "2026-05-25T08:19:57.8204872Z",
+    "verdict":  "PASS",
+    "runId":  "run_36871f291f5b40fa80b55c25b873dc1f",
+    "planningDecisionId":  "decision_94f45315e84b430aa0a65cde794b044a",
+    "modelCallId":  "chatcmpl-0HNLPUBGJJKQM-00000001",
+    "nodes":  [
+                  {
+                      "system":  "allagma",
+                      "kind":  "run",
+                      "id":  "run_36871f291f5b40fa80b55c25b873dc1f",
+                      "status":  "Completed",
+                      "href":  "/allagma/v0/runs/run_36871f291f5b40fa80b55c25b873dc1f",
+                      "planningDecisionId":  "decision_94f45315e84b430aa0a65cde794b044a",
+                      "modelCallId":  "chatcmpl-0HNLPUBGJJKQM-00000001"
+                  },
+                  {
+                      "system":  "allagma",
+                      "kind":  "audit_bundle",
+                      "id":  "run_36871f291f5b40fa80b55c25b873dc1f",
+                      "status":  "PASS",
+                      "href":  "/allagma/v0/runs/run_36871f291f5b40fa80b55c25b873dc1f/audit",
+                      "schema":  "ontogony-allagma-run-audit-bundle-v1",
+                      "downstreamCount":  5
+                  },
+                  {
+                      "system":  "kanon",
+                      "kind":  "decision",
+                      "id":  "decision_94f45315e84b430aa0a65cde794b044a",
+                      "status":  "PASS",
+                      "href":  "/ontology/v0/decision-records/decision_94f45315e84b430aa0a65cde794b044a",
+                      "decisionType":  "semantic_plan",
+                      "purpose":  "semantic_plan"
+                  },
+                  {
+                      "system":  "kanon",
+                      "kind":  "decision",
+                      "id":  "decision_e712d0bdf03c426db74b43e352b98a46",
+                      "status":  "PASS",
+                      "href":  "/ontology/v0/decision-records/decision_e712d0bdf03c426db74b43e352b98a46",
+                      "decisionType":  "policy_evaluation",
+                      "purpose":  "tool_intent"
+                  },
+                  {
+                      "system":  "conexus",
+                      "kind":  "model_call",
+                      "id":  "chatcmpl-0HNLPUBGJJKQM-00000001",
+                      "status":  "PASS",
+                      "href":  "/admin/v0/model-calls/chatcmpl-0HNLPUBGJJKQM-00000001/evidence-links",
+                      "traceId":  "d381b9c8e0a37b9b5a556636b8a30e54",
+                      "routeDecisionId":  "rd-0HNLPUBGJJKQM-00000001",
+                      "correlationId":  "gov-fake-corr-a81de082e368494ebed9c2536a608ada"
+                  },
+                  {
+                      "system":  "conexus",
+                      "kind":  "route_decision",
+                      "id":  "rd-0HNLPUBGJJKQM-00000001",
+                      "status":  "PASS",
+                      "href":  "/admin/v0/route-decisions/rd-0HNLPUBGJJKQM-00000001"
+                  }
+              ],
+    "edges":  [
+                  {
+                      "from":  "allagma/run/run_36871f291f5b40fa80b55c25b873dc1f",
+                      "to":  "allagma/audit_bundle/run_36871f291f5b40fa80b55c25b873dc1f",
+                      "relationship":  "audit_export"
+                  },
+                  {
+                      "from":  "allagma/run/run_36871f291f5b40fa80b55c25b873dc1f",
+                      "to":  "kanon/decision/decision_94f45315e84b430aa0a65cde794b044a",
+                      "relationship":  "kanon_decision"
+                  },
+                  {
+                      "from":  "allagma/run/run_36871f291f5b40fa80b55c25b873dc1f",
+                      "to":  "kanon/decision/decision_94f45315e84b430aa0a65cde794b044a",
+                      "relationship":  "kanon_semantic_plan"
+                  },
+                  {
+                      "from":  "allagma/run/run_36871f291f5b40fa80b55c25b873dc1f",
+                      "to":  "kanon/decision/decision_e712d0bdf03c426db74b43e352b98a46",
+                      "relationship":  "kanon_decision"
+                  },
+                  {
+                      "from":  "allagma/run/run_36871f291f5b40fa80b55c25b873dc1f",
+                      "to":  "kanon/decision/decision_e712d0bdf03c426db74b43e352b98a46",
+                      "relationship":  "kanon_action_evaluation"
+                  },
+                  {
+                      "from":  "allagma/run/run_36871f291f5b40fa80b55c25b873dc1f",
+                      "to":  "conexus/model_call/chatcmpl-0HNLPUBGJJKQM-00000001",
+                      "relationship":  "conexus_model_call"
+                  },
+                  {
+                      "from":  "conexus/model_call/chatcmpl-0HNLPUBGJJKQM-00000001",
+                      "to":  "conexus/route_decision/rd-0HNLPUBGJJKQM-00000001",
+                      "relationship":  "route_decision"
+                  },
+                  {
+                      "from":  "kanon/decision/decision_94f45315e84b430aa0a65cde794b044a",
+                      "to":  "conexus/model_call/chatcmpl-0HNLPUBGJJKQM-00000001",
+                      "relationship":  "plan_to_model_call"
+                  }
+              ],
+    "optionalNotes":  [
+
+                      ],
+    "requiredPaths":  [
+                          "allagma.run",
+                          "allagma.audit_bundle",
+                          "kanon.semantic_plan",
+                          "conexus.model_call",
+                          "conexus.route_decision"
+                      ]
+}

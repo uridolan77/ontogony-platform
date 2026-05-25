@@ -1,7 +1,8 @@
 {
   "schema": "ontogony-system-evidence-spine-resolution-v1",
   "baseline": "SYSTEM-ALPHA-006",
-  "sprint": "SYS-TIGHT-002",
+  "sprint": "SYS-TIGHT-002+EVIDENCE-SPINE-REPLAY-KANON-001",
+  "graphTaxonomyDocument": "docs/system/EVIDENCE_SPINE_GRAPH_TAXONOMY.md",
   "contractDocument": "docs/operators/SYSTEM_EVIDENCE_SPINE_CONTRACT.md",
   "taxonomyDocument": "docs/operators/EVIDENCE_SPINE_IDENTIFIER_TAXONOMY.md",
   "exportBundleSchema": "docs/schemas/ontogony-cross-service-evidence-spine-bundle-v1.schema.json",
@@ -33,6 +34,10 @@
     "correlationId",
     "humanGateId",
     "domainPackId"
+  ],
+  "supplementalRequiredIdentifierKinds": [
+    "allagmaReplayId",
+    "replayBundleId"
   ],
   "identifiers": [
     {
@@ -67,6 +72,29 @@
       "operatorHref": "/allagma/evaluations/baseline-comparisons/{comparisonId}"
     },
     {
+      "kind": "allagmaReplayId",
+      "aliases": ["allagmaReplayRequestId", "replayId", "replayRequestId", "replayDeltaId"],
+      "owner": "allagma-dotnet",
+      "resolverRoot": true,
+      "routes": [
+        { "method": "GET", "path": "/allagma/v0/replay/requests/{replayId}", "role": "primary", "clientHook": "getAllagmaReplayRequest" },
+        { "method": "GET", "path": "/allagma/v0/replay/requests/{replayId}/bundle", "role": "expand", "clientHook": "getAllagmaReplayBundle" },
+        { "method": "GET", "path": "/allagma/v0/replay/requests/{replayId}/delta", "role": "expand", "clientHook": "getAllagmaReplayDelta" }
+      ],
+      "operatorHref": "/allagma/replay?replayId={replayId}"
+    },
+    {
+      "kind": "replayBundleId",
+      "aliases": ["bundleId"],
+      "owner": "kanon-dotnet",
+      "resolverRoot": true,
+      "routes": [
+        { "method": "GET", "path": "/ontology/v0/decision-records/{decisionId}/replay-bundles/{bundleId}", "role": "primary", "note": "Requires decisionId from bundle metadata or deep graph context" }
+      ],
+      "operatorHref": "/kanon/decisions?decisionId={decisionId}",
+      "kanonHandoffId": "replay_bundles"
+    },
+    {
       "kind": "kanonDecisionId",
       "aliases": ["decisionId", "planningDecisionId"],
       "owner": "kanon-dotnet",
@@ -74,6 +102,7 @@
       "routes": [
         { "method": "GET", "path": "/ontology/v0/decision-records/{decisionId}", "role": "primary", "clientHook": "getKanonDecision" },
         { "method": "GET", "path": "/ontology/v0/decision-records/{decisionId}/provenance", "role": "expand" },
+        { "method": "GET", "path": "/ontology/v0/decision-records/{decisionId}/lifecycle", "role": "expand", "clientHook": "getKanonDecisionLifecycle" },
         { "method": "GET", "path": "/ontology/v0/semantic-graph", "role": "expand", "query": "decisionId={decisionId}" }
       ],
       "operatorHref": "/kanon/decisions?decisionId={decisionId}",

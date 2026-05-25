@@ -1,0 +1,13 @@
+﻿{
+    "schema":  "ontogony-replay-runtime-smoke-summary-v1",
+    "generatedAt":  "2026-05-25T08:19:58.0600118Z",
+    "verdict":  "PASS",
+    "replayId":  "replay_8f02b80caa5c4af89932dddcada01f29",
+    "runId":  "run_36871f291f5b40fa80b55c25b873dc1f",
+    "mode":  "evidence_only",
+    "serviceAttempts":  {
+                            "conexus":  "skipped",
+                            "kanon":  "succeeded",
+                            "allagma":  "succeeded"
+                        }
+}

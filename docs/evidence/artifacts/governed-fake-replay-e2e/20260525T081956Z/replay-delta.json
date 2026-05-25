@@ -1,0 +1,28 @@
+﻿{
+    "replayId":  "replay_8f02b80caa5c4af89932dddcada01f29",
+    "originalRootIdentifier":  "run_36871f291f5b40fa80b55c25b873dc1f",
+    "mode":  "evidence_only",
+    "verdict":  "pending",
+    "comparisons":  [
+                        {
+                            "field":  "allagma.run_replay.manifest_fingerprint",
+                            "status":  "matched",
+                            "original":  "sha256:81aeb51cb3fbbc7035ea6c88cab7f5b77c049d08f43ecb2ab16d564b3c8af44c",
+                            "replay":  "sha256:81aeb51cb3fbbc7035ea6c88cab7f5b77c049d08f43ecb2ab16d564b3c8af44c"
+                        },
+                        {
+                            "field":  "allagma.run_replay.outcome",
+                            "status":  "matched",
+                            "original":  "replay_manifest",
+                            "replay":  "replay_manifest"
+                        }
+                    ],
+    "uncompared":  [
+                       "kanon.replay_bundle:replay_2462dead0cf54d60b9311262ff09c3a6",
+                       "kanon.replay_bundle:replay_4bdcbe8f13e44448bd4907ff4e796474",
+                       "conexus.model_call.route_decision"
+                   ],
+    "notes":  [
+                  "REPLAY-RUNTIME-002 compares Allagma manifest replay; Kanon/Conexus attempts are evidence-linked."
+              ]
+}

@@ -73,6 +73,7 @@ export interface OntogonyInteractionIds {
   kanonDecisionId?: string;
   planningDecisionId?: string;
   humanGateId?: string;
+  replayId?: string;
   evidenceNodeId?: string;
   evidenceEdgeId?: string;
 }

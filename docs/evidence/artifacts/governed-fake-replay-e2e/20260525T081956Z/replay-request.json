@@ -1,0 +1,9 @@
+﻿{
+    "providerExecutionPolicy":  "forbid_real_providers",
+    "toolExecutionPolicy":  "forbid_real_tools",
+    "clientIdempotencyKey":  "gov-fake-replay-f10d94a129734fedbe6b05912b3057c5",
+    "rootKind":  "allagma.run",
+    "rootIdentifier":  "run_36871f291f5b40fa80b55c25b873dc1f",
+    "requestedMode":  "evidence_only",
+    "redactionPolicy":  "operator_default"
+}

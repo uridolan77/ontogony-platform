@@ -25,6 +25,7 @@ Operators paste one identifier and expect a **single governed execution graph** 
 | **This document** | `ontogony-platform` | Contract index and acceptance rules |
 | [`EVIDENCE_SPINE_IDENTIFIER_TAXONOMY.md`](./EVIDENCE_SPINE_IDENTIFIER_TAXONOMY.md) | Platform | Identifier kinds, parser rules, missing-edge codes |
 | [`system-evidence-spine-resolution.matrix.json`](../system/system-evidence-spine-resolution.matrix.json) | Platform | Machine-readable identifier → HTTP route map |
+| [`EVIDENCE_SPINE_GRAPH_TAXONOMY.md`](../system/EVIDENCE_SPINE_GRAPH_TAXONOMY.md) | Platform | Canonical graph node and edge kinds |
 | [`ontogony-cross-service-evidence-spine-bundle-v1.schema.json`](../schemas/ontogony-cross-service-evidence-spine-bundle-v1.schema.json) | Platform | Export bundle JSON Schema |
 | [`resolveEvidenceSpine.ts`](../../../ontogony-frontend/src/evidence-spine/resolveEvidenceSpine.ts) | Frontend | Unified resolver (v1) |
 | [`KANON_EVIDENCE_SPINE_ENTRYPOINTS.json`](../../../kanon-dotnet/docs/generated/KANON_EVIDENCE_SPINE_ENTRYPOINTS.json) | Kanon | Kanon handoff routes (additive v0) |
@@ -49,7 +50,9 @@ These kinds must resolve without throwing; missing downstream data becomes **exp
 | `humanGateId` | Kanon / Allagma | Run events + semantic graph |
 | `domainPackId` | Kanon | Semantic graph + pack evolution decisions |
 
-Additional supported roots (Evidence Spine v1): `allagmaEvaluationRunId`, `baselineComparisonId`, `planningDecisionId`, `sourceBindingId`, `ontologyVersionId`, `canonicalFactId`, `semanticPlanId`, `semanticQualitySnapshotId`, `operatorReviewItemId`, `datasetId`, `scenarioId`.
+Additional supported roots (Evidence Spine v1): `allagmaEvaluationRunId`, `baselineComparisonId`, `planningDecisionId`, `sourceBindingId`, `ontologyVersionId`, `canonicalFactId`, `semanticPlanId`, `semanticQualitySnapshotId`, `operatorReviewItemId`, `datasetId`, `scenarioId`, `allagmaReplayId` (aliases: `replayId`, `replayRequestId`, `replayDeltaId`), `replayBundleId`.
+
+Supplemental required roots (EVIDENCE-SPINE-REPLAY-KANON-001): `allagmaReplayId` must appear in the resolution matrix and resolve via Allagma replay HTTP APIs.
 
 ## Resolution algorithm (summary)
 

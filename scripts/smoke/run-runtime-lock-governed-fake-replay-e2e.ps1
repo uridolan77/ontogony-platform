@@ -17,7 +17,7 @@ param(
     [string]$DevRoot = "",
     [switch]$ValidateRuntimeLock,
     [switch]$RequireConexusReplayAttempt,
-    [string]$AllagmaBaseUrl = "http://localhost:5083"
+    [string]$AllagmaBaseUrl = "http://localhost:5084"
 )
 
 $ErrorActionPreference = "Stop"
@@ -41,34 +41,40 @@ New-Item -ItemType Directory -Force -Path $platformEvidenceDir | Out-Null
 Write-Host "REPLAY-RUNTIME-001E — platform replay proof"
 Write-Host "  evidence: $platformEvidenceDir"
 
-$replayArgs = @{
-    OutputDirectory = (Join-Path $platformEvidenceDir "allagma-run")
+$replayOutDir = if ($RequireConexusReplayAttempt) {
+    & $replaySmoke `
+        -NoTimestampSubdirectory `
+        -OutputDirectory $platformEvidenceDir `
+        -AllagmaBaseUrl $AllagmaBaseUrl `
+        -RequireConexusReplayAttempt
+} else {
+    & $replaySmoke `
+        -NoTimestampSubdirectory `
+        -OutputDirectory $platformEvidenceDir `
+        -AllagmaBaseUrl $AllagmaBaseUrl
 }
-if ($RequireConexusReplayAttempt) {
-    $replayArgs.RequireConexusReplayAttempt = $true
-}
-if (-not [string]::IsNullOrWhiteSpace($AllagmaBaseUrl)) {
-    $replayArgs.AllagmaBaseUrl = $AllagmaBaseUrl
-}
-
-$replayOutDir = & $replaySmoke @replayArgs
-if ($LASTEXITCODE -ne 0) { throw "run-governed-fake-replay-e2e.ps1 failed with exit $LASTEXITCODE" }
 $replayOutDir = [string]$replayOutDir.Trim()
+if (-not $replayOutDir -or -not (Test-Path -LiteralPath $replayOutDir)) {
+    throw "run-governed-fake-replay-e2e.ps1 did not return a valid output directory."
+}
 
-foreach ($name in @(
-    "governed-fake-replay-summary.json",
-    "replay-request.json",
-    "replay-result.json",
-    "replay-evidence-bundle.json",
-    "replay-delta.json",
-    "replay-summary.json",
-    "replay-summary.md",
-    "governed-fake-e2e-result.json",
-    "governed-fake-replay-e2e-output.log"
-)) {
-    $src = Join-Path $replayOutDir $name
-    if (Test-Path -LiteralPath $src) {
-        Copy-Item -LiteralPath $src -Destination (Join-Path $platformEvidenceDir $name) -Force
+if ($replayOutDir -ne $platformEvidenceDir) {
+    foreach ($name in @(
+        "governed-fake-replay-summary.json",
+        "replay-request.json",
+        "replay-result.json",
+        "replay-evidence-bundle.json",
+        "replay-delta.json",
+        "replay-summary.json",
+        "replay-summary.md",
+        "governed-fake-e2e-result.json",
+        "governed-fake-replay-e2e-output.log"
+    )) {
+        $src = Join-Path $replayOutDir $name
+        $dest = Join-Path $platformEvidenceDir $name
+        if ((Test-Path -LiteralPath $src) -and ($src -ne $dest)) {
+            Copy-Item -LiteralPath $src -Destination $dest -Force
+        }
     }
 }
 

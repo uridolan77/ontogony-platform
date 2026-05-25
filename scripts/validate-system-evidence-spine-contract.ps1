@@ -27,9 +27,10 @@ if ([string]::IsNullOrWhiteSpace($DevRoot)) {
 $matrixPath = Join-Path $RepoRoot "docs/system/system-evidence-spine-resolution.matrix.json"
 $contractPath = Join-Path $RepoRoot "docs/operators/SYSTEM_EVIDENCE_SPINE_CONTRACT.md"
 $taxonomyPath = Join-Path $RepoRoot "docs/operators/EVIDENCE_SPINE_IDENTIFIER_TAXONOMY.md"
+$graphTaxonomyPath = Join-Path $RepoRoot "docs/system/EVIDENCE_SPINE_GRAPH_TAXONOMY.md"
 $schemaPath = Join-Path $RepoRoot "docs/schemas/ontogony-cross-service-evidence-spine-bundle-v1.schema.json"
 
-foreach ($p in @($matrixPath, $contractPath, $taxonomyPath, $schemaPath)) {
+foreach ($p in @($matrixPath, $contractPath, $taxonomyPath, $graphTaxonomyPath, $schemaPath)) {
     if (-not (Test-Path -LiteralPath $p)) {
         throw "Missing required path: $p"
     }
@@ -79,6 +80,25 @@ foreach ($kind in $requiredKinds) {
     if ($kindsInMatrix -notcontains $kind) {
         throw "identifiers[] must include required kind '$kind'."
     }
+}
+
+$supplementalKinds = @()
+if ($null -ne $matrix.supplementalRequiredIdentifierKinds) {
+    $supplementalKinds = @($matrix.supplementalRequiredIdentifierKinds | ForEach-Object { [string]$_ })
+}
+$expectedSupplemental = @("allagmaReplayId", "replayBundleId")
+foreach ($kind in $expectedSupplemental) {
+    if ($supplementalKinds -notcontains $kind) {
+        throw "supplementalRequiredIdentifierKinds must include '$kind'."
+    }
+    if ($kindsInMatrix -notcontains $kind) {
+        throw "identifiers[] must include supplemental kind '$kind'."
+    }
+}
+
+Require-NonEmptyString $matrix.graphTaxonomyDocument "graphTaxonomyDocument"
+if ([string]$matrix.graphTaxonomyDocument -ne "docs/system/EVIDENCE_SPINE_GRAPH_TAXONOMY.md") {
+    throw "graphTaxonomyDocument must reference docs/system/EVIDENCE_SPINE_GRAPH_TAXONOMY.md."
 }
 
 foreach ($entry in $entries) {

@@ -30,9 +30,9 @@
 | Kanon replay bundle integration from Allagma (Stage 3) | **superseded by REPLAY-RUNTIME-002** — coordinator calls eligibility + bundle list/prepare |
 | Conexus dry-run replay routes (Stage 4) | **superseded by REPLAY-RUNTIME-002** — four `/admin/v0/replay/*` routes in conexus-dotnet |
 | Cross-service replay bundle with Kanon/Conexus attempts (Stage 5) | **partial (002)** — Kanon + Conexus model-call attempts; route-decision dry-run not from Allagma |
-| Governed fake replay smoke (Stage 6) | **deferred** — script not added |
-| Frontend Replay Workbench `/system/replay` (Stage 6 plan) | **stale_skip** as new dense page — `allagma/replay` + Evidence Spine already exist; added shared mode labels only |
-| OpenAPI/generated TS client for new routes | **deferred** — route inventory updated for Allagma; frontend OpenAPI generation not run |
+| Governed fake replay smoke (Stage 6) | **scripted (005)** — `run-governed-fake-replay-e2e.ps1` + platform wrapper; lock evidence optional |
+| Frontend Replay Workbench `/system/replay` (Stage 6 plan) | **stale_skip** as new dense page — `allagma/replay` + Evidence Spine already exist; operator panels wired in 002A |
+| OpenAPI/generated TS client for new routes | **closed (2026-05-25)** — Allagma/Conexus replay paths in frontend OpenAPI + `contracts:discipline` green |
 | Postgres replay record persistence | **deferred** — in-memory repository only |
 
 ## Stale assumptions
@@ -91,7 +91,7 @@
 | `dotnet test` Kanon.Tests `KanonReplayEligibility*` | **PASS** (1) |
 | `npm run test -- src/replay/replayModeLabels.test.ts` | **PASS** (2) |
 | Full `dotnet test` per repo | **Not run** |
-| `contracts:discipline` frontend | **Not run** |
+| `contracts:discipline` frontend | **Pass** (2026-05-25) |
 | `check-contract-discipline.ps1` platform | **Not run** |
 | Governed fake replay smoke | **Not run** (deferred) |
 
@@ -104,18 +104,16 @@
 | No silent real providers/tools | **Done** (default policies + classifier messages) |
 | Existing run replay compatible | **Done** |
 | Cross-service orchestration with Kanon/Conexus attempts | **Partial** — Kanon bundles + Conexus model-call dry-run; route-decision dry-run not from Allagma (see REPLAY-RUNTIME-002) |
-| Governed fake E2E replay smoke | **Deferred** |
-| Evidence Spine replay links in UI | **Partial** (taxonomy/docs; UI uses existing workbench) |
-| Contract discipline full matrix | **Deferred** |
+| Governed fake E2E replay smoke | **Scripted** — live stack run still operator-optional |
+| Evidence Spine replay links in UI | **Done** (operator replay panels + Conexus posture) |
+| Contract discipline full matrix | **Done** (frontend, 2026-05-25) |
 
 ## Deferred / follow-up
 
-1. Conexus `POST /admin/v0/replay/*` dry-run endpoints.
-2. Allagma orchestration calls to Kanon replay bundles and Conexus evidence.
-3. Postgres `ReplayRecord` persistence.
-4. Frontend OpenAPI codegen + Replay Workbench panels wired to new Allagma routes.
-5. `run-governed-fake-replay-e2e.ps1` smoke + runtime-lock optional gate.
-6. Kanon route inventory regeneration for `/ontology/v0/replay/eligibility`.
+1. Postgres `ReplayRecord` persistence (in-memory repository today).
+2. Live governed-fake replay E2E on docker-local stack (script exists; not lock-required).
+3. Merged cross-service eligibility on `POST /allagma/v0/replay/eligibility` (REPLAY-RUNTIME-003+).
+4. Route-decision dry-run from Allagma orchestration (Conexus endpoint shipped; coordinator calls model-call dry-run only).
 
 ## REPLAY-RUNTIME-001B (post second review)
 

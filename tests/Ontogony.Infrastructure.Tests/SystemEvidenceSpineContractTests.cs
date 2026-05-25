@@ -30,6 +30,7 @@ public sealed class SystemEvidenceSpineContractTests
         Assert.True(File.Exists(Path.Combine(RepoRoot, "docs/system/schemas/system-evidence-spine-resolution.matrix.schema.json")));
         Assert.True(File.Exists(Path.Combine(RepoRoot, "scripts/validate-system-evidence-spine-contract.ps1")));
         Assert.True(File.Exists(Path.Combine(RepoRoot, "docs/evidence/SYS_TIGHT_002_SYSTEM_EVIDENCE_SPINE_CONTRACT_EVIDENCE.md")));
+        Assert.True(File.Exists(Path.Combine(RepoRoot, "docs/system/EVIDENCE_SPINE_GRAPH_TAXONOMY.md")));
     }
 
     [Fact]
@@ -65,6 +66,29 @@ public sealed class SystemEvidenceSpineContractTests
             .Select(r => r.GetProperty("path").GetString())
             .ToList();
         Assert.Contains("/admin/v0/model-calls/{modelCallId}", paths);
+    }
+
+    [Fact]
+    public void EVIDENCE_SPINE_REPLAY_KANON_001_Matrix_includes_replay_roots()
+    {
+        using var doc = JsonDocument.Parse(
+            File.ReadAllText(Path.Combine(RepoRoot, "docs/system/system-evidence-spine-resolution.matrix.json")));
+
+        var root = doc.RootElement;
+        var supplemental = root.GetProperty("supplementalRequiredIdentifierKinds").EnumerateArray()
+            .Select(e => e.GetString())
+            .ToHashSet(StringComparer.Ordinal);
+        Assert.Contains("allagmaReplayId", supplemental);
+
+        var matrixKinds = root.GetProperty("identifiers").EnumerateArray()
+            .Select(e => e.GetProperty("kind").GetString())
+            .ToHashSet(StringComparer.Ordinal);
+        Assert.Contains("allagmaReplayId", matrixKinds);
+        Assert.Contains("replayBundleId", matrixKinds);
+
+        Assert.Equal(
+            "docs/system/EVIDENCE_SPINE_GRAPH_TAXONOMY.md",
+            root.GetProperty("graphTaxonomyDocument").GetString());
     }
 
     [Fact]
