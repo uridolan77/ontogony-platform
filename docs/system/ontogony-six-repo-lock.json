@@ -5,7 +5,7 @@
   "postLockDeltaRegister": "docs/system/ontogony-six-repo-post-lock-deltas.json",
   "repos": {
     "ontogony-platform": {
-      "commit": "b0ad75b9e14570ff798ea693b50aa29effaabf4c",
+      "commit": "e6b7fa52eeb94128c3fea2d3806b8b9c9b82bb7b",
       "packageVersion": "0.3.0-alpha.1"
     },
     "conexus-dotnet": {
@@ -13,11 +13,11 @@
       "clientVersion": "0.1.0-alpha.1"
     },
     "kanon-dotnet": {
-      "commit": "7e41fafd223688b28ab42e79787544ec345903d0",
+      "commit": "852a6e6ea625adafd9b0bc3de8591b8f267aa0fc",
       "clientVersion": "0.1.0-alpha.0"
     },
     "allagma-dotnet": {
-      "commit": "d9d0f02b93af6137ccdafb70d1b13ba91b8e5fe7",
+      "commit": "a00f346a0e9a51a06ed5572cf9ba2427aef249ce",
       "apiPrefix": "/allagma/v0"
     },
     "ontogony-ui": {
