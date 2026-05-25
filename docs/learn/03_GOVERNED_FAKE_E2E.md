@@ -61,6 +61,16 @@ cd C:\dev\allagma-dotnet
 .\scripts\validate-runtime-lock.ps1 -RequireGovernedFakeReplayEvidence
 ```
 
+## ToolIntent lifecycle (first-system smoke)
+
+```powershell
+cd C:\dev\allagma-dotnet
+.\scripts\smoke-first-system.ps1
+.\scripts\smoke-first-system-tool-allowed.ps1
+```
+
+Traffic smoke accepts **Allowed or Blocked** after Kanon evaluation; strict allow smoke requires `policy-record-plan-snapshot` in `gaming-core@0.1.0`. See `allagma-dotnet/docs/evidence/AGM_TOOL_INTENT_LIFECYCLE_STRICT_001.md`.
+
 ## Governed MAF workflow smoke (related)
 
 ```powershell
