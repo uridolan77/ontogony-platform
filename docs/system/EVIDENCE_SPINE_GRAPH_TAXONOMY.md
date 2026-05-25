@@ -1,7 +1,8 @@
 # Evidence Spine graph taxonomy
 
-**Status:** Canonical node and edge kinds for cross-service export (EVIDENCE-SPINE-REPLAY-KANON-001)  
+**Status:** Canonical node and edge kinds for cross-service export (EVIDENCE-SPINE-REPLAY-KANON-001, MAF-WORKFLOW-EVIDENCE-SPINE-001)  
 **Implementation:** `ontogony-frontend/src/evidence-spine/evidenceGraphTypes.ts`  
+**Resolver:** `ontogony-frontend/src/allagma/adapters/appendAllagmaWorkflowEvidenceGraph.ts` (merged from `resolveAllagmaRunEvidenceGraph`)  
 **Export schema:** [`ontogony-cross-service-evidence-spine-bundle-v1.schema.json`](../schemas/ontogony-cross-service-evidence-spine-bundle-v1.schema.json) (open `kind` strings; this document is normative)
 
 ## Node kinds
@@ -9,9 +10,11 @@
 | Kind | Service | Role |
 | --- | --- | --- |
 | `allagma.run` | Allagma | Governed execution run |
-| `allagma.workflow` | Allagma | Governed workflow instance (`GET /allagma/v0/runs/{runId}/workflow`) |
-| `allagma.workflowStep` | Allagma | Spine step node with live status |
+| `allagma.workflow` | Allagma | Governed workflow instance (`GET /allagma/v0/runs/{runId}/workflow`, `governed-spine-v1`) |
+| `allagma.workflowStep` | Allagma | Spine step node with live status, optional `modelCallId` / `kanonDecisionId` |
+| `allagma.workflowBranch` | Allagma | Conditional branch (`condition`, taken / not_taken from `metadata.branchSelected`) |
 | `allagma.workflowCheckpoint` | Allagma | MAF / governed checkpoint binding |
+| `allagma.workflowBinding` | Allagma | Kanon or replay binding row from workflow projection |
 | `allagma.toolIntent` | Allagma | Tool intent binding on a workflow step |
 | `allagma.replayRequest` | Allagma | Cross-service replay orchestration request |
 | `allagma.replayResult` | Allagma | Completed replay result |
@@ -33,17 +36,23 @@
 
 ## Edge kinds
 
-### Workflow (MAF-DEPTH-001B)
+### Workflow (MAF-WORKFLOW-EVIDENCE-SPINE-001)
 
 | Kind | From → To |
 | --- | --- |
 | `has_workflow` | run → workflow instance |
 | `has_workflow_step` | workflow → step |
+| `has_workflow_branch` | workflow → branch decision node |
+| `has_workflow_binding` | workflow → Kanon/replay binding row |
 | `has_workflow_checkpoint` | step → checkpoint |
 | `has_tool_intent` | step → tool intent |
-| `workflow_step_used_decision` | step → kanon decision |
+| `workflow_step_after` | step → next step (spine edge or branch target when taken) |
+| `workflow_branch_selected` | step → branch node (recorded / projected selection) |
+| `workflow_step_bound_to_kanon_decision` | step or binding → kanon decision |
+| `workflow_step_used_decision` | step → kanon decision (legacy alias; same resolver path) |
 | `workflow_step_has_human_gate` | step → human gate |
-| `workflow_step_used_model_call` | step → conexus model call |
+| `workflow_step_used_model_call` | step → conexus model call (prefers `modelCallId` match) |
+| `workflow_step_bound_to_replay_bundle` | replay step / binding → replay evidence bundle |
 | `workflow_step_has_replay_request` | step → replay request |
 | `tool_intent_used_decision` | tool intent → kanon decision |
 
