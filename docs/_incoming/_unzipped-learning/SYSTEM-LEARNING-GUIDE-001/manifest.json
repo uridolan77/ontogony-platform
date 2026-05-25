@@ -1,0 +1,29 @@
+{
+  "package": "SYSTEM-LEARNING-GUIDE-001",
+  "type": "cursor-development-package",
+  "primary_repo": "C:\\dev\\ontogony-platform",
+  "target_directory": "docs/learn",
+  "supporting_repos": [
+    "C:\\dev\\ontogony-frontend",
+    "C:\\dev\\ontogony-ui",
+    "C:\\dev\\allagma-dotnet",
+    "C:\\dev\\conexus-dotnet",
+    "C:\\dev\\kanon-dotnet"
+  ],
+  "stages": [
+    "current docs audit",
+    "canonical docs structure and index",
+    "operator core guides",
+    "system/evidence/contract guides",
+    "extension guides",
+    "stale doc marking/archive plan",
+    "doc validation scripts"
+  ],
+  "non_goals": [
+    "backend features",
+    "architecture rewrite",
+    "production IAM/security claims",
+    "marketing docs",
+    "manual duplication of generated reports"
+  ]
+}

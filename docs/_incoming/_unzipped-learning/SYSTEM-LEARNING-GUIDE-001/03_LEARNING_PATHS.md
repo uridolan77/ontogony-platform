@@ -1,0 +1,31 @@
+# 03 — Learning paths
+
+## New developer, 60-minute path
+
+1. `00_START_HERE.md`
+2. `01_ARCHITECTURE_MAP.md`
+3. `02_RUN_LOCAL_SYSTEM.md`
+4. `03_GOVERNED_FAKE_E2E.md`
+5. `GLOSSARY.md`
+
+## Operator path
+
+1. `02_RUN_LOCAL_SYSTEM.md`
+2. `04_SYSTEM_TRUTH_AND_RELEASE_READINESS.md`
+3. `05_EVIDENCE_SPINE.md`
+4. `06_AGENT_INTERACTION.md`
+5. `14_DEBUGGING_PLAYBOOK.md`
+
+## Backend contributor path
+
+1. `01_ARCHITECTURE_MAP.md`
+2. `07_DOMAIN_MODEL_ROUTING_BOUNDARIES.md`
+3. `08_CONTRACT_DISCIPLINE.md`
+4. `09_ADD_A_DOMAIN.md` or `10_ADD_A_PROVIDER_OR_MODEL_ALIAS.md` or `11_ADD_OR_CHANGE_AN_API_ROUTE.md`
+
+## Frontend/UI contributor path
+
+1. `12_ADD_A_FRONTEND_PAGE.md`
+2. `15_UI_CANONICALIZATION_AND_CONSOLE_UX.md`
+3. `08_CONTRACT_DISCIPLINE.md`
+4. owning UI package contracts in `ontogony-ui/docs/*`

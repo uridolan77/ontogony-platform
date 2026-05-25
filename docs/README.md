@@ -11,6 +11,7 @@
 
 | Document | Purpose |
 | --- | --- |
+| [**Learning path (all repos)**](./learn/INDEX.md) | Canonical Ontogony guides — start here for new developers |
 | [`CURRENT_STATE.md`](./CURRENT_STATE.md) | Single source of platform truth |
 | [`ARCHITECTURE.md`](./ARCHITECTURE.md) | Package layers, forbidden edges |
 | [`CONTRACTS.md`](./CONTRACTS.md) | Trace, errors, headers, system-compat |
