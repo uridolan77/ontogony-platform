@@ -4,6 +4,14 @@
 **Recorded:** 2026-05-25T16:58:52Z  
 **Packages:** ALLAGMA-MAF-INTEGRATION-DEPTH-001E, MAF-LIVE-GOVERNED-E2E-001, MAF-RUNTIME-LOCK-PROMOTION-001
 
+### Runtime lock scope
+
+`MAF-RUNTIME-LOCK-PROMOTION-001` **promoted governed MAF PASS evidence into** `allagma-dotnet/docs/system/ontogony-runtime.lock.json` via `evidence.governedMafE2eSummary`. It did **not** bump `baseline`, `lockedCommits`, `lockUpdatedByCommit`, or reset the post-lock delta register. The system lock remains **`SYSTEM-RC-001A`** with prior pinned commits.
+
+### Summary fields not exercised here
+
+`governed-maf-e2e-summary.json` reports `systemTruth.status: not_run` because this smoke validates governed MAF workflow, Evidence Spine workflow nodes, strict `replay_from_checkpoint`, and Playwright (`governed-maf-e2e-docker-live`). System-truth validation remains covered by **SYSTEM-CONTRACT-TRUTH-002** artifacts and `run-runtime-lock-governed-fake-e2e.ps1` when enabled.
+
 ---
 
 ## Environment
