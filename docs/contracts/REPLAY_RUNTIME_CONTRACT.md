@@ -66,7 +66,7 @@ What Allagma **calls automatically** when replaying a terminal run:
 | --- | --- |
 | Kanon `POST /ontology/v0/replay/eligibility` + replay bundle list/prepare | **Wired** |
 | Conexus `POST /admin/v0/replay/model-calls/{id}/dry-run` | **Wired** (optional; requires Allagma Conexus admin API key) |
-| Conexus `POST /admin/v0/replay/route-decisions/{id}/dry-run` | **Not wired** — Conexus route exists; use admin/frontend direct call |
+| Conexus `POST /admin/v0/replay/route-decisions/{id}/dry-run` | **Wired (REPLAY-RUNTIME-FULL-INTEGRATION-001A)** — when `routeDecisionId` resolves from run/events or model-call evidence |
 | Conexus `POST /admin/v0/replay/eligibility` | **Merged via Allagma** — frontend calls Allagma eligibility; Conexus admin direct for posture panel dry-run |
 | Merged cross-service eligibility on `POST /allagma/v0/replay/eligibility` | **Wired (REPLAY-RUNTIME-004)** |
 
