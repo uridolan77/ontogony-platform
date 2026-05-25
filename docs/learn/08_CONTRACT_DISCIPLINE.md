@@ -3,7 +3,7 @@
 > **Audience:** backend developer, frontend developer  
 > **Applies to:** all API-owning repos + `ontogony-frontend` generated clients  
 > **Source of truth:** [`../CONTRACTS.md`](../CONTRACTS.md), generated inventories, OpenAPI snapshots  
-> **Last verified:** 2026-05-25
+> **Last verified:** 2026-05-25 (Kanon **88** `/ontology/v0` routes — see `kanon-dotnet/docs/generated/ONTOLOGY_V0_ROUTE_INVENTORY.json`)
 
 ## Principle
 

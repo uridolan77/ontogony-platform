@@ -5,6 +5,8 @@
 > **Source of truth:** `kanon-dotnet/docs/migrations/2026-05-17-domain-pack-lifecycle-governance.md`, domain pack contracts  
 > **Last verified:** 2026-05-25
 
+After domain-pack or assistance workflow changes, refresh Kanon route inventory (`KANON_UPDATE_ROUTE_INVENTORY=1`) and run `npm run contracts:discipline` in `ontogony-frontend`. Canonical counts: **88** API routes, **78** client-covered (see `kanon-dotnet/docs/evidence/KANON_SEMANTIC_DEPTH_CLOSURE_001.md`).
+
 ## Overview
 
 A **domain pack** is versioned ontology + policy material loaded into Kanon. Lifecycle: **validate → promote → load** (`accepted` ≠ `active`; one active version per `packId`).
