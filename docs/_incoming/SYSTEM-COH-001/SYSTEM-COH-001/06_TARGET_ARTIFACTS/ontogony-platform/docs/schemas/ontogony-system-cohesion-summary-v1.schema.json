@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.ontogony.local/ontogony-system-cohesion-summary-v1.schema.json",
+  "title": "Ontogony system cohesion summary v1",
+  "type": "object",
+  "required": ["schema", "package", "timestampUtc", "scenarios"],
+  "properties": {
+    "schema": { "const": "ontogony-system-cohesion-summary-v1" },
+    "package": { "type": "string" },
+    "timestampUtc": { "type": "string" },
+    "repoRefs": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "services": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "scenarios": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "status"],
+        "properties": {
+          "id": { "type": "string" },
+          "status": {
+            "enum": ["PASS", "FAIL", "DEFERRED_WITH_REASON", "NOT_APPLICABLE_FOR_ALPHA", "OPTIONAL_LOCAL_ONLY"]
+          },
+          "notes": { "type": "string" },
+          "artifact": { "type": ["string", "null"] },
+          "reason": { "type": "string" },
+          "owner": { "type": "string" },
+          "nextGate": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "knownDeferrals": {
+      "type": "array",
+      "items": { "type": "object", "additionalProperties": true }
+    }
+  },
+  "additionalProperties": true
+}

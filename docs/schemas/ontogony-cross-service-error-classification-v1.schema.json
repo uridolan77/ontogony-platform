@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.ontogony.local/ontogony-cross-service-error-classification-v1.schema.json",
+  "title": "Ontogony cross-service error classification v1",
+  "description": "Neutral classification record for downstream failures. Allagma maps to cohesion codes (AllagmaCrossServiceErrorCodes); native service shapes remain on public APIs.",
+  "type": "object",
+  "required": ["schema", "cohesionCode", "system", "stage", "retryable"],
+  "additionalProperties": true,
+  "properties": {
+    "schema": { "const": "ontogony-cross-service-error-classification-v1" },
+    "system": {
+      "enum": ["allagma", "kanon", "conexus"]
+    },
+    "stage": {
+      "type": "string",
+      "minLength": 1
+    },
+    "nativeCode": { "type": "string" },
+    "cohesionCode": {
+      "type": "string",
+      "pattern": "^allagma\\."
+    },
+    "retryable": { "type": "boolean" },
+    "downstreamSystem": {
+      "enum": ["kanon", "conexus", null]
+    },
+    "traceId": { "type": "string" },
+    "correlationId": { "type": "string" },
+    "runId": { "type": "string" },
+    "message": { "type": "string" }
+  }
+}

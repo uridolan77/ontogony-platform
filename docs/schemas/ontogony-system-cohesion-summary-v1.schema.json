@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.ontogony.local/ontogony-system-cohesion-summary-v1.schema.json",
+  "title": "Ontogony system cohesion summary v1 (SYSTEM-COH-001 closeout)",
+  "description": "Normalized summary from allagma-dotnet/scripts/run-system-coh-001-acceptance.ps1. Distinct from ontogony-system-e2e-summary-v1 (live smoke harness in allagma-dotnet/docs/system/schemas/system-cohesion-summary.schema.json).",
+  "type": "object",
+  "required": ["schema", "package", "timestampUtc", "scenarios", "verdict"],
+  "additionalProperties": true,
+  "properties": {
+    "schema": { "const": "ontogony-system-cohesion-summary-v1" },
+    "package": { "type": "string" },
+    "timestampUtc": { "type": "string" },
+    "verdict": { "enum": ["PASS", "FAIL"] },
+    "baseline": { "type": "string" },
+    "repoRoot": { "type": "string" },
+    "devRoot": { "type": "string" },
+    "releaseMode": { "type": "boolean" },
+    "repoRefs": {
+      "type": "object",
+      "additionalProperties": { "type": ["string", "null"] }
+    },
+    "commandsRun": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "scenarios": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "status"],
+        "properties": {
+          "id": { "type": "string" },
+          "status": {
+            "enum": [
+              "PASS",
+              "FAIL",
+              "DEFERRED_WITH_REASON",
+              "NOT_APPLICABLE_FOR_ALPHA",
+              "OPTIONAL_LOCAL_ONLY"
+            ]
+          },
+          "notes": { "type": "string" },
+          "artifact": { "type": ["string", "null"] }
+        },
+        "additionalProperties": true
+      }
+    },
+    "knownDeferrals": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

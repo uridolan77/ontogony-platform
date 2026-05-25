@@ -442,39 +442,25 @@ TOOL-INTENT-LIFECYCLE-STRICT-001
 
 This is cross-service, but Kanon is central because tool intent authority passes through Kanon.
 
-## Problem
+## Status
 
-Conexus parity closure explicitly leaves strict `smoke-first-system.ps1` open: without `-SkipToolIntentLifecycleAssert`, the demo run records `ToolIntentBlocked`, not `Allowed`. 
+**Closed (2026-05-25)** — implemented in `allagma-dotnet` (Branch C) + Kanon `policy-record-plan-snapshot` in `gaming-core@0.1.0`.
 
-## Work
+| Smoke | Path |
+| --- | --- |
+| Traffic (Allowed OR Blocked) | `allagma-dotnet/scripts/smoke-first-system.ps1` |
+| Strict allow | `allagma-dotnet/scripts/smoke-first-system-tool-allowed.ps1` |
+| Strict deny | `allagma-dotnet/scripts/smoke-first-system-tool-blocked.ps1` (`Observer`-only actor) |
 
-Decide the intended fixture truth:
-
-Option A — governed fake smoke should demonstrate allow path:
-
-```text
-- Adjust fixture/domain/action policy so one deterministic tool intent is allowed.
-- Assert ToolIntentAllowed.
-- Assert execution path is simulated/safe.
-```
-
-Option B — governed fake smoke should demonstrate denial path:
-
-```text
-- Rename strict assertion to expect blocked.
-- Update smoke language and docs.
-- Add separate allow-path smoke.
-```
-
-I recommend Option A plus a separate denial smoke.
+Evidence: `allagma-dotnet/docs/evidence/AGM_TOOL_INTENT_LIFECYCLE_STRICT_001.md`
 
 ## Acceptance
 
 ```text
-- smoke-first-system passes without skip.
-- There is one allow-path tool intent smoke.
-- There is one denial-path smoke.
-- Kanon decision lifecycle and authority effect are explicit in both.
+- [x] smoke-first-system passes without skip.
+- [x] allow-path tool intent smoke (policy-record-plan-snapshot).
+- [x] denial-path smoke (role mismatch → ToolIntentBlocked).
+- [x] Kanon decision lifecycle explicit in both strict smokes.
 ```
 
 ---

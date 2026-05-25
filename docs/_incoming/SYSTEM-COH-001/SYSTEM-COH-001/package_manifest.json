@@ -1,0 +1,17 @@
+{
+  "package": "SYSTEM-COH-001",
+  "title": "Ontogony Runtime Cohesion Baseline",
+  "createdUtc": "2026-05-25T20:44:51Z",
+  "targetRepos": [
+    "allagma-dotnet",
+    "kanon-dotnet",
+    "conexus-dotnet",
+    "ontogony-platform",
+    "ontogony-frontend",
+    "ontogony-ui"
+  ],
+  "primaryRepo": "allagma-dotnet",
+  "mode": "current-state-aware consolidation package",
+  "fileCount": 36,
+  "entrypoint": "00_UNPACK_PROMPT.md"
+}

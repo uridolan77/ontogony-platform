@@ -1,0 +1,174 @@
+{
+  "schema": "ontogony-system-cohesion-acceptance-matrix-v1",
+  "package": "SYSTEM-COH-001",
+  "ownerRepo": "allagma-dotnet",
+  "statuses": [
+    "PASS",
+    "FAIL",
+    "DEFERRED_WITH_REASON",
+    "NOT_APPLICABLE_FOR_ALPHA",
+    "OPTIONAL_LOCAL_ONLY"
+  ],
+  "releaseMode": {
+    "forbidStatuses": ["FAIL"],
+    "requireDeferralFields": ["reason", "owner", "nextGate"],
+    "requiredScenarioIds": [
+      "compatibility_lock",
+      "service_health_readiness",
+      "governed_run_complete",
+      "idempotent_run_retry",
+      "human_gate_pause_resume",
+      "kanon_conexus_assistance",
+      "conexus_fallback",
+      "correlation_chain",
+      "evidence_spine_operator_visibility",
+      "restart_replay_survival",
+      "real_tools_blocked"
+    ]
+  },
+  "scenarios": [
+    {
+      "id": "compatibility_lock",
+      "name": "Compatibility lock and matrix validation",
+      "requiredForAlpha": true,
+      "owner": "allagma-dotnet",
+      "evidenceKind": "script",
+      "commands": ["./scripts/validate-runtime-lock.ps1 -ReleaseMode", "./scripts/validate-system-coh-001.ps1 -ReleaseMode"],
+      "status": "DEFERRED_WITH_REASON",
+      "reason": "Template default; closeout must replace with PASS or concrete deferral.",
+      "nextGate": "SYSTEM-COH-001 closeout"
+    },
+    {
+      "id": "service_health_readiness",
+      "name": "Kanon, Conexus, Allagma health/readiness",
+      "requiredForAlpha": true,
+      "owner": "allagma-dotnet",
+      "evidenceKind": "live-smoke",
+      "commands": ["./scripts/run-system-coh-001-acceptance.ps1 -RequireEvidence"],
+      "status": "DEFERRED_WITH_REASON",
+      "reason": "Template default; requires live local stack.",
+      "nextGate": "Live stack smoke"
+    },
+    {
+      "id": "governed_run_complete",
+      "name": "Allagma run completes through Kanon planning and Conexus model completion",
+      "requiredForAlpha": true,
+      "owner": "allagma-dotnet",
+      "evidenceKind": "live-smoke",
+      "commands": ["./scripts/smoke-first-system.ps1"],
+      "status": "DEFERRED_WITH_REASON",
+      "reason": "Template default; closeout must replace.",
+      "nextGate": "Live stack smoke"
+    },
+    {
+      "id": "idempotent_run_retry",
+      "name": "Idempotent retry does not duplicate side effects",
+      "requiredForAlpha": true,
+      "owner": "allagma-dotnet",
+      "evidenceKind": "test-or-smoke",
+      "commands": ["dotnet test Allagma.sln -c Release --filter Idempotency"],
+      "status": "DEFERRED_WITH_REASON",
+      "reason": "Template default; closeout must replace.",
+      "nextGate": "Idempotency test evidence"
+    },
+    {
+      "id": "human_gate_pause_resume",
+      "name": "Kanon human gate pause and resume",
+      "requiredForAlpha": true,
+      "owner": "allagma-dotnet,kanon-dotnet",
+      "evidenceKind": "live-smoke",
+      "commands": ["./scripts/smoke-first-real-system.ps1"],
+      "status": "DEFERRED_WITH_REASON",
+      "reason": "Template default; closeout must replace.",
+      "nextGate": "Human gate live smoke"
+    },
+    {
+      "id": "kanon_conexus_assistance",
+      "name": "Kanon assistance route calls Conexus and records draft-only decision",
+      "requiredForAlpha": true,
+      "owner": "kanon-dotnet,conexus-dotnet",
+      "evidenceKind": "live-smoke-or-api-test",
+      "commands": ["./scripts/run-system-cohesion-smoke.ps1 -IncludeKanonAssistance"],
+      "status": "DEFERRED_WITH_REASON",
+      "reason": "Template default; requires assistance config enabled.",
+      "nextGate": "Assistance smoke"
+    },
+    {
+      "id": "conexus_fallback",
+      "name": "Conexus fallback chain evidence",
+      "requiredForAlpha": true,
+      "owner": "conexus-dotnet,allagma-dotnet",
+      "evidenceKind": "live-smoke-or-contract-test",
+      "commands": ["./scripts/run-system-cohesion-smoke.ps1 -IncludeConexusFallback"],
+      "status": "DEFERRED_WITH_REASON",
+      "reason": "Template default; requires fake provider fallback config.",
+      "nextGate": "Fallback smoke"
+    },
+    {
+      "id": "correlation_chain",
+      "name": "Trace/correlation/run/model/decision linkage",
+      "requiredForAlpha": true,
+      "owner": "allagma-dotnet,ontogony-platform",
+      "evidenceKind": "live-smoke",
+      "commands": ["./scripts/run-system-cohesion-smoke.ps1 -IncludeCorrelationChain"],
+      "status": "DEFERRED_WITH_REASON",
+      "reason": "Template default; closeout must replace.",
+      "nextGate": "Correlation smoke"
+    },
+    {
+      "id": "evidence_spine_operator_visibility",
+      "name": "Operator console and Evidence Spine visibility",
+      "requiredForAlpha": true,
+      "owner": "ontogony-frontend",
+      "evidenceKind": "frontend-contract-or-playwright",
+      "commands": ["npm run contracts:discipline"],
+      "status": "DEFERRED_WITH_REASON",
+      "reason": "Template default; requires frontend proof or explicit deferral.",
+      "nextGate": "Operator console evidence"
+    },
+    {
+      "id": "restart_replay_survival",
+      "name": "Restart/replay survival with durable state",
+      "requiredForAlpha": true,
+      "owner": "allagma-dotnet",
+      "evidenceKind": "e2e",
+      "commands": ["./scripts/restart-e2e-first-real-system.ps1"],
+      "status": "DEFERRED_WITH_REASON",
+      "reason": "Template default; closeout must replace.",
+      "nextGate": "Restart E2E"
+    },
+    {
+      "id": "package_mode_build",
+      "name": "Package-mode build proof",
+      "requiredForAlpha": false,
+      "owner": "allagma-dotnet",
+      "evidenceKind": "build",
+      "commands": ["./scripts/run-package-mode-build.ps1"],
+      "status": "OPTIONAL_LOCAL_ONLY",
+      "reason": "Package-mode is release proof path; not required for every local cohesion run.",
+      "nextGate": "Release candidate package proof"
+    },
+    {
+      "id": "real_tools_blocked",
+      "name": "Real tool execution remains blocked",
+      "requiredForAlpha": true,
+      "owner": "allagma-dotnet",
+      "evidenceKind": "test-doc",
+      "commands": ["dotnet test Allagma.sln -c Release --filter RealTools"],
+      "status": "DEFERRED_WITH_REASON",
+      "reason": "Template default; closeout must replace with PASS.",
+      "nextGate": "Real tools blocked conformance"
+    },
+    {
+      "id": "observability_evidence_gate",
+      "name": "Observability metric/dashboard evidence gate",
+      "requiredForAlpha": false,
+      "owner": "allagma-dotnet,ontogony-platform",
+      "evidenceKind": "runbook-or-live-evidence",
+      "commands": ["./scripts/run-system-observability-evidence.ps1"],
+      "status": "DEFERRED_WITH_REASON",
+      "reason": "May be deferred to SYS-OBS package if live dashboards are not in this sprint.",
+      "nextGate": "SYS-OBS-002A or equivalent"
+    }
+  ]
+}

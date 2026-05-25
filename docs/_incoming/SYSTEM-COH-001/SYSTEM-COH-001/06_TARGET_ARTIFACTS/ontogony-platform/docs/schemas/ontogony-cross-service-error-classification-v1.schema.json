@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.ontogony.local/ontogony-cross-service-error-classification-v1.schema.json",
+  "title": "Ontogony cross-service error classification v1",
+  "type": "object",
+  "required": ["code", "stage", "system", "retryable"],
+  "properties": {
+    "code": { "type": "string" },
+    "message": { "type": "string" },
+    "stage": { "type": "string" },
+    "system": { "type": "string" },
+    "downstreamSystem": { "type": ["string", "null"] },
+    "nativeCode": { "type": ["string", "null"] },
+    "traceId": { "type": ["string", "null"] },
+    "correlationId": { "type": ["string", "null"] },
+    "runId": { "type": ["string", "null"] },
+    "retryable": { "type": "boolean" },
+    "details": { "type": "object", "additionalProperties": true }
+  },
+  "additionalProperties": true
+}
