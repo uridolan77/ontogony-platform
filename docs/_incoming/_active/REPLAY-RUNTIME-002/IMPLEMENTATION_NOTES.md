@@ -85,9 +85,13 @@ Tests: Conexus replay/inventory/OpenAPI; Allagma `Replay*` + `CrossServiceReplay
 
 ## Package closure
 
-**Ready for frontend client generation (backend contract slice)** — route inventory and admin OpenAPI snapshots include `/admin/v0/replay/*`. Full REPLAY-RUNTIME-001 acceptance headline still requires smoke + frontend wiring.
+**Closed for scoped frontend replay wiring** (ontogony-frontend, verified 2026-05-25). Backend cross-service slice (Kanon bundles + Conexus model-call dry-run from Allagma orchestration) remains as documented above.
 
 **Orchestration caveat (do not miss for UI):** wire Conexus **route-decision** dry-run via Conexus admin OpenAPI if the panel needs it; Allagma replay results will not include that attempt until REPLAY-RUNTIME-003+.
+
+**Frontend follow-up (REPLAY-RUNTIME-002A):** `resolveAllagmaReplayTarget` is codegen-ready but `/allagma/replay` still uses local `buildReplayLookupRoot`; prefer backend resolver for target kind inference or document the exception.
+
+Full REPLAY-RUNTIME-001 acceptance headline still requires governed fake replay smoke (REPLAY-RUNTIME-005+).
 
 ## Documentation alignment
 
