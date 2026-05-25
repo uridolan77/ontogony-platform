@@ -1,6 +1,6 @@
 {
   "schema": "ontogony-propagation-header-v1",
-  "baseline": "SYSTEM-RC-001A",
+  "baseline": "SYSTEM-RC-002",
   "sprint": "PLATFORM-9-003",
   "contractDocument": "docs/contracts/HEADER_PROPAGATION_CONTRACT.md",
   "frozenRequiredHeaders": [

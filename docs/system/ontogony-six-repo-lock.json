@@ -1,23 +1,23 @@
 {
   "schema": "ontogony-six-repo-lock-v1",
-  "baseline": "SYSTEM-RC-001A",
+  "baseline": "SYSTEM-RC-002",
   "generatedAt": "2026-05-22T00:00:00Z",
   "postLockDeltaRegister": "docs/system/ontogony-six-repo-post-lock-deltas.json",
   "repos": {
     "ontogony-platform": {
-      "commit": "78a3f71511a2797f87cf81ed2e37277c51464ded",
+      "commit": "b0ad75b9e14570ff798ea693b50aa29effaabf4c",
       "packageVersion": "0.3.0-alpha.1"
     },
     "conexus-dotnet": {
-      "commit": "cfcdd14af5813cba87ad269f34fa0f3d381b1fdb",
+      "commit": "5b2c01760a23c8aac2fd5a5407f94ca9db28013e",
       "clientVersion": "0.1.0-alpha.1"
     },
     "kanon-dotnet": {
-      "commit": "5cdfd184010826a733bd4636aead94f3e28cacb2",
+      "commit": "7e41fafd223688b28ab42e79787544ec345903d0",
       "clientVersion": "0.1.0-alpha.0"
     },
     "allagma-dotnet": {
-      "commit": "99d64f2a9a40ab3e91eebebafd028582bb8b0ca1",
+      "commit": "d9d0f02b93af6137ccdafb70d1b13ba91b8e5fe7",
       "apiPrefix": "/allagma/v0"
     },
     "ontogony-ui": {
