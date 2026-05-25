@@ -23,7 +23,7 @@
       "name": "allagma-dotnet",
       "role": "governed runtime / runtime lock owner",
       "ref": "main",
-      "commit": "a00f346a0e9a51a06ed5572cf9ba2427aef249ce",
+      "commit": "f39beef2a1f8915b8979805451b9cbc14b22dea4",
       "packageVersions": [
         "Kanon.Client=0.1.0-alpha.0",
         "Kanon.Contracts=0.1.0-alpha.0",
