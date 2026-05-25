@@ -25,6 +25,7 @@
 | `docs/generated/ALLAGMA_V0_ROUTE_INVENTORY.json` | allagma | generated | integrator | [11](./11_ADD_OR_CHANGE_AN_API_ROUTE.md) | generated_do_not_edit |
 | `docs/evidence/AGM_*.md` | allagma | evidence | maintainer | [03](./03_GOVERNED_FAKE_E2E.md) | keep, link |
 | `docs/CURRENT_STATE.md` | conexus | reference | backend | [10](./10_ADD_A_PROVIDER_OR_MODEL_ALIAS.md) | keep, link |
+| `docs/evidence/CONEXUS_PROVIDER_PARITY_001_EVIDENCE.md` | conexus | evidence | maintainer | [10](./10_ADD_A_PROVIDER_OR_MODEL_ALIAS.md) | keep, link |
 | `docs/ux/CONSOLE_CANONICAL_UI_SET.md` | frontend | UX reference | frontend | [15](./15_UI_CANONICALIZATION_AND_CONSOLE_UX.md) | keep, link |
 | `route-workflow-catalog.json` | frontend | source artifact | frontend | [08](./08_CONTRACT_DISCIPLINE.md), [12](./12_ADD_A_FRONTEND_PAGE.md) | keep |
 | `docs/generated/*` | frontend | generated | frontend | [08](./08_CONTRACT_DISCIPLINE.md) | generated_do_not_edit |

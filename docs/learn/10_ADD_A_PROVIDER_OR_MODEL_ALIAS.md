@@ -40,6 +40,27 @@ cd C:\dev\ontogony-platform
 
 Requires `CONEXUS_PROVIDER_OPENAI_API_KEY` — not for CI by default.
 
+## Operator capability truth (v2)
+
+After adding or changing a provider, verify inventory shows **`CapabilityProfile`** (support states: `supported`, `partial`, `simulated`, `unavailable`, `rejected`, `planned`, …) — not boolean guesses.
+
+| Doc | Path |
+| --- | --- |
+| Capability matrix | `conexus-dotnet/docs/providers/PROVIDER_CAPABILITY_MATRIX.md` |
+| Parity closure | `conexus-dotnet/docs/evidence/CONEXUS_PROVIDER_PARITY_001_EVIDENCE.md` |
+| Console UI | Conexus observability + provider inventory chips (`ontogony-frontend/src/conexus/`) |
+
+Checks:
+
+```powershell
+cd C:\dev\conexus-dotnet
+dotnet test tests/Conexus.Application.Tests --filter FullyQualifiedName~ProviderParity001
+
+cd C:\dev\ontogony-frontend
+npm run conexus:route-parity:check
+npm run conexus:operator-ui-coverage:check
+```
+
 ## References
 
 - [07_DOMAIN_MODEL_ROUTING_BOUNDARIES.md](./07_DOMAIN_MODEL_ROUTING_BOUNDARIES.md)
