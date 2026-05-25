@@ -19,11 +19,15 @@
 
 .EXAMPLE
   pwsh -File scripts/smoke/run-runtime-lock-governed-fake-e2e.ps1 -SkipPlaywright -SkipSystemTruth
+
+.EXAMPLE
+  pwsh -File scripts/smoke/run-runtime-lock-governed-fake-e2e.ps1 -IncludeReplay
 #>
 param(
     [string]$DevRoot = "",
     [switch]$SkipSystemTruth,
     [switch]$SkipPlaywright,
+    [switch]$IncludeReplay,
     [switch]$WaitDockerStack,
     [string]$OutputDirectory = "artifacts/runtime-lock-governed-fake-e2e"
 )
@@ -153,6 +157,37 @@ try {
     $checkScript = Join-Path $allagmaRoot "scripts/check-governed-fake-e2e-summary.ps1"
     if (Test-Path -LiteralPath $checkScript) {
         & $checkScript -SummaryPath (Join-Path $platformOut "governed-fake-e2e-summary.json")
+    }
+
+    if ($IncludeReplay) {
+        $replaySmoke = Join-Path $allagmaRoot "scripts/smoke/run-governed-fake-replay-e2e.ps1"
+        if (-not (Test-Path -LiteralPath $replaySmoke)) {
+            throw "Missing replay smoke script: $replaySmoke"
+        }
+        Write-Host ""
+        Write-Host "=== run-governed-fake-replay-e2e (REPLAY-RUNTIME-005) ==="
+        $replayOutDir = & $replaySmoke -NoTimestampSubdirectory `
+            -OutputDirectory (Join-Path $platformOut "governed-fake-replay-e2e")
+        if ($LASTEXITCODE -ne 0) { throw "run-governed-fake-replay-e2e.ps1 failed with exit $LASTEXITCODE" }
+        $replayOutDir = [string]$replayOutDir.Trim()
+        $replaySummarySrc = Join-Path $replayOutDir "governed-fake-replay-summary.json"
+        if (-not (Test-Path -LiteralPath $replaySummarySrc)) {
+            throw "Missing $replaySummarySrc"
+        }
+        Copy-Item -LiteralPath $replaySummarySrc -Destination (Join-Path $platformOut "governed-fake-replay-summary.json") -Force
+        foreach ($name in @(
+            "replay-request.json", "replay-result.json", "replay-evidence-bundle.json",
+            "replay-delta.json", "replay-summary.json", "replay-summary.md"
+        )) {
+            $src = Join-Path $replayOutDir $name
+            if (Test-Path -LiteralPath $src) {
+                Copy-Item -LiteralPath $src -Destination (Join-Path $platformOut $name) -Force
+            }
+        }
+        $replayCheck = Join-Path $allagmaRoot "scripts/check-governed-fake-replay-summary.ps1"
+        if (Test-Path -LiteralPath $replayCheck) {
+            & $replayCheck -SummaryPath (Join-Path $platformOut "governed-fake-replay-summary.json")
+        }
     }
 
     Write-Host ""
