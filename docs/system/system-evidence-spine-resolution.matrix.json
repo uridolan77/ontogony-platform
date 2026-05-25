@@ -49,7 +49,18 @@
       "routes": [
         { "method": "GET", "path": "/allagma/v0/runs/{runId}", "role": "primary", "clientHook": "getAllagmaRun" },
         { "method": "GET", "path": "/allagma/v0/runs/{runId}/events", "role": "expand", "clientHook": "listAllagmaRunEvents" },
-        { "method": "GET", "path": "/allagma/v0/runs/{runId}/audit", "role": "expand", "clientHook": "getAllagmaRunAuditBundle" }
+        { "method": "GET", "path": "/allagma/v0/runs/{runId}/audit", "role": "expand", "clientHook": "getAllagmaRunAuditBundle" },
+        { "method": "GET", "path": "/allagma/v0/runs/{runId}/workflow", "role": "expand", "clientHook": "getAllagmaRunWorkflow" }
+      ],
+      "operatorHref": "/allagma/runs/{runId}"
+    },
+    {
+      "kind": "allagmaCheckpointId",
+      "aliases": ["checkpointId", "mafCheckpointId"],
+      "owner": "allagma-dotnet",
+      "resolverRoot": true,
+      "routes": [
+        { "method": "GET", "path": "/allagma/v0/runs/{runId}/workflow", "role": "primary", "clientHook": "getAllagmaRunWorkflow" }
       ],
       "operatorHref": "/allagma/runs/{runId}"
     },
