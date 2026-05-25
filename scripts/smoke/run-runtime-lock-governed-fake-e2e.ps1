@@ -188,6 +188,24 @@ try {
         if (Test-Path -LiteralPath $replayCheck) {
             & $replayCheck -SummaryPath (Join-Path $platformOut "governed-fake-replay-summary.json")
         }
+
+        $platformReplayEvidence = Join-Path $platformRoot "docs/evidence/artifacts/governed-fake-replay-e2e/$timestamp"
+        New-Item -ItemType Directory -Force -Path $platformReplayEvidence | Out-Null
+        foreach ($name in @(
+            "governed-fake-replay-summary.json",
+            "replay-request.json",
+            "replay-result.json",
+            "replay-evidence-bundle.json",
+            "replay-delta.json",
+            "replay-summary.json",
+            "replay-summary.md"
+        )) {
+            $src = Join-Path $platformOut $name
+            if (Test-Path -LiteralPath $src) {
+                Copy-Item -LiteralPath $src -Destination (Join-Path $platformReplayEvidence $name) -Force
+            }
+        }
+        Write-Host "  replay evidence mirror: $platformReplayEvidence"
     }
 
     Write-Host ""
