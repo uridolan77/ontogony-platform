@@ -1,0 +1,54 @@
+﻿{
+    "schema":  "ontogony-governed-maf-e2e-summary-v1",
+    "generatedAtUtc":  "2026-05-25T13:22:30.4801045Z",
+    "verdict":  "PASS",
+    "scenario":  "GOVERNED-MAF-E2E-001",
+    "identifiers":  {
+                        "runId":  "run_ad05288767d34b5f802b3078304a538a",
+                        "traceId":  "cohesion-approve-6205a83f50604a21b27fc17d9d5ff527",
+                        "humanGateId":  "gate_2a25f309340b4b8c8baf1186d560c586",
+                        "planningDecisionId":  "decision_15023fe641c040daa54187e265231137",
+                        "modelCallId":  "chatcmpl-0HNLQBVR0A9I7-00000001",
+                        "replayId":  "replay_8c5bca09121b44a090455f3822efd8aa"
+                    },
+    "workflow":  {
+                     "workflowId":  "allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a",
+                     "workflowVersion":  "governed-spine-v1",
+                     "workflowCheckpointCount":  3,
+                     "workflowNodeCount":  10,
+                     "toolIntentBindingCount":  2,
+                     "governanceBindingCount":  3
+                 },
+    "replay":  {
+                   "replayId":  "replay_8c5bca09121b44a090455f3822efd8aa",
+                   "replayMode":  "evidence_only"
+               },
+    "evidence":  {
+                     "evidenceGraphVerdict":  "PASS",
+                     "evidenceGraphNodeCount":  7,
+                     "evidenceGraphEdgeCount":  10,
+                     "evidenceSpineBundle":  "evidence-spine-bundle.json",
+                     "legacyResultArtifact":  "governed-maf-e2e-result.json",
+                     "workflowNodeKinds":  [
+                                               "allagma.workflow",
+                                               "allagma.workflow_step",
+                                               "allagma.workflow_checkpoint"
+                                           ]
+                 },
+    "strict":  {
+                   "enabled":  true,
+                   "checkpointRunId":  "run_c67d9ccd94164c4fa0aff7c4a4907853",
+                   "checkpointResumeOutcome":  "replay_recorded"
+               },
+    "systemTruth":  {
+                        "status":  "not_run"
+                    },
+    "playwright":  {
+                       "status":  "not_run",
+                       "reportRelative":  ""
+                   },
+    "runtimeLock":  {
+                        "stage":  "local_proof",
+                        "note":  "MAF workflow smoke: consequential probe, human gate resume, workflow projection, replay binding."
+                    }
+}

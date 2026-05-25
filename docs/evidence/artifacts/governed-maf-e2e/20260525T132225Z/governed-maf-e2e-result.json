@@ -1,0 +1,23 @@
+﻿{
+    "traceId":  "cohesion-approve-6205a83f50604a21b27fc17d9d5ff527",
+    "evidenceGraphNodeCount":  7,
+    "modelCallId":  "chatcmpl-0HNLQBVR0A9I7-00000001",
+    "replayId":  "replay_8c5bca09121b44a090455f3822efd8aa",
+    "runId":  "run_ad05288767d34b5f802b3078304a538a",
+    "workflowVersion":  "governed-spine-v1",
+    "toolIntentBindingCount":  2,
+    "strictCheckpointOutcome":  "replay_recorded",
+    "scenario":  "GOVERNED-MAF-E2E-001",
+    "governanceBindingCount":  3,
+    "workflowCheckpointCount":  3,
+    "replayMode":  "evidence_only",
+    "planningDecisionId":  "decision_15023fe641c040daa54187e265231137",
+    "evidenceGraphArtifact":  "C:/dev/allagma-dotnet/artifacts/governed-maf-e2e/20260525T132225Z/evidence-graph.json",
+    "workflowId":  "allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a",
+    "evidenceGraphEdgeCount":  10,
+    "strictCheckpointRunId":  "run_c67d9ccd94164c4fa0aff7c4a4907853",
+    "workflowNodeCount":  10,
+    "strictEnabled":  true,
+    "humanGateId":  "gate_2a25f309340b4b8c8baf1186d560c586",
+    "evidenceGraphVerdict":  "PASS"
+}

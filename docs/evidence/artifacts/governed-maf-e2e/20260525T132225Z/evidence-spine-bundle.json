@@ -1,0 +1,362 @@
+﻿{
+    "schema":  "ontogony-allagma-evidence-graph-acceptance-v1",
+    "timestampUtc":  "2026-05-25T13:22:29.3149917Z",
+    "verdict":  "PASS",
+    "runId":  "run_ad05288767d34b5f802b3078304a538a",
+    "planningDecisionId":  "decision_15023fe641c040daa54187e265231137",
+    "modelCallId":  "chatcmpl-0HNLQBVR0A9I7-00000001",
+    "nodes":  [
+                  {
+                      "system":  "allagma",
+                      "kind":  "run",
+                      "id":  "run_ad05288767d34b5f802b3078304a538a",
+                      "status":  "Completed",
+                      "href":  "/allagma/v0/runs/run_ad05288767d34b5f802b3078304a538a",
+                      "planningDecisionId":  "decision_15023fe641c040daa54187e265231137",
+                      "modelCallId":  "chatcmpl-0HNLQBVR0A9I7-00000001"
+                  },
+                  {
+                      "system":  "allagma",
+                      "kind":  "audit_bundle",
+                      "id":  "run_ad05288767d34b5f802b3078304a538a",
+                      "status":  "PASS",
+                      "href":  "/allagma/v0/runs/run_ad05288767d34b5f802b3078304a538a/audit",
+                      "schema":  "ontogony-allagma-run-audit-bundle-v1",
+                      "downstreamCount":  5
+                  },
+                  {
+                      "system":  "kanon",
+                      "kind":  "decision",
+                      "id":  "decision_15023fe641c040daa54187e265231137",
+                      "status":  "PASS",
+                      "href":  "/ontology/v0/decision-records/decision_15023fe641c040daa54187e265231137",
+                      "decisionType":  "semantic_plan",
+                      "purpose":  "semantic_plan"
+                  },
+                  {
+                      "system":  "kanon",
+                      "kind":  "decision",
+                      "id":  "decision_49730f9d74cc4049864b67af0ae017b5",
+                      "status":  "PASS",
+                      "href":  "/ontology/v0/decision-records/decision_49730f9d74cc4049864b67af0ae017b5",
+                      "decisionType":  "human_gate",
+                      "purpose":  "human_gate"
+                  },
+                  {
+                      "system":  "kanon",
+                      "kind":  "decision",
+                      "id":  "decision_f0336c6348f14bc7afc00b188f77b5ae",
+                      "status":  "PASS",
+                      "href":  "/ontology/v0/decision-records/decision_f0336c6348f14bc7afc00b188f77b5ae",
+                      "decisionType":  "policy_evaluation",
+                      "purpose":  "human_gate_resume"
+                  },
+                  {
+                      "system":  "conexus",
+                      "kind":  "model_call",
+                      "id":  "chatcmpl-0HNLQBVR0A9I7-00000001",
+                      "status":  "PASS",
+                      "href":  "/admin/v0/model-calls/chatcmpl-0HNLQBVR0A9I7-00000001/evidence-links",
+                      "traceId":  "05f3f4d72f742665c7242207d6fe5b81",
+                      "routeDecisionId":  "rd-0HNLQBVR0A9I7-00000001",
+                      "correlationId":  "e3b50d648e9d4e8580995e1737c076dd"
+                  },
+                  {
+                      "system":  "conexus",
+                      "kind":  "route_decision",
+                      "id":  "rd-0HNLQBVR0A9I7-00000001",
+                      "status":  "PASS",
+                      "href":  "/admin/v0/route-decisions/rd-0HNLQBVR0A9I7-00000001"
+                  },
+                  {
+                      "system":  "allagma",
+                      "kind":  "workflow",
+                      "id":  "allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a",
+                      "status":  "PASS",
+                      "href":  "/allagma/v0/runs/run_ad05288767d34b5f802b3078304a538a/workflow",
+                      "fields":  {
+                                     "workflowVersion":  "governed-spine-v1",
+                                     "checkpointCount":  3,
+                                     "nodeCount":  10
+                                 }
+                  },
+                  {
+                      "system":  "allagma",
+                      "kind":  "workflow_step",
+                      "id":  "allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a:maf.workflow.step.plan",
+                      "status":  "PASS",
+                      "href":  "/allagma/v0/runs/run_ad05288767d34b5f802b3078304a538a/workflow",
+                      "fields":  {
+                                     "nodeKind":  "maf.workflow.step.plan",
+                                     "status":  "completed"
+                                 }
+                  },
+                  {
+                      "system":  "allagma",
+                      "kind":  "workflow_step",
+                      "id":  "allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a:allagma.workflow.step.kanon_plan",
+                      "status":  "PASS",
+                      "href":  "/allagma/v0/runs/run_ad05288767d34b5f802b3078304a538a/workflow",
+                      "fields":  {
+                                     "nodeKind":  "allagma.workflow.step.kanon_plan",
+                                     "status":  "completed"
+                                 }
+                  },
+                  {
+                      "system":  "allagma",
+                      "kind":  "workflow_step",
+                      "id":  "allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a:maf.workflow.step.prepare_tools",
+                      "status":  "PASS",
+                      "href":  "/allagma/v0/runs/run_ad05288767d34b5f802b3078304a538a/workflow",
+                      "fields":  {
+                                     "nodeKind":  "maf.workflow.step.prepare_tools",
+                                     "status":  "completed"
+                                 }
+                  },
+                  {
+                      "system":  "allagma",
+                      "kind":  "workflow_step",
+                      "id":  "allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a:allagma.workflow.step.registry_validation",
+                      "status":  "PASS",
+                      "href":  "/allagma/v0/runs/run_ad05288767d34b5f802b3078304a538a/workflow",
+                      "fields":  {
+                                     "nodeKind":  "allagma.workflow.step.registry_validation",
+                                     "status":  "completed"
+                                 }
+                  },
+                  {
+                      "system":  "allagma",
+                      "kind":  "workflow_step",
+                      "id":  "allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a:allagma.workflow.step.kanon_tool_evaluation",
+                      "status":  "PASS",
+                      "href":  "/allagma/v0/runs/run_ad05288767d34b5f802b3078304a538a/workflow",
+                      "fields":  {
+                                     "nodeKind":  "allagma.workflow.step.kanon_tool_evaluation",
+                                     "status":  "completed"
+                                 }
+                  },
+                  {
+                      "system":  "allagma",
+                      "kind":  "workflow_step",
+                      "id":  "allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a:allagma.workflow.step.human_gate",
+                      "status":  "PASS",
+                      "href":  "/allagma/v0/runs/run_ad05288767d34b5f802b3078304a538a/workflow",
+                      "fields":  {
+                                     "nodeKind":  "allagma.workflow.step.human_gate",
+                                     "status":  "completed"
+                                 }
+                  },
+                  {
+                      "system":  "allagma",
+                      "kind":  "workflow_step",
+                      "id":  "allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a:allagma.workflow.step.tool_execution",
+                      "status":  "PASS",
+                      "href":  "/allagma/v0/runs/run_ad05288767d34b5f802b3078304a538a/workflow",
+                      "fields":  {
+                                     "nodeKind":  "allagma.workflow.step.tool_execution",
+                                     "status":  "completed"
+                                 }
+                  },
+                  {
+                      "system":  "allagma",
+                      "kind":  "workflow_step",
+                      "id":  "allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a:allagma.workflow.step.conexus_model",
+                      "status":  "PASS",
+                      "href":  "/allagma/v0/runs/run_ad05288767d34b5f802b3078304a538a/workflow",
+                      "fields":  {
+                                     "nodeKind":  "allagma.workflow.step.conexus_model",
+                                     "status":  "completed"
+                                 }
+                  },
+                  {
+                      "system":  "allagma",
+                      "kind":  "workflow_step",
+                      "id":  "allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a:allagma.workflow.step.run_completion",
+                      "status":  "PASS",
+                      "href":  "/allagma/v0/runs/run_ad05288767d34b5f802b3078304a538a/workflow",
+                      "fields":  {
+                                     "nodeKind":  "allagma.workflow.step.run_completion",
+                                     "status":  "completed"
+                                 }
+                  },
+                  {
+                      "system":  "allagma",
+                      "kind":  "workflow_step",
+                      "id":  "allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a:allagma.workflow.step.replay_binding",
+                      "status":  "PASS",
+                      "href":  "/allagma/v0/runs/run_ad05288767d34b5f802b3078304a538a/workflow",
+                      "fields":  {
+                                     "nodeKind":  "allagma.workflow.step.replay_binding",
+                                     "status":  "skipped"
+                                 }
+                  },
+                  {
+                      "system":  "allagma",
+                      "kind":  "workflow_checkpoint",
+                      "id":  "maf-cp-plan-run_ad05288767d34b5f802b3078304a538a",
+                      "status":  "PASS",
+                      "href":  "/allagma/v0/runs/run_ad05288767d34b5f802b3078304a538a/workflow",
+                      "fields":  {
+                                     "checkpointKind":  "maf.workflow.step.plan",
+                                     "sequence":  1
+                                 }
+                  },
+                  {
+                      "system":  "allagma",
+                      "kind":  "workflow_checkpoint",
+                      "id":  "maf-cp-prepare-run_ad05288767d34b5f802b3078304a538a",
+                      "status":  "PASS",
+                      "href":  "/allagma/v0/runs/run_ad05288767d34b5f802b3078304a538a/workflow",
+                      "fields":  {
+                                     "checkpointKind":  "maf.workflow.step.prepare_tools",
+                                     "sequence":  2
+                                 }
+                  },
+                  {
+                      "system":  "allagma",
+                      "kind":  "workflow_checkpoint",
+                      "id":  "maf-cp-governance-run_ad05288767d34b5f802b3078304a538a",
+                      "status":  "PASS",
+                      "href":  "/allagma/v0/runs/run_ad05288767d34b5f802b3078304a538a/workflow",
+                      "fields":  {
+                                     "checkpointKind":  "maf.workflow.step.await_governance",
+                                     "sequence":  3
+                                 }
+                  }
+              ],
+    "edges":  [
+                  {
+                      "from":  "allagma/run/run_ad05288767d34b5f802b3078304a538a",
+                      "to":  "allagma/audit_bundle/run_ad05288767d34b5f802b3078304a538a",
+                      "relationship":  "audit_export"
+                  },
+                  {
+                      "from":  "allagma/run/run_ad05288767d34b5f802b3078304a538a",
+                      "to":  "kanon/decision/decision_15023fe641c040daa54187e265231137",
+                      "relationship":  "kanon_decision"
+                  },
+                  {
+                      "from":  "allagma/run/run_ad05288767d34b5f802b3078304a538a",
+                      "to":  "kanon/decision/decision_15023fe641c040daa54187e265231137",
+                      "relationship":  "kanon_semantic_plan"
+                  },
+                  {
+                      "from":  "allagma/run/run_ad05288767d34b5f802b3078304a538a",
+                      "to":  "kanon/decision/decision_49730f9d74cc4049864b67af0ae017b5",
+                      "relationship":  "kanon_decision"
+                  },
+                  {
+                      "from":  "allagma/run/run_ad05288767d34b5f802b3078304a538a",
+                      "to":  "kanon/decision/decision_49730f9d74cc4049864b67af0ae017b5",
+                      "relationship":  "kanon_human_gate"
+                  },
+                  {
+                      "from":  "allagma/run/run_ad05288767d34b5f802b3078304a538a",
+                      "to":  "kanon/decision/decision_f0336c6348f14bc7afc00b188f77b5ae",
+                      "relationship":  "kanon_decision"
+                  },
+                  {
+                      "from":  "allagma/run/run_ad05288767d34b5f802b3078304a538a",
+                      "to":  "kanon/decision/decision_f0336c6348f14bc7afc00b188f77b5ae",
+                      "relationship":  "kanon_human_gate"
+                  },
+                  {
+                      "from":  "allagma/run/run_ad05288767d34b5f802b3078304a538a",
+                      "to":  "conexus/model_call/chatcmpl-0HNLQBVR0A9I7-00000001",
+                      "relationship":  "conexus_model_call"
+                  },
+                  {
+                      "from":  "conexus/model_call/chatcmpl-0HNLQBVR0A9I7-00000001",
+                      "to":  "conexus/route_decision/rd-0HNLQBVR0A9I7-00000001",
+                      "relationship":  "route_decision"
+                  },
+                  {
+                      "from":  "kanon/decision/decision_15023fe641c040daa54187e265231137",
+                      "to":  "conexus/model_call/chatcmpl-0HNLQBVR0A9I7-00000001",
+                      "relationship":  "plan_to_model_call"
+                  },
+                  {
+                      "from":  "allagma/run/run_ad05288767d34b5f802b3078304a538a",
+                      "to":  "allagma/workflow/allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a",
+                      "relationship":  "has_workflow"
+                  },
+                  {
+                      "from":  "allagma/workflow/allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a",
+                      "to":  "allagma/workflow_step/allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a:maf.workflow.step.plan",
+                      "relationship":  "workflow_step"
+                  },
+                  {
+                      "from":  "allagma/workflow/allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a",
+                      "to":  "allagma/workflow_step/allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a:allagma.workflow.step.kanon_plan",
+                      "relationship":  "workflow_step"
+                  },
+                  {
+                      "from":  "allagma/workflow/allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a",
+                      "to":  "allagma/workflow_step/allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a:maf.workflow.step.prepare_tools",
+                      "relationship":  "workflow_step"
+                  },
+                  {
+                      "from":  "allagma/workflow/allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a",
+                      "to":  "allagma/workflow_step/allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a:allagma.workflow.step.registry_validation",
+                      "relationship":  "workflow_step"
+                  },
+                  {
+                      "from":  "allagma/workflow/allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a",
+                      "to":  "allagma/workflow_step/allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a:allagma.workflow.step.kanon_tool_evaluation",
+                      "relationship":  "workflow_step"
+                  },
+                  {
+                      "from":  "allagma/workflow/allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a",
+                      "to":  "allagma/workflow_step/allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a:allagma.workflow.step.human_gate",
+                      "relationship":  "workflow_step"
+                  },
+                  {
+                      "from":  "allagma/workflow/allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a",
+                      "to":  "allagma/workflow_step/allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a:allagma.workflow.step.tool_execution",
+                      "relationship":  "workflow_step"
+                  },
+                  {
+                      "from":  "allagma/workflow/allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a",
+                      "to":  "allagma/workflow_step/allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a:allagma.workflow.step.conexus_model",
+                      "relationship":  "workflow_step"
+                  },
+                  {
+                      "from":  "allagma/workflow/allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a",
+                      "to":  "allagma/workflow_step/allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a:allagma.workflow.step.run_completion",
+                      "relationship":  "workflow_step"
+                  },
+                  {
+                      "from":  "allagma/workflow/allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a",
+                      "to":  "allagma/workflow_step/allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a:allagma.workflow.step.replay_binding",
+                      "relationship":  "workflow_step"
+                  },
+                  {
+                      "from":  "allagma/workflow/allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a",
+                      "to":  "allagma/workflow_checkpoint/maf-cp-plan-run_ad05288767d34b5f802b3078304a538a",
+                      "relationship":  "workflow_checkpoint"
+                  },
+                  {
+                      "from":  "allagma/workflow/allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a",
+                      "to":  "allagma/workflow_checkpoint/maf-cp-prepare-run_ad05288767d34b5f802b3078304a538a",
+                      "relationship":  "workflow_checkpoint"
+                  },
+                  {
+                      "from":  "allagma/workflow/allagma.governed-spine-v1:run_ad05288767d34b5f802b3078304a538a",
+                      "to":  "allagma/workflow_checkpoint/maf-cp-governance-run_ad05288767d34b5f802b3078304a538a",
+                      "relationship":  "workflow_checkpoint"
+                  }
+              ],
+    "optionalNotes":  [
+
+                      ],
+    "requiredPaths":  [
+                          "allagma.run",
+                          "allagma.audit_bundle",
+                          "kanon.semantic_plan",
+                          "conexus.model_call",
+                          "conexus.route_decision",
+                          "allagma.workflow",
+                          "allagma.workflow_step",
+                          "allagma.workflow_checkpoint"
+                      ]
+}
