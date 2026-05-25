@@ -2,22 +2,41 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://schemas.ontogony.local/ontogony-system-cohesion-summary-v1.schema.json",
   "title": "Ontogony system cohesion summary v1 (SYSTEM-COH-001 closeout)",
-  "description": "Normalized summary from allagma-dotnet/scripts/run-system-coh-001-acceptance.ps1. Distinct from ontogony-system-e2e-summary-v1 (live smoke harness in allagma-dotnet/docs/system/schemas/system-cohesion-summary.schema.json).",
+  "description": "Normalized summary from allagma-dotnet/scripts/run-system-coh-001-acceptance.ps1. Distinct from ontogony-system-e2e-summary-v1 (live smoke harness). overallVerdict PASS does not imply live runtime proof when liveEvidenceVerdict is DEFERRED.",
   "type": "object",
-  "required": ["schema", "package", "timestampUtc", "scenarios", "verdict"],
+  "required": [
+    "schema",
+    "package",
+    "timestampUtc",
+    "scenarios",
+    "structuralVerdict",
+    "liveEvidenceVerdict",
+    "releaseVerdict",
+    "overallVerdict"
+  ],
   "additionalProperties": true,
   "properties": {
     "schema": { "const": "ontogony-system-cohesion-summary-v1" },
     "package": { "type": "string" },
     "timestampUtc": { "type": "string" },
-    "verdict": { "enum": ["PASS", "FAIL"] },
+    "structuralVerdict": { "enum": ["PASS", "FAIL"] },
+    "liveEvidenceVerdict": { "enum": ["PASS", "DEFERRED", "FAIL", "NOT_RUN"] },
+    "releaseVerdict": { "enum": ["PASS", "NOT_PASSED", "NOT_RUN"] },
+    "overallVerdict": { "enum": ["PASS", "PASS_WITH_DEFERRALS", "FAIL"] },
+    "verdict": {
+      "description": "Deprecated alias of overallVerdict; kept for backward compatibility.",
+      "enum": ["PASS", "PASS_WITH_DEFERRALS", "FAIL"]
+    },
     "baseline": { "type": "string" },
     "repoRoot": { "type": "string" },
     "devRoot": { "type": "string" },
     "releaseMode": { "type": "boolean" },
+    "structuralReleaseMode": { "type": "boolean" },
+    "liveEvidenceReleaseMode": { "type": "boolean" },
+    "runtimeLockReleaseVerdict": { "enum": ["PASS", "NOT_PASSED", "NOT_RUN"] },
     "repoRefs": {
       "type": "object",
-      "additionalProperties": { "type": ["string", "null"] }
+      "additionalProperties": { "type": "string" }
     },
     "commandsRun": {
       "type": "array",
@@ -48,6 +67,7 @@
     "knownDeferrals": {
       "type": "array",
       "items": { "type": "string" }
-    }
+    },
+    "committedFixturePath": { "type": "string" }
   }
 }
