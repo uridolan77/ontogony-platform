@@ -34,6 +34,10 @@ Filter:
 dotnet test tests/Ontogony.Infrastructure.Tests/Ontogony.Infrastructure.Tests.csproj -c Release --filter ConformanceKitPr33
 ```
 
+## Reconstructability closure (PR-005)
+
+Decision-event export safety, consumer adoption manifests, and cross-service error envelope facades live under `Ontogony.Testing.Conformance`. See [`reconstructability-conformance-kits.md`](reconstructability-conformance-kits.md).
+
 ## Boundaries
 
 - Harnesses use generic test IDs (`ontogony://test/conformance`, `tenant-conformance`, etc.).
