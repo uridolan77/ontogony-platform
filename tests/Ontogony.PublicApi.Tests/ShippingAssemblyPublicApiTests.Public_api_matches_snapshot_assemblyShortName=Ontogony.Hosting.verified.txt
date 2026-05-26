@@ -1,5 +1,57 @@
-﻿namespace Ontogony.Hosting
+﻿namespace Ontogony.Hosting.Contracts
 {
+    public sealed class HealthV1Response : System.IEquatable<Ontogony.Hosting.Contracts.HealthV1Response>
+    {
+        public HealthV1Response(string SchemaVersion, string Status, string Service, string ServiceDisplayName, string Version, string? Baseline, string? GitSha, System.DateTimeOffset? BuildTimeUtc, string Environment, string? InstanceId, System.DateTimeOffset CheckedAtUtc, System.Collections.Generic.IReadOnlyDictionary<string, string>? Links = null, System.Collections.Generic.IReadOnlyList<string>? Warnings = null) { }
+        public string? Baseline { get; init; }
+        public System.DateTimeOffset? BuildTimeUtc { get; init; }
+        public System.DateTimeOffset CheckedAtUtc { get; init; }
+        public string Environment { get; init; }
+        public string? GitSha { get; init; }
+        public string? InstanceId { get; init; }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string>? Links { get; init; }
+        public string SchemaVersion { get; init; }
+        public string ServiceDisplayName { get; init; }
+        public string Service { get; init; }
+        public string Status { get; init; }
+        public string Version { get; init; }
+        public System.Collections.Generic.IReadOnlyList<string>? Warnings { get; init; }
+    }
+    public sealed class ReadinessCheckV1 : System.IEquatable<Ontogony.Hosting.Contracts.ReadinessCheckV1>
+    {
+        public ReadinessCheckV1(string Id, string Label, string Status, string Severity, string? Detail = null, string? System = null, string? DataSource = null, System.Collections.Generic.IReadOnlyDictionary<string, string>? Links = null, System.DateTimeOffset? LastCheckedAtUtc = default) { }
+        public string? DataSource { get; init; }
+        public string? Detail { get; init; }
+        public string Id { get; init; }
+        public string Label { get; init; }
+        public System.DateTimeOffset? LastCheckedAtUtc { get; init; }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string>? Links { get; init; }
+        public string Severity { get; init; }
+        public string Status { get; init; }
+        public string? System { get; init; }
+    }
+    public sealed class ReadyV1Response : System.IEquatable<Ontogony.Hosting.Contracts.ReadyV1Response>
+    {
+        public ReadyV1Response(string SchemaVersion, string Status, string Service, System.DateTimeOffset CheckedAtUtc, System.Collections.Generic.IReadOnlyList<Ontogony.Hosting.Contracts.ReadinessCheckV1> Checks, string? Summary = null, System.Collections.Generic.IReadOnlyList<string>? Warnings = null, System.Collections.Generic.IReadOnlyList<string>? Failures = null) { }
+        public System.DateTimeOffset CheckedAtUtc { get; init; }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.Hosting.Contracts.ReadinessCheckV1> Checks { get; init; }
+        public System.Collections.Generic.IReadOnlyList<string>? Failures { get; init; }
+        public string SchemaVersion { get; init; }
+        public string Service { get; init; }
+        public string Status { get; init; }
+        public string? Summary { get; init; }
+        public System.Collections.Generic.IReadOnlyList<string>? Warnings { get; init; }
+    }
+}
+namespace Ontogony.Hosting
+{
+    public static class OntogonyHealthV1ResponseWriter
+    {
+        public static Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions CreateLivenessOptions() { }
+        public static Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions CreateReadinessOptions() { }
+        public static System.Threading.Tasks.Task WriteHealthV1Async(Microsoft.AspNetCore.Http.HttpContext context, Microsoft.Extensions.Diagnostics.HealthChecks.HealthReport report) { }
+        public static System.Threading.Tasks.Task WriteReadyV1Async(Microsoft.AspNetCore.Http.HttpContext context, Microsoft.Extensions.Diagnostics.HealthChecks.HealthReport report) { }
+    }
     public static class OntogonyHostingExtensions
     {
         public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddOntogonyServiceDefaults(this Microsoft.Extensions.DependencyInjection.IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration configuration, System.Action<Ontogony.Hosting.OntogonyServiceDefaultsOptions>? configure = null) { }
@@ -12,11 +64,17 @@
         public OntogonyServiceDefaultsOptions() { }
         public bool AddErrors { get; set; }
         public bool AddObservability { get; set; }
+        public System.DateTimeOffset? BuildTimeUtc { get; set; }
+        public string? GitSha { get; set; }
         public string HealthPath { get; set; }
+        public string? InstanceId { get; set; }
         public bool MapHealthEndpoints { get; set; }
         public string ReadinessPath { get; set; }
+        public string? ServiceDisplayName { get; set; }
+        public string? ServiceHealthId { get; set; }
         public string ServiceName { get; set; }
         public string ServiceVersion { get; set; }
+        public string? SystemBaseline { get; set; }
         public bool UseExceptionHandling { get; set; }
         public bool UseRequestTracing { get; set; }
         public bool UseServiceIdentityBodyHashPreload { get; set; }

@@ -20,6 +20,9 @@
 | Protocol registry | **Implemented** | [`system/system-protocol-registry.json`](./system/system-protocol-registry.json) |
 | Per-package contracts | **Implemented** | [`packages/`](./packages/) |
 | CI validation (build, test, docs, inventory, package levels) | **Implemented** | [`TESTING.md`](./TESTING.md) |
+| HTTP resilience v1 (Retry-After, jitter, circuit breaker, timeouts) | **Implemented** | [`packages/Ontogony.Http.md`](./packages/Ontogony.Http.md), [`evidence/PLAT_DEPTH_001_HTTP_RESILIENCE_EVIDENCE.md`](./evidence/PLAT_DEPTH_001_HTTP_RESILIENCE_EVIDENCE.md) |
+| Conformance harnesses (outbox, idempotency, artifacts) | **Implemented** | [`evidence/PLAT_DEPTH_002_CONFORMANCE_HARNESSES_EVIDENCE.md`](./evidence/PLAT_DEPTH_002_CONFORMANCE_HARNESSES_EVIDENCE.md) |
+| Runtime lock + post-lock delta gate checks | **Implemented** | [`evidence/PLAT_DEPTH_003_COMPATIBILITY_GATE_EVIDENCE.md`](./evidence/PLAT_DEPTH_003_COMPATIBILITY_GATE_EVIDENCE.md) |
 
 **Active alpha consumers:** Conexus.NET and Allagma.NET consume this stack (sibling `ProjectReference` or NuGet package mode). Kanon.NET references platform packages per its own `eng/Ontogony.References.props`. See [`INTEGRATION.md`](./INTEGRATION.md).
 
@@ -43,8 +46,7 @@ Cross-repo acceptance (cohesion, streaming, replay) lives in **product repos** �
 
 | Item | Status |
 | --- | --- |
-| HTTP resilience (Retry-After, jitter, circuit breaker) | **Partial** — baseline exists; richer policies still evolve ([`packages/Ontogony.Http.md`](./packages/Ontogony.Http.md)) |
-| Public XML docs (`CS1591`) | **Partial** — Tier A enforced for Conexus baseline packages; Tier B deferred ([`quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md`](./quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md)) |
+| Public XML docs (`CS1591`) | **Partial** — Tier A complete (0 CS1591 on baseline build); Tier B deferred ([`quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md`](./quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md), [`evidence/PLAT_DEPTH_004_TIER_A_DOCS_EVIDENCE.md`](./evidence/PLAT_DEPTH_004_TIER_A_DOCS_EVIDENCE.md)) |
 | PLAT-NP-008 in-memory DI warning coverage | **Partial** — maintenance guard when new public DI surfaces land |
 
 ---

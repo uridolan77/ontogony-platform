@@ -22,6 +22,8 @@ public static class SystemCompatibilityGate
         }
 
         checks.Add(CheckRegistryAndRuntimeLock(workspace));
+        checks.Add(RuntimeLockConformance.CheckRuntimeLockShape(workspace));
+        checks.Add(RuntimeLockConformance.CheckPostLockDeltaRegister(workspace));
         checks.Add(CheckPlatformPackageVersion(workspace));
         checks.Add(HeaderPropagationConformance.CheckOperatorContracts(workspace));
         checks.Add(HeaderPropagationConformance.CheckMatrixArtifacts(workspace));

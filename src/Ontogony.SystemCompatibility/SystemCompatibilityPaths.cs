@@ -12,6 +12,11 @@ internal static class SystemCompatibilityPaths
             ? ""
             : Path.Combine(workspace.AllagmaRoot, "docs/system/ontogony-runtime.lock.json");
 
+    public static string PostLockDeltas(SystemCompatibilityWorkspace workspace) =>
+        workspace.AllagmaRoot is null
+            ? ""
+            : Path.Combine(workspace.AllagmaRoot, "docs/system/post-lock-deltas.json");
+
     public static string KanonManifest(SystemCompatibilityWorkspace workspace) =>
         workspace.KanonRoot is null
             ? ""

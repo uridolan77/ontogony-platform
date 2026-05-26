@@ -8,6 +8,25 @@
         public string? MediaType { get; init; }
         public long? SizeBytes { get; init; }
     }
+    public sealed class ReplayComparison : System.IEquatable<Ontogony.Replay.Contracts.ReplayComparison>
+    {
+        public ReplayComparison(string Field, string Status, string? Original = null, string? Replay = null) { }
+        public string Field { get; init; }
+        public string? Original { get; init; }
+        public string? Replay { get; init; }
+        public string Status { get; init; }
+    }
+    public sealed class ReplayDelta : System.IEquatable<Ontogony.Replay.Contracts.ReplayDelta>
+    {
+        public ReplayDelta(string ReplayId, string OriginalRootIdentifier, string Mode, string Verdict, System.Collections.Generic.IReadOnlyList<Ontogony.Replay.Contracts.ReplayComparison> Comparisons, System.Collections.Generic.IReadOnlyList<string>? Uncompared = null, System.Collections.Generic.IReadOnlyList<string>? Notes = null) { }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.Replay.Contracts.ReplayComparison> Comparisons { get; init; }
+        public string Mode { get; init; }
+        public System.Collections.Generic.IReadOnlyList<string>? Notes { get; init; }
+        public string OriginalRootIdentifier { get; init; }
+        public string ReplayId { get; init; }
+        public System.Collections.Generic.IReadOnlyList<string>? Uncompared { get; init; }
+        public string Verdict { get; init; }
+    }
     public sealed class ReplayDeterminismHints : System.IEquatable<Ontogony.Replay.Contracts.ReplayDeterminismHints>
     {
         public ReplayDeterminismHints(string? Seed = null, string? Temperature = null, string? TopP = null, bool ExternalProviderMayBeNonDeterministic = true, System.Collections.Generic.IReadOnlyDictionary<string, string>? ProviderParameters = null) { }
@@ -16,6 +35,19 @@
         public string? Seed { get; init; }
         public string? Temperature { get; init; }
         public string? TopP { get; init; }
+    }
+    public sealed class ReplayEligibility : System.IEquatable<Ontogony.Replay.Contracts.ReplayEligibility>
+    {
+        public ReplayEligibility(Ontogony.Replay.Contracts.ReplayTarget Target, System.Collections.Generic.IReadOnlyList<string> EligibleModes, string RecommendedMode, System.Collections.Generic.IReadOnlyList<Ontogony.Replay.Contracts.ReplayUnavailableMode> UnavailableModes, Ontogony.Replay.Contracts.ReplaySafetyPosture SafetyPosture, string Confidence = "medium", System.Collections.Generic.IReadOnlyList<string>? RequiredSourceData = null, System.Collections.Generic.IReadOnlyList<string>? AvailableSourceData = null, System.Collections.Generic.IReadOnlyList<string>? MissingSourceData = null) { }
+        public System.Collections.Generic.IReadOnlyList<string>? AvailableSourceData { get; init; }
+        public string Confidence { get; init; }
+        public System.Collections.Generic.IReadOnlyList<string> EligibleModes { get; init; }
+        public System.Collections.Generic.IReadOnlyList<string>? MissingSourceData { get; init; }
+        public string RecommendedMode { get; init; }
+        public System.Collections.Generic.IReadOnlyList<string>? RequiredSourceData { get; init; }
+        public Ontogony.Replay.Contracts.ReplaySafetyPosture SafetyPosture { get; init; }
+        public Ontogony.Replay.Contracts.ReplayTarget Target { get; init; }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.Replay.Contracts.ReplayUnavailableMode> UnavailableModes { get; init; }
     }
     public sealed class ReplayEnvironmentSnapshot : System.IEquatable<Ontogony.Replay.Contracts.ReplayEnvironmentSnapshot>
     {
@@ -27,6 +59,14 @@
         public System.Collections.Generic.IReadOnlyDictionary<string, string>? PackageVersions { get; init; }
         public string ServiceName { get; init; }
         public string ServiceVersion { get; init; }
+    }
+    public sealed class ReplayEvidenceReference : System.IEquatable<Ontogony.Replay.Contracts.ReplayEvidenceReference>
+    {
+        public ReplayEvidenceReference(string Kind, string Identifier, string? Uri = null, string? Fingerprint = null) { }
+        public string? Fingerprint { get; init; }
+        public string Identifier { get; init; }
+        public string Kind { get; init; }
+        public string? Uri { get; init; }
     }
     public sealed class ReplayInputRef : System.IEquatable<Ontogony.Replay.Contracts.ReplayInputRef>
     {
@@ -51,6 +91,16 @@
         public System.Collections.Generic.IReadOnlyList<Ontogony.Replay.Contracts.ReplayStepRecord>? Steps { get; init; }
         public string? TraceId { get; init; }
     }
+    public static class ReplayMode
+    {
+        public const string DeterministicSimulation = "deterministic_simulation";
+        public const string DryRun = "dry_run";
+        public const string EvidenceOnly = "evidence_only";
+        public const string ExactReplay = "exact_replay";
+        public const string Reconstructed = "reconstructed";
+        public const string Unavailable = "unavailable";
+        public static readonly System.Collections.Generic.IReadOnlySet<string> All;
+    }
     public sealed class ReplayOutputRef : System.IEquatable<Ontogony.Replay.Contracts.ReplayOutputRef>
     {
         public ReplayOutputRef(string Name, string Kind, Ontogony.Replay.Contracts.ReplayArtifactRef? Artifact = null, string? InlineHash = null, System.Collections.Generic.IReadOnlyDictionary<string, string>? Metadata = null) { }
@@ -59,6 +109,82 @@
         public string Kind { get; init; }
         public System.Collections.Generic.IReadOnlyDictionary<string, string>? Metadata { get; init; }
         public string Name { get; init; }
+    }
+    public sealed class ReplayRequestedBy : System.IEquatable<Ontogony.Replay.Contracts.ReplayRequestedBy>
+    {
+        public ReplayRequestedBy(string ActorId, System.Collections.Generic.IReadOnlyList<string>? Roles = null) { }
+        public string ActorId { get; init; }
+        public System.Collections.Generic.IReadOnlyList<string>? Roles { get; init; }
+    }
+    public sealed class ReplayRuntimeEvidenceBundle : System.IEquatable<Ontogony.Replay.Contracts.ReplayRuntimeEvidenceBundle>
+    {
+        public ReplayRuntimeEvidenceBundle(string Schema, Ontogony.Replay.Contracts.ReplayRuntimeRequest Request, Ontogony.Replay.Contracts.ReplayTarget RootTarget, Ontogony.Replay.Contracts.ReplayRuntimeResult Result, Ontogony.Replay.Contracts.ReplayDelta? Delta = null, System.Collections.Generic.IReadOnlyList<Ontogony.Replay.Contracts.ReplayServiceAttempt>? ServiceAttempts = null, System.Collections.Generic.IReadOnlyDictionary<string, string>? RuntimeMetadata = null, System.Collections.Generic.IReadOnlyDictionary<string, string>? RedactionMetadata = null) { }
+        public Ontogony.Replay.Contracts.ReplayDelta? Delta { get; init; }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string>? RedactionMetadata { get; init; }
+        public Ontogony.Replay.Contracts.ReplayRuntimeRequest Request { get; init; }
+        public Ontogony.Replay.Contracts.ReplayRuntimeResult Result { get; init; }
+        public Ontogony.Replay.Contracts.ReplayTarget RootTarget { get; init; }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string>? RuntimeMetadata { get; init; }
+        public string Schema { get; init; }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.Replay.Contracts.ReplayServiceAttempt>? ServiceAttempts { get; init; }
+    }
+    public sealed class ReplayRuntimeRequest : System.IEquatable<Ontogony.Replay.Contracts.ReplayRuntimeRequest>
+    {
+        public ReplayRuntimeRequest(string ReplayId, string RootIdentifier, string RootKind, string RequestedMode, System.DateTimeOffset CreatedAt, Ontogony.Replay.Contracts.ReplayRequestedBy? RequestedBy = null, string ProviderExecutionPolicy = "forbid_real_providers", string ToolExecutionPolicy = "forbid_real_tools", string RedactionPolicy = "operator_default") { }
+        public System.DateTimeOffset CreatedAt { get; init; }
+        public string ProviderExecutionPolicy { get; init; }
+        public string RedactionPolicy { get; init; }
+        public string ReplayId { get; init; }
+        public Ontogony.Replay.Contracts.ReplayRequestedBy? RequestedBy { get; init; }
+        public string RequestedMode { get; init; }
+        public string RootIdentifier { get; init; }
+        public string RootKind { get; init; }
+        public string ToolExecutionPolicy { get; init; }
+    }
+    public sealed class ReplayRuntimeResult : System.IEquatable<Ontogony.Replay.Contracts.ReplayRuntimeResult>
+    {
+        public ReplayRuntimeResult(string ReplayId, string RootIdentifier, Ontogony.Replay.Contracts.ReplayTarget Target, string Mode, string Status, string Verdict, Ontogony.Replay.Contracts.ReplaySafetyPosture SafetyPosture, System.DateTimeOffset StartedAt, System.DateTimeOffset? CompletedAt = default, string? LegacyMode = null, System.Collections.Generic.IReadOnlyList<Ontogony.Replay.Contracts.ReplayServiceAttempt>? ServiceAttempts = null, System.Collections.Generic.IReadOnlyList<Ontogony.Replay.Contracts.ReplayEvidenceReference>? OriginalEvidenceRefs = null, System.Collections.Generic.IReadOnlyList<Ontogony.Replay.Contracts.ReplayEvidenceReference>? ReplayEvidenceRefs = null, string? DeltaRef = null, string? BundleRef = null) { }
+        public string? BundleRef { get; init; }
+        public System.DateTimeOffset? CompletedAt { get; init; }
+        public string? DeltaRef { get; init; }
+        public string? LegacyMode { get; init; }
+        public string Mode { get; init; }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.Replay.Contracts.ReplayEvidenceReference>? OriginalEvidenceRefs { get; init; }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.Replay.Contracts.ReplayEvidenceReference>? ReplayEvidenceRefs { get; init; }
+        public string ReplayId { get; init; }
+        public string RootIdentifier { get; init; }
+        public Ontogony.Replay.Contracts.ReplaySafetyPosture SafetyPosture { get; init; }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.Replay.Contracts.ReplayServiceAttempt>? ServiceAttempts { get; init; }
+        public System.DateTimeOffset StartedAt { get; init; }
+        public string Status { get; init; }
+        public Ontogony.Replay.Contracts.ReplayTarget Target { get; init; }
+        public string Verdict { get; init; }
+    }
+    public static class ReplayRuntimeSchemas
+    {
+        public const string V1 = "ontogony-replay-runtime-v1";
+    }
+    public sealed class ReplaySafetyPosture : System.IEquatable<Ontogony.Replay.Contracts.ReplaySafetyPosture>
+    {
+        public ReplaySafetyPosture(string ProviderExecutionPolicy = "forbid_real_providers", string ToolExecutionPolicy = "forbid_real_tools", string RedactionPolicy = "operator_default", bool RealProvidersBlocked = true, bool RealToolsBlocked = true) { }
+        public string ProviderExecutionPolicy { get; init; }
+        public bool RealProvidersBlocked { get; init; }
+        public bool RealToolsBlocked { get; init; }
+        public string RedactionPolicy { get; init; }
+        public string ToolExecutionPolicy { get; init; }
+    }
+    public sealed class ReplayServiceAttempt : System.IEquatable<Ontogony.Replay.Contracts.ReplayServiceAttempt>
+    {
+        public ReplayServiceAttempt(string Service, string Operation, string Target, string Status, string Mode, string? Route = null, int? DurationMs = default, System.Collections.Generic.IReadOnlyList<Ontogony.Replay.Contracts.ReplayEvidenceReference>? EvidenceRefs = null, string? SkippedReason = null) { }
+        public int? DurationMs { get; init; }
+        public System.Collections.Generic.IReadOnlyList<Ontogony.Replay.Contracts.ReplayEvidenceReference>? EvidenceRefs { get; init; }
+        public string Mode { get; init; }
+        public string Operation { get; init; }
+        public string? Route { get; init; }
+        public string Service { get; init; }
+        public string? SkippedReason { get; init; }
+        public string Status { get; init; }
+        public string Target { get; init; }
     }
     public sealed class ReplayStepRecord : System.IEquatable<Ontogony.Replay.Contracts.ReplayStepRecord>
     {
@@ -70,5 +196,37 @@
         public string? RequestId { get; init; }
         public string StepId { get; init; }
         public string StepKind { get; init; }
+    }
+    public sealed class ReplayTarget : System.IEquatable<Ontogony.Replay.Contracts.ReplayTarget>
+    {
+        public ReplayTarget(string Kind, string Identifier, string OwnerService, bool Root = true, string? DisplayIdentifier = null) { }
+        public string? DisplayIdentifier { get; init; }
+        public string Identifier { get; init; }
+        public string Kind { get; init; }
+        public string OwnerService { get; init; }
+        public bool Root { get; init; }
+    }
+    public static class ReplayTargetKind
+    {
+        public const string AllagmaAuditBundle = "allagma.audit_bundle";
+        public const string AllagmaInteractionStream = "allagma.interaction_stream";
+        public const string AllagmaRun = "allagma.run";
+        public const string ConexusModelCall = "conexus.model_call";
+        public const string ConexusProviderAttempt = "conexus.provider_attempt";
+        public const string ConexusRouteDecision = "conexus.route_decision";
+        public const string EvidenceSpineBundle = "evidence_spine_bundle";
+        public const string KanonDecision = "kanon.decision";
+        public const string KanonProvenance = "kanon.provenance";
+        public const string KanonSemanticPlan = "kanon.semantic_plan";
+        public const string PlatformCorrelation = "platform.correlation";
+        public const string PlatformTrace = "platform.trace";
+        public static readonly System.Collections.Generic.IReadOnlySet<string> All;
+    }
+    public sealed class ReplayUnavailableMode : System.IEquatable<Ontogony.Replay.Contracts.ReplayUnavailableMode>
+    {
+        public ReplayUnavailableMode(string Mode, string ReasonCode, string Message) { }
+        public string Message { get; init; }
+        public string Mode { get; init; }
+        public string ReasonCode { get; init; }
     }
 }

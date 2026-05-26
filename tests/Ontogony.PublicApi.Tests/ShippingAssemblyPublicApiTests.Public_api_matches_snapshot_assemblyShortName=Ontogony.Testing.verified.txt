@@ -6,6 +6,11 @@
         public static void AssertMessageContains(Ontogony.Errors.ApiError error, string expectedFragment) { }
         public static void AssertTraceId(Ontogony.Errors.ApiError error, string expectedTraceId) { }
     }
+    public static class ArtifactStoreConformanceHarness
+    {
+        public static System.Threading.Tasks.Task AssertExistsAndTryGetAsync(Ontogony.Artifacts.IArtifactStore store) { }
+        public static System.Threading.Tasks.Task AssertPutGetAndDedupeAsync(Ontogony.Artifacts.IArtifactStore store) { }
+    }
     public static class CanonicalJsonAssertions
     {
         public static void AssertDifferentJson(string leftJson, string rightJson) { }
@@ -97,8 +102,15 @@
     {
         public static System.Threading.Tasks.Task AssertCircuitOpensAfterThresholdAsync(Ontogony.Testing.StubHttpMessageHandler stub, int failuresToOpen, System.Action<Ontogony.Http.TransportResilienceOptions>? configure = null, Ontogony.Primitives.IClock? clock = null) { }
         public static System.Threading.Tasks.Task AssertNoRetryOnSuccessAsync(System.Net.Http.HttpClient client, Ontogony.Testing.StubHttpMessageHandler stub) { }
+        public static System.Threading.Tasks.Task AssertRespectsRetryAfterHeaderAsync(Ontogony.Testing.StubHttpMessageHandler stub, System.TimeSpan retryAfter, Ontogony.Primitives.IClock? clock = null) { }
         public static System.Threading.Tasks.Task AssertRetriesOnTransientFailureAsync(System.Net.Http.HttpClient client, Ontogony.Testing.StubHttpMessageHandler stub, int expectedTotalAttempts) { }
+        public static System.Threading.Tasks.Task AssertTotalTimeoutLimitsAttemptsAsync(Ontogony.Testing.StubHttpMessageHandler stub, System.TimeSpan totalTimeout, int maxExpectedAttempts) { }
         public static System.Net.Http.HttpClient BuildResilientClient(Ontogony.Testing.StubHttpMessageHandler stub, System.Action<Ontogony.Http.TransportResilienceOptions>? configure = null, Ontogony.Primitives.IClock? clock = null) { }
+    }
+    public static class IdempotencyLedgerConformanceHarness
+    {
+        public static System.Threading.Tasks.Task AssertLifecycleTransitionsAsync(Ontogony.Idempotency.IIdempotencyLedger ledger, string key) { }
+        public static System.Threading.Tasks.Task AssertTryBeginIsExclusiveAsync(Ontogony.Idempotency.IIdempotencyLedger ledger, string key) { }
     }
     [System.Obsolete("Use PublishedEventRecorder for new tests.")]
     public sealed class InMemoryEventRecorder : Ontogony.Messaging.IEventPublisher

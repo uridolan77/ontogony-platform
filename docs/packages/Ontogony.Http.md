@@ -1,6 +1,6 @@
 # Ontogony.Http — semantic contract
 
-**Status:** Production-safe for resilient outbound HTTP registration and correlation propagation.
+**Status:** Production-safe for resilient outbound HTTP registration, correlation propagation, and transport resilience v1 (retry, Retry-After, jitter, timeouts, circuit breaker).
 
 ## Guarantees
 

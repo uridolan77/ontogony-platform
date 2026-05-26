@@ -1,7 +1,11 @@
 using System.Net;
+using Ontogony.Artifacts;
 using Ontogony.Contracts.Events;
 using Ontogony.Hashing;
+using Ontogony.Http;
+using Ontogony.Idempotency;
 using Ontogony.Persistence;
+using Ontogony.Primitives;
 using Ontogony.Testing;
 using Xunit;
 
@@ -247,5 +251,60 @@ public sealed class ConformanceKitPr33Tests
     {
         var stub = new StubHttpMessageHandler();
         await HttpResilienceConformanceHarness.AssertCircuitOpensAfterThresholdAsync(stub, failuresToOpen: 3);
+    }
+
+    [Fact]
+    public async Task HttpResilience_RespectsRetryAfterHeader()
+    {
+        var stub = new StubHttpMessageHandler();
+        await HttpResilienceConformanceHarness.AssertRespectsRetryAfterHeaderAsync(
+            stub,
+            retryAfter: TimeSpan.FromMilliseconds(40));
+    }
+
+    [Fact]
+    public async Task HttpResilience_TotalTimeoutLimitsAttempts()
+    {
+        var stub = new StubHttpMessageHandler();
+        await HttpResilienceConformanceHarness.AssertTotalTimeoutLimitsAttemptsAsync(
+            stub,
+            totalTimeout: TimeSpan.FromMilliseconds(90),
+            maxExpectedAttempts: 4);
+    }
+
+    // -------------------------------------------------------------------------
+    // IdempotencyLedgerConformanceHarness
+    // -------------------------------------------------------------------------
+
+    [Fact]
+    public async Task Idempotency_TryBeginIsExclusive()
+    {
+        var ledger = new InMemoryIdempotencyLedger();
+        await IdempotencyLedgerConformanceHarness.AssertTryBeginIsExclusiveAsync(ledger, "key-pr33-idem-1");
+    }
+
+    [Fact]
+    public async Task Idempotency_LifecycleTransitions()
+    {
+        var ledger = new InMemoryIdempotencyLedger();
+        await IdempotencyLedgerConformanceHarness.AssertLifecycleTransitionsAsync(ledger, "key-pr33-idem-2");
+    }
+
+    // -------------------------------------------------------------------------
+    // ArtifactStoreConformanceHarness
+    // -------------------------------------------------------------------------
+
+    [Fact]
+    public async Task Artifact_PutGetAndDedupe()
+    {
+        var store = new InMemoryArtifactStore();
+        await ArtifactStoreConformanceHarness.AssertPutGetAndDedupeAsync(store);
+    }
+
+    [Fact]
+    public async Task Artifact_ExistsAndTryGet()
+    {
+        var store = new InMemoryArtifactStore();
+        await ArtifactStoreConformanceHarness.AssertExistsAndTryGetAsync(store);
     }
 }

@@ -16,14 +16,14 @@
       "name": "ontogony-platform",
       "role": "shared mechanics / protocol registry owner",
       "ref": "main",
-      "commit": "f05decf7ec0233ad861099aa8d5d416653eac0ba",
+      "commit": "959a1f81b3623835d27670a5fc3156d26f4453de",
       "packageVersions": ["Ontogony=0.3.0-alpha.1"]
     },
     {
       "name": "allagma-dotnet",
       "role": "governed runtime / runtime lock owner",
       "ref": "main",
-      "commit": "0fa047294755fd5eb46ed914567722592a2b026a",
+      "commit": "cc6bb2cc9e944b9ef7f59a0d32651482e3ee3aca",
       "packageVersions": [
         "Kanon.Client=0.1.0-alpha.0",
         "Kanon.Contracts=0.1.0-alpha.0",
@@ -35,14 +35,14 @@
       "name": "kanon-dotnet",
       "role": "semantic authority",
       "ref": "main",
-      "commit": "852a6e6ea625adafd9b0bc3de8591b8f267aa0fc",
+      "commit": "43f16de710963433ce0db7f1cb9c9324347cd8fd",
       "packageVersions": ["Kanon.Client=0.1.0-alpha.0", "Kanon.Contracts=0.1.0-alpha.0"]
     },
     {
       "name": "conexus-dotnet",
       "role": "model gateway",
       "ref": "main",
-      "commit": "5b2c01760a23c8aac2fd5a5407f94ca9db28013e",
+      "commit": "3b66d8161edfa86f65afc8e9341fb9c062cd31a4",
       "packageVersions": ["Conexus.Client=0.1.0-alpha.1", "Conexus.Contracts=0.1.0-alpha.1"]
     },
     {

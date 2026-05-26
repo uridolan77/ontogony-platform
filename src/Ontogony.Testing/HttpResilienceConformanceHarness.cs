@@ -151,6 +151,132 @@ public static class HttpResilienceConformanceHarness
     }
 
     /// <summary>
+    /// Asserts that a 503 with <c>Retry-After</c> delays the next attempt by at least the header delta.
+    /// </summary>
+    public static async Task AssertRespectsRetryAfterHeaderAsync(
+        StubHttpMessageHandler stub,
+        TimeSpan retryAfter,
+        IClock? clock = null)
+    {
+        ArgumentNullException.ThrowIfNull(stub);
+        if (retryAfter <= TimeSpan.Zero)
+            throw new ArgumentOutOfRangeException(nameof(retryAfter), "Must be positive.");
+
+        var opts = new TransportResilienceOptions
+        {
+            MaxRetries = 1,
+            RespectRetryAfterHeader = true,
+            BaseDelayMilliseconds = 1,
+            MaxDelayMilliseconds = 60000,
+            BackoffJitterFraction = 0,
+            EmitAttemptMetrics = false
+        };
+
+        var registry = new TransportResilienceRegistry();
+        var handler = new ResilientIntegrationDelegatingHandler(
+            "retry-after-test",
+            registry,
+            Options.Create(opts),
+            clock ?? new SystemClock())
+        {
+            InnerHandler = stub
+        };
+
+        using var client = new HttpClient(handler) { BaseAddress = new Uri("https://test.example/") };
+
+        var failure = new HttpResponseMessage(HttpStatusCode.ServiceUnavailable);
+        failure.Headers.RetryAfter = new System.Net.Http.Headers.RetryConditionHeaderValue(retryAfter);
+        stub.EnqueueResponse(failure);
+        stub.EnqueueResponse(new HttpResponseMessage(HttpStatusCode.OK));
+
+        var before = DateTimeOffset.UtcNow;
+        var response = await client.GetAsync("api/resource");
+        var elapsed = DateTimeOffset.UtcNow - before;
+
+        if (stub.CallCount != 2)
+        {
+            throw new InvalidOperationException(
+                $"Expected 2 HTTP attempts when honoring Retry-After but observed {stub.CallCount}.");
+        }
+
+        if (elapsed < retryAfter)
+        {
+            throw new InvalidOperationException(
+                $"Expected elapsed time >= Retry-After ({retryAfter}) but observed {elapsed}.");
+        }
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new InvalidOperationException(
+                $"Expected success after Retry-After backoff but got {response.StatusCode}.");
+        }
+    }
+
+    /// <summary>
+    /// Asserts that <see cref="TransportResilienceOptions.TotalTimeout"/> caps retry attempts
+    /// (returns the last failure response once the budget is exhausted).
+    /// </summary>
+    public static async Task AssertTotalTimeoutLimitsAttemptsAsync(
+        StubHttpMessageHandler stub,
+        TimeSpan totalTimeout,
+        int maxExpectedAttempts)
+    {
+        ArgumentNullException.ThrowIfNull(stub);
+        if (totalTimeout <= TimeSpan.Zero)
+            throw new ArgumentOutOfRangeException(nameof(totalTimeout), "Must be positive.");
+        if (maxExpectedAttempts < 1)
+            throw new ArgumentOutOfRangeException(nameof(maxExpectedAttempts), "Must be at least 1.");
+
+        var opts = new TransportResilienceOptions
+        {
+            MaxRetries = 12,
+            TotalTimeout = totalTimeout,
+            BaseDelayMilliseconds = 40,
+            MaxDelayMilliseconds = 40,
+            BackoffJitterFraction = 0,
+            EmitAttemptMetrics = false
+        };
+
+        var registry = new TransportResilienceRegistry();
+        var handler = new ResilientIntegrationDelegatingHandler(
+            "total-timeout-test",
+            registry,
+            Options.Create(opts),
+            new SystemClock())
+        {
+            InnerHandler = stub
+        };
+
+        using var client = new HttpClient(handler) { BaseAddress = new Uri("https://test.example/") };
+
+        for (int i = 0; i < 20; i++)
+            stub.EnqueueResponse(new HttpResponseMessage(HttpStatusCode.InternalServerError));
+
+        try
+        {
+            var response = await client.GetAsync("api/resource");
+            if (response.StatusCode != HttpStatusCode.InternalServerError)
+            {
+                throw new InvalidOperationException(
+                    $"Expected final 500 after timeout budget but got {response.StatusCode}.");
+            }
+        }
+        catch (TaskCanceledException)
+        {
+            // Total-timeout linked token can cancel during backoff.
+        }
+
+        if (stub.CallCount > maxExpectedAttempts)
+        {
+            throw new InvalidOperationException(
+                $"Expected at most {maxExpectedAttempts} attempts within total timeout but observed {stub.CallCount}.");
+        }
+
+        if (stub.CallCount < 1)
+            throw new InvalidOperationException("Expected at least one attempt before total timeout.");
+    }
+
+    /// <summary>
     /// Asserts that a 200 response is returned without any retries (stub called exactly once).
     /// </summary>
     public static async Task AssertNoRetryOnSuccessAsync(
