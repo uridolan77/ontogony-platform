@@ -181,13 +181,16 @@ public sealed class AdvancedHttpResilienceTests
         {
             Enabled = true,
             MaxRetries = 1,
-            RetryBudgetPerMinute = 0, // Budget exhausted
+            RetryBudgetPerMinute = 1,
             BaseDelayMilliseconds = 10,
             MaxDelayMilliseconds = 10,
             RetryableStatusCodes = [503]
         });
 
         var registry = new TransportResilienceRegistry();
+        Assert.True(registry.TryConsumeRetryBudget("tests", options.Value));
+        Assert.False(registry.TryConsumeRetryBudget("tests", options.Value));
+
         var handler = new ResilientIntegrationDelegatingHandler("tests", registry, options, Clock, bypassClassifier)
         {
             InnerHandler = sequence

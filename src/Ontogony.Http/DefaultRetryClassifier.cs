@@ -6,7 +6,7 @@ namespace Ontogony.Http;
 /// <summary>
 /// Default retry classifier that uses status codes and exception types.
 /// </summary>
-public sealed class DefaultRetryClassifier : IRetryClassifier
+public sealed class DefaultRetryClassifier : IRetryClassifierV2
 {
     private readonly TransportResilienceOptions _options;
 
@@ -23,9 +23,12 @@ public sealed class DefaultRetryClassifier : IRetryClassifier
     }
 
     /// <inheritdoc />
-    public RetryDecision ShouldRetry(HttpRequestMessage request, HttpResponseMessage? response, Exception? exception)
+    public RetryDecision ShouldRetry(
+        HttpRequestMessage request,
+        HttpResponseMessage? response,
+        Exception? exception,
+        RetryExceptionContext context)
     {
-        // If we got a response, check its status code
         if (response is not null)
         {
             var statusCode = (int)response.StatusCode;
@@ -40,14 +43,27 @@ public sealed class DefaultRetryClassifier : IRetryClassifier
             return RetryDecision.DoNotRetry;
         }
 
-        // If we got an exception, check if it's transient
         if (exception is not null)
         {
+            if (context.IsCallerCancellation)
+            {
+                return RetryDecision.DoNotRetry;
+            }
+
+            if (context.IsTotalTimeout)
+            {
+                return RetryDecision.DoNotRetry;
+            }
+
             return IsTransientException(exception) ? RetryDecision.Retry : RetryDecision.DoNotRetry;
         }
 
         return RetryDecision.DoNotRetry;
     }
+
+    /// <inheritdoc />
+    RetryDecision IRetryClassifier.ShouldRetry(HttpRequestMessage request, HttpResponseMessage? response, Exception? exception) =>
+        ShouldRetry(request, response, exception, new RetryExceptionContext(0, 0, TimeSpan.Zero, null, null, false, false, false));
 
     private static bool IsTransientException(Exception ex)
     {

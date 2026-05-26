@@ -7,7 +7,7 @@ namespace Ontogony.Http;
 /// <summary>
 /// Per-named-client circuit and retry-budget state for <see cref="ResilientIntegrationDelegatingHandler"/>.
 /// </summary>
-public sealed class TransportResilienceRegistry
+public sealed class TransportResilienceRegistry : ICircuitBreakerRegistry
 {
     private readonly ConcurrentDictionary<string, ClientCircuitState> _byClient = new(StringComparer.Ordinal);
     private readonly RetryBudgetTracker _budgetTracker;

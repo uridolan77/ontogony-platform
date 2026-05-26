@@ -15,7 +15,10 @@ public sealed class TransportResilienceOptions
     [Range(0, 10)]
     public int MaxRetries { get; set; } = 2;
 
-    /// <summary>Base linear backoff component in milliseconds.</summary>
+    /// <summary>Backoff curve between retry attempts.</summary>
+    public BackoffPolicy BackoffPolicy { get; set; } = BackoffPolicy.Linear;
+
+    /// <summary>Base backoff component in milliseconds (linear multiplier or exponential seed).</summary>
     [Range(10, 60_000)]
     public int BaseDelayMilliseconds { get; set; } = 200;
 

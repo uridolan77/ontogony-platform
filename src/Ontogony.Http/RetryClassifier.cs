@@ -32,3 +32,20 @@ public interface IRetryClassifier
     /// <returns>A <see cref="RetryDecision"/> indicating whether and how to retry.</returns>
     RetryDecision ShouldRetry(HttpRequestMessage request, HttpResponseMessage? response, Exception? exception);
 }
+
+/// <summary>
+/// Default <see cref="IRetryClassifierV2"/> implementation that delegates to <see cref="IRetryClassifier.ShouldRetry(HttpRequestMessage, HttpResponseMessage?, Exception?)"/>.
+/// </summary>
+public abstract class RetryClassifierAdapterBase : IRetryClassifierV2
+{
+    /// <inheritdoc />
+    public abstract RetryDecision ShouldRetry(
+        HttpRequestMessage request,
+        HttpResponseMessage? response,
+        Exception? exception,
+        RetryExceptionContext context);
+
+    /// <inheritdoc />
+    RetryDecision IRetryClassifier.ShouldRetry(HttpRequestMessage request, HttpResponseMessage? response, Exception? exception) =>
+        ShouldRetry(request, response, exception, new RetryExceptionContext(0, 0, TimeSpan.Zero, null, null, false, false, false));
+}

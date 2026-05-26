@@ -272,6 +272,32 @@ public sealed class ConformanceKitPr33Tests
             maxExpectedAttempts: 4);
     }
 
+    [Fact]
+    public async Task HttpResilience_BackoffJitterWithinBounds()
+    {
+        var stub = new StubHttpMessageHandler();
+        await HttpResilienceConformanceHarness.AssertBackoffJitterWithinBoundsAsync(stub, baseDelayMs: 80, jitterFraction: 0.25);
+    }
+
+    [Fact]
+    public async Task HttpResilience_RespectsRetryAfterDateHeader()
+    {
+        await HttpResilienceConformanceHarness.AssertRespectsRetryAfterDateHeaderAsync(
+            minimumWait: TimeSpan.FromMilliseconds(40));
+    }
+
+    [Fact]
+    public async Task HttpResilience_AttemptTimeoutContext()
+    {
+        await HttpResilienceConformanceHarness.AssertAttemptTimeoutContextAsync();
+    }
+
+    [Fact]
+    public void HttpResilience_ExponentialBackoffLongerThanLinear()
+    {
+        HttpResilienceConformanceHarness.AssertExponentialBackoffLongerThanLinear(baseDelayMs: 100, attempt: 2);
+    }
+
     // -------------------------------------------------------------------------
     // IdempotencyLedgerConformanceHarness
     // -------------------------------------------------------------------------

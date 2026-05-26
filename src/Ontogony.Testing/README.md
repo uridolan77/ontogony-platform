@@ -74,7 +74,9 @@ See [../docs/adoption/architecture-tests-adoption.md](../docs/adoption/architect
 - `EnvelopeConformanceAssertions` — Event envelope conventions and payload hash
 - `HmacConformanceAssertions` — HMAC signature format and round-trips
 - `OutboxConformanceHarness` — Outbox write/read/dispatch mechanics
-- `HttpResilienceConformanceHarness` — HTTP retry and circuit-breaker behavior
+- `IdempotencyLedgerConformanceHarness` — `IIdempotencyLedger` begin/succeed/fail semantics
+- `ArtifactStoreConformanceHarness` — `IArtifactStore` hash, dedupe, and reference semantics
+- `HttpResilienceConformanceHarness` — HTTP retry, Retry-After, total-timeout budget, and circuit-breaker behavior
 
 ## Design
 

@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Http.Headers;
 using Microsoft.Extensions.Options;
 using Ontogony.Http;
 using Ontogony.Primitives;
@@ -274,6 +275,231 @@ public static class HttpResilienceConformanceHarness
 
         if (stub.CallCount < 1)
             throw new InvalidOperationException("Expected at least one attempt before total timeout.");
+    }
+
+    /// <summary>
+    /// Asserts that jitter keeps delay within <c>[base * (1 - f), base * (1 + f)]</c> for a single retry.
+    /// </summary>
+    public static async Task AssertBackoffJitterWithinBoundsAsync(
+        StubHttpMessageHandler stub,
+        int baseDelayMs,
+        double jitterFraction)
+    {
+        ArgumentNullException.ThrowIfNull(stub);
+        if (baseDelayMs < 1)
+            throw new ArgumentOutOfRangeException(nameof(baseDelayMs));
+        if (jitterFraction is <= 0 or > 1)
+            throw new ArgumentOutOfRangeException(nameof(jitterFraction));
+
+        var opts = new TransportResilienceOptions
+        {
+            MaxRetries = 1,
+            BaseDelayMilliseconds = baseDelayMs,
+            MaxDelayMilliseconds = baseDelayMs * 4,
+            BackoffJitterFraction = jitterFraction,
+            EmitAttemptMetrics = false
+        };
+
+        var registry = new TransportResilienceRegistry();
+        var handler = new ResilientIntegrationDelegatingHandler(
+            "jitter-test",
+            registry,
+            Options.Create(opts),
+            new SystemClock())
+        {
+            InnerHandler = stub
+        };
+
+        using var client = new HttpClient(handler) { BaseAddress = new Uri("https://test.example/") };
+
+        stub.EnqueueResponse(new HttpResponseMessage(HttpStatusCode.InternalServerError));
+        stub.EnqueueResponse(new HttpResponseMessage(HttpStatusCode.OK));
+
+        var minExpected = TimeSpan.FromMilliseconds(baseDelayMs * (1 - jitterFraction));
+        var maxExpected = TimeSpan.FromMilliseconds(baseDelayMs * (1 + jitterFraction));
+
+        var before = DateTimeOffset.UtcNow;
+        await client.GetAsync("api/resource");
+        var elapsed = DateTimeOffset.UtcNow - before;
+
+        if (elapsed < minExpected)
+        {
+            throw new InvalidOperationException(
+                $"Expected jittered delay >= {minExpected} but observed {elapsed}.");
+        }
+
+        if (elapsed > maxExpected.Add(TimeSpan.FromMilliseconds(50)))
+        {
+            throw new InvalidOperationException(
+                $"Expected jittered delay <= {maxExpected} (+50ms tolerance) but observed {elapsed}.");
+        }
+    }
+
+    /// <summary>
+    /// Asserts that a <c>Retry-After</c> HTTP-date header is honored using <paramref name="clock"/>.
+    /// </summary>
+    public static async Task AssertRespectsRetryAfterDateHeaderAsync(TimeSpan minimumWait)
+    {
+        if (minimumWait <= TimeSpan.Zero)
+            throw new ArgumentOutOfRangeException(nameof(minimumWait), "Must be positive.");
+
+        var retryAfterUtc = DateTimeOffset.UtcNow.Add(minimumWait);
+        var stub = new StubHttpMessageHandler();
+
+        var opts = new TransportResilienceOptions
+        {
+            MaxRetries = 1,
+            RespectRetryAfterHeader = true,
+            BaseDelayMilliseconds = 1,
+            MaxDelayMilliseconds = 60_000,
+            BackoffJitterFraction = 0,
+            EmitAttemptMetrics = false
+        };
+
+        var registry = new TransportResilienceRegistry();
+        var handler = new ResilientIntegrationDelegatingHandler(
+            "retry-after-date-test",
+            registry,
+            Options.Create(opts),
+            new SystemClock())
+        {
+            InnerHandler = stub
+        };
+
+        using var client = new HttpClient(handler) { BaseAddress = new Uri("https://test.example/") };
+
+        var failure = new HttpResponseMessage(HttpStatusCode.ServiceUnavailable);
+        failure.Headers.RetryAfter = new RetryConditionHeaderValue(retryAfterUtc);
+        stub.EnqueueResponse(failure);
+        stub.EnqueueResponse(new HttpResponseMessage(HttpStatusCode.OK));
+
+        var before = DateTimeOffset.UtcNow;
+        await client.GetAsync("api/resource");
+        var elapsed = DateTimeOffset.UtcNow - before;
+
+        if (stub.CallCount != 2)
+        {
+            throw new InvalidOperationException(
+                $"Expected 2 HTTP attempts when honoring Retry-After date but observed {stub.CallCount}.");
+        }
+
+        if (elapsed < minimumWait)
+        {
+            throw new InvalidOperationException(
+                $"Expected elapsed time >= Retry-After date wait ({minimumWait}) but observed {elapsed}.");
+        }
+    }
+
+    /// <summary>
+    /// Asserts that <see cref="IRetryClassifierV2"/> receives attempt-timeout classification metadata.
+    /// </summary>
+    public static async Task AssertAttemptTimeoutContextAsync()
+    {
+        var classifier = new AttemptTimeoutCapturingClassifier();
+        var opts = new TransportResilienceOptions
+        {
+            MaxRetries = 1,
+            AttemptTimeout = TimeSpan.FromMilliseconds(50),
+            EmitAttemptMetrics = false
+        };
+
+        var registry = new TransportResilienceRegistry();
+        var handler = new ResilientIntegrationDelegatingHandler(
+            "attempt-timeout-test",
+            registry,
+            Options.Create(opts),
+            new SystemClock(),
+            classifier)
+        {
+            InnerHandler = new NeverCompletesUntilCanceledHandler()
+        };
+
+        using var client = new HttpClient(handler) { BaseAddress = new Uri("https://test.example/") };
+
+        try
+        {
+            await client.GetAsync("api/resource");
+        }
+        catch (OperationCanceledException)
+        {
+        }
+
+        if (!classifier.SawAttemptTimeout)
+        {
+            throw new InvalidOperationException(
+                "Expected classifier to observe IsAttemptTimeout=true for slow attempt cancellation.");
+        }
+    }
+
+    private sealed class NeverCompletesUntilCanceledHandler : HttpMessageHandler
+    {
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            await Task.Delay(Timeout.InfiniteTimeSpan, cancellationToken).ConfigureAwait(false);
+            throw new InvalidOperationException("Unreachable");
+        }
+    }
+
+    /// <summary>
+    /// Asserts exponential backoff produces a longer delay than linear for the same attempt index.
+    /// </summary>
+    public static void AssertExponentialBackoffLongerThanLinear(int baseDelayMs, int attempt)
+    {
+        var linearOpts = new TransportResilienceOptions
+        {
+            BaseDelayMilliseconds = baseDelayMs,
+            MaxDelayMilliseconds = 60000,
+            BackoffPolicy = BackoffPolicy.Linear
+        };
+        var exponentialOpts = new TransportResilienceOptions
+        {
+            BaseDelayMilliseconds = baseDelayMs,
+            MaxDelayMilliseconds = 60000,
+            BackoffPolicy = BackoffPolicy.Exponential
+        };
+
+        var registry = new TransportResilienceRegistry();
+        var linearHandler = new ResilientIntegrationDelegatingHandler(
+            "linear",
+            registry,
+            Options.Create(linearOpts),
+            new FakeClock());
+        var exponentialHandler = new ResilientIntegrationDelegatingHandler(
+            "exponential",
+            registry,
+            Options.Create(exponentialOpts),
+            new FakeClock());
+
+        var linearDelay = linearHandler.ComputeDelay(attempt, null);
+        var exponentialDelay = exponentialHandler.ComputeDelay(attempt, null);
+
+        if (exponentialDelay <= linearDelay)
+        {
+            throw new InvalidOperationException(
+                $"Expected exponential delay ({exponentialDelay}) > linear ({linearDelay}) for attempt {attempt}.");
+        }
+    }
+
+    private sealed class AttemptTimeoutCapturingClassifier : IRetryClassifierV2
+    {
+        public bool SawAttemptTimeout { get; private set; }
+
+        public RetryDecision ShouldRetry(
+            HttpRequestMessage request,
+            HttpResponseMessage? response,
+            Exception? exception,
+            RetryExceptionContext context)
+        {
+            if (context.IsAttemptTimeout)
+            {
+                SawAttemptTimeout = true;
+            }
+
+            return RetryDecision.DoNotRetry;
+        }
+
+        RetryDecision IRetryClassifier.ShouldRetry(HttpRequestMessage request, HttpResponseMessage? response, Exception? exception) =>
+            ShouldRetry(request, response, exception, new RetryExceptionContext(0, 0, TimeSpan.Zero, null, null, false, false, false));
     }
 
     /// <summary>
