@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/decision-event.v0.schema.json",
+  "title": "DecisionEventV0",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "decisionEventId",
+    "decisionKind",
+    "severity",
+    "occurredAtUtc",
+    "serviceOfOrigin",
+    "evidenceFragments"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "decision-event.v0"
+    },
+    "decisionEventId": {
+      "type": "string"
+    },
+    "decisionKind": {
+      "type": "string"
+    },
+    "severity": {
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "occurredAtUtc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "serviceOfOrigin": {
+      "enum": [
+        "allagma",
+        "kanon",
+        "conexus",
+        "platform",
+        "frontend"
+      ]
+    },
+    "correlationId": {
+      "type": "string"
+    },
+    "traceId": {
+      "type": "string"
+    },
+    "runId": {
+      "type": "string"
+    },
+    "threadId": {
+      "type": "string"
+    },
+    "evidenceFragments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/EvidenceFragmentRef"
+      }
+    },
+    "inputs": {
+      "type": "object"
+    },
+    "policyBasis": {
+      "type": "object"
+    },
+    "operatorIdentity": {
+      "type": "object"
+    },
+    "authorizationEnvelope": {
+      "type": "object"
+    },
+    "reasoningEvidence": {
+      "type": "object"
+    },
+    "outputAction": {
+      "type": "object"
+    },
+    "postConditionState": {
+      "type": "object"
+    },
+    "relatedIds": {
+      "type": "object"
+    },
+    "metadata": {
+      "type": "object"
+    }
+  },
+  "$defs": {
+    "EvidenceFragmentRef": {
+      "type": "object",
+      "required": [
+        "fragmentId",
+        "fragmentType",
+        "service",
+        "sourceId",
+        "trustLevel"
+      ],
+      "properties": {
+        "fragmentId": {
+          "type": "string"
+        },
+        "fragmentType": {
+          "type": "string"
+        },
+        "service": {
+          "type": "string"
+        },
+        "sourceId": {
+          "type": "string"
+        },
+        "sourceRoute": {
+          "type": "string"
+        },
+        "artifactUri": {
+          "type": "string"
+        },
+        "hash": {
+          "type": "string"
+        },
+        "capturedAtUtc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "trustLevel": {
+          "enum": [
+            "authoritative",
+            "derived",
+            "fixture",
+            "external",
+            "unknown"
+          ]
+        }
+      }
+    }
+  }
+}

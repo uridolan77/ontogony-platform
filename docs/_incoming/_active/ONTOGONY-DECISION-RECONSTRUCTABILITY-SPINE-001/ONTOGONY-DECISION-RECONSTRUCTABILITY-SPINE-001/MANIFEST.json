@@ -1,0 +1,135 @@
+{
+  "package": "ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-001",
+  "files": [
+    {
+      "path": "00_UNPACK_PROMPT.md",
+      "sha256": "dc480f7a84ca9542a044dabe88fe25f2b52b0cd403c3e08d1170b1abe7a01ac3",
+      "bytes": 4993
+    },
+    {
+      "path": "01_EXECUTIVE_BRIEF.md",
+      "sha256": "34e5223abc8dee196ec8ed39c1038c0168a9d9ed53d892efe19420e68af39011",
+      "bytes": 1776
+    },
+    {
+      "path": "02_TARGET_ARCHITECTURE.md",
+      "sha256": "dd0b3273b56a7a680ba21fde630415dc527f81289ef12f88e66e011cee233854",
+      "bytes": 2490
+    },
+    {
+      "path": "03_contracts/DECISION_EVENT_SCHEMA_V0.md",
+      "sha256": "a6656eb1eedb2f45f0653870e16d93a396cc9d3d6ccf5ccd90dc896b1368bc98",
+      "bytes": 4704
+    },
+    {
+      "path": "03_contracts/DECISION_RECONSTRUCTION_API_V0.md",
+      "sha256": "4bf5ed009966813163524112135492b0f702e7e43fe46c708cd7e0057e8272d1",
+      "bytes": 2410
+    },
+    {
+      "path": "03_contracts/MISSING_EVIDENCE_DIAGNOSTIC_V0.md",
+      "sha256": "da2cd61f4e4a21fad6cc6307f70fd4bdd0ff4b4ecb809070f1e2c54f61ddcfad",
+      "bytes": 2087
+    },
+    {
+      "path": "03_contracts/RECONSTRUCTABILITY_REPORT_V0.md",
+      "sha256": "5ec9471654280ed0f7518ff589cb4c534744a718e249d6710136e76af1ed55cf",
+      "bytes": 2661
+    },
+    {
+      "path": "04_backend/ALLAGMA_IMPLEMENTATION.md",
+      "sha256": "e5041138142b45f4644973c8cde30c2df124255d9b5a96182a51f74cdf6f228e",
+      "bytes": 2277
+    },
+    {
+      "path": "04_backend/CONEXUS_IMPLEMENTATION.md",
+      "sha256": "50d7cab7ad6bd9786bca4fc87b95dd76bf85c159f7d386d94f0ddb9b62b60ede",
+      "bytes": 2360
+    },
+    {
+      "path": "04_backend/KANON_IMPLEMENTATION.md",
+      "sha256": "1798030242dcbcfe7231dc2307191d7df974ed568fac5a4a11b0aaa347cc25ff",
+      "bytes": 4830
+    },
+    {
+      "path": "04_backend/PLATFORM_INTEGRATION.md",
+      "sha256": "09bdc873a29d7ade9bac32f49da837f9d554af85a0e61d9a9ee81db82a798416",
+      "bytes": 1183
+    },
+    {
+      "path": "05_frontend/UI_COMPONENTS_AND_STATE.md",
+      "sha256": "727ab7a692ef09571ecaaf015a2cf53780a0362d5001ed6a86e7d73147c358a7",
+      "bytes": 2075
+    },
+    {
+      "path": "05_frontend/UX_SPEC_DECISION_RECONSTRUCTION_PANEL.md",
+      "sha256": "5768e957a36dc21934d360cac84362cf523c531fa29bbba897a7f154c114262a",
+      "bytes": 2469
+    },
+    {
+      "path": "06_testing/ACCEPTANCE_GATES.md",
+      "sha256": "580f13eaa3120559de01194b11a61e9a32b55353b6d2331c3149e6fd9fc14042",
+      "bytes": 1689
+    },
+    {
+      "path": "06_testing/CONTRACT_DRIFT_TESTS.md",
+      "sha256": "7dd4a2181732d0e2df952594e23c095fabd0cc922c2f80f86a4062e46a2b8e13",
+      "bytes": 1035
+    },
+    {
+      "path": "06_testing/GOLDEN_FIXTURES.md",
+      "sha256": "7935b351c0088c0d1af09273424735ab5f9eca40b3bf64941af3a217146308ab",
+      "bytes": 2586
+    },
+    {
+      "path": "07_rollout/PHASED_EXECUTION_PLAN.md",
+      "sha256": "a7d995d3c7ece23544e7b61e676c94c9d244cbb94fd6b7c53e21ede8d4eff3ed",
+      "bytes": 1717
+    },
+    {
+      "path": "07_rollout/RISKS_AND_NON_GOALS.md",
+      "sha256": "73b025c3161b002865b9ca2b9b39f97087bdff3f2646949de88bb03916bfa28b",
+      "bytes": 1575
+    },
+    {
+      "path": "10_prompts/CURSOR_TASKS_BY_REPO.md",
+      "sha256": "84cae67dfcb85a6e86578fe3f4f8c8d838bf68c6ac4e8780c863ca9d90640bfd",
+      "bytes": 3029
+    },
+    {
+      "path": "99_CURSOR_FINAL_CHECKLIST.md",
+      "sha256": "888b5e2797b5380c645d8e81a33085391a1fa04c50a0127fe21bcacdf49b8e1a",
+      "bytes": 1841
+    },
+    {
+      "path": "README.md",
+      "sha256": "0eaaa424019165d14f7111d120f3ae2d08d2507484258eb76a9cba96be0a5739",
+      "bytes": 2975
+    },
+    {
+      "path": "templates/decision-event.schema.json",
+      "sha256": "29a4d89e60a0b1fcf5f5e6a76d06e5034d97bfca687f204098d32bb58e5de040",
+      "bytes": 2653
+    },
+    {
+      "path": "templates/fixture-decision-event-example.json",
+      "sha256": "331876caf378fdfa165bd21b82842c3de5318d28a84e404a744c610e6ffaec0c",
+      "bytes": 3277
+    },
+    {
+      "path": "templates/missing-evidence-diagnostic.schema.json",
+      "sha256": "e72fb926ba56b3a557e676743fd4395cf64795535f5a7b743ff3bb5c5627d619",
+      "bytes": 1381
+    },
+    {
+      "path": "templates/reconstructability-report.schema.json",
+      "sha256": "6fcf960f5def8ef91e8d7a5712431fb053a4374c2090493e64d0ea4dc694744c",
+      "bytes": 3358
+    },
+    {
+      "path": "templates/route-map-suggested.json",
+      "sha256": "7e85209f1c713f28ae8428896e65269963629d4f6cd046a6468ce3b1f5a83123",
+      "bytes": 853
+    }
+  ]
+}

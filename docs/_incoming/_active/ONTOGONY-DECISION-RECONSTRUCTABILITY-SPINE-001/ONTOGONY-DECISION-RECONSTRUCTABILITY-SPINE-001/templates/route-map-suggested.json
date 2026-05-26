@@ -1,0 +1,20 @@
+{
+  "package": "ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-001",
+  "routes": {
+    "kanonPreferred": [
+      "GET /ontology/v0/decision-events/{decisionEventId}/reconstructability",
+      "GET /ontology/v0/reconstructability/by-run/{runId}",
+      "GET /ontology/v0/reconstructability/by-trace/{traceId}",
+      "GET /ontology/v0/reconstructability/by-model-call/{modelCallId}"
+    ],
+    "allagmaCandidates": [
+      "GET /runs/{runId}/decision-events",
+      "GET /runs/{runId}/operations/{operationId}/decision-event-fragment"
+    ],
+    "conexusCandidates": [
+      "GET /admin/model-calls/{modelCallId}/decision-event-fragment",
+      "GET /admin/route-decisions/{routeDecisionId}/decision-event-fragment"
+    ]
+  },
+  "note": "Implement using existing route conventions. Do not add duplicate routes if current detail endpoints can be extended."
+}

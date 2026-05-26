@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/reconstructability-report.v0.schema.json",
+  "title": "ReconstructabilityReportV0",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "reportId",
+    "decisionEventId",
+    "generatedAtUtc",
+    "classifierVersion",
+    "propertyResults",
+    "desStrictCompletenessPct",
+    "ontogonyGovernanceStatus"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "reconstructability-report.v0"
+    },
+    "reportId": {
+      "type": "string"
+    },
+    "decisionEventId": {
+      "type": "string"
+    },
+    "generatedAtUtc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "classifierVersion": {
+      "type": "string"
+    },
+    "decisionKind": {
+      "type": "string"
+    },
+    "severity": {
+      "type": "string"
+    },
+    "propertyResults": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/PropertyResult"
+      }
+    },
+    "desStrictCompletenessPct": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "ontogonyGovernanceStatus": {
+      "enum": [
+        "PASS",
+        "WARN",
+        "FAIL"
+      ]
+    },
+    "blockingReasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "missingEvidence": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "linkedEvidenceFragments": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "safeReasoningPolicy": {
+      "type": "object",
+      "required": [
+        "hiddenChainOfThoughtCaptured",
+        "safeSurrogateAvailable"
+      ],
+      "properties": {
+        "hiddenChainOfThoughtCaptured": {
+          "const": false
+        },
+        "safeSurrogateAvailable": {
+          "type": "boolean"
+        },
+        "surrogateKinds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "PropertyResult": {
+      "type": "object",
+      "required": [
+        "property",
+        "classification",
+        "score",
+        "rationale",
+        "fragmentRefs",
+        "requiredForGovernance",
+        "blocking"
+      ],
+      "properties": {
+        "property": {
+          "enum": [
+            "inputs",
+            "policyBasis",
+            "operatorIdentity",
+            "authorizationEnvelope",
+            "reasoningEvidence",
+            "outputAction",
+            "postConditionState"
+          ]
+        },
+        "classification": {
+          "enum": [
+            "F",
+            "P",
+            "S",
+            "O"
+          ]
+        },
+        "score": {
+          "enum": [
+            1.0,
+            0.5,
+            0.0
+          ]
+        },
+        "rationale": {
+          "type": "string"
+        },
+        "fragmentRefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "requiredForGovernance": {
+          "type": "boolean"
+        },
+        "blocking": {
+          "type": "boolean"
+        },
+        "remediationHint": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

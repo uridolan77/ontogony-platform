@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/missing-evidence-diagnostic.v0.schema.json",
+  "title": "MissingEvidenceDiagnosticV0",
+  "type": "object",
+  "required": [
+    "diagnosticId",
+    "decisionEventId",
+    "property",
+    "classification",
+    "severity",
+    "message",
+    "likelyOwnerService",
+    "missingFragmentTypes",
+    "suggestedFix"
+  ],
+  "properties": {
+    "diagnosticId": {
+      "type": "string"
+    },
+    "decisionEventId": {
+      "type": "string"
+    },
+    "property": {
+      "type": "string"
+    },
+    "classification": {
+      "enum": [
+        "P",
+        "S",
+        "O"
+      ]
+    },
+    "severity": {
+      "enum": [
+        "info",
+        "warning",
+        "blocking"
+      ]
+    },
+    "message": {
+      "type": "string"
+    },
+    "likelyOwnerService": {
+      "enum": [
+        "allagma",
+        "kanon",
+        "conexus",
+        "platform",
+        "frontend",
+        "unknown"
+      ]
+    },
+    "missingFragmentTypes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "suggestedFix": {
+      "type": "string"
+    },
+    "relatedRoute": {
+      "type": "string"
+    },
+    "relatedContract": {
+      "type": "string"
+    },
+    "fragmentRefs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

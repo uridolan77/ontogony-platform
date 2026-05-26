@@ -1,0 +1,122 @@
+{
+  "schemaVersion": "decision-event.v0",
+  "decisionEventId": "decision-event-demo-001",
+  "decisionKind": "human_gate_decision",
+  "severity": "critical",
+  "occurredAtUtc": "2026-05-26T00:00:00Z",
+  "serviceOfOrigin": "allagma",
+  "correlationId": "corr-demo-001",
+  "traceId": "trace-demo-001",
+  "runId": "run-demo-001",
+  "evidenceFragments": [
+    {
+      "fragmentId": "frag-allagma-gate-001",
+      "fragmentType": "human_gate",
+      "service": "allagma",
+      "sourceId": "gate-demo-001",
+      "trustLevel": "fixture"
+    },
+    {
+      "fragmentId": "frag-kanon-policy-001",
+      "fragmentType": "policy_evaluation",
+      "service": "kanon",
+      "sourceId": "kanon-decision-demo-001",
+      "trustLevel": "fixture"
+    },
+    {
+      "fragmentId": "frag-conexus-route-001",
+      "fragmentType": "route_decision",
+      "service": "conexus",
+      "sourceId": "route-demo-001",
+      "trustLevel": "fixture"
+    }
+  ],
+  "inputs": {
+    "normalizedInputHash": "sha256:input-demo",
+    "redactionStatus": "hashed_only",
+    "fragmentRefs": [
+      "frag-allagma-gate-001"
+    ]
+  },
+  "policyBasis": {
+    "policyId": "operator-critical-action-policy",
+    "policyVersion": "v0",
+    "ontologyId": "gaming-core",
+    "ontologyVersionId": "gaming-core@0.1.0",
+    "kanonDecisionId": "kanon-decision-demo-001",
+    "evaluationResult": "requires_human",
+    "fragmentRefs": [
+      "frag-kanon-policy-001"
+    ]
+  },
+  "operatorIdentity": {
+    "actorId": "local-operator",
+    "actorKind": "human",
+    "roles": [
+      "Admin"
+    ],
+    "authenticated": true,
+    "authMethod": "dev-header",
+    "fragmentRefs": [
+      "frag-allagma-gate-001"
+    ]
+  },
+  "authorizationEnvelope": {
+    "authority": "human_gate",
+    "decision": "allow",
+    "scope": "run-demo-001:critical-operation",
+    "humanGateId": "gate-demo-001",
+    "requiredRoles": [
+      "Admin"
+    ],
+    "satisfiedRoles": [
+      "Admin"
+    ],
+    "fragmentRefs": [
+      "frag-allagma-gate-001",
+      "frag-kanon-policy-001"
+    ]
+  },
+  "reasoningEvidence": {
+    "reasoningEvidenceKind": "policy_summary",
+    "summary": "Policy required human approval; local operator with Admin role approved the operation.",
+    "fragmentRefs": [
+      "frag-kanon-policy-001",
+      "frag-allagma-gate-001"
+    ]
+  },
+  "outputAction": {
+    "actionKind": "approve_human_gate",
+    "actionId": "gate-demo-001:approve",
+    "targetService": "allagma",
+    "targetResource": "run-demo-001",
+    "status": "executed",
+    "outputHash": "sha256:output-demo",
+    "fragmentRefs": [
+      "frag-allagma-gate-001"
+    ]
+  },
+  "postConditionState": {
+    "stateKind": "state_delta",
+    "beforeHash": "sha256:before-demo",
+    "afterHash": "sha256:after-demo",
+    "deltaHash": "sha256:delta-demo",
+    "stateResource": "run-demo-001",
+    "verificationStatus": "verified",
+    "fragmentRefs": [
+      "frag-allagma-gate-001"
+    ]
+  },
+  "relatedIds": {
+    "allagmaRunId": "run-demo-001",
+    "humanGateId": "gate-demo-001",
+    "kanonDecisionId": "kanon-decision-demo-001",
+    "conexusRouteDecisionId": "route-demo-001",
+    "traceId": "trace-demo-001",
+    "correlationId": "corr-demo-001"
+  },
+  "metadata": {
+    "fixture": true,
+    "package": "ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-001"
+  }
+}
