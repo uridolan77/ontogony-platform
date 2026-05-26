@@ -21,17 +21,29 @@ dotnet test tests/Ontogony.Infrastructure.Tests/Ontogony.Infrastructure.Tests.cs
 
 Consumer repos add `*PlatformConformanceTests` classes (Allagma, Kanon, Conexus) referencing the same kits.
 
-## Status
+## Status (PR-005 closeout gate)
 
-| Check | Result |
+Verified **2026-05-26** after stopping the local cohesion stack (release `dotnet test`, no API hosts on 5081–5083).
+
+| Gate | Result |
 | --- | --- |
-| Platform mechanics-only | Kits delegate to existing `Ontogony.Testing` / `Ontogony.Errors` types |
-| Correlation + error baseline | `ConformanceKitPr005Tests` — **7/7 passed** (2026-05-26) |
-| Idempotency harness | `InMemoryIdempotencyLedger` via `IdempotencyConformanceKit` |
-| Export redaction + fragment refs | `ReconstructabilityExportConformanceAssertions` |
-| Conexus consumer adoption | `ConexusPlatformConformanceTests` — **6/6 passed** (2026-05-26) |
-| Allagma consumer adoption | `AllagmaPlatformConformanceTests` — run after stopping local stack (API locks `bin/`) |
-| Kanon consumer adoption | `KanonPlatformConformanceTests` — run after stopping local stack (API locks `bin/`) |
+| `ConformanceKitPr005Tests` (platform) | **PASS** — 7/7 |
+| `ConexusPlatformConformanceTests` | **PASS** — 6/6 |
+| `AllagmaPlatformConformanceTests` | **PASS** — 6/6 |
+| `KanonPlatformConformanceTests` | **PASS** — 5/5 |
+| Consumer test files on `main` | **Yes** — see paths below |
+
+### Consumer test paths (remote `main`)
+
+| Repo | Test class | Path on `main` |
+| --- | --- | --- |
+| Conexus | `ConexusPlatformConformanceTests` | `tests/Conexus.Application.Tests/ConexusPlatformConformanceTests.cs` |
+| Allagma | `AllagmaPlatformConformanceTests` | `tests/Allagma.Tests/AllagmaPlatformConformanceTests.cs` |
+| Kanon | `KanonPlatformConformanceTests` | `tests/Kanon.Tests/KanonPlatformConformanceTests.cs` |
+
+Conexus tests landed in `75e3bac`; Allagma/Kanon tests are on `main` (bundled with reconstructability closeout commits, not a dedicated conformance-only commit message).
+
+### Re-run commands
 
 ```powershell
 dotnet test tests/Ontogony.Infrastructure.Tests/Ontogony.Infrastructure.Tests.csproj -c Release --filter ConformanceKitPr005
@@ -39,3 +51,5 @@ dotnet test tests/Conexus.Application.Tests/Conexus.Application.Tests.csproj -c 
 dotnet test tests/Allagma.Tests/Allagma.Tests.csproj -c Release --filter AllagmaPlatformConformanceTests
 dotnet test tests/Kanon.Tests/Kanon.Tests.csproj -c Release --filter KanonPlatformConformanceTests
 ```
+
+Stop local API hosts first if `dotnet test` fails with MSB3021 / CS2012 file-lock errors.
