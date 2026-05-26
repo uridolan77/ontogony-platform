@@ -5,6 +5,8 @@ Last updated: **2026-05-26**
 | Package | Status | Reason active | Next action | Date |
 | --- | --- | --- | --- | --- |
 | [ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-001](./ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-001/) | **in_progress** | Parent spine program; slices 004/005 consumed | Complete Task 5 — promote protocol docs to `docs/contracts/`; **then move to `_consumed`** | 2026-05-26 |
+| [ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-006](./ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-006/) | **done** | DEC-RECON-006 Evidence Spine graph | Archive to `_consumed/2026-05/` when operator confirms | 2026-05-26 |
+| [ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-007](./ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-007/) | **in_progress** | DEC-RECON-007 persisted report artifacts | Implement Kanon → frontend → smoke; see package `00_IMPLEMENTATION_PROMPT.md` | 2026-05-26 |
 
 **Consumed follow-on slices (not separate active packages):**
 
