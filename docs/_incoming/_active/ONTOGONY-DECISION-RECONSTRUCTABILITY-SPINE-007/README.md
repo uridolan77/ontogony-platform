@@ -1,7 +1,7 @@
 # ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-007
 
 **Title:** DEC-RECON-007 — persisted reconstructability report artifacts  
-**Status:** active  
+**Status:** closed (2026-05-26 closeout)  
 **Slice:** DEC-RECON-007  
 **Depends on:** DEC-RECON-004 (live smoke), DEC-RECON-006 (Evidence Spine graph)
 
@@ -22,7 +22,7 @@ What report did it produce?
 | --- | --- | --- |
 | DEC-RECON-004 | **closed** | Live Allagma `decision-events` → Kanon `classify-batch` → run audit panel |
 | DEC-RECON-006 | **closed** | Evidence Spine `allagma.decisionEvent` nodes + `ReconstructabilityReportPanel` |
-| DEC-RECON-007 | **active** | Persisted report artifacts (this package) |
+| DEC-RECON-007 | **closed** | Persisted report artifacts + live smoke |
 
 **Gap:** The stack shows what Kanon says **now**, but cannot prove what Kanon said **then** from the exact input under a recorded classifier version.
 
@@ -71,7 +71,22 @@ ontogony-reconstructability-report-artifact-v1
 1. **Platform (this package)** — intake docs, artifact contract, verification plan *(done)*
 2. **Kanon** — artifact contracts, `DecisionEventCanonicalHasher`, classifier version, persistence, `report-artifacts` endpoints, tests *(done 2026-05-26 — see `kanon-dotnet/docs/evidence/ONTOGONY_DECISION_RECONSTRUCTABILITY_SPINE_007_KANON_EVIDENCE.md`)*
 3. **Frontend** — optional artifact batch on spine load; show `artifactId` / `decisionEventHash` / `classifierVersion` / `classifiedAtUtc` when present; keep classify-batch fallback *(done 2026-05-26 — see `ontogony-frontend/docs/evidence/ONTOGONY_DECISION_RECONSTRUCTABILITY_SPINE_007_EVIDENCE.md`)*
-4. **Closeout** — cross-repo verification, `dec-recon-007-smoke-report.json`, evidence markdown in each repo; move package to `_consumed/2026-05/` when gates pass
+4. **Closeout** — cross-repo verification, `dec-recon-007-smoke-report.json`, evidence markdown in each repo *(done 2026-05-26)*
+
+### 2026-05-26 — closeout proof
+
+| Gate | Result |
+| --- | --- |
+| Kanon build + Reconstructability tests (75) | PASS |
+| Frontend openapi:check / build / unit | PASS |
+| Migration `023` on `kanon_local` | Applied (`reconstructability_report_artifact` table present) |
+| Playwright `decision-reconstructability-docker-live.spec.ts` | PASS (4/4) |
+
+**Smoke report:** [`docker/local-working-system/artifacts/dec-recon-007-smoke-report.json`](../../../docker/local-working-system/artifacts/dec-recon-007-smoke-report.json) — `artifactCount=11`, `classificationPath=persisted-artifacts`, `verdict=PASS`.
+
+**Evidence:** `kanon-dotnet/docs/evidence/ONTOGONY_DECISION_RECONSTRUCTABILITY_SPINE_007_KANON_EVIDENCE.md`, `ontogony-frontend/docs/evidence/ONTOGONY_DECISION_RECONSTRUCTABILITY_SPINE_007_EVIDENCE.md`.
+
+**Next track:** CONEXUS-DECISION-EVENTS-001. Optional hygiene: promote this package folder to `docs/_incoming/_consumed/2026-05/` per intake README.
 
 ### Notes
 

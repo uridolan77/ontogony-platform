@@ -1,6 +1,6 @@
 {
   "schema": "dec-recon-007-smoke-report-v1",
-  "recordedAtUtc": "2026-05-26T12:41:24.306Z",
+  "recordedAtUtc": "2026-05-26T12:46:52.197Z",
   "frontendBaseUrl": "http://localhost:5175",
   "runId": "run_28d50e113baa4f2d8e372b686e0e2b58",
   "traceId": "28b2ca5642cf18610a71df1a7b91483e",
@@ -37,6 +37,11 @@
     },
     {
       "step": "frontend-run-decision-reconstruction-panel",
+      "passed": true,
+      "notes": []
+    },
+    {
+      "step": "frontend-evidence-spine-decision-reconstructability",
       "passed": true,
       "notes": []
     }
