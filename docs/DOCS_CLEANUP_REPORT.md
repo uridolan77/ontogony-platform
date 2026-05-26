@@ -40,9 +40,7 @@ docs/
     _active/
       README.md
       MANIFEST.md
-      ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-001/
-      ONTOGONY-IMPLEMENTATION-DEPTH-OVER9-001/
-      ONTOGONY-BACKEND-ABOVE9-PACKAGES/
+      ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-001/   # only active package
     _consumed/
       README.md
       MANIFEST.md
@@ -119,9 +117,11 @@ See [`_incoming/_active/MANIFEST.md`](./_incoming/_active/MANIFEST.md):
 | Package | Status |
 | --- | --- |
 | ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-001 | in_progress |
-**Archived this follow-up:** ONTOGONY-IMPLEMENTATION-DEPTH-OVER9-001 (platform slice → `_consumed/2026-05/`).
 
-**2026-05-26:** Removed empty `ONTOGONY-BACKEND-ABOVE9-PACKAGES` stub; above-9 backlog tracked in [`_consumed/2026-05/SIX-REPO-SCORE-PLANS/README.md`](./_incoming/_consumed/2026-05/SIX-REPO-SCORE-PLANS/README.md).
+**Moved to `_consumed/2026-05/` (not active):**
+
+- ONTOGONY-IMPLEMENTATION-DEPTH-OVER9-001 — platform slice closed
+- ONTOGONY-BACKEND-ABOVE9-PACKAGES — empty stub removed; backlog in [`SIX-REPO-SCORE-PLANS/README.md`](./_incoming/_consumed/2026-05/SIX-REPO-SCORE-PLANS/README.md)
 
 ---
 
@@ -151,7 +151,7 @@ See [`_incoming/_consumed/MANIFEST.md`](./_incoming/_consumed/MANIFEST.md) — *
 | `docs/operators/OPERATOR_V1_DEMO_GUIDE.md` | Product-operator demo material; kept for now — consider moving to `ontogony-frontend` in a product-docs pass |
 | `docs/product-hardening/` | Retained — `EvalEvidenceExportBundleSchemaTests` requires schemas under `eval-alignment-frontend-depth/` |
 | Nested `PACKAGE/PACKAGE/` folders in intake | Cursor export convention; left as-is to avoid breaking in-package relative links |
-| `ONTOGONY-IMPLEMENTATION-DEPTH-OVER9-001` | Listed active (cross-repo) while platform closeout exists in `reviews/` — archive when all repo slices complete |
+| `ONTOGONY-IMPLEMENTATION-DEPTH-OVER9-001` | **Resolved** — archived under `_consumed/2026-05/` (platform slice); sister repos may keep their own copies |
 
 ---
 
@@ -169,21 +169,42 @@ See [`_incoming/_consumed/MANIFEST.md`](./_incoming/_consumed/MANIFEST.md) — *
 1. Promote **decision reconstructability** protocol docs to `docs/contracts/` when Task 5 completes, then **move** spine package to `_consumed` (required by intake policy).
 2. Close remaining **PLAT-9-003 / 004 / 005** per [`SIX-REPO-SCORE-PLANS/README.md`](./_incoming/_consumed/2026-05/SIX-REPO-SCORE-PLANS/README.md).
 3. Run `scripts/validate-learn-docs.ps1` and a repo-wide link check after the next large intake batch.
-4. Consider restoring `validate-stale-incoming-package.ps1` if intake volume regrows.
+4. ~~Consider restoring stale-package guard~~ — **Done** in Follow-up 002 (`validate-docs-incoming-hygiene.ps1`).
+
+---
+
+## Follow-up 002 (2026-05-26) — integrity pass
+
+| Item | Result |
+| --- | --- |
+| Active manifest vs report | **Fixed** — only decision spine in `_active`; BACKEND-ABOVE9 removed; score plans in consumed |
+| `DOCS_CLEANUP_REPORT` final tree | **Fixed** — matches disk |
+| Decision spine root working note | **Added** — `_active/.../IMPLEMENTATION_NOTES.md` |
+| Intake hygiene validator | **Added** — `scripts/validate-docs-incoming-hygiene.ps1` (CI + `TESTING.md`) |
+| `OPERATOR_V1_DEMO_GUIDE.md` | Banner retained (cross-repo / frontend-owned UX) |
+
+**Active packages after fix:** `ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-001` only.
+
+**Consumed:** unchanged (22 manifest entries under `_consumed/2026-05/`).
+
+**Validation (local):**
+
+```powershell
+powershell -NoProfile -File ./scripts/validate-docs-incoming-hygiene.ps1
+powershell -NoProfile -File ./scripts/validate-docs-links.ps1
+```
+
+Both **PASS** on 2026-05-26.
 
 ---
 
 ## Validation
 
 ```powershell
-# _incoming direct children (expect: README.md, _active, _consumed)
+powershell -NoProfile -File ./scripts/validate-docs-incoming-hygiene.ps1
+powershell -NoProfile -File ./scripts/validate-docs-links.ps1
+
+# Manual spot checks
 Get-ChildItem docs\_incoming -Name
-
-# No zips under docs
 Get-ChildItem docs -Filter *.zip -Recurse
-
-# Manifests exist
-Test-Path docs\_incoming\_active\MANIFEST.md
-Test-Path docs\_incoming\_consumed\MANIFEST.md
-Test-Path docs\INDEX.md
 ```

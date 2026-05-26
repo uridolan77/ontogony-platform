@@ -91,6 +91,9 @@ jobs:
       - name: Validate docs API names
         shell: pwsh
         run: ./scripts/validate-docs-api-names.ps1
+      - name: Validate docs incoming hygiene
+        shell: pwsh
+        run: ./scripts/validate-docs-incoming-hygiene.ps1
       - name: Validate AI runtime docs (banned API strings)
         shell: pwsh
         run: ./scripts/validate-ai-runtime-docs.ps1
@@ -203,6 +206,9 @@ jobs:
       - name: Validate docs API names
         shell: pwsh
         run: ./scripts/validate-docs-api-names.ps1
+      - name: Validate docs incoming hygiene
+        shell: pwsh
+        run: ./scripts/validate-docs-incoming-hygiene.ps1
       - name: Validate AI runtime docs (banned API strings)
         shell: pwsh
         run: ./scripts/validate-ai-runtime-docs.ps1

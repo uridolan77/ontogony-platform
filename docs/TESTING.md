@@ -36,6 +36,7 @@ Path-filtered jobs reduce cost on docs-only PRs. Full CI runs on `main` push, `w
 | --- | --- | --- |
 | Docs links | Docs changed | `validate-docs-links.ps1` |
 | Docs API names | Docs changed | `validate-docs-api-names.ps1` |
+| Docs `_incoming` hygiene | Docs changed | `validate-docs-incoming-hygiene.ps1` |
 | AI runtime docs | Docs changed | `validate-ai-runtime-docs.ps1` |
 | Error envelope | Docs / full | `validate-cross-service-error-envelope.ps1` |
 | Protocol registry | Docs / full | `validate-system-protocol-registry.ps1` |

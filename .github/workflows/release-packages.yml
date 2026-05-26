@@ -81,6 +81,9 @@ jobs:
       - name: Validate docs API names
         shell: pwsh
         run: ./scripts/validate-docs-api-names.ps1
+      - name: Validate docs incoming hygiene
+        shell: pwsh
+        run: ./scripts/validate-docs-incoming-hygiene.ps1
 
       - name: Validate AI runtime boundaries (AI.Contracts sources)
         shell: pwsh

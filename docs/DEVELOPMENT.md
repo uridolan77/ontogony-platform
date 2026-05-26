@@ -30,6 +30,7 @@ pwsh ./scripts/bootstrap-solution.ps1
 | `scripts/validate-shipping-inventory.ps1` | Expects 27 `Ontogony.*` projects under `src/` |
 | `scripts/validate-package-levels.ps1` | Package reference matrix |
 | `scripts/validate-docs-links.ps1` | Relative markdown links under `docs/` |
+| `scripts/validate-docs-incoming-hygiene.ps1` | `_incoming` layout, manifests, no zips |
 | `scripts/validate-ai-runtime-docs.ps1` | Banned provider API strings in docs |
 | `scripts/run-system-compatibility-gate.ps1` | Cross-repo compat (needs sibling repos) |
 

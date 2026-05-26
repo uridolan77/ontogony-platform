@@ -58,6 +58,16 @@ Cross-repo packages: archive in **this** repo when **this repo’s slice** is do
 | Current platform truth | [`../CURRENT_STATE.md`](../CURRENT_STATE.md) |
 | Six-repo doc standard | [`../operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md`](../operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md) §8.4 |
 
+## CI validation
+
+```powershell
+powershell -NoProfile -File ./scripts/validate-docs-incoming-hygiene.ps1
+```
+
+Fails if `_incoming` layout, manifests, or package folders drift from policy (see script header).
+
+---
+
 ## Boundary
 
 Ontogony.Platform owns **mechanics** (tracing, errors, HTTP, hashing, idempotency, observability contracts, packaging). Intake may mention Kanon, Allagma, Conexus, or the operator console only as **consumers** or examples — not as product specs owned by this repo.
