@@ -97,6 +97,22 @@ dotnet test Ontogony.Platform.sln -c Release    # PARTIAL FAIL (pre-existing)
 
 **Remediation:** accept/update `ShippingAssemblyPublicApiTests` verified snapshot for `TryRemoveKeyAsync`.
 
+## PR-001 status (2026-05-26)
+
+**Done** in `allagma-dotnet`:
+
+- `AllagmaDecisionEventFixtureBuilder`, `AllagmaKanonReconstructabilityIntegrationTests`, `KanonClassifierTestBridge`
+- Projector enrichments for high/critical F-grade fields
+- Fixtures under `tests/Allagma.Tests/Fixtures/reconstructability/`
+- Evidence: [`allagma-dotnet/docs/evidence/ALLAGMA_KANON_RECONSTRUCTABILITY_CLOSURE.md`](../../../../allagma-dotnet/docs/evidence/ALLAGMA_KANON_RECONSTRUCTABILITY_CLOSURE.md)
+
+Validation:
+
+```text
+Allagma RunDecisionEvents|Reconstructability — 32 passed
+Kanon FullyQualifiedName~Reconstructability — 75 passed
+```
+
 ## Next step (per package)
 
-Implement **`pr-specs/PR-001-ALLAGMA-KANON-CLASSIFIER-CLOSURE.md`** in `allagma-dotnet` only. Do **not** start Conexus emitters (PR-002) until PR-001 acceptance criteria are met.
+Implement **`pr-specs/PR-002-CONEXUS-DECISION-EVENT-EMITTERS.md`** in `conexus-dotnet` only after PR-001 is merged.
