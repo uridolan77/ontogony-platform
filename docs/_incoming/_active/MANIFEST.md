@@ -4,7 +4,7 @@ Last updated: **2026-05-26**
 
 | Package | Status | Reason active | Next action | Date |
 | --- | --- | --- | --- | --- |
-| *(none)* | — | All reconstructability spine packages consumed | Add new intake packages here when work starts | 2026-05-26 |
+| [ONTOGONY-OBSERVABILITY-MECHANICS-PACK-001](./ONTOGONY-OBSERVABILITY-MECHANICS-PACK-001/) | **in_progress** | PLAT-9-005 phase 1 landed | Phase 2: dashboards, alerts, conformance aggregator; then archive | 2026-05-26 |
 
 **Consumed follow-on slices (not separate active packages):**
 

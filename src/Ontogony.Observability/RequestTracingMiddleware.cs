@@ -81,13 +81,7 @@ public sealed class RequestTracingMiddleware
         });
 
         var started = Stopwatch.GetTimestamp();
-        activity?.SetTag(OntogonySpanAttributes.TraceId, traceId);
-        activity?.SetTag(OntogonySpanAttributes.OperationId, operationId);
-        activity?.SetTag(OntogonySpanAttributes.ActorId, state.ActorId);
-        activity?.SetTag(OntogonySpanAttributes.TenantId, state.TenantId);
-        activity?.SetTag(OntogonySpanAttributes.WorkspaceId, state.WorkspaceId);
-        activity?.SetTag(OntogonySpanAttributes.ProjectId, state.ProjectId);
-        activity?.SetTag(OntogonySpanAttributes.SessionId, state.SessionId);
+        SystemCorrelationConventions.ApplyToActivity(activity, state);
         activity?.SetTag("service.name", _options.ServiceName);
         activity?.SetTag("http.request.method", context.Request.Method);
         activity?.SetTag("url.path", context.Request.Path.Value);

@@ -43,6 +43,7 @@ Practical map of **canonical** platform documentation. For intake packages, see 
 | Contract discipline | [`contracts/CONTRACT_DISCIPLINE_STANDARD.md`](./contracts/CONTRACT_DISCIPLINE_STANDARD.md) |
 | Replay runtime | [`contracts/REPLAY_RUNTIME_CONTRACT.md`](./contracts/REPLAY_RUNTIME_CONTRACT.md) |
 | Decision reconstructability | [`contracts/DECISION_RECONSTRUCTABILITY_PROTOCOL_V0.md`](./contracts/DECISION_RECONSTRUCTABILITY_PROTOCOL_V0.md) |
+| Observability mechanics | [`observability/README.md`](./observability/README.md) |
 | Protocol registry | [`system/system-protocol-registry.json`](./system/system-protocol-registry.json) |
 | JSON schemas | [`schemas/`](./schemas/) |
 

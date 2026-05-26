@@ -18,8 +18,8 @@ Use [`_CURRENT_PLAN.md`](./_CURRENT_PLAN.md) § “Plan 1 — ontogony-platform 
 | PLAT-9-002 Mechanical protocol registry | **Done** — [`contracts/MECHANICAL_PROTOCOL_REGISTRY.md`](../../../contracts/MECHANICAL_PROTOCOL_REGISTRY.md) |
 | PLAT-9-006 No-meaning guard | **Done** — `scripts/check-no-product-semantics.ps1`, architecture tests |
 | PLAT-DEPTH-001–004 | **Done** — [`reviews/IMPLEMENTATION_DEPTH_OVER9_CLOSEOUT_REPORT.md`](../../../reviews/IMPLEMENTATION_DEPTH_OVER9_CLOSEOUT_REPORT.md) |
-| PLAT-9-003 Consumer conformance suite | **Open** — script/gate exist; full matrix closeout / evidence pending |
+| PLAT-9-003 Consumer conformance suite | **Done** (PR-005) — [`evidence/PLATFORM_RECONSTRUCTABILITY_CONFORMANCE_EVIDENCE.md`](../../../evidence/PLATFORM_RECONSTRUCTABILITY_CONFORMANCE_EVIDENCE.md); `*PlatformConformanceTests` on Allagma/Kanon/Conexus `main`. Optional: full-matrix `artifacts/consumer-conformance/` runner (phase 2). |
 | PLAT-9-004 Public API hardening | **Partial** — Tier B XML docs still deferred |
-| PLAT-9-005 Observability mechanics pack | **Open** — `docs/observability/*` not created |
+| PLAT-9-005 Observability mechanics pack | **Partial** (phase 1) — [`docs/observability/`](../../../observability/), `SystemCorrelationConventions`, [`evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_EVIDENCE.md`](../../../evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_EVIDENCE.md). Phase 2: dashboards, alert rules, aggregator script. |
 
 Frontend, UI, Kanon, Allagma, and Conexus slices in `_CURRENT_PLAN.md` are owned by those repos.
