@@ -22,6 +22,7 @@ Cross-service reconstructability closure (Option 1) is **complete** for backend 
 
 | Topic | Location |
 | --- | --- |
+| Decision reconstructability protocol (v0) | [`docs/contracts/DECISION_RECONSTRUCTABILITY_PROTOCOL_V0.md`](../contracts/DECISION_RECONSTRUCTABILITY_PROTOCOL_V0.md) |
 | Conformance kits adoption | [`docs/adoption/reconstructability-conformance-kits.md`](../adoption/reconstructability-conformance-kits.md) |
 | Platform conformance evidence | [`docs/evidence/PLATFORM_RECONSTRUCTABILITY_CONFORMANCE_EVIDENCE.md`](PLATFORM_RECONSTRUCTABILITY_CONFORMANCE_EVIDENCE.md) |
 | Golden trace (Allagma orchestrator) | `allagma-dotnet/docs/evidence/CROSS_SERVICE_RECONSTRUCTABILITY_GOLDEN_TRACE.md` |

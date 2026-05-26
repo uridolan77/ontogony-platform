@@ -33,6 +33,8 @@ All paths are under `docs/_incoming/_consumed/2026-05/` unless noted.
 | ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-005 | **consumed** | Five golden fixtures — [`fixtures/decision-reconstructability/`](../../../fixtures/decision-reconstructability/) | 2026-05-26 |
 | ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-007 | **consumed** | DEC-RECON-007 persisted report artifacts — [`dec-recon-007-smoke-report.json`](../../../docker/local-working-system/artifacts/dec-recon-007-smoke-report.json); sister evidence in Kanon + frontend repos | 2026-05-26 |
 | ONTOGONY-RECONSTRUCTABILITY-CLOSURE-OPTION1 | **consumed** | PR-001–006 cross-service closure — [`evidence/ONTOGONY_RECONSTRUCTABILITY_CLOSURE_OPTION1_CLOSEOUT.md`](../../evidence/ONTOGONY_RECONSTRUCTABILITY_CLOSURE_OPTION1_CLOSEOUT.md) | 2026-05-26 |
+| ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-001 | **consumed** | Protocol promoted — [`contracts/DECISION_RECONSTRUCTABILITY_PROTOCOL_V0.md`](../../contracts/DECISION_RECONSTRUCTABILITY_PROTOCOL_V0.md) and related v0 contracts | 2026-05-26 |
+| ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-006 | **consumed** | DEC-RECON-006 Evidence Spine graph — frontend `appendAllagmaDecisionEventReconstructabilityGraph` | 2026-05-26 |
 
 ## Month folders
 

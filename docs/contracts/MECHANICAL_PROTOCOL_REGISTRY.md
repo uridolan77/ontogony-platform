@@ -18,6 +18,7 @@ version bump to the affected schema.
 | Cross-service error | [CROSS_SERVICE_ERROR_CONTRACT.md](CROSS_SERVICE_ERROR_CONTRACT.md) | `schemas/contracts/cross-service-error.schema.json` | `Ontogony.Errors.CrossServiceErrorEnvelope` |
 | Idempotency | [IDEMPOTENCY_CONTRACT.md](IDEMPOTENCY_CONTRACT.md) | `schemas/contracts/idempotency.schema.json` | `Ontogony.Idempotency` |
 | Evidence identifier | [EVIDENCE_IDENTIFIER_CONTRACT.md](EVIDENCE_IDENTIFIER_CONTRACT.md) | `schemas/contracts/evidence-identifier.schema.json` | `Ontogony.Contracts.References` |
+| Decision reconstructability | [DECISION_RECONSTRUCTABILITY_PROTOCOL_V0.md](DECISION_RECONSTRUCTABILITY_PROTOCOL_V0.md) | `fixtures/decision-reconstructability/` (golden events) | Kanon classifier; Allagma/Conexus exporters |
 
 ---
 
