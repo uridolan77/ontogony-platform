@@ -28,11 +28,15 @@ resolveAllagmaRunEvidenceGraph
 
 ## Acceptance
 
-- [ ] Allagma run spine resolution appends `allagma.decisionEvent` nodes
-- [ ] Node badge shows PASS/WARN/FAIL from Kanon classification
-- [ ] Toggle opens `ReconstructabilityReportPanel` with full report
-- [ ] Nodes link to run root via `derived_from`
-- [ ] Unit test for graph append
+- [x] Allagma run spine resolution appends `allagma.decisionEvent` nodes
+- [x] Node badge shows PASS/WARN/FAIL from Kanon classification
+- [x] Toggle opens `ReconstructabilityReportPanel` with full report
+- [x] Nodes link to run root via `derived_from`
+- [x] Unit test for graph append
+
+## Verify locally
+
+Resolve a seeded run in Evidence Spine (`/system/evidence-spine?id={runId}&kind=allagmaRunId`) with local-working-system APIs up. Expect a **Decision reconstructability** section with PASS/WARN/FAIL badges.
 
 ## Out of scope
 
