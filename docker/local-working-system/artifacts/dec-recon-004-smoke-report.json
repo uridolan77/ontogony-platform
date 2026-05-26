@@ -1,6 +1,6 @@
 {
   "schema": "dec-recon-004-smoke-report-v1",
-  "recordedAtUtc": "2026-05-26T11:55:18.888Z",
+  "recordedAtUtc": "2026-05-26T12:05:25.655Z",
   "seedReportPath": "C:\\dev\\ontogony-platform\\docker\\local-working-system\\artifacts\\env-seed-001-report.json",
   "frontendBaseUrl": "http://127.0.0.1:5176",
   "runId": "run_28d50e113baa4f2d8e372b686e0e2b58",

@@ -32,11 +32,18 @@ After Kanon / Allagma / Conexus / frontend slices land:
 - Kanon: `POST /ontology/v0/reconstructability/classify-batch`
 - Frontend: panel + OpenAPI-generated DTOs + `@ontogony/ui` report panel
 
-### 2026-05-26 — DEC-RECON-004 started
+### 2026-05-26 — DEC-RECON-004 closed (smoke PASS)
 
-Cross-repo docker-local smoke: see [`../ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-004/README.md`](../ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-004/README.md).
+Archived: [`../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-004/`](../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-004/). Evidence: [`dec-recon-004-smoke-report.json`](../../../../docker/local-working-system/artifacts/dec-recon-004-smoke-report.json) (`verdict: PASS`, 11 events, worst WARN).
 
-### 2026-05-26 — DEC-RECON-005 golden fixtures
+### 2026-05-26 — DEC-RECON-005 closed (golden fixtures)
 
-Five canonical JSON fixtures under `ontogony-platform/fixtures/decision-reconstructability/` with Kanon classifier tests. See [`../ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-005/README.md`](../ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-005/README.md).
+Archived: [`../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-005/`](../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-005/). Fixtures: [`fixtures/decision-reconstructability/`](../../../../fixtures/decision-reconstructability/).
+
+## Follow-on slices (consumed)
+
+| Slice | Status | Archive |
+| --- | --- | --- |
+| DEC-RECON-004 smoke | **PASS** | [`../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-004/`](../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-004/) |
+| DEC-RECON-005 fixtures | **Done** | [`../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-005/`](../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-005/) |
  

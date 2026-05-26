@@ -29,6 +29,8 @@ All paths are under `docs/_incoming/_consumed/2026-05/` unless noted.
 | SYSTEM-LEARNING-GUIDE-001 | **consumed** | [`learn/INDEX.md`](../../learn/INDEX.md) promoted guides | 2026-05 |
 | SOURCE-BINDINGS-POLISH-001.md | **consumed** (stub) | Kanon source bindings polish (product repo) | 2026-05 |
 | SIX-REPO-SCORE-PLANS | **active archive** | Canonical **above-9** program (`_CURRENT_PLAN.md`); replaces removed empty `ONTOGONY-BACKEND-ABOVE9-PACKAGES` stub — see [`2026-05/SIX-REPO-SCORE-PLANS/README.md`](./2026-05/SIX-REPO-SCORE-PLANS/README.md) for remaining PLAT-9 items | 2026-05-26 |
+| ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-004 | **consumed** | DEC-RECON-004 smoke **PASS** — [`dec-recon-004-smoke-report.json`](../../../docker/local-working-system/artifacts/dec-recon-004-smoke-report.json) | 2026-05-26 |
+| ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-005 | **consumed** | Five golden fixtures — [`fixtures/decision-reconstructability/`](../../../fixtures/decision-reconstructability/) | 2026-05-26 |
 
 ## Month folders
 

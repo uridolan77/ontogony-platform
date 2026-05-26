@@ -127,7 +127,7 @@ See [`_incoming/_active/MANIFEST.md`](./_incoming/_active/MANIFEST.md):
 
 ## Consumed packages archived
 
-See [`_incoming/_consumed/MANIFEST.md`](./_incoming/_consumed/MANIFEST.md) — **22** entries under `_consumed/2026-05/` including replay, runtime-config, contract-discipline, governed-fake-e2e, system-truth, console UX, evidence spine, and score-plan archives.
+See [`_incoming/_consumed/MANIFEST.md`](./_incoming/_consumed/MANIFEST.md) — **24** entries under `_consumed/2026-05/` (includes DEC-RECON-004/005 follow-on slices).
 
 ---
 
@@ -195,6 +195,21 @@ powershell -NoProfile -File ./scripts/validate-docs-links.ps1
 ```
 
 Both **PASS** on 2026-05-26.
+
+---
+
+## Follow-up 003 (2026-05-26) — DEC-RECON manifest drift
+
+| Item | Result |
+| --- | --- |
+| Model | **Parent spine active** — `ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-001` only in `_active`; 004/005 are consumed follow-on slices |
+| DEC-RECON-004 | **Moved to `_consumed/2026-05/`** — smoke `verdict: PASS` ([`dec-recon-004-smoke-report.json`](../docker/local-working-system/artifacts/dec-recon-004-smoke-report.json)) |
+| DEC-RECON-005 | **Moved to `_consumed/2026-05/`** — golden fixtures under [`fixtures/decision-reconstructability/`](../fixtures/decision-reconstructability/) |
+| Validator | **Strengthened** — bidirectional `_active` dir ↔ manifest sync; `_consumed/2026-05/` dirs must appear in consumed manifest |
+
+**Active packages:** `ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-001` only.
+
+**Consumed:** 24 manifest entries (added SPINE-004, SPINE-005).
 
 ---
 

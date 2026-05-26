@@ -4,7 +4,14 @@ Last updated: **2026-05-26**
 
 | Package | Status | Reason active | Next action | Date |
 | --- | --- | --- | --- | --- |
-| [ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-001](./ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-001/) | **in_progress** | Cross-repo decision reconstructability spine; platform protocol docs + optional validation script pending | Complete Task 5 (platform/docs) after Kanon/Allagma/Conexus/frontend slices; **then move to `_consumed`** per [`../README.md`](../README.md) | 2026-05-26 |
+| [ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-001](./ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-001/) | **in_progress** | Parent spine program; slices 004/005 consumed | Complete Task 5 — promote protocol docs to `docs/contracts/`; **then move to `_consumed`** | 2026-05-26 |
+
+**Consumed follow-on slices (not separate active packages):**
+
+| Slice | Status | Archive |
+| --- | --- | --- |
+| DEC-RECON-004 smoke | **PASS** | [`../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-004/`](../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-004/) |
+| DEC-RECON-005 golden fixtures | **Done** | [`../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-005/`](../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-005/) |
 
 ## Above-9 platform work (not a separate active package)
 

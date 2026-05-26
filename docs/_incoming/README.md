@@ -64,7 +64,7 @@ Cross-repo packages: archive in **this** repo when **this repo’s slice** is do
 powershell -NoProfile -File ./scripts/validate-docs-incoming-hygiene.ps1
 ```
 
-Fails if `_incoming` layout, manifests, or package folders drift from policy (see script header).
+Fails if `_incoming` layout, manifests, or package folders drift from policy — including **unlisted directories under `_active/`** (see script header).
 
 ---
 

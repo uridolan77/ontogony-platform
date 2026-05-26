@@ -169,6 +169,28 @@ foreach ($pkg in $consumedSet) {
     }
 }
 
+# 8. Bidirectional active sync: every _active/<dir> must be in manifest; no extras either way
+$onDiskActive = @(Get-ChildItem -LiteralPath $activeRoot -Directory -ErrorAction SilentlyContinue |
+    ForEach-Object { $_.Name })
+$manifestActiveSet = [System.Collections.Generic.HashSet[string]]::new([string[]]$activePackages)
+foreach ($dir in $onDiskActive) {
+    if (-not $manifestActiveSet.Contains($dir)) {
+        Add-Failure "active directory not listed in _active/MANIFEST.md: $dir"
+    }
+}
+# 9. Consumed month folders listed in manifest (2026-05)
+$monthPath = Join-Path (Join-Path $incomingRoot '_consumed') '2026-05'
+if (Test-Path -LiteralPath $monthPath) {
+    $onDiskConsumed = @(Get-ChildItem -LiteralPath $monthPath -Directory -ErrorAction SilentlyContinue |
+        ForEach-Object { $_.Name })
+    $manifestConsumedSet = [System.Collections.Generic.HashSet[string]]::new([string[]]$consumedSet)
+    foreach ($dir in $onDiskConsumed) {
+        if (-not $manifestConsumedSet.Contains($dir)) {
+            Add-Failure "consumed/2026-05 directory not listed in _consumed/MANIFEST.md: $dir"
+        }
+    }
+}
+
 if ($failures.Count -gt 0) {
     Write-Host 'Docs incoming hygiene validation failed:' -ForegroundColor Red
     foreach ($f in $failures) { Write-Host "  $f" }
