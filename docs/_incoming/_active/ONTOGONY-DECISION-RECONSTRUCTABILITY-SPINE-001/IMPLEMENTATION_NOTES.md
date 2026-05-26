@@ -35,4 +35,8 @@ After Kanon / Allagma / Conexus / frontend slices land:
 ### 2026-05-26 — DEC-RECON-004 started
 
 Cross-repo docker-local smoke: see [`../ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-004/README.md`](../ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-004/README.md).
+
+### 2026-05-26 — DEC-RECON-005 golden fixtures
+
+Five canonical JSON fixtures under `ontogony-platform/fixtures/decision-reconstructability/` with Kanon classifier tests. See [`../ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-005/README.md`](../ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-005/README.md).
  

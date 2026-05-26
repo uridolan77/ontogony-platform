@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "ontogony-allagma-decision-event-v1",
+  "decisionEventId": "allagma-hg-kanon-hg-warn-1",
+  "decisionKind": "human_gate_decision",
+  "severity": "medium",
+  "occurredAtUtc": "2026-05-26T10:01:00+00:00",
+  "serviceOfOrigin": "allagma",
+  "evidenceFragments": [
+    {
+      "fragmentId": "allagma:human-gate:gate-warn-1",
+      "fragmentType": "human_gate_record",
+      "service": "allagma",
+      "sourceId": "gate-warn-1",
+      "trustLevel": "authoritative",
+      "sourceRoute": "GET /allagma/v0/runs/run-golden-hg-warn/audit",
+      "capturedAtUtc": "2026-05-26T10:01:00+00:00"
+    },
+    {
+      "fragmentId": "kanon:decision:kanon-hg-warn-1",
+      "fragmentType": "kanon_decision",
+      "service": "kanon",
+      "sourceId": "kanon-hg-warn-1",
+      "trustLevel": "linked",
+      "sourceRoute": "GET /ontology/v0/decision-records/kanon-hg-warn-1"
+    }
+  ],
+  "correlationId": "corr-run-golden-hg-warn",
+  "traceId": "trace-run-golden-hg-warn",
+  "runId": "run-golden-hg-warn",
+  "inputs": {
+    "fragmentRefs": [
+      "allagma:human-gate:gate-warn-1",
+      "kanon:decision:kanon-hg-warn-1"
+    ],
+    "normalizedInputHash": "gate-warn-1",
+    "toolInputHash": "gate-warn-1"
+  },
+  "policyBasis": {
+    "fragmentRefs": [
+      "kanon:decision:kanon-hg-warn-1"
+    ],
+    "ontologyVersionId": "gaming-core@0.1.0"
+  },
+  "operatorIdentity": {
+    "actorKind": "service",
+    "fragmentRefs": [
+      "allagma:human-gate:gate-warn-1"
+    ],
+    "actorId": "actor-golden",
+    "roles": [
+      "AgentExecutor",
+      "Admin"
+    ],
+    "authenticated": true,
+    "authMethod": "allagma-run-auth"
+  },
+  "authorizationEnvelope": {
+    "authority": "allagma-human-gate",
+    "decision": "pending",
+    "fragmentRefs": [
+      "allagma:human-gate:gate-warn-1",
+      "kanon:decision:kanon-hg-warn-1"
+    ],
+    "scope": "gate-warn-1",
+    "humanGateId": "gate-warn-1"
+  },
+  "outputAction": {
+    "actionKind": "human_gate_resolution",
+    "status": "pending",
+    "fragmentRefs": [
+      "allagma:human-gate:gate-warn-1"
+    ],
+    "actionId": "gate-warn-1",
+    "targetService": "allagma",
+    "targetResource": "allagma:human-gate:gate-warn-1"
+  },
+  "postConditionState": {
+    "stateKind": "human_gate_status",
+    "fragmentRefs": [
+      "allagma:human-gate:gate-warn-1"
+    ],
+    "afterHash": "pending",
+    "stateResource": "allagma:human-gate:gate-warn-1",
+    "verificationStatus": "verified"
+  },
+  "relatedIds": {
+    "allagmaRunId": "run-golden-hg-warn",
+    "humanGateId": "gate-warn-1",
+    "kanonDecisionId": "kanon-hg-warn-1",
+    "traceId": "trace-run-golden-hg-warn"
+  }
+}

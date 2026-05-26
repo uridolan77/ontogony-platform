@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "ontogony-allagma-decision-event-v1",
+  "decisionEventId": "allagma-budget-snap-run-golden-policy-fail",
+  "decisionKind": "policy_evaluation",
+  "severity": "critical",
+  "occurredAtUtc": "2026-05-26T10:05:00+00:00",
+  "serviceOfOrigin": "allagma",
+  "evidenceFragments": [
+    {
+      "fragmentId": "allagma:budget-snapshot:snap-run-golden-policy-fail",
+      "fragmentType": "run_budget_snapshot",
+      "service": "allagma",
+      "sourceId": "snap-run-golden-policy-fail",
+      "trustLevel": "authoritative",
+      "sourceRoute": "GET /allagma/v0/runs/run-golden-policy-fail/budget",
+      "capturedAtUtc": "2026-05-26T10:05:00+00:00"
+    }
+  ],
+  "correlationId": "corr-run-golden-policy-fail",
+  "traceId": "trace-run-golden-policy-fail",
+  "runId": "run-golden-policy-fail",
+  "policyBasis": {
+    "fragmentRefs": [
+      "allagma:budget-snapshot:snap-run-golden-policy-fail"
+    ],
+    "policyId": "policy-golden-fail",
+    "evaluationResult": "exceeded"
+  },
+  "operatorIdentity": {
+    "actorKind": "service",
+    "fragmentRefs": [
+      "allagma:budget-snapshot:snap-run-golden-policy-fail"
+    ],
+    "actorId": "actor-golden",
+    "roles": [
+      "AgentExecutor",
+      "Admin"
+    ],
+    "authenticated": true,
+    "authMethod": "allagma-run-auth"
+  },
+  "authorizationEnvelope": {
+    "authority": "allagma-budget-policy",
+    "decision": "exceeded",
+    "fragmentRefs": [
+      "allagma:budget-snapshot:snap-run-golden-policy-fail"
+    ],
+    "scope": "policy-golden-fail"
+  },
+  "outputAction": {
+    "actionKind": "budget_policy_check",
+    "status": "exceeded",
+    "fragmentRefs": [
+      "allagma:budget-snapshot:snap-run-golden-policy-fail"
+    ],
+    "actionId": "snap-run-golden-policy-fail",
+    "targetService": "allagma"
+  },
+  "postConditionState": {
+    "stateKind": "budget_usage",
+    "fragmentRefs": [
+      "allagma:budget-snapshot:snap-run-golden-policy-fail"
+    ],
+    "afterHash": "exceeded",
+    "stateResource": "allagma:budget-snapshot:snap-run-golden-policy-fail",
+    "verificationStatus": "verified"
+  },
+  "relatedIds": {
+    "allagmaRunId": "run-golden-policy-fail",
+    "traceId": "trace-run-golden-policy-fail"
+  }
+}

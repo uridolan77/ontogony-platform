@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "ontogony-allagma-decision-event-v1",
+  "decisionEventId": "allagma-run-op-run-golden-pass-001",
+  "decisionKind": "run_operation",
+  "severity": "low",
+  "occurredAtUtc": "2026-05-26T10:00:00+00:00",
+  "serviceOfOrigin": "allagma",
+  "evidenceFragments": [
+    {
+      "fragmentId": "allagma:run:run-golden-pass-001",
+      "fragmentType": "run_record",
+      "service": "allagma",
+      "sourceId": "run-golden-pass-001",
+      "trustLevel": "authoritative",
+      "sourceRoute": "GET /allagma/v0/runs/run-golden-pass-001",
+      "capturedAtUtc": "2026-05-26T10:00:00+00:00"
+    },
+    {
+      "fragmentId": "kanon:decision:plan-run-golden-pass-001",
+      "fragmentType": "kanon_decision",
+      "service": "kanon",
+      "sourceId": "plan-run-golden-pass-001",
+      "trustLevel": "linked",
+      "sourceRoute": "GET /ontology/v0/decision-records/plan-run-golden-pass-001"
+    },
+    {
+      "fragmentId": "allagma:topo-auth:topo-auth-golden-001",
+      "fragmentType": "topology_authorization_decision",
+      "service": "allagma",
+      "sourceId": "topo-auth-golden-001",
+      "trustLevel": "authoritative",
+      "sourceRoute": "GET /allagma/v0/runs/run-golden-pass-001/audit"
+    }
+  ],
+  "correlationId": "corr-run-golden-pass-001",
+  "traceId": "trace-run-golden-pass-001",
+  "runId": "run-golden-pass-001",
+  "inputs": {
+    "fragmentRefs": [
+      "allagma:run:run-golden-pass-001"
+    ],
+    "userRequestHash": "sha256-objective-golden",
+    "normalizedInputHash": "sha256-objective-golden",
+    "sourceBindingIds": [
+      "binding-golden-001"
+    ]
+  },
+  "policyBasis": {
+    "fragmentRefs": [
+      "kanon:decision:plan-run-golden-pass-001"
+    ],
+    "policyId": "policy-golden-run-op",
+    "policyVersion": "v1",
+    "ontologyVersionId": "gaming-core@0.1.0",
+    "kanonDecisionId": "plan-run-golden-pass-001",
+    "evaluationResult": "within_policy"
+  },
+  "operatorIdentity": {
+    "actorKind": "service",
+    "fragmentRefs": [
+      "allagma:run:run-golden-pass-001"
+    ],
+    "actorId": "actor-golden",
+    "roles": [
+      "AgentExecutor",
+      "Admin"
+    ],
+    "authenticated": true,
+    "authMethod": "allagma-run-auth"
+  },
+  "authorizationEnvelope": {
+    "authority": "allagma-topology-policy",
+    "decision": "approved",
+    "fragmentRefs": [
+      "allagma:topo-auth:topo-auth-golden-001"
+    ],
+    "requiredRoles": [
+      "AgentExecutor",
+      "Admin"
+    ],
+    "satisfiedRoles": [
+      "AgentExecutor",
+      "Admin"
+    ]
+  },
+  "reasoningEvidence": {
+    "reasoningEvidenceKind": "policy_summary",
+    "fragmentRefs": [
+      "kanon:decision:plan-run-golden-pass-001"
+    ],
+    "summary": "Kanon planning decision plan-run-golden-pass-001 governs run objective."
+  },
+  "outputAction": {
+    "actionKind": "run_terminal_status",
+    "status": "completed",
+    "fragmentRefs": [
+      "allagma:run:run-golden-pass-001"
+    ],
+    "actionId": "run-golden-pass-001",
+    "targetService": "allagma",
+    "outputHash": "model-call-golden"
+  },
+  "postConditionState": {
+    "stateKind": "run_status",
+    "fragmentRefs": [
+      "allagma:run:run-golden-pass-001"
+    ],
+    "afterHash": "Completed",
+    "stateResource": "allagma:run:run-golden-pass-001",
+    "verificationStatus": "verified"
+  },
+  "relatedIds": {
+    "allagmaRunId": "run-golden-pass-001",
+    "kanonDecisionId": "plan-run-golden-pass-001",
+    "conexusModelCallId": "model-call-golden",
+    "traceId": "trace-run-golden-pass-001",
+    "correlationId": "corr-run-golden-pass-001"
+  }
+}

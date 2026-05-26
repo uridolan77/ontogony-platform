@@ -1,0 +1,14 @@
+{
+  "packageId": "ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-005",
+  "title": "Canonical golden fixtures across Allagma/Kanon/Frontend",
+  "status": "active",
+  "dependsOn": ["ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-004"],
+  "canonicalPath": "fixtures/decision-reconstructability",
+  "fixtures": [
+    "allagma-run-operation.pass.json",
+    "allagma-human-gate.warn.json",
+    "allagma-workflow-transition.pass.json",
+    "allagma-agent-tool-call.warn.json",
+    "allagma-policy-evaluation.fail.json"
+  ]
+}

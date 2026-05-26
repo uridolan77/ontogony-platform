@@ -1,0 +1,86 @@
+{
+  "schemaVersion": "ontogony-allagma-decision-event-v1",
+  "decisionEventId": "allagma-tool-intent-golden-warn",
+  "decisionKind": "agent_tool_call",
+  "severity": "medium",
+  "occurredAtUtc": "2026-05-26T10:00:00+00:00",
+  "serviceOfOrigin": "allagma",
+  "evidenceFragments": [
+    {
+      "fragmentId": "allagma:tool-intent:intent-golden-warn",
+      "fragmentType": "tool_intent_record",
+      "service": "allagma",
+      "sourceId": "intent-golden-warn",
+      "trustLevel": "authoritative",
+      "sourceRoute": "GET /allagma/v0/runs/run-golden-tool-warn/audit",
+      "capturedAtUtc": "2026-05-26T10:00:00+00:00"
+    },
+    {
+      "fragmentId": "kanon:decision:kanon-tool-golden-warn",
+      "fragmentType": "kanon_decision",
+      "service": "kanon",
+      "sourceId": "kanon-tool-golden-warn",
+      "trustLevel": "linked",
+      "sourceRoute": "GET /ontology/v0/decision-records/kanon-tool-golden-warn"
+    }
+  ],
+  "correlationId": "corr-run-golden-tool-warn",
+  "traceId": "trace-run-golden-tool-warn",
+  "runId": "run-golden-tool-warn",
+  "inputs": {
+    "fragmentRefs": [
+      "allagma:tool-intent:intent-golden-warn",
+      "kanon:decision:kanon-tool-golden-warn"
+    ],
+    "normalizedInputHash": "delete_account",
+    "toolInputHash": "intent-golden-warn"
+  },
+  "policyBasis": {
+    "fragmentRefs": [],
+    "ontologyVersionId": "gaming-core@0.1.0"
+  },
+  "operatorIdentity": {
+    "actorKind": "agent",
+    "fragmentRefs": [
+      "allagma:tool-intent:intent-golden-warn"
+    ],
+    "actorId": "actor-golden",
+    "roles": [
+      "AgentExecutor",
+      "Admin"
+    ]
+  },
+  "authorizationEnvelope": {
+    "authority": "kanon-tool-policy",
+    "decision": "blocked",
+    "fragmentRefs": [
+      "allagma:tool-intent:intent-golden-warn",
+      "kanon:decision:kanon-tool-golden-warn"
+    ],
+    "scope": "delete_account"
+  },
+  "outputAction": {
+    "actionKind": "tool_execution",
+    "status": "blocked",
+    "fragmentRefs": [
+      "allagma:tool-intent:intent-golden-warn"
+    ],
+    "actionId": "intent-golden-warn",
+    "targetService": "allagma",
+    "toolName": "delete_account"
+  },
+  "postConditionState": {
+    "stateKind": "tool_intent_status",
+    "fragmentRefs": [
+      "allagma:tool-intent:intent-golden-warn"
+    ],
+    "afterHash": "blocked",
+    "stateResource": "allagma:tool-intent:intent-golden-warn",
+    "verificationStatus": "verified"
+  },
+  "relatedIds": {
+    "allagmaRunId": "run-golden-tool-warn",
+    "kanonDecisionId": "kanon-tool-golden-warn",
+    "traceId": "trace-run-golden-tool-warn"
+  }
+}
