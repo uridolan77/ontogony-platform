@@ -40,7 +40,7 @@ Expected: all tests pass; fixtures use only `sandbox` / allowed enums; no `produ
 
 | Slice | Repo | Focus |
 | --- | --- | --- |
-| **001B** | `kanon-dotnet` | Fake promotion evaluation endpoint + decision types |
+| **001B** | `kanon-dotnet` | **Complete** — `kanon-dotnet/docs/evidence/ONTOGONY_SKILL_RELEASE_GOVERNANCE_001B.md` |
 | **001C** | `allagma-dotnet` | Promotion request registry (no binding activation yet) |
 
 Do not start deployment activation before promotion governance is in place.
