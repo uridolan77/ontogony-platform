@@ -1,7 +1,7 @@
 # Skill Optimization Spine (protocol index)
 
-**Package:** `ONTOGONY-SKILL-OPTIMIZATION-SPINE-001` · **Slice:** `001A` (contracts + fixtures)  
-**Status:** Phase 1 — canonical contracts and JSON schemas promoted to platform; backend/UI slices pending.
+**Package:** `ONTOGONY-SKILL-OPTIMIZATION-SPINE-001` · **Status:** **Closed** (slices 001A–001K, 2026-05-27)  
+**Closeout:** [`docs/evidence/ONTOGONY_SKILL_OPTIMIZATION_SPINE_001_CLOSEOUT.md`](../evidence/ONTOGONY_SKILL_OPTIMIZATION_SPINE_001_CLOSEOUT.md) · **Archive:** [`docs/_incoming/_consumed/2026-05/ONTOGONY-SKILL-OPTIMIZATION-SPINE-001/`](../_incoming/_consumed/2026-05/ONTOGONY-SKILL-OPTIMIZATION-SPINE-001/)
 
 Ontogony-native governed skill lifecycle: versioned procedural knowledge optimized under Kanon authority, executed via Allagma, with model access through Conexus. Not a standalone prompt toy.
 
@@ -43,7 +43,9 @@ cd C:\dev\ontogony-platform
 dotnet test tests/Ontogony.Infrastructure.Tests -c Release --filter FullyQualifiedName~SkillOptimizationSpineSchemaTests
 ```
 
-Intake working notes: [`docs/_incoming/_active/ONTOGONY-SKILL-OPTIMIZATION-SPINE-001/IMPLEMENTATION_NOTES.md`](../_incoming/_active/ONTOGONY-SKILL-OPTIMIZATION-SPINE-001/IMPLEMENTATION_NOTES.md)
+Intake archive notes: [`docs/_incoming/_consumed/2026-05/ONTOGONY-SKILL-OPTIMIZATION-SPINE-001/IMPLEMENTATION_NOTES.md`](../_incoming/_consumed/2026-05/ONTOGONY-SKILL-OPTIMIZATION-SPINE-001/IMPLEMENTATION_NOTES.md)
+
+**Follow-on:** [`ONTOGONY-SKILL-RELEASE-GOVERNANCE-001`](../_incoming/_active/ONTOGONY-SKILL-RELEASE-GOVERNANCE-001/) — promotion and sandbox release (start 001A–001C before deployment activation).
 
 ## Non-goals (001A)
 

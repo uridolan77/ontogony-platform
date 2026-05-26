@@ -1,7 +1,7 @@
 # ONTOGONY-SKILL-OPTIMIZATION-SPINE-001 — Implementation Notes
 
 **Package unpacked:** 2026-05-26  
-**Active directory:** `docs/_incoming/_active/ONTOGONY-SKILL-OPTIMIZATION-SPINE-001/`  
+**Archive directory:** `docs/_incoming/_consumed/2026-05/ONTOGONY-SKILL-OPTIMIZATION-SPINE-001/` (consumed 2026-05-27)  
 **Original zip preserved:** `docs/_incoming/ONTOGONY-SKILL-OPTIMIZATION-SPINE-001 (1).zip`
 
 ---

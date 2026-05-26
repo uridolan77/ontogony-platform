@@ -1,6 +1,6 @@
 # Consumed intake manifest
 
-Last updated: **2026-05-26** (ONTOGONY-PLATFORM-DOCS-CLEANUP-001)
+Last updated: **2026-05-27** (ONTOGONY-SKILL-OPTIMIZATION-SPINE-001 closeout)
 
 All paths are under `docs/_incoming/_consumed/2026-05/` unless noted.
 
@@ -37,6 +37,7 @@ All paths are under `docs/_incoming/_consumed/2026-05/` unless noted.
 | ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-006 | **consumed** | DEC-RECON-006 Evidence Spine graph — frontend `appendAllagmaDecisionEventReconstructabilityGraph` | 2026-05-26 |
 | ONTOGONY-OBSERVABILITY-MECHANICS-PACK-001 | **consumed** | PLAT-9-005 — [`observability/`](../../observability/), [`evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_PHASE2_EVIDENCE.md`](../../evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_PHASE2_EVIDENCE.md) | 2026-05-26 |
 | ONTOGONY-PUBLIC-API-HARDENING-001 | **consumed** | PLAT-9-004 — [`evidence/PLAT_9_004_PUBLIC_API_HARDENING_EVIDENCE.md`](../../evidence/PLAT_9_004_PUBLIC_API_HARDENING_EVIDENCE.md), [`quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md`](../../quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md) | 2026-05-26 |
+| ONTOGONY-SKILL-OPTIMIZATION-SPINE-001 | **consumed** | 001A–001K complete — [`protocols/SKILL_OPTIMIZATION_SPINE.md`](../../protocols/SKILL_OPTIMIZATION_SPINE.md), [`evidence/ONTOGONY_SKILL_OPTIMIZATION_SPINE_001_CLOSEOUT.md`](../../evidence/ONTOGONY_SKILL_OPTIMIZATION_SPINE_001_CLOSEOUT.md); sister evidence in Kanon/Allagma/Conexus/frontend | 2026-05-27 |
 
 ## Month folders
 

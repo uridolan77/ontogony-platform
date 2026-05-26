@@ -1,15 +1,16 @@
 # Active intake manifest
 
-Last updated: **2026-05-26**
+Last updated: **2026-05-27**
 
 | Package | Status | Reason active | Next action | Date |
 | --- | --- | --- | --- | --- |
-| [ONTOGONY-SKILL-OPTIMIZATION-SPINE-001](./ONTOGONY-SKILL-OPTIMIZATION-SPINE-001/ONTOGONY-SKILL-OPTIMIZATION-SPINE-001/README.md) | In progress | **001A** contracts promoted to `docs/contracts` + `docs/schemas/skill-optimization` | **001B** Kanon fake vertical slice | 2026-05-26 |
+| [ONTOGONY-SKILL-RELEASE-GOVERNANCE-001](./ONTOGONY-SKILL-RELEASE-GOVERNANCE-001/README.md) | In progress | Skill Optimization spine closed; promotion/sandbox release layer | **001A** platform release-governance contracts/protocols | 2026-05-27 |
 
 **Consumed follow-on slices (not separate active packages):**
 
 | Slice | Status | Archive |
 | --- | --- | --- |
+| ONTOGONY-SKILL-OPTIMIZATION-SPINE-001 (001A–001K) | **Done** | [`../_consumed/2026-05/ONTOGONY-SKILL-OPTIMIZATION-SPINE-001/`](../_consumed/2026-05/ONTOGONY-SKILL-OPTIMIZATION-SPINE-001/) |
 | DEC-RECON-004 smoke | **PASS** | [`../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-004/`](../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-004/) |
 | DEC-RECON-005 golden fixtures | **Done** | [`../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-005/`](../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-005/) |
 | DEC-RECON-007 persisted artifacts | **PASS** | [`../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-007/`](../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-007/) |
