@@ -6,6 +6,7 @@ Last updated: **2026-05-26**
 | --- | --- | --- | --- | --- |
 | [ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-001](./ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-001/) | **in_progress** | Parent spine program; slices 004/005 consumed | Complete Task 5 — promote protocol docs to `docs/contracts/`; **then move to `_consumed`** | 2026-05-26 |
 | [ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-006](./ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-006/) | **done** | DEC-RECON-006 Evidence Spine graph | Archive to `_consumed/2026-05/` when operator confirms | 2026-05-26 |
+| [ONTOGONY-RECONSTRUCTABILITY-CLOSURE-OPTION1](./ONTOGONY-RECONSTRUCTABILITY-CLOSURE-OPTION1/) | **in_progress** | Cross-service reconstructability closure (Option 1); PR-001 Allagma→Kanon first | Run baseline validation; implement `pr-specs/PR-001-ALLAGMA-KANON-CLASSIFIER-CLOSURE.md` | 2026-05-26 |
 
 **Consumed follow-on slices (not separate active packages):**
 

@@ -1,0 +1,28 @@
+{
+  "packageId": "ONTOGONY-RECONSTRUCTABILITY-CLOSURE-OPTION1",
+  "createdAt": "2026-05-26",
+  "goal": "Close cross-service reconstructability spine across Allagma, Kanon, Conexus, and Ontogony.Platform.",
+  "repos": [
+    "allagma-dotnet",
+    "kanon-dotnet",
+    "conexus-dotnet",
+    "ontogony-platform",
+    "ontogony-frontend (optional)",
+    "ontogony-ui (optional)"
+  ],
+  "phases": [
+    "PR-001 Allagma to Kanon classifier closure",
+    "PR-002 Conexus decision-event emitters",
+    "PR-003 Conexus to Kanon classifier closure",
+    "PR-004 Cross-service golden trace",
+    "PR-005 Platform conformance kits",
+    "PR-006 Optional frontend panel"
+  ],
+  "nonGoals": [
+    "production readiness",
+    "real external tool execution",
+    "enterprise IAM",
+    "provider SDK expansion",
+    "frontend before backend proof"
+  ]
+}
