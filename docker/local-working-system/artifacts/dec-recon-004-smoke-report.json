@@ -1,8 +1,8 @@
 {
   "schema": "dec-recon-004-smoke-report-v1",
-  "recordedAtUtc": "2026-05-26T11:52:24.739Z",
+  "recordedAtUtc": "2026-05-26T11:55:18.888Z",
   "seedReportPath": "C:\\dev\\ontogony-platform\\docker\\local-working-system\\artifacts\\env-seed-001-report.json",
-  "frontendBaseUrl": "http://localhost:5175",
+  "frontendBaseUrl": "http://127.0.0.1:5176",
   "runId": "run_28d50e113baa4f2d8e372b686e0e2b58",
   "traceId": "28b2ca5642cf18610a71df1a7b91483e",
   "eventCount": 11,
@@ -27,6 +27,11 @@
         "worst=WARN",
         "kinds=agent_tool_call,run_operation,workflow_transition"
       ]
+    },
+    {
+      "step": "frontend-run-decision-reconstruction-panel",
+      "passed": true,
+      "notes": []
     }
   ],
   "verdict": "PASS"
