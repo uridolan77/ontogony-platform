@@ -3,7 +3,50 @@
 **Repo:** `uridolan77/ontogony-platform`  
 **Role:** Shared infrastructure (`Ontogony.*` packages) and cross-repo **mechanical** contracts.
 
-**Boundary:** Platform docs describe mechanics. Product semantics live in Kanon, Allagma, and Conexus. Closed operator programs are **not production readiness**.
+---
+
+## What this repo owns
+
+Ontogony.Platform is the **neutral mechanics layer** for the Ontogony stack:
+
+- tracing and correlation
+- error envelopes and HTTP client utilities
+- hashing, idempotency, and persistence/outbox primitives
+- observability and AI telemetry **contracts** (not provider SDKs)
+- system compatibility gates, protocol registry, and shared test harnesses
+- packaging, versioning, and consumer integration patterns
+
+## What this repo does **not** own
+
+Do not treat platform docs as product documentation for:
+
+| Concern | Owner |
+| --- | --- |
+| Semantic authority, ontology, decisions | **Kanon** (`kanon-dotnet`) |
+| Model gateway, routing, provider policy | **Conexus** (`conexus-dotnet`) |
+| Governed runs, tool gates, agent orchestration | **Allagma** (`allagma-dotnet`) |
+| Operator console UX and page flows | **ontogony-frontend** / **ontogony-ui** |
+
+Those systems may appear here only as **consumers** or examples of platform mechanics.
+
+---
+
+## How docs are organized
+
+| Section | Location |
+| --- | --- |
+| **Navigation index** | [`INDEX.md`](./INDEX.md) |
+| **Current truth** | [`CURRENT_STATE.md`](./CURRENT_STATE.md) |
+| **Architecture** | [`ARCHITECTURE.md`](./ARCHITECTURE.md), [`architecture/`](./architecture/) |
+| **Contracts** | [`CONTRACTS.md`](./CONTRACTS.md), [`contracts/`](./contracts/) |
+| **Errors / HTTP / observability** | [`operators/`](./operators/), [`packages/Ontogony.Errors.md`](./packages/Ontogony.Errors.md), [`packages/Ontogony.Http.md`](./packages/Ontogony.Http.md) |
+| **Idempotency / persistence** | [`packages/Ontogony.Persistence.md`](./packages/Ontogony.Persistence.md), [`adoption/conformance-kits.md`](./adoption/conformance-kits.md) |
+| **Hosting / local stack** | [`environments/`](./environments/), [`../docker/local-working-system/`](../docker/local-working-system/) |
+| **Testing / evidence** | [`TESTING.md`](./TESTING.md), [`evidence/`](./evidence/) |
+| **Runbooks / operator mechanics** | [`operators/`](./operators/) |
+| **Decisions** | [`adr/`](./adr/), [`migrations/`](./migrations/) |
+| **Release / governance** | [`governance/`](./governance/) |
+| **Cursor intake (temporary)** | [`_incoming/`](./_incoming/) |
 
 ---
 
@@ -11,57 +54,28 @@
 
 | Document | Purpose |
 | --- | --- |
-| [**Learning path (all repos)**](./learn/INDEX.md) | Canonical Ontogony guides — start here for new developers |
-| [`CURRENT_STATE.md`](./CURRENT_STATE.md) | Single source of platform truth |
+| [**INDEX.md**](./INDEX.md) | Full table of canonical docs |
+| [**Learning path (all repos)**](./learn/INDEX.md) | Cross-repo guides for new developers |
+| [`CURRENT_STATE.md`](./CURRENT_STATE.md) | What is implemented vs not |
 | [`ARCHITECTURE.md`](./ARCHITECTURE.md) | Package layers, forbidden edges |
-| [`CONTRACTS.md`](./CONTRACTS.md) | Trace, errors, headers, system-compat |
-| [`DEVELOPMENT.md`](./DEVELOPMENT.md) | Build, local ports, Docker |
-| [`TESTING.md`](./TESTING.md) | Tests, CI, conformance kits |
-| [`INTEGRATION.md`](./INTEGRATION.md) | Consumer blueprints and package mode |
-| [`KNOWN_LIMITATIONS.md`](./KNOWN_LIMITATIONS.md) | Limitations and non-goals |
+| [`CONTRACTS.md`](./CONTRACTS.md) | Trace, errors, headers, compatibility |
+| [`DEVELOPMENT.md`](./DEVELOPMENT.md) | Build, ports, Docker |
+| [`TESTING.md`](./TESTING.md) | CI and conformance |
+| [`INTEGRATION.md`](./INTEGRATION.md) | Consumer blueprints |
+| [`KNOWN_LIMITATIONS.md`](./KNOWN_LIMITATIONS.md) | Non-goals |
 
 ---
 
-## Operators and contracts
+## Intake policy (`docs/_incoming`)
 
-| Area | Path |
-| --- | --- |
-| Operator contracts | [`operators/`](./operators/) |
-| Cross-service gates | [`contracts/`](./contracts/) |
-| Protocol registry | [`system/`](./system/) |
-| Terminology | [`operators/ONTOGONY_TERMINOLOGY_GLOSSARY.md`](./operators/ONTOGONY_TERMINOLOGY_GLOSSARY.md) |
-| Documentation standard (six repos) | [`operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md`](./operators/ONTOGONY_DOCUMENTATION_STRUCTURE_STANDARD.md) |
+Cursor packages and handoff specs live under [`_incoming/`](./_incoming/) until promoted or archived:
 
----
+- **Active:** [`_incoming/_active/`](./_incoming/_active/) + [`MANIFEST.md`](./_incoming/_active/MANIFEST.md)
+- **Consumed:** [`_incoming/_consumed/<YYYY-MM>/`](./_incoming/_consumed/) + [`MANIFEST.md`](./_incoming/_consumed/MANIFEST.md)
 
-## Packages and governance
+Only `_active`, `_consumed`, and `_incoming/README.md` may sit directly under `_incoming/`. No zip files.
 
-| Area | Path |
-| --- | --- |
-| Per-package docs | [`packages/`](./packages/) |
-| Package dependency matrix | [`architecture/package-levels.md`](./architecture/package-levels.md) |
-| ADRs | [`adr/`](./adr/) |
-| Migrations | [`migrations/`](./migrations/) |
-| Consumer blueprints | [`consumer-blueprints/`](./consumer-blueprints/) |
-| Consumer compatibility | [`governance/`](./governance/) |
-| Quality / coverage policy | [`quality/`](./quality/) |
-
----
-
-## Evidence
-
-Platform gate verification only: [`evidence/README.md`](./evidence/README.md).
-
-**GOVERNED-FAKE-E2E-001** — passed locally (smoke + Docker-live Playwright); see [`evidence/GOVERNED_FAKE_E2E_001_PASS_20260524T102932Z.md`](./evidence/GOVERNED_FAKE_E2E_001_PASS_20260524T102932Z.md).
-
-System runtime baseline: [`allagma-dotnet/docs/evidence/README.md`](https://github.com/uridolan77/allagma-dotnet/blob/main/docs/evidence/README.md).
-
----
-
-## Docker local
-
-- Compose tree: [`../docker/local-working-system/README.md`](../docker/local-working-system/README.md)
-- Settings reference: [`environments/docker-local-working-system/`](./environments/docker-local-working-system/)
+**When a package is done:** move it to `_consumed/<YYYY-MM>/` — required procedure in [`_incoming/README.md`](./_incoming/README.md#when-to-move-a-package-to-_consumed-required).
 
 ---
 

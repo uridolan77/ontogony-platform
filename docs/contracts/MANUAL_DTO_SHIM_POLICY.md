@@ -3,7 +3,7 @@
 > **Platform contract policy.** Defines when handwritten TypeScript DTOs are permitted in the
 > operator frontend and how they must be registered, reviewed, and removed.
 
-**Program:** [`CONTRACT-DISCIPLINE-001`](../_incoming/NEXT_2_CONTRACT.md)  
+**Program archive:** [`ONTOGONY-CONTRACT-DISCIPLINE-OVER9-001`](../_incoming/_consumed/2026-05/ONTOGONY-CONTRACT-DISCIPLINE-OVER9-001/)  
 **Taxonomy:** [`CONTRACT_DISCIPLINE_STANDARD.md`](./CONTRACT_DISCIPLINE_STANDARD.md) — `contractState`  
 **Machine register:** `ontogony-frontend/docs/generated/manual-dto-shims.registry.json`  
 **Human report:** `ontogony-frontend/docs/generated/MANUAL_DTO_SHIMS.md`

@@ -63,6 +63,13 @@ Breaking changes require:
 - a changelog entry
 - an explanation of which repos must change: Allagma, Kanon, Conexus, or other consumers
 
+## Documentation intake (`docs/_incoming`)
+
+- Only `_active/`, `_consumed/`, and `_incoming/README.md` may sit directly under `docs/_incoming/`.
+- **Active** packages: `docs/_incoming/_active/<PACKAGE-NAME>/` — work in progress only.
+- **When done:** promote durable content to canonical `docs/`, then **move the package folder** to `docs/_incoming/_consumed/<YYYY-MM>/<PACKAGE-NAME>/`, add `CONSUMED.md`, update both `MANIFEST.md` files, fix links. Do not leave completed packages in `_active`.
+- Full procedure: [`docs/_incoming/README.md`](docs/_incoming/README.md).
+
 ## Review checklist
 
 Before merging, check:

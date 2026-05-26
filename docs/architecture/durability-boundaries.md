@@ -139,5 +139,5 @@ Ontogony will:
 ## See Also
 
 - [`KNOWN_LIMITATIONS.md`](../KNOWN_LIMITATIONS.md) — honest deferred mechanics and closed-program constraints.
-- [`DOCUMENTATION_CLEANUP_REPORT.md`](../DOCUMENTATION_CLEANUP_REPORT.md) — retired planning archive index (2026-05-23).
+- [`DOCS_CLEANUP_REPORT.md`](../DOCS_CLEANUP_REPORT.md) — documentation cleanup report (2026-05-26).
 - [AGENTS.md](../../AGENTS.md) — shared infrastructure vs. product semantics.

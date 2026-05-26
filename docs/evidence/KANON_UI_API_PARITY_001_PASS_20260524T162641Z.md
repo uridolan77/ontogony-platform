@@ -2,7 +2,7 @@
 
 **Status:** CLOSED  
 **Recorded:** 2026-05-24T16:26:41Z (Docker-local Playwright)  
-**Package:** Phase 10 in [`docs/_incoming/NEXT.md`](../_incoming/NEXT.md)
+**Package:** KANON-UI-API-PARITY-001 (consumed; see [`_incoming/_consumed/MANIFEST.md`](../_incoming/_consumed/MANIFEST.md))
 
 ---
 
@@ -114,4 +114,4 @@ Smoke steps (`domain-switcher-docker-live-smoke-report-v1`):
 
 ## Next workstream
 
-Pick next package from [`docs/_incoming/NEXT.md`](../_incoming/NEXT.md) or [`docs/_CURRENT_PLAN.md`](../_CURRENT_PLAN.md).
+Pick next package from [`docs/_incoming/_active/MANIFEST.md`](../_incoming/_active/MANIFEST.md) or [`docs/INDEX.md`](../INDEX.md).

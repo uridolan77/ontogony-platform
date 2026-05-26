@@ -25,7 +25,8 @@ Contributor rules: [`AGENTS.md`](AGENTS.md)
 | [`docs/TESTING.md`](docs/TESTING.md) | Tests and CI gates |
 | [`docs/INTEGRATION.md`](docs/INTEGRATION.md) | Consumer adoption |
 | [`docs/KNOWN_LIMITATIONS.md`](docs/KNOWN_LIMITATIONS.md) | Honest limitations |
-| [`docs/README.md`](docs/README.md) | Full docs index |
+| [`docs/INDEX.md`](docs/INDEX.md) | Documentation navigation map |
+| [`docs/README.md`](docs/README.md) | Docs hub and boundaries |
 
 ---
 

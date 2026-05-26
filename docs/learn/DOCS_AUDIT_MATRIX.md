@@ -45,4 +45,4 @@ Do not delete until a maintainer reviews `delete_candidate` rows.
 
 ## Next audit pass
 
-Re-run classification after major packages (console UX final gate, replay full integration) and extend rows for any new `docs/_incoming_active/` closeouts.
+Re-run classification after major packages (console UX final gate, replay full integration) and extend rows for any new `docs/_incoming/_consumed/` archives.

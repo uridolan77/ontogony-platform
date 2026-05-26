@@ -272,6 +272,22 @@ When touching a superseded doc, add at the top:
 
 Do **not** rewrite body content of old planning packages unless correcting factual errors.
 
+### 8.4 Platform Cursor intake (`docs/_incoming`) — ontogony-platform only
+
+| Location | Purpose |
+| --- | --- |
+| `docs/_incoming/_active/<PACKAGE>/` | In-flight or next Cursor handoff |
+| `docs/_incoming/_consumed/<YYYY-MM>/<PACKAGE>/` | Archived handoff (read-only history) |
+| `docs/_incoming/README.md` | Intake policy and **archive procedure** |
+
+**Move to `_consumed` when:** implemented, promoted to canonical docs, superseded, abandoned, or owned by another repo (after copy-out).
+
+**Required steps:** promote → record evidence/closeout → `Move-Item` to `_consumed/<YYYY-MM>/` → add `CONSUMED.md` → update `_active/MANIFEST.md` and `_consumed/MANIFEST.md` → fix links → delete any zip.
+
+**Never:** leave completed packages in `_active`; store `.zip` under `_incoming`; treat consumed folders as canonical.
+
+Agents and contributors: [`docs/_incoming/README.md`](../_incoming/README.md), [`AGENTS.md`](../../AGENTS.md).
+
 ### 8.3 Manageable reorganization (allowed vs avoid)
 
 **Allowed in `RCQ-DOCS-001` sweeps:**

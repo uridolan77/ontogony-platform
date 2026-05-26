@@ -74,7 +74,7 @@ cd C:\dev\ontogony-platform
 
 ## Runtime config (operator URLs)
 
-Generated operator config for Docker lives under `docker/local-working-system/generated/`. See platform incoming spec `docs/_incoming/RUNTIME-CONFIG.md` and frontend `scripts/runtime-config/`.
+Generated operator config for Docker lives under `docker/local-working-system/generated/`. See consumed package [`docs/_incoming/_consumed/2026-05/RUNTIME-CONFIG-001/`](../_incoming/_consumed/2026-05/RUNTIME-CONFIG-001/) and frontend `scripts/runtime-config/`.
 
 ## Verify you are up
 

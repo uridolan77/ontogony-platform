@@ -40,7 +40,7 @@ See `ontogony-frontend/docs/ux/CONSOLE_UI_REPO_CONSOLIDATION.md`.
 
 Batch migration plan and gates: `ontogony-frontend/docs/ux/CONSOLE_PAGE_MIGRATION_PLAN.md`
 
-Closed packages (historical notes): `docs/_incoming_active/UI-CANONICAL-SET-001/`, `UI-BRIDGE-REMOVAL-001/`
+Closed packages (historical notes): archived under `docs/_incoming/_consumed/` (see [`MANIFEST.md`](../_incoming/_consumed/MANIFEST.md)).
 
 ## Verification commands
 

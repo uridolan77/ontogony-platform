@@ -25,7 +25,7 @@ Before making changes:
 2. Identify existing objects that already represent decisions, traces, routes, gates, audit records, model calls, source bindings, quality snapshots, and semantic graph nodes.
 3. Reuse existing contracts and naming patterns wherever possible.
 4. Do not invent parallel abstractions if an existing Ontogony object can be extended cleanly.
-5. Write brief working notes in `docs/_incoming_active/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-001/IMPLEMENTATION_NOTES.md`.
+5. Write brief working notes in `docs/_incoming/_active/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-001/IMPLEMENTATION_NOTES.md`.
 
 ## Required implementation shape
 

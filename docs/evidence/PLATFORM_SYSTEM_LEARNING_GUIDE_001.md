@@ -42,5 +42,5 @@ dotnet test tests/Ontogony.Infrastructure.Tests --filter FullyQualifiedName~Syst
 
 ## Related
 
-- Incoming spec: `docs/_incoming/SYSTEM-LEARNING-GUIDE-001.zip`
+- Package archive: [`docs/_incoming/_consumed/2026-05/SYSTEM-LEARNING-GUIDE-001/`](../_incoming/_consumed/2026-05/SYSTEM-LEARNING-GUIDE-001/)
 - `allagma-dotnet/docs/evidence/AGM_REPLAY_RUNTIME_PROOF_LOCK_001.md` (prior roadmap item)

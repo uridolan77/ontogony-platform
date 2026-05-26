@@ -4,7 +4,7 @@
 > across the Ontogony operator system. When artifacts disagree, resolve drift by updating sources
 > in this order — never by patching downstream consumers first.
 
-**Program:** [`CONTRACT-DISCIPLINE-001`](../_incoming/NEXT_2_CONTRACT.md)  
+**Program archive:** [`ONTOGONY-CONTRACT-DISCIPLINE-OVER9-001`](../_incoming/_consumed/2026-05/ONTOGONY-CONTRACT-DISCIPLINE-OVER9-001/)  
 **Vocabulary:** [`CONTRACT_DISCIPLINE_STANDARD.md`](./CONTRACT_DISCIPLINE_STANDARD.md)  
 **Gate:** `npm run contracts:discipline` (frontend) · `scripts/check/check-contract-discipline.ps1` (platform)
 

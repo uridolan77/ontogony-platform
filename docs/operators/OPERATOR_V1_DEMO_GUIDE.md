@@ -1,5 +1,10 @@
 # Operator V1 demo guide — golden journey
 
+> **Cross-repo operator doc** — Describes the six-repo docker-local demo, not platform mechanics.
+> Canonical operator UX and page flows live in **`ontogony-frontend`**. Keep this file as a
+> stack-wide runbook reference only; prefer promoting edits to the frontend repo when the
+> console is the primary audience.
+
 **Wave 7 — Real local operator system**  
 **Boundary:** Docker-local development credentials only. **Not production readiness.**
 

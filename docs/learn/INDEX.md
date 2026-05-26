@@ -74,6 +74,6 @@ cd C:\dev\ontogony-platform
 
 ## Related maintainer docs
 
-- Package spec (incoming): `docs/_incoming/SYSTEM-LEARNING-GUIDE-001.zip`
+- Package archive: [`docs/_incoming/_consumed/2026-05/SYSTEM-LEARNING-GUIDE-001/`](../_incoming/_consumed/2026-05/SYSTEM-LEARNING-GUIDE-001/)
 - Evidence closeout: [`../evidence/PLATFORM_SYSTEM_LEARNING_GUIDE_001.md`](../evidence/PLATFORM_SYSTEM_LEARNING_GUIDE_001.md)
 - Platform doc hub: [`../README.md`](../README.md)

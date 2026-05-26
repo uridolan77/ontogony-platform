@@ -2,7 +2,7 @@
 
 **Status:** CLOSED  
 **Recorded:** 2026-05-24T10:29:32Z (smoke) · 2026-05-24 (Docker-local Playwright confirmation)  
-**Package:** `GOVERNED_FAKE_E2E_001_Cursor_Package_2026-05-24` → [`docs/_incoming/_consumed/`](../_incoming/_consumed/GOVERNED_FAKE_E2E_001_Cursor_Package_2026-05-24/)
+**Package:** `GOVERNED_FAKE_E2E_001_Cursor_Package_2026-05-24` → [`docs/_incoming/_consumed/2026-05/`](../_incoming/_consumed/2026-05/GOVERNED_FAKE_E2E_001_Cursor_Package_2026-05-24/)
 
 ---
 
@@ -100,4 +100,4 @@ docker compose up -d ontogony-frontend
 
 ## Next workstream
 
-**`AGENT-INTERACTION-LIVE-001`** — see [`docs/_incoming/NEXT.md`](../_incoming/NEXT.md) Phase 2 and [`docs/_incoming/_active/AGENT-INTERACTION-LIVE-001.md`](../_incoming/_active/AGENT-INTERACTION-LIVE-001.md).
+**`AGENT-INTERACTION-LIVE-001`** — see [`docs/_incoming/_consumed/2026-05/AGENT-INTERACTION-LIVE-001.md`](../_incoming/_consumed/2026-05/AGENT-INTERACTION-LIVE-001.md) and [`ALLAGMA-AGENT-INTERACTION-001`](../_incoming/_consumed/2026-05/ALLAGMA-AGENT-INTERACTION-001/).

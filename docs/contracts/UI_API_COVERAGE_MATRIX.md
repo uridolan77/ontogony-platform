@@ -3,7 +3,7 @@
 > **Platform contract index.** Maps each operator service to its generated coverage artifacts and
 > parity checks. The generated markdown files are derived reports — not sources of truth.
 
-**Program:** [`CONTRACT-DISCIPLINE-001`](../_incoming/NEXT_2_CONTRACT.md)  
+**Program archive:** [`ONTOGONY-CONTRACT-DISCIPLINE-OVER9-001`](../_incoming/_consumed/2026-05/ONTOGONY-CONTRACT-DISCIPLINE-OVER9-001/)  
 **Source-of-truth order:** [`API_CONTRACT_SOURCE_OF_TRUTH.md`](./API_CONTRACT_SOURCE_OF_TRUTH.md)  
 **Taxonomy:** [`CONTRACT_DISCIPLINE_STANDARD.md`](./CONTRACT_DISCIPLINE_STANDARD.md)
 
