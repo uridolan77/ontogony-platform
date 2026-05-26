@@ -1,0 +1,3 @@
+{"taskId":"selection_task_001","taskKind":"spreadsheet-qa","question":"What is the final adjusted revenue?","expectedAnswer":"12345","verifier":"exact-match-fixture","metadata":{"requiresHiddenSheetInventory":true}}
+{"taskId":"selection_task_002","taskKind":"spreadsheet-qa","question":"Which region has the highest adjusted margin?","expectedAnswer":"APAC","verifier":"exact-match-fixture","metadata":{"requiresNamedRangeInspection":true}}
+{"taskId":"selection_task_003","taskKind":"spreadsheet-qa","question":"What total is shown after applying the active filter?","expectedAnswer":"8700","verifier":"exact-match-fixture","metadata":{"requiresFilterAwareness":true}}

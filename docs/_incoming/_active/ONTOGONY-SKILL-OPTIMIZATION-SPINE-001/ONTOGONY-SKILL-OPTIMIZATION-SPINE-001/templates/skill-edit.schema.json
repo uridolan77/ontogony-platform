@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/skill-edit.v0.json",
+  "title": "SkillEditV0",
+  "type": "object",
+  "required": ["skillEditId", "skillArtifactId", "baseVersionId", "operation", "sectionPath", "boundedBudgetUnits"],
+  "properties": {
+    "skillEditId": { "type": "string" },
+    "skillArtifactId": { "type": "string" },
+    "baseVersionId": { "type": "string" },
+    "candidateVersionId": { "type": "string" },
+    "operation": { "enum": ["add", "insert", "replace", "delete", "move"] },
+    "sectionPath": { "type": "string" },
+    "beforeTextHash": { "type": ["string", "null"] },
+    "proposedTextHash": { "type": ["string", "null"] },
+    "boundedBudgetUnits": { "type": "integer", "minimum": 1 },
+    "rationaleSummary": { "type": "string" },
+    "expectedEffect": { "type": "string" },
+    "riskClass": { "enum": ["low", "medium", "high", "blocked"] }
+  },
+  "additionalProperties": true
+}

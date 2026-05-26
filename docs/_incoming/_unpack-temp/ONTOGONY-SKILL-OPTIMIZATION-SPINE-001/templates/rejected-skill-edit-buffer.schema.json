@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/rejected-skill-edit-buffer.v0.json",
+  "title": "RejectedSkillEditBufferV0",
+  "type": "object",
+  "required": ["rejectedEditBufferId", "skillArtifactId", "entries"],
+  "properties": {
+    "rejectedEditBufferId": { "type": "string" },
+    "skillArtifactId": { "type": "string" },
+    "baseVersionId": { "type": "string" },
+    "skillOptimizationRunId": { "type": "string" },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["skillEditId", "rejectionType", "rejectionReason"],
+        "properties": {
+          "skillEditId": { "type": "string" },
+          "candidateVersionId": { "type": "string" },
+          "rejectionType": { "type": "string" },
+          "rejectionReason": { "type": "string" },
+          "gateId": { "type": "string" },
+          "futureOptimizerHint": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

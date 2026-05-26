@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/skill-evaluation-gate.v0.json",
+  "title": "SkillEvaluationGateV0",
+  "type": "object",
+  "required": ["skillEvaluationGateId", "incumbentVersionId", "candidateVersionId", "incumbentScore", "candidateScore", "delta", "status"],
+  "properties": {
+    "skillEvaluationGateId": { "type": "string" },
+    "skillOptimizationRunId": { "type": "string" },
+    "skillArtifactId": { "type": "string" },
+    "incumbentVersionId": { "type": "string" },
+    "candidateVersionId": { "type": "string" },
+    "selectionTasksetId": { "type": "string" },
+    "incumbentScore": { "type": "number" },
+    "candidateScore": { "type": "number" },
+    "delta": { "type": "number" },
+    "status": { "enum": ["pending", "accepted", "rejectedTie", "rejectedRegression", "rejectedInsufficientSample", "rejectedValidationFailure", "requiresHumanReview"] },
+    "decisionReason": { "type": "string" }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,11 @@
+{
+  "skillEditId": "skilledit_bad_001",
+  "operation": "delete",
+  "sectionPath": "/Procedure/1",
+  "rationaleSummary": "Simplify the skill by removing the workbook inventory step.",
+  "expectedEffect": "Shorter instructions and lower token count.",
+  "riskClass": "medium",
+  "rejectionType": "rejectedRegression",
+  "rejectionReason": "Deleting workbook inventory reduced held-out selection score from 0.66 to 0.33.",
+  "futureOptimizerHint": "Do not remove workbook inventory; it protects against hidden-sheet and named-range failures."
+}

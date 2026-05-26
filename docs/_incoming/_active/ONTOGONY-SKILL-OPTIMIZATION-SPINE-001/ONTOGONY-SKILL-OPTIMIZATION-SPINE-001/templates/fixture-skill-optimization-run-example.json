@@ -1,0 +1,32 @@
+{
+  "skillOptimizationRunId": "skillopt_run_demo_001",
+  "allagmaRunId": "run_skillopt_demo_001",
+  "skillArtifactId": "demo.spreadsheet-analysis",
+  "baseVersionId": "skillver_demo_spreadsheet_v0",
+  "status": "accepted",
+  "createdAt": "2026-05-26T00:00:00Z",
+  "createdByActorId": "local-operator",
+  "targetModelProfile": "fake-target-local",
+  "optimizerModelProfile": "fake-optimizer-local",
+  "executionHarness": "direct",
+  "dataset": {
+    "trainTasksetId": "taskset_spreadsheet_train_demo",
+    "selectionTasksetId": "taskset_spreadsheet_selection_demo",
+    "testTasksetId": null
+  },
+  "schedule": {
+    "epoch": 1,
+    "step": 1,
+    "editBudget": 3,
+    "learningRateSchedule": "constant"
+  },
+  "candidateVersionIds": ["skillver_demo_spreadsheet_v1_candidate"],
+  "acceptedVersionId": "skillver_demo_spreadsheet_v1",
+  "rejectedEditBufferId": "rejbuf_demo_001",
+  "skillEvaluationGateId": "skillgate_demo_accepted_001",
+  "evidenceRefs": [
+    { "type": "trace", "id": "trace_skillopt_demo_001" },
+    { "type": "conexusModelCall", "id": "conexus_call_optimizer_001" },
+    { "type": "kanonDecision", "id": "kanon_decision_skill_accept_demo_001" }
+  ]
+}

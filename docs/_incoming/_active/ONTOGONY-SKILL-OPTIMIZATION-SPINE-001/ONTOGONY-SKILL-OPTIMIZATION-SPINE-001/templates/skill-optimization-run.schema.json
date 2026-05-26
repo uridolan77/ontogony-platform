@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/skill-optimization-run.v0.json",
+  "title": "SkillOptimizationRunV0",
+  "type": "object",
+  "required": ["skillOptimizationRunId", "skillArtifactId", "baseVersionId", "status", "targetModelProfile", "optimizerModelProfile"],
+  "properties": {
+    "skillOptimizationRunId": { "type": "string" },
+    "allagmaRunId": { "type": "string" },
+    "skillArtifactId": { "type": "string" },
+    "baseVersionId": { "type": "string" },
+    "status": { "enum": ["created", "running", "paused", "cancelled", "failed", "candidateGenerated", "gatePending", "accepted", "rejected", "published", "deployed", "rolledBack"] },
+    "targetModelProfile": { "type": "string" },
+    "optimizerModelProfile": { "type": "string" },
+    "executionHarness": { "type": "string" },
+    "candidateVersionIds": { "type": "array", "items": { "type": "string" } },
+    "acceptedVersionId": { "type": ["string", "null"] }
+  },
+  "additionalProperties": true
+}

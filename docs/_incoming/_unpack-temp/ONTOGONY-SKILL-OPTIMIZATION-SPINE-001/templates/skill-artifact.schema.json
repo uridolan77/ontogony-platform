@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/skill-artifact.v0.json",
+  "title": "SkillArtifactV0",
+  "type": "object",
+  "required": ["skillArtifactId", "name", "domainId", "status", "createdAt"],
+  "properties": {
+    "skillArtifactId": { "type": "string" },
+    "name": { "type": "string" },
+    "description": { "type": "string" },
+    "domainId": { "type": "string" },
+    "ownerService": { "type": "string" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "createdByActorId": { "type": "string" },
+    "status": { "enum": ["draft", "active", "retired", "archived"] },
+    "defaultVersionId": { "type": ["string", "null"] },
+    "tags": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": true
+}

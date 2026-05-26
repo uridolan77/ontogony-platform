@@ -1,0 +1,16 @@
+{
+  "edits": [
+    {
+      "operation": "add",
+      "sectionPath": "/Procedure",
+      "proposedText": "Before calculating or answering, inventory all worksheets, hidden sheets, named ranges, filters, and formulas that may affect the requested value.",
+      "rationaleSummary": "Rollout failures repeatedly skipped hidden sheets and named ranges.",
+      "expectedEffect": "Improve spreadsheet QA accuracy by forcing workbook inventory before calculation.",
+      "riskClass": "low",
+      "boundedBudgetUnits": 1
+    }
+  ],
+  "rejectedEditAwareness": [
+    "Do not remove workbook inventory; prior candidate regressed hidden-sheet tasks."
+  ]
+}

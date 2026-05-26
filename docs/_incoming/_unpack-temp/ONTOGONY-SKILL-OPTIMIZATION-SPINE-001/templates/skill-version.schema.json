@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/skill-version.v0.json",
+  "title": "SkillVersionV0",
+  "type": "object",
+  "required": ["skillVersionId", "skillArtifactId", "status", "contentHash", "createdAt"],
+  "properties": {
+    "skillVersionId": { "type": "string" },
+    "skillArtifactId": { "type": "string" },
+    "semanticVersion": { "type": "string" },
+    "status": {
+      "enum": ["draft", "candidate", "underOptimization", "gatePending", "acceptedValidated", "gateRejected", "published", "deployed", "superseded", "retired", "rolledBack"]
+    },
+    "contentUri": { "type": "string" },
+    "contentHash": { "type": "string" },
+    "tokenEstimate": { "type": "integer", "minimum": 0 },
+    "baseVersionId": { "type": ["string", "null"] },
+    "createdAt": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": true
+}
