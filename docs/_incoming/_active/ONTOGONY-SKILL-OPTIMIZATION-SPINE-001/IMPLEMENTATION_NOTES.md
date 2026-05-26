@@ -169,7 +169,7 @@ dotnet test tests/Ontogony.Infrastructure.Tests -c Release --filter FullyQualifi
 
 ---
 
-## Slice 001B — Kanon fake governance vertical slice (IN PROGRESS)
+## Slice 001B — Kanon fake governance vertical slice (COMPLETE)
 
 **Scope:** Kanon owns the governance decision shape for skill edits. This slice defines that shape with a deterministic fake validation service and a single stubbed endpoint. No Allagma orchestration, no Conexus injection, no frontend.
 
