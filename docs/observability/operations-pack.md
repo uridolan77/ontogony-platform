@@ -42,6 +42,6 @@ Before disabling legacy trace header aliases:
 3. Confirm structured logs include `traceId` matching the header.
 4. Run reconstructability golden trace if validating decision-event correlation: `allagma-dotnet/scripts/system/run-reconstructability-golden-trace.ps1`.
 
-## Dashboards and alerts (phase 2)
+## Dashboards and alerts
 
-Starter Grafana queries and Prometheus alert rules are tracked under PLAT-9-005 phase 2. Until checked in, use Jaeger service map + `ontogony.http.server.error.count` spikes as the primary local signals.
+**Status (2026-05-26):** PLAT-9-005 phase 2 **done** — starter dashboard, Prometheus rules, and `scripts/run-observability-mechanics-conformance.ps1`. See [`dashboards/dashboard-import.md`](./dashboards/dashboard-import.md), [`alerts/alert-rules.md`](./alerts/alert-rules.md), and [`../evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_PHASE2_EVIDENCE.md`](../evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_PHASE2_EVIDENCE.md).

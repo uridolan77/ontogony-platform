@@ -55,13 +55,13 @@ Acceptance:
 
 ## PLAT-DEPTH-004 — Public API documentation Tier A closure
 
-Close the highest-value public XML doc gaps for package surfaces consumed by Conexus/Kanon/Allagma.
+**Status (2026-05-26):** **Done** (Conexus baseline slice). Full shipping-surface expansion completed under **PLAT-9-004** — [`docs/evidence/PLAT_9_004_PUBLIC_API_HARDENING_EVIDENCE.md`](../../../../evidence/PLAT_9_004_PUBLIC_API_HARDENING_EVIDENCE.md).
 
 Acceptance:
 
 - No blanket CS1591 suppression for Tier A packages.
 - Snapshot/public API tests stay stable.
-- Evidence lists remaining Tier B deferrals.
+- Tier C only: `Ontogony.Testing`, `Ontogony.SystemCompatibility`.
 
 ## Validation commands
 

@@ -21,7 +21,7 @@ Last updated: **2026-05-26**
 
 ## Above-9 platform work (not a separate active package)
 
-Six-repo score-lift and remaining **PLAT-9-003 / 004 / 005** items live in the consumed archive:
+Six-repo score-lift (**PLAT-9-001–006 platform complete**; optional PLAT-9-003 artifact runner) lives in the consumed archive:
 
 [`../_consumed/2026-05/SIX-REPO-SCORE-PLANS/`](../_consumed/2026-05/SIX-REPO-SCORE-PLANS/) — see [`README.md`](../_consumed/2026-05/SIX-REPO-SCORE-PLANS/README.md) for platform status vs plan.
 

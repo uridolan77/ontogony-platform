@@ -91,6 +91,9 @@ Implementation packages: [`packages/Ontogony.Observability.md`](./packages/Ontog
 | Testing guide | [`TESTING.md`](./TESTING.md) |
 | Conformance adoption | [`adoption/conformance-kits.md`](./adoption/conformance-kits.md) |
 | Platform evidence | [`evidence/README.md`](./evidence/README.md) |
+| PLAT-9 score lift (platform done) | [`_incoming/_consumed/2026-05/SIX-REPO-SCORE-PLANS/README.md`](./_incoming/_consumed/2026-05/SIX-REPO-SCORE-PLANS/README.md) |
+| Public API / XML docs (PLAT-9-004) | [`evidence/PLAT_9_004_PUBLIC_API_HARDENING_EVIDENCE.md`](./evidence/PLAT_9_004_PUBLIC_API_HARDENING_EVIDENCE.md) |
+| Observability mechanics (PLAT-9-005) | [`evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_PHASE2_EVIDENCE.md`](./evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_PHASE2_EVIDENCE.md) |
 | Quality / coverage policy | [`quality/`](./quality/) |
 
 ---
@@ -114,7 +117,7 @@ Implementation packages: [`packages/Ontogony.Observability.md`](./packages/Ontog
 | Intake hygiene (CI) | [`../scripts/validate-docs-incoming-hygiene.ps1`](../scripts/validate-docs-incoming-hygiene.ps1) |
 | Active packages | [`_incoming/_active/MANIFEST.md`](./_incoming/_active/MANIFEST.md) |
 | Consumed archive | [`_incoming/_consumed/MANIFEST.md`](./_incoming/_consumed/MANIFEST.md) |
-| Above-9 score plans (platform PLAT-9 backlog) | [`_incoming/_consumed/2026-05/SIX-REPO-SCORE-PLANS/README.md`](./_incoming/_consumed/2026-05/SIX-REPO-SCORE-PLANS/README.md) |
+| Above-9 score plans (platform PLAT-9 **complete**) | [`_incoming/_consumed/2026-05/SIX-REPO-SCORE-PLANS/README.md`](./_incoming/_consumed/2026-05/SIX-REPO-SCORE-PLANS/README.md) |
 
 ---
 

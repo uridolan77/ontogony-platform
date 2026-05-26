@@ -42,6 +42,8 @@ Platform owns the contracts that make the system mechanically coherent.
 
 ## PLAT-9-001 — Six-repo system compatibility gate
 
+**Status (2026-05-26):** **Done** — [`docs/evidence/PLAT_9_001_SIX_REPO_COMPATIBILITY_GATE_EVIDENCE.md`](../../../evidence/PLAT_9_001_SIX_REPO_COMPATIBILITY_GATE_EVIDENCE.md).
+
 **Purpose:** promote `Ontogony.SystemCompatibility` from four-runtime-repo validation into a six-repo compatibility authority.
 
 Today, the Allagma runtime lock pins only the four runtime repos: `ontogony-platform`, `conexus-dotnet`, `kanon-dotnet`, and `allagma-dotnet`.  That is good, but it leaves frontend/UI outside the same reproducibility unit.
@@ -102,6 +104,8 @@ This is the single biggest move to lift platform integration above 9.
 
 ## PLAT-9-002 — Shared mechanical protocol registry
 
+**Status (2026-05-26):** **Done** — [`docs/contracts/MECHANICAL_PROTOCOL_REGISTRY.md`](../../../contracts/MECHANICAL_PROTOCOL_REGISTRY.md).
+
 Platform already contains protocol-neutral DTOs, typed event envelopes, idempotency primitives, error contracts, HTTP mechanics, and AI telemetry.  The next step is to make these discoverable as a single protocol registry.
 
 Add:
@@ -143,6 +147,8 @@ Acceptance:
 
 ## PLAT-9-003 — Consumer conformance suite
 
+**Status (2026-05-26):** **Done** — [`docs/consumer-blueprints/CONSUMER_CONFORMANCE_SUITE.md`](../../../consumer-blueprints/CONSUMER_CONFORMANCE_SUITE.md), [`docs/evidence/PLATFORM_RECONSTRUCTABILITY_CONFORMANCE_EVIDENCE.md`](../../../evidence/PLATFORM_RECONSTRUCTABILITY_CONFORMANCE_EVIDENCE.md). Optional follow-on: full-matrix `artifacts/consumer-conformance/` runner.
+
 Platform should stop relying only on examples and package-mode smoke. It already has active alpha consumers and package-mode governance.  Now formalize consumer conformance.
 
 Add:
@@ -171,6 +177,8 @@ artifacts/consumer-conformance/<timestamp>/summary.json
 
 ## PLAT-9-004 — Public API hardening pass
 
+**Status (2026-05-26):** **Done** — 25 Tier A packages (`CS1591` enforced); Tier C: `Ontogony.Testing`, `Ontogony.SystemCompatibility` — [`docs/evidence/PLAT_9_004_PUBLIC_API_HARDENING_EVIDENCE.md`](../../../evidence/PLAT_9_004_PUBLIC_API_HARDENING_EVIDENCE.md).
+
 Platform’s correctness is already high, but to get above 9 it needs stricter public API quality.
 
 Do:
@@ -196,6 +204,8 @@ Acceptance:
 
 ## PLAT-9-005 — Observability mechanics pack
 
+**Status (2026-05-26):** **Done** — phase 1 + 2 — [`docs/observability/`](../../../observability/), [`docs/evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_PHASE2_EVIDENCE.md`](../../../evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_PHASE2_EVIDENCE.md), `scripts/run-observability-mechanics-conformance.ps1`.
+
 Platform should own reusable mechanics, not dashboards for product semantics. But it can own the **mechanical observability contract**.
 
 Add:
@@ -218,6 +228,8 @@ Acceptance:
 ```
 
 ## PLAT-9-006 — Platform “do not own meaning” guard
+
+**Status (2026-05-26):** **Done** — `scripts/check-no-product-semantics.ps1`, `tests/Ontogony.Architecture.Tests/ProductSemanticLeakageTests.cs`.
 
 The boundary is already correct; make it enforceable.
 
@@ -901,7 +913,7 @@ This creates the operator-evidence spine.
 ## Wave 4 — Boundary and correctness enforcement
 
 ```text
-PLAT-9-006  No-meaning guard
+PLAT-9-006  No-meaning guard                    [platform: Done 2026-05-26]
 UI-9-004    No-product-meaning guard
 FE-9-005    Live/fixture boundary hardening
 ```
@@ -911,14 +923,15 @@ This prevents architectural drift.
 ## Wave 5 — Release candidate gates
 
 ```text
-PLAT-9-003  Consumer conformance suite
-PLAT-9-004  Public API hardening
+PLAT-9-003  Consumer conformance suite          [platform: Done 2026-05-26]
+PLAT-9-004  Public API hardening                [platform: Done 2026-05-26]
+PLAT-9-005  Observability mechanics pack        [platform: Done 2026-05-26]
 UI-9-007    UI RC package gate
 FE-9-006    Frontend RC gate
 FE-9-007    Operator readiness scorecard
 ```
 
-This is what pushes the scores above 9.
+Platform slices above are complete; remaining wave-5 lift is frontend/UI (and optional PLAT-9-003 artifact runner).
 
 ---
 

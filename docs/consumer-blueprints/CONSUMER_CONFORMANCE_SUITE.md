@@ -1,5 +1,7 @@
 # Consumer conformance suite (PLAT-9-003)
 
+**Status (2026-05-26):** **Done** for platform scope — `scripts/run-consumer-conformance.ps1`, `ConsumerConformanceGate`, and `*PlatformConformanceTests` on Allagma/Kanon/Conexus. Evidence: [`../evidence/PLATFORM_RECONSTRUCTABILITY_CONFORMANCE_EVIDENCE.md`](../evidence/PLATFORM_RECONSTRUCTABILITY_CONFORMANCE_EVIDENCE.md). Optional: full-matrix `artifacts/consumer-conformance/<timestamp>/summary.json` runner.
+
 Formalizes mechanical proof that each alpha consumer can adopt Ontogony platform packages without semantic drift.
 
 ## Consumers and required proof
@@ -52,6 +54,8 @@ artifacts/consumer-conformance/<timestamp>/summary.md
 ```
 
 ## PLAT-9-004 acceptance bundle
+
+**Status (2026-05-26):** **Done** — see [`../evidence/PLAT_9_004_PUBLIC_API_HARDENING_EVIDENCE.md`](../evidence/PLAT_9_004_PUBLIC_API_HARDENING_EVIDENCE.md).
 
 ```powershell
 ./scripts/validate-public-api-baseline.ps1

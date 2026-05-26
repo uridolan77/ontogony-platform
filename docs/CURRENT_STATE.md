@@ -23,6 +23,12 @@
 | HTTP resilience v1 (Retry-After, jitter, circuit breaker, timeouts) | **Implemented** | [`packages/Ontogony.Http.md`](./packages/Ontogony.Http.md), [`evidence/PLAT_DEPTH_001_HTTP_RESILIENCE_EVIDENCE.md`](./evidence/PLAT_DEPTH_001_HTTP_RESILIENCE_EVIDENCE.md) |
 | Conformance harnesses (outbox, idempotency, artifacts) | **Implemented** | [`evidence/PLAT_DEPTH_002_CONFORMANCE_HARNESSES_EVIDENCE.md`](./evidence/PLAT_DEPTH_002_CONFORMANCE_HARNESSES_EVIDENCE.md) |
 | Runtime lock + post-lock delta gate checks | **Implemented** | [`evidence/PLAT_DEPTH_003_COMPATIBILITY_GATE_EVIDENCE.md`](./evidence/PLAT_DEPTH_003_COMPATIBILITY_GATE_EVIDENCE.md) |
+| Public XML docs (`CS1591`, PLAT-9-004) | **Implemented** | 25 Tier A packages; Tier C: Testing, SystemCompatibility — [`evidence/PLAT_9_004_PUBLIC_API_HARDENING_EVIDENCE.md`](./evidence/PLAT_9_004_PUBLIC_API_HARDENING_EVIDENCE.md) |
+| Observability mechanics (PLAT-9-005) | **Implemented** | [`observability/`](./observability/), `run-observability-mechanics-conformance.ps1` — [`evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_PHASE2_EVIDENCE.md`](./evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_PHASE2_EVIDENCE.md) |
+| Six-repo compatibility gate (PLAT-9-001) | **Implemented** | [`evidence/PLAT_9_001_SIX_REPO_COMPATIBILITY_GATE_EVIDENCE.md`](./evidence/PLAT_9_001_SIX_REPO_COMPATIBILITY_GATE_EVIDENCE.md) |
+| Mechanical protocol registry (PLAT-9-002) | **Implemented** | [`contracts/MECHANICAL_PROTOCOL_REGISTRY.md`](./contracts/MECHANICAL_PROTOCOL_REGISTRY.md) |
+| Consumer conformance (PLAT-9-003) | **Implemented** | [`consumer-blueprints/CONSUMER_CONFORMANCE_SUITE.md`](./consumer-blueprints/CONSUMER_CONFORMANCE_SUITE.md) |
+| No-meaning guard (PLAT-9-006) | **Implemented** | `scripts/check-no-product-semantics.ps1` |
 
 **Active alpha consumers:** Conexus.NET and Allagma.NET consume this stack (sibling `ProjectReference` or NuGet package mode). Kanon.NET references platform packages per its own `eng/Ontogony.References.props`. See [`INTEGRATION.md`](./INTEGRATION.md).
 
@@ -46,11 +52,7 @@ Cross-repo acceptance (cohesion, streaming, replay) lives in **product repos** �
 
 | Item | Status |
 | --- | --- |
-| Public XML docs (`CS1591`) | **Implemented** — 25 Tier A packages enforced; Tier C for Testing/SystemCompatibility ([`evidence/PLAT_9_004_PUBLIC_API_HARDENING_EVIDENCE.md`](./evidence/PLAT_9_004_PUBLIC_API_HARDENING_EVIDENCE.md)) |
-| HTTP resilience v1 completion | **Implemented** — exponential backoff option, budget bypass, classifier context, circuit registry boundary ([`migrations/2026-05-26-plat-depth-http-resilience-completion.md`](./migrations/2026-05-26-plat-depth-http-resilience-completion.md)) |
-| Conformance harness depth | **Implemented** — Postgres outbox harness path, artifact stream/scope checks ([`adoption/conformance-kits.md`](./adoption/conformance-kits.md)) |
-| Observability mechanics (PLAT-9-005) | **Implemented** — [`observability/`](./observability/), dashboards/alerts, `run-observability-mechanics-conformance.ps1` ([`evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_PHASE2_EVIDENCE.md`](./evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_PHASE2_EVIDENCE.md)) |
-| Compatibility gate repo/package checks | **Implemented** — `runtime-lock-repos`, `post-lock-delta-repos`, `runtime-lock-package-versions` |
+| PLAT-9-003 full-matrix artifact runner | **Optional** — `*PlatformConformanceTests` on runtime repos done; `artifacts/consumer-conformance/<timestamp>/summary.json` runner not required for platform closeout |
 | PLAT-NP-008 in-memory DI warning coverage | **Partial** — maintenance guard when new public DI surfaces land |
 
 ---
