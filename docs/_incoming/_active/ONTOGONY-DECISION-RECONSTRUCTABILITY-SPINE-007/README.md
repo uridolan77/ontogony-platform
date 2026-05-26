@@ -70,7 +70,7 @@ ontogony-reconstructability-report-artifact-v1
 
 1. **Platform (this package)** — intake docs, artifact contract, verification plan *(done)*
 2. **Kanon** — artifact contracts, `DecisionEventCanonicalHasher`, classifier version, persistence, `report-artifacts` endpoints, tests *(done 2026-05-26 — see `kanon-dotnet/docs/evidence/ONTOGONY_DECISION_RECONSTRUCTABILITY_SPINE_007_KANON_EVIDENCE.md`)*
-3. **Frontend** — optional artifact batch on spine load; show `artifactId` / `decisionEventHash` / `classifierVersion` / `classifiedAtUtc` when present; keep classify-batch fallback
+3. **Frontend** — optional artifact batch on spine load; show `artifactId` / `decisionEventHash` / `classifierVersion` / `classifiedAtUtc` when present; keep classify-batch fallback *(done 2026-05-26 — see `ontogony-frontend/docs/evidence/ONTOGONY_DECISION_RECONSTRUCTABILITY_SPINE_007_EVIDENCE.md`)*
 4. **Closeout** — cross-repo verification, `dec-recon-007-smoke-report.json`, evidence markdown in each repo; move package to `_consumed/2026-05/` when gates pass
 
 ### Notes
