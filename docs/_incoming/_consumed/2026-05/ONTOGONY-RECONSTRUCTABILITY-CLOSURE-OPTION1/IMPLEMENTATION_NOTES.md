@@ -8,7 +8,7 @@
 | Item | Result |
 | --- | --- |
 | Zip unpacked | `ONTOGONY-RECONSTRUCTABILITY-CLOSURE-OPTION1.zip` → removed after unpack |
-| Active location | `docs/_incoming/_active/ONTOGONY-RECONSTRUCTABILITY-CLOSURE-OPTION1/` |
+| Archive location | `docs/_incoming/_consumed/2026-05/ONTOGONY-RECONSTRUCTABILITY-CLOSURE-OPTION1/` |
 | Note | `00_UNPACK_PROMPT.md` references `docs/_incoming/packages/…`; platform hygiene allows only `_active/`, `_consumed/`, `README.md` under `_incoming` — package placed under `_active` per `docs/_incoming/README.md` |
 | Manifest | Row added to `docs/_incoming/_active/MANIFEST.md` (status: **in_progress**) |
 | Hygiene script | `scripts/validate-docs-incoming-hygiene.ps1` — **PASS** (3 active packages) |
