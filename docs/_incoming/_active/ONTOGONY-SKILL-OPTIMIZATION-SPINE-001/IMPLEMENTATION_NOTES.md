@@ -142,8 +142,8 @@ This is consistent with how existing `AllagmaEvaluationContracts.cs` and `KanonD
 
 ```text
 001A — Platform contract docs/schemas/fixtures  [DONE]
-001B — Kanon fake governance vertical slice      [IN PROGRESS]
-001C — Allagma offline optimization run registry [DEFERRED]
+001B — Kanon fake governance vertical slice      [DONE]
+001C — Allagma offline optimization run registry [DONE]
 001D — Conexus optimizer/target metadata         [DEFERRED]
 001E — Frontend Skill Lab                        [DEFERRED]
 ```
@@ -240,14 +240,17 @@ dotnet test tests/Ontogony.Infrastructure.Tests -c Release --filter FullyQualifi
 
 ---
 
-## Slice 001C — Allagma offline optimization run registry (DEFERRED)
+## Slice 001C — Allagma offline optimization run registry (COMPLETE)
 
-Allagma will own the `SkillOptimizationRun` lifecycle, trajectory selection, candidate version creation, and evidence export. This slice is blocked on 001B: the Allagma run must call the Kanon governance endpoint to accept/reject candidate edits.
+Allagma owns the `SkillOptimizationRun` lifecycle with in-memory persistence and a deterministic fake orchestrator. Calls `IKanonSkillGovernanceClient.EvaluateSkillEditAsync` for each candidate edit proposal. `IsLiveDeploymentAllowed` is always `false`.
 
-Key planned files (do not implement yet):
+Key files delivered:
 - `src/Allagma.Contracts/SkillContracts.cs`
-- `src/Allagma.Application/SkillOptimization/`
+- `src/Allagma.Application/SkillOptimization/` (record, repo, service, fake orchestrator)
 - `src/Allagma.Api/SkillOptimizationEndpoints.cs`
+- `tests/Allagma.Tests/SkillOptimizationRunTests.cs` — 18 tests passing
+
+Evidence: `allagma-dotnet/docs/evidence/ONTOGONY_SKILL_OPTIMIZATION_SPINE_001C.md`
 
 ---
 
@@ -300,7 +303,7 @@ pwsh .\scripts\update-route-doc-fragments.ps1
 | Slice | Evidence doc | Status |
 |-------|-------------|--------|
 | 001A (platform) | `ontogony-platform/docs/evidence/ONTOGONY_SKILL_OPTIMIZATION_SPINE_001A.md` | Pending |
-| 001B (Kanon governance) | `kanon-dotnet/docs/evidence/ONTOGONY_SKILL_OPTIMIZATION_SPINE_001B.md` | Pending |
-| 001C (Allagma runs) | `allagma-dotnet/docs/evidence/ONTOGONY_SKILL_OPTIMIZATION_SPINE_001C.md` | Deferred |
+| 001B (Kanon governance) | `kanon-dotnet/docs/evidence/ONTOGONY_SKILL_OPTIMIZATION_SPINE_001B.md` | **Complete** |
+| 001C (Allagma runs) | `allagma-dotnet/docs/evidence/ONTOGONY_SKILL_OPTIMIZATION_SPINE_001C.md` | **Complete** |
 | 001D (Conexus metadata) | `conexus-dotnet/docs/evidence/ONTOGONY_SKILL_OPTIMIZATION_SPINE_001D.md` | Deferred |
 | 001E (frontend) | `ontogony-frontend/docs/evidence/ONTOGONY_SKILL_OPTIMIZATION_SPINE_001E.md` | Deferred |
