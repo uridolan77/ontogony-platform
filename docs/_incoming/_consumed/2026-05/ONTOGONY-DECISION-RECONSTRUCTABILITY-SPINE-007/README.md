@@ -86,7 +86,7 @@ ontogony-reconstructability-report-artifact-v1
 
 **Evidence:** `kanon-dotnet/docs/evidence/ONTOGONY_DECISION_RECONSTRUCTABILITY_SPINE_007_KANON_EVIDENCE.md`, `ontogony-frontend/docs/evidence/ONTOGONY_DECISION_RECONSTRUCTABILITY_SPINE_007_EVIDENCE.md`.
 
-**Next track:** CONEXUS-DECISION-EVENTS-001. Optional hygiene: promote this package folder to `docs/_incoming/_consumed/2026-05/` per intake README.
+**Next track:** CONEXUS-DECISION-EVENTS-001. **Archived** to `docs/_incoming/_consumed/2026-05/` — see [`CONSUMED.md`](./CONSUMED.md).
 
 ### Notes
 
