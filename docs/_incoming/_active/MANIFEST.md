@@ -4,7 +4,7 @@ Last updated: **2026-05-26**
 
 | Package | Status | Reason active | Next action | Date |
 | --- | --- | --- | --- | --- |
-| *(none)* | — | PLAT-9-004 public API hardening consumed | Add new intake when the next program starts | 2026-05-26 |
+| [ONTOGONY-SKILL-OPTIMIZATION-SPINE-001](./ONTOGONY-SKILL-OPTIMIZATION-SPINE-001/ONTOGONY-SKILL-OPTIMIZATION-SPINE-001/README.md) | In progress | **001A** contracts promoted to `docs/contracts` + `docs/schemas/skill-optimization` | **001B** Kanon fake vertical slice | 2026-05-26 |
 
 **Consumed follow-on slices (not separate active packages):**
 
