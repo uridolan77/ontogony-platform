@@ -2,7 +2,9 @@
 
 ## Purpose
 
-`SkillDeploymentBinding` controls where an accepted/published skill version is active.
+`SkillDeploymentBinding` controls where an accepted/published skill version is active for **Conexus target-model runtime injection** (optimization spine).
+
+For **sandbox release promotion** bindings (manual promotion → Kanon release decision → activate/pause/rollback), see [SKILL_RELEASE_DEPLOYMENT_BINDING_V0.md](./SKILL_RELEASE_DEPLOYMENT_BINDING_V0.md) and [SKILL_RELEASE_GOVERNANCE.md](../protocols/SKILL_RELEASE_GOVERNANCE.md).
 
 ## Required fields
 

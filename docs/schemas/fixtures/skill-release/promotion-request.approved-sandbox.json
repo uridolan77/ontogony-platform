@@ -1,0 +1,20 @@
+{
+  "promotionRequestId": "skillprom_demo_sandbox_001",
+  "skillArtifactId": "demo.spreadsheet-analysis",
+  "candidateVersionId": "skillver_demo_spreadsheet_v1",
+  "sourceOptimizationRunId": "skillopt_run_demo_001",
+  "requestedByActorId": "local-operator",
+  "requestedAtUtc": "2026-05-27T12:00:00Z",
+  "targetEnvironment": "sandbox",
+  "reason": "Operator review complete; promote accepted candidate to sandbox for harness validation.",
+  "status": "approved_for_sandbox",
+  "evidenceRefs": [
+    { "type": "skillOptimizationRun", "id": "skillopt_run_demo_001" },
+    { "type": "kanonDecision", "id": "kanon_decision_skill_accept_demo_001" },
+    { "type": "skillReleaseDecision", "id": "kanon_decision_skill_promote_demo_001" }
+  ],
+  "metadata": {
+    "candidateEditId": "skilledit_demo_001",
+    "kanonSkillEditDecisionId": "kanon_decision_skill_accept_demo_001"
+  }
+}

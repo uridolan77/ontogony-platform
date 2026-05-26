@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/skill-promotion-request.v0.json",
+  "title": "SkillPromotionRequestV0",
+  "type": "object",
+  "required": [
+    "promotionRequestId",
+    "skillArtifactId",
+    "candidateVersionId",
+    "sourceOptimizationRunId",
+    "requestedByActorId",
+    "requestedAtUtc",
+    "targetEnvironment",
+    "status"
+  ],
+  "properties": {
+    "promotionRequestId": { "type": "string", "minLength": 1 },
+    "skillArtifactId": { "type": "string", "minLength": 1 },
+    "candidateVersionId": { "type": "string", "minLength": 1 },
+    "sourceOptimizationRunId": { "type": "string", "minLength": 1 },
+    "requestedByActorId": { "type": "string", "minLength": 1 },
+    "requestedAtUtc": { "type": "string", "format": "date-time" },
+    "targetEnvironment": {
+      "type": "string",
+      "enum": ["sandbox", "local-demo", "fixture-only"]
+    },
+    "reason": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": [
+        "created",
+        "submitted",
+        "pending_decision",
+        "approved_for_sandbox",
+        "rejected",
+        "deferred",
+        "cancelled"
+      ]
+    },
+    "evidenceRefs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/evidenceRef" }
+    },
+    "metadata": { "type": "object" }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "evidenceRef": {
+      "type": "object",
+      "required": ["type", "id"],
+      "properties": {
+        "type": { "type": "string", "minLength": 1 },
+        "id": { "type": "string", "minLength": 1 },
+        "role": { "type": "string" },
+        "label": { "type": "string" },
+        "uri": { "type": "string" }
+      },
+      "additionalProperties": true
+    }
+  }
+}

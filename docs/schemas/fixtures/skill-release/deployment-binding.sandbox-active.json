@@ -1,0 +1,19 @@
+{
+  "deploymentBindingId": "skillbind_release_sandbox_001",
+  "skillArtifactId": "demo.spreadsheet-analysis",
+  "skillVersionId": "skillver_demo_spreadsheet_v1",
+  "targetConsumerId": "sandbox-harness-demo",
+  "targetEnvironment": "sandbox",
+  "bindingStatus": "active",
+  "createdByActorId": "local-operator",
+  "createdAtUtc": "2026-05-27T12:10:00Z",
+  "activatedByActorId": "local-operator",
+  "activatedAtUtc": "2026-05-27T12:15:00Z",
+  "releaseDecisionId": "kanon_decision_skill_promote_demo_001",
+  "promotionRequestId": "skillprom_demo_sandbox_001",
+  "rollbackTargetVersionId": "skillver_demo_spreadsheet_v0",
+  "evidenceExportId": "skillrelease_evidence_promo_001",
+  "metadata": {
+    "sourceOptimizationRunId": "skillopt_run_demo_001"
+  }
+}

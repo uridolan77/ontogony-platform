@@ -4,7 +4,7 @@ Last updated: **2026-05-27**
 
 | Package | Status | Reason active | Next action | Date |
 | --- | --- | --- | --- | --- |
-| [ONTOGONY-SKILL-RELEASE-GOVERNANCE-001](./ONTOGONY-SKILL-RELEASE-GOVERNANCE-001/README.md) | In progress | Skill Optimization spine closed; promotion/sandbox release layer | **001A** platform release-governance contracts/protocols | 2026-05-27 |
+| [ONTOGONY-SKILL-RELEASE-GOVERNANCE-001](./ONTOGONY-SKILL-RELEASE-GOVERNANCE-001/README.md) | In progress | **001A** contracts promoted to `docs/contracts` + `docs/schemas/skill-release` | **001B** Kanon sandbox promotion governance fake vertical slice | 2026-05-27 |
 
 **Consumed follow-on slices (not separate active packages):**
 

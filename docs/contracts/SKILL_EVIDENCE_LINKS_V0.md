@@ -33,6 +33,11 @@ skillVersion
 skillEdit
 skillEvaluationGate
 skillDeploymentBinding
+skillPromotionRequest
+skillReleaseDecision
+skillReleaseDeploymentBinding
+skillRollback
+skillReleaseEvidenceExport
 evaluationTaskset
 evaluationTask
 evaluationResult

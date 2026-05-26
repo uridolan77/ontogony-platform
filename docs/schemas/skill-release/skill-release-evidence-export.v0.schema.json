@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/skill-release-evidence-export.v0.json",
+  "title": "SkillReleaseEvidenceExportV0",
+  "type": "object",
+  "required": [
+    "evidenceExportId",
+    "promotionRequestId",
+    "skillArtifactId",
+    "candidateVersionId",
+    "exportedAtUtc",
+    "limitations"
+  ],
+  "properties": {
+    "evidenceExportId": { "type": "string", "minLength": 1 },
+    "promotionRequestId": { "type": "string", "minLength": 1 },
+    "skillArtifactId": { "type": "string", "minLength": 1 },
+    "candidateVersionId": { "type": "string", "minLength": 1 },
+    "exportedAtUtc": { "type": "string", "format": "date-time" },
+    "promotionRequest": { "type": "object" },
+    "sourceOptimizationRunId": { "type": "string" },
+    "kanonSkillEditDecisionId": { "type": "string" },
+    "kanonReleaseDecisionId": { "type": "string" },
+    "deploymentBindingId": { "type": "string" },
+    "rollbackTargetVersionId": { "type": "string" },
+    "evidenceRefs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/evidenceRef" }
+    },
+    "limitations": {
+      "type": "object",
+      "required": [
+        "productionDeploymentAllowed",
+        "sandboxOnly",
+        "automaticPromotionAllowed",
+        "rollbackRequired",
+        "liveDeploymentAllowed"
+      ],
+      "properties": {
+        "productionDeploymentAllowed": { "const": false },
+        "sandboxOnly": { "const": true },
+        "automaticPromotionAllowed": { "const": false },
+        "rollbackRequired": { "type": "boolean" },
+        "liveDeploymentAllowed": { "const": false }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "evidenceRef": {
+      "type": "object",
+      "required": ["type", "id"],
+      "properties": {
+        "type": { "type": "string", "minLength": 1 },
+        "id": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": true
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/skill-release-decision.v0.json",
+  "title": "SkillReleaseDecisionV0",
+  "type": "object",
+  "required": [
+    "decisionId",
+    "promotionRequestId",
+    "skillArtifactId",
+    "candidateVersionId",
+    "decisionStatus",
+    "targetEnvironment",
+    "createdAtUtc"
+  ],
+  "properties": {
+    "decisionId": { "type": "string", "minLength": 1 },
+    "promotionRequestId": { "type": "string", "minLength": 1 },
+    "skillArtifactId": { "type": "string", "minLength": 1 },
+    "candidateVersionId": { "type": "string", "minLength": 1 },
+    "decisionStatus": {
+      "type": "string",
+      "enum": ["approved_for_sandbox", "rejected", "deferred"]
+    },
+    "targetEnvironment": {
+      "type": "string",
+      "enum": ["sandbox", "local-demo", "fixture-only"]
+    },
+    "policyBasis": { "type": "string" },
+    "safeRationaleSummary": { "type": "string" },
+    "blockingReasons": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "requiredEvidence": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "createdAtUtc": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": true
+}

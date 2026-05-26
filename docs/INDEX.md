@@ -43,7 +43,8 @@ Practical map of **canonical** platform documentation. For intake packages, see 
 | Contract discipline | [`contracts/CONTRACT_DISCIPLINE_STANDARD.md`](./contracts/CONTRACT_DISCIPLINE_STANDARD.md) |
 | Replay runtime | [`contracts/REPLAY_RUNTIME_CONTRACT.md`](./contracts/REPLAY_RUNTIME_CONTRACT.md) |
 | Decision reconstructability | [`contracts/DECISION_RECONSTRUCTABILITY_PROTOCOL_V0.md`](./contracts/DECISION_RECONSTRUCTABILITY_PROTOCOL_V0.md) |
-| Skill optimization spine (001A) | [`protocols/SKILL_OPTIMIZATION_SPINE.md`](./protocols/SKILL_OPTIMIZATION_SPINE.md) |
+| Skill optimization spine | [`protocols/SKILL_OPTIMIZATION_SPINE.md`](./protocols/SKILL_OPTIMIZATION_SPINE.md) |
+| Skill release governance (001A) | [`protocols/SKILL_RELEASE_GOVERNANCE.md`](./protocols/SKILL_RELEASE_GOVERNANCE.md) |
 | Observability mechanics | [`observability/README.md`](./observability/README.md) |
 | Protocol registry | [`system/system-protocol-registry.json`](./system/system-protocol-registry.json) |
 | JSON schemas | [`schemas/`](./schemas/) |

@@ -1,0 +1,16 @@
+{
+  "rollbackId": "skillrollback_demo_001",
+  "deploymentBindingId": "skillbind_release_sandbox_001",
+  "fromSkillVersionId": "skillver_demo_spreadsheet_v1",
+  "toSkillVersionId": "skillver_demo_spreadsheet_v0",
+  "reason": "Sandbox validation regression; revert to prior known-good version.",
+  "requestedByActorId": "local-operator",
+  "requestedAtUtc": "2026-05-27T14:00:00Z",
+  "executedAtUtc": "2026-05-27T14:05:00Z",
+  "kanonRollbackDecisionId": "kanon_decision_skill_rollback_demo_001",
+  "rollbackEvidenceRefs": [
+    { "type": "skillReleaseDeploymentBinding", "id": "skillbind_release_sandbox_001" },
+    { "type": "skillPromotionRequest", "id": "skillprom_demo_sandbox_001" }
+  ],
+  "status": "executed"
+}

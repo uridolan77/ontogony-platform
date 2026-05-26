@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/skill-release-deployment-binding.v0.json",
+  "title": "SkillReleaseDeploymentBindingV0",
+  "type": "object",
+  "required": [
+    "deploymentBindingId",
+    "skillArtifactId",
+    "skillVersionId",
+    "targetEnvironment",
+    "bindingStatus",
+    "createdByActorId",
+    "createdAtUtc"
+  ],
+  "properties": {
+    "deploymentBindingId": { "type": "string", "minLength": 1 },
+    "skillArtifactId": { "type": "string", "minLength": 1 },
+    "skillVersionId": { "type": "string", "minLength": 1 },
+    "targetConsumerId": { "type": "string" },
+    "targetEnvironment": {
+      "type": "string",
+      "enum": ["sandbox", "local-demo", "fixture-only"]
+    },
+    "bindingStatus": {
+      "type": "string",
+      "enum": ["created", "active", "paused", "rolled_back", "deprecated"]
+    },
+    "createdByActorId": { "type": "string", "minLength": 1 },
+    "createdAtUtc": { "type": "string", "format": "date-time" },
+    "activatedByActorId": { "type": "string" },
+    "activatedAtUtc": { "type": "string", "format": "date-time" },
+    "releaseDecisionId": { "type": "string" },
+    "promotionRequestId": { "type": "string" },
+    "rollbackTargetVersionId": { "type": "string" },
+    "evidenceExportId": { "type": "string" },
+    "metadata": { "type": "object" }
+  },
+  "additionalProperties": true
+}

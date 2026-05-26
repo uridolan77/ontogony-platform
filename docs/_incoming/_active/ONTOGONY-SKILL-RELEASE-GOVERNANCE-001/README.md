@@ -1,6 +1,6 @@
 # ONTOGONY-SKILL-RELEASE-GOVERNANCE-001 (active)
 
-**Status:** In progress — start with **001A** (platform contracts/protocols).  
+**Status:** In progress — **001A complete** (platform contracts/schemas). Next: **001B** (Kanon).  
 **Precondition:** [`ONTOGONY-SKILL-OPTIMIZATION-SPINE-001`](../_consumed/2026-05/ONTOGONY-SKILL-OPTIMIZATION-SPINE-001/) closed — see [`docs/evidence/ONTOGONY_SKILL_OPTIMIZATION_SPINE_001_CLOSEOUT.md`](../../evidence/ONTOGONY_SKILL_OPTIMIZATION_SPINE_001_CLOSEOUT.md).
 
 ## Spec

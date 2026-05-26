@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/skill-rollback.v0.json",
+  "title": "SkillRollbackV0",
+  "type": "object",
+  "required": [
+    "rollbackId",
+    "deploymentBindingId",
+    "fromSkillVersionId",
+    "toSkillVersionId",
+    "requestedByActorId",
+    "requestedAtUtc",
+    "status"
+  ],
+  "properties": {
+    "rollbackId": { "type": "string", "minLength": 1 },
+    "deploymentBindingId": { "type": "string", "minLength": 1 },
+    "fromSkillVersionId": { "type": "string", "minLength": 1 },
+    "toSkillVersionId": { "type": "string", "minLength": 1 },
+    "reason": { "type": "string" },
+    "requestedByActorId": { "type": "string", "minLength": 1 },
+    "requestedAtUtc": { "type": "string", "format": "date-time" },
+    "executedAtUtc": { "type": "string", "format": "date-time" },
+    "kanonRollbackDecisionId": { "type": "string" },
+    "rollbackEvidenceRefs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/evidenceRef" }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["requested", "approved", "executed", "rejected", "failed"]
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "evidenceRef": {
+      "type": "object",
+      "required": ["type", "id"],
+      "properties": {
+        "type": { "type": "string", "minLength": 1 },
+        "id": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": true
+    }
+  }
+}

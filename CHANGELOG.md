@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+ONTOGONY-SKILL-RELEASE-GOVERNANCE-001A — platform release-governance contracts (docs/schemas only):
+
+- **Protocols** — [`docs/protocols/SKILL_RELEASE_GOVERNANCE.md`](docs/protocols/SKILL_RELEASE_GOVERNANCE.md), [`docs/protocols/SKILL_SANDBOX_ACTIVATION_LIFECYCLE.md`](docs/protocols/SKILL_SANDBOX_ACTIVATION_LIFECYCLE.md).
+- **Contracts** — promotion request, release decision, sandbox deployment binding, rollback, evidence export, version release state under `docs/contracts/SKILL_RELEASE_*_V0.md`.
+- **Schemas** — `docs/schemas/skill-release/` (5 JSON schemas) and fixtures under `docs/schemas/fixtures/skill-release/`.
+- **Tests** — `SkillReleaseGovernanceSchemaTests` in `Ontogony.Infrastructure.Tests`.
+- **Evidence** — [`docs/evidence/ONTOGONY_SKILL_RELEASE_GOVERNANCE_001A.md`](docs/evidence/ONTOGONY_SKILL_RELEASE_GOVERNANCE_001A.md).
+
 PLAT-9-004 — public API hardening (Tier A XML docs):
 
 - **`src/Directory.Build.targets`** — `CS1591` enforced on 25 shipped consumer-surface packages (expanded beyond Conexus baseline).
