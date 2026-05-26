@@ -1,27 +1,33 @@
 {
   "schema": "dec-recon-004-smoke-report-v1",
-  "recordedAtUtc": "2026-05-26T10:02:05.668Z",
-  "verdict": "FAIL",
+  "recordedAtUtc": "2026-05-26T11:52:24.739Z",
   "seedReportPath": "C:\\dev\\ontogony-platform\\docker\\local-working-system\\artifacts\\env-seed-001-report.json",
-  "runId": "run_71a0d02fe75644e6a280741dc1f44ee2",
-  "traceId": null,
-  "eventCount": 0,
-  "reportCount": 0,
-  "worstGovernanceStatus": null,
-  "decisionKinds": [],
-  "projectedAtUtc": null,
-  "classifiedAtUtc": null,
-  "eventSchema": "",
   "frontendBaseUrl": "http://localhost:5175",
-  "allagmaBaseUrl": "http://localhost:5083",
-  "kanonBaseUrl": "http://localhost:5081",
+  "runId": "run_28d50e113baa4f2d8e372b686e0e2b58",
+  "traceId": "28b2ca5642cf18610a71df1a7b91483e",
+  "eventCount": 11,
+  "reportCount": 11,
+  "worstGovernanceStatus": "WARN",
+  "decisionKinds": [
+    "agent_tool_call",
+    "run_operation",
+    "workflow_transition"
+  ],
   "steps": [
     {
-      "step": "fatal",
-      "passed": false,
+      "step": "services-healthy",
+      "passed": true,
+      "notes": []
+    },
+    {
+      "step": "api-decision-reconstructability-loop",
+      "passed": true,
       "notes": [
-        "fetch failed"
+        "events=11",
+        "worst=WARN",
+        "kinds=agent_tool_call,run_operation,workflow_transition"
       ]
     }
-  ]
+  ],
+  "verdict": "PASS"
 }
