@@ -44,10 +44,19 @@ public sealed record ProtocolIngressContext
 /// </summary>
 public sealed record ProtocolIngressContextMetadata
 {
+    /// <summary>Optional tenant identifier.</summary>
     public string? TenantId { get; init; }
+
+    /// <summary>Optional workspace identifier.</summary>
     public string? WorkspaceId { get; init; }
+
+    /// <summary>Optional project identifier.</summary>
     public string? ProjectId { get; init; }
+
+    /// <summary>Optional actor identifier.</summary>
     public string? ActorId { get; init; }
+
+    /// <summary>Optional session identifier.</summary>
     public string? SessionId { get; init; }
 }
 

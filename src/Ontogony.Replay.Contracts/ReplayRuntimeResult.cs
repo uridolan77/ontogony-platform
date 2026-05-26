@@ -1,5 +1,6 @@
 namespace Ontogony.Replay.Contracts;
 
+/// <summary>Replay runtime result boundary record.</summary>
 public sealed record ReplayRuntimeResult(
     string ReplayId,
     string RootIdentifier,

@@ -10,11 +10,19 @@ namespace Ontogony.ProtocolIngress.Adapters;
 /// </summary>
 public abstract class BaseProtocolIngressAdapter
 {
+    /// <summary>Payload hasher used for raw and canonical hashes.</summary>
     protected readonly PayloadHasher PayloadHasher;
+
+    /// <summary>Identifier generator for trace and event identifiers.</summary>
     protected readonly IIdGenerator IdGenerator;
+
+    /// <summary>Clock used for timestamp fallback.</summary>
     protected readonly IClock Clock;
+
+    /// <summary>Envelope validator applied before returning success.</summary>
     protected readonly IEnvelopeValidator EnvelopeValidator;
 
+    /// <summary>Initializes base adapter dependencies.</summary>
     protected BaseProtocolIngressAdapter(
         PayloadHasher payloadHasher,
         IIdGenerator idGenerator,

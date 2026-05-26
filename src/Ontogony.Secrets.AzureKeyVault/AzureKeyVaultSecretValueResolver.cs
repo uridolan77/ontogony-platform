@@ -11,6 +11,7 @@ public sealed class AzureKeyVaultSecretValueResolver : ISecretValueResolver
     private readonly IAzureKeyVaultSecretClient? _client;
     private readonly ILogger<AzureKeyVaultSecretValueResolver> _logger;
 
+    /// <summary>Creates a resolver using configuration and an optional injected vault client.</summary>
     public AzureKeyVaultSecretValueResolver(
         IOptions<AzureKeyVaultSecretResolverOptions> options,
         ILogger<AzureKeyVaultSecretValueResolver> logger,

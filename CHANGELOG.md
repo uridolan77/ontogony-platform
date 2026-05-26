@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+PLAT-9-004 — public API hardening (Tier A XML docs):
+
+- **`src/Directory.Build.targets`** — `CS1591` enforced on 25 shipped consumer-surface packages (expanded beyond Conexus baseline).
+- **Tier C** — `Ontogony.Testing`, `Ontogony.SystemCompatibility` remain doc-relaxed per [`docs/quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md`](docs/quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md).
+- **Guard** — `PublicApiDocumentationPolicyTests` pins Tier A membership.
+- **Public API snapshots** — refreshed `Ontogony.Idempotency`, `Ontogony.Observability`, `Ontogony.Testing` verified baselines.
+- **Evidence** — [`docs/evidence/PLAT_9_004_PUBLIC_API_HARDENING_EVIDENCE.md`](docs/evidence/PLAT_9_004_PUBLIC_API_HARDENING_EVIDENCE.md).
+
 **Phase Tight closeout (2026-05-22):** Consumer propagation conformance tests adopted in all three backend repos (ALLAGMA/KANON/CONEXUS-PROP-001). Allagma system cohesion acceptance command (ALLAGMA-9-001) recorded PASS (Quick path). Index: [`docs/evidence/PLATFORM_PHASE_TIGHT_2026_05_22_EVIDENCE.md`](docs/evidence/PLATFORM_PHASE_TIGHT_2026_05_22_EVIDENCE.md).
 
 PLATFORM-9-003 — header propagation contract:

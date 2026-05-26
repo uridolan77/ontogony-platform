@@ -5,20 +5,28 @@ namespace Ontogony.Persistence.Postgres;
 /// </summary>
 public sealed class PostgresOutboxOptions
 {
+    /// <summary>PostgreSQL connection string.</summary>
     public string ConnectionString { get; set; } = string.Empty;
 
+    /// <summary>Database schema name for outbox tables.</summary>
     public string SchemaName { get; set; } = "public";
 
+    /// <summary>Outbox messages table name (unqualified).</summary>
     public string OutboxTableName { get; set; } = "ontogony_outbox_messages";
 
+    /// <summary>Processed-messages table name (unqualified).</summary>
     public string ProcessedTableName { get; set; } = "ontogony_processed_messages";
 
+    /// <summary>Dead-letter messages table name (unqualified).</summary>
     public string DeadLetterTableName { get; set; } = "ontogony_dead_letter_messages";
 
+    /// <summary>Claim lease duration for outbox workers.</summary>
     public TimeSpan ClaimLeaseDuration { get; set; } = TimeSpan.FromSeconds(30);
 
+    /// <summary>When set, moves messages to dead letter after this attempt count.</summary>
     public int? MoveToDeadLetterAfterAttempts { get; set; }
 
+    /// <summary>When true, ensures schema exists on host startup.</summary>
     public bool EnsureSchemaOnStartup { get; set; }
 
     internal void Validate()

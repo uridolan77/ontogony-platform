@@ -5,8 +5,10 @@ using Ontogony.Runtime;
 namespace Ontogony.Persistence;
 
 #pragma warning disable CS0618 // Intentional legacy alias registrations for compatibility.
+/// <summary>DI registration for persistence primitives and reference stores.</summary>
 public static class PersistenceServiceCollectionExtensions
 {
+    /// <summary>Registers clock and identifier primitives (including legacy compatibility aliases).</summary>
     public static IServiceCollection AddOntogonyPersistencePrimitives(this IServiceCollection services)
     {
         services.AddSingleton<Ontogony.Primitives.IClock, Ontogony.Primitives.SystemClock>();

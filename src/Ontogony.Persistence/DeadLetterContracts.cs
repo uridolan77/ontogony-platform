@@ -23,5 +23,6 @@ public sealed record DeadLetterMessage(
 /// </summary>
 public interface IDeadLetterWriter
 {
+    /// <summary>Writes a dead-letter message to the configured sink.</summary>
     Task WriteAsync(DeadLetterMessage deadLetter, CancellationToken cancellationToken = default);
 }

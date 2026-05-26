@@ -1,5 +1,7 @@
 # PLAT-DEPTH-004 — Tier A public XML documentation
 
+**Superseded for Tier B backlog:** [`PLAT_9_004_PUBLIC_API_HARDENING_EVIDENCE.md`](./PLAT_9_004_PUBLIC_API_HARDENING_EVIDENCE.md) (PLAT-9-004, 2026-05-26).
+
 **Date:** 2026-05-26  
 **Package:** ONTOGONY-IMPLEMENTATION-DEPTH-OVER9-001
 

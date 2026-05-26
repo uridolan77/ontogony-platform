@@ -8,6 +8,7 @@ namespace Ontogony.Messaging;
 /// </summary>
 public interface IEventPublisherWithResult
 {
+    /// <summary>Publishes an envelope and returns structured dispatch diagnostics.</summary>
     Task<EventPublishResult> PublishWithResultAsync<TPayload>(
         OntogonyEnvelope<TPayload> envelope,
         CancellationToken cancellationToken = default);

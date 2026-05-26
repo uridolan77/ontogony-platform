@@ -1,5 +1,6 @@
 namespace Ontogony.Replay.Contracts;
 
+/// <summary>Single service attempt recorded during replay.</summary>
 public sealed record ReplayServiceAttempt(
     string Service,
     string Operation,

@@ -231,3 +231,53 @@ namespace Ontogony.Testing.Architecture
         }
     }
 }
+namespace Ontogony.Testing.Conformance
+{
+    public static class CompatibilityManifestConformanceAssertions
+    {
+        public static System.Text.Json.JsonElement AssertManifestPresent(string manifestPath) { }
+        public static void AssertRequiredProperties(System.Text.Json.JsonElement root, params string[] propertyPaths) { }
+    }
+    public static class CorrelationConformanceKit
+    {
+        public static void AssertFrozenContractAlignment() { }
+        public static System.Threading.Tasks.Task AssertTracingMiddlewareBaselineAsync() { }
+        public static System.Threading.Tasks.Task RunStandardConsumerChecksAsync() { }
+    }
+    public static class CrossServiceErrorEnvelopeConformanceAssertions
+    {
+        public static void AssertValidShape(Ontogony.Errors.CrossServiceErrorEnvelope envelope, string? expectedSystem = null) { }
+    }
+    public static class ErrorEnvelopeConformanceKit
+    {
+        public static void AssertCrossServiceEnvelope(Ontogony.Errors.CrossServiceErrorEnvelope envelope, string expectedSystem) { }
+        public static System.Threading.Tasks.Task RunMiddlewareBaselineAsync() { }
+        public static System.Threading.Tasks.Task RunStandardConsumerChecksAsync(Ontogony.Errors.CrossServiceErrorEnvelope? nativeEnvelope = null, string? expectedSystem = null) { }
+    }
+    public static class IdempotencyConformanceKit
+    {
+        public static System.Threading.Tasks.Task RunStandardLedgerChecksAsync(Ontogony.Idempotency.IIdempotencyLedger ledger, string? keyPrefix = null) { }
+    }
+    public static class ObservabilityNamingConformanceAssertions
+    {
+        public static void AssertMeterNameUsesPrefix(string meterName, string requiredPrefix) { }
+        public static void AssertPrometheusExportName(string logicalInstrumentName, string exportedMetricName) { }
+    }
+    public static class ReconstructabilityConformanceKit
+    {
+        public static void AssertDecisionEventFixture(string json) { }
+        public static void AssertExportBundleRedactionSafe(string json) { }
+    }
+    public static class ReconstructabilityExportConformanceAssertions
+    {
+        [System.Runtime.CompilerServices.TupleElementNames(new string[] {
+                "Pattern",
+                "Label"})]
+        public static System.Collections.Generic.IReadOnlyList<System.ValueTuple<string, string>> DefaultForbiddenPatterns { get; }
+        public static void AssertDecisionEventExportShape(System.Text.Json.JsonElement root) { }
+        public static void AssertExportJsonDoesNotLeakSecrets(string json, [System.Runtime.CompilerServices.TupleElementNames(new string[] {
+                "Pattern",
+                "Label"})] System.Collections.Generic.IReadOnlyList<System.ValueTuple<string, string>>? forbiddenPatterns = null) { }
+        public static void AssertFragmentRefsResolve(System.Text.Json.JsonElement root, System.Text.Json.JsonElement evidenceFragments) { }
+    }
+}

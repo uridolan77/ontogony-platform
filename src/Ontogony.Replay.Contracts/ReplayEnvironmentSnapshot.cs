@@ -1,5 +1,6 @@
 namespace Ontogony.Replay.Contracts;
 
+/// <summary>Environment snapshot captured for replay reproducibility.</summary>
 public sealed record ReplayEnvironmentSnapshot(
     string ServiceName,
     string ServiceVersion,

@@ -7,6 +7,7 @@ using Ontogony.Primitives;
 
 namespace Ontogony.ProtocolIngress;
 
+/// <summary>DI registration for protocol ingress adapters.</summary>
 public static class ServiceCollectionExtensions
 {
     /// <summary>

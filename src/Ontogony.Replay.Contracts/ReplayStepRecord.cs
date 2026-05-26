@@ -1,5 +1,6 @@
 namespace Ontogony.Replay.Contracts;
 
+/// <summary>Single replay step boundary record.</summary>
 public sealed record ReplayStepRecord(
     string StepId,
     string StepKind,

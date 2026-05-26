@@ -15,6 +15,7 @@ public sealed class PostgresOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
     private readonly string _claimOwner;
     private readonly NpgsqlDataSource _dataSource;
 
+    /// <summary>Creates a PostgreSQL outbox store.</summary>
     public PostgresOutboxStore(
         PostgresOutboxOptions options,
         NpgsqlDataSource dataSource,
@@ -32,11 +33,13 @@ public sealed class PostgresOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
         _claimOwner = (idGenerator ?? new Ontogony.Primitives.GuidIdGenerator()).NewId("outbox-worker");
     }
 
+    /// <summary>Ensures outbox schema objects exist.</summary>
     public async Task EnsureSchemaAsync(CancellationToken cancellationToken = default)
     {
         await PostgresOutboxSchema.EnsureCreatedAsync(_dataSource, _names, cancellationToken).ConfigureAwait(false);
     }
 
+    /// <inheritdoc />
     public async Task WriteAsync(OutboxMessage message, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(message);
@@ -104,6 +107,7 @@ public sealed class PostgresOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
         }
     }
 
+    /// <inheritdoc />
     public async Task<IReadOnlyList<OutboxMessage>> ReadAvailableAsync(
         DateTimeOffset asOfUtc,
         int maxBatchSize,
@@ -112,6 +116,7 @@ public sealed class PostgresOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
         return await ClaimAvailableAsync(asOfUtc, maxBatchSize, leaseDuration: null, cancellationToken).ConfigureAwait(false);
     }
 
+    /// <inheritdoc />
     public async Task<IReadOnlyList<OutboxMessage>> ClaimAvailableAsync(
         DateTimeOffset asOfUtc,
         int maxBatchSize,
@@ -211,6 +216,7 @@ public sealed class PostgresOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
         return rows;
     }
 
+    /// <inheritdoc />
     public async Task<bool> TryClaimAsync(
         string messageId,
         DateTimeOffset asOfUtc,
@@ -258,6 +264,7 @@ public sealed class PostgresOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
         return affected == 1;
     }
 
+    /// <inheritdoc />
     public async Task<bool> RenewClaimAsync(
         string messageId,
         TimeSpan? leaseDuration = null,
@@ -301,6 +308,7 @@ public sealed class PostgresOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
         return affected == 1;
     }
 
+    /// <inheritdoc />
     public async Task ReleaseClaimAsync(string messageId, CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrWhiteSpace(messageId))
@@ -333,6 +341,7 @@ public sealed class PostgresOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
         await command.ExecuteNonQueryAsync(cancellationToken).ConfigureAwait(false);
     }
 
+    /// <inheritdoc />
     public async Task<bool> MarkDispatchedIfOwnedAsync(
         string messageId,
         DateTimeOffset dispatchedAtUtc,
@@ -374,6 +383,7 @@ public sealed class PostgresOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
         return affected == 1;
     }
 
+    /// <inheritdoc />
     public Task<bool> MarkFailedIfOwnedAsync(
         string messageId,
         string lastError,
@@ -383,6 +393,7 @@ public sealed class PostgresOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
         return MarkFailedCoreAsync(messageId, lastError, nextAvailableAtUtc, requireOwnership: true, cancellationToken);
     }
 
+    /// <inheritdoc />
     public async Task MarkDispatchedAsync(string messageId, DateTimeOffset dispatchedAtUtc, CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrWhiteSpace(messageId))
@@ -415,6 +426,7 @@ public sealed class PostgresOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
         await command.ExecuteNonQueryAsync(cancellationToken).ConfigureAwait(false);
     }
 
+    /// <inheritdoc />
     public async Task MarkFailedAsync(
         string messageId,
         string lastError,
@@ -541,6 +553,7 @@ public sealed class PostgresOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
         return true;
     }
 
+    /// <inheritdoc />
     public async Task<bool> HasProcessedAsync(string consumerName, string messageId, CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrWhiteSpace(consumerName))
@@ -575,6 +588,7 @@ public sealed class PostgresOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
         return result is true;
     }
 
+    /// <inheritdoc />
     public async Task MarkProcessedAsync(ProcessedMessage message, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(message);

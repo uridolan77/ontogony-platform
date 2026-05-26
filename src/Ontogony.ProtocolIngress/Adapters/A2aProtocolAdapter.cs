@@ -13,6 +13,7 @@ public sealed class A2aProtocolAdapter : BaseProtocolIngressAdapter, IProtocolIn
 {
     private const string ProtocolName = "a2a";
 
+    /// <summary>Creates an A2A ingress adapter.</summary>
     public A2aProtocolAdapter(
         PayloadHasher payloadHasher,
         IIdGenerator idGenerator,
@@ -22,6 +23,7 @@ public sealed class A2aProtocolAdapter : BaseProtocolIngressAdapter, IProtocolIn
     {
     }
 
+    /// <inheritdoc />
     public ProtocolIngressResult Normalize(A2aEvent raw, ProtocolIngressContext context)
     {
         if (raw == null)
@@ -91,13 +93,30 @@ public sealed class A2aProtocolAdapter : BaseProtocolIngressAdapter, IProtocolIn
 /// </summary>
 public sealed record A2aEvent
 {
+    /// <summary>Optional message identifier.</summary>
     public string? MessageId { get; init; }
+
+    /// <summary>A2A message type string.</summary>
     public required string MessageType { get; init; }
+
+    /// <summary>Sender agent identifier.</summary>
     public required string SenderId { get; init; }
+
+    /// <summary>Receiver agent identifier.</summary>
     public required string ReceiverId { get; init; }
+
+    /// <summary>Optional message timestamp.</summary>
     public DateTimeOffset? Timestamp { get; init; }
+
+    /// <summary>Optional trace identifier.</summary>
     public string? TraceId { get; init; }
+
+    /// <summary>Optional span identifier.</summary>
     public string? SpanId { get; init; }
+
+    /// <summary>Optional parent span identifier.</summary>
     public string? ParentSpanId { get; init; }
+
+    /// <summary>Optional protocol-specific payload object.</summary>
     public object? Payload { get; init; }
 }

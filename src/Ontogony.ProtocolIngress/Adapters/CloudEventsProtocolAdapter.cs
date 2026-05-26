@@ -12,6 +12,7 @@ public sealed class CloudEventsProtocolAdapter : BaseProtocolIngressAdapter, IPr
 {
     private const string ProtocolName = "cloudevents";
 
+    /// <summary>Creates a CloudEvents ingress adapter.</summary>
     public CloudEventsProtocolAdapter(
         PayloadHasher payloadHasher,
         IIdGenerator idGenerator,
@@ -21,6 +22,7 @@ public sealed class CloudEventsProtocolAdapter : BaseProtocolIngressAdapter, IPr
     {
     }
 
+    /// <inheritdoc />
     public ProtocolIngressResult Normalize(CloudEventEnvelope raw, ProtocolIngressContext context)
     {
         if (raw == null)

@@ -15,44 +15,52 @@ All `src/Ontogony.*` projects that `scripts/validate-shipping-inventory.ps1` cou
 
 These projects match **`src/Directory.Build.targets`**: root `NoWarn` includes `CS1591`, and this file **strips** that suppression so missing public XML comments **fail the build** (`TreatWarningsAsErrors=true`).
 
-The set is intentionally aligned with the **Conexus.NET baseline** in `docs/consumer-blueprints/conexus-dotnet-platform-readiness.md` (see `scripts/validate-conexus-consumer-baseline-alignment.ps1`).
+The Conexus.NET baseline in `docs/consumer-blueprints/conexus-dotnet-platform-readiness.md` remains the **minimum** consumer alignment set; PLAT-9-004 expanded Tier A to all shipped consumer-facing packages below (25 of 27 shipping packages). Guard: `PublicApiDocumentationPolicyTests`.
 
 | Package |
 | --- |
 | Ontogony.AI.Contracts |
 | Ontogony.Artifacts |
+| Ontogony.Configuration |
 | Ontogony.Contracts |
 | Ontogony.Errors |
+| Ontogony.Evaluation.Contracts |
 | Ontogony.Execution |
 | Ontogony.Hashing |
 | Ontogony.Hosting |
 | Ontogony.Http |
 | Ontogony.Idempotency |
 | Ontogony.Logging |
+| Ontogony.Messaging |
 | Ontogony.Observability |
+| Ontogony.Persistence |
+| Ontogony.Persistence.Postgres |
 | Ontogony.Primitives |
+| Ontogony.ProtocolIngress |
 | Ontogony.Quotas |
 | Ontogony.Redaction |
+| Ontogony.Replay.Contracts |
 | Ontogony.Secrets |
+| Ontogony.Secrets.AzureKeyVault |
 | Ontogony.Security |
+| Ontogony.Topology.Contracts |
 
-**Changing Tier A:** edit `src/Directory.Build.targets` and the readiness doc table together so the validation script stays green.
+**Changing Tier A:** edit `src/Directory.Build.targets`, `PublicApiDocumentationPolicyTests`, and (when Conexus-driven) the readiness doc table together.
 
-## Tier B — shipped; `CS1591` still suppressed (deferred doc completeness)
+## Tier C — shipped; XML docs intentionally relaxed
 
-These **ship** as NuGet packages but remain on the repo-wide `NoWarn` for `CS1591` until doc work catches up **or** they are promoted into the Conexus (or other) consumer baseline.
+These **ship** but are **not** product API contracts for runtime services. They stay on repo-wide `CS1591` suppression.
 
 | Package | Notes |
 | --- | --- |
-| Ontogony.Configuration | Mechanical configuration helpers |
-| Ontogony.Messaging | Messaging abstractions |
-| Ontogony.Persistence | Persistence ports/helpers |
-| Ontogony.Persistence.Postgres | Postgres-backed implementations |
-| Ontogony.ProtocolIngress | Ingress contracts |
-| Ontogony.Replay.Contracts | Replay-oriented contracts |
-| Ontogony.Testing | Test support (still shipped for reuse) |
+| Ontogony.Testing | Architecture/conformance test helpers for consumers |
+| Ontogony.SystemCompatibility | Six-repo gate tooling; not a runtime integration surface |
 
-**Promoting to Tier A:** add the project to `OntogonyConsumerSurfaceProject` in `src/Directory.Build.targets`, add the matching row to the Conexus readiness **Required packages** table (if Conexus is the driver), fix any new `CS1591` warnings, and merge as an intentional doc-hardening PR.
+## Tier B — (empty)
+
+All other shipping packages are Tier A. Use Tier C only for deliberate test/gate tooling exceptions.
+
+**Promoting to Tier A:** add the project to `OntogonyConsumerSurfaceProject` in `src/Directory.Build.targets`, update `PublicApiDocumentationPolicyTests`, fix every new `CS1591`, update this file, and merge as an intentional doc-hardening PR.
 
 ### Promotion checklist (Tier B → Tier A)
 

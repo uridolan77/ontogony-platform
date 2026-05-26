@@ -36,6 +36,7 @@ All paths are under `docs/_incoming/_consumed/2026-05/` unless noted.
 | ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-001 | **consumed** | Protocol promoted — [`contracts/DECISION_RECONSTRUCTABILITY_PROTOCOL_V0.md`](../../contracts/DECISION_RECONSTRUCTABILITY_PROTOCOL_V0.md) and related v0 contracts | 2026-05-26 |
 | ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-006 | **consumed** | DEC-RECON-006 Evidence Spine graph — frontend `appendAllagmaDecisionEventReconstructabilityGraph` | 2026-05-26 |
 | ONTOGONY-OBSERVABILITY-MECHANICS-PACK-001 | **consumed** | PLAT-9-005 — [`observability/`](../../observability/), [`evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_PHASE2_EVIDENCE.md`](../../evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_PHASE2_EVIDENCE.md) | 2026-05-26 |
+| ONTOGONY-PUBLIC-API-HARDENING-001 | **consumed** | PLAT-9-004 — [`evidence/PLAT_9_004_PUBLIC_API_HARDENING_EVIDENCE.md`](../../evidence/PLAT_9_004_PUBLIC_API_HARDENING_EVIDENCE.md), [`quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md`](../../quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md) | 2026-05-26 |
 
 ## Month folders
 

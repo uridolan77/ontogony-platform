@@ -6,8 +6,10 @@ using Ontogony.Persistence;
 
 namespace Ontogony.Persistence.Postgres;
 
+/// <summary>DI registration for PostgreSQL outbox storage.</summary>
 public static class PostgresPersistenceServiceCollectionExtensions
 {
+    /// <summary>Registers durable PostgreSQL outbox, processed-message, and claim-store services.</summary>
     public static IServiceCollection AddOntogonyPostgresOutbox(
         this IServiceCollection services,
         Action<PostgresOutboxOptions> configure)

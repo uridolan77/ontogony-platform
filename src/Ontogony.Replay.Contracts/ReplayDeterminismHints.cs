@@ -1,5 +1,6 @@
 namespace Ontogony.Replay.Contracts;
 
+/// <summary>Opaque determinism hints attached to a replay manifest.</summary>
 public sealed record ReplayDeterminismHints(
     string? Seed = null,
     string? Temperature = null,

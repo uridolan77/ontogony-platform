@@ -5,6 +5,7 @@ namespace Ontogony.Secrets.AzureKeyVault;
 /// </summary>
 public sealed class AzureKeyVaultSecretResolverOptions
 {
+    /// <summary>Configuration section name for Azure Key Vault options.</summary>
     public const string SectionName = "Ontogony:Secrets:AzureKeyVault";
 
     /// <summary>

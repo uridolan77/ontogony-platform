@@ -7,18 +7,21 @@ namespace Ontogony.Persistence.Postgres;
 /// </summary>
 public interface IPostgresOutboxClaimStore
 {
+    /// <summary>Claims and returns available outbox messages for this worker.</summary>
     Task<IReadOnlyList<OutboxMessage>> ClaimAvailableAsync(
         DateTimeOffset asOfUtc,
         int maxBatchSize,
         TimeSpan? leaseDuration = null,
         CancellationToken cancellationToken = default);
 
+    /// <summary>Attempts to claim a single message by identifier.</summary>
     Task<bool> TryClaimAsync(
         string messageId,
         DateTimeOffset asOfUtc,
         TimeSpan? leaseDuration = null,
         CancellationToken cancellationToken = default);
 
+    /// <summary>Renews the claim lease for a message owned by this worker.</summary>
     Task<bool> RenewClaimAsync(
         string messageId,
         TimeSpan? leaseDuration = null,
@@ -41,5 +44,6 @@ public interface IPostgresOutboxClaimStore
         DateTimeOffset nextAvailableAtUtc,
         CancellationToken cancellationToken = default);
 
+    /// <summary>Releases the claim lease for a message.</summary>
     Task ReleaseClaimAsync(string messageId, CancellationToken cancellationToken = default);
 }

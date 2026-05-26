@@ -1,5 +1,6 @@
 namespace Ontogony.Replay.Contracts;
 
+/// <summary>Replay eligibility assessment for a target.</summary>
 public sealed record ReplayEligibility(
     ReplayTarget Target,
     IReadOnlyList<string> EligibleModes,

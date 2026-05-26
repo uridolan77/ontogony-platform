@@ -5,6 +5,7 @@ namespace Ontogony.Secrets.AzureKeyVault;
 /// </summary>
 public static class AzureKeyVaultSecretLocator
 {
+    /// <summary>Parses a vault locator into secret name and optional version.</summary>
     public static bool TryParse(string locator, out string secretName, out string? version)
     {
         secretName = "";

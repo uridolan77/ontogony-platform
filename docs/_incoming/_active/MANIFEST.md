@@ -4,7 +4,7 @@ Last updated: **2026-05-26**
 
 | Package | Status | Reason active | Next action | Date |
 | --- | --- | --- | --- | --- |
-| *(none)* | — | PLAT-9-005 observability pack consumed | Add new intake when the next program starts | 2026-05-26 |
+| *(none)* | — | PLAT-9-004 public API hardening consumed | Add new intake when the next program starts | 2026-05-26 |
 
 **Consumed follow-on slices (not separate active packages):**
 
@@ -17,6 +17,7 @@ Last updated: **2026-05-26**
 | Evidence Spine graph (006) | **Done** | [`../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-006/`](../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-006/) |
 | Closure Option 1 (PR-001–006) | **Done** | [`../_consumed/2026-05/ONTOGONY-RECONSTRUCTABILITY-CLOSURE-OPTION1/`](../_consumed/2026-05/ONTOGONY-RECONSTRUCTABILITY-CLOSURE-OPTION1/) |
 | Observability mechanics (PLAT-9-005) | **Done** | [`../_consumed/2026-05/ONTOGONY-OBSERVABILITY-MECHANICS-PACK-001/`](../_consumed/2026-05/ONTOGONY-OBSERVABILITY-MECHANICS-PACK-001/) |
+| Public API hardening (PLAT-9-004) | **Done** | [`../_consumed/2026-05/ONTOGONY-PUBLIC-API-HARDENING-001/`](../_consumed/2026-05/ONTOGONY-PUBLIC-API-HARDENING-001/) |
 
 ## Above-9 platform work (not a separate active package)
 

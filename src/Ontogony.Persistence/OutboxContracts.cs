@@ -2,37 +2,50 @@ using System.Text.Json;
 
 namespace Ontogony.Persistence;
 
+/// <summary>Writes outbox messages for later dispatch.</summary>
 public interface IOutboxWriter
 {
+    /// <summary>Appends an outbox message.</summary>
     Task WriteAsync(OutboxMessage message, CancellationToken cancellationToken = default);
 }
 
+/// <summary>Reads outbox messages available for dispatch.</summary>
 public interface IOutboxReader
 {
+    /// <summary>Returns messages available at the given UTC instant, up to the batch size.</summary>
     Task<IReadOnlyList<OutboxMessage>> ReadAvailableAsync(
         DateTimeOffset asOfUtc,
         int maxBatchSize,
         CancellationToken cancellationToken = default);
 }
 
+/// <summary>Updates outbox dispatch state after handler attempts.</summary>
 public interface IOutboxDispatcher
 {
+    /// <summary>Marks a message as successfully dispatched.</summary>
     Task MarkDispatchedAsync(string messageId, DateTimeOffset dispatchedAtUtc, CancellationToken cancellationToken = default);
 
+    /// <summary>Marks a message as failed and schedules the next availability time.</summary>
     Task MarkFailedAsync(string messageId, string lastError, DateTimeOffset nextAvailableAtUtc, CancellationToken cancellationToken = default);
 }
 
+/// <summary>Tracks idempotent consumer processing of outbox messages.</summary>
 public interface IProcessedMessageStore
 {
+    /// <summary>Returns whether the consumer has already processed the message.</summary>
     Task<bool> HasProcessedAsync(string consumerName, string messageId, CancellationToken cancellationToken = default);
 
+    /// <summary>Records that the consumer processed the message.</summary>
     Task MarkProcessedAsync(ProcessedMessage message, CancellationToken cancellationToken = default);
 }
 
+/// <summary>Executes work inside a transactional boundary.</summary>
 public interface IUnitOfWorkBoundary
 {
+    /// <summary>Executes an operation inside a unit of work.</summary>
     Task ExecuteAsync(Func<CancellationToken, Task> operation, CancellationToken cancellationToken = default);
 
+    /// <summary>Executes an operation inside a unit of work and returns a result.</summary>
     Task<TResult> ExecuteAsync<TResult>(Func<CancellationToken, Task<TResult>> operation, CancellationToken cancellationToken = default);
 }
 
@@ -65,12 +78,14 @@ public sealed record OutboxMessage(
     string PayloadHash,
     string MetadataJson);
 
+/// <summary>Idempotent consumer processing record for an outbox message.</summary>
 public sealed record ProcessedMessage(
     string ConsumerName,
     string MessageId,
     DateTimeOffset ProcessedAt,
     string? TraceId = null);
 
+/// <summary>Outcome of dispatching a single outbox message.</summary>
 public sealed record OutboxDispatchResult(
     string MessageId,
     bool Dispatched,
@@ -83,6 +98,7 @@ public sealed record OutboxDispatchResult(
 /// </summary>
 public static class OutboxContracts
 {
+    /// <summary>Validates required outbox message fields.</summary>
     public static void Validate(OutboxMessage message)
     {
         ArgumentNullException.ThrowIfNull(message);
@@ -102,6 +118,7 @@ public static class OutboxContracts
         }
     }
 
+    /// <summary>Builds the composite key for processed-message deduplication.</summary>
     public static string BuildProcessedMessageKey(string consumerName, string messageId)
     {
         Require(consumerName, nameof(consumerName));
@@ -109,6 +126,7 @@ public static class OutboxContracts
         return $"{consumerName}:{messageId}";
     }
 
+    /// <summary>Calculates the next availability instant using exponential backoff.</summary>
     public static DateTimeOffset CalculateNextAvailableAt(
         DateTimeOffset nowUtc,
         int attemptCount,
@@ -134,6 +152,7 @@ public static class OutboxContracts
         return nowUtc.Add(delay);
     }
 
+    /// <summary>Serializes metadata to canonical sorted JSON object text.</summary>
     public static string SerializeMetadata(IReadOnlyDictionary<string, string>? metadata)
     {
         if (metadata is null || metadata.Count == 0)

@@ -13,6 +13,7 @@ public sealed class GenericJsonProtocolAdapter : BaseProtocolIngressAdapter, IPr
 {
     private const string ProtocolName = ProtocolNames.GenericJson;
 
+    /// <summary>Creates a generic JSON ingress adapter.</summary>
     public GenericJsonProtocolAdapter(
         PayloadHasher payloadHasher,
         IIdGenerator idGenerator,
@@ -22,6 +23,7 @@ public sealed class GenericJsonProtocolAdapter : BaseProtocolIngressAdapter, IPr
     {
     }
 
+    /// <inheritdoc />
     public ProtocolIngressResult Normalize(string rawJson, ProtocolIngressContext context)
     {
         if (string.IsNullOrWhiteSpace(rawJson))

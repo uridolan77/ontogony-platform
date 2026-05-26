@@ -1,5 +1,6 @@
 namespace Ontogony.Replay.Contracts;
 
+/// <summary>Replay comparison delta record (contracts only).</summary>
 public sealed record ReplayDelta(
     string ReplayId,
     string OriginalRootIdentifier,

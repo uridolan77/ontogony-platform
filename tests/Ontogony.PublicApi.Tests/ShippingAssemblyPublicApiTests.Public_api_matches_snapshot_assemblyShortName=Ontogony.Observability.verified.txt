@@ -13,6 +13,13 @@
         public string? TraceState { get; init; }
         public string? WorkspaceId { get; init; }
     }
+    public readonly struct HeaderSpanMapping : System.IEquatable<Ontogony.Observability.HeaderSpanMapping>
+    {
+        public HeaderSpanMapping(string HttpHeader, string SpanAttribute, string LogScopeKey) { }
+        public string HttpHeader { get; init; }
+        public string LogScopeKey { get; init; }
+        public string SpanAttribute { get; init; }
+    }
     public interface IIntegrationOperationMeter
     {
         void RecordFailure(string targetService, string operation, string errorCode, System.TimeSpan duration, System.Collections.Generic.IReadOnlyDictionary<string, string>? dimensions = null);
@@ -122,5 +129,15 @@
         public const string TraceIdItemKey = "Ontogony.TraceId";
         public RequestTracingMiddleware(Microsoft.AspNetCore.Http.RequestDelegate next, Microsoft.Extensions.Logging.ILogger<Ontogony.Observability.RequestTracingMiddleware> logger, Microsoft.Extensions.Options.IOptions<Ontogony.Observability.OntogonyObservabilityOptions> options) { }
         public System.Threading.Tasks.Task InvokeAsync(Microsoft.AspNetCore.Http.HttpContext context) { }
+    }
+    public static class SystemCorrelationConventions
+    {
+        public const string CorrelationHeader = "X-Ontogony-Correlation-Id";
+        public const string LogScopeOperationId = "operationId";
+        public const string LogScopeTraceId = "traceId";
+        public const string TraceHeader = "X-Ontogony-Trace-Id";
+        public static System.Collections.Generic.IReadOnlyList<Ontogony.Observability.HeaderSpanMapping> CorrelationHeaderSpanMappings { get; }
+        public static void ApplyToActivity(System.Diagnostics.Activity? activity, Ontogony.Observability.CorrelationState state) { }
+        public static System.Collections.Generic.IReadOnlyDictionary<string, object?> ToLogScope(Ontogony.Observability.CorrelationState state, string? serviceName = null) { }
     }
 }

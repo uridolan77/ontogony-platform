@@ -17,6 +17,7 @@ public sealed class InMemoryEventPublisher : IEventPublisher, IEventPublisherWit
     private readonly List<object> _handlers = [];
     private readonly object _sync = new();
 
+    /// <summary>Creates a publisher with optional sink, dispatch options, and payload hasher.</summary>
     public InMemoryEventPublisher(
         InMemoryEventSink? sink = null,
         EventDispatchOptions? options = null,
@@ -27,8 +28,10 @@ public sealed class InMemoryEventPublisher : IEventPublisher, IEventPublisherWit
         _envelopePayloadHasher = envelopePayloadHasher ?? new EnvelopePayloadHasher(new PayloadHasher(new Sha256ContentHashService()));
     }
 
+    /// <summary>Capture sink for published envelopes.</summary>
     public InMemoryEventSink Sink => _sink;
 
+    /// <summary>Registers an in-process handler for a payload type.</summary>
     public void Register<TPayload>(IEventHandler<TPayload> handler)
     {
         ArgumentNullException.ThrowIfNull(handler);

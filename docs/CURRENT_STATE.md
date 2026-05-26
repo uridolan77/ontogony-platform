@@ -46,7 +46,7 @@ Cross-repo acceptance (cohesion, streaming, replay) lives in **product repos** �
 
 | Item | Status |
 | --- | --- |
-| Public XML docs (`CS1591`) | **Partial** — Tier A complete (0 CS1591); Tier B explicit backlog in [`evidence/PLAT_DEPTH_004_TIER_A_DOCS_EVIDENCE.md`](./evidence/PLAT_DEPTH_004_TIER_A_DOCS_EVIDENCE.md) |
+| Public XML docs (`CS1591`) | **Implemented** — 25 Tier A packages enforced; Tier C for Testing/SystemCompatibility ([`evidence/PLAT_9_004_PUBLIC_API_HARDENING_EVIDENCE.md`](./evidence/PLAT_9_004_PUBLIC_API_HARDENING_EVIDENCE.md)) |
 | HTTP resilience v1 completion | **Implemented** — exponential backoff option, budget bypass, classifier context, circuit registry boundary ([`migrations/2026-05-26-plat-depth-http-resilience-completion.md`](./migrations/2026-05-26-plat-depth-http-resilience-completion.md)) |
 | Conformance harness depth | **Implemented** — Postgres outbox harness path, artifact stream/scope checks ([`adoption/conformance-kits.md`](./adoption/conformance-kits.md)) |
 | Observability mechanics (PLAT-9-005) | **Implemented** — [`observability/`](./observability/), dashboards/alerts, `run-observability-mechanics-conformance.ps1` ([`evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_PHASE2_EVIDENCE.md`](./evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_PHASE2_EVIDENCE.md)) |

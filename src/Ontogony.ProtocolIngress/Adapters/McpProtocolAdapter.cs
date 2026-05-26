@@ -13,6 +13,7 @@ public sealed class McpProtocolAdapter : BaseProtocolIngressAdapter, IProtocolIn
 {
     private const string ProtocolName = "mcp";
 
+    /// <summary>Creates an MCP ingress adapter.</summary>
     public McpProtocolAdapter(
         PayloadHasher payloadHasher,
         IIdGenerator idGenerator,
@@ -22,6 +23,7 @@ public sealed class McpProtocolAdapter : BaseProtocolIngressAdapter, IProtocolIn
     {
     }
 
+    /// <inheritdoc />
     public ProtocolIngressResult Normalize(McpEvent raw, ProtocolIngressContext context)
     {
         if (raw == null)
@@ -87,14 +89,33 @@ public sealed class McpProtocolAdapter : BaseProtocolIngressAdapter, IProtocolIn
 /// </summary>
 public sealed record McpEvent
 {
+    /// <summary>Optional event identifier.</summary>
     public string? EventId { get; init; }
+
+    /// <summary>MCP event type string.</summary>
     public required string EventType { get; init; }
+
+    /// <summary>MCP source string.</summary>
     public required string Source { get; init; }
+
+    /// <summary>Optional event timestamp.</summary>
     public DateTimeOffset? Timestamp { get; init; }
+
+    /// <summary>Optional trace identifier.</summary>
     public string? TraceId { get; init; }
+
+    /// <summary>Optional span identifier.</summary>
     public string? SpanId { get; init; }
+
+    /// <summary>Optional parent span identifier.</summary>
     public string? ParentSpanId { get; init; }
+
+    /// <summary>Optional actor identifier.</summary>
     public string? ActorId { get; init; }
+
+    /// <summary>Optional session identifier.</summary>
     public string? SessionId { get; init; }
+
+    /// <summary>Optional protocol-specific payload object.</summary>
     public object? Data { get; init; }
 }

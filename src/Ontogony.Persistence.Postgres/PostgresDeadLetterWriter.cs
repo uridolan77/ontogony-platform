@@ -11,6 +11,7 @@ public sealed class PostgresDeadLetterWriter : IDeadLetterWriter
     private readonly NpgsqlDataSource _dataSource;
     private readonly PostgresSqlNames _names;
 
+    /// <summary>Creates a PostgreSQL dead-letter writer.</summary>
     public PostgresDeadLetterWriter(PostgresOutboxOptions options, NpgsqlDataSource dataSource)
     {
         ArgumentNullException.ThrowIfNull(options);
@@ -21,11 +22,13 @@ public sealed class PostgresDeadLetterWriter : IDeadLetterWriter
         _dataSource = dataSource;
     }
 
+    /// <summary>Ensures dead-letter and related outbox schema objects exist.</summary>
     public async Task EnsureSchemaAsync(CancellationToken cancellationToken = default)
     {
         await PostgresOutboxSchema.EnsureCreatedAsync(_dataSource, _names, cancellationToken).ConfigureAwait(false);
     }
 
+    /// <inheritdoc />
     public async Task WriteAsync(DeadLetterMessage deadLetter, CancellationToken cancellationToken = default)
     {
         await using var connection = await _dataSource.OpenConnectionAsync(cancellationToken).ConfigureAwait(false);

@@ -13,6 +13,7 @@ public sealed class InMemoryOutboxStore : IOutboxWriter, IOutboxReader, IOutboxD
     private readonly Dictionary<string, ProcessedMessage> _processed = new(StringComparer.Ordinal);
     private readonly object _sync = new();
 
+    /// <summary>Creates an in-memory outbox store with optional dead-letter integration.</summary>
     public InMemoryOutboxStore(
         InMemoryOutboxStoreOptions? options = null,
         IDeadLetterWriter? deadLetterWriter = null,

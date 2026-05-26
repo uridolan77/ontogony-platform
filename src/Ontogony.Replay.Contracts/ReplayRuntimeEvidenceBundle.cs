@@ -1,5 +1,6 @@
 namespace Ontogony.Replay.Contracts;
 
+/// <summary>Replay runtime evidence bundle envelope.</summary>
 public sealed record ReplayRuntimeEvidenceBundle(
     string Schema,
     ReplayRuntimeRequest Request,

@@ -13,6 +13,7 @@ public sealed class AzureKeyVaultSecretClient : IAzureKeyVaultSecretClient
     private readonly SecretClient _client;
     private readonly ILogger<AzureKeyVaultSecretClient> _logger;
 
+    /// <summary>Creates a client using configured vault URI and default Azure credentials.</summary>
     public AzureKeyVaultSecretClient(IOptions<AzureKeyVaultSecretResolverOptions> options, ILogger<AzureKeyVaultSecretClient> logger)
     {
         _logger = logger;
@@ -31,6 +32,7 @@ public sealed class AzureKeyVaultSecretClient : IAzureKeyVaultSecretClient
         _client = new SecretClient(uri, new DefaultAzureCredential());
     }
 
+    /// <inheritdoc />
     public async Task<string?> GetSecretValueAsync(string secretName, string? version, CancellationToken cancellationToken = default)
     {
         try

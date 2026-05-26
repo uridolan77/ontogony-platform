@@ -13,6 +13,7 @@ public sealed class AgUiProtocolAdapter : BaseProtocolIngressAdapter, IProtocolI
 {
     private const string ProtocolName = "ag-ui";
 
+    /// <summary>Creates an AG-UI ingress adapter.</summary>
     public AgUiProtocolAdapter(
         PayloadHasher payloadHasher,
         IIdGenerator idGenerator,
@@ -22,6 +23,7 @@ public sealed class AgUiProtocolAdapter : BaseProtocolIngressAdapter, IProtocolI
     {
     }
 
+    /// <inheritdoc />
     public ProtocolIngressResult Normalize(AgUiEvent raw, ProtocolIngressContext context)
     {
         if (raw == null)
@@ -91,13 +93,30 @@ public sealed class AgUiProtocolAdapter : BaseProtocolIngressAdapter, IProtocolI
 /// </summary>
 public sealed record AgUiEvent
 {
+    /// <summary>Optional event identifier.</summary>
     public string? EventId { get; init; }
+
+    /// <summary>AG-UI action name.</summary>
     public required string Action { get; init; }
+
+    /// <summary>AG-UI session identifier.</summary>
     public required string SessionId { get; init; }
+
+    /// <summary>Optional user identifier.</summary>
     public string? UserId { get; init; }
+
+    /// <summary>Optional event timestamp.</summary>
     public DateTimeOffset? Timestamp { get; init; }
+
+    /// <summary>Optional trace identifier.</summary>
     public string? TraceId { get; init; }
+
+    /// <summary>Optional span identifier.</summary>
     public string? SpanId { get; init; }
+
+    /// <summary>Optional parent span identifier.</summary>
     public string? ParentSpanId { get; init; }
+
+    /// <summary>Optional protocol-specific payload object.</summary>
     public object? Data { get; init; }
 }

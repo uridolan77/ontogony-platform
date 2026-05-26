@@ -8,6 +8,7 @@ public sealed class InMemoryDeadLetterWriter : IDeadLetterWriter
     private readonly List<DeadLetterMessage> _messages = [];
     private readonly object _sync = new();
 
+    /// <inheritdoc />
     public Task WriteAsync(DeadLetterMessage deadLetter, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(deadLetter);
@@ -19,6 +20,7 @@ public sealed class InMemoryDeadLetterWriter : IDeadLetterWriter
         return Task.CompletedTask;
     }
 
+    /// <summary>Number of captured dead-letter messages.</summary>
     public int Count
     {
         get
@@ -30,6 +32,7 @@ public sealed class InMemoryDeadLetterWriter : IDeadLetterWriter
         }
     }
 
+    /// <summary>Returns all captured dead-letter messages.</summary>
     public IReadOnlyList<DeadLetterMessage> ReadAll()
     {
         lock (_sync)
@@ -38,6 +41,7 @@ public sealed class InMemoryDeadLetterWriter : IDeadLetterWriter
         }
     }
 
+    /// <summary>Removes all captured dead-letter messages.</summary>
     public void Clear()
     {
         lock (_sync)
