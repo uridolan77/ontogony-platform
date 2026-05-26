@@ -119,9 +119,9 @@ See [`_incoming/_active/MANIFEST.md`](./_incoming/_active/MANIFEST.md):
 | Package | Status |
 | --- | --- |
 | ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-001 | in_progress |
-| ONTOGONY-BACKEND-ABOVE9-PACKAGES | planned |
-
 **Archived this follow-up:** ONTOGONY-IMPLEMENTATION-DEPTH-OVER9-001 (platform slice → `_consumed/2026-05/`).
+
+**2026-05-26:** Removed empty `ONTOGONY-BACKEND-ABOVE9-PACKAGES` stub; above-9 backlog tracked in [`_consumed/2026-05/SIX-REPO-SCORE-PLANS/README.md`](./_incoming/_consumed/2026-05/SIX-REPO-SCORE-PLANS/README.md).
 
 ---
 
@@ -167,7 +167,7 @@ See [`_incoming/_consumed/MANIFEST.md`](./_incoming/_consumed/MANIFEST.md) — *
 ## Recommended next cleanup pass
 
 1. Promote **decision reconstructability** protocol docs to `docs/contracts/` when Task 5 completes, then **move** spine package to `_consumed` (required by intake policy).
-2. Archive **ONTOGONY-BACKEND-ABOVE9-PACKAGES** when PLAT-9 slices are promoted or superseded.
+2. Close remaining **PLAT-9-003 / 004 / 005** per [`SIX-REPO-SCORE-PLANS/README.md`](./_incoming/_consumed/2026-05/SIX-REPO-SCORE-PLANS/README.md).
 3. Run `scripts/validate-learn-docs.ps1` and a repo-wide link check after the next large intake batch.
 4. Consider restoring `validate-stale-incoming-package.ps1` if intake volume regrows.
 

@@ -111,6 +111,7 @@ Implementation packages: [`packages/Ontogony.Observability.md`](./packages/Ontog
 | Intake policy + **archive to `_consumed`** | [`_incoming/README.md`](./_incoming/README.md) |
 | Active packages | [`_incoming/_active/MANIFEST.md`](./_incoming/_active/MANIFEST.md) |
 | Consumed archive | [`_incoming/_consumed/MANIFEST.md`](./_incoming/_consumed/MANIFEST.md) |
+| Above-9 score plans (platform PLAT-9 backlog) | [`_incoming/_consumed/2026-05/SIX-REPO-SCORE-PLANS/README.md`](./_incoming/_consumed/2026-05/SIX-REPO-SCORE-PLANS/README.md) |
 
 ---
 
