@@ -11,9 +11,23 @@ Staged enforcement per [`docs/quality/PLAT-QUALITY-001-public-api-docs-and-cover
 
 Tier A packages (Conexus consumer baseline) build with **CS1591 enforced** — Release build of `Ontogony.Platform.sln` reports **0 warnings**.
 
-## Tier B deferrals (unchanged)
+## Tier B deferrals (explicit backlog)
 
-`Ontogony.Configuration`, `Ontogony.Messaging`, `Ontogony.Persistence`, `Ontogony.Persistence.Postgres`, `Ontogony.Replay.Contracts`, `Ontogony.SystemCompatibility`, and other non-baseline packages remain on repo-wide `CS1591` suppression until promoted.
+| Package | Notes |
+| --- | --- |
+| Ontogony.Configuration | Mechanical configuration helpers |
+| Ontogony.Messaging | Messaging abstractions |
+| Ontogony.Persistence | Persistence ports |
+| Ontogony.Persistence.Postgres | Postgres adapters |
+| Ontogony.ProtocolIngress | Ingress contracts |
+| Ontogony.Replay.Contracts | Replay-oriented contracts only |
+| Ontogony.Testing | Shipped test support; docs relaxed |
+| Ontogony.SystemCompatibility | Gate tooling |
+| Ontogony.Evaluation.Contracts | Cross-cutting contracts |
+| Ontogony.Topology.Contracts | Cross-cutting contracts |
+| Ontogony.Secrets.AzureKeyVault | Optional adapter |
+
+PLAT-DEPTH-001 public API additions (`BackoffPolicy`, `RetryExceptionContext`, `IRetryClassifierV2`, `ICircuitBreakerRegistry`, `TransportResilienceBackoff`) are documented on Tier A `Ontogony.Http` with **0 CS1591** on Release build.
 
 ## Validation
 

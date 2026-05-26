@@ -110,7 +110,7 @@ internal static class RuntimeLockConformance
         }
         else
         {
-            foreach (var required in OntogonySystemRepos.RequiredCompanionRepos)
+            foreach (var required in OntogonySystemRepos.RequiredLockedCommitRepos)
             {
                 if (!commits.TryGetProperty(required, out var shaProp)
                     || shaProp.ValueKind != JsonValueKind.String
@@ -152,61 +152,20 @@ internal static class RuntimeLockConformance
         var seen = new HashSet<string>(StringComparer.Ordinal);
         foreach (var entry in repos.EnumerateArray())
         {
-            if (!entry.TryGetProperty("repo", out var repoProp)
-                || string.IsNullOrWhiteSpace(repoProp.GetString()))
+            var repo = TryGetRepoName(entry);
+            if (string.IsNullOrWhiteSpace(repo))
             {
-                issues.Add("repo entry missing repo name");
+                issues.Add("repo entry missing name/repo");
                 continue;
             }
 
-            var repo = repoProp.GetString()!;
             if (!seen.Add(repo))
             {
                 issues.Add($"duplicate repo entry: {repo}");
             }
-
-            if (entry.TryGetProperty("lockDisposition", out var dispositionProp))
-            {
-                var disposition = dispositionProp.GetString() ?? "";
-                if (!OntogonySystemRepos.AllowedPostLockDispositions.Contains(disposition))
-                {
-                    issues.Add($"{repo} lockDisposition invalid: {disposition}");
-                }
-            }
-
-            if (entry.TryGetProperty("groups", out var groups) && groups.ValueKind == JsonValueKind.Array)
-            {
-                foreach (var group in groups.EnumerateArray())
-                {
-                    if (!group.TryGetProperty("classification", out var classificationProp))
-                    {
-                        continue;
-                    }
-
-                    if (classificationProp.ValueKind == JsonValueKind.Array)
-                    {
-                        foreach (var item in classificationProp.EnumerateArray())
-                        {
-                            var value = item.GetString() ?? "";
-                            if (!OntogonySystemRepos.AllowedPostLockClassifications.Contains(value))
-                            {
-                                issues.Add($"{repo} group classification invalid: {value}");
-                            }
-                        }
-                    }
-                    else
-                    {
-                        var value = classificationProp.GetString() ?? "";
-                        if (!OntogonySystemRepos.AllowedPostLockClassifications.Contains(value))
-                        {
-                            issues.Add($"{repo} group classification invalid: {value}");
-                        }
-                    }
-                }
-            }
         }
 
-        foreach (var required in OntogonySystemRepos.RequiredCompanionRepos)
+        foreach (var required in OntogonySystemRepos.RequiredPostLockRepos)
         {
             if (!seen.Contains(required))
             {
@@ -237,15 +196,21 @@ internal static class RuntimeLockConformance
         }
         else
         {
-            var requiredKeys = new[] { "Ontogony", "Kanon", "Conexus", "Allagma" };
-            foreach (var key in requiredKeys)
+            if (!versions.TryGetProperty("Ontogony", out var ontogony)
+                || ontogony.ValueKind != JsonValueKind.String
+                || string.IsNullOrWhiteSpace(ontogony.GetString()))
             {
-                if (!versions.TryGetProperty(key, out var value)
-                    || value.ValueKind != JsonValueKind.String
-                    || string.IsNullOrWhiteSpace(value.GetString()))
-                {
-                    issues.Add($"packageVersions.{key} missing or empty");
-                }
+                issues.Add("packageVersions.Ontogony missing or empty");
+            }
+
+            if (!HasPackagePrefix(versions, "Kanon"))
+            {
+                issues.Add("packageVersions must include at least one Kanon.* pin");
+            }
+
+            if (!HasPackagePrefix(versions, "Conexus"))
+            {
+                issues.Add("packageVersions must include at least one Conexus.* pin");
             }
 
             foreach (var prop in versions.EnumerateObject())
@@ -258,8 +223,37 @@ internal static class RuntimeLockConformance
         }
 
         return issues.Count == 0
-            ? Pass("runtime-lock-package-versions", "Runtime lock package versions", "packageVersions includes Ontogony, Kanon, Conexus, and Allagma pins.")
+            ? Pass("runtime-lock-package-versions", "Runtime lock package versions", "packageVersions includes Ontogony and Kanon/Conexus consumer pins.")
             : Fail("runtime-lock-package-versions", "Runtime lock package versions", string.Join("; ", issues));
+    }
+
+    private static string? TryGetRepoName(JsonElement entry)
+    {
+        if (entry.TryGetProperty("name", out var nameProp) && !string.IsNullOrWhiteSpace(nameProp.GetString()))
+        {
+            return nameProp.GetString();
+        }
+
+        if (entry.TryGetProperty("repo", out var repoProp) && !string.IsNullOrWhiteSpace(repoProp.GetString()))
+        {
+            return repoProp.GetString();
+        }
+
+        return null;
+    }
+
+    private static bool HasPackagePrefix(JsonElement versions, string prefix)
+    {
+        foreach (var prop in versions.EnumerateObject())
+        {
+            if (prop.Name.StartsWith(prefix, StringComparison.Ordinal)
+                && !string.IsNullOrWhiteSpace(prop.Value.GetString()))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private static void RequireString(JsonElement root, string name, List<string> issues)

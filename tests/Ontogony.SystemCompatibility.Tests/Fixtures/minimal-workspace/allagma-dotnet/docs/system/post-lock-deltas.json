@@ -1,0 +1,10 @@
+{
+  "schema": "ontogony-post-lock-deltas-v1",
+  "baseline": "SYSTEM-TEST-001",
+  "repos": [
+    { "name": "ontogony-platform" },
+    { "name": "allagma-dotnet" },
+    { "name": "kanon-dotnet" },
+    { "name": "conexus-dotnet" }
+  ]
+}

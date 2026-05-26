@@ -71,7 +71,7 @@ public static class ArtifactStoreConformanceHarness
         var put = await store.PutAsync(new ArtifactStreamPutRequest
         {
             MediaType = "application/octet-stream",
-            Content = stream,
+            ContentStream = stream,
             TenantId = "tenant-conformance-stream"
         });
 
@@ -94,7 +94,7 @@ public static class ArtifactStoreConformanceHarness
             await store.PutAsync(new ArtifactStreamPutRequest
             {
                 MediaType = "application/octet-stream",
-                Content = stream,
+                ContentStream = stream,
                 ExpectedContentHash = "0000000000000000000000000000000000000000000000000000000000000000"
             });
             throw new InvalidOperationException("Expected InvalidOperationException for hash mismatch.");

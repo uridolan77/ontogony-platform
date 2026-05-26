@@ -110,7 +110,7 @@ Rows depend on columns. **✓** means the row package may `ProjectReference` the
 | **Ontogony.Security** |   |   |   | ✓ |   |   |   |   | ✓ |   |   |   |   |   |   | ✓ |   |   |   |   |   |   |   |   |
 | **Ontogony.SystemCompatibility** |   |   |   | ✓ | ✓ |   |   | ✓ |   | ✓ |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 | **Ontogony.Topology.Contracts** |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-| **Ontogony.Testing** |   |   |   | ✓ | ✓ |   | ✓ |   | ✓ |   |   | ✓ | ✓ | ✓ |   | ✓ |   |   |   |   |   | ✓ |   |   |
+| **Ontogony.Testing** |   | ✓ |   | ✓ | ✓ |   |   | ✓ |   | ✓ | ✓ |   | ✓ | ✓ | ✓ |   | ✓ |   |   |   |   |   | ✓ |   |   |
 
 **Header abbreviations:** AI = AI.Contracts, Art = Artifacts, Cfg = Configuration, Con = Contracts, Err = Errors, Eva = Evaluation.Contracts, Exe = Execution, Hash = Hashing, Hst = Hosting, Http = Http, Idem = Idempotency, Log = Logging, Msg = Messaging, Obs = Observability, Per = Persistence, Pg = Persistence.Postgres, Pri = Primitives, Ing = ProtocolIngress, Quo = Quotas, Rdc = Redaction, Rpl = Replay.Contracts, Scr = Secrets, Sec = Security, Top = Topology.Contracts, Tst = Testing.
 

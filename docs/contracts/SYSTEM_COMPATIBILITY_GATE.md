@@ -53,6 +53,19 @@ Legacy inbound: `Idempotency-Key`, `X-Ontogony-Roles`. See [`header-compatibilit
 
 Reusable proofs: `Ontogony.Testing.HeaderPropagationConformanceAssertions`.
 
+## Runtime lock checks (PLAT-DEPTH-003)
+
+| Check id | Validates |
+| --- | --- |
+| `runtime-lock-shape` | Required lock fields and 40-char SHAs |
+| `runtime-lock-repos` | `lockedCommits` includes all four backend repos |
+| `runtime-lock-package-versions` | `packageVersions.Ontogony` plus Kanon.* and Conexus.* pins |
+| `post-lock-deltas` | `ontogony-post-lock-deltas-v1` schema |
+| `post-lock-delta-repos` | Backend four-repo coverage in `post-lock-deltas.json` (`name` or `repo`) |
+| `platform-version` | `Directory.Build.props` `<Version>` matches lock `Ontogony` |
+
+**Allagma consumer:** `allagma-dotnet/scripts/validate-runtime-lock.ps1 -ReleaseMode` may require a green `artifacts/system-compat/system-compatibility-summary.json` from this gate when Platform is present under `-DevRoot`.
+
 ## Run locally
 
 ```powershell

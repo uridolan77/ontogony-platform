@@ -12,7 +12,10 @@ Machine-readable system compatibility summary plus runtime lock / post-lock delt
 | Check id | Description |
 | --- | --- |
 | `runtime-lock-shape` | Required `ontogony-runtime.lock.json` fields and 40-char SHAs |
+| `runtime-lock-repos` | `lockedCommits` lists all four backend companion repos |
+| `runtime-lock-package-versions` | `packageVersions` includes Ontogony + Kanon.* + Conexus.* pins |
 | `post-lock-deltas` | `ontogony-post-lock-deltas-v1` schema in Allagma register |
+| `post-lock-delta-repos` | Backend four-repo coverage in post-lock delta `repos[]` |
 
 Existing gate still covers: registry vs lock alignment, Kanon/Conexus manifests, feature matrix, propagation headers, error envelope matrix.
 

@@ -1,4 +1,5 @@
 {
+  "system": "ontogony-alpha-governed-runtime",
   "baseline": "SYSTEM-TEST-001",
   "lockedCommits": {
     "ontogony-platform": "0000000000000000000000000000000000000001",
@@ -6,6 +7,7 @@
     "kanon-dotnet": "0000000000000000000000000000000000000003",
     "conexus-dotnet": "0000000000000000000000000000000000000004"
   },
+  "postLockDeltaRegister": "docs/system/post-lock-deltas.json",
   "packageVersions": {
     "Ontogony": "0.3.0-alpha.1",
     "Kanon.Client": "0.1.0-alpha.0",
@@ -17,5 +19,6 @@
     "allagma": "/allagma/v0",
     "kanon": "/ontology/v0",
     "conexus": "/v1/chat/completions"
-  }
+  },
+  "requiredScenarios": ["correlation_chain"]
 }

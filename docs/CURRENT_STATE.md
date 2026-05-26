@@ -46,7 +46,10 @@ Cross-repo acceptance (cohesion, streaming, replay) lives in **product repos** �
 
 | Item | Status |
 | --- | --- |
-| Public XML docs (`CS1591`) | **Partial** — Tier A complete (0 CS1591 on baseline build); Tier B deferred ([`quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md`](./quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md), [`evidence/PLAT_DEPTH_004_TIER_A_DOCS_EVIDENCE.md`](./evidence/PLAT_DEPTH_004_TIER_A_DOCS_EVIDENCE.md)) |
+| Public XML docs (`CS1591`) | **Partial** — Tier A complete (0 CS1591); Tier B explicit backlog in [`evidence/PLAT_DEPTH_004_TIER_A_DOCS_EVIDENCE.md`](./evidence/PLAT_DEPTH_004_TIER_A_DOCS_EVIDENCE.md) |
+| HTTP resilience v1 completion | **Implemented** — exponential backoff option, budget bypass, classifier context, circuit registry boundary ([`migrations/2026-05-26-plat-depth-http-resilience-completion.md`](./migrations/2026-05-26-plat-depth-http-resilience-completion.md)) |
+| Conformance harness depth | **Implemented** — Postgres outbox harness path, artifact stream/scope checks ([`adoption/conformance-kits.md`](./adoption/conformance-kits.md)) |
+| Compatibility gate repo/package checks | **Implemented** — `runtime-lock-repos`, `post-lock-delta-repos`, `runtime-lock-package-versions` |
 | PLAT-NP-008 in-memory DI warning coverage | **Partial** — maintenance guard when new public DI surfaces land |
 
 ---

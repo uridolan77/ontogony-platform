@@ -1,5 +1,10 @@
 ﻿namespace Ontogony.Http
 {
+    public enum BackoffPolicy
+    {
+        Linear = 0,
+        Exponential = 1,
+    }
     public sealed class CorrelationHeadersDelegatingHandler : Ontogony.Http.IntegrationHeadersDelegatingHandler
     {
         public CorrelationHeadersDelegatingHandler(System.Collections.Generic.IEnumerable<Ontogony.Http.IOutboundActorPropagator>? propagators = null) { }
@@ -9,11 +14,12 @@
         public CorrelationOutboundActorPropagator() { }
         public bool TryGetActor(out Ontogony.Http.OutboundActorSnapshot snapshot) { }
     }
-    public sealed class DefaultRetryClassifier : Ontogony.Http.IRetryClassifier
+    public sealed class DefaultRetryClassifier : Ontogony.Http.IRetryClassifier, Ontogony.Http.IRetryClassifierV2
     {
         public DefaultRetryClassifier(Microsoft.Extensions.Options.IOptions<Ontogony.Http.TransportResilienceOptions> options) { }
         public DefaultRetryClassifier(Ontogony.Http.TransportResilienceOptions options) { }
         public Ontogony.Http.RetryDecision ShouldRetry(System.Net.Http.HttpRequestMessage request, System.Net.Http.HttpResponseMessage? response, System.Exception? exception) { }
+        public Ontogony.Http.RetryDecision ShouldRetry(System.Net.Http.HttpRequestMessage request, System.Net.Http.HttpResponseMessage? response, System.Exception? exception, Ontogony.Http.RetryExceptionContext context) { }
     }
     public sealed class HttpIntegrationOptions
     {
@@ -24,6 +30,13 @@
         [System.ComponentModel.DataAnnotations.Range(1, 600)]
         public int TimeoutSeconds { get; set; }
     }
+    public interface ICircuitBreakerRegistry
+    {
+        System.Collections.Generic.IReadOnlyDictionary<string, Ontogony.Http.TransportResilienceSnapshot> GetSnapshot();
+        void RecordFailure(string clientName, Ontogony.Http.TransportResilienceOptions options);
+        void RecordSuccess(string clientName, Ontogony.Http.TransportResilienceOptions options);
+        System.Net.Http.HttpResponseMessage? TryGetCircuitOpenSyntheticResponse(string clientName, Ontogony.Http.TransportResilienceOptions options);
+    }
     public interface IOutboundActorPropagator
     {
         bool TryGetActor(out Ontogony.Http.OutboundActorSnapshot snapshot);
@@ -31,6 +44,10 @@
     public interface IRetryClassifier
     {
         Ontogony.Http.RetryDecision ShouldRetry(System.Net.Http.HttpRequestMessage request, System.Net.Http.HttpResponseMessage? response, System.Exception? exception);
+    }
+    public interface IRetryClassifierV2 : Ontogony.Http.IRetryClassifier
+    {
+        Ontogony.Http.RetryDecision ShouldRetry(System.Net.Http.HttpRequestMessage request, System.Net.Http.HttpResponseMessage? response, System.Exception? exception, Ontogony.Http.RetryExceptionContext context);
     }
     public enum IntegrationAdapterMode
     {
@@ -118,11 +135,32 @@
         public ResilientIntegrationDelegatingHandler(string clientName, Ontogony.Http.TransportResilienceRegistry registry, Microsoft.Extensions.Options.IOptions<Ontogony.Http.TransportResilienceOptions> options, Ontogony.Primitives.IClock clock, Ontogony.Http.IRetryClassifier? retryClassifier = null) { }
         protected override System.Threading.Tasks.Task<System.Net.Http.HttpResponseMessage> SendAsync(System.Net.Http.HttpRequestMessage request, System.Threading.CancellationToken cancellationToken) { }
     }
+    public abstract class RetryClassifierAdapterBase : Ontogony.Http.IRetryClassifier, Ontogony.Http.IRetryClassifierV2
+    {
+        protected RetryClassifierAdapterBase() { }
+        public abstract Ontogony.Http.RetryDecision ShouldRetry(System.Net.Http.HttpRequestMessage request, System.Net.Http.HttpResponseMessage? response, System.Exception? exception, Ontogony.Http.RetryExceptionContext context);
+    }
     public enum RetryDecision
     {
         DoNotRetry = 0,
         Retry = 1,
         RetryBypassingBudget = 2,
+    }
+    public sealed class RetryExceptionContext : System.IEquatable<Ontogony.Http.RetryExceptionContext>
+    {
+        public RetryExceptionContext(int AttemptNumber, int MaxRetries, System.TimeSpan TotalElapsed, System.TimeSpan? AttemptTimeout, System.TimeSpan? TotalTimeout, bool IsCallerCancellation, bool IsAttemptTimeout, bool IsTotalTimeout) { }
+        public int AttemptNumber { get; init; }
+        public System.TimeSpan? AttemptTimeout { get; init; }
+        public bool IsAttemptTimeout { get; init; }
+        public bool IsCallerCancellation { get; init; }
+        public bool IsTotalTimeout { get; init; }
+        public int MaxRetries { get; init; }
+        public System.TimeSpan TotalElapsed { get; init; }
+        public System.TimeSpan? TotalTimeout { get; init; }
+    }
+    public static class TransportResilienceBackoff
+    {
+        public static System.TimeSpan ComputeDelay(Ontogony.Http.TransportResilienceOptions options, int attempt, System.TimeSpan? retryAfter, System.Func<double>? randomUnit = null) { }
     }
     public sealed class TransportResilienceOptions
     {
@@ -130,6 +168,7 @@
         public System.TimeSpan? AttemptTimeout { get; set; }
         [System.ComponentModel.DataAnnotations.Range(0, 1)]
         public double BackoffJitterFraction { get; set; }
+        public Ontogony.Http.BackoffPolicy BackoffPolicy { get; set; }
         [System.ComponentModel.DataAnnotations.Range(10, 60000)]
         public int BaseBackoffMilliseconds { get; set; }
         [System.ComponentModel.DataAnnotations.Range(10, 60000)]
@@ -155,7 +194,7 @@
         public int[] RetryableStatusCodes { get; set; }
         public System.TimeSpan? TotalTimeout { get; set; }
     }
-    public sealed class TransportResilienceRegistry
+    public sealed class TransportResilienceRegistry : Ontogony.Http.ICircuitBreakerRegistry
     {
         public TransportResilienceRegistry(Ontogony.Primitives.IClock? clock = null) { }
         public System.Collections.Generic.IReadOnlyDictionary<string, Ontogony.Http.TransportResilienceSnapshot> GetSnapshot() { }

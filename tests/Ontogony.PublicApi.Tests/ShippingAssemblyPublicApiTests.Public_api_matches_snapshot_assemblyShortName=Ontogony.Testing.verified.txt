@@ -9,7 +9,10 @@
     public static class ArtifactStoreConformanceHarness
     {
         public static System.Threading.Tasks.Task AssertExistsAndTryGetAsync(Ontogony.Artifacts.IArtifactStore store) { }
+        public static System.Threading.Tasks.Task AssertExpectedContentHashRejectsMismatchAsync(Ontogony.Artifacts.IArtifactStore store) { }
         public static System.Threading.Tasks.Task AssertPutGetAndDedupeAsync(Ontogony.Artifacts.IArtifactStore store) { }
+        public static System.Threading.Tasks.Task AssertStreamPutRoundTripAsync(Ontogony.Artifacts.IArtifactStore store) { }
+        public static System.Threading.Tasks.Task AssertTenantScopeSeparationAsync(Ontogony.Artifacts.IArtifactStore store) { }
     }
     public static class CanonicalJsonAssertions
     {
@@ -100,8 +103,12 @@
     }
     public static class HttpResilienceConformanceHarness
     {
+        public static System.Threading.Tasks.Task AssertAttemptTimeoutContextAsync() { }
+        public static System.Threading.Tasks.Task AssertBackoffJitterWithinBoundsAsync(Ontogony.Testing.StubHttpMessageHandler stub, int baseDelayMs, double jitterFraction) { }
         public static System.Threading.Tasks.Task AssertCircuitOpensAfterThresholdAsync(Ontogony.Testing.StubHttpMessageHandler stub, int failuresToOpen, System.Action<Ontogony.Http.TransportResilienceOptions>? configure = null, Ontogony.Primitives.IClock? clock = null) { }
+        public static void AssertExponentialBackoffLongerThanLinear(int baseDelayMs, int attempt) { }
         public static System.Threading.Tasks.Task AssertNoRetryOnSuccessAsync(System.Net.Http.HttpClient client, Ontogony.Testing.StubHttpMessageHandler stub) { }
+        public static System.Threading.Tasks.Task AssertRespectsRetryAfterDateHeaderAsync(System.TimeSpan minimumWait) { }
         public static System.Threading.Tasks.Task AssertRespectsRetryAfterHeaderAsync(Ontogony.Testing.StubHttpMessageHandler stub, System.TimeSpan retryAfter, Ontogony.Primitives.IClock? clock = null) { }
         public static System.Threading.Tasks.Task AssertRetriesOnTransientFailureAsync(System.Net.Http.HttpClient client, Ontogony.Testing.StubHttpMessageHandler stub, int expectedTotalAttempts) { }
         public static System.Threading.Tasks.Task AssertTotalTimeoutLimitsAttemptsAsync(Ontogony.Testing.StubHttpMessageHandler stub, System.TimeSpan totalTimeout, int maxExpectedAttempts) { }
@@ -129,6 +136,7 @@
     }
     public static class OutboxConformanceHarness
     {
+        public static System.Threading.Tasks.Task AssertAvailableAtDeferralAsync(Ontogony.Persistence.IOutboxWriter writer, Ontogony.Persistence.IOutboxReader reader) { }
         public static System.Threading.Tasks.Task AssertDuplicateWriteThrowsAsync(Ontogony.Persistence.IOutboxWriter writer, Ontogony.Persistence.OutboxMessage message) { }
         public static System.Threading.Tasks.Task AssertMarkDispatchedRemovesFromQueueAsync(Ontogony.Persistence.IOutboxWriter writer, Ontogony.Persistence.IOutboxReader reader, Ontogony.Persistence.IOutboxDispatcher dispatcher, Ontogony.Persistence.OutboxMessage message) { }
         public static System.Threading.Tasks.Task AssertMarkFailedIsIdempotentAsync(Ontogony.Persistence.IOutboxWriter writer, Ontogony.Persistence.IOutboxDispatcher dispatcher, Ontogony.Persistence.OutboxMessage message) { }

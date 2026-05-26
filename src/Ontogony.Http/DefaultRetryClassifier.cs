@@ -22,6 +22,10 @@ public sealed class DefaultRetryClassifier : IRetryClassifierV2
     {
     }
 
+    /// <inheritdoc cref="IRetryClassifier.ShouldRetry(HttpRequestMessage, HttpResponseMessage?, Exception?)" />
+    public RetryDecision ShouldRetry(HttpRequestMessage request, HttpResponseMessage? response, Exception? exception) =>
+        ShouldRetry(request, response, exception, new RetryExceptionContext(0, 0, TimeSpan.Zero, null, null, false, false, false));
+
     /// <inheritdoc />
     public RetryDecision ShouldRetry(
         HttpRequestMessage request,
@@ -60,10 +64,6 @@ public sealed class DefaultRetryClassifier : IRetryClassifierV2
 
         return RetryDecision.DoNotRetry;
     }
-
-    /// <inheritdoc />
-    RetryDecision IRetryClassifier.ShouldRetry(HttpRequestMessage request, HttpResponseMessage? response, Exception? exception) =>
-        ShouldRetry(request, response, exception, new RetryExceptionContext(0, 0, TimeSpan.Zero, null, null, false, false, false));
 
     private static bool IsTransientException(Exception ex)
     {

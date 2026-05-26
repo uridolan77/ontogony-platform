@@ -36,10 +36,12 @@ $expectedRefs = [ordered]@{
     'Ontogony.Security'            = @('Ontogony.Contracts', 'Ontogony.Http', 'Ontogony.Primitives')
     'Ontogony.SystemCompatibility' = @('Ontogony.Contracts', 'Ontogony.Errors', 'Ontogony.Hashing', 'Ontogony.Http')
     'Ontogony.Testing'             = @(
+        'Ontogony.Artifacts',
         'Ontogony.Contracts',
         'Ontogony.Errors',
         'Ontogony.Hashing',
         'Ontogony.Http',
+        'Ontogony.Idempotency',
         'Ontogony.Messaging',
         'Ontogony.Observability',
         'Ontogony.Persistence',
