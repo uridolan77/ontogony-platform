@@ -1,0 +1,12 @@
+{
+  "packageId": "ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-004",
+  "title": "Cross-repo reconstructability smoke and closeout",
+  "status": "active",
+  "dependsOn": ["ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-001"],
+  "repos": ["ontogony-frontend", "ontogony-platform"],
+  "entrypoints": [
+    "ontogony-frontend/scripts/docker/run-dec-recon-004-smoke.ps1",
+    "ontogony-frontend/scripts/decision-reconstructability/run-dec-recon-004-api-smoke.mjs",
+    "ontogony-platform/scripts/validate-decision-reconstructability-local.ps1"
+  ]
+}

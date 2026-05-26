@@ -1,0 +1,27 @@
+{
+  "schema": "dec-recon-004-smoke-report-v1",
+  "recordedAtUtc": "2026-05-26T10:02:05.668Z",
+  "verdict": "FAIL",
+  "seedReportPath": "C:\\dev\\ontogony-platform\\docker\\local-working-system\\artifacts\\env-seed-001-report.json",
+  "runId": "run_71a0d02fe75644e6a280741dc1f44ee2",
+  "traceId": null,
+  "eventCount": 0,
+  "reportCount": 0,
+  "worstGovernanceStatus": null,
+  "decisionKinds": [],
+  "projectedAtUtc": null,
+  "classifiedAtUtc": null,
+  "eventSchema": "",
+  "frontendBaseUrl": "http://localhost:5175",
+  "allagmaBaseUrl": "http://localhost:5083",
+  "kanonBaseUrl": "http://localhost:5081",
+  "steps": [
+    {
+      "step": "fatal",
+      "passed": false,
+      "notes": [
+        "fetch failed"
+      ]
+    }
+  ]
+}

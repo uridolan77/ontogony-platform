@@ -26,4 +26,13 @@ After Kanon / Allagma / Conexus / frontend slices land:
 
 ## Working log
 
-_(Add dated notes below as implementation proceeds.)_
+### 2026-05-26 — Spine connected (2A/2B + frontend)
+
+- Allagma: `GET /allagma/v0/runs/{runId}/decision-events`
+- Kanon: `POST /ontology/v0/reconstructability/classify-batch`
+- Frontend: panel + OpenAPI-generated DTOs + `@ontogony/ui` report panel
+
+### 2026-05-26 — DEC-RECON-004 started
+
+Cross-repo docker-local smoke: see [`../ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-004/README.md`](../ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-004/README.md).
+ 
