@@ -2,7 +2,7 @@
 
 **Owner:** `Ontogony.Observability`  
 **Program:** PLAT-9-005 (six-repo score lift)  
-**Status:** Phase 1 — contracts, catalogs, `SystemCorrelationConventions` (2026-05-26)
+**Status:** **Done** (phase 1 + phase 2, 2026-05-26)
 
 Platform owns **mechanical** observability: naming, propagation into spans/logs/metrics, and conformance tests. Product repos own dashboards that interpret their own business labels.
 
@@ -94,11 +94,13 @@ DiagnosticsContractSmokeTests pins platform instrument + span keys
 Consumer naming checks remain green (PR-005 kits)
 ```
 
-## Phase 2 (follow-up)
+## Phase 2 (done)
 
-```text
-Starter Grafana dashboard JSON or checked-in queries
-Alert rule examples wired to local Prometheus
-run-observability-mechanics-conformance.ps1 aggregator
-Full PLAT-9-003-style cross-repo consumer matrix artifact (if broader than PR-005)
-```
+| Artifact | Location |
+| --- | --- |
+| Grafana starter | [`dashboards/grafana-dashboard-starter.json`](./dashboards/grafana-dashboard-starter.json) |
+| Prometheus alerts | [`alerts/alerts.prometheus.rules.yml`](./alerts/alerts.prometheus.rules.yml) |
+| Conformance runner | [`scripts/run-observability-mechanics-conformance.ps1`](../../scripts/run-observability-mechanics-conformance.ps1) |
+| Evidence | [`docs/evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_PHASE2_EVIDENCE.md`](../evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_PHASE2_EVIDENCE.md) |
+
+Optional follow-up: full PLAT-9-003 `artifacts/consumer-conformance/` matrix runner (broader than observability-only scope).

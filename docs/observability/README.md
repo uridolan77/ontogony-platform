@@ -11,6 +11,8 @@ Mechanical contracts for traces, metrics, logs, and operator correlation across 
 | [metrics-catalog.md](./metrics-catalog.md) | Frozen `Ontogony.Platform` instruments |
 | [trace-attributes.md](./trace-attributes.md) | Frozen `ontogony.*` span attribute keys |
 | [operations-pack.md](./operations-pack.md) | Local collector, OTLP, burn-in checklist |
+| [dashboards/dashboard-import.md](./dashboards/dashboard-import.md) | Grafana starter dashboard import |
+| [alerts/alert-rules.md](./alerts/alert-rules.md) | Prometheus starter alert groups |
 
 Related:
 
@@ -18,4 +20,9 @@ Related:
 - [`docs/operators/TRACE_CORRELATION_CONTRACT.md`](../operators/TRACE_CORRELATION_CONTRACT.md)
 - [`docs/adoption/reconstructability-conformance-kits.md`](../adoption/reconstructability-conformance-kits.md) — includes `ObservabilityNamingConformanceAssertions`
 
-Evidence: [`docs/evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_EVIDENCE.md`](../evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_EVIDENCE.md)
+Evidence:
+
+- Phase 1: [`docs/evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_EVIDENCE.md`](../evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_EVIDENCE.md)
+- Phase 2: [`docs/evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_PHASE2_EVIDENCE.md`](../evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_PHASE2_EVIDENCE.md)
+
+Conformance: `.\scripts\run-observability-mechanics-conformance.ps1`

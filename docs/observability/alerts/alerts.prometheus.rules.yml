@@ -1,0 +1,88 @@
+# PLAT-9-005 starter alert rules — mechanical signals only (no product policy semantics).
+# Import via Prometheus rule_files. See alert-rules.md.
+
+groups:
+  - name: ontogony-platform-mechanics
+    rules:
+      - alert: OntogonyHttpErrorRateHigh
+        expr: |
+          sum(rate(ontogony_http_server_error_count_total[15m]))
+          /
+          clamp_min(sum(rate(ontogony_http_server_request_count_total[15m])), 1)
+          > 0.05
+        for: 10m
+        labels:
+          severity: warning
+          ontogony_layer: platform
+        annotations:
+          summary: Cross-service HTTP error ratio above 5% (15m window)
+          description: Check per-service panels and trace correlation for failing requests.
+
+      - alert: OntogonyIntegrationErrorBurst
+        expr: sum(increase(ontogony_integration_error_count_total[10m])) > 20
+        for: 5m
+        labels:
+          severity: warning
+          ontogony_layer: platform
+        annotations:
+          summary: Outbound integration errors spiking across services
+
+  - name: allagma-mechanics
+    rules:
+      - alert: AllagmaHttpErrorsElevated
+        expr: sum(rate(ontogony_http_server_error_count_total{service="allagma-api"}[15m])) > 0.5
+        for: 10m
+        labels:
+          severity: warning
+          ontogony_layer: allagma
+        annotations:
+          summary: Allagma API HTTP errors elevated
+
+      - alert: AllagmaIntegrationErrorsToDownstream
+        expr: sum(rate(ontogony_integration_error_count_total{source_service="allagma-api"}[15m])) > 0.2
+        for: 10m
+        labels:
+          severity: warning
+          ontogony_layer: allagma
+        annotations:
+          summary: Allagma outbound integration errors to Kanon/Conexus elevated
+
+  - name: conexus-mechanics
+    rules:
+      - alert: ConexusHttpErrorsElevated
+        expr: sum(rate(ontogony_http_server_error_count_total{service="conexus-dotnet"}[15m])) > 0.5
+        for: 10m
+        labels:
+          severity: warning
+          ontogony_layer: conexus
+        annotations:
+          summary: Conexus gateway HTTP errors elevated
+
+      - alert: ConexusProviderErrorsElevated
+        expr: sum(rate(conexus_provider_errors_total[15m])) > 1
+        for: 10m
+        labels:
+          severity: warning
+          ontogony_layer: conexus
+        annotations:
+          summary: Conexus provider error rate elevated — check routing and provider health
+
+  - name: kanon-mechanics
+    rules:
+      - alert: KanonHttpErrorsElevated
+        expr: sum(rate(ontogony_http_server_error_count_total{service="Kanon.Api"}[15m])) > 0.5
+        for: 10m
+        labels:
+          severity: warning
+          ontogony_layer: kanon
+        annotations:
+          summary: Kanon API HTTP errors elevated
+
+      - alert: KanonHttpTrafficAbsent
+        expr: sum(rate(ontogony_http_server_request_count_total{service="Kanon.Api"}[30m])) == 0
+        for: 30m
+        labels:
+          severity: info
+          ontogony_layer: kanon
+        annotations:
+          summary: No Kanon HTTP traffic observed — expected only when stack is idle

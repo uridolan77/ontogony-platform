@@ -32,8 +32,8 @@ dotnet test tests/Allagma.Tests/Allagma.Tests.csproj -c Release --filter Allagma
 | `docs/observability/*` contract set | **Done** (phase 1) |
 | `SystemCorrelationConventions` | **Done** |
 | `DiagnosticsContractSmokeTests` | **Existing** — pins platform instruments |
-| Starter Grafana JSON / alert rules | **Deferred** (phase 2) |
-| `run-observability-mechanics-conformance.ps1` aggregator | **Deferred** (phase 2) |
+| Starter Grafana JSON / alert rules | **Done** — [phase 2 evidence](PLAT_9_005_OBSERVABILITY_MECHANICS_PHASE2_EVIDENCE.md) |
+| `run-observability-mechanics-conformance.ps1` aggregator | **Done** — [phase 2 evidence](PLAT_9_005_OBSERVABILITY_MECHANICS_PHASE2_EVIDENCE.md) |
 
 ## Relation to PLAT-9-003
 

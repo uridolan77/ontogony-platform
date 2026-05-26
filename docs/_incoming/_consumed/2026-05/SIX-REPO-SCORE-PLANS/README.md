@@ -20,6 +20,6 @@ Use [`_CURRENT_PLAN.md`](./_CURRENT_PLAN.md) § “Plan 1 — ontogony-platform 
 | PLAT-DEPTH-001–004 | **Done** — [`reviews/IMPLEMENTATION_DEPTH_OVER9_CLOSEOUT_REPORT.md`](../../../reviews/IMPLEMENTATION_DEPTH_OVER9_CLOSEOUT_REPORT.md) |
 | PLAT-9-003 Consumer conformance suite | **Done** (PR-005) — [`evidence/PLATFORM_RECONSTRUCTABILITY_CONFORMANCE_EVIDENCE.md`](../../../evidence/PLATFORM_RECONSTRUCTABILITY_CONFORMANCE_EVIDENCE.md); `*PlatformConformanceTests` on Allagma/Kanon/Conexus `main`. Optional: full-matrix `artifacts/consumer-conformance/` runner (phase 2). |
 | PLAT-9-004 Public API hardening | **Partial** — Tier B XML docs still deferred |
-| PLAT-9-005 Observability mechanics pack | **Partial** (phase 1) — [`docs/observability/`](../../../observability/), `SystemCorrelationConventions`, [`evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_EVIDENCE.md`](../../../evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_EVIDENCE.md). Phase 2: dashboards, alert rules, aggregator script. |
+| PLAT-9-005 Observability mechanics pack | **Done** — [`docs/observability/`](../../../observability/), [`evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_PHASE2_EVIDENCE.md`](../../../evidence/PLAT_9_005_OBSERVABILITY_MECHANICS_PHASE2_EVIDENCE.md), `run-observability-mechanics-conformance.ps1` |
 
 Frontend, UI, Kanon, Allagma, and Conexus slices in `_CURRENT_PLAN.md` are owned by those repos.
