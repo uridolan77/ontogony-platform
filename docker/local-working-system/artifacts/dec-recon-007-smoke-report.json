@@ -1,17 +1,17 @@
 {
-  "schema": "dec-recon-004-smoke-report-v1",
-  "recordedAtUtc": "2026-05-26T12:41:24.305Z",
+  "schema": "dec-recon-007-smoke-report-v1",
+  "recordedAtUtc": "2026-05-26T12:41:24.306Z",
   "frontendBaseUrl": "http://localhost:5175",
   "runId": "run_28d50e113baa4f2d8e372b686e0e2b58",
   "traceId": "28b2ca5642cf18610a71df1a7b91483e",
   "eventCount": 11,
+  "artifactCount": 11,
   "reportCount": 11,
   "worstGovernanceStatus": "WARN",
-  "decisionKinds": [
-    "agent_tool_call",
-    "run_operation",
-    "workflow_transition"
-  ],
+  "classifierVersion": "kanon-decision-reconstructability-classifier-v1",
+  "sampleArtifactId": "recon_art_bc28587586313ecf9d3e56aeab705745",
+  "sampleDecisionEventHash": "0ae61047905fe03081ca86652b2492d63d739b3650632eb1ea94ded1c4b53db5",
+  "classificationPath": "persisted-artifacts",
   "steps": [
     {
       "step": "services-healthy",
