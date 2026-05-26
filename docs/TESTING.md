@@ -65,8 +65,12 @@ Static assertion helpers for consumers to prove correct adoption. Each throws `I
 | `EnvelopeConformanceAssertions` | `OntogonyEnvelope` source/type conventions and payload hash |
 | `HmacConformanceAssertions` | `ServiceIdentityHmacSignatureHelper` round-trips |
 | `OutboxConformanceHarness` | Outbox writer/reader/dispatcher contract |
+| `IdempotencyLedgerConformanceHarness` | Idempotency ledger lifecycle |
+| `ArtifactStoreConformanceHarness` | Artifact hash, dedupe, stream put |
 | `HttpResilienceConformanceHarness` | Retry and circuit-breaker mechanics |
 | `HeaderPropagationConformanceAssertions` | Frozen propagation header set (PLATFORM-9-003) |
+
+Details: [`adoption/conformance-kits.md`](./adoption/conformance-kits.md). Self-tests: `ConformanceKitPr33Tests` (`--filter ConformanceKitPr33`). Optional Postgres: set `ONTOGONY_POSTGRES_TEST_CONNECTION` for `PostgresOutboxConformanceTests`.
 
 Consumer repos run parallel tests (e.g. `AllagmaOutboundPropagationConformanceTests`, `ConexusOutboundPropagationConformanceTests`).
 

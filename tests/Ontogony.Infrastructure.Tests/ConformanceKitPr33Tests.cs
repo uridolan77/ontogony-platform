@@ -215,6 +215,13 @@ public sealed class ConformanceKitPr33Tests
         await OutboxConformanceHarness.AssertMarkFailedIsIdempotentAsync(store, store, msg);
     }
 
+    [Fact]
+    public async Task Outbox_AvailableAtDeferral()
+    {
+        var store = new InMemoryOutboxStore();
+        await OutboxConformanceHarness.AssertAvailableAtDeferralAsync(store, store);
+    }
+
     // -------------------------------------------------------------------------
     // HttpResilienceConformanceHarness
     // -------------------------------------------------------------------------
@@ -332,5 +339,26 @@ public sealed class ConformanceKitPr33Tests
     {
         var store = new InMemoryArtifactStore();
         await ArtifactStoreConformanceHarness.AssertExistsAndTryGetAsync(store);
+    }
+
+    [Fact]
+    public async Task Artifact_StreamPutRoundTrip()
+    {
+        var store = new InMemoryArtifactStore();
+        await ArtifactStoreConformanceHarness.AssertStreamPutRoundTripAsync(store);
+    }
+
+    [Fact]
+    public async Task Artifact_ExpectedContentHashRejectsMismatch()
+    {
+        var store = new InMemoryArtifactStore();
+        await ArtifactStoreConformanceHarness.AssertExpectedContentHashRejectsMismatchAsync(store);
+    }
+
+    [Fact]
+    public async Task Artifact_TenantScopeSeparation()
+    {
+        var store = new InMemoryArtifactStore();
+        await ArtifactStoreConformanceHarness.AssertTenantScopeSeparationAsync(store);
     }
 }

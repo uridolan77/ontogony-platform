@@ -25,6 +25,14 @@ Retry-After aware backoff, exponential backoff with jitter, per-attempt and tota
 - `HttpResilience_CircuitOpensAfterThreshold`
 - `HttpResilience_RespectsRetryAfterHeader`
 - `HttpResilience_TotalTimeoutLimitsAttempts`
+- `HttpResilience_BackoffJitterWithinBounds`
+- `HttpResilience_RespectsRetryAfterDateHeader`
+- `HttpResilience_AttemptTimeoutContext`
+- `HttpResilience_ExponentialBackoffLongerThanLinear`
+
+`AdvancedHttpResilienceTests.RetryBypassingBudget_Overrides_Budget_Limit` (budget exhausted, bypass still retries).
+
+Boundary: no product semantics in handler or harness fixtures.
 
 ## Validation
 

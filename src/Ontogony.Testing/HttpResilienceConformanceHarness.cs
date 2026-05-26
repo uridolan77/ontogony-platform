@@ -336,7 +336,7 @@ public static class HttpResilienceConformanceHarness
     }
 
     /// <summary>
-    /// Asserts that a <c>Retry-After</c> HTTP-date header is honored using <paramref name="clock"/>.
+    /// Asserts that a <c>Retry-After</c> HTTP-date header is honored for at least <paramref name="minimumWait"/>.
     /// </summary>
     public static async Task AssertRespectsRetryAfterDateHeaderAsync(TimeSpan minimumWait)
     {
@@ -458,20 +458,8 @@ public static class HttpResilienceConformanceHarness
             BackoffPolicy = BackoffPolicy.Exponential
         };
 
-        var registry = new TransportResilienceRegistry();
-        var linearHandler = new ResilientIntegrationDelegatingHandler(
-            "linear",
-            registry,
-            Options.Create(linearOpts),
-            new FakeClock());
-        var exponentialHandler = new ResilientIntegrationDelegatingHandler(
-            "exponential",
-            registry,
-            Options.Create(exponentialOpts),
-            new FakeClock());
-
-        var linearDelay = linearHandler.ComputeDelay(attempt, null);
-        var exponentialDelay = exponentialHandler.ComputeDelay(attempt, null);
+        var linearDelay = TransportResilienceBackoff.ComputeDelay(linearOpts, attempt, null);
+        var exponentialDelay = TransportResilienceBackoff.ComputeDelay(exponentialOpts, attempt, null);
 
         if (exponentialDelay <= linearDelay)
         {

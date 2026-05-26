@@ -60,4 +60,72 @@ public static class ArtifactStoreConformanceHarness
         if (await store.ExistsAsync("artifact-does-not-exist-conformance"))
             throw new InvalidOperationException("ExistsAsync should be false for unknown artifact id.");
     }
+
+    /// <summary>Verifies stream put round-trip and content hash on <see cref="ArtifactRef"/>.</summary>
+    public static async Task AssertStreamPutRoundTripAsync(IArtifactStore store)
+    {
+        ArgumentNullException.ThrowIfNull(store);
+
+        var payload = "conformance-stream-payload"u8.ToArray();
+        await using var stream = new MemoryStream(payload);
+        var put = await store.PutAsync(new ArtifactStreamPutRequest
+        {
+            MediaType = "application/octet-stream",
+            Content = stream,
+            TenantId = "tenant-conformance-stream"
+        });
+
+        if (string.IsNullOrWhiteSpace(put.Reference.ContentHash))
+            throw new InvalidOperationException("Stream put must populate ContentHash.");
+
+        var got = await store.GetAsync(put.Reference.ArtifactId);
+        if (!got.Bytes.Span.SequenceEqual(payload))
+            throw new InvalidOperationException("Stream put bytes mismatch on get.");
+    }
+
+    /// <summary>Verifies mismatched <see cref="ArtifactStreamPutRequest.ExpectedContentHash"/> is rejected.</summary>
+    public static async Task AssertExpectedContentHashRejectsMismatchAsync(IArtifactStore store)
+    {
+        ArgumentNullException.ThrowIfNull(store);
+
+        await using var stream = new MemoryStream("mismatch-payload"u8.ToArray());
+        try
+        {
+            await store.PutAsync(new ArtifactStreamPutRequest
+            {
+                MediaType = "application/octet-stream",
+                Content = stream,
+                ExpectedContentHash = "0000000000000000000000000000000000000000000000000000000000000000"
+            });
+            throw new InvalidOperationException("Expected InvalidOperationException for hash mismatch.");
+        }
+        catch (InvalidOperationException)
+        {
+        }
+    }
+
+    /// <summary>Verifies identical bytes in different tenants produce distinct artifact ids.</summary>
+    public static async Task AssertTenantScopeSeparationAsync(IArtifactStore store)
+    {
+        ArgumentNullException.ThrowIfNull(store);
+
+        var bytes = "tenant-scope-bytes"u8.ToArray();
+        var a = await store.PutAsync(new ArtifactPutRequest
+        {
+            MediaType = "application/json",
+            Content = bytes,
+            TenantId = "tenant-conformance-a"
+        });
+        var b = await store.PutAsync(new ArtifactPutRequest
+        {
+            MediaType = "application/json",
+            Content = bytes,
+            TenantId = "tenant-conformance-b"
+        });
+
+        if (string.Equals(a.Reference.ArtifactId, b.Reference.ArtifactId, StringComparison.Ordinal))
+        {
+            throw new InvalidOperationException("Identical bytes across tenants must not share artifact id.");
+        }
+    }
 }

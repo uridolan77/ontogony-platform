@@ -498,7 +498,7 @@ var now = clock.UtcNow;  // Must be reasonably close to request timestamp
 ## Support
 
 - **Integration questions:** Create issue in `ontogony-platform` with label `adoption-support`
-- **Conformance test failures:** See [Conformance kits](../testing/conformance-kits.md)
+- **Conformance test failures:** See [Conformance kits](./conformance-kits.md)
 - **Design review:** Request in PR for platform maintainers to review
 
 ---

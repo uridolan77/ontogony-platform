@@ -147,4 +147,33 @@ public static class OutboxConformanceHarness
         await dispatcher.MarkFailedAsync(message.MessageId, "first error", nextAvailable);
         await dispatcher.MarkFailedAsync(message.MessageId, "second error", nextAvailable); // must not throw
     }
+
+    /// <summary>
+    /// Verifies messages with future <see cref="OutboxMessage.AvailableAt"/> are not returned until due.
+    /// </summary>
+    public static async Task AssertAvailableAtDeferralAsync(
+        IOutboxWriter writer,
+        IOutboxReader reader)
+    {
+        ArgumentNullException.ThrowIfNull(writer);
+        ArgumentNullException.ThrowIfNull(reader);
+
+        var future = DateTimeOffset.UtcNow.AddMinutes(5);
+        var message = BuildMessage("msg-conformance-defer-" + Guid.NewGuid().ToString("n"), availableAt: future);
+        await writer.WriteAsync(message);
+
+        var early = await reader.ReadAvailableAsync(DateTimeOffset.UtcNow, maxBatchSize: 20);
+        if (early.Any(m => string.Equals(m.MessageId, message.MessageId, StringComparison.Ordinal)))
+        {
+            throw new InvalidOperationException(
+                "Message with future AvailableAt must not appear in ReadAvailableAsync before it is due.");
+        }
+
+        var later = await reader.ReadAvailableAsync(future.AddSeconds(1), maxBatchSize: 20);
+        if (!later.Any(m => string.Equals(m.MessageId, message.MessageId, StringComparison.Ordinal)))
+        {
+            throw new InvalidOperationException(
+                "Message with past AvailableAt must be returned by ReadAvailableAsync.");
+        }
+    }
 }

@@ -370,37 +370,15 @@ public sealed class ResilientIntegrationDelegatingHandler : DelegatingHandler
         return false;
     }
 
-    internal TimeSpan ComputeDelay(int attempt, HttpResponseMessage? retryAfterSource)
+    private TimeSpan ComputeDelay(int attempt, HttpResponseMessage? retryAfterSource)
     {
-        var baseMs = _options.BackoffPolicy == BackoffPolicy.Exponential
-            ? (double)_options.BaseDelayMilliseconds * Math.Pow(2, attempt)
-            : (double)(_options.BaseDelayMilliseconds * (attempt + 1));
-        var delayMs = Math.Min(baseMs, _options.MaxDelayMilliseconds);
-        var delay = TimeSpan.FromMilliseconds(delayMs);
-
-        if (_options.RespectRetryAfterHeader
-            && retryAfterSource is not null
-            && TryGetRetryAfter(retryAfterSource, out var retryAfter)
-            && retryAfter > TimeSpan.Zero)
+        TimeSpan? retryAfter = null;
+        if (retryAfterSource is not null && TryGetRetryAfter(retryAfterSource, out var ra))
         {
-            delay = delay > retryAfter ? delay : retryAfter;
-            if (delay.TotalMilliseconds > _options.MaxDelayMilliseconds)
-            {
-                delay = TimeSpan.FromMilliseconds(_options.MaxDelayMilliseconds);
-            }
+            retryAfter = ra;
         }
 
-        if (_options.BackoffJitterFraction > 0)
-        {
-            var factor = 1 + (Random.Shared.NextDouble() * 2 - 1) * _options.BackoffJitterFraction;
-            delay = TimeSpan.FromMilliseconds(delay.TotalMilliseconds * factor);
-            if (delay.TotalMilliseconds > _options.MaxDelayMilliseconds)
-            {
-                delay = TimeSpan.FromMilliseconds(_options.MaxDelayMilliseconds);
-            }
-        }
-
-        return delay;
+        return TransportResilienceBackoff.ComputeDelay(_options, attempt, retryAfter);
     }
 
     private bool TryGetRetryAfter(HttpResponseMessage response, out TimeSpan value)
