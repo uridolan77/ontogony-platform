@@ -1,0 +1,10 @@
+{
+  "resolved": false,
+  "reason": "binding_paused",
+  "fallbackSkillVersionId": "base",
+  "limitations": {
+    "productionDeploymentAllowed": false,
+    "sandboxOnly": true,
+    "liveDeploymentAllowed": false
+  }
+}

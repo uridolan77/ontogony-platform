@@ -1,0 +1,13 @@
+{
+  "eventId": "skillapplied_evt_001",
+  "consumerId": "anti-sycophancy-chat-demo",
+  "targetEnvironment": "sandbox",
+  "skillArtifactId": "anti-sycophancy-response-style",
+  "skillVersionId": "skillver_anti_syc_v2",
+  "bindingId": "skillbind_release_sandbox_001",
+  "sourcePromotionRequestId": "skillprom_demo_sandbox_001",
+  "sourceOptimizationRunId": "skillopt_run_demo_001",
+  "traceId": "00-abc-def-01",
+  "correlationId": "corr_chat_session_001",
+  "createdAtUtc": "2026-05-27T14:01:00Z"
+}

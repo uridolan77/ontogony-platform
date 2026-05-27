@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/skill-version-applied-evidence.v0.json",
+  "title": "SkillVersionAppliedEvidenceV0",
+  "type": "object",
+  "required": [
+    "eventId",
+    "consumerId",
+    "targetEnvironment",
+    "skillArtifactId",
+    "skillVersionId",
+    "traceId",
+    "correlationId",
+    "createdAtUtc"
+  ],
+  "properties": {
+    "eventId": { "type": "string", "minLength": 1 },
+    "consumerId": { "type": "string", "minLength": 1 },
+    "targetEnvironment": {
+      "type": "string",
+      "enum": ["sandbox", "local-demo", "fixture-only"]
+    },
+    "bindingId": { "type": "string", "minLength": 1 },
+    "skillArtifactId": { "type": "string", "minLength": 1 },
+    "skillVersionId": { "type": "string", "minLength": 1 },
+    "sourcePromotionRequestId": { "type": "string" },
+    "sourceOptimizationRunId": { "type": "string" },
+    "unresolvedReason": { "type": "string", "minLength": 1 },
+    "traceId": { "type": "string", "minLength": 1 },
+    "correlationId": { "type": "string", "minLength": 1 },
+    "conexusModelCallId": { "type": "string" },
+    "routeDecisionId": { "type": "string" },
+    "createdAtUtc": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": true
+}

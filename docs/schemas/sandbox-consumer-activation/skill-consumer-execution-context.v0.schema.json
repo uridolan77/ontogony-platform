@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/skill-consumer-execution-context.v0.json",
+  "title": "SkillConsumerExecutionContextV0",
+  "type": "object",
+  "required": [
+    "consumerId",
+    "targetEnvironment",
+    "skillArtifactId",
+    "resolutionKind",
+    "skillVersionId",
+    "capturedAtUtc"
+  ],
+  "properties": {
+    "consumerId": { "type": "string", "minLength": 1 },
+    "targetEnvironment": {
+      "type": "string",
+      "enum": ["sandbox", "local-demo", "fixture-only"]
+    },
+    "skillArtifactId": { "type": "string", "minLength": 1 },
+    "resolutionKind": {
+      "type": "string",
+      "enum": ["resolved", "unresolved_fallback", "forbidden_target"]
+    },
+    "skillVersionId": { "type": "string", "minLength": 1 },
+    "bindingId": { "type": "string", "minLength": 1 },
+    "sourcePromotionRequestId": { "type": "string" },
+    "sourceOptimizationRunId": { "type": "string" },
+    "fallbackReason": { "type": "string", "minLength": 1 },
+    "capturedAtUtc": { "type": "string", "format": "date-time" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "resolutionKind": { "const": "resolved" } }
+      },
+      "then": {
+        "required": ["bindingId"]
+      }
+    },
+    {
+      "if": {
+        "properties": { "resolutionKind": { "const": "unresolved_fallback" } }
+      },
+      "then": {
+        "required": ["fallbackReason"]
+      }
+    }
+  ],
+  "additionalProperties": true
+}

@@ -1,0 +1,24 @@
+{
+  "resolved": true,
+  "bindingId": "skillbind_release_sandbox_001",
+  "skillArtifactId": "anti-sycophancy-response-style",
+  "skillVersionId": "skillver_anti_syc_v2",
+  "targetEnvironment": "sandbox",
+  "sourcePromotionRequestId": "skillprom_demo_sandbox_001",
+  "sourceOptimizationRunId": "skillopt_run_demo_001",
+  "limitations": {
+    "productionDeploymentAllowed": false,
+    "sandboxOnly": true,
+    "liveDeploymentAllowed": false
+  },
+  "evidenceRefs": [
+    {
+      "type": "skillReleaseDeploymentBinding",
+      "id": "skillbind_release_sandbox_001"
+    },
+    {
+      "type": "skillPromotionRequest",
+      "id": "skillprom_demo_sandbox_001"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "resolved": false,
+  "reason": "no_active_sandbox_binding",
+  "fallbackSkillVersionId": "base",
+  "limitations": {
+    "productionDeploymentAllowed": false,
+    "sandboxOnly": true,
+    "liveDeploymentAllowed": false
+  }
+}

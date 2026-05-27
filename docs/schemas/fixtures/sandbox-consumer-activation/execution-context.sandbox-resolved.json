@@ -1,0 +1,11 @@
+{
+  "consumerId": "anti-sycophancy-chat-demo",
+  "targetEnvironment": "sandbox",
+  "skillArtifactId": "anti-sycophancy-response-style",
+  "resolutionKind": "resolved",
+  "skillVersionId": "skillver_anti_syc_v2",
+  "bindingId": "skillbind_release_sandbox_001",
+  "sourcePromotionRequestId": "skillprom_demo_sandbox_001",
+  "sourceOptimizationRunId": "skillopt_run_demo_001",
+  "capturedAtUtc": "2026-05-27T14:00:00Z"
+}

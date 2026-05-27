@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/skill-consumer-binding-resolution.v0.json",
+  "title": "SkillConsumerBindingResolutionV0",
+  "type": "object",
+  "required": ["resolved", "limitations"],
+  "properties": {
+    "resolved": { "type": "boolean" },
+    "bindingId": { "type": "string", "minLength": 1 },
+    "skillArtifactId": { "type": "string", "minLength": 1 },
+    "skillVersionId": { "type": "string", "minLength": 1 },
+    "targetEnvironment": {
+      "type": "string",
+      "enum": ["sandbox", "local-demo", "fixture-only"]
+    },
+    "sourcePromotionRequestId": { "type": "string" },
+    "sourceOptimizationRunId": { "type": "string" },
+    "reason": { "type": "string", "minLength": 1 },
+    "fallbackSkillVersionId": { "type": "string", "minLength": 1 },
+    "limitations": { "$ref": "#/$defs/activationLimitations" },
+    "evidenceRefs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/evidenceRef" }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "resolved": { "const": true } } },
+      "then": {
+        "required": [
+          "bindingId",
+          "skillArtifactId",
+          "skillVersionId",
+          "targetEnvironment"
+        ]
+      }
+    },
+    {
+      "if": { "properties": { "resolved": { "const": false } } },
+      "then": {
+        "required": ["reason"]
+      }
+    }
+  ],
+  "additionalProperties": true,
+  "$defs": {
+    "activationLimitations": {
+      "type": "object",
+      "required": [
+        "productionDeploymentAllowed",
+        "sandboxOnly",
+        "liveDeploymentAllowed"
+      ],
+      "properties": {
+        "productionDeploymentAllowed": { "const": false },
+        "sandboxOnly": { "const": true },
+        "liveDeploymentAllowed": { "const": false }
+      },
+      "additionalProperties": true
+    },
+    "evidenceRef": {
+      "type": "object",
+      "required": ["type", "id"],
+      "properties": {
+        "type": { "type": "string", "minLength": 1 },
+        "id": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": true
+    }
+  }
+}
