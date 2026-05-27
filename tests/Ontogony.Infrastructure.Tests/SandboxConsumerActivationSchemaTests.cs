@@ -113,6 +113,92 @@ public sealed class SandboxConsumerActivationSchemaTests
     }
 
     [Fact]
+    public void Golden_path_consumer_activation_has_required_steps_and_evidence()
+    {
+        var repoRoot = GetProjectRoot();
+        var goldenPath = Path.Combine(
+            repoRoot,
+            "docs/schemas/fixtures/sandbox-consumer-activation/golden-path.consumer-activation.json");
+        using var doc = JsonDocument.Parse(File.ReadAllText(goldenPath));
+        var root = doc.RootElement;
+
+        Assert.Equal("sandbox-consumer-activation-golden-path.v0", root.GetProperty("schemaVersion").GetString());
+        Assert.Equal("anti-sycophancy-chat-demo", root.GetProperty("consumerId").GetString());
+        Assert.Equal("sandbox", root.GetProperty("targetEnvironment").GetString());
+        Assert.Equal("anti-sycophancy-response-style", root.GetProperty("skillArtifactId").GetString());
+        Assert.Equal("skillbind_release_sandbox_001", root.GetProperty("bindingId").GetString());
+        Assert.Equal("skillver_anti_syc_v2", root.GetProperty("skillVersionId").GetString());
+
+        foreach (var forbidden in root.GetProperty("forbiddenTargetEnvironments").EnumerateArray())
+        {
+            Assert.Contains(forbidden.GetString(), ForbiddenTargetEnvironments);
+        }
+
+        var steps = root.GetProperty("steps");
+        Assert.True(steps.GetArrayLength() >= 4);
+
+        var evidenceSchema = JsonSchema.FromText(File.ReadAllText(Path.Combine(
+            repoRoot,
+            "docs/schemas/sandbox-consumer-activation/skill-version-applied-evidence.v0.schema.json")));
+        var resolutionSchema = JsonSchema.FromText(File.ReadAllText(Path.Combine(
+            repoRoot,
+            "docs/schemas/sandbox-consumer-activation/skill-consumer-binding-resolution.v0.schema.json")));
+
+        foreach (var step in steps.EnumerateArray())
+        {
+            if (step.TryGetProperty("skillVersionAppliedEvidence", out var evidence))
+            {
+                var evidenceResult = evidenceSchema.Evaluate(evidence);
+                Assert.True(
+                    evidenceResult.IsValid,
+                    $"Evidence schema validation failed for step {step.GetProperty("name").GetString()}: {evidenceResult}");
+                Assert.Equal("sandbox", evidence.GetProperty("targetEnvironment").GetString());
+                AssertNoForbiddenTargetEnvironment(JsonDocument.Parse(evidence.GetRawText()));
+            }
+
+            if (step.TryGetProperty("bindingResolutionFixture", out var fixtureName))
+            {
+                var fixturePath = Path.Combine(
+                    repoRoot,
+                    "docs/schemas/fixtures/sandbox-consumer-activation",
+                    fixtureName.GetString()!);
+                Assert.True(File.Exists(fixturePath), $"Missing fixture: {fixturePath}");
+                using var fixtureDoc = JsonDocument.Parse(File.ReadAllText(fixturePath));
+                var resolutionResult = resolutionSchema.Evaluate(fixtureDoc.RootElement);
+                Assert.True(
+                    resolutionResult.IsValid,
+                    $"Resolution schema validation failed for {fixtureName}: {resolutionResult}");
+            }
+        }
+
+        var closeout = root.GetProperty("closeout");
+        Assert.True(closeout.GetProperty("sandboxOnly").GetBoolean());
+        Assert.False(closeout.GetProperty("productionDeploymentImplemented").GetBoolean());
+        Assert.False(closeout.GetProperty("consumerSideReleasePolicyImplemented").GetBoolean());
+        Assert.True(closeout.GetProperty("liveAllagmaConsumerE2eDeferred").GetBoolean());
+    }
+
+    [Fact]
+    public void Golden_path_reference_fixtures_exist_and_validate()
+    {
+        var repoRoot = GetProjectRoot();
+        var goldenPath = Path.Combine(
+            repoRoot,
+            "docs/schemas/fixtures/sandbox-consumer-activation/golden-path.consumer-activation.json");
+        using var doc = JsonDocument.Parse(File.ReadAllText(goldenPath));
+        var references = doc.RootElement.GetProperty("referenceFixtures");
+
+        foreach (var property in references.EnumerateObject())
+        {
+            var fixturePath = Path.Combine(
+                repoRoot,
+                "docs/schemas/fixtures/sandbox-consumer-activation",
+                property.Value.GetString()!);
+            Assert.True(File.Exists(fixturePath), $"Missing reference fixture: {fixturePath}");
+        }
+    }
+
+    [Fact]
     public void Request_schema_enum_excludes_forbidden_targets()
     {
         var repoRoot = GetProjectRoot();

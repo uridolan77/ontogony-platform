@@ -2,13 +2,13 @@
 
 ## Unreleased
 
-ONTOGONY-SANDBOX-CONSUMER-ACTIVATION-001A — platform sandbox consumer activation contracts (docs/schemas only):
+ONTOGONY-SANDBOX-CONSUMER-ACTIVATION-001 — **package closed** (001A–001G):
 
-- **Protocol** — [`docs/protocols/SANDBOX_CONSUMER_ACTIVATION.md`](docs/protocols/SANDBOX_CONSUMER_ACTIVATION.md).
-- **Contracts** — binding resolution, execution context, version-applied evidence, activation event under `docs/contracts/SKILL_CONSUMER_*_V0.md`, `SANDBOX_CONSUMER_ACTIVATION_EVENT_V0.md`.
-- **Schemas** — `docs/schemas/sandbox-consumer-activation/` (4 JSON schemas) and fixtures under `docs/schemas/fixtures/sandbox-consumer-activation/`.
-- **Tests** — `SandboxConsumerActivationSchemaTests` in `Ontogony.Infrastructure.Tests`.
-- **Evidence** — [`docs/evidence/ONTOGONY_SANDBOX_CONSUMER_ACTIVATION_001A.md`](docs/evidence/ONTOGONY_SANDBOX_CONSUMER_ACTIVATION_001A.md).
+- **Protocol** — [`docs/protocols/SANDBOX_CONSUMER_ACTIVATION.md`](docs/protocols/SANDBOX_CONSUMER_ACTIVATION.md) (status: closed).
+- **Golden fixture** — [`docs/schemas/fixtures/sandbox-consumer-activation/golden-path.consumer-activation.json`](docs/schemas/fixtures/sandbox-consumer-activation/golden-path.consumer-activation.json).
+- **Closeout evidence** — [`docs/evidence/ONTOGONY_SANDBOX_CONSUMER_ACTIVATION_001G.md`](docs/evidence/ONTOGONY_SANDBOX_CONSUMER_ACTIVATION_001G.md).
+- **001A** — contracts/schemas/unit fixtures; `SandboxConsumerActivationSchemaTests` (golden-path tests in 001G).
+- **Deferred** — live Allagma consumer lifecycle E2E (system-cohesion package).
 
 ONTOGONY-SKILL-RELEASE-GOVERNANCE-001A — platform release-governance contracts (docs/schemas only):
 

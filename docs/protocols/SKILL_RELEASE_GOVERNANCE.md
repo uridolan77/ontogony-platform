@@ -1,7 +1,7 @@
 # Skill Release Governance (protocol index)
 
 **Package:** `ONTOGONY-SKILL-RELEASE-GOVERNANCE-001` · **Slice:** `001A` (contracts + schemas + fixtures)  
-**Status:** Slices 001A–001G closed (contracts, Kanon/Allagma lifecycle, frontend Skill Lab, golden fixture). Consumer activation: [`SANDBOX_CONSUMER_ACTIVATION.md`](./SANDBOX_CONSUMER_ACTIVATION.md) (`ONTOGONY-SANDBOX-CONSUMER-ACTIVATION-001`).  
+**Status:** Slices 001A–001G closed (contracts, Kanon/Allagma lifecycle, frontend Skill Lab, golden fixture). Consumer activation: [`SANDBOX_CONSUMER_ACTIVATION.md`](./SANDBOX_CONSUMER_ACTIVATION.md) (`ONTOGONY-SANDBOX-CONSUMER-ACTIVATION-001`, **closed** 001A–001G).  
 **Precondition:** [Skill Optimization Spine](./SKILL_OPTIMIZATION_SPINE.md) closed (001A–001K).
 
 Governed manual promotion and **sandbox-only** activation of accepted skill candidates. Not autonomous production deployment.

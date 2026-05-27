@@ -37,11 +37,6 @@ Expected: all tests pass; resolved fixture uses `sandbox` only; paused/rolled_ba
 
 ---
 
-## Next
+## Package status
 
-| Slice | Repo | Focus |
-| --- | --- | --- |
-| **001B** | `allagma-dotnet` | `POST /allagma/v0/skill-releases/bindings/resolve` |
-| **001C** | `ontogony-consumers` | Consumer kit resolution client |
-
-Do not wire production consumers or automatic promotion in this package.
+**Superseded by package closeout:** [`ONTOGONY_SANDBOX_CONSUMER_ACTIVATION_001G.md`](./ONTOGONY_SANDBOX_CONSUMER_ACTIVATION_001G.md) — `ONTOGONY-SANDBOX-CONSUMER-ACTIVATION-001` closed (001A–001G).

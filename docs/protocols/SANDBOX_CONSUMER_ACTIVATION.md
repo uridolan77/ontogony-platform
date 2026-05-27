@@ -1,7 +1,7 @@
 # Sandbox Consumer Activation (protocol index)
 
-**Package:** `ONTOGONY-SANDBOX-CONSUMER-ACTIVATION-001` · **Slice:** `001A` (contracts + schemas + fixtures)  
-**Status:** 001A — platform contracts and fixture skeleton  
+**Package:** `ONTOGONY-SANDBOX-CONSUMER-ACTIVATION-001`  
+**Status:** **Closed** (001A–001G, 2026-05-27)  
 **Precondition:** [Skill Release Governance](./SKILL_RELEASE_GOVERNANCE.md) closed (001A–001G).
 
 Sandbox consumers resolve **active governed skill bindings** from Allagma and record which skill version was applied. Not production deployment or consumer-side release policy.
@@ -38,28 +38,37 @@ Release bindings: [SKILL_RELEASE_DEPLOYMENT_BINDING_V0.md](../contracts/SKILL_RE
 | Forbidden production request | [`binding-resolution-request.forbidden-production.json`](../schemas/fixtures/sandbox-consumer-activation/binding-resolution-request.forbidden-production.json) |
 | Execution context (resolved) | [`execution-context.sandbox-resolved.json`](../schemas/fixtures/sandbox-consumer-activation/execution-context.sandbox-resolved.json) |
 | Evidence (applied version) | [`skill-version-applied.sandbox.json`](../schemas/fixtures/sandbox-consumer-activation/skill-version-applied.sandbox.json) |
+| **Golden path (package closeout)** | [`golden-path.consumer-activation.json`](../schemas/fixtures/sandbox-consumer-activation/golden-path.consumer-activation.json) |
 
-## Phase 1 validation
+## Package closure (001A–001G)
+
+| Slice | Repo | Focus | Status |
+| --- | --- | --- | --- |
+| 001A | `ontogony-platform` | Contracts, schemas, unit fixtures | Closed |
+| 001B | `allagma-dotnet` | `POST /allagma/v0/skill-releases/bindings/resolve` | Closed |
+| 001C | `ontogony-consumers` | Consumer-kit resolution client | Closed |
+| 001D | `ontogony-consumers` | Candor Chat BFF binding integration | Closed |
+| 001E | `ontogony-consumers` | `SkillVersionAppliedEvidence` per response | Closed |
+| 001F | `ontogony-consumers` | Pause/rollback mocked consumer proof | Closed |
+| 001G | `ontogony-platform` | Golden fixture + closeout | Closed |
+
+Closeout evidence: [`ONTOGONY_SANDBOX_CONSUMER_ACTIVATION_001G.md`](../evidence/ONTOGONY_SANDBOX_CONSUMER_ACTIVATION_001G.md).
+
+**Deferred:** live Allagma ↔ consumer multi-service E2E (future system-cohesion package).
+
+## Validation
 
 ```powershell
 cd C:\dev\ontogony-platform
 dotnet test tests/Ontogony.Infrastructure.Tests -c Release --filter FullyQualifiedName~SandboxConsumerActivationSchemaTests
 ```
 
-Evidence: [`docs/evidence/ONTOGONY_SANDBOX_CONSUMER_ACTIVATION_001A.md`](../evidence/ONTOGONY_SANDBOX_CONSUMER_ACTIVATION_001A.md)
+Slice evidence: [`001A`](../evidence/ONTOGONY_SANDBOX_CONSUMER_ACTIVATION_001A.md) · [`001G` (closeout)](../evidence/ONTOGONY_SANDBOX_CONSUMER_ACTIVATION_001G.md)
 
-## Non-goals (001A)
+## Non-goals (package)
 
 - No production, live, or `default-runtime` `targetEnvironment` in schemas or golden fixtures.
-- No Allagma resolver, consumer client, or anti-sycophancy chat implementation (later slices).
+- No production deployment or production consumer activation.
 - No automatic promotion, progressive rollout, or background self-improvement.
 - No consumer-side release policy or skill mutation.
-
-## Recommended slice order
-
-| Slice | Focus |
-| --- | --- |
-| **001A** | Platform contracts/schemas (this slice) |
-| **001B** | Allagma sandbox binding resolver |
-| **001C** | Consumer kit resolution client |
-| **001D+** | Anti-sycophancy chat, evidence, pause/rollback proof, golden fixture |
+- No live Allagma consumer lifecycle E2E in this package (deferred).

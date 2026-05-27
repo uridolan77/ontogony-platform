@@ -1,0 +1,129 @@
+{
+  "schemaVersion": "sandbox-consumer-activation-golden-path.v0",
+  "goldenPathId": "sandbox-consumer-activation-golden-v0",
+  "description": "Canonical sandbox consumer activation path: resolve active governed binding, apply skill version with evidence, pause and rollback produce explicit base fallbacks. Live Allagma E2E deferred.",
+  "consumerId": "anti-sycophancy-chat-demo",
+  "skillArtifactId": "anti-sycophancy-response-style",
+  "targetEnvironment": "sandbox",
+  "forbiddenTargetEnvironments": ["production", "live", "default-runtime"],
+  "allowedTargetEnvironments": ["sandbox", "local-demo", "fixture-only"],
+  "bindingId": "skillbind_release_sandbox_001",
+  "skillVersionId": "skillver_anti_syc_v2",
+  "sourcePromotionRequestId": "skillprom_demo_sandbox_001",
+  "sourceOptimizationRunId": "skillopt_run_demo_001",
+  "steps": [
+    {
+      "order": 1,
+      "name": "active_binding_resolved",
+      "service": "allagma",
+      "action": "POST /allagma/v0/skill-releases/bindings/resolve",
+      "bindingResolutionFixture": "binding-resolution.sandbox-active.json",
+      "executionContextFixture": "execution-context.sandbox-resolved.json",
+      "expected": {
+        "resolved": true,
+        "bindingId": "skillbind_release_sandbox_001",
+        "skillVersionId": "skillver_anti_syc_v2",
+        "targetEnvironment": "sandbox",
+        "consumerAppliesGovernedVersion": true
+      },
+      "skillVersionAppliedEvidence": {
+        "eventId": "skillapplied_evt_golden_active_001",
+        "consumerId": "anti-sycophancy-chat-demo",
+        "targetEnvironment": "sandbox",
+        "skillArtifactId": "anti-sycophancy-response-style",
+        "skillVersionId": "skillver_anti_syc_v2",
+        "bindingId": "skillbind_release_sandbox_001",
+        "sourcePromotionRequestId": "skillprom_demo_sandbox_001",
+        "sourceOptimizationRunId": "skillopt_run_demo_001",
+        "traceId": "00-golden-active-01",
+        "correlationId": "corr_golden_active_001",
+        "createdAtUtc": "2026-05-27T14:01:00Z"
+      }
+    },
+    {
+      "order": 2,
+      "name": "consumer_uses_resolved_skill_version",
+      "service": "ontogony-consumers",
+      "action": "Candor Chat BFF composes bounded prompt context (skillVersionId + bindingId only)",
+      "expected": {
+        "promptIncludesGovernedIdsOnly": true,
+        "promptExcludesPromotionRunMetadata": true,
+        "implementationSlices": ["001D", "001E"]
+      },
+      "skillVersionAppliedEvidenceRef": "steps[0].skillVersionAppliedEvidence"
+    },
+    {
+      "order": 3,
+      "name": "binding_paused_consumer_falls_back",
+      "service": "allagma",
+      "action": "Binding paused in release governance; resolve returns unresolved",
+      "bindingResolutionFixture": "binding-resolution.paused-binding.json",
+      "expected": {
+        "resolved": false,
+        "reason": "binding_paused",
+        "fallbackSkillVersionId": "base",
+        "consumerAppliesGovernedVersion": false
+      },
+      "skillVersionAppliedEvidence": {
+        "eventId": "skillapplied_evt_golden_paused_001",
+        "consumerId": "anti-sycophancy-chat-demo",
+        "targetEnvironment": "sandbox",
+        "skillArtifactId": "anti-sycophancy-response-style",
+        "skillVersionId": "base",
+        "unresolvedReason": "binding_paused",
+        "traceId": "00-golden-paused-01",
+        "correlationId": "corr_golden_paused_001",
+        "createdAtUtc": "2026-05-27T14:02:00Z"
+      }
+    },
+    {
+      "order": 4,
+      "name": "binding_rolled_back_consumer_falls_back",
+      "service": "allagma",
+      "action": "Binding rolled back in release governance; resolve returns unresolved",
+      "bindingResolutionFixture": "binding-resolution.rolled-back-binding.json",
+      "expected": {
+        "resolved": false,
+        "reason": "binding_rolled_back",
+        "fallbackSkillVersionId": "base",
+        "consumerAppliesGovernedVersion": false
+      },
+      "skillVersionAppliedEvidence": {
+        "eventId": "skillapplied_evt_golden_rollback_001",
+        "consumerId": "anti-sycophancy-chat-demo",
+        "targetEnvironment": "sandbox",
+        "skillArtifactId": "anti-sycophancy-response-style",
+        "skillVersionId": "base",
+        "unresolvedReason": "binding_rolled_back",
+        "traceId": "00-golden-rollback-01",
+        "correlationId": "corr_golden_rollback_001",
+        "createdAtUtc": "2026-05-27T14:03:00Z"
+      }
+    }
+  ],
+  "referenceFixtures": {
+    "activeBindingResolution": "binding-resolution.sandbox-active.json",
+    "noActiveBinding": "binding-resolution.no-active-binding.json",
+    "pausedBinding": "binding-resolution.paused-binding.json",
+    "rolledBackBinding": "binding-resolution.rolled-back-binding.json",
+    "forbiddenProductionRequest": "binding-resolution-request.forbidden-production.json",
+    "executionContextResolved": "execution-context.sandbox-resolved.json",
+    "evidenceAppliedSandbox": "skill-version-applied.sandbox.json"
+  },
+  "packageSlices": {
+    "001A": "ontogony-platform contracts/schemas",
+    "001B": "allagma-dotnet binding resolver",
+    "001C": "ontogony-consumers consumer-kit client",
+    "001D": "Candor Chat BFF binding integration",
+    "001E": "SkillVersionAppliedEvidence spine",
+    "001F": "Pause/rollback mocked consumer proof",
+    "001G": "Golden fixture and package closeout"
+  },
+  "closeout": {
+    "sandboxOnly": true,
+    "productionDeploymentImplemented": false,
+    "consumerSideReleasePolicyImplemented": false,
+    "liveAllagmaConsumerE2eDeferred": true,
+    "status": "ONTOGONY-SANDBOX-CONSUMER-ACTIVATION-001 closed"
+  }
+}
