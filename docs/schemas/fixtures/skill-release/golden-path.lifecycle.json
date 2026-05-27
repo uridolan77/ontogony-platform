@@ -1,0 +1,93 @@
+{
+  "schemaVersion": "skill-release-golden-path.v0",
+  "goldenPathId": "skill-release-governance-golden-v0",
+  "description": "Canonical manual sandbox release-governance path: accepted optimization candidate through promotion, Kanon approval, sandbox binding, activate, pause, rollback, with cross-artifact evidence links.",
+  "forbiddenTargetEnvironments": ["production", "live", "default-runtime"],
+  "allowedTargetEnvironments": ["sandbox", "local-demo", "fixture-only"],
+  "steps": [
+    {
+      "order": 1,
+      "name": "optimization_run_accepted",
+      "service": "allagma",
+      "action": "POST /allagma/v0/skill-optimization/runs then POST .../start",
+      "expected": {
+        "runStatus": "Accepted",
+        "gateVerdict": "promote",
+        "hasAcceptedCandidateEdit": true,
+        "isLiveDeploymentAllowed": false
+      }
+    },
+    {
+      "order": 2,
+      "name": "promotion_request_created",
+      "service": "allagma",
+      "action": "POST /allagma/v0/skill-releases/promotions",
+      "expected": {
+        "status": "created",
+        "targetEnvironment": "sandbox"
+      }
+    },
+    {
+      "order": 3,
+      "name": "promotion_submit_kanon",
+      "service": "allagma",
+      "action": "POST /allagma/v0/skill-releases/promotions/{id}/submit",
+      "expected": {
+        "status": "approved_for_sandbox",
+        "kanonReleaseDecisionStatus": "approved_for_sandbox"
+      }
+    },
+    {
+      "order": 4,
+      "name": "sandbox_binding_created",
+      "service": "allagma",
+      "action": "POST /allagma/v0/skill-releases/bindings",
+      "expected": {
+        "bindingStatus": "created",
+        "targetEnvironment": "sandbox",
+        "limitations.productionDeploymentAllowed": false,
+        "limitations.sandboxOnly": true
+      }
+    },
+    {
+      "order": 5,
+      "name": "sandbox_binding_activated",
+      "service": "allagma",
+      "action": "POST /allagma/v0/skill-releases/bindings/{id}/activate",
+      "expected": {
+        "bindingStatus": "active"
+      }
+    },
+    {
+      "order": 6,
+      "name": "sandbox_binding_paused",
+      "service": "allagma",
+      "action": "POST /allagma/v0/skill-releases/bindings/{id}/pause",
+      "expected": {
+        "bindingStatus": "paused"
+      }
+    },
+    {
+      "order": 7,
+      "name": "sandbox_binding_rolled_back",
+      "service": "allagma",
+      "action": "POST /allagma/v0/skill-releases/bindings/{id}/rollback",
+      "expected": {
+        "bindingStatus": "rolled_back",
+        "rollbackStatus": "executed",
+        "requiresNonEmptyReason": true
+      }
+    }
+  ],
+  "evidenceLinks": [
+    { "from": "rollback", "type": "skillReleaseDeploymentBinding", "to": "binding" },
+    { "from": "rollback", "type": "skillPromotionRequest", "to": "promotion" },
+    { "from": "rollback", "type": "skillOptimizationRun", "to": "optimizationRun" },
+    { "from": "promotionEvidence", "type": "skillOptimizationRun", "to": "optimizationRun" }
+  ],
+  "referenceFixtures": {
+    "approvedPromotion": "promotion-request.approved-sandbox.json",
+    "activeBinding": "deployment-binding.sandbox-active.json",
+    "executedRollback": "rollback.executed.json"
+  }
+}

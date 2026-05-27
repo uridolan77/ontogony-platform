@@ -4,7 +4,7 @@ Last updated: **2026-05-27**
 
 | Package | Status | Reason active | Next action | Date |
 | --- | --- | --- | --- | --- |
-| [ONTOGONY-SKILL-RELEASE-GOVERNANCE-001](./ONTOGONY-SKILL-RELEASE-GOVERNANCE-001/README.md) | In progress | **001A** platform contracts; **001B** Kanon promotion evaluate (see `kanon-dotnet` evidence) | **001C** Allagma promotion request registry | 2026-05-27 |
+| [ONTOGONY-SKILL-RELEASE-GOVERNANCE-001](./ONTOGONY-SKILL-RELEASE-GOVERNANCE-001/README.md) | Closeout ready | **001A–001G** complete (see `docs/evidence/ONTOGONY_SKILL_RELEASE_GOVERNANCE_001G.md`) | Promote package to `docs/_incoming/_consumed/` | 2026-05-27 |
 
 **Consumed follow-on slices (not separate active packages):**
 

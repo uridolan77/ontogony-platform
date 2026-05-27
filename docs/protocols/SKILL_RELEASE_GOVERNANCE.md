@@ -1,7 +1,7 @@
 # Skill Release Governance (protocol index)
 
 **Package:** `ONTOGONY-SKILL-RELEASE-GOVERNANCE-001` · **Slice:** `001A` (contracts + schemas + fixtures)  
-**Status:** Phase 1 — canonical contracts and JSON schemas promoted to platform; backend/UI slices pending.  
+**Status:** Slices 001A–001G closed (contracts, Kanon/Allagma lifecycle, frontend Skill Lab, golden fixture). Consumer activation is a later package.  
 **Precondition:** [Skill Optimization Spine](./SKILL_OPTIMIZATION_SPINE.md) closed (001A–001K).
 
 Governed manual promotion and **sandbox-only** activation of accepted skill candidates. Not autonomous production deployment.
@@ -38,6 +38,7 @@ Lifecycle narrative: [SKILL_SANDBOX_ACTIVATION_LIFECYCLE.md](./SKILL_SANDBOX_ACT
 | Approved sandbox promotion | [`promotion-request.approved-sandbox.json`](../schemas/fixtures/skill-release/promotion-request.approved-sandbox.json) |
 | Active sandbox binding | [`deployment-binding.sandbox-active.json`](../schemas/fixtures/skill-release/deployment-binding.sandbox-active.json) |
 | Executed rollback | [`rollback.executed.json`](../schemas/fixtures/skill-release/rollback.executed.json) |
+| Golden path lifecycle (001G) | [`golden-path.lifecycle.json`](../schemas/fixtures/skill-release/golden-path.lifecycle.json) |
 
 ## Phase 1 validation
 

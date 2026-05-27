@@ -54,6 +54,35 @@ public sealed class SkillReleaseGovernanceSchemaTests
     }
 
     [Fact]
+    public void Golden_path_fixture_has_required_steps_and_sandbox_only_targets()
+    {
+        var repoRoot = GetProjectRoot();
+        var path = Path.Combine(repoRoot, "docs/schemas/fixtures/skill-release/golden-path.lifecycle.json");
+        using var doc = JsonDocument.Parse(File.ReadAllText(path));
+        var root = doc.RootElement;
+
+        Assert.Equal("skill-release-golden-path.v0", root.GetProperty("schemaVersion").GetString());
+        Assert.True(root.GetProperty("steps").GetArrayLength() >= 7);
+
+        foreach (var forbidden in root.GetProperty("forbiddenTargetEnvironments").EnumerateArray())
+        {
+            Assert.Contains(forbidden.GetString(), ForbiddenTargetEnvironments);
+        }
+
+        var allowed = root.GetProperty("allowedTargetEnvironments").EnumerateArray()
+            .Select(e => e.GetString())
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        foreach (var forbidden in ForbiddenTargetEnvironments)
+        {
+            Assert.DoesNotContain(forbidden, allowed);
+        }
+
+        Assert.Contains(
+            root.GetProperty("evidenceLinks").EnumerateArray(),
+            link => link.GetProperty("type").GetString() == "skillOptimizationRun");
+    }
+
+    [Fact]
     public void Promotion_fixture_has_approved_for_sandbox_status()
     {
         var repoRoot = GetProjectRoot();
