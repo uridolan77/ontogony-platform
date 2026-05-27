@@ -242,7 +242,7 @@
       "participatingRepos": ["kanon-dotnet", "conexus-dotnet"],
       "featureSpineIds": ["metabole-transformation-evolution"],
       "validationPackage": "METABOLE-BACKEND-COHESION-VALIDATION-001",
-      "notes": "Slice 001A current-state audit opened 2026-05-27."
+      "notes": "Slice 001B platform manifest alignment complete 2026-05-27; validation in_progress until 001J."
     }
   ],
   "deferrals": [

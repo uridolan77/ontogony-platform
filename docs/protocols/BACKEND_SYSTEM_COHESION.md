@@ -41,7 +41,7 @@ Runtime repos consume the manifest via alignment tests in their own validation p
 - `ALLAGMA-BACKEND-COHESION-VALIDATION-001`
 - `KANON-BACKEND-COHESION-VALIDATION-001`
 - `CONEXUS-BACKEND-COHESION-VALIDATION-001`
-- Metabole follow-on: `METABOLE-BACKEND-COHESION-VALIDATION-001` (001A opened 2026-05-27)
+- Metabole follow-on: `METABOLE-BACKEND-COHESION-VALIDATION-001` (001A–001G complete; 001H–001J in progress, 2026-05-27)
 
 ## Feature spines (v0)
 
