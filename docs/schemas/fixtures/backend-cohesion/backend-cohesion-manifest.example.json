@@ -1,0 +1,331 @@
+{
+  "schema": "ontogony-backend-cohesion-manifest-v0",
+  "version": "0.1.0",
+  "packageId": "ONTOGONY-BACKEND-COHESION-PLATFORM-001",
+  "updatedUtc": "2026-05-27T12:00:00Z",
+  "platformTruthRepo": "ontogony-platform",
+  "protocolDoc": "docs/protocols/BACKEND_SYSTEM_COHESION.md",
+  "matrixDoc": "docs/system/BACKEND_FEATURE_COHESION_MATRIX.md",
+  "goldenScenariosDoc": "docs/system/BACKEND_GOLDEN_SCENARIOS.md",
+  "deferralsDoc": "docs/system/BACKEND_COHESION_DEFERRALS.md",
+  "evidenceIndexDoc": "docs/evidence/BACKEND_COHESION_EVIDENCE_INDEX.md",
+  "runtimeBackendRepos": [
+    { "id": "allagma-dotnet", "role": "governed_execution" },
+    { "id": "kanon-dotnet", "role": "semantic_authority" },
+    { "id": "conexus-dotnet", "role": "model_gateway" },
+    { "id": "metabole-dotnet", "role": "data_transformation" }
+  ],
+  "featureSpines": [
+    {
+      "id": "decision-reconstructability",
+      "title": "Decision reconstructability spine",
+      "status": "closed",
+      "ownerRepos": ["kanon-dotnet"],
+      "participatingRepos": ["allagma-dotnet", "conexus-dotnet", "ontogony-platform"],
+      "protocolDoc": "docs/contracts/DECISION_RECONSTRUCTABILITY_PROTOCOL_V0.md",
+      "evidenceDocs": [
+        "docs/evidence/PLATFORM_RECONSTRUCTABILITY_CONFORMANCE_EVIDENCE.md",
+        "docs/contracts/DECISION_RECONSTRUCTABILITY_PROTOCOL_V0.md"
+      ]
+    },
+    {
+      "id": "workflow-lifecycle",
+      "title": "Workflow lifecycle spine",
+      "status": "in_progress",
+      "ownerRepos": ["allagma-dotnet"],
+      "participatingRepos": ["kanon-dotnet", "conexus-dotnet"],
+      "protocolDoc": "docs/protocols/BACKEND_SYSTEM_COHESION.md",
+      "notes": "Runtime validation package ALLAGMA-BACKEND-COHESION-VALIDATION-001."
+    },
+    {
+      "id": "budget-cost-governance",
+      "title": "Budget and cost governance spine",
+      "status": "in_progress",
+      "ownerRepos": ["allagma-dotnet"],
+      "participatingRepos": ["conexus-dotnet"],
+      "protocolDoc": "docs/protocols/BACKEND_SYSTEM_COHESION.md",
+      "notes": "Coupled to workflow + Conexus model-call golden scenario B."
+    },
+    {
+      "id": "skill-optimization",
+      "title": "Skill optimization spine",
+      "status": "closed",
+      "ownerRepos": ["allagma-dotnet"],
+      "participatingRepos": ["kanon-dotnet", "conexus-dotnet", "ontogony-platform"],
+      "protocolDoc": "docs/protocols/SKILL_OPTIMIZATION_SPINE.md",
+      "evidenceDocs": [
+        "docs/evidence/ONTOGONY_SKILL_OPTIMIZATION_SPINE_001_CLOSEOUT.md",
+        "docs/protocols/SKILL_OPTIMIZATION_SPINE.md"
+      ]
+    },
+    {
+      "id": "skill-release-governance",
+      "title": "Skill release governance spine",
+      "status": "closed",
+      "ownerRepos": ["allagma-dotnet", "kanon-dotnet"],
+      "participatingRepos": ["ontogony-platform"],
+      "protocolDoc": "docs/protocols/SKILL_RELEASE_GOVERNANCE.md",
+      "evidenceDocs": [
+        "docs/evidence/ONTOGONY_SKILL_RELEASE_GOVERNANCE_001_CLOSEOUT.md",
+        "docs/protocols/SKILL_RELEASE_GOVERNANCE.md"
+      ]
+    },
+    {
+      "id": "sandbox-consumer-activation",
+      "title": "Sandbox consumer activation spine",
+      "status": "closed",
+      "ownerRepos": ["allagma-dotnet"],
+      "participatingRepos": ["ontogony-platform"],
+      "protocolDoc": "docs/protocols/SANDBOX_CONSUMER_ACTIVATION.md",
+      "evidenceDocs": [
+        "docs/evidence/ONTOGONY_SANDBOX_CONSUMER_ACTIVATION_001G.md",
+        "docs/protocols/SANDBOX_CONSUMER_ACTIVATION.md"
+      ]
+    },
+    {
+      "id": "kanon-semantic-authority",
+      "title": "Kanon semantic authority spine",
+      "status": "in_progress",
+      "ownerRepos": ["kanon-dotnet"],
+      "participatingRepos": ["allagma-dotnet"],
+      "protocolDoc": "docs/protocols/BACKEND_SYSTEM_COHESION.md",
+      "notes": "Runtime validation package KANON-BACKEND-COHESION-VALIDATION-001."
+    },
+    {
+      "id": "conexus-routing-model-call-evidence",
+      "title": "Conexus routing and model-call evidence spine",
+      "status": "in_progress",
+      "ownerRepos": ["conexus-dotnet"],
+      "participatingRepos": ["allagma-dotnet"],
+      "protocolDoc": "docs/protocols/BACKEND_SYSTEM_COHESION.md",
+      "notes": "Runtime validation package CONEXUS-BACKEND-COHESION-VALIDATION-001."
+    },
+    {
+      "id": "metabole-transformation-evolution",
+      "title": "Metabole transformation and evolution spine",
+      "status": "in_progress",
+      "ownerRepos": ["metabole-dotnet"],
+      "participatingRepos": ["kanon-dotnet", "conexus-dotnet"],
+      "protocolDoc": "docs/protocols/BACKEND_SYSTEM_COHESION.md",
+      "notes": "Foundation-alpha; SLOD profiling and role/evolution integration remain open."
+    },
+    {
+      "id": "error-envelope",
+      "title": "Cross-service error envelope spine",
+      "status": "closed",
+      "ownerRepos": ["ontogony-platform"],
+      "participatingRepos": [
+        "allagma-dotnet",
+        "kanon-dotnet",
+        "conexus-dotnet",
+        "metabole-dotnet"
+      ],
+      "protocolDoc": "docs/contracts/CROSS_SERVICE_ERROR_ENVELOPE_GATE.md",
+      "evidenceDocs": [
+        "docs/evidence/PLATFORM_PHASE_TIGHT_2026_05_22_EVIDENCE.md",
+        "docs/contracts/CROSS_SERVICE_ERROR_ENVELOPE_GATE.md"
+      ]
+    },
+    {
+      "id": "trace-correlation-idempotency",
+      "title": "Trace, correlation, and idempotency spine",
+      "status": "closed",
+      "ownerRepos": ["ontogony-platform"],
+      "participatingRepos": [
+        "allagma-dotnet",
+        "kanon-dotnet",
+        "conexus-dotnet",
+        "metabole-dotnet"
+      ],
+      "protocolDoc": "docs/contracts/MECHANICAL_PROTOCOL_REGISTRY.md",
+      "evidenceDocs": [
+        "docs/evidence/TRACE_CONTRACT_001_EVIDENCE.md",
+        "docs/contracts/MECHANICAL_PROTOCOL_REGISTRY.md"
+      ]
+    },
+    {
+      "id": "openapi-route-inventory",
+      "title": "OpenAPI and route inventory discipline spine",
+      "status": "in_progress",
+      "ownerRepos": ["ontogony-platform"],
+      "participatingRepos": [
+        "allagma-dotnet",
+        "kanon-dotnet",
+        "conexus-dotnet",
+        "metabole-dotnet"
+      ],
+      "protocolDoc": "docs/system/system-protocol-registry.json",
+      "notes": "Per-repo route/OpenAPI drift tests are owned by runtime validation packages."
+    },
+    {
+      "id": "evidence-export-read-model",
+      "title": "Evidence export and read-model spine",
+      "status": "closed",
+      "ownerRepos": ["allagma-dotnet"],
+      "participatingRepos": ["kanon-dotnet", "conexus-dotnet", "ontogony-platform"],
+      "protocolDoc": "docs/operators/SYSTEM_EVIDENCE_SPINE_CONTRACT.md",
+      "evidenceDocs": [
+        "docs/evidence/SYS_TIGHT_002_SYSTEM_EVIDENCE_SPINE_CONTRACT_EVIDENCE.md",
+        "docs/operators/SYSTEM_EVIDENCE_SPINE_CONTRACT.md"
+      ]
+    }
+  ],
+  "goldenScenarios": [
+    {
+      "id": "golden-A-decision-reconstructability",
+      "letter": "A",
+      "title": "Decision reconstructability",
+      "ownerRepos": ["kanon-dotnet"],
+      "participatingRepos": ["allagma-dotnet", "conexus-dotnet"],
+      "featureSpineIds": ["decision-reconstructability"],
+      "validationPackage": "KANON-BACKEND-COHESION-VALIDATION-001"
+    },
+    {
+      "id": "golden-B-workflow-budget-conexus",
+      "letter": "B",
+      "title": "Workflow, budget, and Conexus model call",
+      "ownerRepos": ["allagma-dotnet"],
+      "participatingRepos": ["conexus-dotnet", "kanon-dotnet"],
+      "featureSpineIds": [
+        "workflow-lifecycle",
+        "budget-cost-governance",
+        "conexus-routing-model-call-evidence"
+      ],
+      "validationPackage": "ALLAGMA-BACKEND-COHESION-VALIDATION-001"
+    },
+    {
+      "id": "golden-C-skill-optimization",
+      "letter": "C",
+      "title": "Skill optimization",
+      "ownerRepos": ["allagma-dotnet"],
+      "participatingRepos": ["kanon-dotnet", "conexus-dotnet"],
+      "featureSpineIds": ["skill-optimization", "kanon-semantic-authority"],
+      "validationPackage": "ALLAGMA-BACKEND-COHESION-VALIDATION-001"
+    },
+    {
+      "id": "golden-D-skill-release-governance",
+      "letter": "D",
+      "title": "Skill release governance",
+      "ownerRepos": ["allagma-dotnet", "kanon-dotnet"],
+      "participatingRepos": ["ontogony-platform"],
+      "featureSpineIds": ["skill-release-governance", "kanon-semantic-authority"],
+      "validationPackage": "ALLAGMA-BACKEND-COHESION-VALIDATION-001"
+    },
+    {
+      "id": "golden-E-sandbox-consumer-activation",
+      "letter": "E",
+      "title": "Sandbox consumer activation",
+      "ownerRepos": ["allagma-dotnet"],
+      "participatingRepos": ["ontogony-platform"],
+      "featureSpineIds": ["sandbox-consumer-activation"],
+      "validationPackage": "ALLAGMA-BACKEND-COHESION-VALIDATION-001"
+    },
+    {
+      "id": "golden-F-error-trace-correlation",
+      "letter": "F",
+      "title": "Error, trace, and correlation discipline",
+      "ownerRepos": ["ontogony-platform"],
+      "participatingRepos": [
+        "allagma-dotnet",
+        "kanon-dotnet",
+        "conexus-dotnet",
+        "metabole-dotnet"
+      ],
+      "featureSpineIds": ["error-envelope", "trace-correlation-idempotency"],
+      "validationPackage": "ALLAGMA-BACKEND-COHESION-VALIDATION-001"
+    },
+    {
+      "id": "golden-G-metabole-transformation-provenance",
+      "letter": "G",
+      "title": "Metabole transformation provenance",
+      "ownerRepos": ["metabole-dotnet"],
+      "participatingRepos": ["kanon-dotnet", "conexus-dotnet"],
+      "featureSpineIds": ["metabole-transformation-evolution"],
+      "validationPackage": "METABOLE-BACKEND-COHESION-PLATFORM-001",
+      "notes": "Metabole runtime validation is a separate follow-on package."
+    }
+  ],
+  "deferrals": [
+    {
+      "id": "deferral-live-allagma-candor-chat-e2e",
+      "title": "Live Allagma to Candor Chat consumer E2E",
+      "status": "open",
+      "ownerRepos": ["allagma-dotnet", "ontogony-frontend"],
+      "reason": "Requires live consumer wiring beyond governed-fake fixtures.",
+      "nextGate": "ONTOGONY-SANDBOX-CONSUMER-ACTIVATION follow-on with real consumer"
+    },
+    {
+      "id": "deferral-allagma-skill-release-openapi-sync",
+      "title": "Allagma skill-release OpenAPI snapshot sync",
+      "status": "open",
+      "ownerRepos": ["allagma-dotnet"],
+      "reason": "Route inventory drift guard pending snapshot refresh.",
+      "nextGate": "ALLAGMA-BACKEND-COHESION-VALIDATION-001 slice 001H"
+    },
+    {
+      "id": "deferral-production-deployment-controls",
+      "title": "Production deployment controls",
+      "status": "open",
+      "ownerRepos": ["ontogony-platform"],
+      "reason": "Platform and runtime repos are not production-charter complete.",
+      "nextGate": "RELEASE-READINESS-TRUTH program"
+    },
+    {
+      "id": "deferral-kanon-rollback-governance-evaluation",
+      "title": "Kanon rollback governance evaluation",
+      "status": "open",
+      "ownerRepos": ["kanon-dotnet"],
+      "reason": "Rollback decision paths require dedicated governance tests.",
+      "nextGate": "KANON-BACKEND-COHESION-VALIDATION-001"
+    },
+    {
+      "id": "deferral-kanon-binding-governance-evaluation",
+      "title": "Kanon binding governance evaluation",
+      "status": "open",
+      "ownerRepos": ["kanon-dotnet"],
+      "reason": "Source binding automation review gates not fully exercised.",
+      "nextGate": "KANON-BACKEND-COHESION-VALIDATION-001"
+    },
+    {
+      "id": "deferral-conexus-real-provider-coverage",
+      "title": "Conexus real provider coverage beyond fake or local safe paths",
+      "status": "open",
+      "ownerRepos": ["conexus-dotnet"],
+      "reason": "Provider adapters validated on fake/local fixtures first.",
+      "nextGate": "CONEXUS-BACKEND-COHESION-VALIDATION-001"
+    },
+    {
+      "id": "deferral-metabole-role-evolution-integration",
+      "title": "Metabole role and evolution integration validation",
+      "status": "open",
+      "ownerRepos": ["metabole-dotnet"],
+      "reason": "Foundation-alpha; Kanon/Conexus advisory loops not fully integrated.",
+      "nextGate": "METABOLE-SQLSERVER-SLOD-PROFILING-001 or cohesion validation package"
+    },
+    {
+      "id": "deferral-frontend-global-typecheck-unrelated",
+      "title": "Frontend global typecheck unrelated errors",
+      "status": "open",
+      "ownerRepos": ["ontogony-frontend"],
+      "reason": "Unrelated typecheck failures may block cross-repo gates until triaged.",
+      "nextGate": "Frontend hygiene sweep"
+    },
+    {
+      "id": "deferral-known-unrelated-backend-full-suite-failures",
+      "title": "Known unrelated backend full-suite failures",
+      "status": "open",
+      "ownerRepos": [
+        "allagma-dotnet",
+        "kanon-dotnet",
+        "conexus-dotnet",
+        "metabole-dotnet"
+      ],
+      "reason": "Full-suite runs may include pre-existing failures outside cohesion scope.",
+      "nextGate": "Per-repo scorecard triage in validation packages"
+    }
+  ],
+  "productionDeployment": {
+    "status": "not_complete",
+    "notes": "Backend cohesion manifest defines contract truth only; production deployment remains explicitly out of scope."
+  }
+}

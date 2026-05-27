@@ -1,0 +1,216 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.ontogony.local/backend-cohesion-manifest.v0.schema.json",
+  "title": "Ontogony backend cohesion manifest v0",
+  "description": "Platform-owned truth layer for runtime backend cohesion: repo roles, feature spines, golden scenarios, deferrals, and evidence pointers. Does not implement runtime behavior.",
+  "type": "object",
+  "required": [
+    "schema",
+    "version",
+    "packageId",
+    "updatedUtc",
+    "platformTruthRepo",
+    "runtimeBackendRepos",
+    "featureSpines",
+    "goldenScenarios",
+    "deferrals",
+    "productionDeployment"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": "ontogony-backend-cohesion-manifest-v0" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "packageId": { "type": "string" },
+    "updatedUtc": { "type": "string", "format": "date-time" },
+    "platformTruthRepo": { "const": "ontogony-platform" },
+    "runtimeBackendRepos": {
+      "type": "array",
+      "minItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": ["id", "role"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "allagma-dotnet",
+              "kanon-dotnet",
+              "conexus-dotnet",
+              "metabole-dotnet"
+            ]
+          },
+          "role": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "featureSpines": {
+      "type": "array",
+      "minItems": 13,
+      "items": { "$ref": "#/$defs/featureSpine" }
+    },
+    "goldenScenarios": {
+      "type": "array",
+      "minItems": 7,
+      "items": { "$ref": "#/$defs/goldenScenario" }
+    },
+    "deferrals": {
+      "type": "array",
+      "minItems": 9,
+      "items": { "$ref": "#/$defs/deferral" }
+    },
+    "productionDeployment": { "$ref": "#/$defs/productionDeployment" },
+    "protocolDoc": { "type": "string" },
+    "matrixDoc": { "type": "string" },
+    "goldenScenariosDoc": { "type": "string" },
+    "deferralsDoc": { "type": "string" },
+    "evidenceIndexDoc": { "type": "string" }
+  },
+  "$defs": {
+    "featureSpine": {
+      "type": "object",
+      "required": ["id", "title", "status", "ownerRepos"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+        "title": { "type": "string", "minLength": 1 },
+        "status": {
+          "type": "string",
+          "enum": ["open", "in_progress", "closed", "deferred"]
+        },
+        "ownerRepos": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "enum": [
+              "ontogony-platform",
+              "allagma-dotnet",
+              "kanon-dotnet",
+              "conexus-dotnet",
+              "metabole-dotnet"
+            ]
+          }
+        },
+        "participatingRepos": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "ontogony-platform",
+              "allagma-dotnet",
+              "kanon-dotnet",
+              "conexus-dotnet",
+              "metabole-dotnet"
+            ]
+          }
+        },
+        "protocolDoc": { "type": "string" },
+        "matrixDoc": { "type": "string" },
+        "evidenceDocs": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "notes": { "type": "string" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "closed" } } },
+          "then": {
+            "required": ["evidenceDocs"],
+            "properties": {
+              "evidenceDocs": { "type": "array", "minItems": 1 }
+            }
+          }
+        }
+      ]
+    },
+    "goldenScenario": {
+      "type": "object",
+      "required": ["id", "letter", "title", "ownerRepos", "featureSpineIds"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^golden-[A-G]-[a-z0-9]+(?:-[a-z0-9]+)*$" },
+        "letter": { "type": "string", "pattern": "^[A-G]$" },
+        "title": { "type": "string", "minLength": 1 },
+        "ownerRepos": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "enum": [
+              "ontogony-platform",
+              "allagma-dotnet",
+              "kanon-dotnet",
+              "conexus-dotnet",
+              "metabole-dotnet"
+            ]
+          }
+        },
+        "participatingRepos": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "ontogony-platform",
+              "allagma-dotnet",
+              "kanon-dotnet",
+              "conexus-dotnet",
+              "metabole-dotnet"
+            ]
+          }
+        },
+        "featureSpineIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "validationPackage": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "deferral": {
+      "type": "object",
+      "required": ["id", "title", "status", "ownerRepos"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^deferral-[a-z0-9]+(?:-[a-z0-9]+)*$" },
+        "title": { "type": "string", "minLength": 1 },
+        "status": {
+          "type": "string",
+          "enum": ["open", "in_progress", "closed"]
+        },
+        "ownerRepos": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "enum": [
+              "ontogony-platform",
+              "allagma-dotnet",
+              "kanon-dotnet",
+              "conexus-dotnet",
+              "metabole-dotnet",
+              "ontogony-frontend"
+            ]
+          }
+        },
+        "reason": { "type": "string" },
+        "nextGate": { "type": "string" }
+      }
+    },
+    "productionDeployment": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["not_complete", "in_progress"]
+        },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}
