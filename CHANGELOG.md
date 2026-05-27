@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+ONTOGONY-SANDBOX-CONSUMER-ACTIVATION-001A — platform sandbox consumer activation contracts (docs/schemas only):
+
+- **Protocol** — [`docs/protocols/SANDBOX_CONSUMER_ACTIVATION.md`](docs/protocols/SANDBOX_CONSUMER_ACTIVATION.md).
+- **Contracts** — binding resolution, execution context, version-applied evidence, activation event under `docs/contracts/SKILL_CONSUMER_*_V0.md`, `SANDBOX_CONSUMER_ACTIVATION_EVENT_V0.md`.
+- **Schemas** — `docs/schemas/sandbox-consumer-activation/` (4 JSON schemas) and fixtures under `docs/schemas/fixtures/sandbox-consumer-activation/`.
+- **Tests** — `SandboxConsumerActivationSchemaTests` in `Ontogony.Infrastructure.Tests`.
+- **Evidence** — [`docs/evidence/ONTOGONY_SANDBOX_CONSUMER_ACTIVATION_001A.md`](docs/evidence/ONTOGONY_SANDBOX_CONSUMER_ACTIVATION_001A.md).
+
 ONTOGONY-SKILL-RELEASE-GOVERNANCE-001A — platform release-governance contracts (docs/schemas only):
 
 - **Protocols** — [`docs/protocols/SKILL_RELEASE_GOVERNANCE.md`](docs/protocols/SKILL_RELEASE_GOVERNANCE.md), [`docs/protocols/SKILL_SANDBOX_ACTIVATION_LIFECYCLE.md`](docs/protocols/SKILL_SANDBOX_ACTIVATION_LIFECYCLE.md).

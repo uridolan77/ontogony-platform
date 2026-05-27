@@ -48,6 +48,10 @@ any state → production_active
 automatic_promotion without operator request
 ```
 
+## Consumer activation (next package)
+
+Sandbox consumers resolve active bindings via [SANDBOX_CONSUMER_ACTIVATION.md](./SANDBOX_CONSUMER_ACTIVATION.md) (`ONTOGONY-SANDBOX-CONSUMER-ACTIVATION-001`). Allagma is the binding resolver authority (001B).
+
 ## Deferred (later packages)
 
 ```text
@@ -55,7 +59,6 @@ production_approved
 production_active
 progressive_rollout
 automatic_rollback_triggers
-real_consumer_activation
 ```
 
 ## Related
