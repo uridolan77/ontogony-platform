@@ -300,7 +300,7 @@
       "status": "open",
       "ownerRepos": ["metabole-dotnet"],
       "reason": "Foundation-alpha; Kanon/Conexus advisory loops not fully integrated.",
-      "nextGate": "METABOLE-BACKEND-COHESION-VALIDATION-001 slice 001D"
+      "nextGate": "METABOLE-BACKEND-COHESION-VALIDATION-001 slice 001E"
     },
     {
       "id": "deferral-frontend-global-typecheck-unrelated",
