@@ -45,7 +45,7 @@ dotnet test tests/Ontogony.Infrastructure.Tests -c Release --filter FullyQualifi
 
 Intake archive notes: [`docs/_incoming/_consumed/2026-05/ONTOGONY-SKILL-OPTIMIZATION-SPINE-001/IMPLEMENTATION_NOTES.md`](../_incoming/_consumed/2026-05/ONTOGONY-SKILL-OPTIMIZATION-SPINE-001/IMPLEMENTATION_NOTES.md)
 
-**Follow-on:** [`ONTOGONY-SKILL-RELEASE-GOVERNANCE-001`](../_incoming/_active/ONTOGONY-SKILL-RELEASE-GOVERNANCE-001/) — promotion and sandbox release (start 001A–001C before deployment activation).
+**Follow-on (closed):** [`ONTOGONY-SKILL-RELEASE-GOVERNANCE-001`](../_incoming/_consumed/2026-05/ONTOGONY-SKILL-RELEASE-GOVERNANCE-001/) — promotion and sandbox release (001A–001G). Next: **`ONTOGONY-SANDBOX-CONSUMER-ACTIVATION-001`** (real sandbox consumer wiring; not yet opened).
 
 ## Non-goals (001A)
 

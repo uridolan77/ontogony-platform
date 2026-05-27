@@ -1,15 +1,14 @@
 # Active intake manifest
 
-Last updated: **2026-05-27**
+Last updated: **2026-05-27** (ONTOGONY-SKILL-RELEASE-GOVERNANCE-001 archived)
 
-| Package | Status | Reason active | Next action | Date |
-| --- | --- | --- | --- | --- |
-| [ONTOGONY-SKILL-RELEASE-GOVERNANCE-001](./ONTOGONY-SKILL-RELEASE-GOVERNANCE-001/README.md) | Closeout ready | **001A–001G** complete (see `docs/evidence/ONTOGONY_SKILL_RELEASE_GOVERNANCE_001G.md`) | Promote package to `docs/_incoming/_consumed/` | 2026-05-27 |
+No packages are currently active.
 
 **Consumed follow-on slices (not separate active packages):**
 
 | Slice | Status | Archive |
 | --- | --- | --- |
+| ONTOGONY-SKILL-RELEASE-GOVERNANCE-001 (001A–001G) | **Done** | [`../_consumed/2026-05/ONTOGONY-SKILL-RELEASE-GOVERNANCE-001/`](../_consumed/2026-05/ONTOGONY-SKILL-RELEASE-GOVERNANCE-001/) |
 | ONTOGONY-SKILL-OPTIMIZATION-SPINE-001 (001A–001K) | **Done** | [`../_consumed/2026-05/ONTOGONY-SKILL-OPTIMIZATION-SPINE-001/`](../_consumed/2026-05/ONTOGONY-SKILL-OPTIMIZATION-SPINE-001/) |
 | DEC-RECON-004 smoke | **PASS** | [`../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-004/`](../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-004/) |
 | DEC-RECON-005 golden fixtures | **Done** | [`../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-005/`](../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-005/) |

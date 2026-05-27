@@ -21,4 +21,4 @@ Final reviewed commits: `ontogony-frontend` `1eaef4b` (001K), `allagma-dotnet` `
 
 ## Follow-on
 
-[`ONTOGONY-SKILL-RELEASE-GOVERNANCE-001`](../../_active/ONTOGONY-SKILL-RELEASE-GOVERNANCE-001/) — promotion and sandbox release (spec copied to active intake at archive time).
+[`ONTOGONY-SKILL-RELEASE-GOVERNANCE-001`](../ONTOGONY-SKILL-RELEASE-GOVERNANCE-001/) — promotion and sandbox release (**closed** 2026-05-27).

@@ -68,4 +68,4 @@ All slices **001A–001K** are complete. The governed skill-optimization loop is
 
 ## Follow-on package
 
-**`ONTOGONY-SKILL-RELEASE-GOVERNANCE-001`** — manual promotion and sandbox activation (govern promotion before deployment). Active intake: [`docs/_incoming/_active/ONTOGONY-SKILL-RELEASE-GOVERNANCE-001/`](../_incoming/_active/ONTOGONY-SKILL-RELEASE-GOVERNANCE-001/).
+**`ONTOGONY-SKILL-RELEASE-GOVERNANCE-001`** — manual promotion and sandbox activation — **closed** (001A–001G). Archive: [`docs/_incoming/_consumed/2026-05/ONTOGONY-SKILL-RELEASE-GOVERNANCE-001/`](../_incoming/_consumed/2026-05/ONTOGONY-SKILL-RELEASE-GOVERNANCE-001/). Next: **`ONTOGONY-SANDBOX-CONSUMER-ACTIVATION-001`**.

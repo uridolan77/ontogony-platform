@@ -47,7 +47,7 @@ cd C:\dev\ontogony-platform
 dotnet test tests/Ontogony.Infrastructure.Tests -c Release --filter FullyQualifiedName~SkillReleaseGovernanceSchemaTests
 ```
 
-Intake spec: [`docs/_incoming/_active/ONTOGONY-SKILL-RELEASE-GOVERNANCE-001/`](../_incoming/_active/ONTOGONY-SKILL-RELEASE-GOVERNANCE-001/)
+Intake archive: [`docs/_incoming/_consumed/2026-05/ONTOGONY-SKILL-RELEASE-GOVERNANCE-001/`](../_incoming/_consumed/2026-05/ONTOGONY-SKILL-RELEASE-GOVERNANCE-001/) · Closeout: [`docs/evidence/ONTOGONY_SKILL_RELEASE_GOVERNANCE_001_CLOSEOUT.md`](../evidence/ONTOGONY_SKILL_RELEASE_GOVERNANCE_001_CLOSEOUT.md)
 
 ## Non-goals (001A and v0 package)
 
