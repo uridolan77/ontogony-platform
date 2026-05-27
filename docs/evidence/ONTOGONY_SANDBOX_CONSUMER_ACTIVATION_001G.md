@@ -10,7 +10,12 @@
 
 `ONTOGONY-SANDBOX-CONSUMER-ACTIVATION-001` is **closed**. The canonical golden fixture documents the sandbox-only consumer activation path from active binding resolution through governed skill application, pause fallback, and rollback fallback — with `SkillVersionAppliedEvidence` at each consumer-visible outcome.
 
-**Live Allagma consumer E2E** is intentionally deferred to a future system-cohesion package.
+```text
+Closed at fixture/doc level.
+Runtime consumer integration is complete through BFF mocked resolver proof (consumer repos).
+Live Allagma lifecycle E2E is deferred to a system-cohesion package.
+Production deployment remains out of scope.
+```
 
 ---
 
