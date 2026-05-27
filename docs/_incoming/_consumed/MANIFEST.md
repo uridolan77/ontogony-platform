@@ -1,6 +1,6 @@
 # Consumed intake manifest
 
-Last updated: **2026-05-27** (ONTOGONY-SKILL-RELEASE-GOVERNANCE-001 closeout)
+Last updated: **2026-05-27** (ONTOGONY-BACKEND-COHESION-PLATFORM-001 closeout)
 
 All paths are under `docs/_incoming/_consumed/2026-05/` unless noted.
 
@@ -39,6 +39,7 @@ All paths are under `docs/_incoming/_consumed/2026-05/` unless noted.
 | ONTOGONY-PUBLIC-API-HARDENING-001 | **consumed** | PLAT-9-004 — [`evidence/PLAT_9_004_PUBLIC_API_HARDENING_EVIDENCE.md`](../../evidence/PLAT_9_004_PUBLIC_API_HARDENING_EVIDENCE.md), [`quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md`](../../quality/PLAT-QUALITY-001-public-api-docs-and-coverage.md) | 2026-05-26 |
 | ONTOGONY-SKILL-OPTIMIZATION-SPINE-001 | **consumed** | 001A–001K complete — [`protocols/SKILL_OPTIMIZATION_SPINE.md`](../../protocols/SKILL_OPTIMIZATION_SPINE.md), [`evidence/ONTOGONY_SKILL_OPTIMIZATION_SPINE_001_CLOSEOUT.md`](../../evidence/ONTOGONY_SKILL_OPTIMIZATION_SPINE_001_CLOSEOUT.md); sister evidence in Kanon/Allagma/Conexus/frontend | 2026-05-27 |
 | ONTOGONY-SKILL-RELEASE-GOVERNANCE-001 | **consumed** | 001A–001G complete — [`protocols/SKILL_RELEASE_GOVERNANCE.md`](../../protocols/SKILL_RELEASE_GOVERNANCE.md), [`evidence/ONTOGONY_SKILL_RELEASE_GOVERNANCE_001_CLOSEOUT.md`](../../evidence/ONTOGONY_SKILL_RELEASE_GOVERNANCE_001_CLOSEOUT.md); sister evidence in Kanon/Allagma/frontend | 2026-05-27 |
+| ONTOGONY-BACKEND-COHESION-PLATFORM-001 | **consumed** | Backend cohesion manifest — [`protocols/BACKEND_SYSTEM_COHESION.md`](../../protocols/BACKEND_SYSTEM_COHESION.md), [`system/backend-cohesion/ONTOGONY_BACKEND_COHESION_MANIFEST.v0.json`](../../system/backend-cohesion/ONTOGONY_BACKEND_COHESION_MANIFEST.v0.json), [`evidence/ONTOGONY_BACKEND_COHESION_PLATFORM_001.md`](../../evidence/ONTOGONY_BACKEND_COHESION_PLATFORM_001.md) | 2026-05-27 |
 
 ## Month folders
 

@@ -46,6 +46,7 @@ Practical map of **canonical** platform documentation. For intake packages, see 
 | Skill optimization spine | [`protocols/SKILL_OPTIMIZATION_SPINE.md`](./protocols/SKILL_OPTIMIZATION_SPINE.md) |
 | Skill release governance (001A) | [`protocols/SKILL_RELEASE_GOVERNANCE.md`](./protocols/SKILL_RELEASE_GOVERNANCE.md) |
 | Sandbox consumer activation (001A) | [`protocols/SANDBOX_CONSUMER_ACTIVATION.md`](./protocols/SANDBOX_CONSUMER_ACTIVATION.md) |
+| Backend system cohesion (manifest) | [`protocols/BACKEND_SYSTEM_COHESION.md`](./protocols/BACKEND_SYSTEM_COHESION.md) |
 | Observability mechanics | [`observability/README.md`](./observability/README.md) |
 | Protocol registry | [`system/system-protocol-registry.json`](./system/system-protocol-registry.json) |
 | JSON schemas | [`schemas/`](./schemas/) |

@@ -53,6 +53,15 @@ KANON-UI-API-PARITY-001: [`artifacts/kanon-ui-api-parity-001/`](./artifacts/kano
 
 ---
 
+## Backend cohesion (ONTOGONY-BACKEND-COHESION-PLATFORM-001)
+
+| Item | File |
+| --- | --- |
+| Platform closeout | [ONTOGONY_BACKEND_COHESION_PLATFORM_001.md](./ONTOGONY_BACKEND_COHESION_PLATFORM_001.md) |
+| Evidence index | [BACKEND_COHESION_EVIDENCE_INDEX.md](./BACKEND_COHESION_EVIDENCE_INDEX.md) |
+
+---
+
 ## Platform gates
 
 | Item | File |
