@@ -241,8 +241,8 @@
       "ownerRepos": ["metabole-dotnet"],
       "participatingRepos": ["kanon-dotnet", "conexus-dotnet"],
       "featureSpineIds": ["metabole-transformation-evolution"],
-      "validationPackage": "METABOLE-BACKEND-COHESION-PLATFORM-001",
-      "notes": "Metabole runtime validation is a separate follow-on package."
+      "validationPackage": "METABOLE-BACKEND-COHESION-VALIDATION-001",
+      "notes": "Slice 001A current-state audit opened 2026-05-27."
     }
   ],
   "deferrals": [

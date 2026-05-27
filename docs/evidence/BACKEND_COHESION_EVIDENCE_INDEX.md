@@ -35,7 +35,7 @@ Platform and cross-repo evidence for **backend cohesion feature spines** indexed
 | Allagma | `ALLAGMA-BACKEND-COHESION-VALIDATION-001` | `ALLAGMA_BACKEND_COHESION_*` |
 | Kanon | `KANON-BACKEND-COHESION-VALIDATION-001` | `KANON_BACKEND_COHESION_*` |
 | Conexus | `CONEXUS-BACKEND-COHESION-VALIDATION-001` | `CONEXUS_BACKEND_COHESION_*` |
-| Metabole | Foundation + SLOD profiling | `METABOLE_*` (follow-on) |
+| Metabole | `METABOLE-BACKEND-COHESION-VALIDATION-001` | `METABOLE_BACKEND_COHESION_*` |
 
 ---
 
