@@ -1,6 +1,7 @@
 ## Review: Sampling Policy Spine implementation
 
-> **PR 1 (May 2026):** Runtime enforcement landed in `conexus-dotnet` — `ChatCompletionService` resolves policy before provider calls, effective sampling params override caller values, denied decisions block by default (`BlockDeniedOnChatCompletion`), and `/v1/chat/completions` returns 403/409 for policy violations. PRs 2–5 remain open.
+> **PR 1 (May 2026):** Runtime enforcement landed in `conexus-dotnet` — `ChatCompletionService` resolves policy before provider calls, effective sampling params override caller values, denied decisions block by default (`BlockDeniedOnChatCompletion`), and `/v1/chat/completions` returns 403/409 for policy violations.
+> **PR 2–5 (May 2026):** First-class `sampling_profile_id`, Kanon decision precedence, `sampling_policy_trace_json` evidence artifact, and frontend structured-trace parsing + agent-interaction panel mounting.
 
 **Overall assessment: partial but promising.**
 The implementation has a real Conexus-side sampling-policy core now, not just docs. It adds domain contracts, resolver, validator, provider-parameter translation, HTTP endpoints, Kanon gateway wiring, and a frontend trace panel. But the spine is **not yet end-to-end enforced on live `/v1/chat/completions` calls**, which is the main gap.
