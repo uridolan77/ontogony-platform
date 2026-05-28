@@ -37,4 +37,4 @@ nextGate: live-five-service-PASS
 
 ## Rationale
 
-Aisthesis now exposes v2 required-edge diagnostics, durable in-memory evaluation jobs, hardened edge auth, and honest certification scripts. System RC lock requires live producer evidence across all five services and production gate completion — neither is proven in this session.
+Aisthesis now exposes v2 required-edge diagnostics, tracked in-memory evaluation jobs, hardened edge auth, and honest certification scripts. System RC lock requires live producer evidence across all five services and production gate completion — neither is proven in this session.
