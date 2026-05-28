@@ -1,0 +1,124 @@
+openapi: 3.0.3
+info:
+  title: Conexus Sampling Policy API Slice
+  version: v0
+paths:
+  /llm/v0/sampling-profiles:
+    get:
+      summary: List sampling profiles
+      responses:
+        '200':
+          description: Sampling profile registry
+  /llm/v0/sampling-profiles/{profileId}:
+    get:
+      summary: Get sampling profile by id
+      parameters:
+        - name: profileId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Sampling profile
+        '404':
+          description: Unknown profile
+  /llm/v0/sampling-policy/resolve:
+    post:
+      summary: Resolve effective sampling policy for a call
+      responses:
+        '200':
+          description: Sampling policy resolution
+  /llm/v0/sampling-policy/validate:
+    post:
+      summary: Validate requested sampling policy without provider execution
+      responses:
+        '200':
+          description: Sampling policy validation result
+components:
+  schemas:
+    SamplingPolicyResolveRequest:
+      type: object
+      required: [caller, operationKind, taskKind, riskTier, outputContract]
+      properties:
+        caller:
+          type: string
+        operationKind:
+          type: string
+        taskKind:
+          type: string
+        riskTier:
+          type: string
+          enum: [low, medium, high, critical]
+        outputContract:
+          type: string
+        requestedProfileId:
+          type: string
+          nullable: true
+        directExecution:
+          type: boolean
+        toolUse:
+          type: boolean
+        sideEffecting:
+          type: boolean
+    SamplingPolicyResolution:
+      type: object
+      required: [resolutionId, effectiveProfileId, decision, effectiveParameters, warnings, violations]
+      properties:
+        resolutionId:
+          type: string
+        requestedProfileId:
+          type: string
+          nullable: true
+        effectiveProfileId:
+          type: string
+        decision:
+          type: string
+          enum: [Allowed, AllowedWithWarnings, Denied, RequiresApproval]
+        policyBasis:
+          type: string
+        effectiveParameters:
+          $ref: '#/components/schemas/SamplingParameters'
+        warnings:
+          type: array
+          items:
+            $ref: '#/components/schemas/SamplingPolicyNotice'
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/SamplingPolicyNotice'
+    SamplingParameters:
+      type: object
+      properties:
+        temperature:
+          type: number
+          nullable: true
+        topP:
+          type: number
+          nullable: true
+        candidateCount:
+          type: integer
+          nullable: true
+        seed:
+          type: integer
+          nullable: true
+        presencePenalty:
+          type: number
+          nullable: true
+        frequencyPenalty:
+          type: number
+          nullable: true
+    SamplingPolicyNotice:
+      type: object
+      required: [code, severity, message]
+      properties:
+        code:
+          type: string
+        severity:
+          type: string
+          enum: [info, warning, error]
+        message:
+          type: string
+        recommendedProfileId:
+          type: string
+          nullable: true

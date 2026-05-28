@@ -1,0 +1,191 @@
+{
+  "contractVersion": "sampling.profiles.v0",
+  "profiles": [
+    {
+      "id": "DeterministicContract",
+      "displayName": "Deterministic Contract",
+      "intent": "Stable contract-bound execution for schema mapping, routing, policy classification, tool planning, and code edits.",
+      "temperature": 0.0,
+      "topP": 0.7,
+      "candidateCount": 1,
+      "presencePenalty": 0.0,
+      "frequencyPenalty": 0.0,
+      "seed": null,
+      "jsonSchemaStrictPreferred": true,
+      "directExecutionAllowed": true,
+      "allowsTools": true,
+      "allowsSideEffects": true,
+      "determinismGuarantee": "provider-dependent",
+      "allowedTaskKinds": [
+        "contract_bound",
+        "schema_mapping",
+        "routing",
+        "policy_decision",
+        "tool_planning",
+        "code_patch",
+        "classification"
+      ],
+      "blockedOutputContracts": [],
+      "maxRiskTier": "critical",
+      "notes": [
+        "Do not claim full determinism unless provider/backend seed determinism is guaranteed."
+      ]
+    },
+    {
+      "id": "ExtractionStrict",
+      "displayName": "Extraction Strict",
+      "intent": "Low-variance extraction into JSON/schema contracts.",
+      "temperature": 0.0,
+      "topP": 0.5,
+      "candidateCount": 1,
+      "presencePenalty": 0.0,
+      "frequencyPenalty": 0.0,
+      "seed": null,
+      "jsonSchemaStrictPreferred": true,
+      "directExecutionAllowed": true,
+      "allowsTools": true,
+      "allowsSideEffects": false,
+      "determinismGuarantee": "provider-dependent",
+      "allowedTaskKinds": [
+        "json_extraction",
+        "contract_bound",
+        "classification",
+        "normalization"
+      ],
+      "blockedOutputContracts": [
+        "creative_text"
+      ],
+      "maxRiskTier": "critical",
+      "notes": [
+        "Prefer strict response format or provider schema mode when available."
+      ]
+    },
+    {
+      "id": "RepairRetry",
+      "displayName": "Repair Retry",
+      "intent": "Focused low-temperature retry for malformed JSON, invalid tool calls, or failed contract output.",
+      "temperature": 0.1,
+      "topP": 0.8,
+      "candidateCount": 1,
+      "presencePenalty": 0.0,
+      "frequencyPenalty": 0.0,
+      "seed": null,
+      "jsonSchemaStrictPreferred": true,
+      "directExecutionAllowed": true,
+      "allowsTools": true,
+      "allowsSideEffects": false,
+      "determinismGuarantee": "provider-dependent",
+      "allowedTaskKinds": [
+        "repair",
+        "json_repair",
+        "tool_call_repair",
+        "contract_bound"
+      ],
+      "blockedOutputContracts": [
+        "creative_text"
+      ],
+      "maxRiskTier": "high",
+      "notes": [
+        "Should be used after a concrete validation failure, not as the default for creative rewriting."
+      ]
+    },
+    {
+      "id": "AnalyticalReasoning",
+      "displayName": "Analytical Reasoning",
+      "intent": "Architecture analysis, diagnostics, synthesis, review, and non-side-effecting reasoning.",
+      "temperature": 0.3,
+      "topP": 0.9,
+      "candidateCount": 1,
+      "presencePenalty": 0.0,
+      "frequencyPenalty": 0.0,
+      "seed": null,
+      "jsonSchemaStrictPreferred": false,
+      "directExecutionAllowed": false,
+      "allowsTools": true,
+      "allowsSideEffects": false,
+      "determinismGuarantee": "not-guaranteed",
+      "allowedTaskKinds": [
+        "analysis",
+        "diagnosis",
+        "review",
+        "synthesis",
+        "planning"
+      ],
+      "blockedOutputContracts": [
+        "policy_decision",
+        "side_effect_action"
+      ],
+      "maxRiskTier": "medium",
+      "notes": [
+        "Good default for repo review and architecture assessment. Not appropriate for final authority decisions."
+      ]
+    },
+    {
+      "id": "CreativeIdeation",
+      "displayName": "Creative Ideation",
+      "intent": "Naming, UX copy, brainstorming, comedic/fictional generation, metaphor generation, and low-risk creative alternatives.",
+      "temperature": 0.8,
+      "topP": 0.95,
+      "candidateCount": 1,
+      "presencePenalty": 0.1,
+      "frequencyPenalty": 0.1,
+      "seed": null,
+      "jsonSchemaStrictPreferred": false,
+      "directExecutionAllowed": false,
+      "allowsTools": false,
+      "allowsSideEffects": false,
+      "determinismGuarantee": "not-guaranteed",
+      "allowedTaskKinds": [
+        "creative",
+        "ideation",
+        "copywriting",
+        "naming",
+        "scenario_generation"
+      ],
+      "blockedOutputContracts": [
+        "json_schema",
+        "tool_call",
+        "policy_decision",
+        "side_effect_action",
+        "code_patch"
+      ],
+      "maxRiskTier": "low",
+      "notes": [
+        "Never use directly for execution, routing, schema mapping, or authority decisions."
+      ]
+    },
+    {
+      "id": "DiversityProbe",
+      "displayName": "Diversity Probe",
+      "intent": "Generate multiple candidates for comparison, exploration, or adjudication.",
+      "temperature": 0.9,
+      "topP": 0.98,
+      "candidateCount": 3,
+      "presencePenalty": 0.1,
+      "frequencyPenalty": 0.1,
+      "seed": null,
+      "jsonSchemaStrictPreferred": false,
+      "directExecutionAllowed": false,
+      "allowsTools": false,
+      "allowsSideEffects": false,
+      "determinismGuarantee": "not-guaranteed",
+      "allowedTaskKinds": [
+        "alternative_generation",
+        "creative",
+        "exploration",
+        "option_generation"
+      ],
+      "blockedOutputContracts": [
+        "json_schema",
+        "tool_call",
+        "policy_decision",
+        "side_effect_action",
+        "code_patch"
+      ],
+      "maxRiskTier": "low",
+      "notes": [
+        "Requires a later deterministic selection, scoring, or human approval step before execution."
+      ]
+    }
+  ]
+}

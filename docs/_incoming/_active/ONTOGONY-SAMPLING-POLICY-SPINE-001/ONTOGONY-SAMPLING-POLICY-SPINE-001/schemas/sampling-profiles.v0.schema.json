@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.local/schemas/sampling-profiles.v0.schema.json",
+  "title": "Ontogony Sampling Profiles v0",
+  "type": "object",
+  "required": [
+    "contractVersion",
+    "profiles"
+  ],
+  "properties": {
+    "contractVersion": {
+      "const": "sampling.profiles.v0"
+    },
+    "profiles": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "displayName",
+          "intent",
+          "temperature",
+          "topP",
+          "candidateCount",
+          "directExecutionAllowed",
+          "allowsTools",
+          "allowsSideEffects",
+          "determinismGuarantee",
+          "allowedTaskKinds",
+          "blockedOutputContracts",
+          "maxRiskTier"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_]*$"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "intent": {
+            "type": "string"
+          },
+          "temperature": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 2
+          },
+          "topP": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "candidateCount": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 16
+          },
+          "presencePenalty": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "frequencyPenalty": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "seed": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "jsonSchemaStrictPreferred": {
+            "type": "boolean"
+          },
+          "directExecutionAllowed": {
+            "type": "boolean"
+          },
+          "allowsTools": {
+            "type": "boolean"
+          },
+          "allowsSideEffects": {
+            "type": "boolean"
+          },
+          "determinismGuarantee": {
+            "type": "string"
+          },
+          "allowedTaskKinds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "blockedOutputContracts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "maxRiskTier": {
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

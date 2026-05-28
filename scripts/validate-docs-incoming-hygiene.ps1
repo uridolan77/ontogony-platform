@@ -80,6 +80,19 @@ function Get-ManifestPackageNames {
     return @($names | Select-Object -Unique)
 }
 
+function New-StringHashSet {
+    param([string[]]$Items)
+
+    $set = [System.Collections.Generic.HashSet[string]]::new()
+    foreach ($item in $Items) {
+        if (-not [string]::IsNullOrWhiteSpace($item)) {
+            [void]$set.Add($item)
+        }
+    }
+
+    return $set
+}
+
 function Test-ConsumedPackageExists {
     param([string]$PackageName)
 
@@ -172,7 +185,7 @@ foreach ($pkg in $consumedSet) {
 # 8. Bidirectional active sync: every _active/<dir> must be in manifest; no extras either way
 $onDiskActive = @(Get-ChildItem -LiteralPath $activeRoot -Directory -ErrorAction SilentlyContinue |
     ForEach-Object { $_.Name })
-$manifestActiveSet = [System.Collections.Generic.HashSet[string]]::new([string[]]$activePackages)
+$manifestActiveSet = New-StringHashSet -Items $activePackages
 foreach ($dir in $onDiskActive) {
     if (-not $manifestActiveSet.Contains($dir)) {
         Add-Failure "active directory not listed in _active/MANIFEST.md: $dir"
@@ -183,7 +196,7 @@ $monthPath = Join-Path (Join-Path $incomingRoot '_consumed') '2026-05'
 if (Test-Path -LiteralPath $monthPath) {
     $onDiskConsumed = @(Get-ChildItem -LiteralPath $monthPath -Directory -ErrorAction SilentlyContinue |
         ForEach-Object { $_.Name })
-    $manifestConsumedSet = [System.Collections.Generic.HashSet[string]]::new([string[]]$consumedSet)
+    $manifestConsumedSet = New-StringHashSet -Items $consumedSet
     foreach ($dir in $onDiskConsumed) {
         if (-not $manifestConsumedSet.Contains($dir)) {
             Add-Failure "consumed/2026-05 directory not listed in _consumed/MANIFEST.md: $dir"

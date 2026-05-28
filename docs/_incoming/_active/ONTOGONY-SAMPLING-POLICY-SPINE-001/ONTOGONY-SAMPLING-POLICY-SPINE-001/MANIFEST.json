@@ -1,0 +1,26 @@
+{
+  "packageId": "ONTOGONY-SAMPLING-POLICY-SPINE-001",
+  "title": "Governed Sampling Policy Layer for Conexus/Ontogony",
+  "createdFor": "Ontogony multi-repo system",
+  "primaryRepo": "conexus-dotnet",
+  "secondaryRepos": [
+    "kanon-dotnet",
+    "allagma-dotnet",
+    "ontogony-frontend",
+    "ontogony-platform"
+  ],
+  "contractVersions": [
+    "sampling.profiles.v0",
+    "sampling.policy.contract.v0",
+    "sampling.policy.trace.v0"
+  ],
+  "profiles": [
+    "DeterministicContract",
+    "ExtractionStrict",
+    "RepairRetry",
+    "AnalyticalReasoning",
+    "CreativeIdeation",
+    "DiversityProbe"
+  ],
+  "status": "developer-package"
+}
