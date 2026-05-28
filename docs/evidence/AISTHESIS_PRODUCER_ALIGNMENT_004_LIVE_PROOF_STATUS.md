@@ -27,8 +27,8 @@ Fixture ingestion uses `fixtures/CROSS_SYSTEM_TRACE_REQUIRED_EDGES_V1.evidence.j
 | `reconstructabilityV2Grade` | `complete` |
 | `blockingFindings` | 0 |
 
-Coordinated live native-emitter proof succeeded via Allagma → Metabole SLOD orchestration (see Allagma closeout).
+Coordinated live native-emitter proof succeeded via Allagma → Metabole SLOD orchestration (see Allagma closeout). Second path **Metabole-first SLOD** is available via `-Workflow MetaboleFirstSlod` (LES-002).
 
 ## Runtime lock
 
-`SYSTEM-RC-003` / Aisthesis `lockRequired` promotion remains **deferred** — live proof does not auto-promote lock without review (`SYSTEM_RC_003_DRY_RUN_DEFERRAL.md`).
+`SYSTEM-RC-003` / Aisthesis `lockRequired` promotion: **Aisthesis lock review closed 2026-05-28** — `liveProducerSmoke: pass`, `lockRequired` remains **false** until five-service CI + ReleaseMode gates (`SYSTEM_RC_003_AISTHESIS_LOCK_REVIEW_CLOSEOUT.md`). Full baseline RC-003 promotion still deferred (`SYSTEM_RC_003_DRY_RUN_DEFERRAL.md`).
