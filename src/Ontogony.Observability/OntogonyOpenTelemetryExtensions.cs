@@ -16,6 +16,11 @@ public static class OntogonyOpenTelemetryExtensions
     public const string OtlpEndpointEnvironmentVariable = "OTEL_EXPORTER_OTLP_ENDPOINT";
 
     /// <summary>
+    /// OpenTelemetry SDK metric export interval (milliseconds). Default export is 60s; local stacks use 5s.
+    /// </summary>
+    public const string MetricExportIntervalEnvironmentVariable = "OTEL_METRIC_EXPORT_INTERVAL";
+
+    /// <summary>
     /// Registers ASP.NET Core, HTTP client, and Ontogony activity/meter export when
     /// <see cref="OtlpEndpointEnvironmentVariable"/> is set. No-op when the endpoint is unset
     /// so hosts start normally without a collector.
@@ -51,8 +56,29 @@ public static class OntogonyOpenTelemetryExtensions
                 .AddMeter(OntogonyDiagnostics.DefaultActivitySourceName)
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
-                .AddOtlpExporter());
+                .AddOtlpExporter(ConfigureMetricOtlpExporter));
 
         return services;
+    }
+
+    /// <summary>Applies <see cref="MetricExportIntervalEnvironmentVariable"/> to the periodic metric reader.</summary>
+    public static void ConfigureMetricOtlpExporter(
+        OpenTelemetry.Exporter.OtlpExporterOptions _,
+        MetricReaderOptions metricReaderOptions)
+    {
+        metricReaderOptions.PeriodicExportingMetricReaderOptions.ExportIntervalMilliseconds =
+            ResolveMetricExportIntervalMilliseconds();
+    }
+
+    /// <summary>Reads <see cref="MetricExportIntervalEnvironmentVariable"/> or returns the SDK default (60s).</summary>
+    public static int ResolveMetricExportIntervalMilliseconds()
+    {
+        var raw = Environment.GetEnvironmentVariable(MetricExportIntervalEnvironmentVariable);
+        if (!string.IsNullOrWhiteSpace(raw) && int.TryParse(raw, out var parsed) && parsed > 0)
+        {
+            return parsed;
+        }
+
+        return 60_000;
     }
 }
