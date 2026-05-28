@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "aisthesis.rc-readiness-gate.v0",
+  "classification": "RC-readiness partial",
+  "lockRecommendation": "candidate",
+  "gates": {
+    "build": "PASS",
+    "tests": "PASS",
+    "fixtureSmoke": "PASS",
+    "liveProofLes001": "PASS",
+    "liveProofLes002": "ACCEPTED_PARTIAL",
+    "ciSmoke": "PASS",
+    "releaseMode": "NOT_RUN",
+    "frontend": "HANDOFF_ONLY",
+    "iam": "DEFERRED",
+    "retention": "DEFERRED",
+    "otel": "DEFERRED"
+  },
+  "blockers": [],
+  "deferredNonBlockers": [
+    "frontend UI not implemented",
+    "production IAM not complete",
+    "retention/erasure APIs not implemented",
+    "OTel distributed trace export not implemented"
+  ],
+  "evidence": []
+}
