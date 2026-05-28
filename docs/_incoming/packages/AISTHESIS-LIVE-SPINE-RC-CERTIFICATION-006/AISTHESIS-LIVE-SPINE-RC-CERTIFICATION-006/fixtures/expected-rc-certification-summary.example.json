@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "aisthesis.rc-certification.summary.v1",
+  "package": "AISTHESIS-LIVE-SPINE-RC-CERTIFICATION-006",
+  "status": "PASS",
+  "classification": "RC-certification partial",
+  "gates": {
+    "restore": {
+      "status": "PASS"
+    },
+    "build": {
+      "status": "PASS"
+    },
+    "tests": {
+      "status": "PASS"
+    },
+    "fixtureSmoke": {
+      "status": "PASS"
+    },
+    "fiveServiceLiveCertification": {
+      "status": "NOT_RUN"
+    }
+  },
+  "blockers": [],
+  "deferrals": [
+    "fiveServiceLiveCertification"
+  ],
+  "artifacts": []
+}

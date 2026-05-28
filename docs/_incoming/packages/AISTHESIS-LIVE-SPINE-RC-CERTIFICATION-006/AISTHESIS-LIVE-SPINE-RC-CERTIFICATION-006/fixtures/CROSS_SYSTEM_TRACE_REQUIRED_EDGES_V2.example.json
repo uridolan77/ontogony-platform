@@ -1,0 +1,153 @@
+{
+  "schemaVersion": "aisthesis.evidence.fixture.v2",
+  "traceId": "trace_required_edges_v2_example",
+  "workflowProfile": "core-run-profile",
+  "envelopes": [
+    {
+      "evidenceId": "ev_allagma_run",
+      "producerSystem": "allagma",
+      "evidenceType": "run_completed",
+      "traceId": "trace_required_edges_v2_example",
+      "runId": "run_1",
+      "summary": "Allagma run completed"
+    },
+    {
+      "evidenceId": "ev_kanon_plan",
+      "producerSystem": "kanon",
+      "evidenceType": "semantic_plan_compiled",
+      "traceId": "trace_required_edges_v2_example",
+      "semanticPlanId": "plan_1",
+      "summary": "Kanon semantic plan"
+    },
+    {
+      "evidenceId": "ev_kanon_decision",
+      "producerSystem": "kanon",
+      "evidenceType": "semantic_decision",
+      "traceId": "trace_required_edges_v2_example",
+      "decisionId": "decision_1",
+      "semanticPlanId": "plan_1",
+      "summary": "Kanon decision"
+    },
+    {
+      "evidenceId": "ev_conexus_model",
+      "producerSystem": "conexus",
+      "evidenceType": "model_call_completed",
+      "traceId": "trace_required_edges_v2_example",
+      "modelCallId": "model_1",
+      "summary": "Conexus model call"
+    },
+    {
+      "evidenceId": "ev_conexus_route",
+      "producerSystem": "conexus",
+      "evidenceType": "route_decision",
+      "traceId": "trace_required_edges_v2_example",
+      "routeDecisionId": "route_1",
+      "summary": "Conexus route"
+    },
+    {
+      "evidenceId": "ev_conexus_attempt",
+      "producerSystem": "conexus",
+      "evidenceType": "provider_attempt",
+      "traceId": "trace_required_edges_v2_example",
+      "providerAttemptId": "attempt_1",
+      "summary": "Provider attempt"
+    },
+    {
+      "evidenceId": "ev_metabole_pipeline",
+      "producerSystem": "metabole",
+      "evidenceType": "pipeline_run",
+      "traceId": "trace_required_edges_v2_example",
+      "pipelineRunId": "pipe_1",
+      "summary": "Metabole pipeline"
+    },
+    {
+      "evidenceId": "ev_metabole_profile",
+      "producerSystem": "metabole",
+      "evidenceType": "data_profile",
+      "traceId": "trace_required_edges_v2_example",
+      "dataProfileId": "profile_1",
+      "summary": "Data profile"
+    },
+    {
+      "evidenceId": "ev_metabole_mapping",
+      "producerSystem": "metabole",
+      "evidenceType": "mapping_candidate",
+      "traceId": "trace_required_edges_v2_example",
+      "mappingCandidateId": "mapping_1",
+      "summary": "Mapping candidate"
+    },
+    {
+      "evidenceId": "ev_metabole_artifact",
+      "producerSystem": "metabole",
+      "evidenceType": "output_artifact",
+      "traceId": "trace_required_edges_v2_example",
+      "artifactId": "artifact_1",
+      "summary": "Artifact"
+    }
+  ],
+  "edges": [
+    {
+      "edgeId": "edge_run_plan",
+      "traceId": "trace_required_edges_v2_example",
+      "fromEvidenceId": "ev_allagma_run",
+      "toEvidenceId": "ev_kanon_plan",
+      "relation": "requested"
+    },
+    {
+      "edgeId": "edge_run_decision",
+      "traceId": "trace_required_edges_v2_example",
+      "fromEvidenceId": "ev_allagma_run",
+      "toEvidenceId": "ev_kanon_decision",
+      "relation": "evaluated_by"
+    },
+    {
+      "edgeId": "edge_run_model",
+      "traceId": "trace_required_edges_v2_example",
+      "fromEvidenceId": "ev_allagma_run",
+      "toEvidenceId": "ev_conexus_model",
+      "relation": "requested"
+    },
+    {
+      "edgeId": "edge_decision_plan",
+      "traceId": "trace_required_edges_v2_example",
+      "fromEvidenceId": "ev_kanon_decision",
+      "toEvidenceId": "ev_kanon_plan",
+      "relation": "derived_from"
+    },
+    {
+      "edgeId": "edge_model_route",
+      "traceId": "trace_required_edges_v2_example",
+      "fromEvidenceId": "ev_conexus_model",
+      "toEvidenceId": "ev_conexus_route",
+      "relation": "routed_to"
+    },
+    {
+      "edgeId": "edge_model_attempt",
+      "traceId": "trace_required_edges_v2_example",
+      "fromEvidenceId": "ev_conexus_model",
+      "toEvidenceId": "ev_conexus_attempt",
+      "relation": "used"
+    },
+    {
+      "edgeId": "edge_pipeline_profile",
+      "traceId": "trace_required_edges_v2_example",
+      "fromEvidenceId": "ev_metabole_pipeline",
+      "toEvidenceId": "ev_metabole_profile",
+      "relation": "produced"
+    },
+    {
+      "edgeId": "edge_pipeline_mapping",
+      "traceId": "trace_required_edges_v2_example",
+      "fromEvidenceId": "ev_metabole_pipeline",
+      "toEvidenceId": "ev_metabole_mapping",
+      "relation": "produced"
+    },
+    {
+      "edgeId": "edge_mapping_artifact",
+      "traceId": "trace_required_edges_v2_example",
+      "fromEvidenceId": "ev_metabole_mapping",
+      "toEvidenceId": "ev_metabole_artifact",
+      "relation": "materialized_as"
+    }
+  ]
+}
