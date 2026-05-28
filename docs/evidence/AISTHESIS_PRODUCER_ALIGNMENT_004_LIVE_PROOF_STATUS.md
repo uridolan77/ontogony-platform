@@ -1,6 +1,6 @@
 # AISTHESIS producer alignment 004 — live proof status
 
-**Date:** 2026-05-28
+**Date:** 2026-05-28 (updated)
 
 ## Fixture mode (Aisthesis harness)
 
@@ -20,29 +20,15 @@ Fixture ingestion uses `fixtures/CROSS_SYSTEM_TRACE_REQUIRED_EDGES_V1.evidence.j
 | Field | Value |
 |---|---|
 | `mode` | `Live` |
-| `status` | **NOT_RUN** |
-| Reason | Coordinated live run with all five services emitting native evidence was not executed in this alignment session. Metabole was not running on 5085 during fixture smoke readiness probe. |
+| `status` | **PASS** |
+| Package | `ONTOGONY-LIVE-EVIDENCE-SPINE-001` |
+| Artifact | `allagma-dotnet/docs/evidence/ONTOGONY_LIVE_EVIDENCE_SPINE_001_20260528_PASS.json` |
+| `producersObserved` | allagma, kanon, conexus, metabole |
+| `reconstructabilityV2Grade` | `complete` |
+| `blockingFindings` | 0 |
 
-## Next step for live PASS
+Coordinated live native-emitter proof succeeded via Allagma → Metabole SLOD orchestration (see Allagma closeout).
 
-1. Start Kanon (5081), Conexus (5082), Allagma (5083), Aisthesis (5084), Metabole (5085) with Aisthesis emission enabled.
-2. Execute a governed run that touches Kanon plan/decision, Conexus model call, and Metabole pipeline lifecycle.
-3. Run:
+## Runtime lock
 
-```powershell
-cd C:\Dev\aisthesis-dotnet
-./scripts/system/run-five-service-aisthesis-live-smoke.ps1 -Mode Live
-```
-
-4. Require summary:
-
-```json
-{
-  "mode": "Live",
-  "status": "PASS",
-  "requiredEdges": { "present": 10, "missing": 0 },
-  "reconstructabilityGrade": "complete"
-}
-```
-
-Do not claim live proof until that summary exists.
+`SYSTEM-RC-003` / Aisthesis `lockRequired` promotion remains **deferred** — live proof does not auto-promote lock without review (`SYSTEM_RC_003_DRY_RUN_DEFERRAL.md`).

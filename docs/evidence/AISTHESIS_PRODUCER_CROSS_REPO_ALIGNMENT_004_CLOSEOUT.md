@@ -17,7 +17,7 @@ Producer repos were aligned to emit native Aisthesis envelopes, stable native ID
 
 ## Not claimed
 
-- Full live five-service **PASS** from native producer emission (live mode **NOT_RUN** in this session).
+- Full live five-service **PASS** is recorded under `ONTOGONY-LIVE-EVIDENCE-SPINE-001` (see `AISTHESIS_PRODUCER_ALIGNMENT_004_LIVE_PROOF_STATUS.md`).
 - Frontend live backing, production IAM, retention/erasure APIs, or distributed trace export.
 
 ## Required-edge ownership (after alignment)
