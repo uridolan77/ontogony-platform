@@ -1,7 +1,8 @@
 # ONTOGONY-SAMPLING-POLICY-SPINE-001 — Cross-repo evidence
 
 Package: `ONTOGONY-SAMPLING-POLICY-SPINE-001`  
-Status: **implemented (v0 spine)** — May 2026
+Status: **v0 closeout** — May 2026  
+Archive: [`docs/_incoming/_consumed/2026-05/ONTOGONY-SAMPLING-POLICY-SPINE-001/`](../_incoming/_consumed/2026-05/ONTOGONY-SAMPLING-POLICY-SPINE-001/)
 
 ## Implemented
 
@@ -32,14 +33,15 @@ Status: **implemented (v0 spine)** — May 2026
 ### Frontend (`ontogony-frontend`)
 
 - `src/sampling/*` types, parser, panel, badge
-- Model-call detail panel shows sampling policy trace when telemetry parameters are present
+- Model-call detail uses `telemetryParameters` on `ModelCallDetailResponse`
+- Agent interaction timeline badge; Allagma run sampling timeline section
 
 ## Deferred
 
 - Global strict mode default-on for all contract-bound call sites
-- OpenAPI snapshot regeneration for `/llm/v0` in frontend `openapi/conexus.v0.json`
 - Human-gate workflow for profile override approval (event contracts present; UI flow deferred)
 - `AdHocLegacy` canonical profile (legacy raw params emit warning only)
+- Adaptive sampling, replay harness, diversity adjudication, profile admin UI, provider overlays (see package `11_DEFERRALS.md`)
 
 ## Verification
 
