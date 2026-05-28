@@ -1,7 +1,7 @@
 # AISTHESIS-PRODUCER-CROSS-REPO-ALIGNMENT-004 closeout
 
 **Package:** `AISTHESIS-PRODUCER-CROSS-REPO-ALIGNMENT-004`  
-**Unpacked to:** `docs/_incoming/packages/AISTHESIS-PRODUCER-CROSS-REPO-ALIGNMENT-004/`  
+**Archived to:** `docs/_incoming/_consumed/2026-05/AISTHESIS-PRODUCER-CROSS-REPO-ALIGNMENT-004/`  
 **Date:** 2026-05-28
 
 ## Summary
@@ -12,13 +12,13 @@ Producer repos were aligned to emit native Aisthesis envelopes, stable native ID
 
 - Producer emitters aligned with the Aisthesis required-edge contract (envelope fields + edge emission where implemented).
 - Repo-level library builds and targeted tests pass for changed projects.
-- Aisthesis fixture smoke remains **PASS** (`requiredEdges.present: 10`, `requiredEdges.missing: 0`, `reconstructabilityGrade: complete`).
-- Live five-service proof harness is ready for a coordinated run.
+- Aisthesis fixture smoke **PASS** (`requiredEdges.present: 10`, `requiredEdges.missing: 0`, `reconstructabilityGrade: complete`).
+- Live five-service proof **PASS** — LES-001 (`complete`) and LES-002 Metabole-first (`partial`, 0 blocking).
 
 ## Not claimed
 
-- Full live five-service **PASS** is recorded under `ONTOGONY-LIVE-EVIDENCE-SPINE-001` (see `AISTHESIS_PRODUCER_ALIGNMENT_004_LIVE_PROOF_STATUS.md`).
-- Frontend live backing, production IAM, retention/erasure APIs, or distributed trace export.
+- Frontend evaluation-run API UI, production IAM, retention/erasure APIs, or distributed trace export.
+- Full `SYSTEM-RC-003` baseline promotion or `lockRequired: true` for Aisthesis.
 
 ## Required-edge ownership (after alignment)
 

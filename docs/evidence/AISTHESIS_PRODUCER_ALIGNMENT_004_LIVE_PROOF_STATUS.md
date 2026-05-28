@@ -27,7 +27,27 @@ Fixture ingestion uses `fixtures/CROSS_SYSTEM_TRACE_REQUIRED_EDGES_V1.evidence.j
 | `reconstructabilityV2Grade` | `complete` |
 | `blockingFindings` | 0 |
 
-Coordinated live native-emitter proof succeeded via Allagma → Metabole SLOD orchestration (see Allagma closeout). Second path **Metabole-first SLOD** is available via `-Workflow MetaboleFirstSlod` (LES-002).
+Coordinated live native-emitter proof succeeded via Allagma → Metabole SLOD orchestration (LES-001) and Metabole-first schema-profile entry (LES-002).
+
+### LES-001 (Allagma-first)
+
+| Field | Value |
+|---|---|
+| Package | `ONTOGONY-LIVE-EVIDENCE-SPINE-001` |
+| Artifact | `allagma-dotnet/docs/evidence/ONTOGONY_LIVE_EVIDENCE_SPINE_001_20260528_PASS.json` |
+| `reconstructabilityV2Grade` | `complete` |
+| `blockingFindings` | 0 |
+
+### LES-002 (Metabole-first)
+
+| Field | Value |
+|---|---|
+| Package | `ONTOGONY-LIVE-EVIDENCE-SPINE-002` |
+| Artifact | `allagma-dotnet/docs/evidence/ONTOGONY_LIVE_EVIDENCE_SPINE_002_20260528_PASS.json` |
+| traceId | `ad40b7bbb0b54b108d31168c33268a68` |
+| `reconstructabilityV2Grade` | `partial` (0.82) |
+| `blockingFindings` | 0 |
+| Driver | `-Workflow MetaboleFirstSlod` |
 
 ## Runtime lock
 
