@@ -57,7 +57,7 @@ public sealed class ReadinessTests
             $"READINESS-{service.ToUpperInvariant()}-READY",
             scenarioId,
             response.IsSuccessStatusCode ? "PASS" : "FAIL",
-            new Dictionary<string, object?> { ["endpoint"] = "/ready", ["critical"] = critical },
+            new Dictionary<string, object?> { ["endpoint"] = "/ready", ["critical"] = true },
             statusCode: (int)response.StatusCode,
             body: body,
             services: [service]);

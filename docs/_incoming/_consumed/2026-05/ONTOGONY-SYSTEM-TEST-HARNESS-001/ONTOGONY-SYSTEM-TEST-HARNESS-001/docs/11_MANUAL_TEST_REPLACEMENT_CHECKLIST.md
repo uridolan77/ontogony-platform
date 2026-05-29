@@ -26,8 +26,12 @@ A manual regression check can be replaced by automation only when:
 
 | Manual check | Automated test ID | Replaced? | Notes |
 |---|---|---:|---|
-| Local stack services start | READINESS-* | yes candidate | after route calibration |
-| Allagma governed run completes | E2E-001 | yes candidate | high priority |
-| Human gate pause/resume | E2E-003 | yes candidate | high priority |
-| Conexus fallback works | E2E-005 | yes candidate | high priority |
+| Local stack services start | READINESS-* | **yes** | hard fail on `/health` and `/ready` for 5081–5083 |
+| Allagma governed run completes | E2E-001 | **yes** | milestone events + Kanon/Conexus refs |
+| Idempotent run replay/conflict | E2E-002, E2E-002b | **yes** | |
+| Human gate pause/resume | E2E-003a, E2E-003b | **yes** | requires gaming-core + PaymentsOperator |
+| Kanon assistance draft_only | E2E-004 | **yes** | fails if assistance disabled (503) |
+| Conexus fallback works | E2E-005 | **yes** | fake providers only |
 | UI page loads for each service | UI-* | partial | needs current frontend route calibration |
+
+See [generated/MANUAL_REGRESSION_RETIREMENT_REPORT.md](generated/MANUAL_REGRESSION_RETIREMENT_REPORT.md) for full retirement matrix.
