@@ -47,11 +47,11 @@ dotnet test Ontogony.Platform.sln --no-build -c Release
 
 | Consumer | Status | Notes |
 | --- | --- | --- |
-| Conexus | NOT_RUN | Task card published; sibling run deferred to consumer repo |
-| Kanon | NOT_RUN | Task card published; sibling run deferred to consumer repo |
-| Allagma | NOT_RUN | Task card published; sibling run deferred to consumer repo |
-| Metabole | NOT_RUN | Task card published; sibling run deferred to consumer repo |
-| Aisthesis | NOT_RUN | Task card published; sibling run deferred to consumer repo |
+| Conexus | PARTIAL | Fixture-mode evidence: `conexus-dotnet/artifacts/platform-mechanics-conformance/conexus/20260529T220232Z/summary.json` (no FAIL) |
+| Kanon | PARTIAL | Fixture-mode evidence: `kanon-dotnet/artifacts/platform-mechanics-conformance/kanon/20260529T220232Z/summary.json` (no FAIL) |
+| Allagma | PARTIAL | Fixture-mode evidence: `allagma-dotnet/artifacts/platform-mechanics-conformance/allagma/20260529T220232Z/summary.json` (no FAIL) |
+| Metabole | PARTIAL | Fixture-mode evidence: `metabole-dotnet/artifacts/platform-mechanics-conformance/metabole/20260529T220232Z/summary.json` (no FAIL) |
+| Aisthesis | PARTIAL | Fixture-mode evidence: `aisthesis-dotnet/artifacts/platform-mechanics-conformance/aisthesis/20260529T220232Z/summary.json` (no FAIL) |
 | Platform | PASS | Fixture-mode suite green (`overallStatus=PASS`) |
 
 ## Non-claims
@@ -68,6 +68,6 @@ dotnet test Ontogony.Platform.sln --no-build -c Release
 
 | Deferral | Owner | Reason | Next package |
 | --- | --- | --- | --- |
-| Live consumer-repo conformance evidence | Each product repo | Harnesses ready; consumers must run and commit summaries | Consumer adoption slices |
+| LiveService / LiveStack conformance modes | Each product repo | Fixture-mode evidence committed; LocalService/LiveStack require explicit operator env | Consumer CI hardening |
 | CI wiring for mechanics conformance suite | ontogony-platform | Add optional CI job after main gate stabilizes | Platform CI hardening |
 | Schema v1 ↔ legacy `schemas/contracts` dedup | ontogony-platform | v1 registry is additive; legacy schemas remain for existing kits | Future registry consolidation |
