@@ -26,7 +26,7 @@
       "tarballSha256": "ad206ccd82d7f0b703ea7d4b3bf18c0b03dca1b955ae23643e49664ff08e55e0"
     },
     "ontogony-frontend": {
-      "commit": "195403d7171b445faec46c5e49df590f9ed2c6d9",
+      "commit": "d7e482d013c8a73fe90f0d8b48e2d5e6a62430df",
       "buildProvenanceSha256": "9ddb3b48e0ade1e16f4d3040180e30b525d9536cf6d64297c90e6e97a2fb0470"
     }
   },
@@ -34,10 +34,10 @@
     "openapiSnapshots": {
       "allagma": "effbb9b4a353d77e9f693a7d7f314eeb753d578941da4612c110aac4f62f2a7e",
       "conexus": "eb512afc37c1820f0556b8415c05ad84fdb901eb5717976d0c928508c09423da",
-      "kanon": "753d9caaedaa04787223966cca6235b3da2f3bec6a2434812e2ac1b45c571e81"
+      "kanon": "b3ae227d79d92263cbbb2cd6729325c5219b8b02dfed81986a2583b856a7ac85"
     },
     "routeInventories": {},
-    "frontendRouteInventory": "0a97556f37086630ad1c19c2d13fbdaa8e38b95de35fb09255b39c00d273e3e3",
+    "frontendRouteInventory": "4e9be53b6c504c989de38d5f1715cce45f162821a285e196088b0e497a3c44ca",
     "uiPublicSubpaths": "171b26a50e552f6f9146129b9a6485182c2eaf732bf76bd778ef261368c37ec9"
   }
 }
