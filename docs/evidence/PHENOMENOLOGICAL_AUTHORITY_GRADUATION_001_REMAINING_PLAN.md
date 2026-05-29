@@ -2,7 +2,7 @@
 
 **Package:** `PHENOMENOLOGICAL-AUTHORITY-CERTIFICATION-GRADUATION-001`  
 **Status as of:** 2026-05-29  
-**Baseline:** Core gates A–D implemented; fixture certification PASS; Live NOT_RUN  
+**Baseline:** Phase 2 implementation complete; fixture certification PASS; **graduation blocked on Live PASS**  
 **Related closeout:** [`ONTOGONY_PHENOMENOLOGICAL_AUTHORITY_GRADUATION_001_SYSTEM_CLOSEOUT.md`](./ONTOGONY_PHENOMENOLOGICAL_AUTHORITY_GRADUATION_001_SYSTEM_CLOSEOUT.md)
 
 ## Completion definition
