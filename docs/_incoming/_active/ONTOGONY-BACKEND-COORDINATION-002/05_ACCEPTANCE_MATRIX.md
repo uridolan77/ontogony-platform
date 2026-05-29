@@ -106,11 +106,11 @@ Last updated: **2026-05-29** (package intake)
 
 | ID | Criterion | Status |
 | --- | --- | --- |
-| MB-001 | Five-service Metabole certification PASS | `NOT_STARTED` |
-| MB-002 | SLOD → Kanon peer route smoke PASS | `NOT_STARTED` |
-| MB-003 | Status-truth + undeniability gates PASS | `NOT_STARTED` |
-| MB-004 | `METABOLE_KANON_BOUNDARY.md` reflects handoff | `NOT_STARTED` |
-| MB-005 | ELT/medallion deferrals explicit in DEFERRALS.md | `NOT_STARTED` |
+| MB-001 | Five-service Metabole certification PASS | `PASS` |
+| MB-002 | SLOD → Kanon peer route smoke PASS | `PASS` |
+| MB-003 | Status-truth + undeniability gates PASS | `PASS` |
+| MB-004 | `METABOLE_KANON_BOUNDARY.md` reflects handoff | `PASS` |
+| MB-005 | ELT/medallion deferrals explicit in DEFERRALS.md | `PASS` |
 
 ---
 
