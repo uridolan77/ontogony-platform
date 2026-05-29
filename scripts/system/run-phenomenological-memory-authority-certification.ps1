@@ -56,7 +56,17 @@ if ($missing.Count -gt 0) {
   -AllagmaBaseUrl $AllagmaBaseUrl `
   -OutDir $runDir
 if ($LASTEXITCODE -ne 0) {
-  Write-Summary "FAIL" @(@{name="live_e2e";status="FAIL"}) @("Live E2E failed")
+  if (-not (Test-Path $summaryPath)) {
+    Write-Summary "FAIL" @(@{name="live_e2e";status="FAIL"}) @("Live E2E failed")
+  }
   exit 1
 }
-Write-Summary "PASS" @(@{name="live_e2e";status="PASS"}) @()
+
+$liveSummaryPath = Join-Path $runDir "summary.json"
+if (Test-Path $liveSummaryPath) {
+  Copy-Item -LiteralPath $liveSummaryPath -Destination $summaryPath -Force
+  Write-Host "Summary: $summaryPath (from live E2E)"
+}
+else {
+  Write-Summary "PASS" @(@{name="live_e2e";status="PASS"}) @()
+}

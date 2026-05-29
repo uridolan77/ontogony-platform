@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "phenomenological-authority-certification-v2",
+  "packageId": "PHENOMENOLOGICAL-AUTHORITY-CERTIFICATION-GRADUATION-001",
+  "mode": "Fixture",
+  "status": "PASS",
+  "checks": [
+    { "name": "kanon_decision_route", "status": "PASS" },
+    { "name": "pending_review_callback", "status": "PASS" },
+    { "name": "aisthesis_authority_status", "status": "PASS" },
+    { "name": "allagma_projection_status", "status": "PASS" },
+    { "name": "frontend_authority_fixture", "status": "PASS" },
+    { "name": "raw_payload_scan", "status": "PASS" }
+  ],
+  "diagnostics": []
+}

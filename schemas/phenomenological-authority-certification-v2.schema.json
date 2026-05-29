@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "packageId",
+    "mode",
+    "status",
+    "checks"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "phenomenological-authority-certification-v2"
+    },
+    "packageId": {
+      "const": "PHENOMENOLOGICAL-AUTHORITY-CERTIFICATION-GRADUATION-001"
+    },
+    "mode": {
+      "enum": ["Fixture", "LiveOrExplain", "Live"]
+    },
+    "status": {
+      "enum": ["PASS", "FAIL", "NOT_RUN"]
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "status"],
+        "properties": {
+          "name": { "type": "string" },
+          "status": { "enum": ["PASS", "FAIL", "NOT_RUN"] }
+        }
+      }
+    },
+    "diagnostics": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "generatedAtUtc": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": true
+}
