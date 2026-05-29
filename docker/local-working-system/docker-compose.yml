@@ -94,6 +94,74 @@ services:
       retries: 30
       start_period: 20s
 
+  aisthesis-api:
+    build:
+      context: ../../../aisthesis-dotnet
+      args:
+        EXTRA_CA_CERT_BASE64: ${DOCKER_EXTRA_CA_CERT_BASE64:-}
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Development}
+      ASPNETCORE_URLS: ${ASPNETCORE_URLS:-http://+:8080}
+      ConnectionStrings__Aisthesis: ${AISTHESIS_POSTGRES_CONNECTION_STRING:-Host=postgres;Port=5432;Database=aisthesis_local;Username=aisthesis_local;Password=aisthesis_local_pw}
+      AISTHESIS_RequireServiceToken: ${AISTHESIS_REQUIRE_SERVICE_TOKEN:-false}
+      OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-http://host.docker.internal:4317}
+      OTEL_SERVICE_NAME: ${AISTHESIS_OTEL_SERVICE_NAME:-aisthesis-api}
+      OTEL_RESOURCE_ATTRIBUTES: ${OTEL_RESOURCE_ATTRIBUTES:-deployment.environment=development}
+    ports:
+      - "${AISTHESIS_HOST_PORT:-5084}:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "bash", "-ec", "exec 3<>/dev/tcp/127.0.0.1/8080"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 20s
+
+  metabole-api:
+    build:
+      context: ../../../metabole-dotnet
+      args:
+        EXTRA_CA_CERT_BASE64: ${DOCKER_EXTRA_CA_CERT_BASE64:-}
+      additional_contexts:
+        ontogony_platform: ../../../ontogony-platform
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Development}
+      ASPNETCORE_URLS: ${ASPNETCORE_URLS:-http://+:8080}
+      Metabole__Storage: ${METABOLE_STORAGE_MODE:-Postgres}
+      Metabole__Postgres__Enabled: ${METABOLE_POSTGRES_ENABLED:-true}
+      Metabole__Postgres__MigrationMode: ${METABOLE_POSTGRES_MIGRATION_MODE:-Apply}
+      Metabole__Postgres__Credentials__local-dev-metabole-postgres: ${METABOLE_POSTGRES_CONNECTION_STRING:-Host=postgres;Port=5432;Database=metabole_local;Username=metabole_local;Password=metabole_local_pw}
+      Metabole__Kanon__Enabled: ${METABOLE_KANON_ENABLED:-true}
+      Metabole__Kanon__Mode: ${METABOLE_KANON_MODE:-Http}
+      Metabole__Kanon__BaseUrl: ${METABOLE_KANON_INTERNAL_BASE_URL:-http://kanon-api:8080}
+      Metabole__Kanon__ServiceToken: ${KANON_SERVICE_TOKEN:-kanon-dev-service-token-change-in-production}
+      Metabole__Conexus__Enabled: ${METABOLE_CONEXUS_ENABLED:-true}
+      Metabole__Conexus__Mode: ${METABOLE_CONEXUS_MODE:-Http}
+      Metabole__Conexus__BaseUrl: ${METABOLE_CONEXUS_INTERNAL_BASE_URL:-http://conexus-api:8080}
+      Metabole__Conexus__ApiKey: ${CONEXUS_PROJECT_API_KEY:-cx-dev-key-change-me}
+      Metabole__Auth__Enabled: ${METABOLE_AUTH_ENABLED:-false}
+      Metabole__Auth__DevelopmentAllowAnonymous: ${METABOLE_AUTH_DEVELOPMENT_ALLOW_ANONYMOUS:-true}
+      OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-http://host.docker.internal:4317}
+      OTEL_SERVICE_NAME: ${METABOLE_OTEL_SERVICE_NAME:-metabole-api}
+      OTEL_RESOURCE_ATTRIBUTES: ${OTEL_RESOURCE_ATTRIBUTES:-deployment.environment=development}
+    ports:
+      - "${METABOLE_HOST_PORT:-5085}:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      kanon-api:
+        condition: service_started
+      conexus-api:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "bash", "-ec", "exec 3<>/dev/tcp/127.0.0.1/8080"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 20s
+
   allagma-api:
     build:
       context: ../../../allagma-dotnet

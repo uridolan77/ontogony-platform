@@ -39,7 +39,7 @@ Script-based local operator sanity: `docs/environments/local-operator-sanity/` �
 
 ## Completed
 
-**ENV-DOCKER-002** — Dockerfiles and `.dockerignore` merged in allagma-dotnet, kanon-dotnet, conexus-dotnet, ontogony-frontend (2026-05-19).
+**ENV-DOCKER-002** — Dockerfiles and `.dockerignore` merged in allagma-dotnet, kanon-dotnet, conexus-dotnet, metabole-dotnet, aisthesis-dotnet, ontogony-frontend (2026-05-19; Metabole/Aisthesis added 2026-05-29).
 
 **ENV-DB-001** — Postgres init SQL and verify script in `docker/local-working-system/postgres/init/` (2026-05-19).
 

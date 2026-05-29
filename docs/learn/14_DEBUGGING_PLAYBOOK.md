@@ -12,6 +12,8 @@
 Invoke-WebRequest http://localhost:5081/health -UseBasicParsing
 Invoke-WebRequest http://localhost:5082/health -UseBasicParsing
 Invoke-WebRequest http://localhost:5083/health -UseBasicParsing
+Invoke-WebRequest http://localhost:5084/health -UseBasicParsing
+Invoke-WebRequest http://localhost:5085/health -UseBasicParsing
 ```
 
 Docker: `.\docker\local-working-system\scripts\wait-local-working-system.ps1`

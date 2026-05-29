@@ -127,12 +127,16 @@ function Get-DotEnvValue {
 $kanonPort = Get-DotEnvValue -Path $envFileToUse -Key "KANON_HOST_PORT" -DefaultValue "5081"
 $conexusPort = Get-DotEnvValue -Path $envFileToUse -Key "CONEXUS_HOST_PORT" -DefaultValue "5082"
 $allagmaPort = Get-DotEnvValue -Path $envFileToUse -Key "ALLAGMA_HOST_PORT" -DefaultValue "5083"
+$aisthesisPort = Get-DotEnvValue -Path $envFileToUse -Key "AISTHESIS_HOST_PORT" -DefaultValue "5084"
+$metabolePort = Get-DotEnvValue -Path $envFileToUse -Key "METABOLE_HOST_PORT" -DefaultValue "5085"
 $frontendPort = Get-DotEnvValue -Path $envFileToUse -Key "FRONTEND_HOST_PORT" -DefaultValue "5175"
 
 Write-Host "Waiting for Docker local working system health ..."
 Wait-PostgresHealthy
 Wait-HttpHealthy -Name "kanon-api" -Url "http://localhost:$kanonPort/health" -ServiceName "kanon-api"
 Wait-HttpHealthy -Name "conexus-api" -Url "http://localhost:$conexusPort/health/live" -ServiceName "conexus-api"
+Wait-HttpHealthy -Name "aisthesis-api" -Url "http://localhost:$aisthesisPort/health" -ServiceName "aisthesis-api"
+Wait-HttpHealthy -Name "metabole-api" -Url "http://localhost:$metabolePort/health" -ServiceName "metabole-api"
 Wait-HttpHealthy -Name "allagma-api" -Url "http://localhost:$allagmaPort/health" -ServiceName "allagma-api"
 
 if (-not $SkipFrontend) {

@@ -12,6 +12,8 @@ Use when closing the **Docker local working system** program (through ENV-DOCKER
 [ ] allagma_local DB exists
 [ ] kanon_local DB exists
 [ ] conexus_local DB exists
+[ ] aisthesis_local DB exists
+[ ] metabole_local DB exists
 [ ] service users exist
 [ ] migrations applied on each API
 ```
@@ -26,7 +28,8 @@ Use when closing the **Docker local working system** program (through ENV-DOCKER
 [ ] Host-local seed verification is documented separately from Docker Compose networking proof
 [ ] Allagma can call Kanon by container DNS (kanon-api:8080)
 [ ] Allagma can call Conexus by container DNS (conexus-api:8080)
-[ ] Host health probes pass on 5081–5083
+[ ] Host health probes pass on 5081–5085
+[ ] Aisthesis and Metabole `/ready` return 200 when Postgres-backed
 ```
 
 ## Governed runs and evidence

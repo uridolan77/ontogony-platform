@@ -15,7 +15,7 @@ cd C:\dev\ontogony-platform
 .\scripts\validate-local-ontogony-system.ps1
 ```
 
-This brings up Postgres, Kanon, Conexus, Allagma, seeds demo data, and serves the operator console. **Development credentials only** — not production.
+This brings up Postgres, Kanon, Conexus, Allagma, Aisthesis, Metabole, seeds demo data, and serves the operator console. **Development credentials only** — not production.
 
 Golden operator journey: [`../operators/OPERATOR_V1_DEMO_GUIDE.md`](../operators/OPERATOR_V1_DEMO_GUIDE.md)
 
@@ -82,7 +82,9 @@ Generated operator config for Docker lives under `docker/local-working-system/ge
 | --- | --- |
 | Kanon | `http://localhost:5081/health` |
 | Conexus | `http://localhost:5082/health` |
-| Allagma | `http://localhost:5083/health` (or **5084** in compose) |
+| Allagma | `http://localhost:5083/health` |
+| Aisthesis | `http://localhost:5084/health` |
+| Metabole | `http://localhost:5085/health` |
 | Console | `http://localhost:5175` (Docker) or `http://localhost:5173` (Vite) |
 
 ## Next

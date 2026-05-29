@@ -3,7 +3,7 @@
   "version": 1,
   "environmentName": "Local Docker",
   "profileName": "docker-local",
-  "generatedAt": "2026-05-25T11:37:53.719Z",
+  "generatedAt": "2026-05-29T06:31:24.786Z",
   "build": {
     "source": "ontogony-platform/docker/local-working-system",
     "gitSha": "local",
@@ -18,6 +18,12 @@
     },
     "allagma": {
       "baseUrl": "http://localhost:5083"
+    },
+    "aisthesis": {
+      "baseUrl": "http://localhost:5084"
+    },
+    "metabole": {
+      "baseUrl": "http://localhost:5085"
     }
   },
   "frontend": {

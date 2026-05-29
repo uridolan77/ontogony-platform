@@ -25,9 +25,28 @@ From the host browser or frontend on the host:
 http://localhost:5081
 http://localhost:5082
 http://localhost:5083
+http://localhost:5084
+http://localhost:5085
 ```
 
 Mixing these causes connection refused or DNS failures.
+
+## Metabole cannot call Kanon or Conexus
+
+Inside the Metabole container:
+
+```text
+http://kanon-api:8080
+http://conexus-api:8080
+```
+
+From the host browser or frontend on the host:
+
+```text
+http://localhost:5081
+http://localhost:5082
+http://localhost:5085
+```
 
 ## Manual eval write fails
 
@@ -62,11 +81,11 @@ Allagma__Persistence__Mode=Postgres
 | Symptom | Mitigation |
 | --- | --- |
 | Host `5432` in use | Map `55433:5432` for postgres in compose |
-| Host `5081`–`5083` in use | Stop script-based stack (`allagma-dotnet/scripts/env/stop-local-operator-sanity.ps1`) before `docker compose up` |
+| Host `5081`–`5085` in use | Stop script-based stack or standalone `dotnet run` processes before `docker compose up` |
 
 ## Frontend cannot reach APIs
 
-`VITE_*_BASE_URL` must use **host** ports (`localhost:5081`–`5083`), not container DNS names — the browser runs outside Docker.
+`VITE_*_BASE_URL` must use **host** ports (`localhost:5081`–`5085`), not container DNS names — the browser runs outside Docker.
 
 ## Build context not found
 
@@ -76,6 +95,8 @@ Compose build contexts assume sibling repos:
 C:\dev\kanon-dotnet
 C:\dev\conexus-dotnet
 C:\dev\allagma-dotnet
+C:\dev\aisthesis-dotnet
+C:\dev\metabole-dotnet
 C:\dev\ontogony-frontend
 ```
 

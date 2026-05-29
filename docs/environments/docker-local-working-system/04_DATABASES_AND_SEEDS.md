@@ -8,14 +8,18 @@
 allagma_local
 kanon_local
 conexus_local
+aisthesis_local
+metabole_local
 ```
 
 ## Service users (development only)
 
 ```text
-allagma_local  / allagma_local_pw
-kanon_local    / kanon_local_pw
-conexus_local  / conexus_local_pw
+allagma_local   / allagma_local_pw
+kanon_local     / kanon_local_pw
+conexus_local   / conexus_local_pw
+aisthesis_local / aisthesis_local_pw
+metabole_local  / metabole_local_pw
 ```
 
 Bootstrap SQL (ENV-DB-001):
@@ -35,6 +39,8 @@ Verify: `docker/local-working-system/scripts/verify-postgres-bootstrap.ps1 -Recr
 | Kanon | `Kanon__Persistence__Postgres__ApplyMigrationsOnStartup=true` + shipped SQL migrations |
 | Conexus | EF migrations on startup when `ConnectionStrings:ConexusPostgres` is set |
 | Allagma | EF migrations on startup when `Allagma:Persistence:Mode=Postgres` |
+| Aisthesis | EF migrations on startup when `ConnectionStrings:Aisthesis` is set |
+| Metabole | Foundation schema migrator on startup when `Metabole:Storage=Postgres` |
 
 Do not bypass migrations with hand-written schema dumps.
 
@@ -82,7 +88,7 @@ ontogony-platform/docker/local-working-system/artifacts/env-seed-001-report.json
 
 ## Parity with script-based program
 
-The closed **ENV-PG-001** path proved Allagma eval durability on a single Postgres database (`allagma_e2e` on port `55432`). The Docker program extends that model to **three logical DBs** on one container with full cross-service compose networking.
+The closed **ENV-PG-001** path proved Allagma eval durability on a single Postgres database (`allagma_e2e` on port `55432`). The Docker program extends that model to **five logical DBs** on one container with full cross-service compose networking.
 
 ## Not in scope for DB bootstrap PR
 

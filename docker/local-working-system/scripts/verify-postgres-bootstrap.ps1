@@ -20,11 +20,13 @@ if (-not (Test-Path -LiteralPath $sqlFile)) {
     throw "Missing init SQL: $sqlFile"
 }
 
-$databases = @("allagma_local", "kanon_local", "conexus_local")
+$databases = @("allagma_local", "kanon_local", "conexus_local", "metabole_local", "aisthesis_local")
 $serviceUsers = @(
     @{ User = "allagma_local"; Password = "allagma_local_pw"; Database = "allagma_local" },
     @{ User = "kanon_local"; Password = "kanon_local_pw"; Database = "kanon_local" },
-    @{ User = "conexus_local"; Password = "conexus_local_pw"; Database = "conexus_local" }
+    @{ User = "conexus_local"; Password = "conexus_local_pw"; Database = "conexus_local" },
+    @{ User = "metabole_local"; Password = "metabole_local_pw"; Database = "metabole_local" },
+    @{ User = "aisthesis_local"; Password = "aisthesis_local_pw"; Database = "aisthesis_local" }
 )
 
 function Wait-PostgresReady {

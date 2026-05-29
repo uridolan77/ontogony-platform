@@ -4,11 +4,17 @@
 CREATE USER allagma_local WITH PASSWORD 'allagma_local_pw';
 CREATE USER kanon_local WITH PASSWORD 'kanon_local_pw';
 CREATE USER conexus_local WITH PASSWORD 'conexus_local_pw';
+CREATE USER metabole_local WITH PASSWORD 'metabole_local_pw';
+CREATE USER aisthesis_local WITH PASSWORD 'aisthesis_local_pw';
 
 CREATE DATABASE allagma_local OWNER allagma_local;
 CREATE DATABASE kanon_local OWNER kanon_local;
 CREATE DATABASE conexus_local OWNER conexus_local;
+CREATE DATABASE metabole_local OWNER metabole_local;
+CREATE DATABASE aisthesis_local OWNER aisthesis_local;
 
 GRANT ALL PRIVILEGES ON DATABASE allagma_local TO allagma_local;
 GRANT ALL PRIVILEGES ON DATABASE kanon_local TO kanon_local;
 GRANT ALL PRIVILEGES ON DATABASE conexus_local TO conexus_local;
+GRANT ALL PRIVILEGES ON DATABASE metabole_local TO metabole_local;
+GRANT ALL PRIVILEGES ON DATABASE aisthesis_local TO aisthesis_local;

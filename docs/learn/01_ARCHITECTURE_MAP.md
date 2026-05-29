@@ -55,10 +55,12 @@ Consequential tools: MAF/agent proposes intent → Allagma records `ToolIntent` 
 | Kanon | 5081 |
 | Conexus | 5082 |
 | Allagma | 5083 |
+| Aisthesis | 5084 |
+| Metabole | 5085 |
 | Frontend (Vite dev) | 5173 |
 | Frontend (Docker compose) | 5175 |
 
-Docker compose may map Allagma to **5084** on the host — match the URL your smoke script uses.
+**Note:** Metabole standalone `dotnet run` defaults to **5084**; in the full five-service Docker stack Metabole is **5085** so Aisthesis can use **5084**.
 
 ## Dependency rules (summary)
 

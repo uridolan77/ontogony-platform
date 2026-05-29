@@ -80,6 +80,20 @@ cd C:\dev\ontogony-platform
 .\docker\local-working-system\scripts\start-local-working-system.ps1 -Build -SkipFrontend
 ```
 
+Starts **postgres**, **kanon-api**, **conexus-api**, **aisthesis-api**, **metabole-api**, and **allagma-api** (not the frontend).
+
+### Five-service backend ports
+
+| Service | Host port | Health |
+| --- | --- | --- |
+| Kanon | 5081 | `GET /health` |
+| Conexus | 5082 | `GET /health/live` |
+| Allagma | 5083 | `GET /health` |
+| Aisthesis | 5084 | `GET /health` |
+| Metabole | 5085 | `GET /health` |
+
+Metabole standalone `dotnet run` still defaults to **5084**; the full Docker stack maps Metabole to **5085** so Aisthesis can use **5084**. See `metabole-dotnet/docs/development/DOCKER_LOCAL.md` and `aisthesis-dotnet/docs/development/DOCKER_LOCAL.md`.
+
 ### Frontend browser freshness (DOCKER-LOCAL-VERIFY-001)
 
 Code review does not prove the browser shows your latest frontend commit. After changing
@@ -131,6 +145,13 @@ cd C:\dev\ontogony-platform
 
 ## Postgres bootstrap (ENV-DB-001)
 
+Init SQL creates logical databases and service users on **first volume init only**. After adding `aisthesis_local` / `metabole_local`, reset the Postgres volume once so init SQL re-runs:
+
+```powershell
+cd C:\dev\ontogony-platform
+.\docker\local-working-system\scripts\reset-local-working-system.ps1 -Force
+```
+
 Init SQL creates logical databases and service users:
 
 | Database | User | Password (dev) |
@@ -138,6 +159,8 @@ Init SQL creates logical databases and service users:
 | `allagma_local` | `allagma_local` | `allagma_local_pw` |
 | `kanon_local` | `kanon_local` | `kanon_local_pw` |
 | `conexus_local` | `conexus_local` | `conexus_local_pw` |
+| `aisthesis_local` | `aisthesis_local` | `aisthesis_local_pw` |
+| `metabole_local` | `metabole_local` | `metabole_local_pw` |
 
 Admin bootstrap (compose / verify script): `ontogony_admin` / `ontogony_admin_pw`.
 
@@ -501,7 +524,7 @@ netstat -ano | findstr :5082
 
 Stop the stale local process, or set `CONEXUS_HOST_PORT` in `.env` to an unused port.
 
-**Operator rule:** before Docker-local health checks, stop local services on **5081**, **5082**, **5083**, **5175**, or override host ports in `.env`.
+**Operator rule:** before Docker-local health checks, stop local services on **5081**, **5082**, **5083**, **5084**, **5085**, **5175**, or override host ports in `.env`.
 
 ### Health probes (summary)
 

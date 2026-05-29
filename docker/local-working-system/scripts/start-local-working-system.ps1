@@ -127,7 +127,7 @@ if ($Build) {
 }
 
 if ($SkipFrontend) {
-    $composeArgs += @("postgres", "kanon-api", "conexus-api", "allagma-api")
+    $composeArgs += @("postgres", "kanon-api", "conexus-api", "aisthesis-api", "metabole-api", "allagma-api")
 }
 
 Write-Host "Starting Docker local working system ..."

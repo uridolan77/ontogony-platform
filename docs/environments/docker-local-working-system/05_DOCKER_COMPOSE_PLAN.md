@@ -33,6 +33,14 @@ allagma-api:
   build:
     context: ../../../allagma-dotnet
 
+aisthesis-api:
+  build:
+    context: ../../../aisthesis-dotnet
+
+metabole-api:
+  build:
+    context: ../../../metabole-dotnet
+
 ontogony-frontend:
   build:
     context: ../../../ontogony-frontend
@@ -48,6 +56,8 @@ Requires sibling repos at `C:\dev\` per `01_WORKSPACE_LAYOUT.md`.
 | `kanon-api` | build `kanon-dotnet` | `5081` | `8080` |
 | `conexus-api` | build `conexus-dotnet` | `5082` | `8080` |
 | `allagma-api` | build `allagma-dotnet` | `5083` | `8080` |
+| `aisthesis-api` | build `aisthesis-dotnet` | `5084` | `8080` |
+| `metabole-api` | build `metabole-dotnet` | `5085` | `8080` |
 | `ontogony-frontend` | build `ontogony-frontend` | `5175` or `5080` | `8080` |
 
 Named volume: `ontogony_postgres_data` for Postgres data dir.
@@ -58,6 +68,8 @@ Named volume: `ontogony_postgres_data` for Postgres data dir.
 postgres        → healthcheck: pg_isready
 kanon-api       → depends_on postgres (healthy)
 conexus-api     → depends_on postgres (healthy)
+aisthesis-api   → depends_on postgres (healthy)
+metabole-api    → depends_on postgres (healthy), kanon-api, conexus-api (started)
 allagma-api     → depends_on postgres (healthy), kanon-api, conexus-api (started)
 ontogony-frontend → depends_on allagma-api (healthy) — exact gates in ENV-COMPOSE-001
 ```
@@ -66,9 +78,11 @@ Wait for:
 
 ```text
 postgres healthy
-kanon-api     GET /health
-conexus-api   GET /health/live (liveness; readiness remains on /ready)
-allagma-api   GET /health
+kanon-api       GET /health
+conexus-api     GET /health/live (liveness; readiness remains on /ready)
+aisthesis-api   GET /health
+metabole-api    GET /health
+allagma-api     GET /health
 ```
 
 Operator helper:

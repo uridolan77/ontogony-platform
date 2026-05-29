@@ -4,11 +4,12 @@
 
 ## Host vs container URLs
 
-| Consumer | Kanon | Conexus | Allagma |
-| --- | --- | --- | --- |
-| Browser / frontend on host | `http://localhost:5081` | `http://localhost:5082` | `http://localhost:5083` |
-| Allagma container → peers | `http://kanon-api:8080` | `http://conexus-api:8080` | — |
-| API containers → Postgres | `Host=postgres;Port=5432;...` | same | same |
+| Consumer | Kanon | Conexus | Allagma | Aisthesis | Metabole |
+| --- | --- | --- | --- | --- | --- |
+| Browser / frontend on host | `http://localhost:5081` | `http://localhost:5082` | `http://localhost:5083` | `http://localhost:5084` | `http://localhost:5085` |
+| Allagma container → peers | `http://kanon-api:8080` | `http://conexus-api:8080` | — | — | — |
+| Metabole container → peers | `http://kanon-api:8080` | `http://conexus-api:8080` | — | — | — |
+| API containers → Postgres | `Host=postgres;Port=5432;...` | same | same | same | same |
 
 ## Shared backend container settings
 
@@ -57,12 +58,48 @@ CONEXUS_DEV_PROJECT_API_KEY=cx-dev-key-change-me
 
 Optional section form: `Conexus__Persistence__ConnectionString` (same value as above).
 
+## Aisthesis (`aisthesis-api` service)
+
+Verified keys (`Aisthesis.Api/Program.cs`):
+
+```env
+ConnectionStrings__Aisthesis=Host=postgres;Port=5432;Database=aisthesis_local;Username=aisthesis_local;Password=aisthesis_local_pw
+AISTHESIS_RequireServiceToken=false
+```
+
+When `ConnectionStrings__Aisthesis` is set, EF migrations apply on startup via `DatabaseMigrationService`.
+
+## Metabole (`metabole-api` service)
+
+Verified keys (`Metabole.Api/ServiceCollectionExtensions.cs`):
+
+```env
+Metabole__Storage=Postgres
+Metabole__Postgres__Enabled=true
+Metabole__Postgres__MigrationMode=Apply
+Metabole__Postgres__Credentials__local-dev-metabole-postgres=Host=postgres;Port=5432;Database=metabole_local;Username=metabole_local;Password=metabole_local_pw
+Metabole__Kanon__Enabled=true
+Metabole__Kanon__Mode=Http
+Metabole__Kanon__BaseUrl=http://kanon-api:8080
+Metabole__Kanon__ServiceToken=kanon-dev-service-token-change-in-production
+Metabole__Conexus__Enabled=true
+Metabole__Conexus__Mode=Http
+Metabole__Conexus__BaseUrl=http://conexus-api:8080
+Metabole__Conexus__ApiKey=cx-dev-key-change-me
+Metabole__Auth__Enabled=false
+Metabole__Auth__DevelopmentAllowAnonymous=true
+```
+
+**Note:** When running Metabole standalone via `dotnet run`, the default dev port is **5084**. In the full Docker five-service stack, Metabole is mapped to host **5085** so Aisthesis can use **5084**.
+
 ## Frontend (`ontogony-frontend` service or host dev)
 
 Browser must reach APIs on **host** ports:
 
 ```env
 VITE_ALLAGMA_BASE_URL=http://localhost:5083
+VITE_AISTHESIS_BASE_URL=http://localhost:5084
+VITE_METABOLE_BASE_URL=http://localhost:5085
 VITE_KANON_BASE_URL=http://localhost:5081
 VITE_CONEXUS_BASE_URL=http://localhost:5082
 ```

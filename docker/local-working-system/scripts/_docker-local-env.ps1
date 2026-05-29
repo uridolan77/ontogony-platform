@@ -337,6 +337,8 @@ function Get-DockerLocalSecretPatterns {
         "allagma_local_pw",
         "kanon_local_pw",
         "conexus_local_pw",
+        "metabole_local_pw",
+        "aisthesis_local_pw",
         "ontogony_admin_pw"
     )
     foreach ($p in $staticPatterns) { $patterns.Add($p) | Out-Null }
@@ -459,6 +461,8 @@ function Write-DockerLocalOperatorRuntimeConfig {
         [string]$ConexusBaseUrl = $(if ($env:FRONTEND_RUNTIME_CONEXUS_BASE_URL) { $env:FRONTEND_RUNTIME_CONEXUS_BASE_URL } else { "" }),
         [string]$KanonBaseUrl = $(if ($env:FRONTEND_RUNTIME_KANON_BASE_URL) { $env:FRONTEND_RUNTIME_KANON_BASE_URL } else { "" }),
         [string]$AllagmaBaseUrl = $(if ($env:FRONTEND_RUNTIME_ALLAGMA_BASE_URL) { $env:FRONTEND_RUNTIME_ALLAGMA_BASE_URL } else { "" }),
+        [string]$AisthesisBaseUrl = $(if ($env:FRONTEND_RUNTIME_AISTHESIS_BASE_URL) { $env:FRONTEND_RUNTIME_AISTHESIS_BASE_URL } else { "" }),
+        [string]$MetaboleBaseUrl = $(if ($env:FRONTEND_RUNTIME_METABOLE_BASE_URL) { $env:FRONTEND_RUNTIME_METABOLE_BASE_URL } else { "" }),
         [string]$KanonOntologyVersionId = $(if ($env:FRONTEND_RUNTIME_KANON_ONTOLOGY_VERSION_ID) { $env:FRONTEND_RUNTIME_KANON_ONTOLOGY_VERSION_ID } else { "" }),
         [string]$ConexusProjectId = $(if ($env:FRONTEND_RUNTIME_CONEXUS_PROJECT_ID) { $env:FRONTEND_RUNTIME_CONEXUS_PROJECT_ID } else { "" }),
         [string]$ConexusModelAlias = $(if ($env:FRONTEND_RUNTIME_CONEXUS_MODEL_ALIAS) { $env:FRONTEND_RUNTIME_CONEXUS_MODEL_ALIAS } else { "" })
@@ -475,6 +479,8 @@ function Write-DockerLocalOperatorRuntimeConfig {
     $kanonPort = Get-DotEnvValue -Path $EnvFilePath -Key "KANON_HOST_PORT" -DefaultValue "5081"
     $conexusPort = Get-DotEnvValue -Path $EnvFilePath -Key "CONEXUS_HOST_PORT" -DefaultValue "5082"
     $allagmaPort = Get-DotEnvValue -Path $EnvFilePath -Key "ALLAGMA_HOST_PORT" -DefaultValue "5083"
+    $aisthesisPort = Get-DotEnvValue -Path $EnvFilePath -Key "AISTHESIS_HOST_PORT" -DefaultValue "5084"
+    $metabolePort = Get-DotEnvValue -Path $EnvFilePath -Key "METABOLE_HOST_PORT" -DefaultValue "5085"
 
     if ([string]::IsNullOrWhiteSpace($ConexusBaseUrl)) {
         $ConexusBaseUrl = "http://localhost:$conexusPort"
@@ -484,6 +490,12 @@ function Write-DockerLocalOperatorRuntimeConfig {
     }
     if ([string]::IsNullOrWhiteSpace($AllagmaBaseUrl)) {
         $AllagmaBaseUrl = "http://localhost:$allagmaPort"
+    }
+    if ([string]::IsNullOrWhiteSpace($AisthesisBaseUrl)) {
+        $AisthesisBaseUrl = "http://localhost:$aisthesisPort"
+    }
+    if ([string]::IsNullOrWhiteSpace($MetaboleBaseUrl)) {
+        $MetaboleBaseUrl = "http://localhost:$metabolePort"
     }
     if ([string]::IsNullOrWhiteSpace($EnvironmentName)) {
         $EnvironmentName = "Local Docker"
@@ -510,6 +522,8 @@ function Write-DockerLocalOperatorRuntimeConfig {
         if ($override.services.conexus.baseUrl) { $ConexusBaseUrl = [string]$override.services.conexus.baseUrl }
         if ($override.services.kanon.baseUrl) { $KanonBaseUrl = [string]$override.services.kanon.baseUrl }
         if ($override.services.allagma.baseUrl) { $AllagmaBaseUrl = [string]$override.services.allagma.baseUrl }
+        if ($override.services.aisthesis.baseUrl) { $AisthesisBaseUrl = [string]$override.services.aisthesis.baseUrl }
+        if ($override.services.metabole.baseUrl) { $MetaboleBaseUrl = [string]$override.services.metabole.baseUrl }
         if ($override.kanon.ontologyVersionId) { $KanonOntologyVersionId = [string]$override.kanon.ontologyVersionId }
         if ($override.conexus.projectId) { $ConexusProjectId = [string]$override.conexus.projectId }
         if ($override.conexus.modelAlias) { $ConexusModelAlias = [string]$override.conexus.modelAlias }
@@ -537,6 +551,8 @@ function Write-DockerLocalOperatorRuntimeConfig {
         "--conexus-url", $ConexusBaseUrl,
         "--kanon-url", $KanonBaseUrl,
         "--allagma-url", $AllagmaBaseUrl,
+        "--aisthesis-url", $AisthesisBaseUrl,
+        "--metabole-url", $MetaboleBaseUrl,
         "--ontology", $KanonOntologyVersionId,
         "--conexus-project-id", $ConexusProjectId,
         "--model-alias", $ConexusModelAlias,
