@@ -180,6 +180,14 @@ services:
       ConnectionStrings__Allagma: ${ALLAGMA_POSTGRES_CONNECTION_STRING:-Host=postgres;Port=5432;Database=allagma_local;Username=allagma_local;Password=allagma_local_pw}
       Kanon__BaseUrl: ${KANON_INTERNAL_BASE_URL:-http://kanon-api:8080}
       Conexus__BaseUrl: ${CONEXUS_INTERNAL_BASE_URL:-http://conexus-api:8080}
+      Metabole__Enabled: ${ALLAGMA_METABOLE_ENABLED:-true}
+      Metabole__BaseUrl: ${ALLAGMA_METABOLE_INTERNAL_BASE_URL:-http://metabole-api:8080}
+      Metabole__ServiceToken: ${METABOLE_SERVICE_TOKEN:-local-dev-metabole-token}
+      Allagma__Aisthesis__Enabled: ${ALLAGMA_AISTHESIS_ENABLED:-true}
+      Allagma__Aisthesis__BaseUrl: ${AISTHESIS_INTERNAL_BASE_URL:-http://aisthesis-api:8080}
+      Allagma__Aisthesis__ServiceToken: ${AISTHESIS_SERVICE_TOKEN:-aisthesis-dev-service-token-change-in-production}
+      Allagma__Aisthesis__BatchMode: ${ALLAGMA_AISTHESIS_BATCH_MODE:-false}
+      Allagma__Aisthesis__EmitRunEvents: ${ALLAGMA_AISTHESIS_EMIT_RUN_EVENTS:-true}
       Conexus__ProjectApiKey: ${CONEXUS_PROJECT_API_KEY_FOR_ALLAGMA:-cx-dev-key-change-me}
       Conexus__AdminApiKey: ${CONEXUS_ADMIN_API_KEY:-cx-conexus-admin-dev}
       Allagma__Authentication__ServiceToken: ${ALLAGMA_SERVICE_TOKEN:-allagma-dev-service-token-change-in-production}

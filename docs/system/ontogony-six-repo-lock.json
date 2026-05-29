@@ -26,7 +26,7 @@
       "tarballSha256": "ad206ccd82d7f0b703ea7d4b3bf18c0b03dca1b955ae23643e49664ff08e55e0"
     },
     "ontogony-frontend": {
-      "commit": "d7e482d013c8a73fe90f0d8b48e2d5e6a62430df",
+      "commit": "aab142ab860ec9be1b20a9411a6d92365246779c",
       "buildProvenanceSha256": "9ddb3b48e0ade1e16f4d3040180e30b525d9536cf6d64297c90e6e97a2fb0470"
     }
   },
