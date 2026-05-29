@@ -4,6 +4,8 @@ This index describes all **27** shipping NuGet packages and when to use each one
 
 **Pack hygiene:** coordination paths such as `_issue_bodies/` and `.tmp/` must **never** appear inside published `.nupkg` archives. CI runs [`scripts/validate-nupkg-coordination-path-hygiene.ps1`](../../scripts/validate-nupkg-coordination-path-hygiene.ps1) after pack.
 
+**Cross-repo system E2E (not a NuGet package):** [`ONTOGONY_SYSTEM_TEST_HARNESS.md`](./ONTOGONY_SYSTEM_TEST_HARNESS.md) — live five-service harness repo (`ontogony-system-test-harness`).
+
 ---
 
 ## Core Foundation

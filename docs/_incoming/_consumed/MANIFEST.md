@@ -1,9 +1,10 @@
 # Consumed intake manifest
 
-Last updated: **2026-05-29** (ONTOGONY-PLATFORM-MECHANICS-ONLY-CONFORMANCE-001 archived)
+Last updated: **2026-05-30** (ONTOGONY-SYSTEM-TEST-HARNESS-001 archived)
 
 | Package | Status | Canonical promotion (if any) | Archived |
 | --- | --- | --- | --- |
+| ONTOGONY-SYSTEM-TEST-HARNESS-001 | **consumed** | Repo `ontogony-system-test-harness`; [`packages/ONTOGONY_SYSTEM_TEST_HARNESS.md`](../../packages/ONTOGONY_SYSTEM_TEST_HARNESS.md), [`evidence/ONTOGONY_SYSTEM_TEST_HARNESS_001_EVIDENCE.md`](../../evidence/ONTOGONY_SYSTEM_TEST_HARNESS_001_EVIDENCE.md) | 2026-05-30 |
 | ONTOGONY-PLATFORM-MECHANICS-ONLY-CONFORMANCE-001 | **consumed** | [`evidence/ONTOGONY_PLATFORM_MECHANICS_ONLY_CONFORMANCE_001_CLOSEOUT.md`](../../evidence/ONTOGONY_PLATFORM_MECHANICS_ONLY_CONFORMANCE_001_CLOSEOUT.md), `schemas/mechanics/v1/`, `scripts/conformance/` | 2026-05-29 |
 | MISFILED-CROSS-REPO-PACKAGES | **archived** | Aisthesis RC readiness/certification trees misfiled under platform `docs/_incoming/packages/` — owner repos: `aisthesis-dotnet` | 2026-05-29 |
 
