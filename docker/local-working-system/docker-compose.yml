@@ -111,6 +111,8 @@ services:
       context: ../../../aisthesis-dotnet
       args:
         EXTRA_CA_CERT_BASE64: ${DOCKER_EXTRA_CA_CERT_BASE64:-}
+      additional_contexts:
+        ontogony_platform: ../../../ontogony-platform
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Development}
       ASPNETCORE_URLS: ${ASPNETCORE_URLS:-http://+:8080}
@@ -206,8 +208,8 @@ services:
       Allagma__Aisthesis__ServiceToken: ${AISTHESIS_SERVICE_TOKEN:-aisthesis-dev-service-token-change-in-production}
       Allagma__Aisthesis__BatchMode: ${ALLAGMA_AISTHESIS_BATCH_MODE:-false}
       Allagma__Aisthesis__EmitRunEvents: ${ALLAGMA_AISTHESIS_EMIT_RUN_EVENTS:-true}
-      Allagma__Aisthesis__EmitKanonObservedEvents: ${ALLAGMA_AISTHESIS_EMIT_KANON_OBSERVED:-true}
-      Allagma__Aisthesis__EmitConexusObservedEvents: ${ALLAGMA_AISTHESIS_EMIT_CONEXUS_OBSERVED:-true}
+      Allagma__Aisthesis__EmitKanonObservedEvents: ${ALLAGMA_AISTHESIS_EMIT_KANON_OBSERVED:-false}
+      Allagma__Aisthesis__EmitConexusObservedEvents: ${ALLAGMA_AISTHESIS_EMIT_CONEXUS_OBSERVED:-false}
       Allagma__Aisthesis__FailClosed: ${ALLAGMA_AISTHESIS_FAIL_CLOSED:-false}
       Allagma__Aisthesis__ProducerInstance: ${ALLAGMA_AISTHESIS_PRODUCER_INSTANCE:-allagma-docker-local}
       Conexus__ProjectApiKey: ${CONEXUS_PROJECT_API_KEY_FOR_ALLAGMA:-cx-dev-key-change-me}
