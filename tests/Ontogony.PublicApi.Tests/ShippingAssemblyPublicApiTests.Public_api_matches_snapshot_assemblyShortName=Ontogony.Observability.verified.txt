@@ -108,8 +108,11 @@
     }
     public static class OntogonyOpenTelemetryExtensions
     {
+        public const string MetricExportIntervalEnvironmentVariable = "OTEL_METRIC_EXPORT_INTERVAL";
         public const string OtlpEndpointEnvironmentVariable = "OTEL_EXPORTER_OTLP_ENDPOINT";
         public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddOntogonyOpenTelemetryExport(this Microsoft.Extensions.DependencyInjection.IServiceCollection services, string serviceName, string? serviceVersion = null) { }
+        public static void ConfigureMetricOtlpExporter(OpenTelemetry.Exporter.OtlpExporterOptions _, OpenTelemetry.Metrics.MetricReaderOptions metricReaderOptions) { }
+        public static int ResolveMetricExportIntervalMilliseconds() { }
     }
     public static class OntogonySpanAttributes
     {

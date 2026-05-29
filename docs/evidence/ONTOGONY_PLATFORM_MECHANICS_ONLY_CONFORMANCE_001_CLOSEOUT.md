@@ -22,7 +22,7 @@ Implemented mechanical-only governance, v1 cross-service JSON schema registry, c
 | PLAT-MECH-008 | PASS | `scripts/conformance/Test-ErrorEnvelopeConformance.ps1` |
 | PLAT-MECH-009 | PASS | `scripts/conformance/Test-IdempotencyConformance.ps1` |
 | PLAT-MECH-010 | PASS | `scripts/conformance/Test-OutboxArtifactConformance.ps1` |
-| PLAT-MECH-011 | PASS | `artifacts/platform-mechanics-conformance/platform/20260529T214235Z/summary.json` |
+| PLAT-MECH-011 | PASS | `artifacts/platform-mechanics-conformance/platform/<timestamp>/summary.json` (latest fixture run: `20260529T214816Z`) |
 | PLAT-MECH-012 | PASS | `scripts/conformance/Test-ObservabilityMeterNaming.ps1`, `ConformanceKitPr005Tests` meter naming tests |
 | PLAT-MECH-013 | PASS | `scripts/conformance/Test-NoProductSemantics.ps1` (platform + sibling mode) |
 | PLAT-MECH-014 | PASS | All harness scripts accept `-RepoRoot`, `-ConsumerName`, `-OutputDirectory` |

@@ -1,9 +1,10 @@
 # Consumed intake manifest
 
-Last updated: **2026-05-29** (BACKEND-REPO-CLEANUP-ORGANIZATION-001 — misfiled cross-repo packages archived)
+Last updated: **2026-05-29** (ONTOGONY-PLATFORM-MECHANICS-ONLY-CONFORMANCE-001 archived)
 
 | Package | Status | Canonical promotion (if any) | Archived |
 | --- | --- | --- | --- |
+| ONTOGONY-PLATFORM-MECHANICS-ONLY-CONFORMANCE-001 | **consumed** | [`evidence/ONTOGONY_PLATFORM_MECHANICS_ONLY_CONFORMANCE_001_CLOSEOUT.md`](../../evidence/ONTOGONY_PLATFORM_MECHANICS_ONLY_CONFORMANCE_001_CLOSEOUT.md), `schemas/mechanics/v1/`, `scripts/conformance/` | 2026-05-29 |
 | MISFILED-CROSS-REPO-PACKAGES | **archived** | Aisthesis RC readiness/certification trees misfiled under platform `docs/_incoming/packages/` — owner repos: `aisthesis-dotnet` | 2026-05-29 |
 
 All paths are under `docs/_incoming/_consumed/2026-05/` unless noted.
