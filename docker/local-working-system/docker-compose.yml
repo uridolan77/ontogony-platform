@@ -36,6 +36,12 @@ services:
       Kanon__ConexusAssistance__Enabled: ${KANON_CONEXUS_ASSISTANCE_ENABLED:-true}
       Kanon__ConexusAssistance__BaseUrl: ${KANON_CONEXUS_ASSISTANCE_BASE_URL:-http://conexus-api:8080}
       Kanon__ConexusAssistance__ProjectApiKey: ${CONEXUS_PROJECT_API_KEY:-cx-dev-key-change-me}
+      Kanon__Aisthesis__Enabled: ${KANON_AISTHESIS_ENABLED:-true}
+      Kanon__Aisthesis__BaseUrl: ${AISTHESIS_INTERNAL_BASE_URL:-http://aisthesis-api:8080}
+      Kanon__Aisthesis__ServiceToken: ${AISTHESIS_SERVICE_TOKEN:-aisthesis-dev-service-token-change-in-production}
+      Kanon__Aisthesis__FailClosed: ${KANON_AISTHESIS_FAIL_CLOSED:-false}
+      Kanon__Aisthesis__BatchMode: ${KANON_AISTHESIS_BATCH_MODE:-true}
+      Kanon__Aisthesis__ProducerInstance: ${KANON_AISTHESIS_PRODUCER_INSTANCE:-kanon-docker-local}
       OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-http://host.docker.internal:4317}
       OTEL_SERVICE_NAME: ${KANON_OTEL_SERVICE_NAME:-kanon-api}
       OTEL_RESOURCE_ATTRIBUTES: ${OTEL_RESOURCE_ATTRIBUTES:-deployment.environment=development}
@@ -73,6 +79,12 @@ services:
       Conexus__Cors__Enabled: ${CONEXUS_CORS_ENABLED:-true}
       Conexus__Cors__AllowedOrigins__0: ${FRONTEND_CORS_ORIGIN_LOCALHOST:-http://localhost:5175}
       Conexus__Cors__AllowedOrigins__1: ${FRONTEND_CORS_ORIGIN_LOOPBACK:-http://127.0.0.1:5175}
+      Conexus__Aisthesis__Enabled: ${CONEXUS_AISTHESIS_ENABLED:-true}
+      Conexus__Aisthesis__BaseUrl: ${AISTHESIS_INTERNAL_BASE_URL:-http://aisthesis-api:8080}
+      Conexus__Aisthesis__ServiceToken: ${AISTHESIS_SERVICE_TOKEN:-aisthesis-dev-service-token-change-in-production}
+      Conexus__Aisthesis__FailClosed: ${CONEXUS_AISTHESIS_FAIL_CLOSED:-false}
+      Conexus__Aisthesis__ProducerInstance: ${CONEXUS_AISTHESIS_PRODUCER_INSTANCE:-conexus-docker-local}
+      Conexus__Aisthesis__RequireCapabilitiesHandshake: ${CONEXUS_AISTHESIS_REQUIRE_HANDSHAKE:-false}
       OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-http://host.docker.internal:4317}
       OTEL_SERVICE_NAME: ${CONEXUS_OTEL_SERVICE_NAME:-conexus-api}
       OTEL_RESOURCE_ATTRIBUTES: ${OTEL_RESOURCE_ATTRIBUTES:-deployment.environment=development}
@@ -143,6 +155,12 @@ services:
       Metabole__Conexus__ApiKey: ${CONEXUS_PROJECT_API_KEY:-cx-dev-key-change-me}
       Metabole__Auth__Enabled: ${METABOLE_AUTH_ENABLED:-false}
       Metabole__Auth__DevelopmentAllowAnonymous: ${METABOLE_AUTH_DEVELOPMENT_ALLOW_ANONYMOUS:-true}
+      Metabole__Aisthesis__Enabled: ${METABOLE_AISTHESIS_ENABLED:-true}
+      Metabole__Aisthesis__BaseUrl: ${AISTHESIS_INTERNAL_BASE_URL:-http://aisthesis-api:8080}
+      Metabole__Aisthesis__ServiceToken: ${AISTHESIS_SERVICE_TOKEN:-aisthesis-dev-service-token-change-in-production}
+      Metabole__Aisthesis__FailClosed: ${METABOLE_AISTHESIS_FAIL_CLOSED:-false}
+      Metabole__Aisthesis__BatchMode: ${METABOLE_AISTHESIS_BATCH_MODE:-true}
+      Metabole__Aisthesis__ProducerInstance: ${METABOLE_AISTHESIS_PRODUCER_INSTANCE:-metabole-docker-local}
       OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-http://host.docker.internal:4317}
       OTEL_SERVICE_NAME: ${METABOLE_OTEL_SERVICE_NAME:-metabole-api}
       OTEL_RESOURCE_ATTRIBUTES: ${OTEL_RESOURCE_ATTRIBUTES:-deployment.environment=development}
@@ -188,6 +206,10 @@ services:
       Allagma__Aisthesis__ServiceToken: ${AISTHESIS_SERVICE_TOKEN:-aisthesis-dev-service-token-change-in-production}
       Allagma__Aisthesis__BatchMode: ${ALLAGMA_AISTHESIS_BATCH_MODE:-false}
       Allagma__Aisthesis__EmitRunEvents: ${ALLAGMA_AISTHESIS_EMIT_RUN_EVENTS:-true}
+      Allagma__Aisthesis__EmitKanonObservedEvents: ${ALLAGMA_AISTHESIS_EMIT_KANON_OBSERVED:-true}
+      Allagma__Aisthesis__EmitConexusObservedEvents: ${ALLAGMA_AISTHESIS_EMIT_CONEXUS_OBSERVED:-true}
+      Allagma__Aisthesis__FailClosed: ${ALLAGMA_AISTHESIS_FAIL_CLOSED:-false}
+      Allagma__Aisthesis__ProducerInstance: ${ALLAGMA_AISTHESIS_PRODUCER_INSTANCE:-allagma-docker-local}
       Conexus__ProjectApiKey: ${CONEXUS_PROJECT_API_KEY_FOR_ALLAGMA:-cx-dev-key-change-me}
       Conexus__AdminApiKey: ${CONEXUS_ADMIN_API_KEY:-cx-conexus-admin-dev}
       Allagma__Authentication__ServiceToken: ${ALLAGMA_SERVICE_TOKEN:-allagma-dev-service-token-change-in-production}
