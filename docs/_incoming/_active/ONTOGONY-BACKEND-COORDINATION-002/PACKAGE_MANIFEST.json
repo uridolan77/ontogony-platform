@@ -1,0 +1,75 @@
+{
+  "packageId": "ONTOGONY-BACKEND-COORDINATION-002",
+  "title": "Ontogony Backend Coordination Sprint — post-cleanup cohesion",
+  "version": "1.0.0",
+  "status": "active",
+  "createdAt": "2026-05-29",
+  "orchestratorRepo": "ontogony-platform",
+  "runtimeCoordinatorRepo": "allagma-dotnet",
+  "predecessor": "BACKEND-REPO-CLEANUP-ORGANIZATION-001",
+  "slices": [
+    {
+      "id": "BACKEND-REPO-DOCS-ORDER-002",
+      "order": 1,
+      "owner": "all-repos",
+      "dependsOn": []
+    },
+    {
+      "id": "SYSTEM-COMPATIBILITY-MATRIX-001",
+      "order": 2,
+      "owner": "allagma-dotnet",
+      "dependsOn": ["BACKEND-REPO-DOCS-ORDER-002"]
+    },
+    {
+      "id": "SHARED-ERROR-CONTRACT-001",
+      "order": 3,
+      "owner": "ontogony-platform",
+      "dependsOn": ["SYSTEM-COMPATIBILITY-MATRIX-001"]
+    },
+    {
+      "id": "CROSS-REPO-IDENTITY-CORRELATION-001",
+      "order": 4,
+      "owner": "ontogony-platform",
+      "dependsOn": ["SHARED-ERROR-CONTRACT-001"]
+    },
+    {
+      "id": "ALLAGMA-CONEXUS-MODEL-ALIAS-001",
+      "order": 5,
+      "owner": "allagma-dotnet",
+      "dependsOn": ["CROSS-REPO-IDENTITY-CORRELATION-001"]
+    },
+    {
+      "id": "BACKEND-SYSTEM-E2E-001",
+      "order": 6,
+      "owner": "allagma-dotnet",
+      "dependsOn": ["ALLAGMA-CONEXUS-MODEL-ALIAS-001"]
+    },
+    {
+      "id": "AISTHESIS-RECONSTRUCTABILITY-SPINE-001",
+      "order": 7,
+      "owner": "aisthesis-dotnet",
+      "dependsOn": ["BACKEND-SYSTEM-E2E-001"]
+    },
+    {
+      "id": "METABOLE-DATA-SPINE-HARDENING-001",
+      "order": 8,
+      "owner": "metabole-dotnet",
+      "dependsOn": ["BACKEND-SYSTEM-E2E-001"]
+    }
+  ],
+  "repos": [
+    "ontogony-platform",
+    "conexus-dotnet",
+    "kanon-dotnet",
+    "allagma-dotnet",
+    "metabole-dotnet",
+    "aisthesis-dotnet"
+  ],
+  "nonClaims": [
+    "No production deployment",
+    "No real external tool execution enablement",
+    "No Kanon v1 API graduation",
+    "No semantic authority moved into Conexus or Allagma",
+    "No model routing moved into Kanon or Allagma"
+  ]
+}
