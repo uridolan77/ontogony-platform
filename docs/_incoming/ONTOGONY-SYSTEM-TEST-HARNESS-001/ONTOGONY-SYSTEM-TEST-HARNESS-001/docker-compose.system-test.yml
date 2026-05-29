@@ -1,0 +1,28 @@
+# Starter compose file for external dependencies used by system tests.
+# It intentionally does not build all services, because local repo layouts differ.
+# Calibrate this once each service has a stable Dockerfile.
+services:
+  postgres:
+    image: postgres:16
+    container_name: ontogony-system-test-postgres
+    environment:
+      POSTGRES_USER: ontogony
+      POSTGRES_PASSWORD: ontogony
+      POSTGRES_DB: ontogony_system_test
+    ports:
+      - "55432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ontogony -d ontogony_system_test"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  otel-collector:
+    image: otel/opentelemetry-collector:0.112.0
+    container_name: ontogony-system-test-otel
+    command: ["--config=/etc/otelcol/config.yaml"]
+    volumes:
+      - ./observability/otel-collector-config.yaml:/etc/otelcol/config.yaml:ro
+    ports:
+      - "4317:4317"
+      - "4318:4318"

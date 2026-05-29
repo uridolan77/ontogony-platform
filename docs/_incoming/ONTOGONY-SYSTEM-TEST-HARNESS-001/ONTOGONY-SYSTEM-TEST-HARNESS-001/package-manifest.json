@@ -1,0 +1,18 @@
+{
+  "package": "ONTOGONY-SYSTEM-TEST-HARNESS-001",
+  "created_utc": "2026-05-29T23:21:53Z",
+  "intent": "Starter harness for broad automated system, service, contract, integration, E2E, UI, resilience, and observability testing across Ontogony.",
+  "repos": [
+    "uridolan77/ontogony-platform",
+    "uridolan77/conexus-dotnet",
+    "uridolan77/kanon-dotnet",
+    "uridolan77/allagma-dotnet",
+    "uridolan77/metabole-dotnet",
+    "uridolan77/aisthesis-dotnet",
+    "uridolan77/ontogony-frontend",
+    "uridolan77/ontogony-ui",
+    "uridolan77/ontogony-consumers"
+  ],
+  "target_manual_replacement": "50%+ of repeatable manual regression testing, not exploratory testing or product judgment.",
+  "status": "starter package; code skeletons and catalogs need route-level calibration against current service OpenAPI/README/source before CI gating"
+}

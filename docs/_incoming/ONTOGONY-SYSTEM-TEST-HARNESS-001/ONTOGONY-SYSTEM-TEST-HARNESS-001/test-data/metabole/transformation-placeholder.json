@@ -1,0 +1,8 @@
+{
+  "inputId": "sys-test-metabole-input-001",
+  "transformation": "deterministic-test-transform",
+  "payload": {
+    "value": 42,
+    "description": "synthetic test data"
+  }
+}

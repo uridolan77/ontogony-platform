@@ -1,0 +1,32 @@
+name: Ontogony System Test Harness
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'tests/**'
+      - 'docs/**'
+      - 'manifests/**'
+      - '.github/workflows/ontogony-system-test-harness.yml'
+
+jobs:
+  manifest-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify package structure
+        run: python scripts/verify-package.py
+
+  dotnet-system-tests:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Run system tests
+        run: dotnet test tests/dotnet/Ontogony.SystemTestHarness.sln

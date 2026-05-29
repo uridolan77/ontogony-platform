@@ -1,0 +1,85 @@
+services:
+  ontogony-platform:
+    repo: uridolan77/ontogony-platform
+    role: shared mechanics, HTTP, errors, tracing, idempotency primitives
+    baseUrlEnv: ONTOGONY_PLATFORM_BASE_URL
+    defaultBaseUrl: http://localhost:5080
+    auth: service-token-or-public-by-route
+    health: /health
+    ready: /ready
+    priority: high
+
+  kanon:
+    repo: uridolan77/kanon-dotnet
+    role: semantic authority, ontology, policies, facts, human gates, decisions, provenance
+    baseUrlEnv: KANON_BASE_URL
+    defaultBaseUrl: http://localhost:5081
+    auth: service-token
+    tokenEnv: KANON_SERVICE_TOKEN
+    health: /health
+    ready: /ready
+    priority: critical
+
+  conexus:
+    repo: uridolan77/conexus-dotnet
+    role: model gateway, provider routing, aliases, fallback, quotas, cost, telemetry
+    baseUrlEnv: CONEXUS_BASE_URL
+    defaultBaseUrl: http://localhost:5082
+    auth: project-api-key/admin-key-by-route
+    tokenEnv: CONEXUS_PROJECT_API_KEY
+    health: /health
+    ready: /ready
+    priority: critical
+
+  allagma:
+    repo: uridolan77/allagma-dotnet
+    role: governed execution, run lifecycle, event stream, orchestration
+    baseUrlEnv: ALLAGMA_BASE_URL
+    defaultBaseUrl: http://localhost:5083
+    auth: service-token
+    tokenEnv: ALLAGMA_SERVICE_TOKEN
+    health: /health
+    ready: /ready
+    priority: critical
+
+  metabole:
+    repo: uridolan77/metabole-dotnet
+    role: transformation, evolution, data-spine/metabolic processing
+    baseUrlEnv: METABOLE_BASE_URL
+    defaultBaseUrl: http://localhost:5084
+    auth: service-token
+    tokenEnv: METABOLE_SERVICE_TOKEN
+    health: /health
+    ready: /ready
+    priority: high
+
+  aisthesis:
+    repo: uridolan77/aisthesis-dotnet
+    role: phenomenological memory, experience traces, temporal/reflective memory flows
+    baseUrlEnv: AISTHESIS_BASE_URL
+    defaultBaseUrl: http://localhost:5085
+    auth: service-token
+    tokenEnv: AISTHESIS_SERVICE_TOKEN
+    health: /health
+    ready: /ready
+    priority: high
+
+  ontogony-frontend:
+    repo: uridolan77/ontogony-frontend
+    role: main console/frontend service coverage
+    baseUrlEnv: ONTOGONY_FRONTEND_BASE_URL
+    defaultBaseUrl: http://localhost:5173
+    auth: browser/session/dev
+    health: /
+    ready: /
+    priority: high
+
+  ontogony-ui:
+    repo: uridolan77/ontogony-ui
+    role: shared UI infrastructure/components
+    baseUrlEnv: none
+    defaultBaseUrl: none
+    auth: n/a
+    health: n/a
+    ready: n/a
+    priority: medium

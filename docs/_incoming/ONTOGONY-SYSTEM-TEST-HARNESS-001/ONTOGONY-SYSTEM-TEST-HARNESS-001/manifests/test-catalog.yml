@@ -1,0 +1,2223 @@
+testCatalog:
+  generatedBy: ONTOGONY-SYSTEM-TEST-HARNESS-001
+  cases:
+    - id: E2E-001
+      severity: critical
+      scope: allagma-kanon-conexus
+      title: "Full governed run completion through Kanon planning and Conexus completion"
+      automationStatus: implemented
+      evidenceRequired: true
+    - id: E2E-002
+      severity: critical
+      scope: allagma
+      title: "Idempotent run creation replay and conflict"
+      automationStatus: implemented
+      evidenceRequired: true
+    - id: E2E-003
+      severity: critical
+      scope: allagma-kanon
+      title: "Human gate waiting, approval, denial, and resume"
+      automationStatus: implemented
+      evidenceRequired: true
+    - id: E2E-004
+      severity: high
+      scope: kanon-conexus
+      title: "Kanon Conexus assistance redaction and draft_only decision"
+      automationStatus: implemented
+      evidenceRequired: true
+    - id: E2E-005
+      severity: high
+      scope: allagma-conexus
+      title: "Conexus provider fallback visible through Allagma run"
+      automationStatus: implemented
+      evidenceRequired: true
+    - id: E2E-006
+      severity: high
+      scope: allagma
+      title: "Restart survival with durable run/event state"
+      automationStatus: skeleton
+      evidenceRequired: true
+    - id: E2E-007
+      severity: high
+      scope: metabole
+      title: "Metabole deterministic transformation/evolution flow"
+      automationStatus: skeleton
+      evidenceRequired: true
+    - id: E2E-008
+      severity: high
+      scope: aisthesis-kanon
+      title: "Aisthesis memory write/retrieve with Kanon semantic alignment"
+      automationStatus: skeleton
+      evidenceRequired: true
+    - id: E2E-009
+      severity: medium
+      scope: frontend
+      title: "Console service coverage journey"
+      automationStatus: skeleton
+      evidenceRequired: true
+    - id: E2E-010
+      severity: high
+      scope: system
+      title: "Cross-service trace/correlation chain"
+      automationStatus: skeleton
+      evidenceRequired: true
+    - id: READINESS-PLATFORM-001
+      severity: medium
+      scope: platform
+      title: "platform health returns success"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-PLATFORM-002
+      severity: medium
+      scope: platform
+      title: "platform ready returns success"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-PLATFORM-003
+      severity: medium
+      scope: platform
+      title: "platform ready fails when critical dependency unavailable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-PLATFORM-004
+      severity: medium
+      scope: platform
+      title: "platform health remains public"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-PLATFORM-005
+      severity: medium
+      scope: platform
+      title: "platform ready includes dependency signal"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-PLATFORM-006
+      severity: medium
+      scope: platform
+      title: "platform missing token rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-PLATFORM-007
+      severity: medium
+      scope: platform
+      title: "platform invalid token rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-PLATFORM-008
+      severity: medium
+      scope: platform
+      title: "platform wrong scope rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-PLATFORM-009
+      severity: medium
+      scope: platform
+      title: "platform valid token accepted"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-PLATFORM-010
+      severity: medium
+      scope: platform
+      title: "platform admin route rejects non-admin key"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-PLATFORM-011
+      severity: medium
+      scope: platform
+      title: "platform route exists"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-PLATFORM-012
+      severity: medium
+      scope: platform
+      title: "platform request schema accepted"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-PLATFORM-013
+      severity: medium
+      scope: platform
+      title: "platform response schema stable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-PLATFORM-014
+      severity: medium
+      scope: platform
+      title: "platform error envelope stable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-PLATFORM-015
+      severity: medium
+      scope: platform
+      title: "platform trace headers present"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-PLATFORM-016
+      severity: medium
+      scope: platform
+      title: "platform create/list/read flow works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-PLATFORM-017
+      severity: medium
+      scope: platform
+      title: "platform minimal valid payload works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-PLATFORM-018
+      severity: medium
+      scope: platform
+      title: "platform full valid payload works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-PLATFORM-019
+      severity: medium
+      scope: platform
+      title: "platform pagination works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-PLATFORM-020
+      severity: medium
+      scope: platform
+      title: "platform filtering works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-PLATFORM-021
+      severity: medium
+      scope: platform
+      title: "platform invalid json rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-PLATFORM-022
+      severity: medium
+      scope: platform
+      title: "platform missing required field rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-PLATFORM-023
+      severity: medium
+      scope: platform
+      title: "platform unknown enum rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-PLATFORM-024
+      severity: medium
+      scope: platform
+      title: "platform oversized payload rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-PLATFORM-025
+      severity: medium
+      scope: platform
+      title: "platform unsupported content type rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-PLATFORM-026
+      severity: high
+      scope: platform
+      title: "platform same key same payload replays"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-PLATFORM-027
+      severity: high
+      scope: platform
+      title: "platform same key different payload conflicts"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-PLATFORM-028
+      severity: high
+      scope: platform
+      title: "platform retry after timeout safe"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-PLATFORM-029
+      severity: high
+      scope: platform
+      title: "platform in-progress duplicate handled"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-PLATFORM-030
+      severity: high
+      scope: platform
+      title: "platform downstream duplicate not created"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-PLATFORM-031
+      severity: high
+      scope: platform
+      title: "platform write is durable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-PLATFORM-032
+      severity: high
+      scope: platform
+      title: "platform read after restart works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-PLATFORM-033
+      severity: high
+      scope: platform
+      title: "platform migration smoke passes"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-PLATFORM-034
+      severity: high
+      scope: platform
+      title: "platform event/order durable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-PLATFORM-035
+      severity: high
+      scope: platform
+      title: "platform replay bundle/evidence export works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-PLATFORM-036
+      severity: medium
+      scope: platform
+      title: "platform correlation id propagated"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-PLATFORM-037
+      severity: medium
+      scope: platform
+      title: "platform trace id captured"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-PLATFORM-038
+      severity: medium
+      scope: platform
+      title: "platform metrics increment"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-PLATFORM-039
+      severity: medium
+      scope: platform
+      title: "platform logs contain scenario id"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-PLATFORM-040
+      severity: medium
+      scope: platform
+      title: "platform evidence bundle written"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-PLATFORM-041
+      severity: high
+      scope: platform
+      title: "platform secrets not returned"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-PLATFORM-042
+      severity: high
+      scope: platform
+      title: "platform pii redacted where required"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-PLATFORM-043
+      severity: high
+      scope: platform
+      title: "platform unsafe side effect blocked"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-PLATFORM-044
+      severity: high
+      scope: platform
+      title: "platform prompt injection does not bypass policy"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-PLATFORM-045
+      severity: high
+      scope: platform
+      title: "platform public routes limited"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-CONEXUS-046
+      severity: critical
+      scope: conexus
+      title: "conexus health returns success"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-CONEXUS-047
+      severity: critical
+      scope: conexus
+      title: "conexus ready returns success"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-CONEXUS-048
+      severity: critical
+      scope: conexus
+      title: "conexus ready fails when critical dependency unavailable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-CONEXUS-049
+      severity: critical
+      scope: conexus
+      title: "conexus health remains public"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-CONEXUS-050
+      severity: critical
+      scope: conexus
+      title: "conexus ready includes dependency signal"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-CONEXUS-051
+      severity: critical
+      scope: conexus
+      title: "conexus missing token rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-CONEXUS-052
+      severity: critical
+      scope: conexus
+      title: "conexus invalid token rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-CONEXUS-053
+      severity: critical
+      scope: conexus
+      title: "conexus wrong scope rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-CONEXUS-054
+      severity: critical
+      scope: conexus
+      title: "conexus valid token accepted"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-CONEXUS-055
+      severity: critical
+      scope: conexus
+      title: "conexus admin route rejects non-admin key"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-CONEXUS-056
+      severity: critical
+      scope: conexus
+      title: "conexus route exists"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-CONEXUS-057
+      severity: critical
+      scope: conexus
+      title: "conexus request schema accepted"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-CONEXUS-058
+      severity: critical
+      scope: conexus
+      title: "conexus response schema stable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-CONEXUS-059
+      severity: critical
+      scope: conexus
+      title: "conexus error envelope stable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-CONEXUS-060
+      severity: critical
+      scope: conexus
+      title: "conexus trace headers present"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-CONEXUS-061
+      severity: medium
+      scope: conexus
+      title: "conexus create/list/read flow works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-CONEXUS-062
+      severity: medium
+      scope: conexus
+      title: "conexus minimal valid payload works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-CONEXUS-063
+      severity: medium
+      scope: conexus
+      title: "conexus full valid payload works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-CONEXUS-064
+      severity: medium
+      scope: conexus
+      title: "conexus pagination works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-CONEXUS-065
+      severity: medium
+      scope: conexus
+      title: "conexus filtering works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-CONEXUS-066
+      severity: medium
+      scope: conexus
+      title: "conexus invalid json rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-CONEXUS-067
+      severity: medium
+      scope: conexus
+      title: "conexus missing required field rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-CONEXUS-068
+      severity: medium
+      scope: conexus
+      title: "conexus unknown enum rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-CONEXUS-069
+      severity: medium
+      scope: conexus
+      title: "conexus oversized payload rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-CONEXUS-070
+      severity: medium
+      scope: conexus
+      title: "conexus unsupported content type rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-CONEXUS-071
+      severity: high
+      scope: conexus
+      title: "conexus same key same payload replays"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-CONEXUS-072
+      severity: high
+      scope: conexus
+      title: "conexus same key different payload conflicts"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-CONEXUS-073
+      severity: high
+      scope: conexus
+      title: "conexus retry after timeout safe"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-CONEXUS-074
+      severity: high
+      scope: conexus
+      title: "conexus in-progress duplicate handled"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-CONEXUS-075
+      severity: high
+      scope: conexus
+      title: "conexus downstream duplicate not created"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-CONEXUS-076
+      severity: high
+      scope: conexus
+      title: "conexus write is durable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-CONEXUS-077
+      severity: high
+      scope: conexus
+      title: "conexus read after restart works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-CONEXUS-078
+      severity: high
+      scope: conexus
+      title: "conexus migration smoke passes"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-CONEXUS-079
+      severity: high
+      scope: conexus
+      title: "conexus event/order durable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-CONEXUS-080
+      severity: high
+      scope: conexus
+      title: "conexus replay bundle/evidence export works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-CONEXUS-081
+      severity: medium
+      scope: conexus
+      title: "conexus correlation id propagated"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-CONEXUS-082
+      severity: medium
+      scope: conexus
+      title: "conexus trace id captured"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-CONEXUS-083
+      severity: medium
+      scope: conexus
+      title: "conexus metrics increment"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-CONEXUS-084
+      severity: medium
+      scope: conexus
+      title: "conexus logs contain scenario id"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-CONEXUS-085
+      severity: medium
+      scope: conexus
+      title: "conexus evidence bundle written"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-CONEXUS-086
+      severity: high
+      scope: conexus
+      title: "conexus secrets not returned"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-CONEXUS-087
+      severity: high
+      scope: conexus
+      title: "conexus pii redacted where required"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-CONEXUS-088
+      severity: high
+      scope: conexus
+      title: "conexus unsafe side effect blocked"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-CONEXUS-089
+      severity: high
+      scope: conexus
+      title: "conexus prompt injection does not bypass policy"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-CONEXUS-090
+      severity: high
+      scope: conexus
+      title: "conexus public routes limited"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-KANON-091
+      severity: critical
+      scope: kanon
+      title: "kanon health returns success"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-KANON-092
+      severity: critical
+      scope: kanon
+      title: "kanon ready returns success"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-KANON-093
+      severity: critical
+      scope: kanon
+      title: "kanon ready fails when critical dependency unavailable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-KANON-094
+      severity: critical
+      scope: kanon
+      title: "kanon health remains public"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-KANON-095
+      severity: critical
+      scope: kanon
+      title: "kanon ready includes dependency signal"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-KANON-096
+      severity: critical
+      scope: kanon
+      title: "kanon missing token rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-KANON-097
+      severity: critical
+      scope: kanon
+      title: "kanon invalid token rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-KANON-098
+      severity: critical
+      scope: kanon
+      title: "kanon wrong scope rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-KANON-099
+      severity: critical
+      scope: kanon
+      title: "kanon valid token accepted"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-KANON-100
+      severity: critical
+      scope: kanon
+      title: "kanon admin route rejects non-admin key"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-KANON-101
+      severity: critical
+      scope: kanon
+      title: "kanon route exists"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-KANON-102
+      severity: critical
+      scope: kanon
+      title: "kanon request schema accepted"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-KANON-103
+      severity: critical
+      scope: kanon
+      title: "kanon response schema stable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-KANON-104
+      severity: critical
+      scope: kanon
+      title: "kanon error envelope stable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-KANON-105
+      severity: critical
+      scope: kanon
+      title: "kanon trace headers present"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-KANON-106
+      severity: medium
+      scope: kanon
+      title: "kanon create/list/read flow works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-KANON-107
+      severity: medium
+      scope: kanon
+      title: "kanon minimal valid payload works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-KANON-108
+      severity: medium
+      scope: kanon
+      title: "kanon full valid payload works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-KANON-109
+      severity: medium
+      scope: kanon
+      title: "kanon pagination works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-KANON-110
+      severity: medium
+      scope: kanon
+      title: "kanon filtering works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-KANON-111
+      severity: medium
+      scope: kanon
+      title: "kanon invalid json rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-KANON-112
+      severity: medium
+      scope: kanon
+      title: "kanon missing required field rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-KANON-113
+      severity: medium
+      scope: kanon
+      title: "kanon unknown enum rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-KANON-114
+      severity: medium
+      scope: kanon
+      title: "kanon oversized payload rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-KANON-115
+      severity: medium
+      scope: kanon
+      title: "kanon unsupported content type rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-KANON-116
+      severity: high
+      scope: kanon
+      title: "kanon same key same payload replays"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-KANON-117
+      severity: high
+      scope: kanon
+      title: "kanon same key different payload conflicts"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-KANON-118
+      severity: high
+      scope: kanon
+      title: "kanon retry after timeout safe"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-KANON-119
+      severity: high
+      scope: kanon
+      title: "kanon in-progress duplicate handled"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-KANON-120
+      severity: high
+      scope: kanon
+      title: "kanon downstream duplicate not created"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-KANON-121
+      severity: high
+      scope: kanon
+      title: "kanon write is durable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-KANON-122
+      severity: high
+      scope: kanon
+      title: "kanon read after restart works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-KANON-123
+      severity: high
+      scope: kanon
+      title: "kanon migration smoke passes"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-KANON-124
+      severity: high
+      scope: kanon
+      title: "kanon event/order durable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-KANON-125
+      severity: high
+      scope: kanon
+      title: "kanon replay bundle/evidence export works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-KANON-126
+      severity: medium
+      scope: kanon
+      title: "kanon correlation id propagated"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-KANON-127
+      severity: medium
+      scope: kanon
+      title: "kanon trace id captured"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-KANON-128
+      severity: medium
+      scope: kanon
+      title: "kanon metrics increment"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-KANON-129
+      severity: medium
+      scope: kanon
+      title: "kanon logs contain scenario id"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-KANON-130
+      severity: medium
+      scope: kanon
+      title: "kanon evidence bundle written"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-KANON-131
+      severity: high
+      scope: kanon
+      title: "kanon secrets not returned"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-KANON-132
+      severity: high
+      scope: kanon
+      title: "kanon pii redacted where required"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-KANON-133
+      severity: high
+      scope: kanon
+      title: "kanon unsafe side effect blocked"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-KANON-134
+      severity: high
+      scope: kanon
+      title: "kanon prompt injection does not bypass policy"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-KANON-135
+      severity: high
+      scope: kanon
+      title: "kanon public routes limited"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-ALLAGMA-136
+      severity: critical
+      scope: allagma
+      title: "allagma health returns success"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-ALLAGMA-137
+      severity: critical
+      scope: allagma
+      title: "allagma ready returns success"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-ALLAGMA-138
+      severity: critical
+      scope: allagma
+      title: "allagma ready fails when critical dependency unavailable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-ALLAGMA-139
+      severity: critical
+      scope: allagma
+      title: "allagma health remains public"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-ALLAGMA-140
+      severity: critical
+      scope: allagma
+      title: "allagma ready includes dependency signal"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-ALLAGMA-141
+      severity: critical
+      scope: allagma
+      title: "allagma missing token rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-ALLAGMA-142
+      severity: critical
+      scope: allagma
+      title: "allagma invalid token rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-ALLAGMA-143
+      severity: critical
+      scope: allagma
+      title: "allagma wrong scope rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-ALLAGMA-144
+      severity: critical
+      scope: allagma
+      title: "allagma valid token accepted"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-ALLAGMA-145
+      severity: critical
+      scope: allagma
+      title: "allagma admin route rejects non-admin key"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-ALLAGMA-146
+      severity: critical
+      scope: allagma
+      title: "allagma route exists"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-ALLAGMA-147
+      severity: critical
+      scope: allagma
+      title: "allagma request schema accepted"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-ALLAGMA-148
+      severity: critical
+      scope: allagma
+      title: "allagma response schema stable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-ALLAGMA-149
+      severity: critical
+      scope: allagma
+      title: "allagma error envelope stable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-ALLAGMA-150
+      severity: critical
+      scope: allagma
+      title: "allagma trace headers present"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-ALLAGMA-151
+      severity: medium
+      scope: allagma
+      title: "allagma create/list/read flow works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-ALLAGMA-152
+      severity: medium
+      scope: allagma
+      title: "allagma minimal valid payload works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-ALLAGMA-153
+      severity: medium
+      scope: allagma
+      title: "allagma full valid payload works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-ALLAGMA-154
+      severity: medium
+      scope: allagma
+      title: "allagma pagination works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-ALLAGMA-155
+      severity: medium
+      scope: allagma
+      title: "allagma filtering works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-ALLAGMA-156
+      severity: medium
+      scope: allagma
+      title: "allagma invalid json rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-ALLAGMA-157
+      severity: medium
+      scope: allagma
+      title: "allagma missing required field rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-ALLAGMA-158
+      severity: medium
+      scope: allagma
+      title: "allagma unknown enum rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-ALLAGMA-159
+      severity: medium
+      scope: allagma
+      title: "allagma oversized payload rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-ALLAGMA-160
+      severity: medium
+      scope: allagma
+      title: "allagma unsupported content type rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-ALLAGMA-161
+      severity: high
+      scope: allagma
+      title: "allagma same key same payload replays"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-ALLAGMA-162
+      severity: high
+      scope: allagma
+      title: "allagma same key different payload conflicts"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-ALLAGMA-163
+      severity: high
+      scope: allagma
+      title: "allagma retry after timeout safe"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-ALLAGMA-164
+      severity: high
+      scope: allagma
+      title: "allagma in-progress duplicate handled"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-ALLAGMA-165
+      severity: high
+      scope: allagma
+      title: "allagma downstream duplicate not created"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-ALLAGMA-166
+      severity: high
+      scope: allagma
+      title: "allagma write is durable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-ALLAGMA-167
+      severity: high
+      scope: allagma
+      title: "allagma read after restart works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-ALLAGMA-168
+      severity: high
+      scope: allagma
+      title: "allagma migration smoke passes"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-ALLAGMA-169
+      severity: high
+      scope: allagma
+      title: "allagma event/order durable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-ALLAGMA-170
+      severity: high
+      scope: allagma
+      title: "allagma replay bundle/evidence export works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-ALLAGMA-171
+      severity: medium
+      scope: allagma
+      title: "allagma correlation id propagated"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-ALLAGMA-172
+      severity: medium
+      scope: allagma
+      title: "allagma trace id captured"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-ALLAGMA-173
+      severity: medium
+      scope: allagma
+      title: "allagma metrics increment"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-ALLAGMA-174
+      severity: medium
+      scope: allagma
+      title: "allagma logs contain scenario id"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-ALLAGMA-175
+      severity: medium
+      scope: allagma
+      title: "allagma evidence bundle written"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-ALLAGMA-176
+      severity: high
+      scope: allagma
+      title: "allagma secrets not returned"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-ALLAGMA-177
+      severity: high
+      scope: allagma
+      title: "allagma pii redacted where required"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-ALLAGMA-178
+      severity: high
+      scope: allagma
+      title: "allagma unsafe side effect blocked"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-ALLAGMA-179
+      severity: high
+      scope: allagma
+      title: "allagma prompt injection does not bypass policy"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-ALLAGMA-180
+      severity: high
+      scope: allagma
+      title: "allagma public routes limited"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-METABOLE-181
+      severity: medium
+      scope: metabole
+      title: "metabole health returns success"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-METABOLE-182
+      severity: medium
+      scope: metabole
+      title: "metabole ready returns success"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-METABOLE-183
+      severity: medium
+      scope: metabole
+      title: "metabole ready fails when critical dependency unavailable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-METABOLE-184
+      severity: medium
+      scope: metabole
+      title: "metabole health remains public"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-METABOLE-185
+      severity: medium
+      scope: metabole
+      title: "metabole ready includes dependency signal"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-METABOLE-186
+      severity: medium
+      scope: metabole
+      title: "metabole missing token rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-METABOLE-187
+      severity: medium
+      scope: metabole
+      title: "metabole invalid token rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-METABOLE-188
+      severity: medium
+      scope: metabole
+      title: "metabole wrong scope rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-METABOLE-189
+      severity: medium
+      scope: metabole
+      title: "metabole valid token accepted"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-METABOLE-190
+      severity: medium
+      scope: metabole
+      title: "metabole admin route rejects non-admin key"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-METABOLE-191
+      severity: medium
+      scope: metabole
+      title: "metabole route exists"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-METABOLE-192
+      severity: medium
+      scope: metabole
+      title: "metabole request schema accepted"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-METABOLE-193
+      severity: medium
+      scope: metabole
+      title: "metabole response schema stable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-METABOLE-194
+      severity: medium
+      scope: metabole
+      title: "metabole error envelope stable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-METABOLE-195
+      severity: medium
+      scope: metabole
+      title: "metabole trace headers present"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-METABOLE-196
+      severity: medium
+      scope: metabole
+      title: "metabole create/list/read flow works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-METABOLE-197
+      severity: medium
+      scope: metabole
+      title: "metabole minimal valid payload works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-METABOLE-198
+      severity: medium
+      scope: metabole
+      title: "metabole full valid payload works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-METABOLE-199
+      severity: medium
+      scope: metabole
+      title: "metabole pagination works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-METABOLE-200
+      severity: medium
+      scope: metabole
+      title: "metabole filtering works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-METABOLE-201
+      severity: medium
+      scope: metabole
+      title: "metabole invalid json rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-METABOLE-202
+      severity: medium
+      scope: metabole
+      title: "metabole missing required field rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-METABOLE-203
+      severity: medium
+      scope: metabole
+      title: "metabole unknown enum rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-METABOLE-204
+      severity: medium
+      scope: metabole
+      title: "metabole oversized payload rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-METABOLE-205
+      severity: medium
+      scope: metabole
+      title: "metabole unsupported content type rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-METABOLE-206
+      severity: high
+      scope: metabole
+      title: "metabole same key same payload replays"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-METABOLE-207
+      severity: high
+      scope: metabole
+      title: "metabole same key different payload conflicts"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-METABOLE-208
+      severity: high
+      scope: metabole
+      title: "metabole retry after timeout safe"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-METABOLE-209
+      severity: high
+      scope: metabole
+      title: "metabole in-progress duplicate handled"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-METABOLE-210
+      severity: high
+      scope: metabole
+      title: "metabole downstream duplicate not created"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-METABOLE-211
+      severity: high
+      scope: metabole
+      title: "metabole write is durable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-METABOLE-212
+      severity: high
+      scope: metabole
+      title: "metabole read after restart works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-METABOLE-213
+      severity: high
+      scope: metabole
+      title: "metabole migration smoke passes"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-METABOLE-214
+      severity: high
+      scope: metabole
+      title: "metabole event/order durable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-METABOLE-215
+      severity: high
+      scope: metabole
+      title: "metabole replay bundle/evidence export works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-METABOLE-216
+      severity: medium
+      scope: metabole
+      title: "metabole correlation id propagated"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-METABOLE-217
+      severity: medium
+      scope: metabole
+      title: "metabole trace id captured"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-METABOLE-218
+      severity: medium
+      scope: metabole
+      title: "metabole metrics increment"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-METABOLE-219
+      severity: medium
+      scope: metabole
+      title: "metabole logs contain scenario id"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-METABOLE-220
+      severity: medium
+      scope: metabole
+      title: "metabole evidence bundle written"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-METABOLE-221
+      severity: high
+      scope: metabole
+      title: "metabole secrets not returned"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-METABOLE-222
+      severity: high
+      scope: metabole
+      title: "metabole pii redacted where required"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-METABOLE-223
+      severity: high
+      scope: metabole
+      title: "metabole unsafe side effect blocked"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-METABOLE-224
+      severity: high
+      scope: metabole
+      title: "metabole prompt injection does not bypass policy"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-METABOLE-225
+      severity: high
+      scope: metabole
+      title: "metabole public routes limited"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-AISTHESIS-226
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis health returns success"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-AISTHESIS-227
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis ready returns success"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-AISTHESIS-228
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis ready fails when critical dependency unavailable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-AISTHESIS-229
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis health remains public"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-AISTHESIS-230
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis ready includes dependency signal"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-AISTHESIS-231
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis missing token rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-AISTHESIS-232
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis invalid token rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-AISTHESIS-233
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis wrong scope rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-AISTHESIS-234
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis valid token accepted"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-AISTHESIS-235
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis admin route rejects non-admin key"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-AISTHESIS-236
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis route exists"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-AISTHESIS-237
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis request schema accepted"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-AISTHESIS-238
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis response schema stable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-AISTHESIS-239
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis error envelope stable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-AISTHESIS-240
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis trace headers present"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-AISTHESIS-241
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis create/list/read flow works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-AISTHESIS-242
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis minimal valid payload works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-AISTHESIS-243
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis full valid payload works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-AISTHESIS-244
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis pagination works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-AISTHESIS-245
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis filtering works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-AISTHESIS-246
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis invalid json rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-AISTHESIS-247
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis missing required field rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-AISTHESIS-248
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis unknown enum rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-AISTHESIS-249
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis oversized payload rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-AISTHESIS-250
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis unsupported content type rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-AISTHESIS-251
+      severity: high
+      scope: aisthesis
+      title: "aisthesis same key same payload replays"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-AISTHESIS-252
+      severity: high
+      scope: aisthesis
+      title: "aisthesis same key different payload conflicts"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-AISTHESIS-253
+      severity: high
+      scope: aisthesis
+      title: "aisthesis retry after timeout safe"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-AISTHESIS-254
+      severity: high
+      scope: aisthesis
+      title: "aisthesis in-progress duplicate handled"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-AISTHESIS-255
+      severity: high
+      scope: aisthesis
+      title: "aisthesis downstream duplicate not created"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-AISTHESIS-256
+      severity: high
+      scope: aisthesis
+      title: "aisthesis write is durable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-AISTHESIS-257
+      severity: high
+      scope: aisthesis
+      title: "aisthesis read after restart works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-AISTHESIS-258
+      severity: high
+      scope: aisthesis
+      title: "aisthesis migration smoke passes"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-AISTHESIS-259
+      severity: high
+      scope: aisthesis
+      title: "aisthesis event/order durable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-AISTHESIS-260
+      severity: high
+      scope: aisthesis
+      title: "aisthesis replay bundle/evidence export works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-AISTHESIS-261
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis correlation id propagated"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-AISTHESIS-262
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis trace id captured"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-AISTHESIS-263
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis metrics increment"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-AISTHESIS-264
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis logs contain scenario id"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-AISTHESIS-265
+      severity: medium
+      scope: aisthesis
+      title: "aisthesis evidence bundle written"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-AISTHESIS-266
+      severity: high
+      scope: aisthesis
+      title: "aisthesis secrets not returned"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-AISTHESIS-267
+      severity: high
+      scope: aisthesis
+      title: "aisthesis pii redacted where required"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-AISTHESIS-268
+      severity: high
+      scope: aisthesis
+      title: "aisthesis unsafe side effect blocked"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-AISTHESIS-269
+      severity: high
+      scope: aisthesis
+      title: "aisthesis prompt injection does not bypass policy"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-AISTHESIS-270
+      severity: high
+      scope: aisthesis
+      title: "aisthesis public routes limited"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-FRONTEND-271
+      severity: medium
+      scope: frontend
+      title: "frontend health returns success"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-FRONTEND-272
+      severity: medium
+      scope: frontend
+      title: "frontend ready returns success"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-FRONTEND-273
+      severity: medium
+      scope: frontend
+      title: "frontend ready fails when critical dependency unavailable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-FRONTEND-274
+      severity: medium
+      scope: frontend
+      title: "frontend health remains public"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-FRONTEND-275
+      severity: medium
+      scope: frontend
+      title: "frontend ready includes dependency signal"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-FRONTEND-276
+      severity: medium
+      scope: frontend
+      title: "frontend missing token rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-FRONTEND-277
+      severity: medium
+      scope: frontend
+      title: "frontend invalid token rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-FRONTEND-278
+      severity: medium
+      scope: frontend
+      title: "frontend wrong scope rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-FRONTEND-279
+      severity: medium
+      scope: frontend
+      title: "frontend valid token accepted"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-FRONTEND-280
+      severity: medium
+      scope: frontend
+      title: "frontend admin route rejects non-admin key"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-FRONTEND-281
+      severity: medium
+      scope: frontend
+      title: "frontend route exists"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-FRONTEND-282
+      severity: medium
+      scope: frontend
+      title: "frontend request schema accepted"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-FRONTEND-283
+      severity: medium
+      scope: frontend
+      title: "frontend response schema stable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-FRONTEND-284
+      severity: medium
+      scope: frontend
+      title: "frontend error envelope stable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-FRONTEND-285
+      severity: medium
+      scope: frontend
+      title: "frontend trace headers present"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-FRONTEND-286
+      severity: medium
+      scope: frontend
+      title: "frontend create/list/read flow works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-FRONTEND-287
+      severity: medium
+      scope: frontend
+      title: "frontend minimal valid payload works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-FRONTEND-288
+      severity: medium
+      scope: frontend
+      title: "frontend full valid payload works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-FRONTEND-289
+      severity: medium
+      scope: frontend
+      title: "frontend pagination works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-FRONTEND-290
+      severity: medium
+      scope: frontend
+      title: "frontend filtering works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-FRONTEND-291
+      severity: medium
+      scope: frontend
+      title: "frontend invalid json rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-FRONTEND-292
+      severity: medium
+      scope: frontend
+      title: "frontend missing required field rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-FRONTEND-293
+      severity: medium
+      scope: frontend
+      title: "frontend unknown enum rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-FRONTEND-294
+      severity: medium
+      scope: frontend
+      title: "frontend oversized payload rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-FRONTEND-295
+      severity: medium
+      scope: frontend
+      title: "frontend unsupported content type rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-FRONTEND-296
+      severity: high
+      scope: frontend
+      title: "frontend same key same payload replays"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-FRONTEND-297
+      severity: high
+      scope: frontend
+      title: "frontend same key different payload conflicts"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-FRONTEND-298
+      severity: high
+      scope: frontend
+      title: "frontend retry after timeout safe"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-FRONTEND-299
+      severity: high
+      scope: frontend
+      title: "frontend in-progress duplicate handled"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-FRONTEND-300
+      severity: high
+      scope: frontend
+      title: "frontend downstream duplicate not created"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-FRONTEND-301
+      severity: high
+      scope: frontend
+      title: "frontend write is durable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-FRONTEND-302
+      severity: high
+      scope: frontend
+      title: "frontend read after restart works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-FRONTEND-303
+      severity: high
+      scope: frontend
+      title: "frontend migration smoke passes"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-FRONTEND-304
+      severity: high
+      scope: frontend
+      title: "frontend event/order durable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-FRONTEND-305
+      severity: high
+      scope: frontend
+      title: "frontend replay bundle/evidence export works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-FRONTEND-306
+      severity: medium
+      scope: frontend
+      title: "frontend correlation id propagated"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-FRONTEND-307
+      severity: medium
+      scope: frontend
+      title: "frontend trace id captured"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-FRONTEND-308
+      severity: medium
+      scope: frontend
+      title: "frontend metrics increment"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-FRONTEND-309
+      severity: medium
+      scope: frontend
+      title: "frontend logs contain scenario id"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-FRONTEND-310
+      severity: medium
+      scope: frontend
+      title: "frontend evidence bundle written"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-FRONTEND-311
+      severity: high
+      scope: frontend
+      title: "frontend secrets not returned"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-FRONTEND-312
+      severity: high
+      scope: frontend
+      title: "frontend pii redacted where required"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-FRONTEND-313
+      severity: high
+      scope: frontend
+      title: "frontend unsafe side effect blocked"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-FRONTEND-314
+      severity: high
+      scope: frontend
+      title: "frontend prompt injection does not bypass policy"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-FRONTEND-315
+      severity: high
+      scope: frontend
+      title: "frontend public routes limited"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-UI-316
+      severity: medium
+      scope: ui
+      title: "ui health returns success"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-UI-317
+      severity: medium
+      scope: ui
+      title: "ui ready returns success"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-UI-318
+      severity: medium
+      scope: ui
+      title: "ui ready fails when critical dependency unavailable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-UI-319
+      severity: medium
+      scope: ui
+      title: "ui health remains public"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: READINESS-UI-320
+      severity: medium
+      scope: ui
+      title: "ui ready includes dependency signal"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-UI-321
+      severity: medium
+      scope: ui
+      title: "ui missing token rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-UI-322
+      severity: medium
+      scope: ui
+      title: "ui invalid token rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-UI-323
+      severity: medium
+      scope: ui
+      title: "ui wrong scope rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-UI-324
+      severity: medium
+      scope: ui
+      title: "ui valid token accepted"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: AUTH-UI-325
+      severity: medium
+      scope: ui
+      title: "ui admin route rejects non-admin key"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-UI-326
+      severity: medium
+      scope: ui
+      title: "ui route exists"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-UI-327
+      severity: medium
+      scope: ui
+      title: "ui request schema accepted"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-UI-328
+      severity: medium
+      scope: ui
+      title: "ui response schema stable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-UI-329
+      severity: medium
+      scope: ui
+      title: "ui error envelope stable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: CONTRACT-UI-330
+      severity: medium
+      scope: ui
+      title: "ui trace headers present"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-UI-331
+      severity: medium
+      scope: ui
+      title: "ui create/list/read flow works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-UI-332
+      severity: medium
+      scope: ui
+      title: "ui minimal valid payload works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-UI-333
+      severity: medium
+      scope: ui
+      title: "ui full valid payload works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-UI-334
+      severity: medium
+      scope: ui
+      title: "ui pagination works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: HAPPY-UI-335
+      severity: medium
+      scope: ui
+      title: "ui filtering works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-UI-336
+      severity: medium
+      scope: ui
+      title: "ui invalid json rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-UI-337
+      severity: medium
+      scope: ui
+      title: "ui missing required field rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-UI-338
+      severity: medium
+      scope: ui
+      title: "ui unknown enum rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-UI-339
+      severity: medium
+      scope: ui
+      title: "ui oversized payload rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: NEGATIVE-UI-340
+      severity: medium
+      scope: ui
+      title: "ui unsupported content type rejected"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-UI-341
+      severity: high
+      scope: ui
+      title: "ui same key same payload replays"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-UI-342
+      severity: high
+      scope: ui
+      title: "ui same key different payload conflicts"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-UI-343
+      severity: high
+      scope: ui
+      title: "ui retry after timeout safe"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-UI-344
+      severity: high
+      scope: ui
+      title: "ui in-progress duplicate handled"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: IDEMPOTENCY-UI-345
+      severity: high
+      scope: ui
+      title: "ui downstream duplicate not created"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-UI-346
+      severity: high
+      scope: ui
+      title: "ui write is durable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-UI-347
+      severity: high
+      scope: ui
+      title: "ui read after restart works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-UI-348
+      severity: high
+      scope: ui
+      title: "ui migration smoke passes"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-UI-349
+      severity: high
+      scope: ui
+      title: "ui event/order durable"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: PERSISTENCE-UI-350
+      severity: high
+      scope: ui
+      title: "ui replay bundle/evidence export works"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-UI-351
+      severity: medium
+      scope: ui
+      title: "ui correlation id propagated"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-UI-352
+      severity: medium
+      scope: ui
+      title: "ui trace id captured"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-UI-353
+      severity: medium
+      scope: ui
+      title: "ui metrics increment"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-UI-354
+      severity: medium
+      scope: ui
+      title: "ui logs contain scenario id"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: OBSERVABILITY-UI-355
+      severity: medium
+      scope: ui
+      title: "ui evidence bundle written"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-UI-356
+      severity: high
+      scope: ui
+      title: "ui secrets not returned"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-UI-357
+      severity: high
+      scope: ui
+      title: "ui pii redacted where required"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-UI-358
+      severity: high
+      scope: ui
+      title: "ui unsafe side effect blocked"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-UI-359
+      severity: high
+      scope: ui
+      title: "ui prompt injection does not bypass policy"
+      automationStatus: planned
+      evidenceRequired: true
+    - id: SECURITY-UI-360
+      severity: high
+      scope: ui
+      title: "ui public routes limited"
+      automationStatus: planned
+      evidenceRequired: true

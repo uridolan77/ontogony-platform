@@ -1,0 +1,297 @@
+[
+  {
+    "path": ".env.example",
+    "sha256": "4c0073c68d18d816476052458756a4a64e3e07209d743364e8fefb33acd5405c",
+    "bytes": 1110
+  },
+  {
+    "path": ".github/workflows/ontogony-system-test-harness.yml",
+    "sha256": "b47fff6e1553b5d64d5e8d9ae0188775ded0f130d5249d38204c2f20a34a592a",
+    "bytes": 808
+  },
+  {
+    "path": ".gitignore",
+    "sha256": "3a1e1f5f2449fdb55c378a1e46598c168486091f7957147bba1f33068c8cd7de",
+    "bytes": 129
+  },
+  {
+    "path": "ONTOGONY-SYSTEM-TEST-HARNESS-001.code-workspace",
+    "sha256": "24e56c754e08ca497c8deeaa766e267e273a4a93d7afc2730c89ef97648c4134",
+    "bytes": 710
+  },
+  {
+    "path": "README.md",
+    "sha256": "ded80a38d230e272c911c2014488560819d57ac3685451f9b530930eb7d872d8",
+    "bytes": 3578
+  },
+  {
+    "path": "UNPACKING_AND_EXECUTION_PROMPT.md",
+    "sha256": "40159f84a40a03d09e0eca47c93627439cad2eecc815067609325af5c7204876",
+    "bytes": 890
+  },
+  {
+    "path": "docker-compose.system-test.yml",
+    "sha256": "b2fcdec9e8b6408bb4fa44aa21f4e99cb4c4a659d09464141f470069187f2c62",
+    "bytes": 917
+  },
+  {
+    "path": "docs/00_EXECUTIVE_TEST_STRATEGY.md",
+    "sha256": "539a23aac520343af575544795f1b7a7bbcef31de6b7ceebdaf67a2e3c177d0b",
+    "bytes": 2577
+  },
+  {
+    "path": "docs/01_TEST_LAYERS_AND_OWNERSHIP.md",
+    "sha256": "6124a2fa20665c5d61ffa2cbf817172363fdff7e9708dd6099a14a01a4ca41fc",
+    "bytes": 2898
+  },
+  {
+    "path": "docs/02_SYSTEM_E2E_CRITICAL_FLOWS.md",
+    "sha256": "7a7c9eb499218b31568706e3032ce122f9b36f914a1bf38c8fd8c99fb335ea30",
+    "bytes": 4004
+  },
+  {
+    "path": "docs/03_SERVICE_COVERAGE_MATRIX.md",
+    "sha256": "793444102d951c546766934e3810b71a5f1203919b29f6718c8bd9acbe206cb0",
+    "bytes": 2088
+  },
+  {
+    "path": "docs/04_QUALITY_GATES.md",
+    "sha256": "9acc9a54972c072c96b7cac776242f5e2dc5084ef1904fa52e67f6e52bebc412",
+    "bytes": 1956
+  },
+  {
+    "path": "docs/05_CONTRACT_AND_ERROR_TESTING.md",
+    "sha256": "4ea5568826b7afd860b300ba97412ca87377279989fbc3a22baa4b9ac19588e4",
+    "bytes": 1828
+  },
+  {
+    "path": "docs/06_OBSERVABILITY_ASSERTIONS.md",
+    "sha256": "9abe53f937378c728b6b80c94e24d19779933057e06b70ec8688203b1f32252f",
+    "bytes": 1337
+  },
+  {
+    "path": "docs/07_SECURITY_NEGATIVE_TEST_MATRIX.md",
+    "sha256": "769b7c7af5e17d36ac96c06f4dc57efebbae292f14ed32ef400b214d7c07220c",
+    "bytes": 1611
+  },
+  {
+    "path": "docs/08_TEST_DATA_STRATEGY.md",
+    "sha256": "2a6c094be9b6d2ed818b95747752399f173dfc229ee8ec0a58c609bd1e6d0b31",
+    "bytes": 1210
+  },
+  {
+    "path": "docs/09_SERVICE_BY_SERVICE_NEXT_PLAN.md",
+    "sha256": "b7edad4c94c45c95d3133a03ba10976001e5750f0e90c7a8e6ceb185033dd6e0",
+    "bytes": 1922
+  },
+  {
+    "path": "docs/10_SERVICE_PLAN_TEMPLATE.md",
+    "sha256": "3a8164a780eae01e3b1678fdded41134e447b87e46ff76a98ac036f5db6e2ba3",
+    "bytes": 1526
+  },
+  {
+    "path": "docs/11_MANUAL_TEST_REPLACEMENT_CHECKLIST.md",
+    "sha256": "f58cd7b9c43c09064f3cdc63f61d49e811a69b8c2029f5fc383c5c8f2883781d",
+    "bytes": 1480
+  },
+  {
+    "path": "docs/12_CURSOR_IMPLEMENTATION_PROMPT.md",
+    "sha256": "857d9d082d3e0bb398b7b18437da50e2782c32edce93df178438753524d4c72d",
+    "bytes": 1694
+  },
+  {
+    "path": "load/k6/readiness-load.js",
+    "sha256": "88ef89801c3ee6d19c7d59a83b0b704f8a131023ea8d0dff9fe0d410d7c65b56",
+    "bytes": 598
+  },
+  {
+    "path": "load/k6/system-smoke.js",
+    "sha256": "dba17ada21f313d32e3793ff9b972b3ee38385d9d3ee678dffc7de86e2f999cb",
+    "bytes": 1088
+  },
+  {
+    "path": "manifests/routes.yml",
+    "sha256": "d9f0dad4e5e514dfe3a71927acf4cecef16880c19d887acd83595b1b0ade27f4",
+    "bytes": 3642
+  },
+  {
+    "path": "manifests/services.yml",
+    "sha256": "8a88d14a1df7f4ae811d5809f78354705de8f04584622d8a153dc29940b72493",
+    "bytes": 2453
+  },
+  {
+    "path": "manifests/system-compatibility.yml",
+    "sha256": "83de8961adbacb9838a41f9d491c49b273ad7d30ed0fb6cbb9c74142dc963f4d",
+    "bytes": 1104
+  },
+  {
+    "path": "manifests/test-catalog.yml",
+    "sha256": "295a7c4b67a558308442d01d3bc94e72023dc252e3cc894ab739b2865770868a",
+    "bytes": 68238
+  },
+  {
+    "path": "observability/otel-collector-config.yaml",
+    "sha256": "49207ef9a1f820335caa35e0cfaa9c859899fb620f3925d0a2fda881534d245b",
+    "bytes": 386
+  },
+  {
+    "path": "package-manifest.json",
+    "sha256": "0f7db471393d818f0691e161931d8ebec94745f09e9198bc6f075e468b6dc65e",
+    "bytes": 846
+  },
+  {
+    "path": "scripts/collect-evidence.ps1",
+    "sha256": "0e1f84f8415f3089cef5ab55685d4089fff326226c6cc3e8da25ec8db89cf34c",
+    "bytes": 317
+  },
+  {
+    "path": "scripts/run-load-smoke.ps1",
+    "sha256": "a168adcd9ec562951bd18a754a1ca5bb517a76b39507f62582b120346b72585c",
+    "bytes": 195
+  },
+  {
+    "path": "scripts/run-readiness.ps1",
+    "sha256": "d23aa2e3368584037d97396fda05886e282d591954c4dcca959c962c9b438845",
+    "bytes": 821
+  },
+  {
+    "path": "scripts/run-readiness.sh",
+    "sha256": "77134e0b9c2f461ddb5b56dc391bbae12c4cf8d3413e80d96ae614bad071e810",
+    "bytes": 538
+  },
+  {
+    "path": "scripts/run-system-e2e.ps1",
+    "sha256": "847577fcb6953107d0ce8e8ee8c6103d90cf050a509bb652e548313138048645",
+    "bytes": 288
+  },
+  {
+    "path": "scripts/run-system-e2e.sh",
+    "sha256": "ef188756da542dd1257da77cb6287e9d546e988118d9cc5e8b7ad691c414cc76",
+    "bytes": 243
+  },
+  {
+    "path": "scripts/run-ui-e2e.ps1",
+    "sha256": "f921de3fe0cc397c21e37184bd179bcf14e8f3c14349290800dc3ff2f68f571e",
+    "bytes": 235
+  },
+  {
+    "path": "scripts/verify-package.py",
+    "sha256": "60c243dd08f2a5357af9871cb7d40ac367eed7f76c665a846f9b417cf5442d3a",
+    "bytes": 694
+  },
+  {
+    "path": "test-data/aisthesis/memory-placeholder.json",
+    "sha256": "8fc1566e5211f8e8477a457c8f53cd4f906bc6f55cbfc85d245d487120b50da0",
+    "bytes": 200
+  },
+  {
+    "path": "test-data/allagma/start-governed-run.json",
+    "sha256": "d9998918523f50bdbb74d1133fbe344e4b43a1d2afa6cf45a65617505bbcecbc",
+    "bytes": 304
+  },
+  {
+    "path": "test-data/conexus/chat-completion-risk-summary.json",
+    "sha256": "5e6960c93e927a508600d00243ee112e63f4a06ffd00b9e87c2d11965626a074",
+    "bytes": 248
+  },
+  {
+    "path": "test-data/kanon/summarize-contradiction.json",
+    "sha256": "bbe983990d0ea89bcfae003b6cf31a8542e0542bc4a9b738bcafd2ed9c40713a",
+    "bytes": 368
+  },
+  {
+    "path": "test-data/metabole/transformation-placeholder.json",
+    "sha256": "70caf52841194b26fc5856f4e6fbeadf94753484148af60d14899c65a31b9e33",
+    "bytes": 177
+  },
+  {
+    "path": "tests/dotnet/Ontogony.SystemTestHarness.sln",
+    "sha256": "3f98771df6b97f215b387def38e344260871fa3b6d91040030e63fe5a83c518e",
+    "bytes": 362
+  },
+  {
+    "path": "tests/dotnet/Ontogony.SystemTests/Infrastructure/ApiAssert.cs",
+    "sha256": "a82f9dfa63a82412a6bedb9a221f02ab36032242d687397c1899f8e41a37e3c6",
+    "bytes": 1578
+  },
+  {
+    "path": "tests/dotnet/Ontogony.SystemTests/Infrastructure/Correlation.cs",
+    "sha256": "4a55c131359c9fbb2aeb5c1e176611413035d17786eeb21c0824d1dbcfc896f0",
+    "bytes": 1164
+  },
+  {
+    "path": "tests/dotnet/Ontogony.SystemTests/Infrastructure/EvidenceWriter.cs",
+    "sha256": "78a949e3b2a35f41c43ef1b5894e7f38e5b2eff82f50a9a3ac2ee2ebe6c7ad74",
+    "bytes": 846
+  },
+  {
+    "path": "tests/dotnet/Ontogony.SystemTests/Infrastructure/HarnessOptions.cs",
+    "sha256": "36cc9d6b980fa5cf4b8def370a79afb9964c8f4b5bb2b8e6d9cd892789e8e09b",
+    "bytes": 2269
+  },
+  {
+    "path": "tests/dotnet/Ontogony.SystemTests/Infrastructure/TestHttp.cs",
+    "sha256": "ed600eea7c9cf073764de89d30a5496c0166f344138250916baf2d42443d98d8",
+    "bytes": 2337
+  },
+  {
+    "path": "tests/dotnet/Ontogony.SystemTests/Ontogony.SystemTests.csproj",
+    "sha256": "5b5de7f80299d1f92c53ae0a9dde6b499b4914356648aeab69b3c49281ae2975",
+    "bytes": 615
+  },
+  {
+    "path": "tests/dotnet/Ontogony.SystemTests/Tests/00_Readiness/ReadinessTests.cs",
+    "sha256": "abccadad7b9510c85c68182298f9558bc453d0ce77afe35c285a0e1a9ecac0ee",
+    "bytes": 2182
+  },
+  {
+    "path": "tests/dotnet/Ontogony.SystemTests/Tests/01_Allagma/AllagmaRunLifecycleTests.cs",
+    "sha256": "87a6b5c6511cbc070196e4a12d960731d4c223fc088d9581201c9e3f37556022",
+    "bytes": 3102
+  },
+  {
+    "path": "tests/dotnet/Ontogony.SystemTests/Tests/02_Kanon/KanonAuthorityTests.cs",
+    "sha256": "d70c41f6269e35d18b93d3df65c6876dafa3cedfb8a94a1249e9f1f29f3275ee",
+    "bytes": 2432
+  },
+  {
+    "path": "tests/dotnet/Ontogony.SystemTests/Tests/03_Conexus/ConexusGatewayTests.cs",
+    "sha256": "f59390d9fac4369d5e8ce3708db16492aaf43a28f0a1f9a1c03e51e53f9eaa49",
+    "bytes": 2634
+  },
+  {
+    "path": "tests/dotnet/Ontogony.SystemTests/Tests/04_System/CrossServiceTracingTests.cs",
+    "sha256": "48ea58ed4418afa12e2d6b643f41c787f1f2d94b10e70fc7f20b8a513bae6618",
+    "bytes": 1403
+  },
+  {
+    "path": "tests/dotnet/Ontogony.SystemTests/Tests/05_System/ErrorContractTests.cs",
+    "sha256": "c4edce42b847f7a715f8866b22ab56aa706c176d131ec017e4d68ec4796e76d5",
+    "bytes": 1453
+  },
+  {
+    "path": "tests/dotnet/Ontogony.SystemTests/Tests/06_Metabole/MetabolePlaceholderTests.cs",
+    "sha256": "fda69445cd08444d04cd63447dce1b2cdedfc6c94e12b8de239a119675e6e4ea",
+    "bytes": 1332
+  },
+  {
+    "path": "tests/dotnet/Ontogony.SystemTests/Tests/07_Aisthesis/AisthesisPlaceholderTests.cs",
+    "sha256": "df17a87c9bc866fe28c54440542d3386b8baa81a2906484412fee5836e133dcf",
+    "bytes": 1372
+  },
+  {
+    "path": "tests/ui-playwright/package.json",
+    "sha256": "7e280e74d40b07b4c61558297eff1af45ca5d90ed4045fa0b3d799464ea65bf5",
+    "bytes": 241
+  },
+  {
+    "path": "tests/ui-playwright/playwright.config.ts",
+    "sha256": "8d65c9813f37963be92371812a6703f82bdf6c4898321b67276d8e99b4c1477e",
+    "bytes": 407
+  },
+  {
+    "path": "tests/ui-playwright/tests/service-coverage.spec.ts",
+    "sha256": "b1f3ff794a50a57b776fca5afacc7d5aaa66edd95ddc2663f32158468ebf5f5b",
+    "bytes": 1048
+  }
+]

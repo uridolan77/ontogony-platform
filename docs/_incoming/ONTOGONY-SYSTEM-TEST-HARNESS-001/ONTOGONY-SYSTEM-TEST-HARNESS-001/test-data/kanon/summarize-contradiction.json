@@ -1,0 +1,16 @@
+{
+  "ontologyVersionId": "gaming-core@0.1.0",
+  "actor": {
+    "actorId": "system-test-harness",
+    "actorType": "agent",
+    "roles": ["Reviewer", "Admin"]
+  },
+  "contradictionId": "sys-test-contradiction-001",
+  "context": {
+    "ticketId": "T-100",
+    "apiKey": "secret-live-key",
+    "summary": "Synthetic contradiction between two test-only canonical facts."
+  },
+  "allowedFields": ["ticketId", "apiKey", "summary"],
+  "redactedFields": ["apiKey"]
+}

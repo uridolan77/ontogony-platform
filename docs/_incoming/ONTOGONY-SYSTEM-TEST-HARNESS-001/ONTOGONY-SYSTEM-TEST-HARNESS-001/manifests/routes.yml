@@ -1,0 +1,153 @@
+# Calibrated 2026-05-30 against sibling repos (OpenAPI/source). Enforced by Ontogony.SystemTests.
+routes:
+  allagma:
+    - id: allagma-health
+      method: GET
+      path: /health
+      auth: public
+      priority: critical
+    - id: allagma-ready
+      method: GET
+      path: /ready
+      auth: public
+      priority: critical
+    - id: allagma-start-run
+      method: POST
+      path: /allagma/v0/runs
+      auth: service-token
+      idempotency: required-for-test
+      priority: critical
+    - id: allagma-list-runs
+      method: GET
+      path: /allagma/v0/runs
+      auth: service-token
+      priority: high
+    - id: allagma-get-run
+      method: GET
+      path: /allagma/v0/runs/{runId}
+      auth: service-token
+      priority: high
+    - id: allagma-get-run-events
+      method: GET
+      path: /allagma/v0/runs/{runId}/events
+      auth: service-token
+      priority: critical
+    - id: allagma-resume-run
+      method: POST
+      path: /allagma/v0/runs/{runId}/resume
+      auth: service-token
+      priority: critical
+
+  kanon:
+    - id: kanon-health
+      method: GET
+      path: /health
+      auth: public
+      priority: critical
+    - id: kanon-ready
+      method: GET
+      path: /ready
+      auth: public
+      priority: critical
+    - id: kanon-compile-plan
+      method: POST
+      path: /ontology/v0/semantic-query-plans/compile
+      auth: service-token
+      priority: critical
+    - id: kanon-evaluate-action
+      method: POST
+      path: /ontology/v0/actions/evaluate
+      auth: service-token
+      priority: critical
+    - id: kanon-human-gate-check
+      method: POST
+      path: /ontology/v0/actions/human-gates/check
+      auth: service-token
+      priority: critical
+    - id: kanon-human-gate-resolve
+      method: POST
+      path: /ontology/v0/actions/human-gates/{humanGateId}/resolve
+      auth: service-token
+      priority: critical
+    - id: kanon-assistance-capability
+      method: GET
+      path: /ontology/v0/conexus/assistance/capability
+      auth: service-token
+      priority: high
+    - id: kanon-assistance-summarize-contradiction
+      method: POST
+      path: /ontology/v0/conexus/assistance/summarize-contradiction
+      auth: service-token
+      priority: high
+    - id: kanon-assistance-explain-canonical-facts
+      method: POST
+      path: /ontology/v0/conexus/assistance/explain-canonical-facts
+      auth: service-token
+      priority: high
+    - id: kanon-decision-record-get
+      method: GET
+      path: /ontology/v0/decision-records/{decisionId}
+      auth: service-token
+      priority: high
+
+  conexus:
+    - id: conexus-health
+      method: GET
+      path: /health
+      auth: public
+      priority: critical
+    - id: conexus-ready
+      method: GET
+      path: /ready
+      auth: public
+      priority: critical
+    - id: conexus-chat-completions
+      method: POST
+      path: /v1/chat/completions
+      auth: project-api-key
+      idempotency: non-streaming-only
+      priority: critical
+    - id: conexus-admin-alias-upsert
+      method: PUT
+      path: /admin/v0/aliases/{alias}
+      auth: admin-key
+      priority: high
+    - id: conexus-admin-projects
+      method: GET
+      path: /admin/v0/projects
+      auth: admin-key
+      priority: medium
+
+  metabole:
+    - id: metabole-health
+      method: GET
+      path: /health
+      auth: public
+      priority: high
+    - id: metabole-ready
+      method: GET
+      path: /ready
+      auth: public
+      priority: high
+    - id: metabole-pipeline-runs-list
+      method: GET
+      path: /metabole/v0/pipeline-runs
+      auth: service-token
+      priority: calibrate
+
+  aisthesis:
+    - id: aisthesis-health
+      method: GET
+      path: /health
+      auth: public
+      priority: high
+    - id: aisthesis-ready
+      method: GET
+      path: /ready
+      auth: public
+      priority: high
+    - id: aisthesis-evidence-batch
+      method: POST
+      path: /aisthesis/v0/evidence/batches
+      auth: producer-token
+      priority: calibrate

@@ -1,0 +1,12 @@
+.env
+.env.*
+!/.env.example
+bin/
+obj/
+node_modules/
+TestResults/
+playwright-report/
+evidence/local/
+evidence/archive/
+*.trx
+*.log

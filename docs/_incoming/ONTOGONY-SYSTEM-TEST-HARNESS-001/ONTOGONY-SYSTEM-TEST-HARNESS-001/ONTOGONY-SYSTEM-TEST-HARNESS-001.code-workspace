@@ -1,0 +1,20 @@
+{
+  "folders": [
+    { "name": "system-test-harness", "path": "." },
+    { "name": "allagma-dotnet", "path": "../allagma-dotnet" },
+    { "name": "kanon-dotnet", "path": "../kanon-dotnet" },
+    { "name": "conexus-dotnet", "path": "../conexus-dotnet" },
+    { "name": "metabole-dotnet", "path": "../metabole-dotnet" },
+    { "name": "aisthesis-dotnet", "path": "../aisthesis-dotnet" },
+    { "name": "ontogony-platform", "path": "../ontogony-platform" },
+    { "name": "ontogony-frontend", "path": "../ontogony-frontend" },
+    { "name": "ontogony-ui", "path": "../ontogony-ui" }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/bin": true,
+      "**/obj": true,
+      "**/node_modules": true
+    }
+  }
+}

@@ -1,0 +1,41 @@
+compatibility:
+  package: ONTOGONY-SYSTEM-TEST-HARNESS-001
+  expectedBranches:
+    ontogony-platform: main
+    conexus-dotnet: main
+    kanon-dotnet: main
+    allagma-dotnet: main
+    metabole-dotnet: main
+    aisthesis-dotnet: main
+    ontogony-frontend: main
+    ontogony-ui: main
+  expectedLocalPorts:
+    ontogony-platform: 5080
+    kanon: 5081
+    conexus: 5082
+    allagma: 5083
+    metabole: 5084
+    aisthesis: 5085
+    frontend: 5173
+  requiredCrossServiceHeaders:
+    - traceparent
+    - X-Correlation-ID
+    - X-Ontogony-Actor-Id
+    - X-Ontogony-Actor-Type
+    - X-Ontogony-Actor-Roles
+    - Idempotency-Key
+    - X-Allagma-Run-Id
+  requiredDefaultTestModes:
+    externalProviders: false
+    realToolExecution: false
+    destructiveTests: false
+    deterministicFakeProviders: true
+  firstCriticalGate:
+    - health-readiness-all-services
+    - allagma-kanon-conexus-governed-run
+    - allagma-run-idempotency
+    - kanon-human-gate-approval-denial
+    - kanon-conexus-assistance-draft-only
+    - conexus-fallback-through-allagma
+    - restart-survival-postgres
+    - trace-correlation-chain

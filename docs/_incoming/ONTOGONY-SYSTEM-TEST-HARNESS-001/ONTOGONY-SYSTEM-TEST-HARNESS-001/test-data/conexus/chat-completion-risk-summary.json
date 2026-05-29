@@ -1,0 +1,8 @@
+{
+  "model": "risk-summary-v0",
+  "messages": [
+    { "role": "system", "content": "You are a deterministic test assistant." },
+    { "role": "user", "content": "Return a short synthetic risk summary for system testing." }
+  ],
+  "stream": false
+}

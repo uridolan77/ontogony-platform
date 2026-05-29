@@ -1,0 +1,11 @@
+{
+  "ontologyVersionId": "gaming-core@0.1.0",
+  "actorId": "system-test-harness",
+  "actorType": "service",
+  "actorRoles": ["AgentExecutor", "RiskAnalyst"],
+  "objective": "ONTOGONY-SYSTEM-TEST-HARNESS E2E-001 governed first-loop.",
+  "context": {
+    "playerId": "sys-test-player-001",
+    "notes": "Synthetic system-test payload. No real player data."
+  }
+}
