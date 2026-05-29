@@ -27,6 +27,7 @@ Contributor rules: [`AGENTS.md`](AGENTS.md)
 | [`docs/KNOWN_LIMITATIONS.md`](docs/KNOWN_LIMITATIONS.md) | Honest limitations |
 | [`docs/INDEX.md`](docs/INDEX.md) | Documentation navigation map |
 | [`docs/README.md`](docs/README.md) | Docs hub and boundaries |
+| [`docs/status/ONTOGONY_PLATFORM_CLEANUP_ORGANIZATION_STATUS.md`](docs/status/ONTOGONY_PLATFORM_CLEANUP_ORGANIZATION_STATUS.md) | **Current cleanup status** |
 
 ---
 

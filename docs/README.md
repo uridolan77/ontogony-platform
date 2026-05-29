@@ -43,6 +43,8 @@ Those systems may appear here only as **consumers** or examples of platform mech
 | **Idempotency / persistence** | [`packages/Ontogony.Persistence.md`](./packages/Ontogony.Persistence.md), [`adoption/conformance-kits.md`](./adoption/conformance-kits.md) |
 | **Hosting / local stack** | [`environments/`](./environments/), [`../docker/local-working-system/`](../docker/local-working-system/) |
 | **Testing / evidence** | [`TESTING.md`](./TESTING.md), [`evidence/`](./evidence/) |
+| **Status / reviews** | [`status/`](./status/), [`reviews/`](./reviews/) |
+| **Deferrals** | [`DEFERRALS.md`](./DEFERRALS.md) |
 | **Runbooks / operator mechanics** | [`operators/`](./operators/) |
 | **Decisions** | [`adr/`](./adr/), [`migrations/`](./migrations/) |
 | **Release / governance** | [`governance/`](./governance/) |

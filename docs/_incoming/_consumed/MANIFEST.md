@@ -1,6 +1,10 @@
 # Consumed intake manifest
 
-Last updated: **2026-05-28** (ONTOGONY-SAMPLING-POLICY-SPINE-001 closeout)
+Last updated: **2026-05-29** (BACKEND-REPO-CLEANUP-ORGANIZATION-001 — misfiled cross-repo packages archived)
+
+| Package | Status | Canonical promotion (if any) | Archived |
+| --- | --- | --- | --- |
+| MISFILED-CROSS-REPO-PACKAGES | **archived** | Aisthesis RC readiness/certification trees misfiled under platform `docs/_incoming/packages/` — owner repos: `aisthesis-dotnet` | 2026-05-29 |
 
 All paths are under `docs/_incoming/_consumed/2026-05/` unless noted.
 
