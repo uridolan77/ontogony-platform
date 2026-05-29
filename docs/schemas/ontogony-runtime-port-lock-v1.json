@@ -1,0 +1,16 @@
+{
+  "schema": "ontogony-runtime-port-lock-v1",
+  "profile": "docker-local",
+  "containerPort": 8080,
+  "services": [
+    { "id": "kanon",     "hostPort": 5081, "containerPort": 8080, "baseUrl": "http://localhost:5081", "health": ["/health"] },
+    { "id": "conexus",   "hostPort": 5082, "containerPort": 8080, "baseUrl": "http://localhost:5082", "health": ["/health"] },
+    { "id": "allagma",   "hostPort": 5083, "containerPort": 8080, "baseUrl": "http://localhost:5083", "health": ["/health"] },
+    { "id": "metabole",  "hostPort": 5084, "containerPort": 8080, "baseUrl": "http://localhost:5084", "health": ["/health", "/ready"] },
+    { "id": "aisthesis", "hostPort": 5085, "containerPort": 8080, "baseUrl": "http://localhost:5085", "health": ["/health", "/ready"] },
+    { "id": "frontend",  "hostPort": 5173, "containerPort": null, "baseUrl": "http://localhost:5173", "health": [] }
+  ],
+  "deprecatedLayouts": [
+    { "description": "Aisthesis on 5084 and Metabole on 5085 (legacy combined-stack launchers)", "status": "deprecated" }
+  ]
+}

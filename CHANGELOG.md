@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+CONEXUS-BACKEND-INTEGRATION-HARDENING-001 (runtime port lock slice) — runtime port lock v1:
+
+- **Contract** — [`docs/contracts/ONTOGONY_RUNTIME_PORT_LOCK_V1.md`](docs/contracts/ONTOGONY_RUNTIME_PORT_LOCK_V1.md) (local-dev / docker-local mechanical topology).
+- **Schema** — [`docs/schemas/ontogony-runtime-port-lock-v1.schema.json`](docs/schemas/ontogony-runtime-port-lock-v1.schema.json) + machine matrix [`docs/schemas/ontogony-runtime-port-lock-v1.json`](docs/schemas/ontogony-runtime-port-lock-v1.json).
+- **Migration** — [`docs/migrations/2026-05-29-runtime-port-lock-v1.md`](docs/migrations/2026-05-29-runtime-port-lock-v1.md); deprecates legacy Aisthesis=5084 / Metabole=5085 layout.
+- **Locked matrix** — Kanon 5081, Conexus 5082, Allagma 5083, Metabole 5084, Aisthesis 5085, Frontend 5173.
+
 CROSS-REPO-IDENTITY-CORRELATION-001 (ONTOGONY-BACKEND-COORDINATION-002 slice 4) — context propagation v1:
 
 - **Contract** — [`docs/contracts/CROSS_SERVICE_CONTEXT_PROPAGATION_V1.md`](docs/contracts/CROSS_SERVICE_CONTEXT_PROPAGATION_V1.md).

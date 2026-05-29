@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.dev/schemas/ontogony-runtime-port-lock-v1.schema.json",
+  "title": "OntogonyRuntimePortLockV1",
+  "type": "object",
+  "required": ["schema", "profile", "services"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "type": "string", "const": "ontogony-runtime-port-lock-v1" },
+    "profile": { "type": "string", "enum": ["local-dev", "docker-local"] },
+    "containerPort": { "type": "integer", "const": 8080 },
+    "services": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["id", "hostPort", "containerPort", "baseUrl"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": ["kanon", "conexus", "allagma", "metabole", "aisthesis", "frontend"]
+          },
+          "hostPort": { "type": "integer", "minimum": 1, "maximum": 65535 },
+          "containerPort": { "type": ["integer", "null"] },
+          "baseUrl": { "type": "string", "format": "uri" },
+          "health": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "deprecatedLayouts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["description", "status"],
+        "properties": {
+          "description": { "type": "string" },
+          "status": { "type": "string", "const": "deprecated" }
+        }
+      }
+    }
+  }
+}
