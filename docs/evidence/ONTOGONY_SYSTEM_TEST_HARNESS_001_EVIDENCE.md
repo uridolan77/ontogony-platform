@@ -1,13 +1,15 @@
 # ONTOGONY-SYSTEM-TEST-HARNESS-001 — evidence
 
 **Date:** 2026-05-30  
-**Status:** promoted to standalone repo
+**Status:** promoted to standalone repo (`main` default branch)
 
 ## Outcome
 
 First implementation pass completed; harness promoted from `ontogony-platform/docs/_incoming` to:
 
-`C:\dev\ontogony-system-test-harness` (git init; CI validates build on PR, optional live E2E on `workflow_dispatch`).
+`C:\dev\ontogony-system-test-harness` — **not** a copy of `allagma-dotnet`. Verify with `scripts/verify-harness-shape.ps1`.
+
+Remote: https://github.com/uridolan77/ontogony-system-test-harness (`main`).
 
 ## Delivered
 
