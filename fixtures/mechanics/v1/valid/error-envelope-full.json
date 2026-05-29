@@ -1,0 +1,9 @@
+{
+  "code": "ontogony.http.timeout",
+  "message": "Upstream request timed out.",
+  "traceId": "trace-abc123",
+  "correlationId": "corr-xyz789",
+  "details": { "stage": "outbound" },
+  "retryAfterSeconds": 30,
+  "redaction": { "applied": true }
+}

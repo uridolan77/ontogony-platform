@@ -1,0 +1,8 @@
+{
+  "key": "ontogony://test/op-1",
+  "operation": "POST /v0/example",
+  "requestFingerprint": "sha256:abc",
+  "status": "reserved",
+  "createdAtUtc": "2026-05-29T12:00:00Z",
+  "updatedAtUtc": "2026-05-29T12:00:00Z"
+}

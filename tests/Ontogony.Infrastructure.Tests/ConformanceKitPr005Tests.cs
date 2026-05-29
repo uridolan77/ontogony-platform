@@ -47,6 +47,30 @@ public sealed class ConformanceKitPr005Tests
     }
 
     [Fact]
+    public void Platform_meter_uses_ontogony_prefix()
+    {
+        ObservabilityNamingConformanceAssertions.AssertMeterNameUsesPrefix(
+            Ontogony.Observability.OntogonyDiagnostics.DefaultActivitySourceName,
+            "Ontogony.");
+    }
+
+    [Fact]
+    public void Mechanical_meter_fixture_prefix_is_valid()
+    {
+        ObservabilityNamingConformanceAssertions.AssertMeterNameUsesPrefix(
+            "ontogony.platform.http.request.duration",
+            "ontogony.");
+    }
+
+    [Fact]
+    public void Prometheus_export_name_follows_mechanical_contract()
+    {
+        ObservabilityNamingConformanceAssertions.AssertPrometheusExportName(
+            "ontogony.platform.http.request.count",
+            "ontogony_platform_http_request_count_total");
+    }
+
+    [Fact]
     public void ReconstructabilityExport_RedactionGate_FailsOnSecretPattern()
     {
         Assert.Throws<InvalidOperationException>(() =>

@@ -1,0 +1,11 @@
+{
+  "proposalId": "PLAT-PROP-001",
+  "title": "Add actor context propagation schema",
+  "targetPackage": "Ontogony.Security",
+  "mechanicalConcern": "actor context propagation",
+  "consumers": ["conexus", "kanon", "allagma", "metabole", "aisthesis"],
+  "reuseJustification": "Neutral actor identity transfer reused by all backends.",
+  "forbiddenSemanticsAssessment": "No ontology or workflow semantics.",
+  "ownerRoutingDecision": "accepted_platform_mechanics",
+  "testsAdded": ["MechanicsOnlyProposalGateTests"]
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.ontogony.local/mechanics/v1/observability-meter.schema.json",
+  "title": "Ontogony Observability Meter Descriptor",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^ontogony\\.[a-z0-9-]+\\.[a-z0-9_.-]+$"
+    },
+    "service": {
+      "type": "string"
+    },
+    "mechanicalArea": {
+      "type": "string"
+    },
+    "unit": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "service",
+    "mechanicalArea"
+  ]
+}

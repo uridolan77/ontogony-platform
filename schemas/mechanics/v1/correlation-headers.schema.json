@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.ontogony.local/mechanics/v1/correlation-headers.schema.json",
+  "title": "Ontogony Correlation Headers",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "traceId": {
+      "type": "string"
+    },
+    "correlationId": {
+      "type": "string"
+    },
+    "causationId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "idempotencyKey": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "actorContextRef": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "sourceService": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "traceId",
+    "correlationId",
+    "sourceService"
+  ]
+}
