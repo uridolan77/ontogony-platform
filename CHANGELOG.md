@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+SHARED-ERROR-CONTRACT-001 (ONTOGONY-BACKEND-COORDINATION-002 slice 3) — cross-service error envelope v1:
+
+- **Contract** — [`docs/contracts/CROSS_SERVICE_ERROR_ENVELOPE_V1.md`](docs/contracts/CROSS_SERVICE_ERROR_ENVELOPE_V1.md).
+- **Schema** — [`docs/schemas/ontogony-cross-service-error-envelope-v1.schema.json`](docs/schemas/ontogony-cross-service-error-envelope-v1.schema.json).
+- **Conformance** — extended `cross-service-error-envelope.matrix.json` (Metabole, Aisthesis samples); `SystemCompatibilityWorkspace` resolves metabole/aisthesis sibling roots.
+- **Evidence** — [`docs/evidence/SHARED_ERROR_CONTRACT_001_CLOSEOUT.md`](docs/evidence/SHARED_ERROR_CONTRACT_001_CLOSEOUT.md).
+
 ONTOGONY-SANDBOX-CONSUMER-ACTIVATION-001 — **package closed** (001A–001G):
 
 - **Protocol** — [`docs/protocols/SANDBOX_CONSUMER_ACTIVATION.md`](docs/protocols/SANDBOX_CONSUMER_ACTIVATION.md) (status: closed).

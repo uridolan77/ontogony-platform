@@ -46,11 +46,11 @@ Last updated: **2026-05-29** (package intake)
 
 | ID | Criterion | Status |
 | --- | --- | --- |
-| ERR-001 | Contract promoted to platform `docs/contracts/` | `NOT_STARTED` |
-| ERR-002 | Middleware-mapped 4xx/5xx use envelope in all six APIs | `NOT_STARTED` |
-| ERR-003 | `SYSTEM_ERROR_COMPATIBILITY_MATRIX.md` complete | `NOT_STARTED` |
-| ERR-004 | System compat error gate PASS | `NOT_STARTED` |
-| ERR-005 | Kanon typed validation DTOs documented as intentional exception | `NOT_STARTED` |
+| ERR-001 | Contract promoted to platform `docs/contracts/` | `PASS` |
+| ERR-002 | Middleware-mapped 4xx/5xx use envelope in all six APIs | `PASS` |
+| ERR-003 | `SYSTEM_ERROR_COMPATIBILITY_MATRIX.md` complete | `PASS` |
+| ERR-004 | System compat error gate PASS | `PASS` |
+| ERR-005 | Kanon typed validation DTOs documented as intentional exception | `PASS` |
 
 ---
 

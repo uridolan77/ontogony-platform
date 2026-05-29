@@ -2,6 +2,8 @@
 
 Platform-owned **conformance enforcement** for the neutral `CrossServiceErrorEnvelope` shape and cross-service failure normalization paths. This does not replace per-service HTTP contracts; it proves they map consistently when failures cross service boundaries.
 
+**Contract v1:** [`CROSS_SERVICE_ERROR_ENVELOPE_V1.md`](./CROSS_SERVICE_ERROR_ENVELOPE_V1.md) (`SHARED-ERROR-CONTRACT-001`, promoted 2026-05-29).
+
 Part of Phase Tight closeout (2026-05-22): [`PLATFORM_PHASE_TIGHT_2026_05_22_EVIDENCE.md`](../evidence/PLATFORM_PHASE_TIGHT_2026_05_22_EVIDENCE.md).
 
 ## Neutral envelope (Platform)
@@ -29,6 +31,8 @@ Conformance matrix: [`docs/system/cross-service-error-envelope.matrix.json`](../
 | Service | Public HTTP error | Normalization |
 | --- | --- | --- |
 | Allagma | `CrossServiceErrorEnvelope` on `/allagma/v0` | Native |
+| Metabole | `MetaboleErrorEnvelope` (compatible superset) | Native on `/metabole/v0` |
+| Aisthesis | `CrossServiceErrorEnvelope` on `/aisthesis/v0` | Native |
 | Kanon | Ontogony `ApiError` (`code`, `message`, optional `traceId`, `detail`) | Allagma mapper sets `system=kanon` |
 | Conexus | OpenAI `error` object on `/v1/chat/completions` | `AllagmaDownstreamCrossServiceErrorMapper` |
 | Frontend | Parses Allagma envelope + maps taxonomy | `operatorFailureTaxonomy.ts` |

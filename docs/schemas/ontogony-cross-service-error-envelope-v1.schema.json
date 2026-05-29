@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.dev/schemas/ontogony-cross-service-error-envelope-v1.schema.json",
+  "title": "OntogonyCrossServiceErrorEnvelopeV1",
+  "type": "object",
+  "required": ["code", "message", "system"],
+  "additionalProperties": true,
+  "properties": {
+    "code": {
+      "type": "string",
+      "minLength": 3,
+      "pattern": "^[a-z][a-z0-9_]*\\.[a-z0-9_.]+$"
+    },
+    "message": { "type": "string", "minLength": 1 },
+    "system": {
+      "type": "string",
+      "enum": ["platform", "conexus", "kanon", "allagma", "metabole", "aisthesis"]
+    },
+    "stage": { "type": ["string", "null"] },
+    "downstreamSystem": { "type": ["string", "null"] },
+    "traceId": { "type": ["string", "null"], "minLength": 1 },
+    "correlationId": { "type": ["string", "null"] },
+    "retryable": { "type": ["boolean", "null"] },
+    "detail": {
+      "type": ["object", "array", "string", "number", "boolean", "null"]
+    },
+    "details": {
+      "type": ["object", "null"]
+    }
+  }
+}

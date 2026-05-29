@@ -1,0 +1,6 @@
+{
+  "code": "aisthesis.evidence.not_found",
+  "message": "Evidence envelope was not found.",
+  "system": "aisthesis",
+  "traceId": "trace-sample-aisthesis-001"
+}

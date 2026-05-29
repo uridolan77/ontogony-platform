@@ -248,6 +248,8 @@ public static class CrossServiceErrorEnvelopeConformance
                 "allagma-dotnet" => workspace.AllagmaRoot,
                 "kanon-dotnet" => workspace.KanonRoot,
                 "conexus-dotnet" => workspace.ConexusRoot,
+                "metabole-dotnet" => workspace.MetaboleRoot,
+                "aisthesis-dotnet" => workspace.AisthesisRoot,
                 _ => null
             };
 
@@ -274,7 +276,7 @@ public static class CrossServiceErrorEnvelopeConformance
         }
 
         return issues.Count == 0
-            ? Pass("error-envelope-sibling-docs", "Sibling error integration docs", "Allagma, Kanon, and Conexus integration contracts are present.")
+            ? Pass("error-envelope-sibling-docs", "Sibling error integration docs", "Product repo error integration contracts are present.")
             : Fail("error-envelope-sibling-docs", "Sibling error integration docs", string.Join("; ", issues));
     }
 

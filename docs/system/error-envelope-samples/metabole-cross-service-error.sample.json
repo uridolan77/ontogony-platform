@@ -1,0 +1,11 @@
+{
+  "code": "metabole.pipeline_run.not_found",
+  "message": "Pipeline run was not found.",
+  "system": "metabole",
+  "stage": "read_run",
+  "downstreamSystem": null,
+  "traceId": "trace-sample-metabole-001",
+  "correlationId": "corr-sample-metabole-001",
+  "retryable": false,
+  "details": {}
+}

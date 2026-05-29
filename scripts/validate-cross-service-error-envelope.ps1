@@ -22,10 +22,12 @@ if ([string]::IsNullOrWhiteSpace($DevRoot)) {
 
 $matrixPath = Join-Path $RepoRoot "docs/system/cross-service-error-envelope.matrix.json"
 $schemaPath = Join-Path $RepoRoot "docs/system/schemas/cross-service-error-envelope-v0.schema.json"
-$contractPath = Join-Path $RepoRoot "docs/contracts/CROSS_SERVICE_ERROR_ENVELOPE_GATE.md"
+$schemaV1Path = Join-Path $RepoRoot "docs/schemas/ontogony-cross-service-error-envelope-v1.schema.json"
+$contractPath = Join-Path $RepoRoot "docs/contracts/CROSS_SERVICE_ERROR_ENVELOPE_V1.md"
+$gatePath = Join-Path $RepoRoot "docs/contracts/CROSS_SERVICE_ERROR_ENVELOPE_GATE.md"
 $taxonomyPath = Join-Path $RepoRoot "docs/system/operator-failure-taxonomy.matrix.json"
 
-foreach ($p in @($matrixPath, $schemaPath, $contractPath, $taxonomyPath)) {
+foreach ($p in @($matrixPath, $schemaPath, $schemaV1Path, $contractPath, $gatePath, $taxonomyPath)) {
     if (-not (Test-Path -LiteralPath $p)) {
         throw "Missing required path: $p"
     }
@@ -53,7 +55,12 @@ foreach ($sample in @($matrix.platformSamples)) {
 }
 
 $contract = Get-Content -LiteralPath $contractPath -Raw
-if ($contract -notmatch "cross-service-error-envelope\.matrix\.json") {
+if ($contract -notmatch "CrossServiceErrorEnvelope") {
+    throw "CROSS_SERVICE_ERROR_ENVELOPE_V1.md must reference CrossServiceErrorEnvelope."
+}
+
+$gate = Get-Content -LiteralPath $gatePath -Raw
+if ($gate -notmatch "cross-service-error-envelope\.matrix\.json") {
     throw "CROSS_SERVICE_ERROR_ENVELOPE_GATE.md must reference cross-service-error-envelope.matrix.json."
 }
 

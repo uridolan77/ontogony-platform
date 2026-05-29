@@ -27,7 +27,7 @@
 
 ## Next recommended cleanup PR / package
 
-**BACKEND-REPO-DOCS-ORDER-002** — unify cross-repo docs index and status banner conventions, then **SHARED-ERROR-CONTRACT-001** for platform-led error envelope alignment.
+**CROSS-REPO-IDENTITY-CORRELATION-001** (coordination slice 4). **SHARED-ERROR-CONTRACT-001** closed 2026-05-29 — evidence: [`docs/evidence/SHARED_ERROR_CONTRACT_001_CLOSEOUT.md`](../evidence/SHARED_ERROR_CONTRACT_001_CLOSEOUT.md).
 
 ---
 

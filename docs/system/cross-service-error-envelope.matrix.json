@@ -2,14 +2,18 @@
   "schema": "ontogony-cross-service-error-envelope-v1",
   "baseline": "SYSTEM-RC-002",
   "sprint": "PLATFORM-9-002",
-  "contractDocument": "docs/contracts/CROSS_SERVICE_ERROR_ENVELOPE_GATE.md",
+  "contractDocument": "docs/contracts/CROSS_SERVICE_ERROR_ENVELOPE_V1.md",
+  "gateDocument": "docs/contracts/CROSS_SERVICE_ERROR_ENVELOPE_GATE.md",
   "neutralEnvelopeType": "Ontogony.Errors.CrossServiceErrorEnvelope",
   "jsonSchema": "docs/system/schemas/cross-service-error-envelope-v0.schema.json",
+  "jsonSchemaV1": "docs/schemas/ontogony-cross-service-error-envelope-v1.schema.json",
   "operatorTaxonomyMatrix": "docs/system/operator-failure-taxonomy.matrix.json",
   "integrationContracts": {
     "allagma": "allagma-dotnet/docs/integrations/CROSS_SERVICE_ERROR_CONTRACT.md",
     "kanon": "kanon-dotnet/docs/integrations/ERROR_CONTRACTS.md",
-    "conexus": "conexus-dotnet/docs/architecture/BOUNDARIES.md"
+    "conexus": "conexus-dotnet/docs/architecture/BOUNDARIES.md",
+    "metabole": "metabole-dotnet/docs/evidence/SHARED_ERROR_CONTRACT_001_CLOSEOUT.md",
+    "aisthesis": "aisthesis-dotnet/docs/integrations/ERROR_CONTRACTS.md"
   },
   "requiredEnvelopeFields": ["code", "message", "system"],
   "optionalEnvelopeFields": ["stage", "downstreamSystem", "traceId", "correlationId", "retryable", "detail"],
@@ -28,6 +32,15 @@
       "publicHttpShape": "OpenAI.error",
       "normalization": "Allagma maps ConexusApiException via AllagmaDownstreamCrossServiceErrorMapper",
       "requiredWireFields": ["error.message"]
+    },
+    "metabole": {
+      "publicHttpShape": "MetaboleErrorEnvelope",
+      "openApiComponent": null,
+      "requiredWireFields": ["code", "message", "system", "stage"]
+    },
+    "aisthesis": {
+      "publicHttpShape": "CrossServiceErrorEnvelope",
+      "requiredWireFields": ["code", "message", "system"]
     },
     "frontend": {
       "consumerModule": "ontogony-frontend/src/system/errors/operatorFailureTaxonomy.ts",
@@ -49,6 +62,16 @@
       "id": "conexus-wire",
       "wireShape": "OpenAI.error",
       "path": "docs/system/error-envelope-samples/conexus-openai-error.sample.json"
+    },
+    {
+      "id": "metabole-wire",
+      "wireShape": "CrossServiceErrorEnvelope",
+      "path": "docs/system/error-envelope-samples/metabole-cross-service-error.sample.json"
+    },
+    {
+      "id": "aisthesis-wire",
+      "wireShape": "CrossServiceErrorEnvelope",
+      "path": "docs/system/error-envelope-samples/aisthesis-cross-service-error.sample.json"
     }
   ]
 }

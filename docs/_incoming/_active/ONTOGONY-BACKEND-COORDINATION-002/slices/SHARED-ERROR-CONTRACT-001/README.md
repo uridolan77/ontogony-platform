@@ -1,5 +1,6 @@
 # Slice 3 — SHARED-ERROR-CONTRACT-001
 
+**Status:** PASS (2026-05-29)  
 **Owner:** `ontogony-platform` (contract); all APIs (adoption)  
 **Depends on:** Slice 2  
 **Prompt:** [`../prompts/P03_SHARED_ERROR_CONTRACT_001.md`](../prompts/P03_SHARED_ERROR_CONTRACT_001.md)

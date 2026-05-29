@@ -12,6 +12,10 @@ public sealed class SystemCompatibilityWorkspace
 
     public string? ConexusRoot { get; init; }
 
+    public string? MetaboleRoot { get; init; }
+
+    public string? AisthesisRoot { get; init; }
+
     public string? FrontendRoot { get; init; }
 
     public string? UiRoot { get; init; }
@@ -30,6 +34,8 @@ public sealed class SystemCompatibilityWorkspace
             AllagmaRoot = ResolveRepo(devRoot, "allagma-dotnet", "Allagma.sln"),
             KanonRoot = ResolveRepo(devRoot, "kanon-dotnet", "Kanon.sln"),
             ConexusRoot = ResolveRepo(devRoot, "conexus-dotnet", "Conexus.sln"),
+            MetaboleRoot = ResolveRepo(devRoot, "metabole-dotnet", "Metabole.sln"),
+            AisthesisRoot = ResolveRepo(devRoot, "aisthesis-dotnet", "Aisthesis.sln"),
             FrontendRoot = ResolveRepo(devRoot, "ontogony-frontend", "package.json"),
             UiRoot = ResolveRepo(devRoot, "ontogony-ui", "package.json")
         };
