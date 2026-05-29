@@ -1,0 +1,5 @@
+{
+  "traceId": "trace-001",
+  "correlationId": "corr-001",
+  "sourceService": "platform"
+}

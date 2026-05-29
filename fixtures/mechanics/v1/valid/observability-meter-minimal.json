@@ -1,0 +1,6 @@
+{
+  "name": "ontogony.platform.http.request.duration",
+  "service": "platform",
+  "mechanicalArea": "http",
+  "description": "HTTP request duration for platform middleware."
+}

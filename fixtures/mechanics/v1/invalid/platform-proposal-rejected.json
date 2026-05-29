@@ -1,0 +1,11 @@
+{
+  "proposalId": "PLAT-PROP-BAD",
+  "title": "Add provider fallback policy",
+  "targetPackage": "Ontogony.Http",
+  "mechanicalConcern": "provider fallback policy",
+  "consumers": ["conexus"],
+  "reuseJustification": "Conexus needs routing.",
+  "forbiddenSemanticsAssessment": "Contains model routing semantics.",
+  "ownerRoutingDecision": "rejected_product_semantics",
+  "testsAdded": []
+}

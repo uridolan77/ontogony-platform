@@ -1,0 +1,11 @@
+{
+  "proposalId": "PLAT-PROP-BAD-ACCEPT",
+  "title": "Add model routing to Platform",
+  "targetPackage": "Ontogony.Http",
+  "mechanicalConcern": "provider fallback policy",
+  "consumers": ["conexus"],
+  "reuseJustification": "Shared routing for all services.",
+  "forbiddenSemanticsAssessment": "Incorrectly marked mechanical.",
+  "ownerRoutingDecision": "accepted_platform_mechanics",
+  "testsAdded": []
+}

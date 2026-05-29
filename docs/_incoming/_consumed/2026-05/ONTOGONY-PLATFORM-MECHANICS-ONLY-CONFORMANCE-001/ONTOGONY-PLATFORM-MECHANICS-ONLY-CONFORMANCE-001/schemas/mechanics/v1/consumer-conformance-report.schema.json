@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.ontogony.local/mechanics/v1/consumer-conformance-report.schema.json",
+  "title": "Ontogony Consumer Conformance Report",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "schema": {
+      "type": "string"
+    },
+    "generatedAtUtc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "consumerName": {
+      "type": "string"
+    },
+    "consumerRoot": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "Static",
+        "Fixture",
+        "LocalService",
+        "LiveStack"
+      ]
+    },
+    "overallStatus": {
+      "type": "string",
+      "enum": [
+        "PASS",
+        "PARTIAL",
+        "FAIL",
+        "NOT_RUN"
+      ]
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "nonClaims": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "deferrals": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "required": [
+    "schema",
+    "generatedAtUtc",
+    "consumerName",
+    "mode",
+    "overallStatus",
+    "checks"
+  ]
+}

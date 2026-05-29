@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.ontogony.local/mechanics/v1/replay-contract.schema.json",
+  "title": "Ontogony Replay Contract",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "replayRequestId": {
+      "type": "string"
+    },
+    "traceId": {
+      "type": "string"
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "dryRun",
+        "execute"
+      ]
+    },
+    "artifactRefs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidenceRefs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "fingerprint": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "redaction": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "replayRequestId",
+    "traceId",
+    "mode"
+  ]
+}

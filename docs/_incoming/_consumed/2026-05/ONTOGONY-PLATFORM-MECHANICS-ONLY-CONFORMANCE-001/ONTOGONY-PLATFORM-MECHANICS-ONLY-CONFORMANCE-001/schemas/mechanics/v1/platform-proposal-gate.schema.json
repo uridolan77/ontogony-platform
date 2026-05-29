@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.ontogony.local/mechanics/v1/platform-proposal-gate.schema.json",
+  "title": "Ontogony Platform Proposal Gate",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "proposalId": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "targetPackage": {
+      "type": "string"
+    },
+    "mechanicalConcern": {
+      "type": "string"
+    },
+    "consumers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reuseJustification": {
+      "type": "string"
+    },
+    "forbiddenSemanticsAssessment": {
+      "type": "string"
+    },
+    "ownerRoutingDecision": {
+      "type": "string",
+      "enum": [
+        "accepted_platform_mechanics",
+        "rejected_product_semantics",
+        "needs_owner_routing",
+        "needs_schema_versioning",
+        "needs_consumer_impact_review"
+      ]
+    },
+    "testsAdded": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "proposalId",
+    "title",
+    "targetPackage",
+    "mechanicalConcern",
+    "consumers",
+    "ownerRoutingDecision"
+  ]
+}
