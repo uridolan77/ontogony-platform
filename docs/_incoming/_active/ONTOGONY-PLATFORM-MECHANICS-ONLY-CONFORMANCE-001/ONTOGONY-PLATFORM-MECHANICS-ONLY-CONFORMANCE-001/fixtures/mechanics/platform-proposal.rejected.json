@@ -1,0 +1,13 @@
+{
+  "proposalId": "PLAT-PROP-002",
+  "title": "Add model routing policy",
+  "targetPackage": "Ontogony.AI.Contracts",
+  "mechanicalConcern": "provider routing",
+  "consumers": [
+    "conexus"
+  ],
+  "reuseJustification": "Conexus-specific routing logic.",
+  "forbiddenSemanticsAssessment": "Imports model routing policy.",
+  "ownerRoutingDecision": "rejected_product_semantics",
+  "testsAdded": []
+}

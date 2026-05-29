@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.ontogony.local/mechanics/v1/evidence-reference.schema.json",
+  "title": "Ontogony Evidence Reference",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "evidenceId": {
+      "type": "string"
+    },
+    "traceId": {
+      "type": "string"
+    },
+    "producer": {
+      "type": "string"
+    },
+    "evidenceType": {
+      "type": "string"
+    },
+    "occurredAtUtc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "payloadRef": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "fingerprint": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "redacted": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "evidenceId",
+    "producer",
+    "evidenceType",
+    "redacted"
+  ]
+}

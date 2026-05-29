@@ -6,6 +6,7 @@
         System.Threading.Tasks.Task MarkFailedAsync(string key, string? reason = null, System.Threading.CancellationToken cancellationToken = default);
         System.Threading.Tasks.Task MarkSucceededAsync(string key, string? resultReference = null, System.Threading.CancellationToken cancellationToken = default);
         System.Threading.Tasks.Task<bool> TryBeginAsync(string key, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<bool> TryRemoveKeyAsync(string key, System.Threading.CancellationToken cancellationToken = default);
     }
     public sealed class IdempotencyKeyBuilder
     {

@@ -16,6 +16,12 @@ public interface IIdempotencyLedger
 
     /// <summary>Returns the stored record for <paramref name="key"/>, if any.</summary>
     Task<IdempotencyRecord?> GetAsync(string key, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Removes <paramref name="key"/> so a failed or orphaned reservation can be retried.
+    /// Returns false when the key was not present.
+    /// </summary>
+    Task<bool> TryRemoveKeyAsync(string key, CancellationToken cancellationToken = default);
 }
 
 /// <summary>

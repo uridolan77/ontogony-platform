@@ -1,0 +1,39 @@
+{
+  "packageId": "ONTOGONY-PLATFORM-MECHANICS-ONLY-CONFORMANCE-001",
+  "repo": "uridolan77/ontogony-platform",
+  "date": "2026-05-29",
+  "kind": "dev-zip-package",
+  "goal": "Mechanical-only governance, consumer conformance harnesses, and cross-service mechanical schemas.",
+  "optionsCovered": [
+    "Option A \u2014 Keep Platform mechanical-only",
+    "Option B \u2014 Strengthen consumer conformance",
+    "Option D \u2014 Cross-service contract schemas"
+  ],
+  "acceptancePrefix": "PLAT-MECH",
+  "mustNotDo": [
+    "Import product meaning",
+    "Own semantic truth",
+    "Own model routing",
+    "Own governed execution",
+    "Own SLOD/domain mapping",
+    "Own reconstructability scoring",
+    "Become runtime lock authority"
+  ],
+  "consumers": [
+    "conexus-dotnet",
+    "kanon-dotnet",
+    "allagma-dotnet",
+    "metabole-dotnet",
+    "aisthesis-dotnet"
+  ],
+  "coreSchemas": [
+    "error-envelope",
+    "correlation-headers",
+    "evidence-reference",
+    "idempotency-state",
+    "replay-contract",
+    "actor-context",
+    "observability-meter",
+    "consumer-conformance-report"
+  ]
+}

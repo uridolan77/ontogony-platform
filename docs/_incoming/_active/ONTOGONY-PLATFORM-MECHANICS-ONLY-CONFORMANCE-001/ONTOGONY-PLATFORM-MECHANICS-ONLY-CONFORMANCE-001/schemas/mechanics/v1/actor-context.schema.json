@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.ontogony.local/mechanics/v1/actor-context.schema.json",
+  "title": "Ontogony Actor Context",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "actorId": {
+      "type": "string"
+    },
+    "actorType": {
+      "type": "string"
+    },
+    "roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tenantRef": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "sourceService": {
+      "type": "string"
+    },
+    "delegationChain": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "authRef": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "actorId",
+    "actorType",
+    "sourceService"
+  ]
+}

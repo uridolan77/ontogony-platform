@@ -1,0 +1,19 @@
+{
+  "proposalId": "PLAT-PROP-001",
+  "title": "Add actor context schema",
+  "targetPackage": "Ontogony.Contracts",
+  "mechanicalConcern": "actor context propagation",
+  "consumers": [
+    "conexus",
+    "kanon",
+    "allagma",
+    "metabole",
+    "aisthesis"
+  ],
+  "reuseJustification": "All services need actor context propagation.",
+  "forbiddenSemanticsAssessment": "No product semantics.",
+  "ownerRoutingDecision": "accepted_platform_mechanics",
+  "testsAdded": [
+    "ActorContextSchemaTests"
+  ]
+}

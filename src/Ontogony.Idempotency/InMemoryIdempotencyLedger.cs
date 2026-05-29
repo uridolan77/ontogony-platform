@@ -43,7 +43,7 @@ public sealed class InMemoryIdempotencyLedger : IIdempotencyLedger
         return Task.FromResult(record);
     }
 
-    /// <summary>Removes a key so a failed or orphaned idempotency reservation can be retried (local/test recovery only).</summary>
+    /// <inheritdoc />
     public Task<bool> TryRemoveKeyAsync(string key, CancellationToken cancellationToken = default) =>
         Task.FromResult(_records.TryRemove(key, out _));
 }

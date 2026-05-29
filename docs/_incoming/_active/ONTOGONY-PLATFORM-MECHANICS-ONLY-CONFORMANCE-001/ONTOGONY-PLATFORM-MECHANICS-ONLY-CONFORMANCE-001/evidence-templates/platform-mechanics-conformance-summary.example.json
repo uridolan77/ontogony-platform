@@ -1,0 +1,21 @@
+{
+  "schema": "ontogony.platform-mechanics-conformance-summary.v1",
+  "packageId": "ONTOGONY-PLATFORM-MECHANICS-ONLY-CONFORMANCE-001",
+  "generatedAtUtc": "2026-05-29T00:00:00Z",
+  "overallStatus": "PARTIAL",
+  "acceptance": {
+    "PLAT-MECH-001": "PASS",
+    "PLAT-MECH-016": "NOT_RUN"
+  },
+  "consumerStatus": {
+    "conexus": "NOT_RUN",
+    "kanon": "NOT_RUN",
+    "allagma": "NOT_RUN",
+    "metabole": "NOT_RUN",
+    "aisthesis": "NOT_RUN"
+  },
+  "nonClaims": [
+    "No production readiness claim",
+    "No runtime lock authority claim"
+  ]
+}

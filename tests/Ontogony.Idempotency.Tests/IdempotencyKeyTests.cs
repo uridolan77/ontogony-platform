@@ -85,6 +85,19 @@ public class IdempotencyKeyTests
         Assert.Equal("transient upstream failure", record.FailureReason);
     }
 
+    [Fact]
+    public async Task InMemoryLedger_TryRemoveKeyAsync_RemovesExistingKeyOnly()
+    {
+        var ledger = new InMemoryIdempotencyLedger();
+
+        Assert.False(await ledger.TryRemoveKeyAsync("missing-key"));
+
+        await ledger.TryBeginAsync("key-4");
+        Assert.True(await ledger.TryRemoveKeyAsync("key-4"));
+        Assert.Null(await ledger.GetAsync("key-4"));
+        Assert.False(await ledger.TryRemoveKeyAsync("key-4"));
+    }
+
     private static IdempotencyKeyBuilder CreateBuilder() =>
         new(new PayloadHasher(new Sha256ContentHashService()));
 }

@@ -1,0 +1,18 @@
+{
+  "schema": "ontogony.consumer-conformance-report.v1",
+  "generatedAtUtc": "2026-05-29T00:00:00Z",
+  "consumerName": "conexus",
+  "consumerRoot": "C:/dev/conexus-dotnet",
+  "mode": "Fixture",
+  "overallStatus": "PASS",
+  "checks": [
+    {
+      "name": "header-propagation",
+      "status": "PASS"
+    }
+  ],
+  "nonClaims": [
+    "No production readiness claim"
+  ],
+  "deferrals": []
+}
