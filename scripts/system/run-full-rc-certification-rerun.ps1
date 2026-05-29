@@ -43,7 +43,9 @@ Run-InRepo "runtime-service-identity-after-stack" $WorkspaceRoot "pwsh -NoProfil
 $aisthesisLiveCommand = @"
 if (-not `$env:AISTHESIS_LIVE_WORKFLOW_TRIGGER_URL) {
   `$env:AISTHESIS_LIVE_WORKFLOW_TRIGGER_URL = 'http://localhost:5083/allagma/v0/runs'
-  `$env:AISTHESIS_LIVE_WORKFLOW_TRIGGER_PROFILE = 'allagma-run'
+}
+if (-not `$env:AISTHESIS_LIVE_WORKFLOW_TRIGGER_PROFILE) {
+  `$env:AISTHESIS_LIVE_WORKFLOW_TRIGGER_PROFILE = 'allagma-metabole-orchestration'
 }
 if (-not `$env:AISTHESIS_ALLAGMA_SERVICE_TOKEN) {
   `$env:AISTHESIS_ALLAGMA_SERVICE_TOKEN = 'allagma-dev-service-token-change-in-production'
