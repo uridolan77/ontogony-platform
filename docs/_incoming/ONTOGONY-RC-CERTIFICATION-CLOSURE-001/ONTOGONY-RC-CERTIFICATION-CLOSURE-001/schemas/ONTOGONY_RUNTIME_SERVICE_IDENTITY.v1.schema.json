@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Ontogony Runtime Service Identity Summary",
+  "type": "object",
+  "required": [
+    "schema",
+    "generatedAtUtc",
+    "overallStatus",
+    "services"
+  ],
+  "properties": {
+    "schema": {
+      "const": "ontogony-runtime-service-identity/v1"
+    },
+    "overallStatus": {
+      "enum": [
+        "PASS",
+        "PARTIAL",
+        "FAIL"
+      ]
+    },
+    "services": {
+      "type": "array"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Aisthesis Live Certification Summary",
+  "type": "object",
+  "required": [
+    "schema",
+    "generatedAtUtc",
+    "overallStatus",
+    "serviceIdentity",
+    "triggerAttempts",
+    "producersObserved"
+  ],
+  "properties": {
+    "schema": {
+      "const": "aisthesis-live-certification-summary/v1"
+    },
+    "overallStatus": {
+      "enum": [
+        "PASS",
+        "PARTIAL",
+        "FAIL"
+      ]
+    },
+    "failureKind": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "serviceIdentity": {
+      "type": "object"
+    },
+    "triggerAttempts": {
+      "type": "array"
+    },
+    "producersObserved": {
+      "type": "array"
+    },
+    "missingEdgesByProducer": {
+      "type": "object"
+    }
+  }
+}

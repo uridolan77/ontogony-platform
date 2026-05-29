@@ -1,0 +1,24 @@
+{
+  "package": "ONTOGONY-RC-CERTIFICATION-CLOSURE-001",
+  "generatedUtc": "2026-05-29T19:02:45Z",
+  "classification": "cross-repo-rc-certification-closure",
+  "productionReadiness": "NOT_CLAIMED",
+  "items": [
+    "PLATFORM-RUNTIME-PORT-LOCK-ALIGNMENT-001",
+    "METABOLE-AISTHESIS-EVIDENCE-EDGE-LIVE-001",
+    "ALLAGMA-AISTHESIS-LIVE-TRIGGER-001",
+    "ALLAGMA-PHENOMENOLOGICAL-BRIDGE-CONTRACT-SYNC-001",
+    "KANON-PACKAGE-MODE-REPLAYTARGET-FIX-001",
+    "CONEXUS-CACHE-METRICS-ACCEPTANCE-FIX-001",
+    "AISTHESIS-LIVE-CERT-DIAGNOSTICS-001",
+    "FULL-RC-CERTIFICATION-RERUN"
+  ],
+  "canonicalPorts": {
+    "kanon": 5081,
+    "conexus": 5082,
+    "allagma": 5083,
+    "metabole": 5084,
+    "aisthesis": 5085
+  },
+  "requiredOutcome": "five-service live certification PASS and system cohesion acceptance PASS before RC-candidate classification"
+}

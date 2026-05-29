@@ -1,0 +1,3 @@
+using Xunit;
+namespace Kanon.Contracts.Tests;
+public sealed class ReplayTargetPackageSurfaceTests { [Fact] public void Template() { } }

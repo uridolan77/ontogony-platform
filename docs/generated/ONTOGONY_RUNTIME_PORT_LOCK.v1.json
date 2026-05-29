@@ -1,0 +1,31 @@
+{
+  "schema": "ontogony-runtime-port-lock/v1",
+  "ports": {
+    "kanon": {
+      "port": 5081,
+      "baseUrl": "http://localhost:5081",
+      "identity": "kanon"
+    },
+    "conexus": {
+      "port": 5082,
+      "baseUrl": "http://localhost:5082",
+      "identity": "conexus"
+    },
+    "allagma": {
+      "port": 5083,
+      "baseUrl": "http://localhost:5083",
+      "identity": "allagma"
+    },
+    "metabole": {
+      "port": 5084,
+      "baseUrl": "http://localhost:5084",
+      "identity": "metabole"
+    },
+    "aisthesis": {
+      "port": 5085,
+      "baseUrl": "http://localhost:5085",
+      "identity": "aisthesis"
+    }
+  },
+  "productionReadiness": "NOT_CLAIMED"
+}

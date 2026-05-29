@@ -1,0 +1,3 @@
+using Xunit;
+namespace Allagma.Api.Tests.Aisthesis;
+public sealed class AllagmaAisthesisLiveTriggerContractTests { [Fact] public void Template() { } }
