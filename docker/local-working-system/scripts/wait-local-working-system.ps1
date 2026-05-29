@@ -127,8 +127,8 @@ function Get-DotEnvValue {
 $kanonPort = Get-DotEnvValue -Path $envFileToUse -Key "KANON_HOST_PORT" -DefaultValue "5081"
 $conexusPort = Get-DotEnvValue -Path $envFileToUse -Key "CONEXUS_HOST_PORT" -DefaultValue "5082"
 $allagmaPort = Get-DotEnvValue -Path $envFileToUse -Key "ALLAGMA_HOST_PORT" -DefaultValue "5083"
-$aisthesisPort = Get-DotEnvValue -Path $envFileToUse -Key "AISTHESIS_HOST_PORT" -DefaultValue "5084"
-$metabolePort = Get-DotEnvValue -Path $envFileToUse -Key "METABOLE_HOST_PORT" -DefaultValue "5085"
+$aisthesisPort = Get-DotEnvValue -Path $envFileToUse -Key "AISTHESIS_HOST_PORT" -DefaultValue "5085"
+$metabolePort = Get-DotEnvValue -Path $envFileToUse -Key "METABOLE_HOST_PORT" -DefaultValue "5084"
 $frontendPort = Get-DotEnvValue -Path $envFileToUse -Key "FRONTEND_HOST_PORT" -DefaultValue "5175"
 
 Write-Host "Waiting for Docker local working system health ..."

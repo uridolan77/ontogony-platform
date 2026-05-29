@@ -20,10 +20,10 @@
       "baseUrl": "http://localhost:5083"
     },
     "aisthesis": {
-      "baseUrl": "http://localhost:5084"
+      "baseUrl": "http://localhost:5085"
     },
     "metabole": {
-      "baseUrl": "http://localhost:5085"
+      "baseUrl": "http://localhost:5084"
     }
   },
   "frontend": {

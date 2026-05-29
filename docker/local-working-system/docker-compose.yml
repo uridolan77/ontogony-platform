@@ -108,7 +108,7 @@ services:
       OTEL_SERVICE_NAME: ${AISTHESIS_OTEL_SERVICE_NAME:-aisthesis-api}
       OTEL_RESOURCE_ATTRIBUTES: ${OTEL_RESOURCE_ATTRIBUTES:-deployment.environment=development}
     ports:
-      - "${AISTHESIS_HOST_PORT:-5084}:8080"
+      - "${AISTHESIS_HOST_PORT:-5085}:8080"
     depends_on:
       postgres:
         condition: service_healthy
@@ -147,7 +147,7 @@ services:
       OTEL_SERVICE_NAME: ${METABOLE_OTEL_SERVICE_NAME:-metabole-api}
       OTEL_RESOURCE_ATTRIBUTES: ${OTEL_RESOURCE_ATTRIBUTES:-deployment.environment=development}
     ports:
-      - "${METABOLE_HOST_PORT:-5085}:8080"
+      - "${METABOLE_HOST_PORT:-5084}:8080"
     depends_on:
       postgres:
         condition: service_healthy

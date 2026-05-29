@@ -479,8 +479,8 @@ function Write-DockerLocalOperatorRuntimeConfig {
     $kanonPort = Get-DotEnvValue -Path $EnvFilePath -Key "KANON_HOST_PORT" -DefaultValue "5081"
     $conexusPort = Get-DotEnvValue -Path $EnvFilePath -Key "CONEXUS_HOST_PORT" -DefaultValue "5082"
     $allagmaPort = Get-DotEnvValue -Path $EnvFilePath -Key "ALLAGMA_HOST_PORT" -DefaultValue "5083"
-    $aisthesisPort = Get-DotEnvValue -Path $EnvFilePath -Key "AISTHESIS_HOST_PORT" -DefaultValue "5084"
-    $metabolePort = Get-DotEnvValue -Path $EnvFilePath -Key "METABOLE_HOST_PORT" -DefaultValue "5085"
+    $aisthesisPort = Get-DotEnvValue -Path $EnvFilePath -Key "AISTHESIS_HOST_PORT" -DefaultValue "5085"
+    $metabolePort = Get-DotEnvValue -Path $EnvFilePath -Key "METABOLE_HOST_PORT" -DefaultValue "5084"
 
     if ([string]::IsNullOrWhiteSpace($ConexusBaseUrl)) {
         $ConexusBaseUrl = "http://localhost:$conexusPort"

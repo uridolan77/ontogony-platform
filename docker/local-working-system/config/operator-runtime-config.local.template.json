@@ -13,8 +13,8 @@
     "conexus": { "baseUrl": "http://localhost:5082" },
     "kanon": { "baseUrl": "http://localhost:5081" },
     "allagma": { "baseUrl": "http://localhost:5083" },
-    "aisthesis": { "baseUrl": "http://localhost:5084" },
-    "metabole": { "baseUrl": "http://localhost:5085" }
+    "aisthesis": { "baseUrl": "http://localhost:5085" },
+    "metabole": { "baseUrl": "http://localhost:5084" }
   },
   "frontend": {
     "defaultRoute": "/",

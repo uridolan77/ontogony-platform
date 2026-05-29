@@ -89,10 +89,10 @@ Starts **postgres**, **kanon-api**, **conexus-api**, **aisthesis-api**, **metabo
 | Kanon | 5081 | `GET /health` |
 | Conexus | 5082 | `GET /health/live` |
 | Allagma | 5083 | `GET /health` |
-| Aisthesis | 5084 | `GET /health` |
-| Metabole | 5085 | `GET /health` |
+| Aisthesis | 5085 | `GET /health` |
+| Metabole | 5084 | `GET /health` |
 
-Metabole standalone `dotnet run` still defaults to **5084**; the full Docker stack maps Metabole to **5085** so Aisthesis can use **5084**. See `metabole-dotnet/docs/development/DOCKER_LOCAL.md` and `aisthesis-dotnet/docs/development/DOCKER_LOCAL.md`.
+Canonical certification ports per [`metabole-dotnet/docs/system/ONTOGONY_FIVE_SERVICE_PORT_MATRIX.md`](../../../metabole-dotnet/docs/system/ONTOGONY_FIVE_SERVICE_PORT_MATRIX.md). Metabole and Aisthesis `dotnet run` defaults match **5084** and **5085** respectively.
 
 ### Frontend browser freshness (DOCKER-LOCAL-VERIFY-001)
 
