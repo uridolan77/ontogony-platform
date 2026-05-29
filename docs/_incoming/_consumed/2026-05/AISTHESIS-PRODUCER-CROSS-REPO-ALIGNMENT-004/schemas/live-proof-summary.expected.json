@@ -1,0 +1,18 @@
+{
+  "package": "AISTHESIS-PRODUCER-CROSS-REPO-ALIGNMENT-004",
+  "mode": "Live",
+  "status": "PASS",
+  "producerCoverage": [
+    "allagma",
+    "kanon",
+    "conexus",
+    "metabole"
+  ],
+  "requiredEdges": {
+    "present": 10,
+    "missing": 0,
+    "ambiguous": 0
+  },
+  "reconstructabilityGrade": "complete",
+  "bundleFingerprint": "sha256:..."
+}

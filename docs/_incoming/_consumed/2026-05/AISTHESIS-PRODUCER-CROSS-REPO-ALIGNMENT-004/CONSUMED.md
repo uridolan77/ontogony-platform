@@ -1,0 +1,19 @@
+# CONSUMED — AISTHESIS-PRODUCER-CROSS-REPO-ALIGNMENT-004
+
+**Consumed:** 2026-05-28  
+**Reason:** All four producer repos aligned; fixture smoke PASS; live five-service proof PASS (LES-001 + LES-002).
+
+**Canonical docs:**
+
+- [`docs/evidence/AISTHESIS_PRODUCER_CROSS_REPO_ALIGNMENT_004_CLOSEOUT.md`](../../../evidence/AISTHESIS_PRODUCER_CROSS_REPO_ALIGNMENT_004_CLOSEOUT.md)
+- [`docs/evidence/AISTHESIS_PRODUCER_ALIGNMENT_004_LIVE_PROOF_STATUS.md`](../../../evidence/AISTHESIS_PRODUCER_ALIGNMENT_004_LIVE_PROOF_STATUS.md)
+- [`docs/evidence/AISTHESIS_PRODUCER_ALIGNMENT_004_REPO_RESULTS.md`](../../../evidence/AISTHESIS_PRODUCER_ALIGNMENT_004_REPO_RESULTS.md)
+
+**Sister repo closeouts:**
+
+- `allagma-dotnet/docs/evidence/ALLAGMA_DOTNET_AISTHESIS_PRODUCER_ALIGNMENT_004_CLOSEOUT.md`
+- `kanon-dotnet/docs/evidence/KANON_DOTNET_AISTHESIS_PRODUCER_ALIGNMENT_004_CLOSEOUT.md`
+- `conexus-dotnet/docs/evidence/CONEXUS_DOTNET_AISTHESIS_PRODUCER_ALIGNMENT_004_CLOSEOUT.md`
+- `metabole-dotnet/docs/evidence/METABOLE_DOTNET_AISTHESIS_PRODUCER_ALIGNMENT_004_CLOSEOUT.md`
+
+**Live spine evidence:** `allagma-dotnet/docs/evidence/ONTOGONY_LIVE_EVIDENCE_SPINE_001_20260528_PASS.json`, `ONTOGONY_LIVE_EVIDENCE_SPINE_002_20260528_PASS.json`.

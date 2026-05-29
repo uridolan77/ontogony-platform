@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
 using Xunit;
 
@@ -49,6 +50,7 @@ public sealed class OntogonyOpenTelemetryExportTests
 
             using var provider = services.BuildServiceProvider();
             Assert.NotNull(provider.GetService<TracerProvider>());
+            Assert.NotNull(provider.GetService<MeterProvider>());
         }
         finally
         {
@@ -56,6 +58,21 @@ public sealed class OntogonyOpenTelemetryExportTests
                 OntogonyOpenTelemetryExtensions.OtlpEndpointEnvironmentVariable,
                 previousEndpoint);
             Environment.SetEnvironmentVariable("OTEL_SERVICE_NAME", previousService);
+        }
+    }
+
+    [Fact]
+    public void ResolveMetricExportIntervalMilliseconds_Uses_OtelEnv_When_Set()
+    {
+        var previous = Environment.GetEnvironmentVariable(OntogonyOpenTelemetryExtensions.MetricExportIntervalEnvironmentVariable);
+        try
+        {
+            Environment.SetEnvironmentVariable(OntogonyOpenTelemetryExtensions.MetricExportIntervalEnvironmentVariable, "5000");
+            Assert.Equal(5000, OntogonyOpenTelemetryExtensions.ResolveMetricExportIntervalMilliseconds());
+        }
+        finally
+        {
+            Environment.SetEnvironmentVariable(OntogonyOpenTelemetryExtensions.MetricExportIntervalEnvironmentVariable, previous);
         }
     }
 }

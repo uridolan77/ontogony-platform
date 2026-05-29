@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "aisthesis.live-spine.summary.v3",
+  "package": "AISTHESIS-LIVE-SPINE-RC-CERTIFICATION-006",
+  "mode": "LiveOrExplain",
+  "status": "PARTIAL",
+  "classification": "RC-certification partial",
+  "traceId": "trace_example",
+  "workflowProfile": "core-run-profile",
+  "services": {
+    "aisthesis": {
+      "ready": true
+    },
+    "allagma": {
+      "ready": true
+    },
+    "kanon": {
+      "ready": true
+    },
+    "conexus": {
+      "ready": true
+    },
+    "metabole": {
+      "ready": true
+    }
+  },
+  "producersObserved": [
+    "allagma",
+    "kanon",
+    "conexus",
+    "metabole"
+  ],
+  "requiredEdges": {
+    "v1": {
+      "present": 10,
+      "missing": 0,
+      "ambiguous": 0,
+      "notApplicable": 0
+    },
+    "v2": {
+      "present": 16,
+      "missing": 0,
+      "ambiguous": 0,
+      "notApplicable": 4
+    }
+  },
+  "reconstructability": {
+    "grade": "complete",
+    "score": 0.95,
+    "blockingFindings": 0,
+    "blockingCodes": [],
+    "diagnostics": []
+  },
+  "bundle": {
+    "bundleFingerprintPresent": true,
+    "bundleFingerprint": "sha256:example",
+    "exportedAtUtc": "2026-05-29T00:00:00Z"
+  },
+  "redaction": {
+    "tokensIncluded": false,
+    "rawPayloadsIncluded": false,
+    "payloadRefsDereferenced": false
+  },
+  "gates": {},
+  "deferrals": [],
+  "reason": null,
+  "artifacts": [],
+  "recordedAtUtc": "2026-05-29T00:00:00Z"
+}

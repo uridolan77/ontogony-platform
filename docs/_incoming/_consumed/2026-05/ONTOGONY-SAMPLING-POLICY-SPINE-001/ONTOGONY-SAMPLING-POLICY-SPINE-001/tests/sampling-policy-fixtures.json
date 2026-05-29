@@ -1,0 +1,66 @@
+{
+  "fixtures": [
+    {
+      "name": "deterministic schema mapping",
+      "request": {
+        "caller": "test",
+        "operationKind": "schema_mapping",
+        "taskKind": "schema_mapping",
+        "riskTier": "medium",
+        "outputContract": "json_schema"
+      },
+      "expectedEffectiveProfileId": "DeterministicContract"
+    },
+    {
+      "name": "analytical repo review",
+      "request": {
+        "caller": "test",
+        "operationKind": "repo_review",
+        "taskKind": "analysis",
+        "riskTier": "medium",
+        "outputContract": "none"
+      },
+      "expectedEffectiveProfileId": "AnalyticalReasoning"
+    },
+    {
+      "name": "creative naming",
+      "request": {
+        "caller": "test",
+        "operationKind": "naming",
+        "taskKind": "creative",
+        "riskTier": "low",
+        "outputContract": "creative_text"
+      },
+      "expectedEffectiveProfileId": "CreativeIdeation"
+    },
+    {
+      "name": "diversity direct execution denied",
+      "request": {
+        "caller": "test",
+        "operationKind": "alternative_generation",
+        "taskKind": "alternative_generation",
+        "riskTier": "low",
+        "outputContract": "side_effect_action",
+        "requestedProfileId": "DiversityProbe",
+        "directExecution": true,
+        "sideEffecting": true
+      },
+      "expectedDecision": "Denied"
+    },
+    {
+      "name": "legacy raw params warning",
+      "request": {
+        "caller": "test",
+        "operationKind": "analysis",
+        "taskKind": "analysis",
+        "riskTier": "medium",
+        "outputContract": "none",
+        "requestedParameters": {
+          "temperature": 0.7,
+          "topP": 0.95
+        }
+      },
+      "expectedWarningCode": "LegacyRawSamplingParameters"
+    }
+  ]
+}

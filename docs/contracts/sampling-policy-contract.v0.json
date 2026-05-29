@@ -1,0 +1,30 @@
+{
+  "contractVersion": "sampling.policy.contract.v0",
+  "resolveRequest": {
+    "caller": "string",
+    "operationKind": "string",
+    "taskKind": "string",
+    "riskTier": "low|medium|high|critical",
+    "outputContract": "none|json_schema|tool_call|code_patch|policy_decision|side_effect_action|creative_text",
+    "requestedProfileId": "string|null",
+    "requestedParameters": "SamplingParameters|null",
+    "directExecution": "boolean",
+    "toolUse": "boolean",
+    "sideEffecting": "boolean",
+    "provider": "string|null",
+    "model": "string|null",
+    "metadata": "object|null"
+  },
+  "resolutionResponse": {
+    "resolutionId": "string",
+    "requestedProfileId": "string|null",
+    "effectiveProfileId": "string",
+    "decision": "Allowed|AllowedWithWarnings|Denied|RequiresApproval",
+    "policyBasis": "string",
+    "effectiveParameters": "SamplingParameters",
+    "providerParameters": "object|null",
+    "warnings": "SamplingPolicyNotice[]",
+    "violations": "SamplingPolicyNotice[]",
+    "resolvedAtUtc": "datetime"
+  }
+}

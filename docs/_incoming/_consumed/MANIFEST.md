@@ -1,11 +1,13 @@
 # Consumed intake manifest
 
-Last updated: **2026-05-27** (ONTOGONY-BACKEND-COHESION-PLATFORM-001 closeout)
+Last updated: **2026-05-28** (ONTOGONY-SAMPLING-POLICY-SPINE-001 closeout)
 
 All paths are under `docs/_incoming/_consumed/2026-05/` unless noted.
 
 | Package | Status | Canonical promotion (if any) | Archived |
 | --- | --- | --- | --- |
+| ONTOGONY-SAMPLING-POLICY-SPINE-001 | **consumed** | [`contracts/sampling-policy-contract.v0.json`](../../contracts/sampling-policy-contract.v0.json), [`evidence/ONTOGONY_SAMPLING_POLICY_SPINE_001_EVIDENCE.md`](../../evidence/ONTOGONY_SAMPLING_POLICY_SPINE_001_EVIDENCE.md) | 2026-05-28 |
+| AISTHESIS-PRODUCER-CROSS-REPO-ALIGNMENT-004 | **consumed** | Producer alignment closeouts — [`evidence/AISTHESIS_PRODUCER_CROSS_REPO_ALIGNMENT_004_CLOSEOUT.md`](../../evidence/AISTHESIS_PRODUCER_CROSS_REPO_ALIGNMENT_004_CLOSEOUT.md), [`evidence/AISTHESIS_PRODUCER_ALIGNMENT_004_LIVE_PROOF_STATUS.md`](../../evidence/AISTHESIS_PRODUCER_ALIGNMENT_004_LIVE_PROOF_STATUS.md); live spine in Allagma LES-001/002 | 2026-05-28 |
 | SYSTEM_TRUTH_001_Cursor_Package_2026-05-24 | **consumed** | System truth / readiness patterns in product repos | 2026-05-24 |
 | GOVERNED_FAKE_E2E_001_Cursor_Package_2026-05-24 | **consumed** | [`evidence/GOVERNED_FAKE_E2E_001_PASS_*.md`](../../evidence/) | 2026-05-24 |
 | CONEXUS_ROUTING_POSTURE_001 (zip only, removed) | **consumed** | Conexus routing posture in `conexus-dotnet` | 2026-05-24 |
