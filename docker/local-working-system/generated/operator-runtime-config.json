@@ -3,10 +3,10 @@
   "version": 1,
   "environmentName": "Local Docker",
   "profileName": "docker-local",
-  "generatedAt": "2026-05-29T06:31:24.786Z",
+  "generatedAt": "2026-05-29T06:55:32.241Z",
   "build": {
     "source": "ontogony-platform/docker/local-working-system",
-    "gitSha": "local",
+    "gitSha": "f0a21e0053bb495dfbb46ac5c864762edc226f8e",
     "description": "Docker local working system runtime defaults"
   },
   "services": {
