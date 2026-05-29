@@ -28,6 +28,7 @@ Contributor rules: [`AGENTS.md`](AGENTS.md)
 | [`docs/INDEX.md`](docs/INDEX.md) | Documentation navigation map |
 | [`docs/README.md`](docs/README.md) | Docs hub and boundaries |
 | [`docs/status/ONTOGONY_PLATFORM_CLEANUP_ORGANIZATION_STATUS.md`](docs/status/ONTOGONY_PLATFORM_CLEANUP_ORGANIZATION_STATUS.md) | **Current cleanup status** |
+| [`docs/_incoming/_active/ONTOGONY-BACKEND-COORDINATION-002/`](docs/_incoming/_active/ONTOGONY-BACKEND-COORDINATION-002/) | **Active coordination sprint** |
 
 ---
 

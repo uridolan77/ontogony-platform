@@ -3,6 +3,8 @@
 **Repo:** `uridolan77/ontogony-platform`  
 **Role:** Shared infrastructure (`Ontogony.*` packages) and cross-repo **mechanical** contracts.
 
+**Active sprint:** [ONTOGONY-BACKEND-COORDINATION-002](./_incoming/_active/ONTOGONY-BACKEND-COORDINATION-002/) — slice 1 [BACKEND-REPO-DOCS-ORDER-002](./_incoming/_active/ONTOGONY-BACKEND-COORDINATION-002/slices/BACKEND-REPO-DOCS-ORDER-002/)
+
 ---
 
 ## What this repo owns
@@ -36,19 +38,15 @@ Those systems may appear here only as **consumers** or examples of platform mech
 | Section | Location |
 | --- | --- |
 | **Navigation index** | [`INDEX.md`](./INDEX.md) |
-| **Current truth** | [`CURRENT_STATE.md`](./CURRENT_STATE.md) |
 | **Architecture** | [`ARCHITECTURE.md`](./ARCHITECTURE.md), [`architecture/`](./architecture/) |
 | **Contracts** | [`CONTRACTS.md`](./CONTRACTS.md), [`contracts/`](./contracts/) |
-| **Errors / HTTP / observability** | [`operators/`](./operators/), [`packages/Ontogony.Errors.md`](./packages/Ontogony.Errors.md), [`packages/Ontogony.Http.md`](./packages/Ontogony.Http.md) |
-| **Idempotency / persistence** | [`packages/Ontogony.Persistence.md`](./packages/Ontogony.Persistence.md), [`adoption/conformance-kits.md`](./adoption/conformance-kits.md) |
-| **Hosting / local stack** | [`environments/`](./environments/), [`../docker/local-working-system/`](../docker/local-working-system/) |
-| **Testing / evidence** | [`TESTING.md`](./TESTING.md), [`evidence/`](./evidence/) |
-| **Status / reviews** | [`status/`](./status/), [`reviews/`](./reviews/) |
+| **API / routes** | Consumer blueprints under [`consumer-blueprints/`](./consumer-blueprints/) |
+| **Runbooks** | [`operators/`](./operators/), [`environments/`](./environments/) |
+| **Status** | [`CURRENT_STATE.md`](./CURRENT_STATE.md), [`status/`](./status/) |
+| **Reviews** | [`reviews/`](./reviews/) |
+| **Evidence** | [`TESTING.md`](./TESTING.md), [`evidence/`](./evidence/) |
+| **Incoming** | [`_incoming/`](./_incoming/) — [`ONTOGONY-BACKEND-COORDINATION-002`](./_incoming/_active/ONTOGONY-BACKEND-COORDINATION-002/) active |
 | **Deferrals** | [`DEFERRALS.md`](./DEFERRALS.md) |
-| **Runbooks / operator mechanics** | [`operators/`](./operators/) |
-| **Decisions** | [`adr/`](./adr/), [`migrations/`](./migrations/) |
-| **Release / governance** | [`governance/`](./governance/) |
-| **Intake (temporary)** | [`_incoming/`](./_incoming/) — [`ONTOGONY-BACKEND-COORDINATION-002`](./_incoming/_active/ONTOGONY-BACKEND-COORDINATION-002/) active |
 
 ---
 

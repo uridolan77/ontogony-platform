@@ -3,6 +3,8 @@
 **Date:** 2026-05-29  
 **One-page summary**
 
+> **Cleanup record (BACKEND-REPO-CLEANUP-ORGANIZATION-001).** **Current status:** see [CURRENT_STATE.md](../CURRENT_STATE.md). **Active sprint:** [ONTOGONY-BACKEND-COORDINATION-002](../_incoming/_active/ONTOGONY-BACKEND-COORDINATION-002/) — slice 1 [BACKEND-REPO-DOCS-ORDER-002](../_incoming/_active/ONTOGONY-BACKEND-COORDINATION-002/slices/BACKEND-REPO-DOCS-ORDER-002/) **in progress**.
+
 ---
 
 ## What is now clean
