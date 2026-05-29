@@ -3,6 +3,8 @@
   "baseline": "SYSTEM-RC-002",
   "sprint": "PLATFORM-9-003",
   "contractDocument": "docs/contracts/HEADER_PROPAGATION_CONTRACT.md",
+  "contextPropagationContract": "docs/contracts/CROSS_SERVICE_CONTEXT_PROPAGATION_V1.md",
+  "contextPropagationSchema": "docs/schemas/ontogony-context-propagation-v1.schema.json",
   "frozenRequiredHeaders": [
     "traceparent",
     "X-Correlation-ID",
@@ -28,6 +30,8 @@
   "integrationContracts": {
     "allagma": "allagma-dotnet/docs/system/SYSTEM_TRACE_CONTEXT_MATRIX.md",
     "kanon": "kanon-dotnet/docs/integrations/IDEMPOTENCY_AND_TRACE_HEADERS.md",
-    "conexus": "conexus-dotnet/docs/architecture/BOUNDARIES.md"
+    "conexus": "conexus-dotnet/docs/architecture/BOUNDARIES.md",
+    "metabole": "metabole-dotnet/docs/integrations/TRACE_AND_CONTEXT_HEADERS.md",
+    "aisthesis": "aisthesis-dotnet/docs/integrations/TRACE_AND_CONTEXT_HEADERS.md"
   }
 }

@@ -27,7 +27,7 @@
 
 ## Next recommended cleanup PR / package
 
-**CROSS-REPO-IDENTITY-CORRELATION-001** (coordination slice 4). **SHARED-ERROR-CONTRACT-001** closed 2026-05-29 — evidence: [`docs/evidence/SHARED_ERROR_CONTRACT_001_CLOSEOUT.md`](../evidence/SHARED_ERROR_CONTRACT_001_CLOSEOUT.md).
+**ALLAGMA-CONEXUS-MODEL-ALIAS-001** (coordination slice 5). **CROSS-REPO-IDENTITY-CORRELATION-001** closed 2026-05-29 — evidence: [`docs/evidence/CROSS_REPO_IDENTITY_CORRELATION_001_CLOSEOUT.md`](../evidence/CROSS_REPO_IDENTITY_CORRELATION_001_CLOSEOUT.md).
 
 ---
 

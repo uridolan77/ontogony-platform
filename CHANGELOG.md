@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+CROSS-REPO-IDENTITY-CORRELATION-001 (ONTOGONY-BACKEND-COORDINATION-002 slice 4) — context propagation v1:
+
+- **Contract** — [`docs/contracts/CROSS_SERVICE_CONTEXT_PROPAGATION_V1.md`](docs/contracts/CROSS_SERVICE_CONTEXT_PROPAGATION_V1.md).
+- **Schema** — [`docs/schemas/ontogony-context-propagation-v1.schema.json`](docs/schemas/ontogony-context-propagation-v1.schema.json).
+- **Conformance** — propagation matrix extended for Metabole/Aisthesis; `HeaderPropagationConformance` resolves new sibling roots.
+- **Evidence** — [`docs/evidence/CROSS_REPO_IDENTITY_CORRELATION_001_CLOSEOUT.md`](docs/evidence/CROSS_REPO_IDENTITY_CORRELATION_001_CLOSEOUT.md).
+
 SHARED-ERROR-CONTRACT-001 (ONTOGONY-BACKEND-COORDINATION-002 slice 3) — cross-service error envelope v1:
 
 - **Contract** — [`docs/contracts/CROSS_SERVICE_ERROR_ENVELOPE_V1.md`](docs/contracts/CROSS_SERVICE_ERROR_ENVELOPE_V1.md).

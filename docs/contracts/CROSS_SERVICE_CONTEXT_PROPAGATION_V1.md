@@ -1,47 +1,79 @@
-# Cross-service context propagation v1
+# Cross-service context propagation — v1
 
-**Package:** SYSTEM-COH-001 · **Owner:** `ontogony-platform` (neutral contract)
+**Package:** `CROSS-REPO-IDENTITY-CORRELATION-001`  
+**Owner:** `ontogony-platform` (`Ontogony.Http`, `Ontogony.Contracts`, `Ontogony.Security`)  
+**Status:** promoted (2026-05-29)
 
 ## Purpose
 
-Define product-neutral context fields for Ontogony runtime services. Product repos implement propagation; Allagma owns run-scoped derivation and privacy rules on outbound Conexus calls.
+Define which headers propagate across Ontogony HTTP calls so traces, correlation, actors, and idempotency survive Allagma → Kanon → Conexus → Metabole → Aisthesis chains.
 
-**Detailed propagation contract:** [`HEADER_PROPAGATION_CONTRACT.md`](HEADER_PROPAGATION_CONTRACT.md) (frozen header set, conformance assertions).
-
+**Frozen header set:** [`HEADER_PROPAGATION_CONTRACT.md`](./HEADER_PROPAGATION_CONTRACT.md) (PLATFORM-9-003).  
 **Allagma matrix:** [`allagma-dotnet/docs/system/SYSTEM_TRACE_CONTEXT_MATRIX.md`](../../allagma-dotnet/docs/system/SYSTEM_TRACE_CONTEXT_MATRIX.md).
 
-## Headers / fields
+## Required propagation (mutating cross-service calls)
 
-| Context | Header / constant | Required? | Notes |
-| --- | --- | ---: | --- |
-| W3C trace | `traceparent` (`OntogonyEventHeaders.TraceParent`) | recommended | Preserve when supplied |
-| Ontogony trace | `X-Ontogony-Trace-Id` (`OntogonyEventHeaders.TraceId`) | recommended | Explicit trace id |
-| Correlation | `X-Ontogony-Correlation-Id` (`OntogonyIntegrationHeaders.CorrelationId`) | recommended | Legacy `X-Correlation-ID` inbound only |
-| Idempotency | `X-Ontogony-Idempotency-Key` / `Idempotency-Key` | per mutation | Derive scoped downstream keys; do not blind-forward root key |
-| Actor id | `X-Ontogony-Actor-Id` | semantic/policy calls | Do not send to Conexus model calls unless explicitly approved |
-| Actor type | `X-Ontogony-Actor-Type` | semantic/policy calls | e.g. `human`, `service`, `agent` |
-| Actor roles | `X-Ontogony-Actor-Roles` (legacy `X-Ontogony-Roles` inbound) | semantic/policy calls | Comma-separated |
-| Runtime run id | `X-Allagma-Run-Id` (`AllagmaIntegrationHeaders.RunId`) | runtime calls | Allagma-owned execution context |
+| Header | Constant source | Required |
+| --- | --- | --- |
+| `traceparent` | `OntogonyEventHeaders.TraceParent` | When W3C context present |
+| `X-Ontogony-Trace-Id` | `OntogonyEventHeaders.TraceId` | Yes |
+| `X-Ontogony-Correlation-Id` | `OntogonyIntegrationHeaders.CorrelationId` | When business correlation exists |
+| `X-Ontogony-Idempotency-Key` | `OntogonyIntegrationHeaders.IdempotencyKey` | Yes on mutating calls with side effects |
+| `X-Ontogony-Actor-Id` | `OntogonyIntegrationHeaders.ActorId` | Kanon semantic/policy calls only |
+| `X-Ontogony-Actor-Type` | `OntogonyIntegrationHeaders.ActorType` | Kanon semantic/policy calls only |
+| `X-Ontogony-Actor-Roles` | `OntogonyIntegrationHeaders.ActorRoles` | Kanon semantic/policy calls only |
+| `X-Allagma-Run-Id` | `AllagmaIntegrationHeaders.RunId` | Allagma-orchestrated runtime calls |
 
 ## Privacy rule
 
-Actor identity and roles are semantic/policy context for **Kanon**. Allagma does not send actor headers to **Conexus** on model completion (`ForConexus`).
+Actor identity and roles are semantic/policy context for **Kanon** and **Metabole**. Allagma does **not** send actor headers to **Conexus** on model completion (`AllagmaRunContextPropagation.ForConexus`).
 
-## Idempotency derivation (examples)
+## Actor context (alpha / dev modes)
+
+| Mode | Where configured | Behavior |
+| --- | --- | --- |
+| **Header-trusted (alpha default)** | Kanon `Kanon:Security:ActorContextMode` = `header` | Allagma sends `X-Ontogony-Actor-*` on Kanon/Metabole calls; Kanon trusts inbound headers for policy gates |
+| **Service token only** | Allagma `Allagma:Api:Auth:ServiceToken` | Client → Allagma auth; actor headers originate from run start request body |
+| **Off / local** | Aisthesis `Aisthesis:Auth:Mode` = `off` | Producer auth disabled; trace headers still recommended on evidence POST |
+
+Production OIDC/JWT federation is **out of scope** for this contract (RC readiness packages).
+
+## Idempotency derivation
+
+Do not blind-forward the root client key. Derive scoped downstream keys (see Allagma matrix). Examples:
 
 ```text
 allagma:{runId}:plan
-allagma:{runId}:tool:{toolIntentId}
 allagma:{runId}:model:{purpose}
-allagma:{runId}:human-gate-poll:{humanGateId}:{kanonDecisionId}:{nonce}
-kanon:{decisionId}:assistance:{assistanceType}
+allagma:{runId}:metabole:inspect:{metaboleRunId}
 ```
 
-## Acceptance
+## Client obligations
+
+| Client | Must forward |
+| --- | --- |
+| Allagma outbound | Trace, correlation, derived idempotency, run id; actor to Kanon/Metabole only |
+| `Kanon.Client` | Trace + correlation + idempotency |
+| `Conexus.Client` | Trace + correlation + project context |
+| `Metabole.Client` | Trace + correlation (via `AddOntogonyIntegrationHttpClient`) |
+| Aisthesis producers | Trace on evidence envelopes; separate producer token auth |
+
+## Verification
 
 | Proof | Location |
 | --- | --- |
-| Platform header constants | `Ontogony.Http.OntogonyIntegrationHeaders`, `Ontogony.Contracts.Events.OntogonyEventHeaders` |
-| Allagma outbound conformance | `allagma-dotnet/tests/Allagma.Tests/AllagmaOutboundPropagationConformanceTests.cs` |
-| Live correlation chain | `allagma-dotnet/scripts/lib/system-cohesion-e2e.ps1` scenario `correlation_chain` |
-| SYSTEM-COH-001 validator | `allagma-dotnet/scripts/validate-system-coh-001.ps1` |
+| Platform constants | `Ontogony.Http.OntogonyIntegrationHeaders`, `Ontogony.Contracts.Events.OntogonyEventHeaders` |
+| Matrix ↔ constants | `CrossRepoIdentityCorrelation001ConformanceTests` |
+| Allagma outbound | `AllagmaOutboundPropagationConformanceTests` |
+| Live correlation chain | `scripts/lib/system-cohesion-e2e.ps1` scenario `correlation_chain` |
+| Validator | `ontogony-platform/scripts/validate-header-propagation-contract.ps1` |
+
+## Schema
+
+[`docs/schemas/ontogony-context-propagation-v1.schema.json`](../schemas/ontogony-context-propagation-v1.schema.json)
+
+## Related
+
+- [`HEADER_PROPAGATION_CONTRACT.md`](./HEADER_PROPAGATION_CONTRACT.md)
+- [`CROSS_SYSTEM_IDENTIFIERS.md`](../../allagma-dotnet/docs/contracts/CROSS_SYSTEM_IDENTIFIERS.md)
+- Kanon: `kanon-dotnet/docs/integrations/IDEMPOTENCY_AND_TRACE_HEADERS.md`

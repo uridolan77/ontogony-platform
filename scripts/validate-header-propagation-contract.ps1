@@ -22,9 +22,11 @@ if ([string]::IsNullOrWhiteSpace($DevRoot)) {
 
 $matrixPath = Join-Path $RepoRoot "docs/system/propagation-header.matrix.json"
 $contractPath = Join-Path $RepoRoot "docs/contracts/HEADER_PROPAGATION_CONTRACT.md"
+$contextPath = Join-Path $RepoRoot "docs/contracts/CROSS_SERVICE_CONTEXT_PROPAGATION_V1.md"
+$contextSchemaPath = Join-Path $RepoRoot "docs/schemas/ontogony-context-propagation-v1.schema.json"
 $gatePath = Join-Path $RepoRoot "docs/contracts/SYSTEM_COMPATIBILITY_GATE.md"
 
-foreach ($p in @($matrixPath, $contractPath, $gatePath)) {
+foreach ($p in @($matrixPath, $contractPath, $contextPath, $contextSchemaPath, $gatePath)) {
     if (-not (Test-Path -LiteralPath $p)) {
         throw "Missing required path: $p"
     }
@@ -68,6 +70,11 @@ if (-not $SkipSiblingPaths) {
             throw "Missing sibling integration doc: $full"
         }
     }
+}
+
+$context = Get-Content -LiteralPath $contextPath -Raw
+if ($context -notmatch "X-Ontogony-Trace-Id") {
+    throw "CROSS_SERVICE_CONTEXT_PROPAGATION_V1.md must reference X-Ontogony-Trace-Id."
 }
 
 Write-Host "Header propagation contract validation passed."

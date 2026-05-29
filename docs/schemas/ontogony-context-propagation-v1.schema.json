@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.dev/schemas/ontogony-context-propagation-v1.schema.json",
+  "title": "OntogonyContextPropagationV1",
+  "type": "object",
+  "required": ["headers"],
+  "additionalProperties": false,
+  "properties": {
+    "headers": {
+      "type": "object",
+      "required": ["traceId", "correlationId", "idempotencyKey", "actorId", "allagmaRunId"],
+      "properties": {
+        "traceParent": { "type": "string", "const": "traceparent" },
+        "traceId": { "type": "string", "const": "X-Ontogony-Trace-Id" },
+        "correlationId": { "type": "string", "const": "X-Ontogony-Correlation-Id" },
+        "legacyCorrelationId": { "type": "string", "const": "X-Correlation-ID" },
+        "idempotencyKey": { "type": "string", "const": "X-Ontogony-Idempotency-Key" },
+        "actorId": { "type": "string", "const": "X-Ontogony-Actor-Id" },
+        "actorType": { "type": "string", "const": "X-Ontogony-Actor-Type" },
+        "actorRoles": { "type": "string", "const": "X-Ontogony-Actor-Roles" },
+        "allagmaRunId": { "type": "string", "const": "X-Allagma-Run-Id" }
+      }
+    },
+    "privacyRules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["from", "to", "excludeHeaders"],
+        "properties": {
+          "from": { "type": "string" },
+          "to": { "type": "string" },
+          "excludeHeaders": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

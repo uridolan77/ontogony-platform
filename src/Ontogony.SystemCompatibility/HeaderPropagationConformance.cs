@@ -148,6 +148,8 @@ public static class HeaderPropagationConformance
                 "allagma-dotnet" => workspace.AllagmaRoot,
                 "kanon-dotnet" => workspace.KanonRoot,
                 "conexus-dotnet" => workspace.ConexusRoot,
+                "metabole-dotnet" => workspace.MetaboleRoot,
+                "aisthesis-dotnet" => workspace.AisthesisRoot,
                 _ => null
             };
 
@@ -175,7 +177,7 @@ public static class HeaderPropagationConformance
         }
 
         return issues.Count == 0
-            ? Pass("propagation-header-sibling-docs", "Sibling propagation integration docs", "Allagma, Kanon, and Conexus propagation contracts are present.")
+            ? Pass("propagation-header-sibling-docs", "Sibling propagation integration docs", "Product repo propagation contracts are present.")
             : Fail("propagation-header-sibling-docs", "Sibling propagation integration docs", string.Join("; ", issues));
     }
 

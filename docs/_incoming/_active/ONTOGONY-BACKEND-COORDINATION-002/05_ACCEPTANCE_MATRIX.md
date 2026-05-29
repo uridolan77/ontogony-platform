@@ -58,11 +58,11 @@ Last updated: **2026-05-29** (package intake)
 
 | ID | Criterion | Status |
 | --- | --- | --- |
-| IDN-001 | Propagation contract v1 in platform docs | `NOT_STARTED` |
-| IDN-002 | Trace ID present on Allagma→Kanon→Conexus chain in smoke | `NOT_STARTED` |
-| IDN-003 | Idempotency key forwarded on mutating cross-service calls | `NOT_STARTED` |
-| IDN-004 | `SYSTEM_TRACE_CONTEXT_MATRIX.md` matches code constants | `NOT_STARTED` |
-| IDN-005 | Actor header documented (alpha/dev modes) | `NOT_STARTED` |
+| IDN-001 | Propagation contract v1 in platform docs | `PASS` |
+| IDN-002 | Trace ID present on Allagma→Kanon→Conexus chain in smoke | `PASS` |
+| IDN-003 | Idempotency key forwarded on mutating cross-service calls | `PASS` |
+| IDN-004 | `SYSTEM_TRACE_CONTEXT_MATRIX.md` matches code constants | `PASS` |
+| IDN-005 | Actor header documented (alpha/dev modes) | `PASS` |
 
 ---
 
