@@ -30,3 +30,4 @@ powershell -File scripts/system/validate-phenomenological-memory-authority-summa
 ## Known deferrals
 
 - Live E2E probe wiring (`run-phenomenological-memory-authority-live-e2e.ps1`) remains a scaffold until a deterministic authority probe run is available on the local stack.
+- **Remaining work plan:** [`PHENOMENOLOGICAL_AUTHORITY_GRADUATION_001_REMAINING_PLAN.md`](./PHENOMENOLOGICAL_AUTHORITY_GRADUATION_001_REMAINING_PLAN.md)
