@@ -82,11 +82,11 @@ Last updated: **2026-05-29** (package intake)
 
 | ID | Criterion | Status |
 | --- | --- | --- |
-| E2E-001 | Five-service stack starts via documented script | `NOT_STARTED` |
-| E2E-002 | Governed first-loop smoke PASS | `NOT_STARTED` |
-| E2E-003 | Evidence JSON committed under `docs/evidence/` | `NOT_STARTED` |
-| E2E-004 | Human-gate path smoke PASS or deferred with reason | `NOT_STARTED` |
-| E2E-005 | Real tools remain blocked (conformance test) | `NOT_STARTED` |
+| E2E-001 | Five-service stack starts via documented script | `PASS` |
+| E2E-002 | Governed first-loop smoke PASS | `PASS` |
+| E2E-003 | Evidence JSON committed under `docs/evidence/` | `PASS` |
+| E2E-004 | Human-gate path smoke PASS or deferred with reason | `DEFERRED_WITH_REASON` |
+| E2E-005 | Real tools remain blocked (conformance test) | `PASS` |
 
 ---
 
