@@ -171,6 +171,7 @@ services:
         ontogony_platform: ../../../ontogony-platform
         kanon_dotnet: ../../../kanon-dotnet
         conexus_dotnet: ../../../conexus-dotnet
+        metabole_dotnet: ../../../metabole-dotnet
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Development}
       ASPNETCORE_URLS: ${ASPNETCORE_URLS:-http://+:8080}
