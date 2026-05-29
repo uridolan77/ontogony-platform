@@ -70,11 +70,11 @@ Last updated: **2026-05-29** (package intake)
 
 | ID | Criterion | Status |
 | --- | --- | --- |
-| ALIAS-001 | No provider model IDs in Allagma `src/` | `NOT_STARTED` |
-| ALIAS-002 | `conexus-model-alias-manifest.snapshot.json` validates | `NOT_STARTED` |
-| ALIAS-003 | All model purposes map to Conexus aliases in config | `NOT_STARTED` |
-| ALIAS-004 | Conexus docs describe consumer alias contract | `NOT_STARTED` |
-| ALIAS-005 | Tests use `test-alias` or manifest aliases only | `NOT_STARTED` |
+| ALIAS-001 | No provider model IDs in Allagma `src/` | `PASS` |
+| ALIAS-002 | `conexus-model-alias-manifest.snapshot.json` validates | `PASS` |
+| ALIAS-003 | All model purposes map to Conexus aliases in config | `PASS` |
+| ALIAS-004 | Conexus docs describe consumer alias contract | `PASS` |
+| ALIAS-005 | Tests use `test-alias` or manifest aliases only | `PASS` |
 
 ---
 

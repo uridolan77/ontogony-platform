@@ -27,7 +27,7 @@
 
 ## Next recommended cleanup PR / package
 
-**ALLAGMA-CONEXUS-MODEL-ALIAS-001** (coordination slice 5). **CROSS-REPO-IDENTITY-CORRELATION-001** closed 2026-05-29 — evidence: [`docs/evidence/CROSS_REPO_IDENTITY_CORRELATION_001_CLOSEOUT.md`](../evidence/CROSS_REPO_IDENTITY_CORRELATION_001_CLOSEOUT.md).
+**ALLAGMA-CONEXUS-MODEL-ALIAS-001** closed 2026-05-29 — evidence: [`allagma-dotnet/docs/evidence/ALLAGMA_CONEXUS_MODEL_ALIAS_001_CLOSEOUT.md`](../../allagma-dotnet/docs/evidence/ALLAGMA_CONEXUS_MODEL_ALIAS_001_CLOSEOUT.md), [`conexus-dotnet/docs/evidence/ALLAGMA_CONEXUS_MODEL_ALIAS_001_CLOSEOUT.md`](../../conexus-dotnet/docs/evidence/ALLAGMA_CONEXUS_MODEL_ALIAS_001_CLOSEOUT.md). Next: **BACKEND-SYSTEM-E2E-001** (slice 6).
 
 ---
 
