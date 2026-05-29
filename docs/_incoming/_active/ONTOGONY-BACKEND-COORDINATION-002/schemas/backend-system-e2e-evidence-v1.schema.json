@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontogony.dev/schemas/backend-system-e2e-evidence-v1.schema.json",
+  "title": "BackendSystemE2EEvidenceV1",
+  "type": "object",
+  "required": ["package", "status", "services", "scenario", "recordedAt"],
+  "properties": {
+    "package": { "const": "BACKEND-SYSTEM-E2E-001" },
+    "status": { "enum": ["PASS", "FAIL", "DEFERRED_WITH_REASON"] },
+    "services": {
+      "type": "array",
+      "items": { "enum": ["kanon", "conexus", "allagma", "metabole", "aisthesis"] },
+      "minItems": 5
+    },
+    "scenario": { "type": "string" },
+    "traceId": { "type": "string" },
+    "runId": { "type": "string" },
+    "recordedAt": { "type": "string", "format": "date-time" },
+    "commands": { "type": "array", "items": { "type": "string" } },
+    "notes": { "type": "string" }
+  }
+}

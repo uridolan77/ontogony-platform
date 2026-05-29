@@ -1,33 +1,20 @@
 # Active intake manifest
 
-Last updated: **2026-05-28** (AISTHESIS-PRODUCER-CROSS-REPO-ALIGNMENT-004 archived)
+Last updated: **2026-05-29**
 
-No packages are currently active.
-
-**Consumed follow-on slices (not separate active packages):**
-
-| Slice | Status | Archive |
+| Package | Status | Entry |
 | --- | --- | --- |
-| AISTHESIS-PRODUCER-CROSS-REPO-ALIGNMENT-004 | **Done** | [`../_consumed/2026-05/AISTHESIS-PRODUCER-CROSS-REPO-ALIGNMENT-004/`](../_consumed/2026-05/AISTHESIS-PRODUCER-CROSS-REPO-ALIGNMENT-004/) |
-| ONTOGONY-SKILL-RELEASE-GOVERNANCE-001 (001A–001G) | **Done** | [`../_consumed/2026-05/ONTOGONY-SKILL-RELEASE-GOVERNANCE-001/`](../_consumed/2026-05/ONTOGONY-SKILL-RELEASE-GOVERNANCE-001/) |
-| ONTOGONY-SKILL-OPTIMIZATION-SPINE-001 (001A–001K) | **Done** | [`../_consumed/2026-05/ONTOGONY-SKILL-OPTIMIZATION-SPINE-001/`](../_consumed/2026-05/ONTOGONY-SKILL-OPTIMIZATION-SPINE-001/) |
-| DEC-RECON-004 smoke | **PASS** | [`../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-004/`](../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-004/) |
-| DEC-RECON-005 golden fixtures | **Done** | [`../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-005/`](../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-005/) |
-| DEC-RECON-007 persisted artifacts | **PASS** | [`../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-007/`](../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-007/) |
-| Parent spine program | **Done** | [`../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-001/`](../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-001/) |
-| Evidence Spine graph (006) | **Done** | [`../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-006/`](../_consumed/2026-05/ONTOGONY-DECISION-RECONSTRUCTABILITY-SPINE-006/) |
-| Closure Option 1 (PR-001–006) | **Done** | [`../_consumed/2026-05/ONTOGONY-RECONSTRUCTABILITY-CLOSURE-OPTION1/`](../_consumed/2026-05/ONTOGONY-RECONSTRUCTABILITY-CLOSURE-OPTION1/) |
-| Observability mechanics (PLAT-9-005) | **Done** | [`../_consumed/2026-05/ONTOGONY-OBSERVABILITY-MECHANICS-PACK-001/`](../_consumed/2026-05/ONTOGONY-OBSERVABILITY-MECHANICS-PACK-001/) |
-| Public API hardening (PLAT-9-004) | **Done** | [`../_consumed/2026-05/ONTOGONY-PUBLIC-API-HARDENING-001/`](../_consumed/2026-05/ONTOGONY-PUBLIC-API-HARDENING-001/) |
+| ONTOGONY-BACKEND-COORDINATION-002 | **active** | [`ONTOGONY-BACKEND-COORDINATION-002/00_UNPACK_PROMPT.md`](./ONTOGONY-BACKEND-COORDINATION-002/00_UNPACK_PROMPT.md) |
 
-## Above-9 platform work (not a separate active package)
+## Child slices (execute in order)
 
-Six-repo score-lift (**PLAT-9-001–006 platform complete**; optional PLAT-9-003 artifact runner) lives in the consumed archive:
+1. `BACKEND-REPO-DOCS-ORDER-002`
+2. `SYSTEM-COMPATIBILITY-MATRIX-001`
+3. `SHARED-ERROR-CONTRACT-001`
+4. `CROSS-REPO-IDENTITY-CORRELATION-001`
+5. `ALLAGMA-CONEXUS-MODEL-ALIAS-001`
+6. `BACKEND-SYSTEM-E2E-001`
+7. `AISTHESIS-RECONSTRUCTABILITY-SPINE-001` (parallel with 8 after 6)
+8. `METABOLE-DATA-SPINE-HARDENING-001`
 
-[`../_consumed/2026-05/SIX-REPO-SCORE-PLANS/`](../_consumed/2026-05/SIX-REPO-SCORE-PLANS/) — see [`README.md`](../_consumed/2026-05/SIX-REPO-SCORE-PLANS/README.md) for platform status vs plan.
-
-## Notes
-
-- Unpacked trees may use a nested `<PACKAGE-NAME>/<PACKAGE-NAME>/` layout from Cursor exports — paths in prompts refer to the inner folder.
-- Do not add zip files or loose markdown stubs in `_active/`; update this manifest instead.
-- **Archive rule:** completed packages **must** leave `_active` — see [`../README.md#when-to-move-a-package-to-_consumed-required`](../README.md#when-to-move-a-package-to-_consumed-required).
+See [`ONTOGONY-BACKEND-COORDINATION-002/README.md`](./ONTOGONY-BACKEND-COORDINATION-002/README.md).

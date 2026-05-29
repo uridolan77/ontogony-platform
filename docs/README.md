@@ -48,7 +48,7 @@ Those systems may appear here only as **consumers** or examples of platform mech
 | **Runbooks / operator mechanics** | [`operators/`](./operators/) |
 | **Decisions** | [`adr/`](./adr/), [`migrations/`](./migrations/) |
 | **Release / governance** | [`governance/`](./governance/) |
-| **Cursor intake (temporary)** | [`_incoming/`](./_incoming/) |
+| **Intake (temporary)** | [`_incoming/`](./_incoming/) — [`ONTOGONY-BACKEND-COORDINATION-002`](./_incoming/_active/ONTOGONY-BACKEND-COORDINATION-002/) active |
 
 ---
 
