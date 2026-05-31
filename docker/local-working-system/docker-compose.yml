@@ -173,6 +173,8 @@ services:
       Metabole__SourceCredentials__Store: ${METABOLE_SOURCE_CREDENTIALS_STORE:-InMemory}
       Metabole__SqlServer__Enabled: ${METABOLE_SQLSERVER_ENABLED:-true}
       Metabole__SqlServer__CommandTimeoutSeconds: ${METABOLE_SQLSERVER_COMMAND_TIMEOUT_SECONDS:-30}
+      # Optional: maps secretref:gaming/progressplay-dailyactionsdb (set in .env only — never commit)
+      Metabole__SqlServer__Credentials__gaming/progressplay-dailyactionsdb: ${METABOLE_SQLSERVER_CREDENTIAL_GAMING_PROGRESSPLAY_DAILYACTIONSDB:-}
       OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-http://host.docker.internal:4317}
       OTEL_SERVICE_NAME: ${METABOLE_OTEL_SERVICE_NAME:-metabole-api}
       OTEL_RESOURCE_ATTRIBUTES: ${OTEL_RESOURCE_ATTRIBUTES:-deployment.environment=development}

@@ -512,6 +512,23 @@ Evidence: `docs/evidence/KANON_DEEPEN_001_LOCAL_OPERATOR_AUTH_AND_READ_WORKBENCH
 
 Operator console health badges distinguish **live**, **readiness strict (not ready)**, **browser blocked (CORS)**, and **not configured** — not generic “degraded” without explanation. Sidebar groups collapse/expand; **Settings** stays in the pinned System section.
 
+## Metabole → SQL Server (operator workbench)
+
+To connect Docker Metabole to a real SQL Server (ProgressPlay `DailyActionsDB`, etc.): enable SQL Server + source credentials in `.env`, provide the connection string via UI or `.env`, and ensure the SQL firewall allows traffic from your host (Docker egress). Full steps: [`docs/METABOLE_SQLSERVER_DOCKER.md`](docs/METABOLE_SQLSERVER_DOCKER.md).
+
+```powershell
+.\scripts\test-metabole-sqlserver-egress.ps1 -SqlHost <your-sql-host> -SqlPort 1433
+```
+
+Restart the full stack (kill host `dotnet`/port listeners, `compose down`, `compose up -d`):
+
+```powershell
+.\scripts\restart-local-working-system.ps1
+# optional: .\scripts\restart-local-working-system.ps1 -Build
+```
+
+If the container cannot reach the DB but `dotnet run` on the host can, use host Metabole for that session (`docker compose stop metabole-api`).
+
 ## Troubleshooting
 
 ### Conexus `/health/live` returns 404 but container is healthy
