@@ -7,10 +7,16 @@
 
 .EXAMPLE
   .\scripts\restart-local-working-system.ps1 -Build
+
+.EXAMPLE
+  .\scripts\restart-local-working-system.ps1 -StartDockerDesktop
+    When Docker was stopped (for example by an older script), launch Docker Desktop and wait for the daemon.
 #>
 param(
     [switch]$Build,
-    [switch]$SkipFrontend
+    [switch]$SkipFrontend,
+    [switch]$StartDockerDesktop,
+    [int]$DockerWaitSeconds = 120
 )
 
 $ErrorActionPreference = "Stop"
@@ -35,7 +41,79 @@ if (-not (Test-Path -LiteralPath $envFileToUse)) {
     $envFileToUse = $exampleEnvFile
 }
 
-function Stop-ListenersOnPorts {
+# Docker Desktop on Windows owns published ports via com.docker.backend / wslrelay.
+# Never stop those processes or Docker will crash.
+$script:ProtectedListenerProcessNames = @(
+    "com.docker.backend",
+    "docker",
+    "dockerd",
+    "Docker Desktop",
+    "wslrelay",
+    "wslservice",
+    "vmcompute",
+    "System",
+    "svchost",
+    "postgres",
+    "nginx"
+)
+
+$script:AllowedHostListenerProcessNames = @(
+    "dotnet",
+    "node",
+    "esbuild",
+    "vite"
+)
+
+function Test-DockerDaemonAvailable {
+    $previousPreference = $ErrorActionPreference
+    $ErrorActionPreference = "SilentlyContinue"
+    try {
+        & docker info *> $null
+        return ($LASTEXITCODE -eq 0)
+    }
+    finally {
+        $ErrorActionPreference = $previousPreference
+    }
+}
+
+function Wait-DockerDaemonAvailable {
+    param([int]$TimeoutSeconds = 120)
+
+    if (Test-DockerDaemonAvailable) {
+        return
+    }
+
+    $ensureScript = Join-Path $PSScriptRoot "ensure-docker-desktop.ps1"
+    if (-not (Test-Path -LiteralPath $ensureScript)) {
+        throw "Docker is not running. Start Docker Desktop manually, then re-run this script."
+    }
+
+    & $ensureScript -WaitSeconds $TimeoutSeconds
+    if ($LASTEXITCODE -ne 0) {
+        throw "Docker daemon did not become ready."
+    }
+}
+
+function Test-ProcessNameSafeToStop {
+    param([string]$ProcessName)
+
+    $normalized = $ProcessName.Trim().ToLowerInvariant()
+    foreach ($protectedName in $script:ProtectedListenerProcessNames) {
+        if ($normalized -eq $protectedName.ToLowerInvariant()) {
+            return $false
+        }
+    }
+
+    foreach ($allowedName in $script:AllowedHostListenerProcessNames) {
+        if ($normalized -eq $allowedName.ToLowerInvariant()) {
+            return $true
+        }
+    }
+
+    return $false
+}
+
+function Stop-HostDevListenersOnPorts {
     param([int[]]$Ports)
 
     $pids = @()
@@ -48,27 +126,29 @@ function Stop-ListenersOnPorts {
         }
     }
 
-    foreach ($pid in ($pids | Select-Object -Unique)) {
+    foreach ($processId in ($pids | Select-Object -Unique)) {
         try {
-            $process = Get-Process -Id $pid -ErrorAction Stop
-            Write-Host "Stopping PID $pid ($($process.ProcessName)) listening on a local-working-system port ..."
-            Stop-Process -Id $pid -Force -ErrorAction Stop
+            $process = Get-Process -Id $processId -ErrorAction Stop
+            if (-not (Test-ProcessNameSafeToStop -ProcessName $process.ProcessName)) {
+                Write-Host "Skipping PID $processId ($($process.ProcessName)) on a stack port (Docker/system listener)."
+                continue
+            }
+
+            Write-Host "Stopping PID $processId ($($process.ProcessName)) listening on a local-working-system port ..."
+            Stop-Process -Id $processId -Force -ErrorAction Stop
         }
         catch {
-            Write-Warning "Could not stop PID ${pid}: $($_.Exception.Message)"
+            Write-Warning "Could not stop PID ${processId}: $($_.Exception.Message)"
         }
     }
 }
 
-function Stop-HostDotnetProcesses {
-    $dotnet = Get-Process dotnet -ErrorAction SilentlyContinue
-    if ($null -eq $dotnet) {
-        return
-    }
+function Invoke-DockerCompose {
+    param([string[]]$ComposeArgs)
 
-    foreach ($process in $dotnet) {
-        Write-Host "Stopping dotnet PID $($process.Id) ..."
-        Stop-Process -Id $process.Id -Force -ErrorAction SilentlyContinue
+    docker @ComposeArgs
+    if ($LASTEXITCODE -ne 0) {
+        throw "docker $($ComposeArgs -join ' ') failed (exit $LASTEXITCODE)."
     }
 }
 
@@ -88,18 +168,37 @@ Write-Host "Compose root: $composeRoot"
 
 Push-Location $composeRoot
 try {
-    Write-Host "`n[1/4] Stopping host listeners on stack ports ..."
-    Stop-ListenersOnPorts -Ports $hostPorts
-    Stop-HostDotnetProcesses
+    Write-Host "`n[1/4] Checking Docker daemon ..."
+    if (-not (Test-DockerDaemonAvailable)) {
+        if ($StartDockerDesktop) {
+            Wait-DockerDaemonAvailable -TimeoutSeconds $DockerWaitSeconds
+        }
+        else {
+            throw @"
+Docker is not running (cannot reach //./pipe/dockerDesktopLinuxEngine).
 
-    Write-Host "`n[2/4] docker compose down ..."
-    docker compose --env-file $envFileToUse -f $composeFile down --remove-orphans
-    if ($LASTEXITCODE -ne 0) {
-        throw "docker compose down failed (exit $LASTEXITCODE)."
+Recovery (pick one):
+  1. Start Docker Desktop from the Start menu, wait until it shows Running, then:
+       .\scripts\restart-local-working-system.ps1
+  2. Or let this script start Docker Desktop and wait:
+       .\scripts\restart-local-working-system.ps1 -StartDockerDesktop
+
+If Docker still fails after the old script stopped com.docker.backend, quit Docker Desktop from the tray (Quit), then open it again.
+"@
+        }
     }
 
-    Write-Host "`n[3/4] Stopping any remaining dotnet processes ..."
-    Stop-HostDotnetProcesses
+    Write-Host "`n[2/4] docker compose down ..."
+    Invoke-DockerCompose -ComposeArgs @(
+        "compose",
+        "--env-file", $envFileToUse,
+        "-f", $composeFile,
+        "down",
+        "--remove-orphans"
+    )
+
+    Write-Host "`n[3/4] Stopping host dev listeners (dotnet/node only; never Docker) ..."
+    Stop-HostDevListenersOnPorts -Ports $hostPorts
 
     Write-Host "`n[4/4] docker compose up -d ..."
     $composeArgs = @(
@@ -123,10 +222,7 @@ try {
         )
     }
 
-    docker @composeArgs
-    if ($LASTEXITCODE -ne 0) {
-        throw "docker compose up failed (exit $LASTEXITCODE)."
-    }
+    Invoke-DockerCompose -ComposeArgs $composeArgs
 
     Write-Host "`nDocker local working system restarted."
     $frontendPort = Get-DotEnvValue -Path $envFileToUse -Key "FRONTEND_HOST_PORT" -DefaultValue "5175"

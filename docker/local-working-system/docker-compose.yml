@@ -171,6 +171,7 @@ services:
       Metabole__Cors__AllowedOrigins__1: ${FRONTEND_CORS_ORIGIN_LOOPBACK:-http://127.0.0.1:5175}
       Metabole__SourceCredentials__Enabled: ${METABOLE_SOURCE_CREDENTIALS_ENABLED:-true}
       Metabole__SourceCredentials__Store: ${METABOLE_SOURCE_CREDENTIALS_STORE:-InMemory}
+      Metabole__SourceCredentials__PreferConfigurationCredentials: ${METABOLE_SOURCE_CREDENTIALS_PREFER_CONFIGURATION:-true}
       Metabole__SqlServer__Enabled: ${METABOLE_SQLSERVER_ENABLED:-true}
       Metabole__SqlServer__CommandTimeoutSeconds: ${METABOLE_SQLSERVER_COMMAND_TIMEOUT_SECONDS:-30}
       # Optional: maps secretref:gaming/progressplay-dailyactionsdb (set in .env only — never commit)
