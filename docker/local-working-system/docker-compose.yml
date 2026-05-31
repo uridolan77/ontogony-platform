@@ -169,6 +169,10 @@ services:
       Metabole__Cors__Enabled: ${METABOLE_CORS_ENABLED:-true}
       Metabole__Cors__AllowedOrigins__0: ${FRONTEND_CORS_ORIGIN_LOCALHOST:-http://localhost:5175}
       Metabole__Cors__AllowedOrigins__1: ${FRONTEND_CORS_ORIGIN_LOOPBACK:-http://127.0.0.1:5175}
+      Metabole__SourceCredentials__Enabled: ${METABOLE_SOURCE_CREDENTIALS_ENABLED:-true}
+      Metabole__SourceCredentials__Store: ${METABOLE_SOURCE_CREDENTIALS_STORE:-InMemory}
+      Metabole__SqlServer__Enabled: ${METABOLE_SQLSERVER_ENABLED:-true}
+      Metabole__SqlServer__CommandTimeoutSeconds: ${METABOLE_SQLSERVER_COMMAND_TIMEOUT_SECONDS:-30}
       OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-http://host.docker.internal:4317}
       OTEL_SERVICE_NAME: ${METABOLE_OTEL_SERVICE_NAME:-metabole-api}
       OTEL_RESOURCE_ATTRIBUTES: ${OTEL_RESOURCE_ATTRIBUTES:-deployment.environment=development}
